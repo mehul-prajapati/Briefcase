@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="index,nofollow">
+
+<title>Kernel/BuildYourOwnKernel - Ubuntu Wiki</title>
+<script type="text/javascript" src="Kernel_BuildYourOwnKernel%20-%20Ubuntu%20Wiki_files/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="Kernel_BuildYourOwnKernel%20-%20Ubuntu%20Wiki_files/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="Kernel_BuildYourOwnKernel%20-%20Ubuntu%20Wiki_files/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="Kernel_BuildYourOwnKernel%20-%20Ubuntu%20Wiki_files/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="Kernel_BuildYourOwnKernel%20-%20Ubuntu%20Wiki_files/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static192/light/css/msie.css">
+<![endif]-->
+
+
+
+
+
+<link rel="Start" href="https://wiki.ubuntu.com/Home">
+<link rel="Alternate" title="Wiki Markup" href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel?action=raw">
+<link rel="Alternate" media="print" title="Print View" href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel?action=print">
+<link rel="Up" href="https://wiki.ubuntu.com/Kernel">
+<link rel="Search" href="https://wiki.ubuntu.com/FindPage">
+<link rel="Index" href="https://wiki.ubuntu.com/TitleIndex">
+<link rel="Glossary" href="https://wiki.ubuntu.com/WordIndex">
+<link rel="Help" href="https://wiki.ubuntu.com/HelpOnFormatting">
+</head>
+
+<body dir="ltr" lang="en">
+
+<!-- BEGIN HEADER -->
+<div id="wrapper" class="hfeed">
+<div id="header">
+    <ul id="mothership">
+        <li> <a href="http://www.ubuntu.com/partners">Partners</a> </li>
+        <li> <a href="http://www.ubuntu.com/support">Support</a> </li>
+        <li> <a href="http://www.ubuntu.com/community">Community</a> </li>
+        <li> <a href="http://www.ubuntu.com/">Ubuntu.com</a> </li>
+    </ul>
+
+    <div id="orangeHeader">
+        <h1> <a href="https://wiki.ubuntu.com/" title="Ubuntu Wiki"><span>Ubuntu Wiki</span></a> </h1>
+            <div id="search-box">
+
+<form id="searchform" method="get" action="/Kernel/BuildYourOwnKernel">
+<div>
+<input name="action" value="fullsearch" type="hidden">
+<input name="context" value="180" type="hidden">
+<label style="display: none;" for="searchinput">Search:</label>
+<input class="disabled" id="searchinput" name="value" value="Search" size="20" onfocus="searchFocus(this)" onblur="searchBlur(this)" onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search" type="text">
+<input disabled="disabled" id="titlesearch" name="titlesearch" value="Titles" alt="Search Titles" type="submit">
+<input disabled="disabled" id="fullsearch" name="fullsearch" value="Text" alt="Search Full Text" type="submit">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+
+            </div>
+    </div>
+
+</div>
+    <div id="wikinav"> 
+<ul class="editbar"><li><span class="disabled">Immutable Page</span></li><li><a class="nbinfo" href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel?action=info" rel="nofollow">Info</a></li><li><a class="nbattachments" href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel?action=AttachFile" rel="nofollow">Attachments</a></li><li>
+<form class="actionsmenu" method="GET" action="/Kernel/BuildYourOwnKernel">
+<div>
+    
+    <select name="action" onchange="if ((this.selectedIndex != 0) &amp;&amp;
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option selected="selected" value="show">More Actions:</option><option value="raw">Raw Text</option>
+<option value="print">Print View</option>
+<option value="refresh">Delete Cache</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="SpellCheck">Check Spelling</option>
+<option value="LikePages">Like Pages</option>
+<option value="LocalSiteMap">Local Site Map</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="RenamePage" disabled="disabled" class="disabled">Rename Page</option>
+<option value="CopyPage">Copy Page</option>
+<option value="DeletePage" disabled="disabled" class="disabled">Delete Page</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Subscribe User</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Remove Spam</option>
+<option value="show" disabled="disabled" class="disabled">Revert to this revision</option>
+<option value="PackagePages">Package Pages</option>
+<option value="SyncPages">Sync Pages</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="Load">Load</option>
+<option value="Save">Save</option>
+<option value="SlideShow">SlideShow</option>
+    </select>
+    
+    
+</div>
+<script type="text/javascript">
+<!--// Init menu
+actionsMenuInit('More Actions:');
+//-->
+</script>
+</form>
+</li></ul>
+
+<ul id="username">
+<li><a href="https://wiki.ubuntu.com/Home">Ubuntu Wiki</a></li>
+<li><a href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel?action=login">Login</a></li>
+<li><a href="https://wiki.ubuntu.com/HelpContents">Help</a></li>
+</ul>
+
+        <hr class="clearBoth">
+    </div>
+    
+	<div id="main"> 
+		<div id="container">
+			<div id="content">
+		<h2 class="entry-title"> 
+<span><a href="https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel">BuildYourOwnKernel</a></span>
+</h2>
+	<div class="hentry post">
+               
+
+<div id="page" dir="ltr" lang="en">
+
+<!-- END HEADER --><div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line874">This page will describe how to easily build the kernel. <span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span></p><p class="line874">The majority of users that are interested in building their own kernel are <span class="anchor" id="line-4"></span>doing so because they have installed Ubuntu on their system and they wish to <span class="anchor" id="line-5"></span>make a small change to the kernel for that system. In many cases the user just <span class="anchor" id="line-6"></span>wants to make a kernel configuration change. <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span></p><p class="line874">The purpose of this page is to give that user a minimum amount of information <span class="anchor" id="line-9"></span>for them to meet the goal of making a simple change to the kernel, building it <span class="anchor" id="line-10"></span>and installing their kernel. It is not intended to be the definitive guide to <span class="anchor" id="line-11"></span>doing Ubuntu kernel development. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></p><p class="line867">
+</p><h2 id="Obtaining_the_source_for_an_Ubuntu_release">Obtaining the source for an Ubuntu release</h2>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">There are a number of different ways of getting the kernel sources.  The two <span class="anchor" id="line-16"></span>main ways will be documented here. <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span></p><p class="line874">If you have installed a version of Ubuntu and you want to make changes to the <span class="anchor" id="line-19"></span>kernel that is installed on your system, use the <strong>apt-get</strong> method (described <span class="anchor" id="line-20"></span>below) to obtain the sources. <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span></p><p class="line874">However, if you wish to get the most up to date sources for the Ubuntu release <span class="anchor" id="line-23"></span>you are running and make changes to that, use the <strong>git</strong> method (described <span class="anchor" id="line-24"></span>below) to obtain the sources. <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span></p><p class="line867">
+</p><h3 id="apt-get">apt-get</h3>
+<span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line874">The source code which generated a specific binary package may be obtained using <span class="anchor" id="line-29"></span>the <tt>apt-get&nbsp;source&nbsp;&lt;package&gt;</tt> command.  For example to obtain the source <span class="anchor" id="line-30"></span>for the currently running kernel you can use the command: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><pre><span class="anchor" id="line-1"></span>apt-get source linux-image-$(uname -r)</pre><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span></li></ul><p class="line867">
+</p><h3 id="git">git</h3>
+<span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line862">All of the Ubuntu Kernel source is maintained under <tt>git</tt>.  The source for <span class="anchor" id="line-39"></span>each release is maintained in its own git repository on <tt>kernel.ubuntu.com</tt>. <span class="anchor" id="line-40"></span>To obtain a local copy you can simply git clone the repository for the release <span class="anchor" id="line-41"></span>you are interested in as shown below. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><pre><span class="anchor" id="line-1-1"></span>git clone git://kernel.ubuntu.com/ubuntu/ubuntu-&lt;release&gt;.git</pre><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span></li></ul><p class="line874">For example to obtain the precise tree: <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><pre><span class="anchor" id="line-1-2"></span>git clone git://kernel.ubuntu.com/ubuntu/ubuntu-precise.git</pre><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span></li></ul><p class="line867">
+</p><h2 id="Build_Environment">Build Environment</h2>
+<span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line874">If
+ you've not built a kernel on your system before, there are some 
+packages needed before you can successfully build. You can get these 
+installed with: <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-3"></span>sudo apt-get build-dep linux-image-$(uname -r)</pre><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span></li></ul><p class="line867">
+</p><h2 id="Modifying_the_configuration">Modifying the configuration</h2>
+<span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line874">This
+ step can be skipped if no configuration changes are wanted. The build 
+process will use a configuration that is put together from various 
+sub-config files. The simplest way to modify anything here is to run: <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><pre><span class="anchor" id="line-1-4"></span>chmod a+x debian/scripts/*
+<span class="anchor" id="line-2"></span>chmod a+x debian/scripts/misc/*
+<span class="anchor" id="line-3"></span>fakeroot debian/rules clean
+<span class="anchor" id="line-4"></span>fakeroot debian/rules editconfigs</pre><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span></li></ul><p class="line874">This
+ takes the current configuration for each architecture/flavour supported
+ and calls menuconfig for that. The chmod is needed because the way the 
+source package is created loses the executable bits on the scripts. <span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span></p><p class="line867">
+</p><h2 id="Building_the_kernel">Building the kernel</h2>
+<span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line874">Building the kernel is quite easy. Change your working directory to the root <span class="anchor" id="line-77"></span>of the kernel source tree and then type the following commands: <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><pre><span class="anchor" id="line-1-5"></span>fakeroot debian/rules clean
+<span class="anchor" id="line-2-1"></span>fakeroot debian/rules binary-headers binary-generic</pre><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span></li></ul><p class="line874">If
+ the build is successful, a set of three .deb binary package files will 
+be produced in the directory above the build root directory.  For 
+example after building a kernel with version "2.6.38-7.37" on an amd64 
+system, these three .deb packages would be produced: <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><pre><span class="anchor" id="line-1-6"></span>cd ..
+<span class="anchor" id="line-2-2"></span>ls *.deb
+<span class="anchor" id="line-3-1"></span>    linux-headers-2.6.38-7_2.6.38-7.37_all.deb
+<span class="anchor" id="line-4-1"></span>    linux-headers-2.6.38-7-generic_2.6.38-7.37_amd64.deb
+<span class="anchor" id="line-5"></span>    linux-image-2.6.38-7-generic_2.6.38-7.37_amd64.deb</pre><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span></li></ul><p class="line867">
+</p><h2 id="Testing_the_new_kernel">Testing the new kernel</h2>
+<span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><p class="line874">Install the three-package set (on your build system, or on a different target system) with dpkg -i and then reboot: <span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><pre><span class="anchor" id="line-1-7"></span>sudo dpkg -i linux*2.6.38-7.37*.deb
+<span class="anchor" id="line-2-3"></span>sudo reboot</pre><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span></li></ul><p class="line867">
+</p><h2 id="See_also">See also</h2>
+<span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><p class="line874">The above instructions provide a very simple recipe for obtaining the sources <span class="anchor" id="line-106"></span>and then building them. If you are going to be doing more kernel development <span class="anchor" id="line-107"></span>than simple configuration changes you may want to look at: <span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span></p><ul><li style="list-style-type:none"><div><table><tbody><tr>  <td><p class="line862"> <a class="https" href="https://wiki.ubuntu.com/Kernel/Dev/KernelGitGuide">Kernel Git Guide</a> </p></td>
+  <td><p class="line862"> More information about using git to pull down the kernel sources. </p></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-110"></span><p class="line862"> <a class="https" href="https://wiki.ubuntu.com/KernelTeam/ARMKernelCrossCompile">ARM Cross Compile</a> </p></td>
+  <td><p class="line862"> For more info about ARM and cross compilation. </p></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-111"></span></li></ul><span class="anchor" id="bottom"></span></div> <!-- BEGIN FOOTER -->
+<div id="pagebottom"></div>
+</div>
+
+
+        <div class="entry-utility"> 
+            <span class="cat-links">
+<p id="pageinfo" class="info" dir="ltr" lang="en">Kernel/BuildYourOwnKernel  (last edited 2013-08-23 02:48:39 by <span title="deisner @ pool-96-255-71-73.washdc.fios.verizon.net[96.255.71.73]"><a class="interwiki" href="https://launchpad.net/%7Edeisner" title="deisner @ pool-96-255-71-73.washdc.fios.verizon.net[96.255.71.73]">deisner</a></span>)</p>
+
+</span> 
+        </div> 
+    </div><!-- .post --> 
+ 
+            </div><!-- #content --> 
+        </div><!-- #container --> 
+        <div class="clearBoth"></div> 
+    </div><!-- #main --> 
+</div><!-- #wrapper .hfeed --> 
+    
+<div id="footer"> 
+    <div id="siteinfo">        
+        <p> The material on this wiki is available under a free license, see 
+	<a href="https://help.ubuntu.com/community/License">Copyright / License</a> for details.
+        </p> 
+    </div><!-- #siteinfo --> 
+</div><!-- #footer --> 
+
+
+</body></html>

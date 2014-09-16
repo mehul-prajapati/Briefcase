@@ -1,0 +1,1435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/c.js" async="" type="text/javascript"></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/munchkin.js" async="" type="text/javascript"></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/c_002.js" async="" type="text/javascript"></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/beacon.js" async=""></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/ga.js" async="" type="text/javascript"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index, follow, noarchive">
+    <meta name="description" content="In my program, I need two different kind of timers, periodic timer and one-shot timer. I write the code in Attach Code Snippet. I get the output -------------------------------------- Periodic...">
+    <meta name="google-site-verification" content="_5cXhFki_NrEovleFuuN-9eaHvpDQv1Y3I5e1bIesa0">
+    <meta name="msvalidate.01" content="19C984E796A6C2E12B5745B0A771521A">
+    <link rel="publisher" href="https://plus.google.com/110263686057287067086">
+    <meta name="yandex-verification" content="54b30aacc4e975b3">
+    <meta name="keywords" content="C, Linux Programming">
+    <link rel="canonical" href="http://www.experts-exchange.com/Programming/System/Linux/Q_23357674.html">
+    <link rel="alternate" href="http://mobile.experts-exchange.com/Programming/System/Linux/Q_23357674.html" media="only screen and (max-width: 640px)">
+    <meta property="og:title" content="Create two different kind of timers by timer_create: C">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.experts-exchange.com/Programming/System/Linux/Q_23357674.html">
+    <meta property="og:image" content="//experts.cachefly.net/images/experts-exchange/experts-exchange-logo-opengraph.png">
+    <title>Create two different kind of timers by timer_create: C</title>
+    <link rel="shortcut icon" href="http://experts.cachefly.net/images/experts-exchange/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/css.css"> <!--[if lte IE 8]> <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Serif:700|Droid+Sans:700" /> <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Serif:400italic" /> <![endif]-->
+    <link rel="stylesheet" href="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/9065bf04b294382937deff630f62900cb3c6965b87d171ed30c95a08dcf3.css" media="all">
+    <link rel="stylesheet" href="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/70e14083e882a7e6569cb0d55a56eca7066bd6f1b25cc4050f83c1640449.css" media="all">
+    <script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/ga.js" async="" type="text/javascript"></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/experts-exchange.js" async=""></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/lidar.js" async="" type="text/javascript"></script><script type="text/javascript" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/67326ea49f9ff86123c669f5aad25249abb2fe985948a4d9f2d4a85186af8.js"></script>
+    <script type="text/javascript" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/046ea2401e662c60cf11c53c186240fa1807cd0cb37829a6eca0c22dcf4c2.js"></script>
+    <script type="text/javascript">
+        <!--
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-25977090-13']);
+        _gaq.push(['_setCustomVar', 1, 'User Segmentation', 'Free Trial Guest', 2]);
+        _gaq.push(['_setCustomVar', 2, 'VQP ID', '201401-VQP-087', 2]);
+        _gaq.push(['_setDomainName', 'experts-exchange.com']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackEvent', 'General', 'Page View', 'LO - 201401-VQP-087', undefined]);
+        _gaq.push(['_trackPageview']);
+        //-->
+    </script>
+    <script type="text/javascript">
+      var EETOP={};EETOP.startTime=new Date();EETOP.url='';EETOP.memberBehaviorId=0;EETOP.setUrl=function(url)
+      {EETOP.url=url;}
+      EETOP.setMemberBehaviorId=function(memberBehaviorId)
+      {EETOP.memberBehaviorId=memberBehaviorId;}
+      timeOnPage=function()
+      {var endTime=new Date();var timeSpent=(endTime-EETOP.startTime);if(EETOP.memberBehaviorId>0)
+      {var json={'timeOnPage':timeSpent,'memberBehaviorId':EETOP.memberBehaviorId};onUnloadSubrequest(EETOP.url,json);}}
+      if(window.addEventListener)
+      {window.addEventListener('beforeunload',timeOnPage,false);}
+      else if(window.attachEvent)
+      {window.attachEvent('beforeunload',timeOnPage);}
+      function setTimeOnPageUrl(url)
+      {EETOP.setUrl(url);}
+      function setTimeOnPageMemberBehaviorId(id)
+      {EETOP.setMemberBehaviorId(id);}
+      setTimeOnPageUrl('/jsp/timeOnPage.jsp');
+      setTimeOnPageMemberBehaviorId(1);
+    </script>
+  <script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/roundtrip.js" type="text/javascript" async="true"></script><script src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/YHVUTU3HGBGZNEYV4XVWXH" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline;"><img style="border-style:none;" alt="" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/out.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/out_003.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/out_004.gif" width="1" height="1">
+<img alt="" style="display:none" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/tr.gif" width="1" height="1"><img style="border-style:none;" alt="" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/a.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/out_002.gif" width="1" height="1">
+<!-- rmx placeholder -->
+<img src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/seg.gif" width="1" height="1">
+</div></head>
+  <body class="characterTreatment bugFinder" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+    <div id="uberContainer">
+      <div id="wrapper1">
+        <div id="wrapper2">
+          <div id="header">
+            <div id="headerInnerWrap">
+              <div class="component navigationTabs altNavigation" id="navigationTabs">
+                <div class="body">
+                  <div class="section">
+                    <ul class="">
+                      <li class="uiTab-00 ft ft-startlink first last"><a class="tab uiTabTarget-00" href="http://www.experts-exchange.com/register.jsp?redirect=/Programming/System/Linux/Q_23357674.html" target="_self" title="Start Free Trial"><span>Start Free Trial</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="component toggleButton navigationTabs altNavigation" id="toggleButton">
+                <div class="body">
+                  <a class="button toggleButton login-toggle" href="#" title="Login"><span>Login</span></a>
+                </div>
+              </div>
+              <div class="component navigationTabs altNavigation" id="navigationTabs-id2">
+                <div class="body">
+                  <div class="section">
+                    <ul class="">
+                      <li class="uiTab-00 first"><a class="tab uiTabTarget-00" href="http://support.experts-exchange.com/" target="_blank" title="Get Help Using the Site"><span>Help</span></a></li>
+                      <li class="uiTab-01 last"><a class="tab uiTabTarget-01" href="http://www.experts-exchange.com/aboutUs.jsp" target="_self" title="About Experts Exchange"><span>About Us</span></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="hidden reactivate" id="loginToggle">
+                <div class="component login" id="login">
+                  <div class="body">
+                    <div class="section">
+                      <form action="https://secure.experts-exchange.com/login.jsp?redirect=/Programming/System/Linux/Q_23357674.html" method="post" id="login-loginForm" onsubmit="return submitOnce('#login-loginForm');">
+                        <div>
+                          <div class="input text">
+                            <div>
+                              <input class="ghostUsername inputUsername" id="login-loginForm-loginName" maxlength="90" name="loginName" value="Username or email address" type="text">
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="input password">
+                            <div>
+                              <input class="ghostPassword inputPassword" id="login-loginForm-loginPassword" maxlength="30" name="loginPassword" value="Password" type="text">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="input checkbox show-password">
+                          <div class="selectionWrapper">
+                            <ul>
+                              <li class="first last">
+                                <input class="showPassword ghostPassword" id="login-loginForm-showPassword-checkbox-null" name="showPassword" type="checkbox">
+                                <label for="login-loginForm-showPassword-checkbox-null">Show Password</label>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <script type="text/javascript">
+                          jqOne('#login .ghostPassword.showPassword','click',function(e){if(jqGetValue('#login .inputPassword') == 'Password'){replaceInput('#login .inputPassword','text',jqGetProperty('#login .inputPassword','id'),jqGetProperty('#login .inputPassword','name'),'',jqGetProperty('#login .inputPassword','className'));jqTrigger('#login .inputPassword','focus');jqOff('#login .ghostPassword.showPassword','focus');}});jqOn('#login .showPassword','change',function(e){if(is('#login .showPassword',':checked')){replaceInput('#login .inputPassword','text',jqGetProperty('#login .inputPassword','id'),jqGetProperty('#login .inputPassword','name'),jqGetProperty('#login .inputPassword','value'),'inputPassword','30')}else{replaceInput('#login .inputPassword','password',jqGetProperty('#login .inputPassword','id'),jqGetProperty('#login .inputPassword','name'),jqGetProperty('#login .inputPassword','value'),'inputPassword','30')}});
+                        </script>
+                        <script type="text/javascript">
+                          jqOne('#login .ghostUsername','focus',function(e){jqClearTextField(this);return false;});
+                          jqOne('#login .ghostPassword.inputPassword','focus',function(e){replaceInput('#login .ghostPassword.inputPassword','password',jqGetProperty('#login .ghostPassword.inputPassword','id'),jqGetProperty('#login .ghostPassword.inputPassword','name'),'',jqGetProperty('#login .ghostPassword.inputPassword','className'));jqTrigger('#login .ghostPassword.inputPassword','focus');jqFocus('#login .ghostPassword.inputPassword');});
+                        </script>
+                        <div class="input checkbox remember-me">
+                          <div class="selectionWrapper">
+                            <ul>
+                              <li class="first last">
+                                <input id="login-loginForm-rememberMe-checkbox-null" name="rememberMe" type="checkbox">
+                                <label for="login-loginForm-rememberMe-checkbox-null">Keep Me Logged In</label>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <p class="buttons">
+                          <button class="button confirm" name="loginSubmit" title="Login" type="submit"><span>Login</span></button>
+                          <script type="text/javascript">
+                            var anchorValue = window.location.hash.substr(1);
+                            var anchor = $("<input>", { type: "hidden", name: "anchor", value: anchorValue });
+                            
+                            if (anchorValue) {
+                               $('#login-loginForm').append($(anchor));
+                            }
+                            
+                          </script>
+                          <a class="button forgotPasswordLink" href="http://www.experts-exchange.com/forgotPassword.jsp" title="Forgot your password?"><span>Forgot your password?</span></a><a class="button signUp" href="http://www.experts-exchange.com/register.jsp?redirect=/Programming/System/Linux/Q_23357674.html" title="Sign Up"><span>Sign Up</span></a></p>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <script id="contentJavascript" type="text/javascript">
+                  loginToggle();
+                </script>
+              </div>
+              <span class="component textComponent" id="textComponent"><script type="text/javascript">
+              $(document).ready(function() {
+              	if ($(".ft-startlink a span").text() == "Join Today") 
+              		$("#loginToggle").css("right", "-40px");
+              });
+              </script></span>
+              <div id="flex1">
+                <div class="component navigationTabs stlco mainNavigation" id="navigationTabs-id3">
+                  <div class="body">
+                    <div class="section">
+                      <ul class="">
+                        <li class="uiTab-00 first"><a class="tab uiTabTarget-00" href="http://www.experts-exchange.com/register.jsp?redirect=/askQuestion.jsp?taid=77" target="_self" title="Ask The Experts A Question"><span>Ask</span></a></li>
+                        <li class="uiTab-01"><a class="tab uiTabTarget-01" href="http://www.experts-exchange.com/expertSignUp.jsp?redirect=/questionList.jsp?ts=open-questions" target="_self" title="Are You An Expert? Answer Questions for Free Access!"><span>Answer</span></a></li>
+                        <li class="uiTab-02 topics"><a class="tab uiTabTarget-02" href="http://www.experts-exchange.com/allTopics.jsp" target="_self" title="Browse All Topics"><span>Topics</span></a>
+                          <ul class="">
+                            <li class="uiTab-02-00 first"><a class="tab uiTabTarget-02-00" href="http://www.experts-exchange.com/Copy_Review/" target="_self" title="Copy Review"><span>Copy Review</span></a></li>
+                            <li class="uiTab-02-01"><a class="tab uiTabTarget-02-01" href="http://www.experts-exchange.com/Database/" target="_self" title="Database"><span>Database</span></a></li>
+                            <li class="uiTab-02-02"><a class="tab uiTabTarget-02-02" href="http://www.experts-exchange.com/Hardware/" target="_self" title="Hardware"><span>Hardware</span></a></li>
+                            <li class="uiTab-02-03"><a class="tab uiTabTarget-02-03" href="http://www.experts-exchange.com/Networking/" target="_self" title="Networking"><span>Networking</span></a></li>
+                            <li class="uiTab-02-04"><a class="tab uiTabTarget-02-04" href="http://www.experts-exchange.com/OS/" target="_self" title="Operating Systems"><span>Operating Systems</span></a></li>
+                            <li class="uiTab-02-05"><a class="tab uiTabTarget-02-05" href="http://www.experts-exchange.com/Other/" target="_self" title="Other"><span>Other</span></a></li>
+                            <li class="uiTab-02-06 selected"><a class="tab uiTabTarget-02-06" href="http://www.experts-exchange.com/Programming/" target="_self" title="Programming"><span>Programming</span></a></li>
+                            <li class="uiTab-02-07"><a class="tab uiTabTarget-02-07" href="http://www.experts-exchange.com/Security/" target="_self" title="Security"><span>Security</span></a></li>
+                            <li class="uiTab-02-08"><a class="tab uiTabTarget-02-08" href="http://www.experts-exchange.com/Software/" target="_self" title="Software"><span>Software</span></a></li>
+                            <li class="uiTab-02-09"><a class="tab uiTabTarget-02-09" href="http://www.experts-exchange.com/Web_Development/" target="_self" title="Web Development"><span>Web Development</span></a></li>
+                            <li class="uiTab-02-10"><a class="tab uiTabTarget-02-10" href="http://www.experts-exchange.com/Community_Support/" target="_self" title="Community Support"><span>Community Support</span></a></li>
+                            <li class="uiTab-02-11 last"><a class="tab uiTabTarget-02-11" href="http://www.experts-exchange.com/allTopics.jsp" target="_self" title="Browse All"><span>Browse All</span></a></li>
+                          </ul>
+                        </li>
+                        <li class="uiTab-03"><a class="tab uiTabTarget-03" href="http://www.experts-exchange.com/articles/" target="_self" title="View All Articles"><span>Articles</span></a></li>
+                        <li class="uiTab-04"><a class="tab uiTabTarget-04" href="http://www.experts-exchange.com/videos/" target="_self" title="Learn a new technology or refresh your skills with Cloud Class Video Tutorials"><span>Cloud Class</span></a>
+                          <ul class="">
+                            <li class="uiTab-04-00 first"><a class="tab uiTabTarget-04-00" href="http://www.experts-exchange.com/cloud-class-live/" target="_self" title="Live Instruction"><span>Live Instruction</span></a></li>
+                            <li class="uiTab-04-01 last"><a class="tab uiTabTarget-04-01" href="http://www.experts-exchange.com/tutorials/" target="_self" title="Video Tutorials"><span>Video Tutorials</span></a></li>
+                          </ul>
+                        </li>
+                        <li class="uiTab-05"><a class="tab uiTabTarget-05" href="http://www.experts-exchange.com/BugFinder/" target="_self" title="BugFinder"><span>BugFinder</span></a>
+                          <ul class="">
+                            <li class="uiTab-05-00 first"><a class="tab uiTabTarget-05-00" href="http://www.experts-exchange.com/BugFinder/projects.jsp" target="_self" title="View Open Projects"><span>Start Testing</span></a></li>
+                            <li class="uiTab-05-01"><a class="tab uiTabTarget-05-01" href="http://www.experts-exchange.com/BugFinder/addProject.jsp" target="_self" title="Submit a Project"><span>Submit a Project</span></a></li>
+                            <li class="uiTab-05-02"><a class="tab uiTabTarget-05-02" href="http://www.experts-exchange.com/BugFinder/?ts=how" target="_self" title="How it Works"><span>How it Works</span></a></li>
+                            <li class="uiTab-05-03 last"><a class="tab uiTabTarget-05-03" href="http://www.experts-exchange.com/BugFinder/?ts=experts" target="_self" title="Points for Experts"><span>Points for Experts</span></a></li>
+                          </ul>
+                        </li>
+                        <li class="uiTab-06 more-results last"><a class="tab uiTabTarget-06" href="http://www.experts-exchange.com/Programming/System/Linux/Q_23357674.html" target="_self" title="More"><span>+</span></a>
+                          <ul class="">
+                            <li class="uiTab-06-00 first"><a class="tab uiTabTarget-06-00" href="http://www.drackula.net/" target="_self" title="Datacenter Management Tools"><span>Drackula DCIM</span></a></li>
+                            <li class="uiTab-06-01"><a class="tab uiTabTarget-06-01" href="http://www.experts-exchange.com/Copy_Review/" target="_self" title="Writing Help"><span>Writing Help</span></a></li>
+                            <li class="uiTab-06-02"><a class="tab uiTabTarget-06-02" href="http://careers.experts-exchange.com/" target="_self" title="Job Board"><span>Job Board</span></a></li>
+                            <li class="uiTab-06-03"><a class="tab uiTabTarget-06-03" href="http://www.experts-exchange.com/discoverBusinessAccounts.jsp" target="_self" title="Business Accounts"><span>Business Accounts</span></a></li>
+                            <li class="uiTab-06-04 last"><a class="tab uiTabTarget-06-04" href="http://blog.experts-exchange.com/" target="_self" title="EE Blog"><span>EE Blog</span></a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="component logoComponent stlco" id="logoComponent">
+                  <div class="body">
+                    <div class="section">
+                      <h2><a href="http://www.experts-exchange.com/" title="Experts Exchange Home">
+                        <img alt="Experts Exchange Logo" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/experts-exchange-logo.png" title="Experts Exchange">
+                        </a></h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="component searchFormSimple" id="searchFormSimple">
+                <div class="body">
+                  <div class="section">
+                    <form action="/searchResults.jsp" method="get" id="searchFormSimple-form" onsubmit="return submitOnce('#searchFormSimple-form');">
+                      <div class="input text">
+                        <div>
+                          <input class="search" id="searchFormSimple-form-searchTerms" name="searchTerms" value="Search Experts Exchange" type="text">
+                        </div>
+                      </div>
+                      <p class="buttons">
+                        <button class="button submit" name="searchSubmit" type="submit"></button>
+                      </p>
+                      <script type="text/javascript">
+                        jqOne('#searchFormSimple .search','focus',function(e){jqClearTextField(this);return false;});
+                      </script>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="component textComponent header-advanced-search" id="textComponent-id2">
+                <div class="body">
+                  <div class="section">
+                  </div>
+                </div>
+              </div>
+              <div class="component breadcrumb stlco" id="breadcrumb">
+                <div class="body" itemprop="breadcrumb">
+                    <a href="http://www.experts-exchange.com/" title="Experts Exchange"><span>Experts Exchange</span></a> &gt; <a href="http://www.experts-exchange.com/Programming/" title="Programming"><span>Programming</span></a> &gt; <a href="http://www.experts-exchange.com/Programming/System/" title="System Programming"><span>System Programming</span></a> &gt; <a href="http://www.experts-exchange.com/Programming/System/Linux/" title="Linux OS Dev"><span>Linux OS Dev</span></a> &gt;   Create two different kind of timers by timer_create
+                </div>
+              </div>
+              <script id="contentJavascript-id2" type="text/javascript">
+                moveFromPrependTo('.netSurvey','#wrapper2');
+              </script>
+              <script id="contentJavascript-id3" type="text/javascript">
+                baUpgradeCtaMove();
+              </script>
+            </div>
+          </div>
+          <div id="flex2"></div>
+          <div id="bodyWrapper">
+            <div class="component headingComponent" id="headingComponent">
+              <div class="head">
+                <h2 class="welcome-title uiExpanded">Welcome to the #1 Community for Technology Professionals.</h2>
+                <div class="ui-chrome"></div>
+              </div>
+            </div>
+            <div id="columnsWrapper">
+              <div id="col1Wrap">
+                <div class="" id="col1">
+                  <div class="viewQuestionWrapper">
+                    <div class="component textComponent question-heading" id="textComponent-id3">
+                      <div class="body">
+                        <div class="section">
+                          <h2><span>Enjoy your unlocked premium solution</span></h2>
+                          
+                          <div class="arrow"></div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component questionView stlco ctContentView li" id="questionView">
+                      <div class="body">
+                        <div class="section first last">
+                          <h1 class="commentable-title">Create two different kind of timers by timer_create</h1>
+                          <div class="meta leading-meta">
+                            <span class="author">Asked by: <a href="http://www.experts-exchange.com/M_741981.html">TKD</a></span><span class="solvedBy">Solved by: <a href="http://www.experts-exchange.com/M_1606774.html" rel="author">rendaduiyan</a></span>
+                          </div>
+                          <div class="content btf-content">
+                            <p>In my program, I need two different kind 
+of timers, periodic timer and one-shot timer. I write the code in Attach
+ Code Snippet. I get the output<br>--------------------------<wbr>----------<wbr>--<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Periodic timer<br>Real-time signal 29<br>--------------------------<wbr>----------<wbr>--<br>When the one-shot timer expires, it shows "Real-time signal 29" instead of "One-short timer". Why?<br>I can't create two different kind of timers in a program???</p>
+                            <div class="attachment">
+                              <div class="snippet">
+                                <div>
+                                  <pre class="code "><code id="questionViewCode10-23357674-78049">#include &lt;time.h&gt;
+#include &lt;signal.h&gt;
+ 
+#define SIGTIMER     (SIGRTMAX)
+#define ONESHOTTIMER (SIGRTMAX-1)
+ 
+timer_t SetTimer(int signo, int sec, int mode);
+void SignalHandler(int signo, siginfo_t * info, void *context);
+timer_t timerid,oneshotTimer;
+ 
+int main()
+{
+        struct sigaction sigact;
+ 
+        sigemptyset(&amp;sigact.sa_mask);
+        sigact.sa_flags = SA_SIGINFO;
+        sigact.sa_sigaction = SignalHandler;
+ 
+        // Set up sigaction to catch signal
+        if (sigaction(SIGTIMER, &amp;sigact, NULL) == -1) {
+                perror("sigaction failed");
+                return -1;
+        }
+ 
+        // Establish a handler to catch CTRL+C and use it for exiting
+        sigaction(SIGINT, &amp;sigact, NULL);
+ 
+        timerid = SetTimer(SIGTIMER, 1000, 1);
+        oneshotTimer = SetTimer(ONESHOTTIMER, 10000, 0);
+        for(;;)
+           ;
+        return 0;
+}
+timer_t SetTimer(int signo, int sec, int mode)
+{
+        struct sigevent sigev;
+        timer_t timerid;
+        struct itimerspec itval;
+        struct itimerspec oitval;
+ 
+        // Create the POSIX timer to generate signo
+        sigev.sigev_notify = SIGEV_SIGNAL;
+        sigev.sigev_signo = signo;
+        sigev.sigev_value.sival_ptr = &amp;timerid;
+ 
+        if (timer_create(CLOCK_REALTIME, &amp;sigev, &amp;timerid) == 0) {
+                itval.it_value.tv_sec = sec / 1000;
+                itval.it_value.tv_nsec = (long)(sec % 1000) * (1000000L);
+ 
+                if (mode == 1) {
+                        itval.it_interval.tv_sec = itval.it_value.tv_sec;
+                        itval.it_interval.tv_nsec = itval.it_value.tv_nsec;
+                } else {
+                        itval.it_interval.tv_sec = 0;
+                        itval.it_interval.tv_nsec = 0;
+                }
+ 
+                if (timer_settime(timerid, 0, &amp;itval, &amp;oitval) != 0) {
+                        perror("time_settime error!");
+                }
+        } else {
+                perror("timer_create error!");
+                return -1;
+        }
+        return timerid;
+}
+void SignalHandler(int signo, siginfo_t * info, void *context)
+{
+        if (signo == SIGTIMER) {
+                puts("Periodic timer");
+        }
+        else if (signo == ONESHOTTIMER) {
+                puts("One-short timer");
+        }
+        else if (signo == SIGINT) {
+                timer_delete(oneshotTimer);
+                timer_delete(timerid);
+                perror("Ctrl + C cached!\n");
+                exit(1);
+        }
+}</code>
+                                  </pre>
+                                  <pre class="line-numbers">1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+20:
+21:
+22:
+23:
+24:
+25:
+26:
+27:
+28:
+29:
+30:
+31:
+32:
+33:
+34:
+35:
+36:
+37:
+38:
+39:
+40:
+41:
+42:
+43:
+44:
+45:
+46:
+47:
+48:
+49:
+50:
+51:
+52:
+53:
+54:
+55:
+56:
+57:
+58:
+59:
+60:
+61:
+62:
+63:
+64:
+65:
+66:
+67:
+68:
+69:
+70:
+71:
+72:
+73:
+74:
+75:
+76:
+77:
+78:
+79:
+80:
+81:
+</pre>
+                                </div>
+                              </div>
+                              <p class="buttons"><a class="button # alt copy buttons10-23357674-78049" href="#"><span>Select all</span></a><a class="button # alt blank" href="http://www.experts-exchange.com/viewCodeSnippet.jsp?codeSnippetId=78049" rel="nofollow" target="_blank"><span>Open in new window</span></a></p>
+                              <script type="text/javascript">
+                                jqBind('#questionView .buttons10-23357674-78049','click',function(e){selectElementById('questionViewCode10-23357674-78049');return false;});
+                              </script>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component textComponent jump-to-answer" id="textComponent-id4">
+                      <div class="body">
+                        <div class="section">
+                          <p style="margin-bottom: 18px;">Jump to Answer</p>
+                          
+                        <span class="id">ID: 23357674</span></div>
+                      </div>
+                    </div>
+                    <div class="component textComponent" id="textComponent-id5">
+                      <div class="body">
+                        <div class="section">
+                          <script type="text/javascript">
+                          $(".jump-to-answer p").click(function() {
+                            $('html, body').scrollTop($(".questionCommentsView .solution-comment").offset().top);
+                          });
+                          </script>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component questionTrailingMeta" id="questionTrailingMeta">
+                      <div class="body">
+                        <div class="section">
+                          <div class="meta trailing-meta">
+                            <dl>
+                              <dt class="label stamp"><strong>Asked On</strong></dt>
+                              <dd class="stamp first last"><span class="posted">2008-04-27 at 19:29:28</span></dd>
+                              <dt class="label tags"><strong>Tags</strong></dt>
+                              <dd class="tag first last">
+                                <h2><a href="http://www.experts-exchange.com/searchResults.jsp?searchTag=C" rel="tag nofollow noindex">C</a></h2>
+                              </dd>
+                              <dt class="label topics"><strong>Topic</strong></dt>
+                              <dd class="topics first last">
+                                <h3><a href="http://www.experts-exchange.com/Programming/System/Linux/"><span>Linux Programming</span></a></h3>
+                              </dd>
+                              <dt class="label comments"><strong>Comments</strong></dt>
+                              <dd class="value comments first last">9</dd>
+                            </dl>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component textComponent" id="textComponent-id6">
+                      <div class="body">
+                        <div class="section">
+                          <script type="text/javascript">
+                          $(".viewQuestionWrapper .trailing-meta .stamp .id").appendTo(".jump-to-answer .section");
+                          if ($(".viewQuestionWrapper .trailing-meta .tags").length > 0) {
+                            $(".jump-to-answer p").css("margin-bottom", "18px");
+                          }
+                          </script>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component questionCommentsView lo" id="questionCommentsView">
+                      <div class="head">
+                        <h2 class="title">Comments</h2>
+                        <div class="ui-chrome"></div>
+                      </div>
+                      <div class="body">
+                        <div class="section">
+                          <div class="comment expert-comment first">
+                            <div class="reply">
+                              <a class="jump" id="a21451392">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type expert-comment">Expert Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_1606774.html">rendaduiyan</a></span><span class="asked"> on 2008-04-27 at 20:17:43</span><span class="id"><a href="#a21451392" rel="nofollow">ID: 21451392</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>in your callback, use si_signo in struct siginfo_t to tell which timer is expiring instead of signo, which is always SIGTIMER.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment author-comment">
+                            <div class="reply">
+                              <a class="jump" id="a21451487">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type author-comment">Author Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_741981.html">TKD</a></span><span class="asked"> on 2008-04-27 at 20:47:12</span><span class="id"><a href="#a21451487" rel="nofollow">ID: 21451487</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>Hi,<br>I think that I already do what you talk about. <br>==========================<wbr>======<br>&nbsp; &nbsp; &nbsp; &nbsp; if (signo == SIGTIMER) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; puts("Periodic timer");<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>&nbsp; &nbsp; &nbsp; &nbsp; else if (signo == ONESHOTTIMER) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; puts("One-short timer");<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br>==========================<wbr>======<br>If it isn't &nbsp;the meaning you mean, could you talk more in detail. Thank you.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment expert-comment">
+                            <div class="reply">
+                              <a class="jump" id="a21451704">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type expert-comment">Expert Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_1606774.html">rendaduiyan</a></span><span class="asked"> on 2008-04-27 at 22:28:06</span><span class="id"><a href="#a21451704" rel="nofollow">ID: 21451704</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>void SignalHandler(int signo, siginfo_t * info, void *context)<br>the signo is always be SIGTIMER;<br>so you've got the output string.<br><br>The thing you really want is to tell which timer is expiring, which can not be got from this parameter.<br>your must check out the info-&gt;signo to tell timer.<br>if(info-&gt;signo == ONESHOTTIMER)<br>{<br>&nbsp; &nbsp; &nbsp; &nbsp;//do what you want to do.<br>}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment author-comment">
+                            <div class="reply">
+                              <a class="jump" id="a21452396">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type author-comment">Author Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_741981.html">TKD</a></span><span class="asked"> on 2008-04-28 at 01:54:32</span><span class="id"><a href="#a21452396" rel="nofollow">ID: 21452396</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>I rewrite the SignalHander function. But I stll get the same output.<br>What should I do? Thank you.</p>
+                                      <div class="attachment">
+                                        <div class="snippet">
+                                          <div>
+                                            <pre class="code "><code id="questionCommentsViewCode20-21452396-78165">void SignalHandler(int signo, siginfo_t * info, void *context)
+{
+        if (signo == SIGTIMER) {
+                if (info-&gt;si_signo == ONESHOTTIMER)
+                        puts("One-shot timer");
+                else
+                        puts("Periodic timer");
+ 
+        }
+        else if (signo == SIGINT) {
+                timer_delete(oneshotTimer);
+                timer_delete(timerid);
+                perror("Ctrl + C cached!\n");
+                exit(1);
+        }
+}</code>
+                                            </pre>
+                                            <pre class="line-numbers">1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+</pre>
+                                          </div>
+                                        </div>
+                                        <p class="buttons"><a class="button # alt copy buttons20-21452396-78165" href="#"><span>Select all</span></a><a class="button # alt blank" href="http://www.experts-exchange.com/viewCodeSnippet.jsp?codeSnippetId=78165" rel="nofollow" target="_blank"><span>Open in new window</span></a></p>
+                                        <script type="text/javascript">
+                                          jqBind('#questionCommentsView .buttons20-21452396-78165','click',function(e){selectElementById('questionCommentsViewCode20-21452396-78165');return false;});
+                                        </script>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment expert-comment">
+                            <div class="reply">
+                              <a class="jump" id="a21468256">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type expert-comment">Expert Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_1606774.html">rendaduiyan</a></span><span class="asked"> on 2008-04-29 at 22:22:14</span><span class="id"><a href="#a21468256" rel="nofollow">ID: 21468256</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>Your problem is not so complicated. You made a mistake to forget registering handler for another signal.<br>Add these codes:<br><br>&nbsp; &nbsp; &nbsp;// Set up sigaction to catch signal<br>&nbsp; &nbsp; &nbsp; &nbsp; if (sigaction(ONESHOTTIMER, &amp;sigact, NULL) == -1) {<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; perror("sigaction failed");<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -1;<br>&nbsp; &nbsp; &nbsp; &nbsp; }<br></p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment author-comment">
+                            <div class="reply">
+                              <a class="jump" id="a21484861">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type author-comment">Author Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_741981.html">TKD</a></span><span class="asked"> on 2008-05-01 at 23:26:11</span><span class="id"><a href="#a21484861" rel="nofollow">ID: 21484861</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>Thank you.</p>
+                                      <div class="attachment">
+                                        <div class="snippet">
+                                          <div>
+                                            <pre class="code "><code id="questionCommentsViewCode20-21484861-80529">#include &lt;time.h&gt;
+#include &lt;signal.h&gt;
+ 
+#define SIGTIMER     (SIGRTMAX)
+#define ONESHOTTIMER (SIGRTMAX-1)
+ 
+timer_t SetTimer(int signo, int sec, int mode);
+void SignalHandler(int signo, siginfo_t * info, void *context);
+ 
+timer_t timerid,oneshotTimer;
+int main()
+{
+        struct sigaction sigact;
+ 
+        sigemptyset(&amp;sigact.sa_mask);
+        sigact.sa_flags = SA_SIGINFO;
+        sigact.sa_sigaction = SignalHandler;
+ 
+        // Set up sigaction to catch signal
+        if (sigaction(SIGTIMER, &amp;sigact, NULL) == -1) {
+                perror("sigaction failed");
+                return -1;
+        }
+ 
+        if (sigaction(ONESHOTTIMER, &amp;sigact, NULL) == -1) {
+                perror("sigaction failed");
+                return -1;
+        }
+ 
+        // Establish a handler to catch CTRL+C and use it for exiting
+        sigaction(SIGINT, &amp;sigact, NULL);
+ 
+        timerid = SetTimer(SIGTIMER, 1000, 1);
+        oneshotTimer = SetTimer(ONESHOTTIMER, 10000, 0);
+ 
+        for(;;)
+           ;
+        return 0;
+}
+timer_t SetTimer(int signo, int sec, int mode)
+{
+        struct sigevent sigev;
+        timer_t timerid;
+        struct itimerspec itval;
+        struct itimerspec oitval;
+ 
+        // Create the POSIX timer to generate signo
+        sigev.sigev_notify = SIGEV_SIGNAL;
+        sigev.sigev_signo = signo;
+        sigev.sigev_value.sival_ptr = &amp;timerid;
+ 
+        if (timer_create(CLOCK_REALTIME, &amp;sigev, &amp;timerid) == 0) {
+                itval.it_value.tv_sec = sec / 1000;
+                itval.it_value.tv_nsec = (long)(sec % 1000) * (1000000L);
+ 
+                if (mode == 1) {
+                        itval.it_interval.tv_sec = itval.it_value.tv_sec;
+                        itval.it_interval.tv_nsec = itval.it_value.tv_nsec;
+                } else {
+                        itval.it_interval.tv_sec = 0;
+                        itval.it_interval.tv_nsec = 0;
+                }
+ 
+                if (timer_settime(timerid, 0, &amp;itval, &amp;oitval) != 0) {
+                        perror("time_settime error!");
+                }
+        } else {
+                perror("timer_create error!");
+                return -1;
+        }
+        return timerid;
+}
+void SignalHandler(int signo, siginfo_t * info, void *context)
+{
+        if (signo == SIGTIMER) {
+                puts("Periodic timer");
+        }
+        else if (signo == ONESHOTTIMER) {
+                puts("One-shot timer");
+        }
+        else if (signo == SIGINT) {
+                timer_delete(oneshotTimer);
+                timer_delete(timerid);
+                perror("Ctrl + C cached!\n");
+                exit(1);
+        }
+}
+</code>
+                                            </pre>
+                                            <pre class="line-numbers">1:
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+20:
+21:
+22:
+23:
+24:
+25:
+26:
+27:
+28:
+29:
+30:
+31:
+32:
+33:
+34:
+35:
+36:
+37:
+38:
+39:
+40:
+41:
+42:
+43:
+44:
+45:
+46:
+47:
+48:
+49:
+50:
+51:
+52:
+53:
+54:
+55:
+56:
+57:
+58:
+59:
+60:
+61:
+62:
+63:
+64:
+65:
+66:
+67:
+68:
+69:
+70:
+71:
+72:
+73:
+74:
+75:
+76:
+77:
+78:
+79:
+80:
+81:
+82:
+83:
+84:
+85:
+86:
+87:
+</pre>
+                                          </div>
+                                        </div>
+                                        <p class="buttons"><a class="button # alt copy buttons20-21484861-80529" href="#"><span>Select all</span></a><a class="button # alt blank" href="http://www.experts-exchange.com/viewCodeSnippet.jsp?codeSnippetId=80529" rel="nofollow" target="_blank"><span>Open in new window</span></a></p>
+                                        <script type="text/javascript">
+                                          jqBind('#questionCommentsView .buttons20-21484861-80529','click',function(e){selectElementById('questionCommentsViewCode20-21484861-80529');return false;});
+                                        </script>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment author-comment">
+                            <div class="reply">
+                              <a class="jump" id="a21484872">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type author-comment">Author Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_741981.html">TKD</a></span><span class="asked"> on 2008-05-01 at 23:28:57</span><span class="id"><a href="#a21484872" rel="nofollow">ID: 21484872</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>But I have another question.<br>If I want the one-shot timer to work again, how could I do that?</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment solution-comment">
+                            <div class="solution">
+                              <a class="jump" id="a21494475">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type accepted-solution">Accepted Solution</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_1606774.html" rel="author">rendaduiyan</a></span><span class="asked"> on 2008-05-03 at 20:00:42</span><span class="id"><a href="#a21494475" rel="nofollow">ID: 21494475</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>timer_delete(oneshotTimer)<wbr>; then create it again.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="comment author-closing-comment last">
+                            <div class="reply">
+                              <a class="jump" id="a31452872">&nbsp;</a>
+                              <p class="comment-type heading"><span class="type author-closing-comment">Author Closing Comment</span></p>
+                              <div class="comment-inner">
+                                <p class="meta"><span class="author">by: <a href="http://www.experts-exchange.com/M_741981.html">TKD</a></span><span class="asked"> on 2008-05-05 at 20:30:33</span><span class="id"><a href="#a31452872" rel="nofollow">ID: 31452872</a></span></p>
+                                <div class="content">
+                                  <div>
+                                    <div class="content btf-content">
+                                      <p>Thank you.</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component adComponent" id="adComponent">
+                      <div class="body">
+                        <div id="adComponent-tempAdId" class="section" style=""><div id="google_ads_div_91469"><iframe style="border: 0px none;" marginheight="0" marginwidth="0" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/a_002.html" name="google_ads_iframe_91469" id="google_ads_iframe_91469" scrolling="no" width="300" frameborder="0" height="250"></iframe></div>
+    </div>
+                      </div>
+                    </div>
+                    <div class="component importantQuestionList" id="importantQuestionList">
+                      <div class="head">
+                        <h2 class="faq">Most Popular Linux OS Dev Solutions</h2>
+                        <div class="ui-chrome"></div>
+                      </div>
+                      <div class="body">
+                        <div class="section">
+                          <div class="subsection">
+                            <div class="row-contents">
+                              <div>
+                                <div class="row-content question odd first">
+                                  <a class="title importantQuestion1 first last" href="http://www.experts-exchange.com/OS/Linux/Q_26674028.html" title="Linux net_ratelimit problem"><span>Linux net_ratelimit problem</span></a>
+                                </div>
+                                <div class="row-content question even">
+                                  <a class="title importantQuestion2 first last" href="http://www.experts-exchange.com/Programming/Languages/C/Q_27527297.html" title="Read from USB in Ubuntu with C"><span>Read from USB in Ubuntu with C</span></a>
+                                </div>
+                                <div class="row-content question odd">
+                                  <a class="title importantQuestion3 first last" href="http://www.experts-exchange.com/Database/Reporting/Q_25063978.html" title="Jasper iReports and conditional statement in field expression"><span>Jasper iReports and conditional statement in field …</span></a>
+                                </div>
+                                <div class="row-content question even">
+                                  <a class="title importantQuestion4 first last" href="http://www.experts-exchange.com/Networking/Protocols/Q_23074851.html" title="Sending Broadcast packets using UDP in Linux/C"><span>Sending Broadcast packets using UDP in Linux/C</span></a>
+                                </div>
+                                <div class="row-content question odd">
+                                  <a class="title importantQuestion5 first last" href="http://www.experts-exchange.com/Programming/Languages/C/Q_27559350.html" title="[C/C++, LibSerial] Read and Write on serial port"><span>[C/C++, LibSerial] Read and Write on serial…</span></a>
+                                </div>
+                                <div class="row-content question even last">
+                                  <a class="title importantQuestion6 first last" href="http://www.experts-exchange.com/Software/Server_Software/Q_25192573.html" title="Client Server FTP Program"><span>Client Server FTP Program</span></a>
+                                </div>
+                              </div>
+                              <a class="more-results" href="#"></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component textComponent sign-up-free learn-more" id="textComponent-id7">
+                      <div class="body">
+                        <div class="section">
+                          <h2>Not finding the exact solution you need?<strong>Ask the experts for One-on-One help.</strong></h2>
+                          
+                          <p class="buttons">
+                            <a class="button submit" href="http://www.experts-exchange.com/register.jsp?redirect=/Programming/System/Linux/Q_23357674.html" target="_self"><span>Sign Up Free to Ask Your Question</span></a>
+                          </p>
+                          
+                          <p>30 day free trial. Cancel anytime.</p>
+                          
+                          <p class="how-it-works-btn">Learn More about How It Works</p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component textComponent trusted" id="textComponent-id8">
+                      <div class="body">
+                        <div class="section">
+                          <p>Experts Exchange is trusted by 44 of the top 50 Fortune 500 companies.</p>
+                          <div class="logos"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="component messagingHero slideshow" id="messagingHero">
+                      <div class="head">
+                        <h2>Hear from Our Community</h2>
+                        <div class="ui-chrome"></div>
+                      </div>
+                      <div style="position: relative;" class="body">
+                        <ul style="z-index: 8001;" class="tabs">
+                          <li class=""><a class="tab" href="#" rel="nofollow"></a></li>
+                          <li class=""><a class="tab" href="#" rel="nofollow"></a></li>
+                          <li class="selected"><a class="tab" href="#" rel="nofollow"></a></li>
+                        </ul>
+                        <div style="position: absolute; z-index: 7998; opacity: 1;" class="section section-1 ">
+                          <h2 class="subtitle"></h2>
+                          <div class="content">
+                            <p>"Three years back we had a client 
+requirement for developing an asset tracking solution that required data
+ acquisition from different data sources. I was assigned the role of 
+DBA. With no practical experience in database administration, I was 
+clueless on how to proceed. Thanks to the guidance and support of 
+Experts Exchange's vast talent pool, I was able to complete the data 
+integration process in less than a week's time, which <strong>saved our company more than $2000 worth of man-hours and got me a promotion!</strong>"</p>
+                            
+                            <p class="expert-name">Sherkar Bhurshan</p>
+                            
+                            <p class="expert-title">RFID Consultant at Aplomb Global IT Consultants</p>
+                            
+                          </div>
+                          <p class="buttons"><a class="button small " target="_self"></a></p>
+                        </div>
+                        <div style="position: absolute; z-index: 7999; opacity: 1;" class="section section-2 ">
+                          <h2 class="subtitle"></h2>
+                          <div class="content">
+                            <p>"My Staff and I use EE on a daily bases to solve all kinds of issues. <strong>One answer can be worth the cost of a lifetime membership!</strong>
+ For example, we ran into a bunch of problems when migrating our 
+Exchange environment from 2003 to 2010. We kept running into issues and 
+repeatedly the best and most detailed info was coming from Experts 
+Exchange. One of the last issues was getting active sync and OWA 
+published correctly and the partners we were using were struggling for 
+hours. Finally I decided to go look for my own answers and was able to 
+find what was looking for on Experts Exchange. <strong>It was a life saver!</strong>"</p>
+                            
+                            <p class="expert-name">Jakub Hanson</p>
+                            
+                            <p class="expert-title">Director of Infrastructure at Noel Group LLC</p>
+                            
+                          </div>
+                          <p class="buttons"><a class="button small " target="_self"></a></p>
+                        </div>
+                        <div style="position: absolute; z-index: 8000; opacity: 0;" class="section section-3 ">
+                          <h2 class="subtitle"></h2>
+                          <div class="content">
+                            <p>"A few years back, I worked for a British
+ bank in compliance. When the bank sold its trading department to an 
+American company, the compliance systems had to change rapidly to avoid 
+managers being charged with not submitting compliance reports to the 
+government, which would have been a criminal offence. <strong>Experts Exchange helped me get the job done on time.</strong>"</p>
+                            
+                            <p class="expert-name">Murray Brown</p>
+                            
+                            <p class="expert-title">Programmer at Murbro Ltd</p>
+                            
+                          </div>
+                          <p class="buttons"><a class="button small " target="_self"></a></p>
+                        </div>
+                        <script type="text/javascript">
+                          jqSlideshow('#messagingHero .section','#messagingHero .tabs li')
+                        </script>
+                      </div>
+                    </div>
+                    <div class="component textComponent sign-up-free bottom-cta" id="textComponent-id9">
+                      <div class="body">
+                        <div class="section">
+                          <h2>Join the #1 Community for Technology Professionals</h2>
+                          
+                          <p class="buttons">
+                            <a class="button submit" href="http://www.experts-exchange.com/register.jsp?redirect=/Programming/System/Linux/Q_23357674.html" target="_self"><span>Try it Free</span></a>
+                          </p>
+                          
+                          <p class="note">30 day free trial. Cancel anytime.</p>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="component textComponent bottomPageID" id="textComponent-id10">201401-VQP-087</span>
+                </div>
+              </div>
+              <div id="col2Wrap">
+                <div id="col2">
+                  <div class="component textComponent try-it-free" id="textComponent-id11">
+                    <div class="body">
+                      <div class="section">
+                        <h2>Experts Exchange powers the<br>growth and success of technology<br>professionals worldwide.</h2>
+                        
+                        <p class="buttons">
+                          <a class="button submit" href="http://www.experts-exchange.com/register.jsp?redirect=/Programming/System/Linux/Q_23357674.html" target="_self"><span>Try it Free</span></a>
+                        </p>
+                        
+                        <p>30 day free trial. Cancel anytime.</p>
+                        
+                        <p class="how-it-works-btn">Learn More about How It Works</p>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="component relatedContent related-solutions" id="relatedContent">
+                    <div class="head">
+                      <h2 class="title">Related Solutions <span>Need more help?<br>We have 4 million solutions here.</span></h2>
+                      <div class="ui-chrome"></div>
+                    </div>
+                    <div class="body">
+                      <div class="section">
+                        <div class="sort-options"></div>
+                        <div class="list-view subsection">
+                          <div class="row-contents">
+                            <ol>
+                              <li class="row-content odd first"><a class="relatedContent1" href="http://www.experts-exchange.com/Programming/Languages/C_Sharp/Q_28139574.html" title="C# - 2 timers with Elapsed Time."><span>C# - 2 timers with Elapsed Time.</span></a></li>
+                              <li class="row-content even"><a class="relatedContent2" href="http://www.experts-exchange.com/Programming/Microsoft_Development/Q_28175137.html" title="TIMERS"><span>TIMERS</span></a></li>
+                              <li class="row-content odd"><a class="relatedContent3" href="http://www.experts-exchange.com/Programming/Languages/C/Q_28243083.html" title="Timer in C"><span>Timer in C</span></a></li>
+                              <li class="row-content even"><a class="relatedContent4" href="http://www.experts-exchange.com/Programming/Languages/Visual_Basic/Q_28291517.html" title="Using Implements for a non blocking CCRP Timer"><span>Using Implements for a non blocking CCRP Timer</span></a></li>
+                              <li class="row-content odd last"><a class="relatedContent5" href="http://www.experts-exchange.com/Programming/Languages/Visual_Basic/Q_28349571.html" title="Ongoing vb 6 timer problem"><span>Ongoing vb 6 timer problem</span></a></li>
+                            </ol>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="component anchorButton" id="anchorButton">
+                  <div class="body">
+                    <a class="button medium generic" href="http://www.experts-exchange.com/search.jsp" target="_self"><span>Search more solutions</span></a>
+                  </div>
+                  </span>
+                  <div class="component emailColl" id="emailColl">
+                    <div class="body">
+                      <div class="section">
+                        <div class="career-guide"> <div class="section">     <div class="body"> <h4>Get Experts Exchange's</h4> <h2>Career Builder Guide</h2> <p>Become successful in your tech career.</p>
+                        <form method="post" id="emailColl-emailForm1393238424376">
+                          <div class="" id="emailColl-emailForm1393238424376-emailAddress-row">
+                            <div class="input text">
+                              <label for="emailColl-emailForm1393238424376-emailAddress">Email Address</label>
+                              <div>
+                                <input id="emailColl-emailForm1393238424376-emailAddress" maxlength="128" name="emailAddress" type="text">
+                              </div>
+                            </div>
+                            <p class="note">We will never share this with anyone.</p>
+                          </div>
+                          <script type="text/javascript">
+                            jqOn('#emailColl-emailForm1393238424376-emailAddress','blur',function(e){jqPost('/async/harvesterValidator.jsp',[{name:'emailAddress',value:jqGetValue('#emailColl-emailForm1393238424376-emailAddress')},{name:'htid',value:'1'},{name:'asid',value:'emailColl-emailForm1393238424376-emailAddress-row'},{name:'iasid',value:'emailColl-emailForm1393238424376-emailAddress-row'}],function(e){var i = e.indexOf('\n'); jqAddClass(jqRemoveClass(jqRemoveClass(jqRemoveClass(jqRemoveClass('#emailColl-emailForm1393238424376-emailAddress-row',''),'focused'),'valid'),'invalid'),e.slice(0, i));jqSetHtml('#emailColl-emailForm1393238424376-emailAddress-row .note',e.slice(i+1));});return true;});
+                          </script>
+                          <button class="button submit" name="formSubmitMarketoEmailCollectorModel" type="submit"><span>Get Guide</span></button>
+                        </form>
+                        <script type="text/javascript">
+                          jqBind('#emailColl-emailForm1393238424376','submit',function(e){if(submitOnce('#emailColl-emailForm1393238424376','#emailColl-emailForm1393238424376') == true){jqAsyncPost('#emailColl','/async/emailCollector.jsp',jqAddToFormJson('#emailColl-emailForm1393238424376',[{name:'asid',value:'emailColl'},{name:'iasid',value:'emailColl'},{name:'componentHtmlId',value:'emailColl'},{name:'asyncAction',value:'SUBMIT'},{name:'formSubmitMarketoEmailCollectorModel',value:''}]));}return false;});
+                        </script>
+                        </div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="component adComponent stlco ad-160x600 component-alt-bg" id="adComponent-id2">
+                    <div class="body">
+                      <div id="adComponent-id2-tempAdId" class="section" style=""><div class="GoogleActiveViewClass" id="DfpVisibilityIdentifier_7070188689287016" data-admeta-dfp="4585/ns.expertsexchange/general,160,600,17165985549294196609,0.02"><div id="google_ads_div_354571"><iframe style="border: 0px none;" marginheight="0" marginwidth="0" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/a_002.html" name="google_ads_iframe_354571" id="google_ads_iframe_354571" scrolling="no" width="160" frameborder="0" height="600"></iframe></div></div>
+    </div>
+                    </div>
+                  </div>
+                  <div class="component videoPresContent" id="videoPresContent">
+                    <div class="head">
+                      <h2 class="title"> Top Video Training<span>Develop your skills with step by step technical training tutorials.</span></h2>
+                      <div class="ui-chrome"></div>
+                    </div>
+                    <div class="body">
+                      <div class="">
+                        <div class="section section-1 status-ok first">
+                          <a class="thumbnail" href="http://www.experts-exchange.com/VP_45.html">
+                          <img alt="HTML for Beginners" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/2112711587001_2442646255001_cct-beginnerHtml.jpg">
+                          </a><a class="vpContent1" href="http://www.experts-exchange.com/VP_45.html" title="HTML for Beginners"><span>HTML for Beginners</span></a>
+                        </div>
+                        <div class="section section-2 status-ok">
+                          <a class="thumbnail" href="http://www.experts-exchange.com/VP_47.html">
+                          <img alt="Introduction to Python Programming" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/2112711587001_2442690879001_cct-introPython.jpg">
+                          </a><a class="vpContent2" href="http://www.experts-exchange.com/VP_47.html" title="Introduction to Python Programming"><span>Introduction to Python Programming</span></a>
+                        </div>
+                        <div class="section section-3 status-ok">
+                          <a class="thumbnail" href="http://www.experts-exchange.com/VP_48.html">
+                          <img alt="WordPress for Beginners" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/2112711587001_2442691075001_cct-beginnerWP.jpg">
+                          </a><a class="vpContent3" href="http://www.experts-exchange.com/VP_48.html" title="WordPress for Beginners"><span>WordPress for Beginners</span></a>
+                        </div>
+                        <div class="section section-4 status-ok">
+                          <a class="thumbnail" href="http://www.experts-exchange.com/VP_50.html">
+                          <img alt="WordPress for Intermediate Users" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/2112711587001_2442646258001_cct-intermediateWP.jpg">
+                          </a><a class="vpContent4" href="http://www.experts-exchange.com/VP_50.html" title="WordPress for Intermediate Users"><span>WordPress for Intermediate Users</span></a>
+                        </div>
+                        <div class="section section-5 status-ok last">
+                          <a class="thumbnail" href="http://www.experts-exchange.com/VP_52.html">
+                          <img alt="Customize Your Own Cloud" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/2112711587001_2431190382001_ccl-cloudComputing.jpg">
+                          </a><a class="vpContent5" href="http://www.experts-exchange.com/VP_52.html" title="Customize Your Own Cloud"><span>Customize Your Own Cloud</span></a>
+                        </div>
+                        <a class="vpContentMore" href="http://www.experts-exchange.com/videos/" title="See more videos"><span>See more videos</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="component textComponent" id="textComponent-id12">
+                    <div class="body">
+                      <div class="section">
+                        <script type="text/javascript">
+                        $(document).ready(function() {
+                          $("#col1").addClass("fix-for-ie8").removeClass("fix-for-ie8");
+                        });
+                        </script>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="flex3"></div>
+        </div>
+        <div class="component textComponent" id="textComponent-id13">
+          <div class="body">
+            <div class="section">
+              <div id="overlay"></div>
+              
+              <div id="how-it-works-popup" class="overlay-content">
+                <div class="body">
+                  <div class="close"></div>
+                  <h2 class="title">Experts Exchange is the Network for<br>Technology Professionals</h2>
+                  <div class="arrow"></div>
+                  <ul>
+                    <li>
+                      <h2>An essential resource for producing excellent work</h2>
+                      <p>Experts Exchange is the tech professional’s 
+trusted, on-demand resource for solving difficult problems, making 
+informed decisions, and delivering excellent solutions.</p>
+                    </li>
+                    <li>
+                      <h2>A better way to learn technology</h2>
+                      <p>With unparalleled access to technical experts, 
+verified real-world solutions, and diverse educational content, Experts 
+Exchange enables personalized development of technology skills.</p>
+                    </li>
+                    <li>
+                      <h2>The network for building your tech career</h2>
+                      <p>Experts Exchange gives you the professional exposure and valued relationships key to building the career you want.</p>
+                    </li>
+                  </ul>
+                  <div class="cta">
+                    <h2>Experts Exchange powers the growth and<br>success of technology professionals worldwide.</h2>
+                    <p class="buttons">
+                      <a class="button submit" href="http://www.experts-exchange.com/register.jsp?redirect=/Programming/System/Linux/Q_23357674.html" target="_self"><span>Try it Free</span></a>
+                    </p>
+                    <p>30 day free trial. Cancel anytime.</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="component textComponent" id="textComponent-id14">
+          <div class="body">
+            <div class="section">
+              <script type="text/javascript">
+              
+              /* How it Works Popup */
+              
+              $(".how-it-works-btn").click(function() {
+                $("#overlay").show().animate({opacity: "0.9"}, 500);
+                $("#how-it-works-popup").show().animate({opacity: "1"}, 500);
+              });
+              $("#how-it-works-popup .close").click(function() {
+                $("#how-it-works-popup").hide().animate({opacity: "0"}, 500);
+                $("#overlay").animate({opacity: "0"}, 500).hide();
+              });
+              </script>
+              
+            </div>
+          </div>
+        </div>
+        <div id="footer">
+          <div id="footerInnerWrap">
+            <span class="component textComponent minimalFooter" id="textComponent-id15">© 1996-2014 <a href="http://www.experts-exchange.com/index.jsp">Experts Exchange, LLC.</a> All rights reserved.
+            <a class="link" href="http://www.experts-exchange.com/terms.jsp">Terms of Use</a>
+            <a class="link" href="http://www.experts-exchange.com/privacyPolicy.jsp">Privacy Policy</a></span>
+            <script id="contentJavascript-id4" type="text/javascript">
+              popupHandlerPort();
+            </script>
+            <div id="deprecatedBrowserWarning">
+              <span class="component textComponent" id="textComponent-id16"></span>
+            </div>
+            <span class="component textComponent" id="textComponent-id17"></span>
+            <script id="contentJavascript-id5" type="text/javascript">
+              bpBrickHeight();
+            </script>
+            <script id="contentJavascript-id6" type="text/javascript">
+              bpPlanCount();
+            </script>
+          </div>
+        </div>
+      </div>
+    <script> document.write('<div id="adComponent-tempAdId" class="section" style="display:none;" >');document.write('<scri'+'pt type="text/javascript" src="http://ad1.netshelter.net/adj/ns.expertsexchange/general;ppos=btf;kw=;tile=2;sz=300x250,336x280;ord=468566397?"></scri'+'pt>');</script><script> document.write('<div id="adComponent-id2-tempAdId" class="section" style="display:none;" >');document.write('<scri'+'pt type="text/javascript" src="http://ad1.netshelter.net/adj/ns.expertsexchange/general;ppos=btf;kw=;tile=3;sz=120x600,160x600;ord=2137683427?"></scri'+'pt>');</script></div>
+    <script id="contentJavascript-id7" type="text/javascript">
+      fileUploadLO();
+    </script>
+    <script type="text/javascript">
+      jqBind('#toggleButton .toggleButton','click',function(e){jqToggle('#loginToggle');jqToggleClass('#loginToggle','selected');jqToggleClass(this,'selected');return false;});
+    </script>
+    <script type="text/javascript">
+      jqAppendHtml('#uberContainer','<scri'+'pt> document.write(\'<div id="adComponent-tempAdId" class="section" style="display:none;" >\');document.write(\'<scri\'+\'pt type="text/javascript" src="http://ad1.netshelter.net/adj/ns.expertsexchange/general;ppos=btf;kw=;tile=2;sz=300x250,336x280;ord=468566397?"></scri\'+\'pt>\');</scri'+'pt>');
+    </script>
+    <script type="text/javascript">
+      jqAppendHtml('#uberContainer','<scri'+'pt> document.write(\'<div id="adComponent-id2-tempAdId" class="section" style="display:none;" >\');document.write(\'<scri\'+\'pt type="text/javascript" src="http://ad1.netshelter.net/adj/ns.expertsexchange/general;ppos=btf;kw=;tile=3;sz=120x600,160x600;ord=2137683427?"></scri\'+\'pt>\');</scri'+'pt>');
+    </script>
+    <script type="text/javascript">
+      (function() {
+          var nstrack = document.createElement("script"), el_nstrack = document.getElementsByTagName("script")[0]; nstrack.async = true;
+          nstrack.src = "http://track.netshelter.net/async/js/sites/experts-exchange.com-async.js";
+          el_nstrack.parentNode.insertBefore(nstrack, el_nstrack);
+        })();
+    </script>
+    <script type="text/javascript">
+      adroll_adv_id = "GGCU75PN5NCQBI5IAY2KOE";
+      adroll_pix_id = "YHVUTU3HGBGZNEYV4XVWXH";
+      (function () {
+      var oldonload = window.onload;
+      window.onload = function(){
+         __adroll_loaded=true;
+         var scr = document.createElement("script");
+         var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+         scr.setAttribute('async', 'true');
+         scr.type = "text/javascript";
+         scr.src = host + "/j/roundtrip.js";
+         ((document.getElementsByTagName('head') || [null])[0] ||
+          document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+         if(oldonload){oldonload()}};
+      }());
+    </script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 988514747;
+        var google_conversion_label = "7snGCP3lmAcQu5Ou1wM";
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/conversion.js"></script><iframe name="google_conversion_frame" title="Google conversion frame" src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/a_003.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" width="300" frameborder="0" height="13">&lt;img
+ height="1" width="1" border="0" alt="" 
+src="http://googleads.g.doubleclick.net/pagead/viewthroughconversion/988514747/?frame=0&amp;random=1393238311275&amp;cv=7&amp;fst=1393238311275&amp;num=1&amp;fmt=1&amp;label=7snGCP3lmAcQu5Ou1wM&amp;guid=ON&amp;u_h=1024&amp;u_w=1280&amp;u_ah=976&amp;u_aw=1280&amp;u_cd=24&amp;u_his=1&amp;u_tz=330&amp;u_java=false&amp;u_nplug=8&amp;u_nmime=51&amp;frm=0&amp;url=http%3A//www.experts-exchange.com/Programming/System/Linux/Q_23357674.html&amp;ref=http%3A//www.google.co.in/url%3Fsa%3Dt%26rct%3Dj%26q%3D%26esrc%3Ds%26source%3Dweb%26cd%3D5%26ved%3D0CEkQFjAE%26url%3Dhttp%253A%252F%252Fwww.experts-exchange.com%252FProgramming%252FSystem%252FLinux%252FQ_23357674.html%26ei%3DjSELU8feCM6FrAeww4HoDA%26usg%3DAFQjCNG7DY5672CqUT_fxp16-VtSqw3rTQ%26bvm%3Dbv.61725948%2Cd.bmk%26cad%3Drja"
+ /&gt;</iframe>
+    <noscript>
+      <div style="display:inline;">
+        <img alt="" height="1" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/988514747/?value=0&amp;label=7snGCP3lmAcQu5Ou1wM&amp;guid=ON&amp;script=0" style="border-style:none;" width="1" />
+      </div>
+    </noscript>
+    <script type="text/javascript">
+        <!--
+        (function() {
+          var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        //-->
+    </script>
+    <script type="text/javascript" language="Javascript">
+        <!--
+        function getOmnitureFunction()
+        {
+          var s = setUpOmnitureVariable('eexchangeprod');
+          s.pageName='LO - 201401-VQP-087';
+          s.server='cms46.dc5.redsrci.com';
+          s.channel='/Programming/System/Linux/';
+          s.pageType='';
+          s.eVar31='203.88.139.237';
+          s.eVar19='GFCF';
+          s.eVar30='Monday';
+          s.eVar29='2AM';
+          s.eVar6='Free Trial Guest';
+          s.eVar35='201401-VQP-087';
+          s.eVar33='/Programming/System/Linux/';
+          s.hier='/Programming/System/Linux/';
+          s.events='event4';
+          return s;
+        }
+        //-->
+    </script>
+    <script type="text/javascript" language="Javascript">
+        /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+        var s1393238424412 = getOmnitureFunction();
+        var s_code=s1393238424412.t();
+        if(s_code)document.write(s_code)
+    </script>
+    <noscript>
+        <img
+        src="http://metrics.experts-exchange.com/b/ss/eexchangeprod/1/H.7--NS/0"
+        height="1" width="1" border="0" alt="" /><!--/DO NOT REMOVE/-->
+        <!-- End SiteCatalyst code version: H.7. -->
+    </noscript>
+    <script type="text/javascript">
+        <!--
+        function asyncOmniture_41237611() { s = getOmnitureFunction(); s.eVar54='Top Training Videos - 5'; s.events=''; return s;}
+        jqOn('#videoPresContent .vpContent5','click',function(e){asyncOmniture_41237611().t();});
+        function asyncOmniture_41237612() { s = getOmnitureFunction(); s.eVar54='Top Training Videos - 4'; s.events=''; return s;}
+        jqOn('#videoPresContent .vpContent4','click',function(e){asyncOmniture_41237612().t();});
+        function asyncOmniture_41237613() { s = getOmnitureFunction(); s.eVar54='Top Training Videos - 3'; s.events=''; return s;}
+        jqOn('#videoPresContent .vpContent3','click',function(e){asyncOmniture_41237613().t();});
+        function asyncOmniture_2106997057() { s = getOmnitureFunction(); s.eVar54='FAQ - 6'; s.events=''; return s;}
+        jqOn('#importantQuestionList .importantQuestion6','click',function(e){asyncOmniture_2106997057().t();});
+        function asyncOmniture_41237614() { s = getOmnitureFunction(); s.eVar54='Top Training Videos - 2'; s.events=''; return s;}
+        jqOn('#videoPresContent .vpContent2','click',function(e){asyncOmniture_41237614().t();});
+        function asyncOmniture_2106997058() { s = getOmnitureFunction(); s.eVar54='FAQ - 5'; s.events=''; return s;}
+        jqOn('#importantQuestionList .importantQuestion5','click',function(e){asyncOmniture_2106997058().t();});
+        function asyncOmniture_41237615() { s = getOmnitureFunction(); s.eVar54='Top Training Videos - 1'; s.events=''; return s;}
+        jqOn('#videoPresContent .vpContent1','click',function(e){asyncOmniture_41237615().t();});
+        function asyncOmniture_2106997059() { s = getOmnitureFunction(); s.eVar54='FAQ - 4'; s.events=''; return s;}
+        jqOn('#importantQuestionList .importantQuestion4','click',function(e){asyncOmniture_2106997059().t();});
+        function asyncOmniture_2106997060() { s = getOmnitureFunction(); s.eVar54='FAQ - 3'; s.events=''; return s;}
+        jqOn('#importantQuestionList .importantQuestion3','click',function(e){asyncOmniture_2106997060().t();});
+        function asyncOmniture_2106997061() { s = getOmnitureFunction(); s.eVar54='FAQ - 2'; s.events=''; return s;}
+        jqOn('#importantQuestionList .importantQuestion2','click',function(e){asyncOmniture_2106997061().t();});
+        function asyncOmniture_1726466616() { s = getOmnitureFunction(); s.eVar54='Related Solution - 5'; s.events=''; return s;}
+        jqOn('#relatedContent .relatedContent5','click',function(e){asyncOmniture_1726466616().t();});
+        function asyncOmniture_2106997062() { s = getOmnitureFunction(); s.eVar54='FAQ - 1'; s.events=''; return s;}
+        jqOn('#importantQuestionList .importantQuestion1','click',function(e){asyncOmniture_2106997062().t();});
+        function asyncOmniture_1726466617() { s = getOmnitureFunction(); s.eVar54='Related Solution - 4'; s.events=''; return s;}
+        jqOn('#relatedContent .relatedContent4','click',function(e){asyncOmniture_1726466617().t();});
+        function asyncOmniture_1726466618() { s = getOmnitureFunction(); s.eVar54='Related Solution - 3'; s.events=''; return s;}
+        jqOn('#relatedContent .relatedContent3','click',function(e){asyncOmniture_1726466618().t();});
+        function asyncOmniture_1726466619() { s = getOmnitureFunction(); s.eVar54='Related Solution - 2'; s.events=''; return s;}
+        jqOn('#relatedContent .relatedContent2','click',function(e){asyncOmniture_1726466619().t();});
+        function asyncOmniture_1726466620() { s = getOmnitureFunction(); s.eVar54='Related Solution - 1'; s.events=''; return s;}
+        jqOn('#relatedContent .relatedContent1','click',function(e){asyncOmniture_1726466620().t();});
+        function asyncOmniture_148197355() { s = getOmnitureFunction(); s.eVar54='Search more videos'; s.events=''; return s;}
+        jqOn('#videoPresContent .vpContentMore','click',function(e){asyncOmniture_148197355().t();});
+        function asyncOmniture_1143720021() { s = getOmnitureFunction(); s.eVar54='Related Solution - Search more solutions'; s.events=''; return s;}
+        jqOn('#col2 .anchorButton a','click',function(e){asyncOmniture_1143720021().t();});
+        function asyncOmniture_1428177060() { s = getOmnitureFunction(); s.eVar54='Try it Free Button on Popup'; s.events=''; return s;}
+        jqOn('#how-it-works-popup .cta a','click',function(e){asyncOmniture_1428177060().t();});
+        function asyncOmniture_1896452781() { s = getOmnitureFunction(); s.eVar54='Top Right CTA – Learn More'; s.events=''; return s;}
+        jqOn('#col2 .try-it-free .how-it-works-btn','click',function(e){asyncOmniture_1896452781().t();});
+        function asyncOmniture_538742621() { s = getOmnitureFunction(); s.eVar54='Last CTA – Try it Free'; s.events=''; return s;}
+        jqOn('.bottom-cta a','click',function(e){asyncOmniture_538742621().t();});
+        function asyncOmniture_512766253() { s = getOmnitureFunction(); s.eVar54='Ask CTA – Try it Free – Sign up Free to ask your question'; s.events=''; return s;}
+        jqOn('.learn-more a','click',function(e){asyncOmniture_512766253().t();});
+        function asyncOmniture_1756540904() { s = getOmnitureFunction(); s.eVar54='Top Right CTA – Learn More – Try it Free'; s.events=''; return s;}
+        jqOn('#col2 .try-it-free .body .section .how-it-works-btn','click',function(e){asyncOmniture_1756540904().t();});
+        function asyncOmniture_1847077793() { s = getOmnitureFunction(); s.eVar54='Top Right CTA – Try it Free'; s.events=''; return s;}
+        jqOn('#col2 .try-it-free .submit','click',function(e){asyncOmniture_1847077793().t();});
+        function asyncOmniture_721417846() { s = getOmnitureFunction(); s.eVar54='Ask CTA – Learn More'; s.events=''; return s;}
+        jqOn('#col1 .sign-up-free .how-it-works-btn','click',function(e){asyncOmniture_721417846().t();});
+        //-->
+    </script>
+    <script type="text/javascript">
+      $.ajax({url: '//munchkin.marketo.net/munchkin-beta.js',dataType: 'script',cache: true,success: function() {Munchkin.init('013-NVV-408'); }});
+    </script>
+    <!-- cms46.dc5.redsrci.com:80 - Page: 842370 -->
+  
+
+<img src="Create%20two%20different%20kind%20of%20timers%20by%20timer_create:%20C_files/adscout.gif" id="control_pixel" name="control_pixel" width="1" height="1" border="0"></body></html>

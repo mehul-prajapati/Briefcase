@@ -1,0 +1,3141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class="dj_gecko dj_contentbox" xml:lang="en" lang="en"><head>
+       <title>An overview of Linux processes (Real world Linux)</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+
+
+					<!-- Copyright IBM Corp. 2013  All Rights Reserved.                    -->
+
+<!--[if IE 6]><script type="text/javascript">document.getElementsByTagName("html")[0].className+=" lotusui_ie lotusui_ie6";</script><![endif]-->
+<!--[if IE 7]><script type="text/javascript">document.getElementsByTagName("html")[0].className+=" lotusui_ie lotusui_ie7";</script><![endif]-->
+<!--[if IE 8]><script type="text/javascript">document.getElementsByTagName("html")[0].className+=" lotusui_ie lotusui_ie8";</script><![endif]-->
+<link rel="stylesheet" type="text/css" id="lotusBaseStylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/_style.css" appname="blogs" base="https://www.ibm.com/developerworks/community/connections/resources/web/" query="?version=oneui3&amp;rtl=false&amp;etag=20130907.165906" theme="default" defaulttheme="default" oneui="3">
+<link rel="stylesheet" type="text/css" id="lotusSpritesStylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/_style_002.css">
+<link rel="stylesheet" type="text/css" id="lotusThemeStylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/default.css">
+<link rel="stylesheet" type="text/css" id="lotusAppStylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blogs.css">
+<!-- Copyright IBM Corp. 2013  All Rights Reserved.                    -->
+
+	  	
+  		  		      	<link rel="stylesheet" type="text/css" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/minimal.css">
+	    	    <script async="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/cbgapi.loaded_1"></script><script async="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/cbgapi.loaded_0"></script><script src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/widgets.js" id="twitter-wjs"></script><script gapi_processed="true" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/plusone.js" async="" type="text/javascript"></script><script type="text/javascript">
+window.currentLogin={};
+window.__security_nonce='';
+
+var http;
+if(typeof XMLHttpRequest == 'undefined') http=new ActiveXObject("Microsoft.XMLHTTP");
+else http=new XMLHttpRequest();
+http.open('GET', '/developerworks/community/blogs/roller-services/json/authcheck?entry=3d60b1da-a8cf-432e-bf21-33e400bcebbd', false);
+http.send(null);
+var t=http.responseText;
+if(http.status == 200 && t && t.length>4 && t.substring(0,5)=='nonce'){
+		eval('window.currentLogin={'+t+'}');
+		window.__security_nonce=window.currentLogin.nonce;
+}
+</script>
+<script type="text/javascript">
+  var winW = 800, winH = 600;
+  if (document.body && document.body.offsetWidth) {
+              }
+  if (document.compatMode=='CSS1Compat' &&
+      document.documentElement &&
+      document.documentElement.offsetWidth ) {
+           }
+  if (window.innerWidth && window.innerHeight) {
+   winW = window.innerWidth;
+   winH = window.innerHeight;
+  }
+</script>
+
+<link rel="shortcut icon" href="https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.oneui3.styles/imageLibrary/Icons/ComponentsGray/BlogsGray.ico" type="image/x-icon">
+	
+
+
+    
+        
+    
+       
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+                                                                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+   
+
+
+
+
+    
+
+
+
+
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                  						
+														
+
+
+
+                                  
+
+
+
+                                                                        
+                    
+
+
+
+
+                            
+
+
+
+
+          
+
+
+
+                                               
+
+
+
+                                                                        
+             
+
+
+
+                                   
+    
+
+            <link rel="alternate" type="application/atom+xml" title="Atom Entries" href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/feed/entries/atom?lang=en">
+    <link rel="alternate" type="application/atom+xml" title="Atom Comments" href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/feed/comments/atom?lang=en">
+            <link rel="replies" type="application/atom+xml" title="Atom Entry Comments" href="">
+              <link rel="service" class="preferred" type="application/atomsvc+xml" title="Atom Publishing Protocol" href="https://www.ibm.com/developerworks/community/blogs/api">
+            <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/rsd">
+      <style type="text/css">
+   
+    
+        
+    
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------
+   CSS
+---------------------------------------------------------------------- */
+/* Copyright IBM Corp. 2012  All Rights Reserved.              */
+#featured {
+      width:100%; 
+      height:auto;
+      margin:0px;
+      padding:0px;  
+      margin-top:30px;
+      margin-bottom:0px;
+      margin-left:5px;
+      line-height:1.2em;
+      border-bottom: solid 2px #555555;  
+}
+
+#featured th {
+     text-transform:uppercase;
+     font-weight:bold;
+     padding-left:0px;
+}
+
+#featured td {
+     width:33%;
+     font-family:  Arial, Helvetica Neue, Helvetica, sans-serif; 
+     font-size:95%; 
+     padding-top:20px;
+     padding-bottom:30px;
+     border-top: solid 1px #FFFFFF !important;  
+}
+
+#featured div {
+    max-width:100px; 
+    max-height:100px;
+    padding-left:5px;
+    padding-right:5px;
+    float:left;
+}
+
+#featured img {
+    max-width:85px; 
+    max-height:85px;
+    padding-right:15px;
+    padding-bottom:5px;
+}
+
+#post-preview {
+      width:140px;
+      height:140px;
+      float:left; 
+      padding-top:25px;
+      padding-right:25px;
+}
+
+#post-preview img {
+    max-width:135px; 
+    max-height:135px;
+    vertical-align:text-top;
+}
+
+.min-lotusInner{
+padding:10px 0 0 35px !important;
+}
+
+.min-h4-padding{
+border-top:1px solid #EEEEEE !important;
+}
+#hero-img img { max-width:1150px; max-height:200px; }
+#trends a {
+        padding: 7px;
+        margin-left:12px;
+        margin-bottom:1px;
+        font-family:  Georgia, Arial, Helvetica Neue, Helvetica, sans-serif;
+        font-size: 12pt; 
+        font-style:italic;  
+        color:#FFFFFF;
+        text-decoration:none; 
+        display:block;
+}
+
+a.trends     { border-style: none; }
+a.trends.s1  { background-color:#008abf !important; width:55% !important; }
+a.trends.s2  { background-color:#006ea7 !important; width:65% !important; }
+a.trends.s3  { background-color:#025287 !important; width:75% !important; }
+a.trends.s4  { background-color:#003f69 !important; width:85% !important; }
+a.trends.s5  { background-color:#002e51 !important; width:95% !important; }
+#section_bio {padding-top:0px !important;}
+#section_bio img{float:left; padding-right:5px;}
+#css-widget-banner-tags {
+       height: auto;
+       width:auto;
+       margin: 0px;
+       float:right;
+       font-size: 115%;
+       line-height: 24px; 
+       word-spacing: 8pt;
+       text-align: right; 
+}
+
+a.tag     { border-style: none; }
+a.tag.s1  { color: #008abf; font-size: 90%; letter-spacing: 1px; text-decoration:none;  }
+a.tag.s2  { color: #006ea7; font-size: 110%; text-decoration:none; }
+a.tag.s3  { color: #025287; font-size: 130%; text-decoration:none; }
+a.tag.s4  { color: #003f69; font-size: 150%; text-decoration:none; }
+a.tag.s5  { color: #002e51; font-size: 170%; letter-spacing: -1px; text-decoration:none; }
+
+#twitter_update_list {
+	font-family:  Arial, Helvetica Neue, Helvetica, sans-serif; 
+        font-size: 100%;
+        line-height: 18px;
+	list-style: none;
+        padding-top:8px;
+        margin-left:10px;
+        margin-right:6px;
+}
+
+#twitter_update_list li {
+        list-style-type:none; 
+	padding-bottom: 9px;
+        margin-bottom: 12px;
+}
+
+#twitter_update_list span {
+       color: #666666;
+}
+
+#twitter_update_list span a {
+	color: #486891;
+	text-decoration: none;
+}
+
+#twitter_update_list a {
+        white-space: nowrap;
+	color: #486891;
+        text-decoration : none;
+}
+.css-widget-related-resources {
+      position: relative; top:+5px; left: +5px; 
+      width:180px; 
+      height:auto; 
+      margin-top: 25px; 
+      padding: 5px; 
+      background-color:#E0E8F8; 
+      border: solid 1px #649DE0;       
+      font-family:  Arial, Helvetica Neue, Helvetica, sans-serif;
+      font-size: 95%; 
+      color:#666666;
+}
+.dw-blog-share ul li a.dw-blog-facebook-share-link:hover{background: url("//www.ibm.com/developerworks/lc/images/socialmedia_share_icons.png") no-repeat scroll 0 0 transparent !important;}
+.dw-blog-share ul li a {background:url("//www.ibm.com/developerworks/lc/images/socialmedia_share_icons.png") no-repeat scroll 0 -30px transparent ! important;}
+.dw-blog-share ul li a.dw-blog-twitter-share-link{background-position: 0 -390px ! important;}
+.dw-blog-share ul li a.dw-blog-twitter-share-link:hover{background-position: 0 -360px ! important;}
+.dw-blog-share ul li a.dw-blog-google-share-link{background-position: 0 -150px ! important;}
+.dw-blog-share ul li a.dw-blog-google-share-link:hover{background-position: 0 -120px ! important;}
+.dw-blog-share ul li a.dw-blog-linkedin-share-link{background-position: 0 -209px ! important;}
+.dw-blog-share ul li a.dw-blog-linkedin-share-link:hover{background-position: 0 -179px ! important;}
+.dw-blog-share ul li a.dw-blog-rss-share-link{background-position: 0 -329px ! important;}
+.dw-blog-share ul li a.dw-blog-rss-share-link:hover{background-position: 0 -299px ! important;}
+.dw-blog-share ul li a.dw-blog-youtube-share-link{background-position: 0 -450px ! important;}
+.dw-blog-share ul li a.dw-blog-youtube-share-link:hover{background-position: 0 -420px ! important;}
+
+#css-widget-related-other-resources {
+      width:98%; 
+      height:auto; 
+      padding:5px;
+      margin-top:15px; 
+      font-family:  Arial, Helvetica Neue, Helvetica, sans-serif;
+      font-size: 90% !important;   
+      color: #666666;
+      border: solid 1px #E5E5E5;
+      -moz-border-radius: .5em; 
+      -webkit-border-radius: .5em;
+      line-height:1.2em;
+      color:#848484 !important;  
+}
+
+#css-widget-related-other-resources img {
+      vertical-align:middle;
+      margin-right:5px;
+      width:16px;
+      height:16px;
+      padding:0px;
+}
+#syn-bar img{float:right;padding-right:5px;}
+#syn-bar {padding-top:20px;}
+
+#syn-box div{padding-bottom:3px !important;}
+#syn-box span{padding-bottom:3px !important;}
+#related_entry{
+	padding-top:10px;
+}
+
+    
+  </style> 
+  
+
+  
+        
+   
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                  
+       <meta name="IBM.WTMCategory" scheme="IBM_WTMCategory" content="SOFDCBLGZZ">
+
+	<link type="text/css" title="www" rel="stylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/www.css">  
+		<link rel="stylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/dw-mf-lc.css" type="text/css" title="www">
+	<link rel="stylesheet" href="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/dw-ic-global.css" type="text/css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="title" content="An overview of Linux processes (Real world Linux)">
+     <meta name="abstract" content="A Process is one of the most important fundamental concepts of the Linux operating system. This article focuses on the basics of Linux processes.
+
+ &nbsp; Process 
+
+A process is an instance of a program running in Linux. This is the basic definition that you might have heard before. Though its simple enough to understand but still lets elaborate a bit for the beginners. 
+
+Lets quickly create a hello world program in C language :
+
+ #include&lt;stdio.h&gt;
+
+int main(void)
+{
+    printf(&quot;\n Hello World\n&quot;);
+
+    // Simulate a wait for some time
+    for(i=0; i&lt;0xFFFFFFFF; i++);
+
+    return 0;
+} 
+
+Compile the code above..."> 
+     <meta name="description" content="A Process is one of the most important fundamental concepts of the Linux operating system. This article focuses on the basics of Linux processes.
+
+ &nbsp; Process 
+
+A process is an instance of a program running in Linux. This is the basic definition that you might have heard before. Though its simple enough to understand but still lets elaborate a bit for the beginners. 
+
+Lets quickly create a hello world program in C language :
+
+ #include&lt;stdio.h&gt;
+
+int main(void)
+{
+    printf(&quot;\n Hello World\n&quot;);
+
+    // Simulate a wait for some time
+    for(i=0; i&lt;0xFFFFFFFF; i++);
+
+    return 0;
+} 
+
+Compile the code above..."> 
+     <meta name="keywords" content="zombie pid stack process setrlimit daemon gid orphan limit data ulimit init environment heap resource uid overview segment getrlimit text basics"> 
+     <meta name="DC.Date" scheme="iso8601" content="2012-07-10 10:41:03.0">
+     <meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT915">
+     <link rel="canonical" href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21"> 
+  <meta name="Owner" content="dW Information/Raleigh/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="en">
+<meta name="IBM.Country" content="ZZ">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="Source" content="Blog Template v5.0"> 
+<meta name="author" content="58e72888-6340-46ac-b488-d31aa4058e9c"> 
+<meta name="robots" content="index,follow,archive,snippet,noodp"> 
+<meta name="Revisit-After" content="5 days">  
+
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="ZZ999">
+<meta name="DC.Rights" content="Copyright IBM Corporation 2012">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2012-01-31">
+<meta name="gwt:property" content="locale=en">
+
+
+  
+ <script type="text/javascript">
+	var appName = "blogs";	// valid values: profile, communities, blogs, bookmarks, activities
+	var microfmtTagScope = "span,h5";
+	
+		   var bidir = "ltr";
+		
+	function getLoginRedirectURL(url) {
+      if(!url) url = window.location.href;
+      if(url[0] != '/') {
+          var t = url;
+          
+          var protocol = 'http://';
+          var idx = t.indexOf(protocol);
+          if(idx == -1) {
+              protocol = 'https://';
+              idx = t.indexOf(protocol);
+          }
+          if(idx != -1) {
+              t = t.substring(protocol.length);
+              idx = t.indexOf('/');
+              t = idx == -1 ? '/' : t.substring(idx);
+              if(t.indexOf('/developerworks/community/blogs') == 0)  url = t;
+          }
+      }
+      return '/developerworks/community/blogs/roller-ui/login-redirect.jsp?redirect=' + encodeURIComponent(url);
+    }
+</script>
+  
+  <script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/feedMarklet.js"></script>	
+  
+<script type="text/javascript">
+    var BlogsBaseUrl = "/developerworks/community/blogs";
+    var langParaValue = "en";
+    var ratings = {};
+</script>
+   		
+<script src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/secureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link{height:1% !important;}#li_ui_li_gen_1389170165283_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link:link, #li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link:visited, #li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link:hover, #li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1389170165283_0 a#li_ui_li_gen_1389170165283_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-logo{background:url(https://www.linkedin.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -276px no-repeat !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;}#li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-logo, #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-logo{}#li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-moz-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title, #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title{}.IN-shadowed #li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title{}.IN-shadowed #li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title, .IN-shadowed #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title{}#li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title-text, #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title-text, #li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title-text *{color:#000 !important;}#li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title-text, #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title-text, #li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title-text *, #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title-text *{color:#666 !important;}#li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title #li_ui_li_gen_1389170165283_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title-text, .success #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1389170165283_0 #li_ui_li_gen_1389170165283_0-title{}.success #li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title-text, .success #li_ui_li_gen_1389170165283_0.hovered #li_ui_li_gen_1389170165283_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title, .success #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title-text, .success #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title-text, .success #li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title-text *, .success #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1389170165283_0.clicked #li_ui_li_gen_1389170165283_0-title, .IN-shadowed .success #li_ui_li_gen_1389170165283_0.down #li_ui_li_gen_1389170165283_0-title{}#li_ui_li_gen_1389170165319_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1389170165319_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background:url(https://www.linkedin.com/scds/common/u/img/sprite/sprite_connect_v13.png) right -100px no-repeat !important;}#li_ui_li_gen_1389170165319_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background:url(https://www.linkedin.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -60px no-repeat !important;}#li_ui_li_gen_1389170165319_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1389170165319_1-container.IN-hovered #li_ui_li_gen_1389170165319_1.IN-right, #li_ui_li_gen_1389170165319_1-container.IN-clicked #li_ui_li_gen_1389170165319_1.IN-right, #li_ui_li_gen_1389170165319_1-container.IN-down #li_ui_li_gen_1389170165319_1.IN-right {background-position-y:-120px !important;}#li_ui_li_gen_1389170165319_1-container.IN-hovered #li_ui_li_gen_1389170165319_1-inner.IN-right, #li_ui_li_gen_1389170165319_1-container.IN-clicked #li_ui_li_gen_1389170165319_1-inner.IN-right, #li_ui_li_gen_1389170165319_1-container.IN-down #li_ui_li_gen_1389170165319_1-inner.IN-right {background-position-y:-80px !important;}#li_ui_li_gen_1389170165319_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1389170165319_1-container.IN-hidden #li_ui_li_gen_1389170165319_1 {display:none !important;}</style></head>
+<body data-twttr-rendered="true" class="blog  minimal   lotusui 
+ lotusui30dojo lotusui30_body lotusui30_fonts lotusui30 lotusSpritesOn"><script src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/feedMarkletActions.js"></script><script src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/feedMarkletMenu.js"></script>
+
+<label id="TemplateVersion" style="display:none">2.5</label>
+<a id="REFRESH_URL" href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21?lang=en" style="display:none"></a>
+<div id="lotusFrame" class="lotusFrame lotusui30_layout">
+<div role="banner">
+<div id="lotusBanner" class="lotusBanner">
+<script type="text/javascript">
+   if(self!=top){
+      try {
+         // reset location if in different host.
+         // per Same Origin Policy, try to get top location attributes, 
+         // will get permission denied if in different origin.
+         if (self.location.hostname!=top.location.hostname)
+            top.location=self.location;
+      }catch(e){
+         // reset location if in different origin
+         top.location=self.location;
+      }
+   }
+</script>
+
+    	    	    	    	<!--<link rel="stylesheet" href="//dw1.s81c.com/developerworks/css/dw-lc/dwcommon-2009-09.css" type="text/css" />
+<link rel="stylesheet" href="//dw1.s81c.com/developerworks/css/dw-mf/dw-mf2012-01.css" type="text/css" title="www" />
+<link rel="stylesheet" href="//dw1.s81c.com/developerworks/css/dw-lc/dw-mf-lc.css"
+    type="text/css" title="www" />
+<link rel="stylesheet"
+    href="//dw1.s81c.com/developerworks/css/dw-lc/dw-mf2012-01-lc.css"
+    type="text/css" title="www" />-->
+<div id="ibm-masthead">
+<!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar">
+			<li role="presentation" id="dw-mast-top-4">
+				<a href="http://www.ibm.com/developerworks/"><img src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/dwn-dw-badge.png" alt="dW" aria-label="dW" width="43" height="22"></a>
+			</li>
+			<li role="presentation" id="dw-mast-top-0">
+				<div><a class="dw-mf-noscript" href="#" title="Sign in (or register) requires JavaScript" role="button" tabindex="0">Sign in (or register)</a></div>
+			</li>
+			<li role="presentation" id="dw-mast-top-1">
+				<div><a href="#SELECTLANG" role="button">English</a></div>
+			</li>
+			<li role="presentation" id="dw-mast-top-3">
+				<a href="http://www.ibm.com/" role="button">IBM</a>
+			</li>
+			<li role="presentation" id="dw-mast-top-2" class="dw-mf-hide">
+				<a href="#">[userid]</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- TOP ROW SLIDER -->
+	<div id="ibm-my-menu-dw" style="display:none">
+        <!-- Sign-in -->
+		<div id="signin_div" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-1-1">
+				<div id="dw-mast-sso">
+					<div id="signin_error_mf" class="no-display"></div>
+					<div id="dw-mast-sso-form">
+						<form id="sForm_mf" action="" method="post" name="sForm_name_mf" onsubmit="return false;">
+							<div id="dw-mast-sso-id" class="dw-mast-sso-id-en">
+								<label for="ibmid_mf">IBM ID:</label>
+								<input id="ibmid_mf" name="ibmid_name_mf" maxlength="100" onkeypress="dwsi.siInst.handleEP(event,this.form,'mf');" type="text">
+							</div>
+							<div id="dw-mast-sso-pw" class="dw-mast-sso-pw-en">
+								<label for="pw_mf">Password:</label>
+								<input id="pw_mf" value="" name="pw_name_mf" maxlength="100" onkeypress="dwsi.siInst.handleEP(event,this.form,'mf');" type="password">
+							</div>
+							<div id="dw-mast-sso-target" class="dw-mast-sso-target-en">
+								<p class="dw-mf-perm-box">
+									<input id="perm_mf" name="perm_name_mf" type="checkbox"><label for="perm_mf"> Keep me signed in.</label>
+								</p>
+							</div>					
+							<div id="dw-mast-sso-terms">
+								<p class="dw-mast-sso-terms-en">By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+							</div>
+							<div>
+								<input class="dw-mf-submit-btn" name="ibm_submit_name_mf" value="Submit" onclick="dwsi.siInst.signin('mf');return false;" type="submit">
+							</div>
+						</form>
+					</div>
+					<div id="dw-mast-sso-update">
+						<div id="dw-mast-sso-update-id">
+							<ul>
+								<li><a href="#" onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=en&amp;d='+encodeURIComponent(location.href);})();">Need an IBM ID?</a></li>
+								<li><a href="https://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></li>
+							</ul>
+						</div>
+						<div id="dw-mast-sso-update-pw">
+							<ul class="dw-mf-pwupdate">
+								<li><a href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(dwsi.siInst.getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();">Forgot your password?</a></li>
+								<li><a href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();">Change your password</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="dw-mast-sso-text">
+						<p>The first time you sign into developerWorks, a profile is created for you.  <strong>Select
+ information in your profile (name, country/region, and company) is 
+displayed to the public and will accompany any content you post</strong>.  You may update your IBM account at any time.</p>
+						<p class="dw-mf-secure">All information submitted is secure.</p>
+					</div>
+				</div>
+				<div id="dw-mast-dname" class="dw-mf-hide">
+					<p>The first time you sign in to developerWorks, a profile is 
+created for you, so you need to choose a display name.  Your display 
+name accompanies the content you post on developerworks.</p><p><strong>Please choose a display name between 3-31 characters</strong>.  Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+					<div id="signin_dname_error_mf" class="no-display"></div>
+					<div id="dw-mast-dname-form">
+						<form id="dForm_mf" action="" method="post" name="dForm_name_mf" onsubmit="return false;">
+							<div id="dw-mast-dname-mf">
+								<label for="dname_mf">Display name:</label>
+								<input id="dname_mf" name="dname_name_mf" maxlength="31" size="25" onkeypress="dwsi.siInst.handleEP(event,this.form,'mf');" type="text">
+							</div>
+							<div id="dw-mast-dname-terms">
+								<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+							</div>
+							<div>
+								<input class="dw-mf-submit-btn" name="dname_submit_name_mf" value="Submit" onclick="dwsi.siInst.signin('mf');return false;" type="submit">
+							</div>
+						</form>								
+					</div>
+					<div id="dw-mast-dname-secure">
+						<p class="dw-mf-secure">All information submitted is secure.</p>
+					</div>
+				</div>
+				<div id="dw-mast-auth" class="dw-mf-hide">
+					<div>
+						<h2>developerWorks Community:</h2>
+						<ul>
+							<li><a id="dw-mast-top-0-0" href="https://www.ibm.com/developerworks/community/homepage/web/updates/?lang=en">My home</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=en">My profile</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=en">My communities</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/news">Settings</a></li>
+						</ul>     
+					</div>
+					<!--<div id="dw-mast-notify" class="dw-mf-hide">
+						<h2>My notifications:</h2>
+						<ul>
+							<li><a id="new_notify" href="/developerworks/community/homepage?lang=en">{[num_notify] new notifications}([num_notify] new notification)</a></li>
+							<li><a id="new_invite" href="/developerworks/community/profiles/html/wc.do?action=in&amp;requireAuth=true&amp;widgetId=friends&amp;lang=[lang]">{[num_invite] network requests}([num_invite] network request)</a></li>  
+						</ul>
+					</div>-->
+					<div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="#" onclick="dwsi.siInst.signOut(); return false;"><strong>Sign out</strong></a></li>
+						</ul>
+					</div>
+				</div>								
+			</div>		
+		</div>
+        <!-- Language selector --> 
+	<div id="lang_div" class="dw-mast-columns" role="group">
+		<div class="dw-mast-col-2-1">
+			<h2>Select a language:</h2>
+			<ul>
+				<li><a id="dw-mast-top-1-0" href="#" onclick="switchLang('en'); return false;">English</a></li>
+				<li><a href="#" onclick="switchLang('zh'); return false;" lang="zh">中文</a></li>
+				<li><a href="#" onclick="switchLang('ja'); return false;" lang="ja">日本語</a></li>
+				<li><a href="#" onclick="switchLang('ru'); return false;" lang="ru">Русский</a></li>
+			</ul>
+		</div>
+		<div class="dw-mast-col-2-2">
+			<ul>
+				<li><a href="#" onclick="switchLang('pt_br'); return false;" lang="pt">Português (Brasil)</a></li>
+				<li><a href="#" onclick="switchLang('es'); return false;" lang="es">Español</a></li>
+				<li><a href="http://www.ibm.com/developerworks/vn/">Việt</a></li>
+			</ul>
+		</div>
+	</div>
+		<div aria-labelledby="ibm-masthead" id="empty_div" class="dw-mast-columns" role="group"><!-- Authenticated --></div>		
+		<!-- IBM -->
+		<div id="ibmhome_div" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-2-1">
+				<ul>
+					<li><a id="dw-mast-top-3-0" href="http://www.ibm.com/">IBM home</a></li>
+					<li><a href="http://www.ibm.com/solutions/">Industries &amp; solutions</a></li>
+					<li><a href="http://www.ibm.com/technologyservices/">Services</a></li>
+					<li><a href="http://www.ibm.com/products/">Products</a></li>
+					<li><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-2-2 dw-mast-ibm">
+				<ul>
+					<li><a href="http://www.ibm.com/support/publications/us/library/index.shtml">Product information</a></li>
+					<li><a href="http://www.ibm.com/redbooks/">Redbooks</a></li>
+					<li><a href="http://www.ibm.com/software/">Software</a></li>
+					<li><a href="http://www.ibm.com/software/sw-services/">Software services</a></li>
+				</ul>
+			</div>	
+		</div>		
+	</div>
+		
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<!-- JPP:  Change to fully-qualified URL for wordmark image -->
+				<a href="http://www.ibm.com/developerworks/"><img src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/dwn-dw-wordmark.png" alt="developerWorks®" width="225" height="28"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/topics/" role="button" tabindex="0">Technical topics</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/downloads/" role="button">Evaluation software</a></li>
+			<!-- JPP:  Updated URL string -->
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/index.html" role="button">Community</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="http://www.ibm.com/developerworks/events/" role="button">Events</a></li>
+		</ul>
+		<form id="ibm-search-form" action="//www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="IBM developerWorks Search" role="search">
+			<p class="dw-ic-search">
+				<label for="q"><span class="ibm-access">Search developerWorks</span></label>
+				<input id="q" name="q" value="Search developerWorks" maxlength="100" type="text">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="en" type="hidden">
+				<input name="cc" value="US" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="dw" type="hidden">
+				<input id="ibm-search" class="ibm-btn-search" value="Submit" type="submit">
+			</p>
+		</form>
+	</div>
+    
+	<!-- BOTTOM ROW SLIDER -->
+	<div id="ibm-common-menu-dw">
+		<!-- Technical topics category -->
+		<div id="techtops_div" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-5-1">
+				<h2><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></h2>
+				<ul role="menu">
+					<li role="menuitem"><a id="dw-mast-nav-0-0" href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/bigdata/">Big data</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/analytics/">Business analytics</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/bpm/">Business process management</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/cloud/">Cloud computing</a></li>
+				</ul>     
+			</div>
+			<div class="dw-mast-col-5-2">
+				<ul role="menu">
+					
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/commerce/">Commerce</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/devops/">DevOps</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/ibmi/">IBM i</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/data/">Information management</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-5-3">
+				<ul role="menu">
+					
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/lotus/">Lotus (collaboration)</a></li> 
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/mobile/">Mobile development</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/opensource/">Open source</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/rational/">Rational</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-5-4">
+				<ul role="menu">
+					
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/security/">Security</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/servicemanagement/">Tivoli (service management)</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/web/">Web development</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/websphere/">WebSphere</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-5-5">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/library/"><strong>Technical library</strong></a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/products/"><strong>Products A to Z</strong></a></li>
+				</ul>
+			</div>  
+		</div>
+		<!-- Evaluation software category -->
+		<div id="evalsoft_div" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-2-1">
+				<h2><a id="dw-mast-nav-1-0" href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></h2>
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#bd">Big data</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#ba">Business analytics</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#data">Information management</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#lotus">Lotus (collaboration)</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#rational">Rational</a></li>
+				</ul>            
+			</div>
+			<div class="dw-mast-col-2-2">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#security">Security</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#tivoli">Tivoli (service management)</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#websphere">WebSphere</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#more">More IBM products (Mobile, PureSystems...)</a></li>
+				</ul>            
+            </div>
+		</div>
+		<!-- Community category -->
+		<div id="comm_div" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-3-1">
+				<h2><a id="dw-mast-nav-2-0" href="https://www.ibm.com/developerworks/community/index.html">Community</a></h2>
+				<ul role="menu">
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/homepage/?lang=en">My home</a></li>
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/profiles/?lang=en">Profiles</a></li>
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/groups/?lang=en">Communities</a></li>
+				</ul>     
+			</div>
+			<div class="dw-mast-col-3-2">
+				<ul role="menu">
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/blogs/?lang=en">Blogs</a></li>
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/forums/?lang=en">Forums</a></li>
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/wikis/?lang=en">Wikis</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+				<ul role="menu">
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/activities/?lang=en">Activities</a></li>
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/podcasts/?lang=en">Podcasts</a></li>   
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/champion/">IBM Champion program</a></li>
+				</ul>
+			</div>		
+		</div>
+		<!-- Events category -->
+		<div id="evts_div" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-1-1">
+				<h2><a id="dw-mast-nav-3-0" href="http://www.ibm.com/developerworks/events/">Events</a></h2>
+					<ul role="menu">
+						<li role="menuitem"><a href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</a></li>
+						<li role="menuitem"><a href="http://www.ibm.com/developerworks/find/events/">Find events (webcasts, conferences...)</a></li>
+				</ul>            
+			</div>
+		</div>
+	</div>
+	
+
+<div id="fdiv" class="ibm-access"></div></div>
+			<!-- SITE MON : START (DO NOT DELETE) -->
+			<!-- developerWorks monitoring token -->
+			<!-- SITE MON : END (DO NOT DELETE) -->	
+   	    	    	    	
+
+
+
+<div class="lotusRightCorner" style="display: none;">
+   <div class="lotusInner"><div class="lotusLogo" id="lotusLogo"><span class="lotusAltText">IBM Connections</span></div><ul class="lotusInlinelist lotusUtility lotusNowrap" id="headerMenuContainer"><li class="lotusFirst" id="headerUserText" style="display: none;"><span id="logoutLabel" aria-label="Log in / log out"><a class="lotusUser" id="headerUserName" onmouseover="dojo.require('lconn.core.header');lconn.core.header.menuMouseover(this);" onclick="dojo.require('lconn.core.header');lconn.core.header.menuClick(this);" onfocus="dojo.require('lconn.core.header');lconn.core.header.menuFocus(this);" role="button" _lconn_menuid="lconnheadermenu-user" aria-label="Current user " src="/developerworks/community/blogs/static/20130907.165906%21en/nav/templates/menu/user.jsp?appName=blogs&amp;username=&amp;userid=" href="javascript:;"> <span id="usernameText"></span> <img role="presentation" alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusArrow lotusDropDownSprite"><span class="lotusAltText">▼</span></a></span></li><li class="shareboxLi" id="headerSharebox" style="display: none;"><a class="lotusBannerBtn" href="javascript:;" onclick="dojo.require('net.jazz.ajax.xdloader');net.jazz.ajax.xdloader.load_async('com.ibm.social.sharebox.dialog', dojo.hitch(this, function() {com.ibm.social.sharebox.show();}));" aria-haspopup="true" role="button">Share</a></li><li id="languageSelectorText" style="display: none;"></li><li id="headerHelpLi"><a role="button" aria-label="Open help window" href="javascript:lconn.blogs.utils.openHelpWindow();" id="headerHelpLink"><img role="presentation" alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="iconsOther16 iconsOther16-bannerHelpNormal16"><span class="lotusAltText">?</span></a></li><li id="logoutLi"><span id="loginLabel" role="region" aria-label="Log in / log out"><a id="logoutLink" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/login-redirect.jsp?redirect=%2Fdeveloperworks%2Fcommunity%2Fblogs%2F58e72888-6340-46ac-b488-d31aa4058e9c%2Fentry%2Fan_overview_of_linux_processes21%3Flang%3Den">Log In</a></span></li><li><span class="lotusBranding"><img src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="IBM" class="lotusIBMLogo"><span class="lotusAltText">IBM</span></span></li></ul><ul class="lotusInlinelist lotusLinks" role="navigation" aria-label="Connections"><li id="lotusBannerHomepage" class="lotusFirst "><a href="https://www.ibm.com/developerworks/community/homepage/">Home</a></li><li id="lotusBannerProfiles" class=" "><a onmouseover="dojo.require('lconn.core.header');lconn.core.header.menuMouseover(this);" onclick="dojo.require('lconn.core.header');lconn.core.header.menuClick(this);" onfocus="dojo.require('lconn.core.header');lconn.core.header.menuFocus(this);" role="button" _lconn_menuid="lconnheadermenu-people" aria-label="Profiles" src="/developerworks/community/blogs/static/20130907.165906%21en/nav/templates/menu/people.jsp" href="https://www.ibm.com/developerworks/community/profiles/" errormessage="Profiles is not available">Profiles <img role="presentation" alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusArrow lotusDropDownSprite"><span class="lotusAltText">▼</span></a></li><li id="lotusBannerCommunities" class=" "><a id="lotusBannerCommunitiesLink" onmouseover="dojo.require('lconn.core.header');lconn.core.header.menuMouseover(this);" onclick="dojo.require('lconn.core.header');lconn.core.header.menuClick(this);" onfocus="dojo.require('lconn.core.header');lconn.core.header.menuFocus(this);" role="button" _lconn_menuid="lconnheadermenu-communities" aria-label="Communities" src="/developerworks/community/blogs/static/20130907.165906%21en/nav/templates/menu/communities.jsp" href="https://www.ibm.com/developerworks/community/groups/" errormessage="Communities is not available">Communities <img role="presentation" alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusArrow lotusDropDownSprite"><span class="lotusAltText">▼</span></a></li><li id="lotusBannerApps" class=" lotusSelected"><a onmouseover="dojo.require('lconn.core.header');lconn.core.header.menuMouseover(this);" onclick="dojo.require('lconn.core.header');lconn.core.header.menuClick(this);" onfocus="dojo.require('lconn.core.header');lconn.core.header.menuFocus(this);" role="button" _lconn_menuid="lconnheadermenu-apps" aria-label="Apps" src="/developerworks/community/blogs/static/20130907.165906%21en/nav/templates/menu/apps.jsp" href="javascript:;" errormessage="Blogs is not available">Apps <img role="presentation" alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusArrow lotusDropDownSprite"><span class="lotusAltText">▼</span></a></li><li id="lotusBannerModeration" style="display:none" class=""><a href="https://www.ibm.com/developerworks/community/moderation/">Moderation</a></li></ul></div></div>
+ 
+</div><!--end pageHeader-->
+<script type="text/javascript" language="Javascript">
+var refresh_url = document.getElementById('REFRESH_URL');
+var this_url = window.location.toString();
+var this_url_anchor_idx = this_url.lastIndexOf('#');
+if(this_url_anchor_idx == -1) {
+    refresh_url.href = this_url;
+}
+else {
+	refresh_url.href = this_url.substring(0, this_url_anchor_idx);
+}
+
+var blogsUser = currentLogin.name ? currentLogin.name : null;
+</script>
+
+
+
+    
+
+
+
+
+
+        <script>
+	function showFeedTip(focusId) {
+   		showDialog("Right-click and select Copy Shortcut to get the URL to this feed.", focusId);//alert
+	}
+	function jumpToPage(to, max) {
+		if(to > max) {
+			to = max;
+		}
+		if(to < 1) {
+			to = 1;
+		}
+		var base = "https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c?sortby=0&maxresults=15&lang=en";
+		window.location = base + "&page=" +  to;
+	}
+	function jumpToPageForComment(to, max) {
+		if(to > max) {
+			to = max;
+		}
+		if(to < 1) {
+			to = 1;
+		}
+		var base = "https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21?maxresults=15&lang=en";
+		window.location = base + "&page=" +  to;
+	}
+</script>
+<div id="lotusTitleBar" class="lotusTitleBar"><div class="lotusRightCorner"><div class="lotusInner min-lotusInner">
+		    <div role="navigation" aria-label="Blogs Views">
+<a id="tabNavigation" name="tabNavigation"></a>
+<ul class="tabs lotusTabs aria_toolbar" role="toolbar" aria-label="Blogs Views" aria-controls="lotusMain">
+    <li role="presentation">
+                 <a role="button" aria-pressed="false" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/myblogs/edit?lang=en">My Blogs</a>
+           </li>
+    <li role="presentation">
+                 <a role="button" aria-pressed="false" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/homepage?lang=en">Public Blogs</a>
+           </li>
+    <li role="presentation">
+                 <a role="button" aria-pressed="false" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/myupdates?lang=en">My Updates</a>
+           </li>
+	<script language="javascript">
+	 	 if(currentLogin.globalAdmin) {
+	     document.write('<li role="presentation"><a role="button" aria-pressed="false" href="/developerworks/community/blogs/roller-ui/admin/rollerConfig.do?method=edit&lang=en">Administration</a></li>');
+	 }
+	</script>
+</ul>
+</div>
+	
+					
+	<div id="global_search_container"></div>
+<script type="text/javascript">
+<!--
+function isExistInArray(array, value) {
+	for (var i=0; i < array.length; i++) {
+		if (array[i] == value) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function initialSearchBar() {
+                                                    
+    var _localOptions = [];
+        _localOptions.push({label: 'Public Blogs', iconClass: 'lconnSprite lconnSprite-iconBlogs16', scope: 'public_blogs'  });
+    _localOptions.push({label: 'Public Blog Entries', iconClass: 'lconnSprite lconnSprite-iconBlogs16', scope: 'public_entries'  });
+            	_localOptions.push({label: 'My Blog Entries', iconClass: 'lconnSprite lconnSprite-iconBlogs16', scope: 'my_blogs'  });
+    	_localOptions.push({label: 'This Blog', iconClass: 'lconnSprite lconnSprite-iconBlogs16', scope: 'this_blog' , defaultOption: true  });
+    	_localOptions.push({label: 'This Blog\'s Comments', iconClass: 'lconnSprite lconnSprite-iconBlogs16', scope: 'this_blog_comments'  });
+        //ideationblog
+        
+                    
+    var _globalOptions = [];
+     _globalOptions.push({label: 'Activities', feature: 'activities'}); 	 _globalOptions.push({label: 'Bookmarks', feature: 'dogear'}); 	 _globalOptions.push({label: 'Communities', feature: 'communities'});      _globalOptions.push({label: 'Files', feature: 'files'}); 	 _globalOptions.push({label: 'Forums', feature: 'forums'}); 	 _globalOptions.push({label: 'Profiles', feature: 'profiles'}); 	 _globalOptions.push({label: 'Wikis', feature: 'wikis'}); 
+    var searchBar = new lconn.core.SearchBar({
+        localOptions: _localOptions,
+        globalOptions: [{}],
+        searchContextPath: 'https://www.ibm.com/developerworks/community/search',
+        lblSearch:         'Search',
+        lblSelectScope:    'Select Search Scope',
+        lblAllConnections: 'developerWorks community',
+        lblAdvanced:       'Advanced',
+        thirdPartySearchEngines: lconn_core_thirdPartySearchEngines,
+                onSubmit: function() {
+        	var str = this.getValue();
+    		str = dojo.string.trim(str); // trim it
+    		if (!str) {
+        		return false;
+    		}
+
+        	var selectedOption = this.selectedOption;
+        	if (selectedOption.feature || selectedOption.action) {
+        		return true;
+    		}
+        	else {
+        	    var t = ['public_blogs', 'public_entries', 'my_blogs', 'public_blog_comments', 'this_blog', 'this_blog_comments','public_ideationblogs', 'public_ideas', 'my_ideationblogs', 'public_ideationblog_comments', 'this_ideationblog', 'this_ideationblog_comments'];
+        	    if(!selectedOption.scope || isExistInArray(t, selectedOption.scope) == -1) {
+        	        selectedOption.scope = 'this_blog';
+        	    }
+        		switch( selectedOption.scope ){
+		            case "public_blogs":
+		                var loc = '/developerworks/community/blogs/home/search?lang=' + langParaValue + '&t=blog&f=all&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            case "public_entries":
+		            	var loc = '/developerworks/community/blogs/home/search?lang=' + langParaValue + '&t=entry&f=all&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            case "my_blogs":
+		            	var loc = '/developerworks/community/blogs/roller-ui/myblogs/edit?lang=' + langParaValue + '&q=' + encodeURIComponent(str) + '&search=true&t=entry';
+		            	window.location=loc;
+		                break;
+		            case "public_blog_comments":
+		            	var loc = '/developerworks/community/blogs/home/search?lang=' + langParaValue + '&t=entry&f=comment&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		            	break;
+		            case "this_blog":
+		            	var loc = '/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/search?lang=' + langParaValue + '&t=entry&f=all&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            case "this_blog_comments":
+		            	var loc = '/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/search?lang=' + langParaValue + '&t=entry&f=comment&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            //ideationblog support
+		            case "public_ideationblogs":
+		                var loc = '/developerworks/community/blogs/home/search?lang=' + langParaValue + '&t=ideationblog&f=all&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            case "public_ideas":
+		            	var loc = '/developerworks/community/blogs/home/search?lang=' + langParaValue + '&t=idea&f=all&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            case "my_ideationblogs":
+		            	var loc = '/developerworks/community/blogs/roller-ui/myblogs/edit?lang=' + langParaValue + '&q=' + encodeURIComponent(str) + '&search=true&t=idea';
+		            	window.location=loc;
+		                break;
+		            case "public_ideationblog_comments":
+		            	var loc = '/developerworks/community/blogs/home/search?lang=' + langParaValue + '&t=idea&f=comment&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		            	break;
+		            case "this_ideationblog":
+		            	var loc = '/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/search?lang=' + langParaValue + '&t=idea&f=all&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            case "this_ideationblog_comments":
+		            	var loc = '/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/search?lang=' + langParaValue + '&t=idea&f=comment&q=' + encodeURIComponent(str);
+		                window.location=loc;
+		                break;
+		            default:
+		                break;
+		        }
+		        return false;
+        	}
+        }
+    }, dojo.byId('global_search_container'));
+}
+//-->
+</script>
+</div></div></div><!--end titleBar-->
+
+<script type="text/javascript">
+var ibmConfig = {
+   serviceName: "blogs",
+   proxyURL: "/developerworks/community/blogs/ajaxProxy/",
+   contextRootEnabler: "/developerworks/community/blogs",
+   versionStamp: "20130907.165906"
+};
+var baseProtocol = "https";
+var baseHost = "www.ibm.com";
+var basePath = "/developerworks/community/connections/resources";
+var needProxy = (baseHost != window.location.host || baseProtocol+":" != window.location.protocol);
+var djConfig = {
+   isDebug: false,
+   baseUrl: (needProxy ? (ibmConfig.proxyURL + encodeURIComponent(baseProtocol) + "/" + encodeURIComponent(baseHost)) : (baseProtocol + "://" + baseHost)) + basePath + "/web/dojo/",
+   locale: "en",
+   dojoBlankHtmlUrl: "/developerworks/community/blogs/static/20130907.165906/nav/blankIE.html",
+   blankGif: "https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906",
+   useCommentedJson: true,  
+   proxy: "/developerworks/community/blogs/ajaxProxy",
+   localizationComplete: true
+};
+</script>
+<script type="text/javascript">
+var netJazzAjaxConfig = {
+    base: "https://www.ibm.com/developerworks/community/connections/resources",
+    skipStyles: true,
+    params: "etag=20130907.165906&lang=en"
+};
+CKEDITOR_BASEPATH = window.CKEDITOR_BASEPATH || "https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.oneui.ckeditor/editor/"; 
+</script>
+<script type="text/javascript">djConfig.parseOnLoad=true;</script>
+<script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/a"></script>
+<script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/a_003"></script>
+<script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/a_002"></script>
+
+<script type="text/javascript">
+	dojo.addOnLoad(function(){
+                /*// run the parser.
+                	                var p=dojo.parser; var d=document;
+	                	                if(d.getElementById('tagnavform')) {
+	                	p.parse(d.getElementById('tagnavform'));
+	                }
+	                	                if(d.getElementById('tagSliderGradient')) {
+	                	p.parse(d.getElementById('tagSliderGradient'));
+	                }
+	                	                if(d.getElementById('simpleSearchForm')) {
+	                	p.parse(d.getElementById('simpleSearchForm'));
+	                }
+	                	                if(d.getElementById('actionmenu_moreactions_container')) {
+	                	p.parse(d.getElementById('actionmenu_moreactions_container'));
+	                }
+	                	                if(d.getElementById('actionmenu_moreactions_container_anonymous')) {
+	                	p.parse(d.getElementById('actionmenu_moreactions_container_anonymous'));
+	                }
+	                	                if(d.getElementById('blogsActionBar')) {
+	                	p.parse(d.getElementById('blogsActionBar'));
+	                }
+	                                                */
+          });
+
+	document.onclick = function () {
+		if (dojo.isIE)
+			MenuPopup.returnFocusElement = false;
+		MenuPopup.hideMenu();
+	};
+	document.onkeyup = function ( event ) {
+		MenuPopup.hideOnKeypress( event );
+	};
+</script>
+
+<div class="lotusPlaceBar lotusTitleBarExt"><div class="lotusRightCorner"><div class="lotusInner min-lotusInner">
+<br>
+								<div id="hero-img"><a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c?lang=en"><img src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/rwl_header.png"></a>        </div>
+				
+		   
+	<ul class="lotusRight lotusInlinelist lotusActions" id="login_participate_link" style="display: block;"> 
+		<li class="lotusFirst" style="border-left:none;">
+			<span class="lotusBtn">
+				<a href="javascript:lconn.blogs.utils.loginAction();">Log in</a> to participate
+			</span>
+	    	</li>
+	</ul>
+	<ul aria-label="Action bar" role="toolbar" id="blogsActionBar" class="aria_toolbar lotusRight lotusInlinelist lotusActions">
+																			<script language="javascript">
+				if(currentLogin.auth){
+				document.write('<li class="lotusFirst" style="border-left:none;"> <span class="lotusBtn">' +
+			   	'<a id="followBtn" href="javascript:;" role="button" aria-haspopup="true" aria-owns="followDropDownMenu">' +
+			      	'Following Actions' +'<img class="lotusArrow lotusDropDownSprite" src="https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906" alt="" role="presentation" />' +
+			      	'<span class="lotusAltText">&#x25bc;</span>' + '</a>' +'</span></li>'); 
+				}
+			</script>
+			<script language="javascript">
+				var items = [];
+				dojo.addOnLoad(function() {
+				if(dojo.byId("followBtn"))
+					var followMenu = new lconn.core.FollowMenu({items:items}, dojo.byId("followBtn"));
+					setTimeout(function(){
+					if(typeof(dojo.byId("displayActionsBtn")) != "undefined" && currentLogin.auth)
+					new lconn.core.aria.Toolbar(dojo.byId("blogsActionBar"));
+					},1000);
+				});
+			</script>
+				<script language="javascript">
+			if(!currentLogin.auth)
+				dojo.byId("login_participate_link").style.display="block";
+				function followAction(id, action) {
+					dojo.xhrPost({
+					url: '/developerworks/community/blogs/roller-services/json/following',
+					handleAs: 'json',
+					postData: 'version=300&uuid='+id+'&action='+action+'&dangerousurlnonce='+window.__security_nonce,
+					load: function (ret) {
+						if(!ret.success) {
+							if('session timeout' == ret.error) {
+								lconn.blogs.utils.refreshSecurityNonce(ret.nonce);
+								var errMsg = "We were unable to process your request due to a session timeout.  Please try again.";
+								lconn.blogs.utils.showMessage('lotusContent', 'followMessage', errMsg, 'Error icon', 'error');
+							} else {
+								var errMsg = "Following action failed.";
+								lconn.blogs.utils.showMessage('lotusContent', 'followMessage', errMsg, 'Error icon', 'error');
+							}
+						}
+						if(ret.success) {
+							var blogsFollowBtn = dojo.query("[class='blogsFollowBtn']", dojo.byId("blogsActionBar"))[0];
+							if(typeof (blogsFollowBtn) != "undefined"){
+								if(action == "follow"){
+									blogsFollowBtn.innerHTML = 'Stop Following this Blog';
+							    		dojo.attr(blogsFollowBtn, {"aria-label": 'Stop Following this Blog'});
+									blogsFollowBtn.onclick= function(){followAction(id, 'unfollow');};
+								}
+							else{
+								blogsFollowBtn.innerHTML = 'Follow this Blog';
+							    	dojo.attr(blogsFollowBtn, {"aria-label": 'Follow this Blog'});
+								blogsFollowBtn.onclick= function(){followAction(id, 'follow');};
+							}
+						}
+						if(typeof (blogsFollowItem) != "undefined"){
+							var blogsFollowItem = blogsFollowDropDownMenu.getChildren()[0];
+							var itemLabel;
+							var itemAction;
+							if(action == "follow"){
+								itemLabel = 'Stop Following this Blog';
+								itemAction = function() {followAction(id, 'unfollow');};
+							}
+							else{
+								itemLabel = 'Follow this Blog';
+								itemAction = function() {followAction(id, 'follow');};
+							}
+							dojo.attr(blogsFollowItem, {"label": itemLabel});
+							dojo.attr(blogsFollowItem, {"onClick": itemAction});
+						}
+						if(action == "follow")
+							lconn.blogs.utils.showMessage('lotusContent', 'followMessage', 'You are following this blog and will receive updates about it.', 'Confirmation icon');
+						else
+							lconn.blogs.utils.showMessage('lotusContent', 'followMessage', 'You stopped following this blog and will no longer receive updates about it.', 'Confirmation icon', 'info');
+					}
+				},
+				error: function () {
+					lconn.blogs.utils.showMessage('lotusContent', 'followMessage', 'Following action failed.', 'Error icon', 'error');
+				}
+				});
+			}
+		</script>
+								<span id="communityActionBar"></span> 
+			</ul><!--end bntContainer-->
+</div></div></div><!--end placebar-->
+<script>
+	var flagInappropriateCommentForm = {
+	className: "lotusForm",
+       action: "/developerworks/community/blogs/roller-services/json/flag_as_inappropriate",
+       name: "flagCommentForm",
+       formContent: '<form class="lotusForm2" action="" name="flagCommentForm" role="application" style="background-color: transparent;">'+
+       '<div name="error_messages" class="lotusMessage" role="alert" style="display:none">'+
+	'	<img class="lconnSprite lconnSprite-iconError16" src="https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906" alt="Error icon" /><span class="lotusAltText">Error icon</span><span name="message"></span>'+
+	'</div>'+
+	'<div name="warning_messages" class="lotusMessage lotusWarning" role="alert" style="display:none">'+
+	'	<img class="lconnSprite lconnSprite-iconWarning16" src="https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906" alt="Warning icon" /><span class="lotusAltText">Warning icon</span><span name="message"></span>'+
+	'</div>'+
+	'<div name="info_messages" class="lotusMessage lotusInfo" role="alert" style="display:none">'+
+	'	<img class="lconnSprite lconnSprite-iconAttention16" src="https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906" alt="Information icon" /><span class="lotusAltText">Information icon</span><span name="message"></span>'+
+	'</div>'+
+       '<input type="hidden" name="dangerousurlnonce" value=""/>'+
+	'<input type="hidden" name="lang" value="en" />'+
+	'<input type="hidden" name="version" value="250" />'+
+	'<input type="hidden" name="objectType" value="comment" />'+
+	'<input type="hidden" name="objectId" value=""/>'+
+	'<div class="lotusFormBody">'+
+		'<div class="lotusFormField">'+
+	'	<label for="flag_comment">Provide a reason for flagging this comment (optional):</label>'+
+	'	<div><textarea id="flag_comment" title="Provide a reason for flagging this comment (optional):" name="comment" rows="10" style="width:300px;"></textarea></div>'+
+	'</div>'+
+	'</div><!-- end form body -->'+
+	'</form>',
+	_form: null,
+        success: false,
+        isSuccess: function(){
+        	return this.success;
+        },
+		init: function(commentId) {
+		if(this._form != null){
+			this._form = null;
+	        }
+		var div = document.createElement('div');
+		div.innerHTML = this.formContent; 
+		this._form = dojo.query("form[name='flagCommentForm']", div)[0];
+	       this.reset();
+	       this._form.action = this.action;
+        	this._form.objectId.value = commentId;
+        	this.success = false;
+	    },
+	    getForm: function(){
+	    	return this._form;
+	    },
+	    clearMessage: function(){
+	    	var mt = ['error', 'warning', 'info'];
+	    	for(var i=0; i<mt.length; i++) {
+	    	    var x=dojo.query('[name="' + mt[i] + '_messages"]', this._form);
+		    	if(x.length > 0) {
+		    	    x[0].style.display='none';
+		    	    x=dojo.query('[name="message"]', x[0]);
+		    	    if(x.length > 0) x[0].innerHTML='';
+		    	}
+	    	}
+	    },
+		message: function(data, type) {
+		this.clearMessage();
+		var x=dojo.query('[name="' + type + '_messages"]', this._form);
+	       if(x.length>0) {
+	           x[0].style.display='';
+	            x=dojo.query('[name="message"]', x[0]);
+	            if(x.length>0) {
+			  x[0].innerHTML=data;
+	                x[0].setAttribute('role', 'alert');
+	            }
+	        }
+    	},
+	    submit: function() {
+    		this._form.dangerousurlnonce.value=window.__security_nonce;
+    		this.message('Submitting...' + '<div class="lotusLoading lotusLeft"></div>', 'info');
+    		var _this = this;
+    		dojo.xhrPost({
+	        	url: this._form.action,
+	        	form: this._form,
+	        	handleAs: 'json-comment-optional',
+	        	sync: true,
+	        	load: function (data, ioArgs) {
+					if(data.success) {
+						_this.success = true;
+						lconn.blogs.utils.showMessage('lotusContent', 'flagCommentSuccessMessage', 'The comment has been flagged and submitted for review.', 'Confirmation icon');
+					}
+	            	else {
+	                	if(data.error) {
+		                	if('session timeout' == data.error) {
+		                        window.__security_nonce = data.nonce;
+		                        _this.message('We were unable to process your request due to a session timeout.  Please try again.', 'error');
+		                    } else {
+	            				_this.message(data.error, 'error');
+	            			}
+	            		}
+	            		else {
+	            			_this.message('This function is only available to authenticated users. Please log in first.', 'error');
+	            		}
+	            	}
+	        	},
+	        	error: function (error, ioArgs) {
+	            	_this.message('Fail to submit the request. Server error.', 'error');
+	        	}
+	    	});
+    	},
+	    reset: function(){
+	    	this._form.reset();
+	    	this.clearMessage();
+	    }
+
+	};
+
+</script>
+</div>
+<div id="lotusMain" class="lotusMain">
+	    <!-- Community link -->
+	    		<div id="lotusColLeft" class="lotusColLeft">
+		    		    		    <span class="vcomm X-community-display-inline">
+		        <span class="name" style="display:none;"></span>
+		        <span class="uuid" style="display:none">58e72888-6340-46ac-b488-d31aa4058e9c</span>
+			    <span class="selectedWidgetId" style="display:none;">Blog</span>
+            </span>
+						</div><!--end colLeft-->
+			<!-- colRight -->
+	<!-- colRight would go below content when using overall table layout -->
+	<div id="lotusColRight" class="lotusColRight">
+				<div class="lotusSection  lotusFirst " role="complementary" aria-label="Blog Authors" aria-labelledby="section_authors_label">
+			<h2 class="min-blog-right">
+				<span id="section_authors_label" class="lotusLeft">About this blog</span>
+			</h2>
+			<div id="section_bio"> &nbsp;Linux is alive and very well, doing real
+ work in the real world.&nbsp; Share your successes, your questions and 
+your ideas with authors and others in the developerWorks community.</div> 
+			<!----SHARE WIDGET ---->
+			<div class="ibm-container dw-blog-share">
+				<ul class="dw-blog-share">
+					<li><a title="Facebook" href="http://facebook.com/" class="dw-blog-facebook-share-link">Facebook</a></li>
+					<li><a title="Twitter" href="http://twitter.com/" class="dw-blog-twitter-share-link">Twitter</a></li>
+										<li><a title="Google" href="http://plus.google.com/?rel=author" class="dw-blog-google-share-link">Google</a></li>
+					<li><a title="LinkedIn" href="http://linkedin.com/profile/view?id=" class="dw-blog-linkedin-share-link">LinkedIn</a></li>
+					<li><a title="RSS Share" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/rendering/feed/58e72888-6340-46ac-b488-d31aa4058e9c/entries/atom?lang=en" class="dw-blog-rss-share-link">RSS</a></li>
+				</ul>
+			</div>
+			<!--- END SHARE WIDGET ----->
+		</div>
+			  	
+				
+								     <div class="lotusSection lotusFirst" role="complementary" aria-label="Related posts" aria-labelledby="section_relatedentries_label">
+	            <h2 class="min-blog-right">
+				<span id="section_relatedentries_label" class="lotusLeft">Related posts</span>
+	            </h2>
+		        <div id="section_relatedentries" class="lotusSectionBody">
+			  	    						
+			                							<div id="related_entry">
+			                
+
+        <h4 class="blogsWrapText">
+            <a href="https://www.ibm.com/developerworks/community/blogs/a9ba1efe-b731-4317-9724-a181d6155e3a/entry/bilog_and_then_there_were_more_maximo_bi_packs?lang=en" title="BiLog:  And then there were MORE!....Maximo BI Packs">
+	          BiLog:  And then the...
+	       </a>
+        </h4>
+        
+       
+	    <span role="listitem"><span class="blogsPaddingRight">Updated</span><script type="text/javascript"> document.write(blogsDate.date.localize (1388504646000));</script><span class="blogsDateTime" title="Dec 31 2013">Dec 31 2013</span></span>
+	       
+			<span class="blogsPaddingRight" role="listitem">
+															<div class="lotusLike">
+			<img alt="1 people likes this" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusIconLike"><span class="lotusAltText">Likes</span> 1
+		</div>
+											</span>
+			<span class="blogsPaddingLeft" role="listitem">
+							<img class="lconnSprite lconnSprite-iconNoComments16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="No Comments"><span class="lotusAltText">Comments</span> 0
+						</span>
+              
+
+							</div>
+			                			                							<div id="related_entry">
+			                
+
+        <h4 class="blogsWrapText">
+            <a href="https://www.ibm.com/developerworks/community/blogs/e81d13c1-a5b0-47db-aaa2-e702565c5481/entry/big_data_spending_cultural_shift?lang=en" title="Big Data Spending, Cultural Shift ...">
+	          Big Data Spending, C...
+	       </a>
+        </h4>
+        
+       
+	    <span role="listitem"><span class="blogsPaddingRight">Updated</span><script type="text/javascript"> document.write(blogsDate.date.localize (1388214790000));</script><span class="blogsDateTime" title="Dec 28 2013">Dec 28 2013</span></span>
+	       
+			<span class="blogsPaddingRight" role="listitem">
+															<div class="lotusLike">
+			<img alt="0 people like this" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusIconLike"><span class="lotusAltText">Likes</span> 0
+		</div>
+											</span>
+			<span class="blogsPaddingLeft" role="listitem">
+							<img class="lconnSprite lconnSprite-iconNoComments16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="No Comments"><span class="lotusAltText">Comments</span> 0
+						</span>
+              
+
+							</div>
+			                			                							<div id="related_entry">
+			                
+
+        <h4 class="blogsWrapText">
+            <a href="https://www.ibm.com/developerworks/community/blogs/e81d13c1-a5b0-47db-aaa2-e702565c5481/entry/big_data_vs_sampled_data?lang=en" title="Big Data vs Sampled Data">
+	          Big Data vs Sampled ...
+	       </a>
+        </h4>
+        
+       
+	    <span role="listitem"><span class="blogsPaddingRight">Updated</span><script type="text/javascript"> document.write(blogsDate.date.localize (1388214736000));</script><span class="blogsDateTime" title="Dec 28 2013">Dec 28 2013</span></span>
+	       
+			<span class="blogsPaddingRight" role="listitem">
+															<div class="lotusLike">
+			<img alt="0 people like this" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusIconLike"><span class="lotusAltText">Likes</span> 0
+		</div>
+											</span>
+			<span class="blogsPaddingLeft" role="listitem">
+							<img class="lconnSprite lconnSprite-iconNoComments16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="No Comments"><span class="lotusAltText">Comments</span> 0
+						</span>
+              
+
+							</div>
+			                			                							<div id="related_entry">
+			                
+
+        <h4 class="blogsWrapText">
+            <a href="https://www.ibm.com/developerworks/community/blogs/e81d13c1-a5b0-47db-aaa2-e702565c5481/entry/big_data_vs_fast_data?lang=en" title="Big Data vs Fast Data">
+	          Big Data vs Fast Dat...
+	       </a>
+        </h4>
+        
+       
+	    <span role="listitem"><span class="blogsPaddingRight">Updated</span><script type="text/javascript"> document.write(blogsDate.date.localize (1388214664000));</script><span class="blogsDateTime" title="Dec 28 2013">Dec 28 2013</span></span>
+	       
+			<span class="blogsPaddingRight" role="listitem">
+															<div class="lotusLike">
+			<img alt="0 people like this" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusIconLike"><span class="lotusAltText">Likes</span> 0
+		</div>
+											</span>
+			<span class="blogsPaddingLeft" role="listitem">
+							<img class="lconnSprite lconnSprite-iconNoComments16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="No Comments"><span class="lotusAltText">Comments</span> 0
+						</span>
+              
+
+							</div>
+			                			                							<div id="related_entry">
+			                
+
+        <h4 class="blogsWrapText">
+            <a href="https://www.ibm.com/developerworks/community/blogs/5b16a65c-5410-4b4e-b8b2-5c69053183bd/entry/use_preliminary_data_filter_for_domains_create_an_own_dashboard?lang=en" title="Use Preliminary Data Filter for Domains - Create an own dashboard">
+	          Use Preliminary Data...
+	       </a>
+        </h4>
+        
+       
+	    <span role="listitem"><span class="blogsPaddingRight">Updated</span><script type="text/javascript"> document.write(blogsDate.date.localize (1387283776000));</script><span class="blogsDateTime" title="Dec 17 2013">Dec 17 2013</span></span>
+	       
+			<span class="blogsPaddingRight" role="listitem">
+															<div class="lotusLike">
+			<img alt="2 people like this" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lotusIconLike"><span class="lotusAltText">Likes</span> 2
+		</div>
+											</span>
+			<span class="blogsPaddingLeft" role="listitem">
+							<img class="lconnSprite lconnSprite-iconComment16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Comments"><span class="lotusAltText">Comments</span> 4
+						</span>
+              
+
+							</div>
+			                			                						
+				</div>
+
+	      			  </div><!-- end section -->
+			  			  			  <!-- End Related Posts -->
+		
+							
+		
+	   					    
+		    		
+		
+<!-- Tags -->
+   <!-- display tags widget unless tags are already in hero area -->
+    	<div id="lconnTagCloudFilter" class="lotusSection" role="complementary" aria-label="Tags" aria-labelledby="section_tag_label">
+			<h2 class="min-blog-right">
+				<span id="section_tag_label" class="lotusLeft">Tags</span>
+				
+			</h2>
+		 	<div id="lconnTagCloudContent" name="section_tags" class="lotusSectionBody">
+				<div id="lconnTagWidget"></div>
+				
+				
+				
+				<script language="javascript">
+dojo.addOnLoad(function(){
+		var selectedTags = "";
+		
+		var urlParameters = {};
+					urlParameters['website'] = '4f6e5c62-2b11-43d3-b1f8-3614303411db';
+				
+		var redirectUrlParameters = {};
+							
+		var blogsTagsArgs = {
+			contextPath: "/developerworks/community/blogs",
+			selectedTags: selectedTags,
+
+			tagUrl: '/developerworks/community/blogs/roller-services/json/tagcloud',
+			urlParameters:urlParameters,
+
+						typeAheadFeedUrl: '/developerworks/community/blogs/roller-services/json/typeahead?requestType=entry&limit=10&handle=58e72888-6340-46ac-b488-d31aa4058e9c',
+			
+    					
+							isAllBlogs: false,
+				redirectUrl: "/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c",
+						redirectUrlParameters:redirectUrlParameters,
+
+			multiSelected:true,
+			typeAheadTemplate:'tag',
+			tagTemplate:'tags',
+
+			disableRelated:false,
+			handleAs:'json',
+			redirectWhenClickTag:true,
+			tagDialogEnabled: false
+		};
+
+		new lconn.blogs.CommonTags.BlogsTagWidget(blogsTagsArgs, dojo.byId('lconnTagWidget'));
+	}
+);
+</script>
+			</div>
+		</div><!--end section-->
+<div class="lotusSection lotusFirst" role="complementary" aria-label="RECENT TWEETS" aria-labelledby="section_recent_tweets_label">
+			<!-- twitter widget row -->
+	 			<!-- end twitter widget -->
+</div>
+	   </div> <!-- end colRight -->
+
+		<!-- content -->
+		<!-- <td valign="top"> -->
+				    <div id="lotusContent" class="lotusContent min-Content" role="main">
+		         <a id="mainContent" name="mainContent"></a>
+           					             
+		    					
+ 		    <div id="entries">
+	              		        				<!-- Dont show paging when there are no entries -->
+									                                                                       
+             <div style="clear:both"></div>
+
+                                            
+			  
+	           			                              
+				<!-- Dont show sort control when there are no entries -->
+				 		        			   
+		       
+    
+        <table class="lotusTable blogsFixedTable" summary="" role="presentation" border="0" cellpadding="0" cellspacing="0">
+	<tbody>
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			    <tr class="lotusFirst">
+	    <!-- Entry title and info -->
+		<td class="min-h4-padding min-entry entryContentContainerTD blogsWrapText"><a name="an_overview_of_linux_processes21" id="an_overview_of_linux_processes21"></a>
+							<h4 class="min-h4">
+					An overview of Linux processes
+				</h4>
+						<!-- User name, date, meta info -->
+			<div class="lotusMeta min-blogdetail" role="list">
+							<span class="vcard" role="listitem">
+					<a class="lotusPerson fn" aria-describedby="semtagmenu" href="https://www.ibm.com/developerworks/community/profiles/html/profileView.do?userid=270004408M" title="Himanshuz.chd">Himanshuz.chd</a>
+					<span class="x-lconn-userid" style="display: none;">270004408M</span>
+									</span>
+			 								<span class="lotusDivider" role="img" aria-hidden="true">|</span>
+				<span role="listitem">
+					<time datetime="2012-07-10 10:41:03.0">
+						<script type="text/javascript"> document.write(blogsDate.date.localize (1341931263000));</script><span class="blogsDateTime" title="July 10 2012">July 10 2012</span> 
+                    </time>
+				</span>
+													                	<span class="lotusDivider" role="img" aria-hidden="true">|</span>
+                	<span role="listitem">
+													Visits (8865)
+						                	</span>
+                                <span role="listitem">
+					<!-- Rating -->
+										<span class="rating lotusRating min-rating" id="entry_rating_3d60b1da-a8cf-432e-bf21-33e400bcebbd">
+<div id="entry_rating_3d60b1da-a8cf-432e-bf21-33e400bcebbd_widget"></div>
+<script language="javascript">
+	dojo.addOnLoad(function(){
+	var store_data = {
+	id: currentLogin.extid,
+	identifier: "userId",
+	items: [
+			]
+	};
+	var store = new lconn.blogs.recommend.RecommendDataStore({data:store_data, type:'entry', itemId:'3d60b1da-a8cf-432e-bf21-33e400bcebbd', urlRecommendation:'/developerworks/community/blogs/roller-services/json/rating?entryid=3d60b1da-a8cf-432e-bf21-33e400bcebbd&lang=en'});
+	objRecommend = new lconn.blogs.recommend.Inline(
+			{
+				debug: false,
+				editable: true,
+				loadIndividualStyles: false,
+									currentUserId: currentLogin.extid,
+								dataStore: store			
+			},
+			dojo.byId('entry_rating_3d60b1da-a8cf-432e-bf21-33e400bcebbd_widget')
+	);
+	});
+</script>
+
+
+</span>
+				</span>          
+	        </div>
+	        <!-- Entry content -->
+	                 <div id="css-entry"> 
+                     										<div id="syn-box" style="float:right;padding-top:5px;padding-left:20px;">
+                            <!-- Google + -->
+							<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/fastbutton.html" name="I0_1389170165130" id="I0_1389170165130" vspace="0" tabindex="0" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+							<!-- Place this tag after the last +1 button tag. -->
+							<script type="text/javascript">
+								(function() {
+									var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+									po.src = 'https://apis.google.com/js/plusone.js';
+									var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+								})();
+							</script>
+							<!-- Facebook -->
+							<div style="!important; margin-top:1px !important;">
+								<iframe allowtransparency="true" style="border:none; overflow:hidden; width:90px; height:22px;" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/like.xhtml" frameborder="0" scrolling="no"></iframe>
+							</div>
+							<!-- Linked IN-->
+							<script src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/in.js" type="text/javascript"></script>
+							<span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1389170165283_0"><a id="li_ui_li_gen_1389170165283_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1389170165283_0-logo">in</span><span id="li_ui_li_gen_1389170165283_0-title"><span id="li_ui_li_gen_1389170165283_0-mark"></span><span id="li_ui_li_gen_1389170165283_0-title-text">Share</span></span></a></span></span><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1389170165319_1-container" class="IN-right IN-hidden"><span id="li_ui_li_gen_1389170165319_1" class="IN-right"><span id="li_ui_li_gen_1389170165319_1-inner" class="IN-right"><span id="li_ui_li_gen_1389170165319_1-content" class="IN-right">0</span></span></span></span></span></span><script type="IN/Share+init" data-url="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21" data-counter="right"></script>
+							<br> 
+							<!-- Twitter -->	
+							<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>	        												
+					</div>
+                                
+                   
+
+            
+				                                                         	      	        			                             
+<div>A Process is one of the most important fundamental concepts of the 
+Linux operating system. This article focuses on the basics of Linux 
+processes.
+
+</div><div>&nbsp;</div><h3 style="text-decoration: underline;">Process</h3>
+
+A process is an instance of a program running in Linux. This is the 
+basic definition that you might have heard before. Though its simple 
+enough to understand but still lets elaborate a bit for the beginners. 
+
+Lets quickly create a hello world program in C language :
+
+<pre style="background-color: rgb(240, 230, 140);">#include&lt;stdio.h&gt;
+
+int main(void)
+{
+    printf("\n Hello World\n");
+
+    // Simulate a wait for some time
+    for(i=0; i&lt;0xFFFFFFFF; i++);
+
+    return 0;
+}</pre><span style="background-color: rgb(255, 255, 255);">
+
+Compile the code above :
+
+</span><pre style="background-color: rgb(240, 230, 140);">$ gcc -Wall hello_world.c -o hello_world</pre><span style="background-color: rgb(255, 255, 255);">
+
+Run the executable :
+
+</span><pre style="background-color: rgb(240, 230, 140);">$ ./hello_world</pre>
+
+The command above will execute the hello world program. Since the 
+program waits for some time, so quickly go to the other terminal and 
+check for any process named 'hello_world' :
+
+<pre style="background-color: rgb(240, 230, 140);"> $ ps -aef | grep hello_world
+himanshu  2260  2146 95 20:38 pts/0    00:00:13 ./hello_world</pre>
+
+So we see that a process named 'hello_world' is running in the system. 
+Now, try to run the same program in parallel from 2-3 locations and 
+again run the above command. I tried running the program in parallel 
+from three different terminals and here is the output of the above 
+command :
+
+<pre style="background-color: rgb(240, 230, 140);">$ ps -aef | grep hello_world
+himanshu  2320  2146 99 20:43 pts/0    00:00:03 ./hello_world
+himanshu  2321  2261 67 20:43 pts/1    00:00:02 ./hello_world
+himanshu  2322  2287 72 20:43 pts/2    00:00:00 ./hello_world</pre>
+
+So you see that each instance of the hello_world program created a 
+separate process. Hence we say that process is running instance of a 
+program.
+
+<h3><br> <span style="text-decoration: underline;"></span></h3><h3><span style="text-decoration: underline;">Identifiers associated with a process </span></h3>
+
+Each process has following identifiers associated with it: <br><h3>Process Identifier (PID)</h3>
+
+Each process has a unique identifier associated with it known as process
+ ID. This ID remains unique across the system. For example, if you run 
+the ps command on your Linux box, you will see something like:
+
+<pre style="background-color: rgb(240, 230, 140);">UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 19:43 ?        00:00:00 /sbin/init
+root         2     0  0 19:43 ?        00:00:00 [kthreadd]
+root         3     2  0 19:43 ?        00:00:00 [migration/0]
+root         4     2  0 19:43 ?        00:00:00 [ksoftirqd/0]
+root         5     2  0 19:43 ?        00:00:00 [watchdog/0]
+root         6     2  0 19:43 ?        00:00:00 [migration/1]
+root         7     2  0 19:43 ?        00:00:00 [ksoftirqd/1]
+root         8     2  0 19:43 ?        00:00:00 [watchdog/1]
+root         9     2  0 19:43 ?        00:00:00 [events/0]
+root        10     2  0 19:43 ?        00:00:00 [events/1]
+...
+...
+...</pre>
+
+The above output is from my Linux box. The second column (PID) gives the
+ process ID of the process being described in the row. You may notice 
+another similar looking column PPID. Well, this gives information of the
+ parent process ID of this process. Any process in the Linux system will
+ have a parent. 
+
+<div>&nbsp;</div><h3>User and group Identifiers (UID and GID)</h3><div>
+
+The category of identifiers associated with a process is the user and 
+group identifiers. The user and group ID can further be classified into :
+
+<br><span style="font-style: italic;"><br>Real user ID and real group ID</span>
+
+<br>These identifiers give information about the user and group to which
+ a process belongs. Any process inherits these identifiers from its 
+parent process.
+
+<br><br><span style="font-style: italic;">Effective user ID, effective group ID and supplementary group ID</span>
+
+<br>Ever got an error like "Permission denied"? Well this is a common 
+error that is encountered many times. This error usually occurs when a 
+process does not have sufficient permissions to carry out a task. These 
+three IDs are used to determine the permission that a process has to do 
+stuff that requires special permissions. Usually the effective user ID 
+is same as real user ID but in case its different then it means that 
+process is running with different privileges then what it has by default
+ (ie inherited from its parent).
+
+If a process is running with effective user ID '0', this means that this
+ process has special privileges. The processes that have zero effective 
+user ID are known as privileged processes as they are running as 
+superuser. These processes bypass all the permission checks that kernel 
+has in place for all the unprivileged processes.
+
+</div><div>&nbsp;</div><h3 style="text-decoration: underline;">The init process</h3>
+In Linux every process has a parent process. Now, one would ask that 
+there has to be some starting point, some process that is created first.
+ Yes, there is a process known as 'init' that is the very first process 
+that Linux kernel creates after system boots up. All the process 
+there-on are children of this process either directly or indirectly. The
+ init process has special privileges in the sense that it cannot be 
+killed. The only time it terminates is when the Linux system is shut 
+down. The init process always has process ID 1 associated with it.
+
+<div>&nbsp;</div><h3 style="text-decoration: underline;">Zombie and orphan processes</h3><div>
+
+Suppose there are two processes. One is parent process while the other 
+is child process. In a real time, there can be two scenarios:
+<br><br><span style="font-style: italic;">The parent dies or gets killed before the child</span>.
+
+<br>In the above scenario, the child process becomes the orphan process 
+(as it has lost its parent). In Linux, the init process comes to the 
+rescue of the orphan processes and adopts them. This means after a chile
+ has lost its parent, the init process becomes its new parent process.
+
+<br><br><span style="font-style: italic;">The child dies and parent does not perform wait() immediately</span>.
+
+<br>Whenever the child is terminated, the termination status of the 
+child is available to the parent through the wait() family of calls. So,
+ the kernel does waits for parent to retrieve the termination status of 
+the child before its completely wipes out the child process. Now, In a 
+case where parent is not able to immediately perform the wait() (in 
+order to fetch the termination status), the terminated child process 
+becomes zombie process. A zombie process is one that is waiting for its 
+parent to fetch its termination status. Although the kernel releases all
+ the resources that the zombie process was holding before it got killed,
+ some information like its termination status, its process ID etc are 
+still stored by the kernel. Once the parent performs the wait() 
+operation, kernel clears off this information too.
+
+
+</div><div>&nbsp;</div><h3 style="text-decoration: underline;">Daemon process</h3>
+
+A process that needs to run for a long period of time and does not 
+require a controlling terminal, these type of processes are programmed 
+in a way that they becomes a daemon processes. For example, monitoring 
+software like key-logger etc are usually programmed as daemon processes.
+ A daemon process has no controlling terminal.
+
+<div>&nbsp;</div><h3 style="text-decoration: underline;">Memory layout of a process</h3><div>
+
+A process can broadly be defined into following segments :
+
+<br><br><span style="font-style: italic;">Stack</span> <br>Stack 
+contains all the data that is local to a function like variables, 
+pointers etc. Each function has its own stack. Stack memory is dynamic 
+in the sense that it grows with each function being called. <br><br><span style="font-style: italic;">Heap</span>
+<br>Heap segment contains memory that is dynamically requested by the programs for their variables.<br><span style="font-style: italic;"><br>Data</span>
+<br>All the global and static members become part of this segment.<br><br><span style="font-style: italic;">Text</span>
+<br>All the program instructions, hard-coded strings, constant values are a part of this memory area.
+
+
+<br><br>If we extend the above hello world program to something like :
+
+</div><pre style="background-color: rgb(240, 230, 140);">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+
+int a;
+
+int main(void)
+{
+    int i = 0;
+
+    char *ptr = (char*)malloc(15);
+
+    memset(ptr, 0, 15);
+
+    memcpy(ptr, "Hello World", 11);
+
+    printf("\n %s \n", ptr);
+
+    // Simulate a wait for some time
+    for(i=0; i&lt;0xFFFFFFFF; i++);
+
+    free(ptr);
+    return 0;
+}</pre>
+
+In the example above :
+
+- The variable 'a' goes into the data segm<wbr>ent(<wbr>spec<wbr>ific<wbr>ally
+ into BSS segment that contains all the uninitialized globals)
+- The variables 'i' and 'ptr' lie on stack segment. Each function call 
+like memset, memcpy, printf and free will have their separate stack once
+ they get called.
+- The constant values like "Hello World", '15', '11', '0', '0XFFFFFFFF' 
+and all the instructions are part of text segment.
+- The 15 bytes of memory allocated by the malloc function is allocated 
+on heap. So the pointer 'ptr' holds the address of a memory location on 
+heap.
+
+Note that heap is shared by all processes, so overuse or corruption of 
+heap might affect other programs running in the system.
+
+
+<div>&nbsp;</div><h3 style="text-decoration: underline;">Linux process environment</h3>
+
+Environment in Linux is a list of 'variable=value' information that is 
+used for variety of purposes. Programs, scripts, shells etc use this 
+information for their smooth operation. For example the home directory 
+of the user which is presently logged-in can be accessed by the 'HOME' 
+environment variable. List of these environment variables along with 
+their values can be viewed using the 'env' command. For example, on my 
+Linux box I could see the following output of the env command :<span style="background-color: rgb(240, 230, 140);">
+
+</span><pre style="background-color: rgb(240, 230, 140);">ORBI<wbr>T_SO<wbr>CKET<wbr>DIR=<wbr>/tmp<wbr>/orb<wbr>it-h<wbr>iman<wbr>shu
+SSH_AGENT_PID=1653
+TERM=xterm
+SHELL=/bin/bash
+XDG_<wbr>SESS<wbr>ION_<wbr>COOK<wbr>IE=b<wbr>8b52<wbr>be9a<wbr>0280<wbr>f3c8<wbr>b48f<wbr>cf04<wbr>d7ac<wbr>5a3-<wbr>1341<wbr>9252<wbr>17.8<wbr>8915<wbr>2-13<wbr>9076<wbr>5341
+WINDOWID=62917358
+GNOM<wbr>E_KE<wbr>YRIN<wbr>G_CO<wbr>NTRO<wbr>L=/t<wbr>mp/k<wbr>eyri<wbr>ng-6<wbr>UEJQ<wbr>4
+GTK_<wbr>MODU<wbr>LES=<wbr>canb<wbr>erra<wbr>-gtk<wbr>-mod<wbr>ule
+USER=himanshu
+SSH_<wbr>AUTH<wbr>_SOC<wbr>K=/t<wbr>mp/k<wbr>eyri<wbr>ng-6<wbr>UEJQ<wbr>4/ss<wbr>h
+DEFA<wbr>ULTS<wbr>_PAT<wbr>H=/u<wbr>sr/s<wbr>hare<wbr>/gco<wbr>nf/g<wbr>nome<wbr>.def<wbr>ault<wbr>.pat<wbr>h
+SESS<wbr>ION_<wbr>MANA<wbr>GER=<wbr>loca<wbr>l/hi<wbr>mans<wbr>hu-l<wbr>apto<wbr>p:@/<wbr>tmp/<wbr>.ICE<wbr>-uni<wbr>x/16<wbr>19,u<wbr>nix/<wbr>hima<wbr>nshu<wbr>-lap<wbr>top:<wbr>/tmp<wbr>/.IC<wbr>E-un<wbr>ix/1<wbr>619
+USERNAME=himanshu
+XDG_<wbr>CONF<wbr>IG_D<wbr>IRS=<wbr>/etc<wbr>/xdg<wbr>/xdg<wbr>-gno<wbr>me:/<wbr>etc/<wbr>xdg
+DESK<wbr>TOP_<wbr>SESS<wbr>ION=<wbr>gnom<wbr>e
+PATH<wbr>=/us<wbr>r/lo<wbr>cal/<wbr>sbin<wbr>:/us<wbr>r/lo<wbr>cal/<wbr>bin:<wbr>/usr<wbr>/sbi<wbr>n:/u<wbr>sr/b<wbr>in:/<wbr>sbin<wbr>:/bi<wbr>n:/u<wbr>sr/g<wbr>ames
+PWD=/home/himanshu
+GDM_<wbr>KEYB<wbr>OARD<wbr>_LAY<wbr>OUT=<wbr>us
+LANG=en_IN
+GNOM<wbr>E_KE<wbr>YRIN<wbr>G_PI<wbr>D=16<wbr>01
+MAND<wbr>ATOR<wbr>Y_PA<wbr>TH=/<wbr>usr/<wbr>shar<wbr>e/gc<wbr>onf/<wbr>gnom<wbr>e.ma<wbr>ndat<wbr>ory.<wbr>path
+GDM_LANG=en_IN
+GDMSESSION=gnome
+SPEECHD_PORT=7560
+SHLVL=1
+HOME=/home/himanshu
+GNOM<wbr>E_DE<wbr>SKTO<wbr>P_SE<wbr>SSIO<wbr>N_ID<wbr>=thi<wbr>s-is<wbr>-dep<wbr>reca<wbr>ted
+LOGNAME=himanshu
+XDG_<wbr>DATA<wbr>_DIR<wbr>S=/u<wbr>sr/s<wbr>hare<wbr>/gno<wbr>me:/<wbr>usr/<wbr>loca<wbr>l/sh<wbr>are/<wbr>:/us<wbr>r/sh<wbr>are/
+DBUS<wbr>_SES<wbr>SION<wbr>_BUS<wbr>_ADD<wbr>RESS<wbr>=uni<wbr>x:ab<wbr>stra<wbr>ct=/<wbr>tmp/<wbr>dbus<wbr>-AWv<wbr>AHVE<wbr>XeC,<wbr>guid<wbr>=62c<wbr>39aa<wbr>e57a<wbr>a4bf<wbr>c10e<wbr>80e4<wbr>44ff<wbr>c276<wbr>2
+DISPLAY=:0.0
+XAUT<wbr>HORI<wbr>TY=/<wbr>var/<wbr>run/<wbr>gdm/<wbr>auth<wbr>-for<wbr>-him<wbr>ansh<wbr>u-yx<wbr>PNRW<wbr>/dat<wbr>abas<wbr>e
+COLO<wbr>RTER<wbr>M=gn<wbr>ome-<wbr>term<wbr>inal
+_=/usr/bin/env
+</pre><span style="background-color: rgb(240, 230, 140);">
+
+</span>So we can see that there is a wide list of environment variables 
+available. A user can add an environment variable using the 'export' 
+command. In C language, an extern variable char**environ can be used to 
+access this list in a program. A list of functions like getenv(), 
+setenv() etc are available to manipulate the process environment.
+
+<div>&nbsp;</div><h3 style="text-decoration: underline;">Manipulating Linux resource limits</h3>
+
+Any process in Linux can get hold of resources like files, memory etc. 
+As always there is a limit to these resources per process. Each resource
+ has a soft and a hard limit associated with it. A soft limit is a 
+temporary limit associated with a resource and can be changed while a 
+hard limit is the cap up to which the soft limit can be changed. Linux 
+provides command line utilities like 'ulimit' to manipulate these 
+resource limits. On the other hand the system calls like getrlimit() and
+ setrlimit() can be used to play with these limits from within a C code.
+ 
+
+
+
+
+
+           
+                                	              		            			<br><br>
+			   <span class="min-tags" role="list">
+				Tags:&nbsp;
+			       			        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/zombie?lang=en" title="zombie">zombie</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/pid?lang=en" title="pid">pid</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/stack?lang=en" title="stack">stack</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/process?lang=en" title="process">process</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/setrlimit?lang=en" title="setrlimit">setrlimit</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/daemon?lang=en" title="daemon">daemon</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/gid?lang=en" title="gid">gid</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/orphan?lang=en" title="orphan">orphan</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/limit?lang=en" title="limit">limit</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/data?lang=en" title="data">data</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/ulimit?lang=en" title="ulimit">ulimit</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/init?lang=en" title="init">init</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/environment?lang=en" title="environment">environment</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/heap?lang=en" title="heap">heap</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/resource?lang=en" title="resource">resource</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/uid?lang=en" title="uid">uid</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/overview?lang=en" title="overview">overview</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/segment?lang=en" title="segment">segment</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/getrlimit?lang=en" title="getrlimit">getrlimit</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/text?lang=en" title="text">text</a>
+				</span>
+							        <span role="listitem">
+					<a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/tags/basics?lang=en" title="basics">basics</a>
+				</span>
+							  </span>
+			                     <div style="clear:both"></div>
+
+                    
+                                                                  
+                                                   
+           <div style="clear:both;"></div>
+           
+	        </div>
+ 		</td>
+    </tr>
+<!-- tweet button widget script -->
+<script type="text/javascript">
+  function twitterPop(str,str1) {
+     mywindow = window.open('https://twitter.com/share?url='+str + '&text=' + str1,"Tweet_widow","channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
+     mywindow.focus();
+}
+</script>
+<!-- end tweet button widget script -->
+
+
+
+
+    </tbody>
+
+    </table>
+
+
+			  <script language="javascript">
+				function flagInappropriateComment(commentId) {
+					if(currentLogin.auth){
+						flagInappropriateCommentForm.init(commentId);
+						lconn.blogs.utils.showPopupForm("Flag as inappropriate",flagInappropriateCommentForm.getForm(), dojo.hitch(flagInappropriateCommentForm, "submit"), dojo.hitch(flagInappropriateCommentForm, "isSuccess"), "flagCommentLink_"+commentId);
+					}else{
+						window.location.replace('https://www.ibm.com/developerworks/community/blogs/roller-ui/login-redirect.jsp?redirect=%2Fdeveloperworks%2Fcommunity%2Fblogs%2F58e72888-6340-46ac-b488-d31aa4058e9c%2Fentry%2Fan_overview_of_linux_processes21%3Flang%3Den%23action%3DflagComment%26id%3D'+commentId);
+					}
+				}
+			   </script>
+
+		       		        <script language="javascript">if(currentLogin.auth) document.write('<div style="display:none">');</script>
+		        <span id="a11y_loginHint" style="display:none">Login to access this feature</span>
+		        <ul class="lotusInlinelist">
+			        <li class="lotusFirst">
+			        	<nobr><a class="lotusAction" role="button" aria-describedby="a11y_loginHint" title="Login to access this feature" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/login-redirect.jsp?redirect=%2Fdeveloperworks%2Fcommunity%2Fblogs%2F58e72888-6340-46ac-b488-d31aa4058e9c%2Fentry%2Fan_overview_of_linux_processes21%3Flang%3Den%23action%3Daddcomment">Add a Comment</a></nobr>
+			        </li>
+			        <li><nobr><a class="lotusAction" role="button" aria-describedby="a11y_loginHint" aria-haspopup="true" title="Login to access this feature" href="#" onclick="if(!event){event=window.event;}menuUtility.openMenu(event, 'actionmenu_moreactions_anonymous', this);return false;">More Actions
+								<img alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lconnSprite lconnSprite-iconDropDown5x3" role="presentation">
+								<span class="lotusAltText">v</span>
+					</a></nobr></li>
+		        </ul>
+		        <div id="actionmenu_moreactions_container_anonymous">
+			        <div dojotype="dijit.Menu" id="actionmenu_moreactions_anonymous" style="display: none;">
+					    <div dojotype="dijit.MenuItem" onclick="window.location.replace('https://www.ibm.com/developerworks/community/blogs/roller-ui/login-redirect.jsp?redirect=%2Fdeveloperworks%2Fcommunity%2Fblogs%2F58e72888-6340-46ac-b488-d31aa4058e9c%2Fentry%2Fan_overview_of_linux_processes21%3Flang%3Den%23action%3Dsend_notification'); return false;">Notify Other People</div>
+					    					</div>
+				</div>
+		        <script language="javascript">if(currentLogin.auth) document.write('</div>'); else document.write('<div style="display:none">');</script><div style="display:none">
+		       
+			   <script language="javascript">
+                   function submitDeleteForm() {
+				   		lconn.blogs.utils.confirm("Are you sure you want to delete this entry?", function(){
+							postDelete();
+						}, {title:'Delete Entry'}, "deleteEntryLink");
+				   }
+               </script>
+		        <div id="actionmenu_moreactions_container">
+			        <div dojotype="dijit.Menu" id="actionmenu_moreactions" style="display: none;">
+					    <div dojotype="dijit.MenuItem" id="focusAddNotificationLink" onclick="WeblogEntryActionForms.toggle('notificationForm', 'notificationForm_typeahead,Type_in_a_Name_LINK,Pick_from_Community_LINK');return false;">Notify Other People</div>
+					    					</div>
+				</div>
+		        <script language="javascript">if(!currentLogin.auth) document.write('</div>');</script></div>
+				<script language="javascript">
+				dojo.addOnLoad(function() {
+				if(currentLogin.edit){
+					var more_menu = dijit.byId("actionmenu_moreactions");
+					var delete_item = new dijit.MenuItem({"id":"deleteEntryLink","label":'Delete Entry', "onClick":function(){submitDeleteForm();return false;}});
+					more_menu.addChild(delete_item);
+				}
+				});
+				</script>
+				
+
+				<p></p>
+				<a name="commentsTarget"></a>
+								
+								    <div id="commentspanel_list">
+						    <div class="lotusBoard" id="comments">
+									        <div id="sort-heading" class="css-widget-title min-widget-title">
+							<div class="lotusSort">
+					<span class="min-allposts">Comments (0)</span>
+<span class="min-sortlinks">
+ <ul class="lotusInlinelist" style="float:right;">
+			        <li class="lotusFirst">
+			        <nobr>
+				        				        <a id="AddWeblogEntryCommentLink" class="lotusAction" href="#" role="button" title="" onclick="WeblogEntryActionForms.toggle('commentForm', 'content');return false;">Add a Comment</a>
+				        				    </nobr>
+			        </li>
+
+		        	<script language="javascript">if(!currentLogin.edit) document.write('<li style="display:none">'); else document.write('<li>');</script><li style="display:none">
+		        	<nobr>
+		        		<a class="lotusAction" href="https://www.ibm.com/developerworks/community/blogs/roller-ui/authoring/weblog.do?method=edit&amp;weblog=58e72888-6340-46ac-b488-d31aa4058e9c&amp;entry=an_overview_of_linux_processes21&amp;lang=en">Edit</a>
+		        	</nobr>
+		        	</li>
+		        	<li>
+		        	<nobr>
+			        	<a id="focusMoreActionsLink" class="lotusAction" role="button" aria-haspopup="true" href="#" title="" onclick="if(!event){event=window.event;}menuUtility.openMenu(event, 'actionmenu_moreactions', this);return false;">More Actions 
+							<img alt="" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" class="lconnSprite lconnSprite-iconDropDown5x3" role="presentation">
+							<span class="lotusAltText">v</span>
+						</a>
+		        	</nobr>
+		        	</li>
+		        	<script language="javascript">if(!currentLogin.postModerationReviewer) document.write('<li style="display:none">'); else document.write('<li>');</script><li style="display:none">
+		        	<nobr>
+		        		<a id="quarantineThisEntryLink" role="button" href="#" onclick="WeblogEntryActionForms.toggle('quarantineForm', 'comment');return false;" class="lotusAction" style="color: #f00;">Quarantine this Entry</a>
+		        	</nobr>
+		        	</li>
+		        </ul>
+</span>
+</div><br>
+				<div style="margin-top:10px"><form name="commentForm" style="display:none" action=" https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21?maxresults=15&amp;lang=en" method="post" class="lotusForm" role="application">
+<span name="_type" style="display:none">comment</span>
+<div name="error_messages" class="lotusMessage" style="display:none" role="alert">
+	<img class="lconnSprite lconnSprite-iconError16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Error icon"><span class="lotusAltText">Error icon</span><span name="message"></span>
+</div>
+<div name="warning_messages" class="lotusMessage lotusWarning" style="display:none" role="alert">
+	<img class="lconnSprite lconnSprite-iconWarning16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Warning icon"><span class="lotusAltText">Warning icon</span><span name="message"></span>
+</div>
+<div name="info_messages" class="lotusMessage lotusInfo" style="display:none" role="alert">
+	<img class="lconnSprite lconnSprite-iconAttention16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Information icon"><span class="lotusAltText">Information icon</span><span name="message"></span>
+</div>
+<input name="method" value="post" type="hidden">
+<input name="dangerousurlnonce" value="" type="hidden">
+<input name="lang" value="en" type="hidden">
+<input name="version" value="250" type="hidden">
+<input name="currententryurl" value="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21?maxresults=15&amp;lang=en" type="hidden">
+<table class="lotusFormTable" role="presentation" width="100%"><tbody>
+	<tr class="lotusFormFieldRow">
+		<td><textarea id="comment_content" name="content" title="Content" rows="10" style="width:99%"></textarea></td>
+	</tr>
+	<tr><td class="lotusFormFooter norule"><div class="submitArea minblog-btns">
+	    <input class="lotusFormButton blogsPaddingRight" name="submitBtn" onclick="this.form.method.value='post';return true;" value="Submit" type="submit">
+           <input class="lotusFormButton blogsPaddingRight" name="previewBtn" onclick="this.form.method.value='preview';return true;" value="Preview" type="submit">
+           <input class="lotusFormButton blogsPaddingRight" name="cancelBtn" onclick="return WeblogEntryActionForms.cancel('commentForm', 'AddWeblogEntryCommentLink');" value="Cancel" type="button">
+	</div></td></tr>
+</tbody></table>
+</form>
+<form id="NotificationFormEx" name="notificationForm" style="display:none" action="/developerworks/community/blogs/roller-services/json/notify" class="lotusForm" dojoinit="false" role="application">
+	<span name="_type" style="display:none">notification_ex</span>
+	<div name="error_messages" class="lotusMessage" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconError16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Error icon"><span class="lotusAltText">Error icon</span><span name="message"></span>
+	</div>
+	<div name="warning_messages" class="lotusMessage lotusWarning" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconWarning16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Warning icon"><span class="lotusAltText">Warning icon</span><span name="message"></span>
+	</div>
+	<div name="info_messages" class="lotusMessage lotusInfo" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconAttention16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Information icon"><span class="lotusAltText">Information icon</span><span name="message"></span>
+	</div>
+	<input name="entry" value="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21" type="hidden">
+	<input name="dangerousurlnonce" value="" type="hidden">
+	<input name="lang" value="en" type="hidden">
+	<input name="version" value="250" type="hidden">
+	<fieldset>
+		<table class="lotusFormTable" role="presentation" cellspacing="0">
+		    <tbody>
+		    	<tr><td class="lotusFormTitle" colspan="2"><h2>Send Email Notification</h2></td></tr>
+		    	<tr class="lotusFormFieldRow">
+		    		<td class="lotusFormField" colspan="2">
+		    			<div id="notificationForm_tabContainer" dojotype="lconn.blogs.TabContainer" selected="Type_in_a_Name">
+		    			    		    				<div dojotype="lconn.blogs.TabContent" name="Type_in_a_Name" title="Type in a Name">
+		    					<div class="fieldborder">
+		    						<div class="fieldcontent">
+		    							<span style="display:none" dojotype="lconn.core.PeopleDataStore" queryparam="name" url="/developerworks/community/blogs/roller-services/json/typeaheadpeople?website=4f6e5c62-2b11-43d3-b1f8-3614303411db" jsid="peopleStore"></span>
+		    							<div dojotype="lconn.core.PeopleTypeAhead" class="typeAheadPeople" title="Enter a blog user" id="notificationForm_typeahead" style="width:50%" minchars="2" searchdelay="400" multiplevalues="false" token="," store="peopleStore"></div>
+		    						</div>
+		    					</div>
+		    				</div>
+		    						    				<div dojotype="lconn.blogs.TabContent" name="Pick_from_Community" title="Pick Community Members">
+		    					<input id="notify_all" onclick="selectAllMembers();" style="display:none;" type="checkbox"><label for="notify_all" style="display:none;">All individual community members</label>
+		    					<script type="text/javascript">
+		    					function selectAllMembers(){
+										var checked=dojo.byId("notify_all").checked;
+										var filter_W = dijit.byId("notificationForm_filteringcheckbox");
+										var receivers_W = dijit.byId("notificationForm_receivers");
+										filter_W.setDisabled(checked);
+										if(checked){
+											receivers_W.add('All individual community members', -1);
+										}else{
+											receivers_W.remove(-1);
+										}
+		    					}
+		    					</script>
+		    					<div dojotype="lconn.core.FilteringCheckbox" id="notificationForm_filteringcheckbox">
+		    						<script type="dojo/method" event="feedFunction" args="page,callback">
+		    						    var notifyList_AP = this.notifyList_AP;
+				    		 		 	dojo.xhrGet({
+				    		 		 		url: '/developerworks/community/blogs/roller-services/json/container_members?blogUuid=4f6e5c62-2b11-43d3-b1f8-3614303411db&ps=500&offset=' + (page - 1) * 500,
+				    		 		 		handleAs: 'json',
+				    		 		 		load: function(data){
+				    		 		 		    if(data.success) {
+				    		 		 				callback(data);
+				    		 		 			}
+				    		 		 			else {
+				    		 		 				notifyList_AP.innerHTML = '<'+'img class=\"lconnSprite lconnSprite-iconAttention16\" src=\"https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906\" alt=\"Information icon\" />' + ' ' + '<span>' + data.error + '</span>';
+				    		 		 			}
+				    		 		 		},
+				    		 		 		error: function(err){
+				    		 		 			notifyList_AP.innerHTML = '<'+'img class=\"lconnSprite lconnSprite-iconAttention16\" src=\"https://www.ibm.com/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/blank.gif?etag=20130907.165906\" alt=\"Information icon\" />' + ' ' + '<span>' + 'Fail to get member list. Server error.' + '</span>';
+				    		 		 		}
+				    		 		 	});
+				    		 		</script>
+				    		 		<script type="dojo/connect" event="startup">
+									    this.filterTextbox_AP.onkeydown = function(evt) {if(!evt) evt = window.event; if(evt.keyCode== dojo.keys.ENTER) return false;}
+										this.filterTextbox_AP.onkeyup = dojo.hitch(this, function(evt) {
+										    this.filterNames();
+										});
+									</script>
+		    					</div>
+		    				</div>
+		    			</div>
+		    		</td>
+		    	</tr>
+		    	<tr class="lotusFormFieldRow" name="notifyLabelTR" style="display:none">
+		    		<td style="padding-bottom:0px;" nowrap="nowrap"><div><label class="" for="notify">Notify:</label></div></td>
+		    	</tr>
+		    	<tr class="lotusFormFieldRow" name="notifyFieldTR" style="display:none">
+		    		<td class="lotusFormField">
+		    		 	<div dojotype="lconn.blogs.notification.receivers" id="notificationForm_receivers">
+		    		 		 <script type="dojo/method" event="onChange" args="person,op">
+		    		 		  if(this.receivers.length == 0){
+		    		 		 		this.form().sendBtn.disabled = true;
+		    		 		 		this.form().sendBtn.className = "lotusFormButton lotusBtnDisabled";
+
+		    		 		 		dojo.query('[name="notifyLabelTR"]', this.form())[0].style.display = "none";
+		    		 		 		dojo.query('[name="notifyFieldTR"]', this.form())[0].style.display = "none";
+		    		 		 	}else{
+		    		 		 		this.form().sendBtn.disabled = false;
+		    		 		 		this.form().sendBtn.className = "lotusFormButton lotusBtnSpecial";
+
+									dojo.query('[name="notifyLabelTR"]', this.form())[0].style.display = "";
+									dojo.query('[name="notifyFieldTR"]', this.form())[0].style.display = "";
+		    		 		 	}
+		    		 		 	if(person) {
+		    		 		 	    var filteringcheckbox = dijit.byId(this.form().name+'_filteringcheckbox');
+		    		 		 	    if(op == 'add') {
+		    		 		 	        filteringcheckbox.peopleSelected[person.extid] = person.fullname;
+		    		 		 	    }
+		    		 		 	    else if(op == 'remove') {
+		    		 		 	    	delete filteringcheckbox.peopleSelected[person.extid];
+		    		 		 	    	if(person.extid == -1){
+		    		 		 	    		var notify_all_check = dojo.byId("notify_all");
+		    		 		 	    			if(notify_all_check.checked){
+		    		 		 	    				notify_all_check.checked = false;
+		    		 		 	    				selectAllMembers();
+		    		 		 	    			}
+		    		 		 	    	}
+		    		 		 	    }
+		    		 		 	    if(!dojo.byId("notify_all").checked)
+		    		 		 	    	filteringcheckbox.setDisabled(false);
+		    		 		 	}
+		    		 		 </script>
+		    		 		 <script type="dojo/connect" event="startup">
+		    		 		 	dojo.connect(dijit.byId(this.form().name+'_typeahead'),
+		    		 		 		"onSelect",
+		    		 		 		this,
+		    		 		 		function(){
+		    		 		 		    var x = dijit.byId(this.form().name+'_typeahead');
+		    		 		 			var obj = x.getItem();
+		    		 		 			if(obj) {
+		    		 		 				if(obj.type != "-1"){
+			    		 		 				this.add(obj.name, obj.userid);
+			    		 		 				x.reset();
+		    		 		 				}
+		    		 		 			}
+		    		 		 		}
+		    		 		 	);
+		    		 		 	dojo.connect(dijit.byId(this.form().name+'_filteringcheckbox'),
+		    		 		 		"personSelected",
+		    		 		 		this,
+		    		 		 		function(person, selected){
+		    		 		 		    if(person) {
+			    		 		 		    if(selected) {
+			    		 		 		    	this.add(person.name, person.uuid);
+			    		 		 		    }
+			    		 		 		    else {
+			    		 		 		    	this.remove(person.uuid);
+			    		 		 		    }
+		    		 		 		    }
+		    		 		 		}
+		    		 		 	);
+		    		 		 	this.receiverList_AP.setAttribute('aria-label', 'Notify:');
+								this.inputBox = dojo.query('a', dijit.byId(this.form().name + '_tabContainer').domNode)[0];
+		    		 		 </script>
+		    		 	</div>
+		    		 </td>
+		    	</tr>
+		    	<tr class="lotusFormFieldRow">
+		    		<td style="padding-bottom:0px;" nowrap="nowrap"><label for="notification_message">Message:</label></td>
+		    	</tr>
+		    	<tr class="lotusFormFieldRow">
+		    		<td class="lotusFormField"><textarea id="notification_message" style="width: 100%" name="description" rows="10" title="Message:"></textarea></td>
+		    	</tr>
+		    	<tr>
+		    		<td class="lotusFormFooter" colspan="2">
+		    			<div class="submitArea">
+		    				<input disabled="true" class="lotusFormButton lotusBtnDisabled blogsPaddingRight" name="sendBtn" onclick="return postNotificaton();" value="Send" type="button">
+		    				<input class="lotusFormButton blogsPaddingRight" name="cancelBtn" onclick="return WeblogEntryActionForms.cancel('notificationForm', 'focusMoreActionsLink');" value="Cancel" type="button">
+		    			</div>
+		    		</td>
+		    	</tr>
+		    </tbody>
+		</table>
+	</fieldset>
+</form>
+<form name="quarantineForm" style="display:none" action="/developerworks/community/blogs/roller-services/json/quarantine_entry" class="lotusForm" role="application">
+	<div name="error_messages" class="lotusMessage" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconError16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Error icon"><span class="lotusAltText">Error icon</span><span name="message"></span>
+	</div>
+	<div name="warning_messages" class="lotusMessage lotusWarning" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconWarning16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Warning icon"><span class="lotusAltText">Warning icon</span><span name="message"></span>
+	</div>
+	<div name="info_messages" class="lotusMessage lotusInfo" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconAttention16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Information icon"><span class="lotusAltText">Information icon</span><span name="message"></span>
+	</div>
+	<input name="entry" value="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21" type="hidden">
+	<input name="dangerousurlnonce" value="" type="hidden">
+	<input name="lang" value="en" type="hidden">
+	<input name="version" value="250" type="hidden">
+	<table class="lotusFormTable" role="presentation" width="100%"><tbody>
+		<tr><td colspan="2" class="lotusFormTitle"><h2>Quarantine this entry</h2></td></tr>
+		<tr>
+			<td width="5%"> </td>
+			<td><label for="quarantine_comment">Provide a reason for quarantining this blog entry (optional):</label></td>
+		</tr>
+		<tr>
+			<td width="5%"> </td>
+			<td><textarea id="quarantine_comment" name="comment" rows="10" style="width:80%" title="Provide a reason for quarantining this blog entry (optional):"></textarea></td>
+		</tr>
+		<tr><td colspan="2" class="lotusFormFooter">
+			<div class="submitArea">
+				<input class="lotusFormButton" name="submitBtn" onclick="return postQuarantine();" value="Submit" type="button">
+				<input class="lotusFormButton" name="cancelBtn" onclick="return WeblogEntryActionForms.cancel('quarantineForm', 'quarantineThisEntryLink');" value="Cancel" type="button">
+			</div>
+		</td></tr>
+	</tbody></table>
+</form>
+<form name="deleteForm" style="display:none" action="/developerworks/community/blogs/roller-services/json/delete_entry" class="lotusForm" role="application">
+	<input name="entry" value="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/an_overview_of_linux_processes21" type="hidden">
+	<input name="dangerousurlnonce" value="" type="hidden">
+	<input name="lang" value="en" type="hidden">
+</form>
+
+<div id="actionforms_globalmsgs" style="display:none">
+	<div name="error_messages" class="lotusMessage" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconError16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Error icon"><span class="lotusAltText">Error icon</span><span name="message"></span>
+	</div>
+	<div name="warning_messages" class="lotusMessage lotusWarning" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconWarning16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Warning icon"><span class="lotusAltText">Warning icon</span><span name="message"></span>
+	</div>
+	<div name="info_messages" class="lotusMessage lotusInfo" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconAttention16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Information icon"><span class="lotusAltText">Information icon</span><span name="message"></span>
+	</div>
+	<div name="confirm_messages" class="lotusMessage lotusConfirm" style="display:none" role="alert">
+		<img class="lconnSprite lconnSprite-iconConfirmation16" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/blank.gif" alt="Confirmation icon"><span class="lotusAltText">Confirmation icon</span><span name="message"></span>
+	</div>
+</div>
+
+<script language="javascript">
+function keepSessionAlive(){dojo.xhrGet({url: '/developerworks/community/blogs/roller-services/json/authcheck'});}
+WeblogEntryActionForms = {
+    opened: {count:0},
+	type: function(form) {
+		t=dojo.query('[name="_type"]', form);
+		if(t.length>0){
+			return t[0].innerHTML;
+		}
+		else {
+			return '';
+		}
+	},
+	close: function(form) {
+		form.style.display='none';
+		this.reset(form);
+
+		if(this.opened[form.name]) {
+	    	this.opened[form.name] = false;
+	    	this.opened.count--;
+	    	if(this.opened.count == 0) {
+	    		if(this.keepAliveTimer.isRunning) {
+					this.keepAliveTimer.stop();
+				}
+	    	}
+	    }
+	},
+    reset: function(form) {
+    	form.reset();
+
+    	// clear messages
+    	var mt = ['error', 'warning', 'info'];
+    	for(var i=0; i<mt.length; i++) {
+    	    var x=dojo.query('[name="' + mt[i] + '_messages"]', form);
+	    	if(x.length > 0) {
+	    	    x[0].style.display='none';
+	    	    x=dojo.query('[name="message"]', x[0]);
+	    	    if(x.length > 0) x[0].innerHTML='';
+	    	}
+    	}
+
+        var t=this.type(form);
+        if(t=='comment') {
+        	form.content.innerHTML='';
+        	var x = dojo.byId("commentspanel_preview");
+        	if(x) dojo.byId("commentspanel_preview").style.display = "none";
+        }
+        else if(t=='notification') {
+            form.receivers.clear();
+        }
+        else if(t=='notification_ex') {
+        	form.receivers.clear();
+
+        	var fcb = dijit.byId(form.name+'_filteringcheckbox');
+        	fcb.peopleSelected = new Object();
+        	if (fcb.currPage > 1) {
+        	    fcb.currPage = 1;
+        	    fcb.gotList = false;
+        	}
+        	fcb.clearSearch();
+        }
+    },
+    init: function(form) {
+        var t=this.type(form);
+        if(t=='notification') {
+            var dojoInit = form.getAttribute('dojoInit');
+            if(dojoInit == 'false') {
+                dojo.parser.parse(form);
+								form.setAttribute('dojoInit', 'true');
+            }
+            if(form.description.value == '') {
+                form.description.value = 'Hi-  I thought you might be interested in this blog entry.';
+            }
+    	}
+    	else if(t=='notification_ex') {
+    	    var dojoInit = form.getAttribute('dojoInit');
+            if(dojoInit == 'false') {
+            	dojo.parser.parse(form);
+            	            	form.setAttribute('dojoInit', 'true');
+            }
+
+        	var fcb = dijit.byId(form.name+'_filteringcheckbox');
+        	if(!fcb.gotList) fcb.getList();
+        	fcb.setDisabled(false);
+
+        	if(form.description.value == '') {
+                form.description.value = 'Hi-  I thought you might be interested in this blog entry.';
+            }
+        }
+    },
+    hideAll: function() {
+    	document.forms['commentForm'].style.display='none';
+    	document.forms['notificationForm'].style.display='none';
+    	    	document.forms['quarantineForm'].style.display='none';
+
+    	var t = dojo.byId('actionforms_globalmsgs');
+    	if(t) {
+    	    t.style.display = 'none';
+    	}
+    },
+    toggle: function(name, fc) {
+    	var f = document.forms[name];
+    	if(f.style.display != 'none'){
+    	    return;
+    	}
+
+    	this.init(f);
+
+    	this.hideAll();
+	    f.style.display='';
+	    if(typeof fc != 'undefined') {
+		    var fcs = fc.split(",");
+			var bFocused = false;
+			for(var i = 0; i < fcs.length; i++) {
+			    var tfc = fcs[i];
+				var x = dojo.query('[name="'+tfc+'"]', f);
+	            if(x.length>0) {
+				    x[0].focus();
+					bFocused = true;
+					break;
+				}
+			}
+			for(var i = 0; i < fcs.length; i++) {
+			    var tfc = fcs[i];
+				var x = dojo.query('[id="'+tfc+'"]', f);
+	            if(x.length>0) {
+				    x[0].focus();
+					bFocused = true;
+					break;
+				}
+			}
+	    }
+
+	    if(!this.opened[name]) {
+	    	this.opened[name] = true;
+	    	this.opened.count++;
+	    }
+
+	    if(typeof this.keepAliveTimer == 'undefined') {
+			this.keepAliveTimer = new dojox.timing.Timer(60000);
+			this.keepAliveTimer.onTick = function() {keepSessionAlive();};
+		}
+		if(!this.keepAliveTimer.isRunning) {
+			this.keepAliveTimer.start();
+		}
+    },
+    cancel: function(name, fc) {
+    	WeblogEntryActionForms.close(document.forms[name]);
+    	if(typeof fc != 'undefined') dojo.byId(fc).focus();
+
+    	return false;
+    },
+    message: function(form, data, type) {
+        // clear messages
+		var gm = dojo.byId('actionforms_globalmsgs');
+		
+    	var mt = ['error', 'warning', 'info'];
+    	for(var i=0; i<mt.length; i++) {
+    	    var x=dojo.query('[name="' + mt[i] + '_messages"]', form);
+	    	if(x.length > 0) {
+	    	    x[0].style.display='none';
+	    	    x=dojo.query('[name="message"]', x[0]);
+	    	    if(x.length > 0) x[0].innerHTML='';
+	    	}else{
+				//no form message display, use global message
+				x=dojo.query('[name="' + mt[i] + '_messages"]', gm);
+				if(x.length > 0) {
+    	    	    x[0].style.display='none';
+    	    	    x=dojo.query('[name="message"]', x[0]);
+    	    	    if(x.length > 0) x[0].innerHTML='';
+	    		}
+			}
+    	}
+
+        var x=dojo.query('[name="' + type + '_messages"]', form);
+        if(x.length>0) {
+            x[0].style.display='';
+            x=dojo.query('[name="message"]', x[0]);
+            if(x.length>0) {
+                x[0].innerHTML=data;
+				x[0].setAttribute('role', 'alert');
+            }
+        }else{
+			//no form message display, use global message
+			x=dojo.query('[name="' + type + '_messages"]', gm);
+			x[0].style.display='';
+            x=dojo.query('[name="message"]', x[0]);
+            if(x.length>0) {
+                x[0].innerHTML=data;
+				x[0].setAttribute('role', 'alert');
+            }
+			gm.style.display='';
+		}
+    },
+    showCommentMessage: function(data) {
+        var gm = dojo.byId('actionforms_globalmsgs');
+
+        var mt = ['error', 'warning', 'info', 'confirm'];
+    	for(var i=0; i<mt.length; i++) {
+    	    var x=dojo.query('[name="' + mt[i] + '_messages"]', gm);
+	    	if(x.length > 0) {
+	    	    x[0].style.display='none';
+	    	    x=dojo.query('[name="message"]', x[0]);
+	    	    if(x.length > 0) x[0].innerHTML='';
+	    	}
+    	}
+
+    	var x=dojo.query('[name="confirm_messages"]', gm);
+    	if(x.length > 0) {
+    	    x[0].style.display='';
+    	    x=dojo.query('[name="message"]', x[0]);
+	    	if(x.length > 0) x[0].innerHTML=data;
+    	}
+
+    	gm.style.display='';
+    },
+    disable: function(form, b) {
+        var t=dojo.query('[name$="Btn"]');
+        for(var i=0; i<t.length; i++) t[i].disabled=b;
+    },
+    ajaxPost: function(form, postExec, msgs) {
+    	form.dangerousurlnonce.value=window.__security_nonce;
+    	this.message(form, msgs.running + '<div class="lotusLoading lotusLeft"></div>', 'info');
+    	this.disable(form, true);
+    	dojo.xhrPost({
+	        url: form.action,
+	        form: form,
+	        handleAs: 'json-comment-optional',
+	        load: function (data, ioArgs) {
+	            if(data.success) {
+	            	WeblogEntryActionForms.close(form);
+
+	            	var gm = dojo.byId('actionforms_globalmsgs');
+	            	gm.style.display='none';
+			        var mt = ['error', 'warning', 'info', 'confirm'];
+			    	for(var i=0; i<mt.length; i++) {
+			    	    var x=dojo.query('[name="' + mt[i] + '_messages"]', gm);
+				    	if(x.length > 0) {
+				    	    x[0].style.display='none';
+				    	    x=dojo.query('[name="message"]', x[0]);
+				    	    if(x.length > 0) x[0].innerHTML='';
+				    	}
+			    	}
+
+	            	var t=WeblogEntryActionForms.type(form);
+	            	if(t=='notification' || t=='notification_ex') {
+				    	var x=dojo.query('[name="confirm_messages"]', gm);
+				    	if(x.length > 0) {
+				    	    x[0].style.display='';
+				    	    x=dojo.query('[name="message"]', x[0]);
+					    	if(x.length > 0) {
+					    		x[0].innerHTML='The notification has been sent.';
+					    		x[0].setAttribute('role', 'alert');
+					    	}
+				    	}
+
+				    	gm.style.display='';
+	            	}
+	            	if(t=='flagInappropriateEntry') {
+				    	var x=dojo.query('[name="confirm_messages"]', gm);
+				    	if(x.length > 0) {
+				    	    x[0].style.display='';
+				    	    x=dojo.query('[name="message"]', x[0]);
+					    	if(x.length > 0) {
+					    		x[0].innerHTML='The blog entry has been flagged and submitted for review.';
+					    		x[0].setAttribute('role', 'alert');
+					    	}
+				    	}
+
+				    	gm.style.display='';
+	            	}
+	            }
+	            else {
+	                if(data.error) {
+	                    if('session timeout' == data.error) {
+	                        window.__security_nonce = data.nonce;
+	                        WeblogEntryActionForms.message(form, 'We were unable to process your request due to a session timeout.  Please try again.', 'error');
+	                    } else {
+	            			WeblogEntryActionForms.message(form, data.error, 'error');
+	            		}
+	            	}
+	            	else {
+	            		WeblogEntryActionForms.message(form, 'This function is only available to authenticated users. Please log in first.', 'error');
+	            	}
+	            }
+	            WeblogEntryActionForms.disable(form, false);
+	            if(data.success && typeof postExec != 'undefined') postExec(data);
+	        },
+	        error: function (error, ioArgs) {
+	            WeblogEntryActionForms.message(form, msgs.fail, 'error');
+	            WeblogEntryActionForms.disable(form, false);
+	        }
+	    });
+    }
+};
+
+document.forms['commentForm'].onsubmit=function(){
+    if(typeof this.submited != 'undefined' && this.submited) {
+        return false;
+    }
+	this.dangerousurlnonce.value=window.__security_nonce;
+	this.content.value = this.content.value.replace(/^\s+|\s+$/g, '');
+	if(this.content.value.length == 0){
+		showDialog('Please enter a comment.', 'comment_content');//alert
+		this.content.focus();
+		return false;
+	}else{
+	  this.submited = true;
+	  return true;
+	}
+};
+function postNotificaton(){
+	WeblogEntryActionForms.ajaxPost(document.forms['notificationForm'], function(){dojo.byId('focusMoreActionsLink').focus();},
+		{fail: 'Failed to send the notification.',
+		 running: 'Sending Notification...:'});
+	return false;
+};
+function postQuarantine(){
+	 	WeblogEntryActionForms.ajaxPost(document.forms['quarantineForm'], function(){window.location = 'https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/sdk_for_the_development_and_analysis_of_c_c_application_on_power19?lang=en';},
+		{fail: 'Fail to submit the request. Server error.',
+		 running: 'Submitting...'});
+	return false;
+};
+
+function postDelete(){
+	 	WeblogEntryActionForms.ajaxPost(document.forms['deleteForm'], function(){window.location = 'https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/sdk_for_the_development_and_analysis_of_c_c_application_on_power19?lang=en';},
+		{fail: 'Fail to submit the request. Server error.',
+		 running: ''});
+	return false;
+};
+
+				if(window.location.hash == '#action=addcomment' && currentLogin.auth) WeblogEntryActionForms.toggle('commentForm', 'content');
+	
+if(window.location.hash == '#action=send_notification') {
+    dojo.addOnLoad(function(){WeblogEntryActionForms.toggle('notificationForm', 'description');});
+}
+
+if(currentLogin.auth) {
+dojo.addOnLoad(function() {
+    	var http;
+	if(typeof XMLHttpRequest == 'undefined') http=new ActiveXObject("Microsoft.XMLHTTP");
+	else http=new XMLHttpRequest();
+	http.open('GET', '/developerworks/community/blogs/roller-services/json/user_weblogs/?maxnamelen=20', true);
+	http.onreadystatechange = function() {
+		if (http.readyState == 4 && http.status == 200) {
+			eval(http.responseText);
+			if(typeof loginuser_weblogs != 'undefined' && loginuser_weblogs != null && loginuser_weblogs.length > 0) {
+			    var f = document.forms['commentForm'];
+				var x = dojo.query('[name="select_blogs"]', f);
+				if(x.length > 0) {
+					var s = ['<div><input type="checkbox" id="postAsTrackback"',
+						           'onclick="if(this.checked) {this.form.target.disabled = false;}else{this.form.target.disabled=true;}" ',
+						           'name="postAsTrackback" style="margin:0px 5px;"/>',
+						     '<label for="postAsTrackback" style="font-weight: normal;">Add this as a new entry in my blog:</label>',
+						     '<select title="Target" name="target" disabled="true" style="margin:0px 5px;">'].join('');
+					for(var i=0; i<loginuser_weblogs.length; i++) {
+					    var _t = loginuser_weblogs[i].name;
+						if(loginuser_weblogs[i].isIdeationBlog) {
+						    _t = '_title_ (Ideation Blog)';
+							_t = _t.replace('_title_', loginuser_weblogs[i].name);
+						}
+						if(loginuser_weblogs[i].isCommunityBlog) {
+						    _t = '_title_ (Community Blog)';
+							_t = _t.replace('_title_', loginuser_weblogs[i].name);
+						}
+					    s = s + '<option value="' + loginuser_weblogs[i].handle + '" ' + ((typeof selectedTarget != 'undefined' && loginuser_weblogs[i].handle == selectedTarget)?'checked':'') + '>' + lconn.blogs.utils.escapeHTML(_t) + '</option>';
+					}
+					s = s + '</select></div>';
+					x[0].innerHTML = s;
+
+					if(typeof selectedTarget != 'undefined' && selectedTarget) {
+						f.target.value = selectedTarget;
+						if(f.target.value == selectedTarget) {
+							f.postAsTrackback.checked = true;
+							f.target.disabled = false;
+						}
+					}
+				}
+			}
+		}
+	};
+	http.send(null);
+});
+}
+</script>
+</div>
+</div>
+			
+
+						        						    
+													    
+							<!-- Dont show paging when there are no comments -->
+											            	
+							
+						    
+						   
+						   						 
+								</div>
+
+						    </div>
+
+		        		         
+ 
+		    </div>    <!-- end entries -->
+						
+
+		<!-- Dont show paging when there are no entries -->
+								<div class="" role="navigation" style="font-size: 0.9em;" aria-label="Page navigation">
+			                        <ul class="inlinelist lotusInlinelist">
+    	<li class="lotusFirst">
+	    	        <a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/understanding_linux_open_system_call?lang=en" title="Previous Entry">Previous Entry</a>
+	 	    	</li>
+    	<li>
+        <a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c?maxresults=15&amp;lang=en">Main</a>
+        </li>
+        <li>
+	    	        <a href="https://www.ibm.com/developerworks/community/blogs/58e72888-6340-46ac-b488-d31aa4058e9c/entry/sdk_for_the_development_and_analysis_of_c_c_application_on_power19?lang=en" title="Next Entry">Next Entry</a>
+		        </li>
+    </ul>
+		    </div>
+						
+  </div>        </div> <!-- end content -->
+</div><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/postmessageRelay.html" id="oauth2relay254046695" name="oauth2relay254046695"></iframe><!-- end main -->
+
+ 	<script language="javascript">  
+		 var isEntry = true;
+		 
+		 dojo.addOnLoad(function(){
+			var t = document.getElementById('TOGGLE_comment_rating_${item.id}_widget');
+			if(t) {
+				var p = t.parentNode;
+				p.removeAttribute('aria-live');
+				var h = t.innerHTML;
+				p.innerHTML = '<a class="lotusLikeAction" aria-disabled="true" href="javascript:;" onclick="return false" title="Like is disabled in comment preview.">' + h + '</a>';
+			}
+		});
+ 	</script> 
+
+	<script language="javascript">  
+		 var isComm = true;
+ 	</script>
+<script language="javascript">  
+if(isEntry){
+	readTrackerMetrics = {};
+	readTrackerMetrics.contentId = "3d60b1da-a8cf-432e-bf21-33e400bcebbd";
+	readTrackerMetrics.contentTitle = "An overview of Linux processes";
+	readTrackerMetrics.contentContainerId = "4f6e5c62-2b11-43d3-b1f8-3614303411db";
+	readTrackerMetrics.contentContainerTitle = "Real world Linux";
+	readTrackerMetrics.itemType="ENTRY";
+
+}else{
+	// metrics variables, it will be used in footer
+	readTrackerMetrics = {};  
+	readTrackerMetrics.contentId="4f6e5c62-2b11-43d3-b1f8-3614303411db";
+	readTrackerMetrics.contentTitle = "Real world Linux";
+	readTrackerMetrics.itemType="BLOG";
+	}
+		
+if(isComm){
+	readTrackerMetrics.communityId = "58e72888-6340-46ac-b488-d31aa4058e9c";
+}
+</script>
+
+	
+
+    
+        
+    
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="lotusFooter" class="lotusFooter" role="contentinfo">
+	
+			
+			<script type="text/javascript">
+   function handleHeaderInit(info) {
+      if (info && info.user) {
+         
+         dojo.byId('usernameText').innerHTML = info.user;
+         dojo.byId("headerUserText").style.display = "";
+         dojo.attr("headerUserName", "src", "/developerworks/community/blogs/static/20130907.165906!en/nav/templates/menu/user.jsp?appName=blogs&username=" + info.user + "&userid=" + info.userId);
+
+         if (dojo.byId("headerSharebox"))
+            dojo.byId("headerSharebox").style.display = "";
+
+         var a = dojo.byId("logoutLink");
+         a.replaceChild(document.createTextNode("Log Out"), a.firstChild);
+         a.href =  "https:\/\/www.ibm.com\/developerworks\/community\/blogs\/roller-ui\/logout-redirect.jsp"
+         a.style.display = "none";
+
+         dojo.query("li", dojo.byId("headerMenuContainer")).forEach(function(el) {if (el.previousSibling) dojo.removeClass(el, "lotusFirst");});
+
+         var a = dojo.byId("lotusBannerCommunitiesLink");
+         if (a) {
+             var menu = dijit.byId(dojo.attr(a, "aria-owns"));
+             var href = "\/developerworks\/community\/blogs\/static\/20130907.165906!en\/nav\/templates\/menu\/communities.jsp?authenticated=true";
+             if (menu)
+                menu.attr("href", href);
+             else
+                dojo.attr(a, "src", href);
+         }
+
+         lconn.core.header.apps.updateBannerByRoles();
+      }
+   }
+   dojo.subscribe("lconn/core/header/init", handleHeaderInit);
+</script><script type="text/javascript">
+   function loadConnectionsLanguageSelector() {
+      try {
+         dojo.require("lconn.core.header");
+         lconn.core.header.enableLanguageSelector("languageSelectorText", {"en":"English","zh":"\u4e2d\u6587 (\u200f\u7b80\u4f53)","ja":"\u65e5\u672c\u8a9e","es":"Espa\u00f1ol","pt_br":"Portugu\u00eas (\u200fBrasil)","ru":"\u0420\u0443\u0441\u0441\u043a\u0438\u0439","BD":"BD"},
+            "conxnsCookie", "", -1);
+      } catch (e) {
+         console.error(e);
+      }
+   }
+   if (dojo.exists("lconn.core.header") && !dojo.exists("_skipConnectionsLanguageSelector"))
+      dojo.addOnLoad(loadConnectionsLanguageSelector);
+</script><script type="text/javascript">
+      dojo.require("lconn.core.header.apps");
+      dojo.require("lconn.core.auth");
+    </script>
+
+	<div id="ibm-footer1"></div>
+<div id="footer_div"><div id="ibm-footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-5-1">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/">About</a></li>
+				<li><a href="https://www.ibm.com/developerworks/feedback">Help</a></li>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/contacts.html">Contact us</a></li>
+				<li><a href="https://www.ibm.com/developerworks/ideas">Submit content</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-2">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/feeds/">Feeds</a></li>
+				<li><a class="ibm-twitter-link" href="http://twitter.com/developerWorks" target="_blank">Follow</a></li>
+				<li><a class="ibm-facebook-link" href="http://www.facebook.com/developerworks" target="_blank">Like</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-3">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/community/report/">Report abuse</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/">Terms of use</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/thirdparty/">Third party notice</a></li>
+				<li><a href="http://www.ibm.com/privacy/">IBM privacy</a></li>
+				<li><a href="http://www.ibm.com/accessibility/">IBM accessibility</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-4">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/university/academicinitiative/">Faculty</a></li>
+				<li><a href="http://www.ibm.com/developerworks/university/students/">Students</a></li>
+				<li><a href="http://www.ibm.com/isv/">Business Partners</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-5">
+			<img src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/dwn-ibm-logo-v17.png" alt="IBM®" width="223" height="46">
+			<img class="dw-preload" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/ibm_sprite_social_blue_ON.png" alt="" width="1" height="1">
+			<img class="dw-preload" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/arrow-down-active.gif" alt="" width="1" height="1">	
+		</div>
+	</div>
+	<!-- Language selector no-script -->
+	<noscript>
+	<div id="dw-footer-selectlang">
+		<h2><a name="SELECTLANG">Select a language:</a></h2>
+		<ul>
+			<li><a href="http://www.ibm.com/developerworks/">English</a></li>
+			<li><a href="http://www.ibm.com/developerworks/cn/" lang="zh">中文</a></li>
+			<li><a href="http://www.ibm.com/developerworks/jp/" lang="ja">日本語</a></li>
+			<li><a href="http://www.ibm.com/developerworks/ru/" lang="ru">Русский</a></li>
+			<li><a href="http://www.ibm.com/developerworks/br/" lang="pt">Português (Brasil)</a></li>
+			<li><a href="http://www.ibm.com/developerworks/ssa/" lang="es">Español</a></li>
+			<li><a href="http://www.ibm.com/developerworks/vn/" lang="vi">Việt</a></li>
+		</ul>
+	</div>
+	</noscript>
+</div>
+
+</div></div>
+<div id="footer_scripts_div"></div>
+		
+<script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/stats.js"></script>
+<noscript><img src="//stats.www.ibm.com/rc/images/uc.GIF?R=noscript" width="1" height="1" alt="" border="0" /></noscript>
+<!--<script type="text/javascript" src="/developerworks/community/connections/resources/web/_js/?include=dojo.io.script.js~&etag=W8wd1eA_en_US&lang=en&country=us">//</script> -->
+<script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/viper-www.js">//</script>
+<script type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/xmlc.js">//</script>
+<script type="text/javascript">
+// turn social bookmarking on
+ibmweb.config.set({ sbs: { enabled: true }});
+ibmweb.config.sbs.print = true;
+ibmweb.config.sbs.email = true;
+ibmweb.config.noDojoLocaleOverride = true;
+</script>
+		
+
+<script>
+	function showHideFromUpdates() {	
+	if (document.getElementById("widget-container-col2posts").innerHTML=="") {
+		setTimeout(function() { showHideFromUpdates(); },500);
+		return;
+	}
+	
+	var yn = false;
+	var yn = false;
+	var el = dojo.byId("col2Wrapper");
+	var els_r = dojo.query(".FOR_UPDATES", el);
+	yn = els_r.length == 0;	
+		
+		if (yn) {
+			COM.utils.hide("mainpageTabs"); 
+			
+			selectWidgetTab("overviewTab");
+		} else {
+			COM.utils.show("mainpageTabs"); 
+			
+			selectWidgetTab("recentTab");	
+		}
+	}
+		
+</script>
+<script type="text/javascript">
+	if (lconn.files && lconn.files.scenehelper) {
+		lconn.files.scenehelper.applyWelcome = function() {};	
+	}
+	if (dojo && dojo.config && djConfig && djConfig.dojoBlankHtmlUrl)
+		dojo.config["dojoBlankHtmlUrl"] = djConfig.dojoBlankHtmlUrl;	
+</script> 
+       
+<script type="text/javascript">
+	if (lconn.wikis && lconn.wikis.scenes) {
+		lconn.wikis.scenes.applyWelcome = function() {};	
+	}
+</script>
+
+<script type="text/javascript">
+	/*
+	var initialDojoLocale = djConfig.locale; 
+	//if (console) console.log("locale:"+initialDojoLocale);
+	if (dojo && dojo.i18n) {
+		dojo.i18n.normalizeLocale=function(_a){	
+		if (_a == "pt-us") _a="pt-br";	
+		//var _b=_a?_a.toLowerCase():djConfig.locale;
+		var _b=_a?_a.toLowerCase():initialDojoLocale;
+		//if (console) console.log("normalizeLocale:"+_b);
+		if(_b=="root"){
+		_b="ROOT";
+		}
+		return _b;
+		};
+	}
+	*/
+</script>
+</div><!--end footer-->
+
+<script language="javascript">
+	if(!(typeof currentLogin.name == 'undefined' || currentLogin.name == null || currentLogin.name == '')) {
+		dojo.publish("lconn/core/header/init", [{
+			user: currentLogin.name, 
+			userId: currentLogin.extid, 
+			isModerator: currentLogin.globalModerator
+		}]);
+	}
+</script>
+
+<!-- build 20130514084652 -->
+	
+<div id="datetagdiv" style="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;">
+</div>
+
+<script language="javascript">
+	if(currentLogin.globalAdmin) activateFooterLinks();
+	var metricsLinks = dojo.query('.lotusMetricsReaderLink');
+	for(var i = 0; i < metricsLinks.length; i++) {
+		metricsLinks[i].style.display = currentLogin.metricsReader ? '' : 'none';
+	}
+	if(typeof openHelpWindow == 'undefined') {
+		var helpWindow;
+		window.openHelpWindow = function (url, width, height) {
+			if (!width) {
+				width = window.screen.width / 4;
+				if (width < 950) width = 950;
+			}
+			if (!height) {
+				height = window.screen.height / 4;
+				if (height < 550) height = 550;
+			}
+			if (typeof(helpWindow) != "undefined") helpWindow.close();
+			var options = 'height=' + height + ',width=' + width + ',status=yes,toolbar=yes,menubar=no,location=yes,scrollbars=yes,resizable=yes';
+			helpWindow = window.open(BlogsBaseUrl + url, 'help', options);
+			if (window.focus) helpWindow.focus();
+	};
+}
+// metrics read tracker
+if (!dojo.exists("com.ibm.lconn.layout.track"))
+{
+dojo.require("com.ibm.lconn.layout.track"); // load track js api, each application should already load the common js jar that include this api
+}
+
+	// metrics read tracker
+	var metrics = {};
+	var extra = {};
+	metrics.source=appName; // retrieve from the common header
+	extra.contentLink = window.location.href; 
+	
+	if(!(typeof readTrackerMetrics == "undefined")){
+		metrics.itemType = readTrackerMetrics.itemType;
+		metrics.communityId = readTrackerMetrics.communityId;
+		metrics.contentId = readTrackerMetrics.contentId;
+		extra.contentTitle = readTrackerMetrics.contentTitle;
+		extra.contentContainerId = readTrackerMetrics.contentContainerId;
+		extra.contentContainerTitle = readTrackerMetrics.contentContainerTitle;
+	}
+	
+	if(typeof metrics.itemType == "undefined"){
+		metrics.itemType="BLOGS"; // define for each web page
+	} 
+	
+	if(typeof metrics.contentId == "undefined"){
+		metrics.contentId="BLOGS"; // define for each web page
+	}
+	
+	if(typeof currentLogin.extid != "undefined"){
+		metrics.userId = currentLogin.extid;
+	}
+	
+	metrics.extra = extra;
+	
+	var track = com.ibm.lconn.layout.track;
+	track.read(metrics.contentId, metrics.itemType, metrics); // call tracker js to send read event
+</script>
+
+<script type="text/javascript">
+if(typeof dojo.getObject('com.ibm.ajax.auth.interceptDojoXhr') == 'function') {
+	dojo.addOnLoad(function() {
+    var ciaa = com.ibm.ajax.auth;
+    ciaa.interceptDojoXhr(function(){return true;});
+    ciaa.setAuthenticationHandler(function(response, ioArgs, onauthenticated){
+        var racp = window.location.href.replace(/,/g,"%2C");
+        window.location.replace(getLoginRedirectURL(racp));
+    });
+	});
+}
+</script>
+
+<script type="text/javascript">
+	var lconn_core_thirdPartySearchEngines = []
+</script>
+
+    
+<!-- frame -->
+      <script src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/topsy.js" type="text/javascript"></script>
+  
+      <script gapi_processed="true" type="text/javascript" src="An%20overview%20of%20Linux%20processes%20%28Real%20world%20Linux%29_files/plusone.js"></script>
+  
+<script language="javascript">
+if(dojo.isIE && lconn.blogs.utils.applyDojoOnLoads) {lconn.blogs.utils.applyDojoOnLoads();}
+</script>
+
+
+
+
+
+
+</body></html>

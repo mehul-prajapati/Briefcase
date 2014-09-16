@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html dir="ltr" class="ve-not-available client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Linux startup process - Wikipedia, the free encyclopedia</title>
+<meta name="generator" content="MediaWiki 1.23wmf8">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Linux_startup_process">
+<link rel="stylesheet" href="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.css">
+<style>
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//bits.wikimedia.org/static-1.23wmf8/resources/jquery.tipsy/images/tipsy.png?2013-12-19T17:16:40Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:afedc1592c570ecfccc5912f2d461b03 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:090fd3347dcd0c5874946aed9d85e0b9 */
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.uls-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAMAAADQzfSkAAABqlBMVEX////f3/+Ov+/n5+fp6enp6eno6Ojp6enn5+ff39/q6urp6enp6enp6enq6urp6en////q6urr6+upv+rU1NTJycnR0dEaGhrp6enT4/SEuuK9vb3l5eU2ktCxsbFdXV1paWmzwc9ITFDo6OhaWlpsbGxtbW2BipSZpK/X19d2dnZ8hI2/v79PT09gZm2CgoLIyMjD0eGksL1JTVHM2+spKywnKCkcHBzAzt3I1+cxMzZxcXFkZGSvr69WW2C8vLyFjphqcXiLlZ8dHh4gISLa2trQ3/Dc3NzZ2dl7e3uioqIfHyBCRko9QEPh4eFgYGDGxsZoaGiPj4/Ly8uRm6a6yNcbGxuSnKfL2uqVn6scHR20tLR/f3+Kioq4uLienp54gIipqanA2e+71u9GSk5yeoKgoKCAgIB0dHRLS0tlZWWDg4PBwcHFxcWxvsxkanGapbCKlJ7O4fNXo9hQn9bM3/OPmaRfZWve3t6mpqbR0dG+vr6JiYnKyspPVFl1s99+fn5srdzm5ubNzc1BREh2s99xsN7S0tIxMzUiIyQ2OTt/iJFwcHBbYWc3S28lAAAAF3RSTlMACBAg7P3LiTYIX6LmmDzeAYMnDN+1MJx17ncAAAEQSURBVHheddBTb0VREIbhVduYWVuHRm3btm3bNv9zJ2v3IE36Xk3yZG4+xkMKw0BREYwJMzkcO38MY37tG6AmYN48YZFxwsbeiys6y/02rT1Wa4TxwoYgpx4adLMbfRubs9tk0cJuYK8ACv1/Xy5LLlIYS5bf2FTUUlJapptiqKwyuOfJEsjq4M3j+YBPYc02X6utTWnvQEwk6wJRNxn29Pb1D2iIg0bEJMaHYWTU6RyfABPZ5BTa7xBxxo2YzPgcPPGFRb4Ey2Qrq2vrXlRk6xampDK+a94/ODw6PjGfkp2dX1y6ZOvVNWKavsutqt6HbGZ5QCqdMUmSnlXqhY6M12CZtKcaUnhtsKz/Tc5m7AfjN0jzWIipawAAAABJRU5ErkJggg==) no-repeat scroll left center;background:transparent url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.png?2013-12-19T17:21:40Z) no-repeat scroll left center!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.svg?2013-12-19T17:21:40Z);background-image:-moz-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.svg?2013-12-19T17:21:40Z);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.svg?2013-12-19T17:21:40Z);padding-left:30px}#pt-uls a.uls-trigger{padding-left:30px}#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAMAAAAVMLmlAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAALpQTFRF////W1tbgICAWVlZgICAUVFRgICAWVlZhYWFUlJShYWFVFRUgYGBVVVVgYGBVVVVgICAVFRUVVVVVlZWgYGBgICAVFRUgYGBVFRUgICAgYGBVVVVVVVVgYGBVlZWgYGBVFRUgICAVFRUgICAVVVVgICAVlZWgICAVFRUgICAVVVVgICAVFRUgICAVlZWgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICA9Fa9bgAAADx0Uk5TAA4OFBQWFhcXGRlJSUtLWlpbXV9fYGFhZGRlZmlpa2twcIiIioqPj5GRn5+goKGh6+vv7/Dw+fn8/P7+YuRUVgAAAOlJREFUGBmNwcdWAgEURMFLFCUaAcWAEhQYHBRmCN3//1u+BYcVC6s4p2U3OLrrVxN7Xn7uELoH5w65Dx1g6JNnoLazfz++VnZehkZir4pQ3NjzBg5TwtgBhzFh6kDr294UobiykxZc7ezVdLyx8yrw6pM+8GjnDjsf7gj3/WpiJ7Vhl6OW3eC/mlKdo5teZSHNSoM24XqvTCHTvg0MdDIASpn08/6ZSlkJ6jMpLUBhLc3qKEwIIwUURoSJAs2ltC5AIZUWTbjcSulktJayCvCikx7wJG0VttrfEp5eLpfS4uLtgaOmVOeMP8BAM9RClMO9AAAAAElFTkSuQmCC) no-repeat right top;background:transparent url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2013-12-19T17:21:40Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2013-12-19T17:21:40Z);background-image:-moz-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2013-12-19T17:21:40Z);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2013-12-19T17:21:40Z);height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}   x:-o-prefocus,body.rtl li#pt-uls{ direction:ltr}#settings-block{border-top:1px solid #C9C9C9;background:#f8f8f8;background:-webkit-gradient(linear,left top,left bottom,from(#FBFBFB),to(#F0F0F0));background:-webkit-linear-gradient(top,#FBFBFB,#F0F0F0);background:-moz-linear-gradient(top,#FBFBFB,#F0F0F0);background:-o-linear-gradient(top,#FBFBFB,#F0F0F0);background:linear-gradient(#FBFBFB,#F0F0F0);padding-left:10px;line-height:1.2em;-webkit-border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;border-radius:0 0 5px 5px}.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #AAA;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}#settings-block div.display-settings-block,#settings-block div.input-settings-block{display:inline-block;margin:8px 15px;color:#565656}#settings-block div.display-settings-block:hover,#settings-block div.input-settings-block:hover{color:#252525}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525} .ime-perime-help{display:none}.ime-checked .ime-perime-help{display:inline-block;width:20px;height:100%;position:absolute;top:0;bottom:0;right:0;opacity:0.75;padding:0;background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAFdQTFRF////AAAAZmZmVVVVSUlJW1tbVVVVV1dXWFhYVVVVV1dXVlZWWFhYV1dXWFhYVlZWV1dXVlZWV1dXV1dXWFhYV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXrNxhuAAAABx0Uk5TAAEFBgcOJCkxNlVla3KDi5WrsrbJ09ny9vf9/uWqFuIAAACESURBVBjTdZDBDsIgEERHai2KUqmllfr+/zs9AFYTnMsmL7uTmZX+yVjnrPkCnU8AyXeVDJGiOJSdCLzmsAIx73ngeZKOC+AlySSA8LjrCiQjyRafmzyAleQymQ7nFcDt6NItVFQOp5Cn/dgzjlDts+vW9xs1RI7KPLNHbRRq1W4951dvPF4RAFiSul8AAAAASUVORK5CYII=) left center no-repeat;background:transparent url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/help.png?2013-12-19T17:21:40Z) left center no-repeat!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxOCIKICAgaGVpZ2h0PSIxOCIKICAgdmlld0JveD0iMCAwIDE4IDE4LjAwMDAwMSIKICAgaWQ9IkxheWVyXzEiCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiPjxtZXRhZGF0YQogICBpZD0ibWV0YWRhdGE5Ij48cmRmOlJERj48Y2M6V29yawogICAgICAgcmRmOmFib3V0PSIiPjxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PjxkYzp0eXBlCiAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwvcmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgIGlkPSJkZWZzNyIgLz4KPHBhdGgKICAgZD0ibSA5LjAwMDAwMDMsMS40OTk2NDM3IGMgLTQuMTQxNDE5MSwwIC03LjUwMDAwMDQsMy4zNTc4NjkgLTcuNTAwMDAwNCw3LjUwMDAwMTQgMCw0LjE0MjEzMDkgMy4zNTg1ODEzLDcuNTAwNzExOSA3LjUwMDAwMDQsNy41MDA3MTE5IEMgMTMuMTQyODQ0LDE2LjUwMDM1NyAxNi41LDEzLjE0MTc3NiAxNi41LDguOTk5NjQ1MSAxNi41LDQuODU3NTEyNyAxMy4xNDM1NTYsMS40OTk2NDM3IDkuMDAwMDAwMywxLjQ5OTY0MzcgeiBtIC0wLjAwMTQyLDExLjk0MzQ0MjMgYyAtMC42MTMzMDYyLDAgLTEuMDY3MDUzLC0wLjQ5MDA3NCAtMS4wNjcwNTMsLTEuMDc5ODc0IDAsLTAuNjE0MDE4IDAuNDUzNzQ2OCwtMS4wOTI2OTcgMS4wNjcwNTMsLTEuMDkyNjk3IDAuNTg5Nzk5NSwwIDEuMDY4NDc4NywwLjQ3ODY3OSAxLjA2ODQ3ODcsMS4wOTI2OTcgMCwwLjU4OTA4NyAtMC40Nzg2NzkyLDEuMDc5ODc0IC0xLjA2ODQ3ODcsMS4wNzk4NzQgeiBNIDEwLjUyMDgwOCw4LjgwNDQ3MDIgQyAxMC4wMDU4MDMsOS4yMDkwNjY4IDkuODA4NDg5Myw5LjQ2NzYzODQgOS44MDg0ODkzLDEwLjA0MzE5MSBWIDEwLjM5OTM1IEggOC4yMzc4MTk1IFYgOS45Njk4MjI2IGMgMCwtMS4wODA1ODY2IDAuMzE5ODMxLC0xLjUyMTUxMyAwLjgyMjAxNTgsLTEuOTE0NzEzIDAuNTAzNjA5MywtMC4zOTMxOTkxIDAuODExMzMwNiwtMC42MDE5MDkxIDAuODExMzMwNiwtMS4xNjYwNjQ4IDAsLTAuNDc4Njc4MSAtMC4yOTQ5LC0wLjc0ODY0NjcgLTAuODgzMjc0OCwtMC43NDg2NDY3IC0wLjUwMzYwOTQsMCAtMC45NDU5NTkxLDAuMTM0NjI4MSAtMS40MTE4MTUzLDAuNDU0NDU5MiBMIDYuODI3NDI5MSw1LjMwNzY5NzggQyA3LjQ0MDczNTMsNC44Nzc0NTc1IDguMjAyMjAzNiw0LjU3MTE2MDcgOS4yMDc5OTY5LDQuNTcxMTYwNyBjIDEuMzYxOTUzMSwwIDIuNTA0NTEyMSwwLjc0ODY0NjUgMi41MDQ1MTIxLDIuMTgzOTY4MiAtNy4xMmUtNCwxLjAxODYxNDkgLTAuNTY1NTgsMS41NTg1NTI1IC0xLjE5MTcwOSwyLjA0OTM0MTMgeiIKICAgaWQ9InBhdGgzIgogICBzdHlsZT0iZmlsbDojNTc1NzU3IiAvPgo8L3N2Zz4=);background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/help.svg?2013-12-19T17:21:40Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxOCIKICAgaGVpZ2h0PSIxOCIKICAgdmlld0JveD0iMCAwIDE4IDE4LjAwMDAwMSIKICAgaWQ9IkxheWVyXzEiCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiPjxtZXRhZGF0YQogICBpZD0ibWV0YWRhdGE5Ij48cmRmOlJERj48Y2M6V29yawogICAgICAgcmRmOmFib3V0PSIiPjxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PjxkYzp0eXBlCiAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwvcmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgIGlkPSJkZWZzNyIgLz4KPHBhdGgKICAgZD0ibSA5LjAwMDAwMDMsMS40OTk2NDM3IGMgLTQuMTQxNDE5MSwwIC03LjUwMDAwMDQsMy4zNTc4NjkgLTcuNTAwMDAwNCw3LjUwMDAwMTQgMCw0LjE0MjEzMDkgMy4zNTg1ODEzLDcuNTAwNzExOSA3LjUwMDAwMDQsNy41MDA3MTE5IEMgMTMuMTQyODQ0LDE2LjUwMDM1NyAxNi41LDEzLjE0MTc3NiAxNi41LDguOTk5NjQ1MSAxNi41LDQuODU3NTEyNyAxMy4xNDM1NTYsMS40OTk2NDM3IDkuMDAwMDAwMywxLjQ5OTY0MzcgeiBtIC0wLjAwMTQyLDExLjk0MzQ0MjMgYyAtMC42MTMzMDYyLDAgLTEuMDY3MDUzLC0wLjQ5MDA3NCAtMS4wNjcwNTMsLTEuMDc5ODc0IDAsLTAuNjE0MDE4IDAuNDUzNzQ2OCwtMS4wOTI2OTcgMS4wNjcwNTMsLTEuMDkyNjk3IDAuNTg5Nzk5NSwwIDEuMDY4NDc4NywwLjQ3ODY3OSAxLjA2ODQ3ODcsMS4wOTI2OTcgMCwwLjU4OTA4NyAtMC40Nzg2NzkyLDEuMDc5ODc0IC0xLjA2ODQ3ODcsMS4wNzk4NzQgeiBNIDEwLjUyMDgwOCw4LjgwNDQ3MDIgQyAxMC4wMDU4MDMsOS4yMDkwNjY4IDkuODA4NDg5Myw5LjQ2NzYzODQgOS44MDg0ODkzLDEwLjA0MzE5MSBWIDEwLjM5OTM1IEggOC4yMzc4MTk1IFYgOS45Njk4MjI2IGMgMCwtMS4wODA1ODY2IDAuMzE5ODMxLC0xLjUyMTUxMyAwLjgyMjAxNTgsLTEuOTE0NzEzIDAuNTAzNjA5MywtMC4zOTMxOTkxIDAuODExMzMwNiwtMC42MDE5MDkxIDAuODExMzMwNiwtMS4xNjYwNjQ4IDAsLTAuNDc4Njc4MSAtMC4yOTQ5LC0wLjc0ODY0NjcgLTAuODgzMjc0OCwtMC43NDg2NDY3IC0wLjUwMzYwOTQsMCAtMC45NDU5NTkxLDAuMTM0NjI4MSAtMS40MTE4MTUzLDAuNDU0NDU5MiBMIDYuODI3NDI5MSw1LjMwNzY5NzggQyA3LjQ0MDczNTMsNC44Nzc0NTc1IDguMjAyMjAzNiw0LjU3MTE2MDcgOS4yMDc5OTY5LDQuNTcxMTYwNyBjIDEuMzYxOTUzMSwwIDIuNTA0NTEyMSwwLjc0ODY0NjUgMi41MDQ1MTIxLDIuMTgzOTY4MiAtNy4xMmUtNCwxLjAxODYxNDkgLTAuNTY1NTgsMS41NTg1NTI1IC0xLjE5MTcwOSwyLjA0OTM0MTMgeiIKICAgaWQ9InBhdGgzIgogICBzdHlsZT0iZmlsbDojNTc1NzU3IiAvPgo8L3N2Zz4=);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf8/extensions/UniversalLanguageSelector/resources/css/../images/help.svg?2013-12-19T17:21:40Z)!ie}.ime-checked .ime-perime-help:hover{opacity:1}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:95041a831be190bcd24fe48774e4af8d */
+#p-lang li.interlanguage-link,.autonym{ font-family:'Autonym',sans-serif}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddc946d0b392bcbc2c1fb86246818001 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf8/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2013-12-19T17:21:40Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf8/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2013-12-19T17:21:40Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:345df921542344e92e5cbc66f5d49733 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.mw-collapsible-toggle{float:right} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a69d6f9ef6a7fa7065c5da3b52c08eb2 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf8/resources/mediawiki.action/images/green-checkmark.png?2013-12-19T17:16:40Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:c42af518dbcef14533a8cda2547ac863 */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf8/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2013-12-19T17:20:00Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf8/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2013-12-19T17:20:00Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf8/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2013-12-19T17:20:00Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf8/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2013-12-19T17:20:00Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6a438af6bedc152c4d79931a11edfd0e */
+.PopUpMediaTransform a .play-btn-large{position :absolute;top:50%;left :50%;width:70px;height:53px;margin-left:-35px;margin-top:-25px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA1CAMAAADLRm3ZAAABnlBMVEUAAAAAAAAAAABaWlp4eHh7e3t/f393d3eDg4N0dHRtbW2FhYVra2uJiYmNjY1nZ2eRkZFkZGSUlJRiYmKYmJhgYGCcnJxeXl5cXFyfn58AAACioqKlpaWsrKwAAACpqakAAAAAAAAAAAAAAABEREQFBQUHBwdMTEwAAAAYGBgAAAAAAAABAQEXFxcAAAAAAAAAAABxcXGoqKh3d3eampp8fHyIiIgUFBQcHBw0NDSFhYV+fn5FRUUmJiaNjY11dXWPj4+Hh4c9PT14eHifn59nZ2eBgYFISEiBgYFubm5vb28ODg4lJSVra2tiYmJoaGgEBAQmJiZmZmaLi4saGhpiYmKYmJhZWVlgYGBfX19vb29DQ0MGBgZcXFyBgYFKSkoPDw9ZWVlzc3NQUFBXV1eKiopUVFQdHR1VVVUQEBBYWFglJSVTU1NXV1cKCgosLCySkpJRUVFISEgyMjJPT08dHR2GhoY4ODhNTU09PT0MDAwuLi57e3sTExNJSUkgICBOTk4hISEbGxtTU1MoKChBQUEsLCxXV1cAAABycnIdNM6eAAAAinRSTlOzj6jO1dbX1NfU09nS2drR29Hc0N3Q3c/O3gDf3+Ce4EgIGW7HtbXKnLouq7S5cHIq1ODQ3NTXuLq/1tXEvNjT2NjC093N18bW0dC2vNHM0LW90Ne5z9rLzsrTxbXN1Me3zdDKzdfLu8y3zb3Lyba/2svFwcq618PKxLa/1LjJu8q8u8y+xsDKrdJqj5XQAAABYklEQVR4Xu3XVVNCQRjH4VdQEbvFVRAOIRl2d3d3d3d317d2GEaGOOfM1oUXPB/gN7NX/30BIYPeGMPAqDcgBMhrBUZWLwJBAcwcAriBAzfogAMdKIADBUUmmqm64JAxl2m1k/XMmZkin+YaxsxYqd9iA1OmsfDPajVDZqMgoL1jhzpTmR+k/OCQMlObG+L4dJgq050d5rKVJlOXGaHijjxzny6i94k005YqatBFlmlKEdfy1UeS+UmS0tllwc/0JEhT9WNnBuJlqCy4maE4OSO4mdFYOeO4mQm1jCnAzUyXSJqdm8fOLCRKWVomWIaVZHFrLqJlWE8Ts7lFuAzbGZF294iXYT8rnPLICcSZk5xQyjMzzTKc5wXTXFnoluFaE+TmlnYZipUBpgcA5syjjWU1Tf7I8wvbhr/6Im/vTmDLgO3D9Gn+R5+2aIbXzeABDjwgOIDZtwDIzvwsnR1xujV/AS6zSfMs2bS9AAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf8/extensions/TimedMediaHandler/resources/player_big_play_button.png?2013-12-19T17:20:00Z)!ie}.PopUpMediaTransform a .play-btn-large :hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA1CAMAAADLRm3ZAAABtlBMVEUAAAAAAAAAAAC5ubm1tbWwsLC+vr6Li4vExMSrq6umpqbIyMjOzs6ioqLT09OdnZ3Y2NiZmZnc3NyWlpbh4eGSkpLn5+eQkJCNjY0AAADr6+vv7+/z8/P39/cAAAD9/f0AAAAAAAAAAAAAAAB2dnYAAAAoKCj5+flra2sMDAwAAAAAAAAAAAAAAAAAAAACAgLW1tbPz88wMDCHh4fExMS8vLxKSkpubm6vr6+qqqo0NDQQEBDCwsK1tbUmJiaysrLT09PLy8uIiIgXFxetra2+vr7r6+tycnIbGxvMzMyTk5O1tbU8PDyjo6PR0dG0tLQLCwufn58HBwc9PT2bm5shISEqKiqXl5cICAiJiYmTk5Pj4+OoqKhpaWkKCgqOjo5TU1OXl5cYGBiKioo9PT18fHwlJSWGhoYuLi6CgoIvLy+Dg4Ofn5+oqKg7OzuAgIDk5OSLi4tHR0fIyMh9fX3Z2dlycnJPT08JCQl7e3vJyclhYWFZWVl4eHhhYWEUFBS6urpqamofHx9ycnK2trZzc3N6eno1NTUsLCyKioqAgIBBQUFmZmZHR0cICAjBwcEAAACIiIg+YVJpAAAAknRSTlOzj6jt6+ru4O/p5/Hy5vPl9eT24/ji+eHgAPr7/P2e/hlICG7YLr7+07accipwq7Tw777X6erGzuLjv7fs4rzn8PDYuObr+dK57tjqwuTu6rbjtcPiur3htdvg8+jRtt7H3Lndwdi83b7bwNze5cPb9t/G7drz0Mq22e7MzdjPuOrUu9fo1NnCwN/cxdLItu6t3VahkKcAAAFlSURBVHhe7dfFcgJBFIbRGyLEXegIDBAITtzd3d3d3d3d88ZJigqFzExNyyILzgN8Vb36+wJCGrXWj4JWrUEIkMUElEwWBJwMqNk4sAIDVlACA0qQAQMygowv05fNIDNYplKNFFBnmjN+ZU5SZtrTHHJnqTKVqX8KFykyWSlO9auNxJmmZBebOSWEmZ1EN3v73USZ0ngPxyckmbpYL3n5+JnLaB5FxbiZ20heU+V4mYpwflXVNTiZ2jAhHw1G6Zm1YGEtrZIzbUEiOjqlZrr8xfRIzfQGiOmXmhkIFDEEUjPDIYJGx8YlZyZChdxNYyzDTAS/uXmsZViI4rO0jLkMKzHevtaxl2EjztPWth2wM7sJ7uQHhyTLcJTkSnFqJFuGM4WL8wvSZUiXO11dA1BnbvQ0q2lwRO4f6Db88ekn8vxiB7oM6F8Nb+//6NPmy7C6GczAgBk4G1D75ADpqJ+l1CFGt+Y3XGRJEJqP8KwAAAAASUVORK5CYII=);background-image:url(//bits.wikimedia.org/static-1.23wmf8/extensions/TimedMediaHandler/resources/player_big_play_button_hover.png?2013-12-19T17:20:00Z)!ie}.PopUpMediaTransform{position :relative;display:inline-block}li.gallerybox div.thumb div.PopUpMediaTransform{margin:0 auto}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:f116d3b7c106cc0ef752e0a23b5d7520 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_005.php"></script><script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_004.php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Linux_startup_process","wgTitle":"Linux startup process","wgCurRevisionId":587332304,"wgRevisionId":587332304,"wgArticleId":10439244,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Wikipedia introduction cleanup from October 2011","All pages needing cleanup","Articles covered by WikiProject Wikify from October 2011","All articles covered by WikiProject Wikify","Wikipedia articles needing clarification from August 2011","Wikipedia articles needing clarification from March 2010","Linux","Booting"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Linux_startup_process","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf8/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us","en","ru","uk"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":10439244,"title":"Linux startup process","namespace":0,"categories":["All articles covered by WikiProject Wikify","All pages needing cleanup","Articles covered by WikiProject Wikify from October 2011","Booting","Linux","Wikipedia articles needing clarification from August 2011","Wikipedia articles needing clarification from March 2010","Wikipedia introduction cleanup from October 2011"],"permissionLevel":false},"wgWikibaseItemId":"Q1068500"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,
+"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false
+,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:6a22f123799da906351b1c42c87d9ab1 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","ext.wikimediaShopLink.core","ext.uls.init","ext.uls.interface","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script><script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.php"></script><script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/checkLoggedIn" async=""></script>
+<script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf8/skins/vector/csshover.min.htc")}</style><![endif]--><style>@font-face { font-family: 'Autonym';
+	src: url('//bits.wikimedia.org/static-current/extensions/UniversalLanguageSelector/data/fontrepo/fonts/Autonym/Autonym.eot?version=20131205');
+	src: local('Autonym'),		url('//bits.wikimedia.org/static-current/extensions/UniversalLanguageSelector/data/fontrepo/fonts/Autonym/Autonym.woff?version=20131205') format('woff'),		url('//bits.wikimedia.org/static-current/extensions/UniversalLanguageSelector/data/fontrepo/fonts/Autonym/Autonym.ttf?version=20131205') format('truetype');
+	font-style: normal;}
+</style><script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.php" async=""></script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Linux_startup_process skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Linux startup process</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><table class="metadata plainlinks ambox ambox-style ambox-lead_too_short" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width:52px;"><img alt="" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/40px-Edit-clear.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/f/f2/Edit-clear.svg/60px-Edit-clear.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/f/f2/Edit-clear.svg/80px-Edit-clear.svg.png 2x" width="40" height="40"></div>
+</td>
+<td class="mbox-text"><span class="mbox-text-span">This article's <b><a href="http://en.wikipedia.org/wiki/Wikipedia:Manual_of_Style/Lead_section" title="Wikipedia:Manual of Style/Lead section">lead section</a> may not adequately <a href="http://en.wikipedia.org/wiki/Wikipedia:Summary_style" title="Wikipedia:Summary style">summarize</a> key points of its contents</b>. <span class="hide-when-compact">Please consider expanding the lead to <a href="http://en.wikipedia.org/wiki/Wikipedia:Manual_of_Style/Lead_section#Provide_an_accessible_overview" title="Wikipedia:Manual of Style/Lead section">provide an accessible overview</a> of all important aspects of the article.</span> <small><i>(October 2011)</i></small></span></td>
+</tr>
+</tbody></table>
+<p>The <b>Linux startup process</b> is the process of <a href="http://en.wikipedia.org/wiki/Linux" title="Linux">Linux</a>-<a href="http://en.wikipedia.org/wiki/Operating_system" title="Operating system">operating system</a> initialization. It is in many ways similar to the <a href="http://en.wikipedia.org/wiki/BSD" title="BSD" class="mw-redirect">BSD</a> and other <a href="http://en.wikipedia.org/wiki/Unix" title="Unix">Unix</a> style boot processes, from which it derives.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview_of_typical_process"><span class="tocnumber">1</span> <span class="toctext">Overview of typical process</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Early_user_space"><span class="tocnumber">2</span> <span class="toctext">Early user space</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Boot_loader_phase"><span class="tocnumber">3</span> <span class="toctext">Boot loader phase</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#GRUB"><span class="tocnumber">3.1</span> <span class="toctext">GRUB</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#LILO"><span class="tocnumber">3.2</span> <span class="toctext">LILO</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Loadlin"><span class="tocnumber">3.3</span> <span class="toctext">Loadlin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Kernel_phase"><span class="tocnumber">4</span> <span class="toctext">Kernel phase</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Kernel_loading_stage"><span class="tocnumber">4.1</span> <span class="toctext">Kernel loading stage</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Kernel_startup_stage"><span class="tocnumber">4.2</span> <span class="toctext">Kernel startup stage</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Init_process"><span class="tocnumber">5</span> <span class="toctext">Init process</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#SysV_init"><span class="tocnumber">5.1</span> <span class="toctext">SysV init</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#systemd"><span class="tocnumber">5.2</span> <span class="toctext">systemd</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Upstart"><span class="tocnumber">5.3</span> <span class="toctext">Upstart</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Notes"><span class="tocnumber">7</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#References"><span class="tocnumber">8</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#External_links"><span class="tocnumber">9</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Overview_of_typical_process">Overview of typical process</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=1" title="Edit section: Overview of typical process">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>In Linux, the flow of control during a boot is from <a href="http://en.wikipedia.org/wiki/BIOS" title="BIOS">BIOS</a>, to boot loader, to kernel. The kernel then starts the scheduler (to allow multi-tasking) and runs the first <a href="http://en.wikipedia.org/wiki/Userland_%28computing%29" title="Userland (computing)" class="mw-redirect">userland</a> (i.e. outside <a href="http://en.wikipedia.org/wiki/Kernel_space" title="Kernel space" class="mw-redirect">kernel space</a>) program <a href="http://en.wikipedia.org/wiki/Init" title="Init">Init</a>
+ (which is mostly responsible to run startup scripts for each runlevel),
+ at which point the kernel goes idle unless called externally.</p>
+<p>init (short for initialization) is a program for Unix-based computer 
+operating systems that spawns all other processes. It runs as a daemon 
+and typically has PID 1. The boot loader starts the kernel and the 
+kernel starts init. If one were to delete init without a replacement, 
+the system would encounter a <a href="http://en.wikipedia.org/wiki/Kernel_panic" title="Kernel panic">kernel panic</a> on the next reboot.</p>
+<p>In detail:</p>
+<ol>
+<li>The <a href="http://en.wikipedia.org/wiki/BIOS" title="BIOS">BIOS</a> performs <a href="http://en.wikipedia.org/wiki/Computer_hardware" title="Computer hardware">hardware</a>-platform specific startup tasks</li>
+<li>Once the hardware is recognized and started correctly, the BIOS 
+loads and executes the partition boot code from the designated boot 
+device, which contains phase 1 of a Linux <a href="http://en.wikipedia.org/wiki/Boot_loader" title="Boot loader" class="mw-redirect">boot loader</a>.
+ Phase 1 loads phase 2 (the bulk of the boot loader code). Some loaders 
+may use an intermediate phase (known as phase 1.5) to achieve this since
+ modern large disks may not be fully readable without further code.</li>
+<li>The boot loader often presents the user with a menu of possible boot
+ options. It then loads the operating system, which decompresses into 
+memory, and sets up system functions such as essential hardware and 
+memory paging, before calling <code>start_kernel()</code>.</li>
+<li><code>start_kernel()</code> then performs the majority of system 
+setup (interrupts, the rest of memory management, device initialization,
+ drivers, etc.) before spawning separately, the <a href="http://en.wikipedia.org/wiki/Idle_process" title="Idle process" class="mw-redirect">idle process</a> and scheduler, and the <a href="http://en.wikipedia.org/wiki/Init_process" title="Init process" class="mw-redirect">Init process</a> (which is executed in <a href="http://en.wikipedia.org/wiki/User_space" title="User space">user space</a>).</li>
+<li>The Init process executes scripts as needed that set up all 
+non-operating system services and structures in order to allow a user 
+environment to be created, and then presents the user with a login 
+screen.</li>
+</ol>
+<p>On shutdown, Init is called to close down all user space 
+functionality in a controlled manner, again via scripted directions, 
+following which Init terminates and the Kernel executes its own 
+shutdown.</p>
+<p>However, recently some Linux distributions such as <a href="http://en.wikipedia.org/wiki/Arch_Linux" title="Arch Linux">Arch</a>, <a href="http://en.wikipedia.org/wiki/Fedora_Linux" title="Fedora Linux" class="mw-redirect">Fedora</a>, and <a href="http://en.wikipedia.org/wiki/OpenSUSE" title="OpenSUSE">openSUSE</a> have moved to <a href="http://en.wikipedia.org/wiki/Systemd" title="Systemd">systemd</a>.</p>
+<h2><span class="mw-headline" id="Early_user_space">Early user space</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=2" title="Edit section: Early user space">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p><b>Early user space</b> has been available since version 2.5.46 of the Linux kernel,<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>1<span>]</span></a></sup>
+ with the intent to replace as many functions as possible that 
+previously the kernel would have performed during the start-up process. 
+Typical uses of early user space are to detect what <a href="http://en.wikipedia.org/wiki/Device_driver" title="Device driver">device drivers</a> are needed to load the main user space file system and load them from a <a href="http://en.wikipedia.org/wiki/Temporary_filesystem" title="Temporary filesystem" class="mw-redirect">temporary filesystem</a>.</p>
+<h2><span class="mw-headline" id="Boot_loader_phase">Boot loader phase</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=3" title="Edit section: Boot loader phase">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The boot loader phase varies by platform. Since the earlier phases 
+are not specific to the OS, the boot process is considered to start, for
+ <a href="http://en.wikipedia.org/wiki/X86_architecture" title="X86 architecture" class="mw-redirect">x86</a> or <a href="http://en.wikipedia.org/wiki/X86-64" title="X86-64">x86-64</a>, when the partition boot sector code is executed in <a href="http://en.wikipedia.org/wiki/Real_mode" title="Real mode">real mode</a> and loads the first stage <a href="http://en.wikipedia.org/wiki/Boot_loader" title="Boot loader" class="mw-redirect">boot loader</a> (typically a part of <a href="http://en.wikipedia.org/wiki/LILO_%28boot_loader%29" title="LILO (boot loader)">LILO</a> or <a href="http://en.wikipedia.org/wiki/GRUB" title="GRUB" class="mw-redirect">GRUB</a>). From that point, the boot process continues as follows:</p>
+<p>The first stage boot loader (in the <a href="http://en.wikipedia.org/wiki/Master_boot_record" title="Master boot record">MBR</a> or the <a href="http://en.wikipedia.org/wiki/Volume_boot_record" title="Volume boot record">volume boot record</a>) loads the remainder of the boot loader, which typically gives a prompt asking which <a href="http://en.wikipedia.org/wiki/Operating_system" title="Operating system">operating system</a> (or type of session) the user wishes to initialize. LILO and GRUB differ in some ways:<sup id="cite_ref-oldfield_2-0" class="reference"><a href="#cite_note-oldfield-2"><span>[</span>2<span>]</span></a></sup></p>
+<ul>
+<li>Under LILO, the map installer, <code>lilo</code>, reads the <a href="http://en.wikipedia.org/wiki/Configuration_file" title="Configuration file">configuration file</a> <code>/etc/lilo.conf</code>
+ to identify the available bootable systems (it is executed from a 
+running Linux system). The configuration file can include data such as 
+boot <a href="http://en.wikipedia.org/wiki/Disk_partitioning" title="Disk partitioning">partition</a> and <a href="http://en.wikipedia.org/wiki/Kernel_%28computer_science%29" title="Kernel (computer science)" class="mw-redirect">kernel</a> pathname for each, as well as customized options if needed. To be precise, <code>/etc/lilo.conf</code> is prior-parsed<sup class="noprint Inline-Template" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Please_clarify" title="Wikipedia:Please clarify"><span title="The text near this tag may need clarification or removal of jargon. (August 2011)">clarification needed</span></a></i>]</sup>
+ and used to create fixed-offset information saved in the boot sector 
+and the map file, which will be used at the next boot. This information 
+is discovered by asking the Linux kernel, at map installer time, where 
+(e.g. on which disk sectors) the object of interest (such as an <a href="http://en.wikipedia.org/wiki/Initrd" title="Initrd">initrd</a>, a kernel image file, or the like) is stored. At boot time, the default or selected operating system is loaded into <a href="http://en.wikipedia.org/wiki/Random_access_memory" title="Random access memory" class="mw-redirect">RAM</a>, a minimal initial file system is possibly set up in RAM from an image file ("<a href="http://en.wikipedia.org/wiki/Initrd" title="Initrd">initrd</a>"),
+ and along with the appropriate parameters, control is passed to the 
+newly loaded kernel. LILO does not "understand" file systems, so it uses
+ raw disk offsets and the BIOS to load any needed code or data based on 
+data in the boot sector and map file. It cannot "find" <code>/etc/lilo.conf</code>
+ at boot time because it does not understand file systems; instead it 
+searches fixed locations on the disk memorized the last time the LILO 
+map installer (<tt>lilo</tt>) was run to generate new offsets in the 
+boot sector and the map file image. Boot time LILO logic loads the menu 
+code, and then, depending on the <code>lilo.conf</code> directives used to make the map file, along with any user interaction, loads either the boot sector for another system such as <a href="http://en.wikipedia.org/wiki/Microsoft_Windows" title="Microsoft Windows">Microsoft Windows</a>, or the kernel image for Linux.<sup id="cite_ref-oldfield_2-1" class="reference"><a href="#cite_note-oldfield-2"><span>[</span>2<span>]</span></a></sup></li>
+<li>GRUB by contrast does have understanding of the common <a href="http://en.wikipedia.org/wiki/Ext2" title="Ext2">ext2</a>, <a href="http://en.wikipedia.org/wiki/Ext3" title="Ext3">ext3</a> and <a href="http://en.wikipedia.org/wiki/Ext4" title="Ext4">ext4</a> file systems.<sup id="cite_ref-redhat_startup_3-0" class="reference"><a href="#cite_note-redhat_startup-3"><span>[</span>3<span>]</span></a></sup> Because GRUB stores its data in a configuration file rather than the MBR and contains a <a href="http://en.wikipedia.org/wiki/Command-line_interface" title="Command-line interface">command-line interface</a>, it is often easier to rectify or modify GRUB if misconfigured or corrupt.<sup id="cite_ref-redhat_lilo_4-0" class="reference"><a href="#cite_note-redhat_lilo-4"><span>[</span>4<span>]</span></a></sup></li>
+</ul>
+<h3><span class="mw-headline" id="GRUB">GRUB</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=4" title="Edit section: GRUB">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/GNU_GRUB" title="GNU GRUB">GNU GRUB</a></div>
+<ol>
+<li>The first stage loader (stage1) is loaded and executed either by the <a href="http://en.wikipedia.org/wiki/BIOS" title="BIOS">BIOS</a> from the <a href="http://en.wikipedia.org/wiki/Master_boot_record" title="Master boot record">Master boot record</a> (MBR) or by another boot loader from the partition boot sector.</li>
+<li>If necessary, an intermediate stage loader (stage1.5) is loaded and 
+executed by the first stage loader. This may be necessary if the second 
+stage loader is not contiguous, or if the filesystem or hardware 
+requires special handling in order to access the second stage loader.</li>
+<li>The second stage loader (stage2) is then loaded and executed. This 
+displays the GRUB startup menu, which allows the user to choose an 
+operating system or to examine and edit startup parameters.</li>
+<li>After an operating system is chosen, it is loaded and executed.</li>
+</ol>
+<h3><span class="mw-headline" id="LILO">LILO</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=5" title="Edit section: LILO">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/LILO_%28boot_loader%29" title="LILO (boot loader)">LILO (boot loader)</a></div>
+<p>LILO, the older of the two boot loaders, is almost identical to GRUB 
+in process, except that its command line interface allows only selection
+ of options previously recorded in the boot sector and map file. Thus 
+all changes must be made to its configuration and written to the boot 
+sector and map file, and then the system restarted. An error in 
+configuration can therefore leave a disk unable to be booted without use
+ of a separate boot device (<a href="http://en.wikipedia.org/wiki/Floppy_disk" title="Floppy disk">floppy disk</a> etc.) containing a program capable of fixing this.<sup id="cite_ref-redhat_lilo_4-1" class="reference"><a href="#cite_note-redhat_lilo-4"><span>[</span>4<span>]</span></a></sup>
+ Additionally, it does not understand filesystems. Instead, locations of
+ image files are stored within the boot sector and map file directly<sup id="cite_ref-redhat_lilo_4-2" class="reference"><a href="#cite_note-redhat_lilo-4"><span>[</span>4<span>]</span></a></sup> and the BIOS is used to access them directly.</p>
+<h3><span class="mw-headline" id="Loadlin">Loadlin</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=6" title="Edit section: Loadlin">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/Loadlin" title="Loadlin">Loadlin</a></div>
+<p>Yet another way to boot Linux is from <a href="http://en.wikipedia.org/wiki/DOS" title="DOS">DOS</a> or <a href="http://en.wikipedia.org/wiki/Windows_9x" title="Windows 9x">Windows 9x</a>,
+ where the Linux kernel completely replaces the running copy of this 
+operating system. This can be useful in the case of hardware which needs
+ to be switched on via software and for which such configuration 
+programs are only available for DOS, whereas not for Linux, those being 
+proprietary to the manufacturer and kept an industry secret. This 
+tedious booting method is less necessary nowadays, as Linux has drivers 
+for a multitude of hardware devices, but it has seen some use in <a href="http://en.wikipedia.org/wiki/Mobile_device" title="Mobile device">mobile devices</a>.<br>
+Another case is when the Linux is located on a storage device which is 
+not available to the BIOS for booting: DOS or Windows can load the 
+appropriate drivers to make up for the BIOS limitation, and boot Linux 
+from there.</p>
+<h2><span class="mw-headline" id="Kernel_phase">Kernel phase</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=7" title="Edit section: Kernel phase">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The <a href="http://en.wikipedia.org/wiki/Linux_kernel" title="Linux kernel">kernel</a> in Linux handles all operating system processes, such as <a href="http://en.wikipedia.org/wiki/Memory_management" title="Memory management">memory management</a>, task <a href="http://en.wikipedia.org/wiki/Scheduling_%28computing%29" title="Scheduling (computing)">scheduling</a>, <a href="http://en.wikipedia.org/wiki/I/O" title="I/O" class="mw-redirect">I/O</a>, <a href="http://en.wikipedia.org/wiki/Interprocess_communication" title="Interprocess communication" class="mw-redirect">interprocess communication</a>,
+ and overall system control. This is loaded in two stages - in the first
+ stage the kernel (as a compressed image file) is loaded into memory and
+ decompressed, and a few fundamental functions such as basic memory 
+management are set up. Control is then switched one final time to the 
+main kernel start process. Once the kernel is fully operational – and as
+ part of its startup, upon being loaded and executing – the kernel looks
+ for an <a href="http://en.wikipedia.org/wiki/Init_process" title="Init process" class="mw-redirect">init process</a>
+ to run, which (separately) sets up a user space and the processes 
+needed for a user environment and ultimate login. The kernel itself is 
+then allowed to go idle, subject to calls from other processes.</p>
+<h3><span class="mw-headline" id="Kernel_loading_stage">Kernel loading stage</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=8" title="Edit section: Kernel loading stage">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The kernel as loaded is typically an image file, compressed into either <a href="http://en.wikipedia.org/wiki/Vmlinux" title="Vmlinux">zImage or bzImage</a> formats with <a href="http://en.wikipedia.org/wiki/Zlib" title="Zlib">zlib</a>. A routine at the head of it does a minimal amount of hardware setup, decompresses the image fully into <a href="http://en.wikipedia.org/wiki/High_memory" title="High memory">high memory</a>, and takes note of any <a href="http://en.wikipedia.org/wiki/RAM_disk" title="RAM disk" class="mw-redirect">RAM disk</a> if configured.<sup id="cite_ref-ibm_description_5-0" class="reference"><a href="#cite_note-ibm_description-5"><span>[</span>5<span>]</span></a></sup> It then executes kernel startup via <code>./arch/i386/boot/head</code> and the <code>startup_32 ()</code> (for x86 based processors) process.</p>
+<h3><span class="mw-headline" id="Kernel_startup_stage">Kernel startup stage</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=9" title="Edit section: Kernel startup stage">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<dl>
+<dd><i>Source: <a rel="nofollow" class="external text" href="http://www.ibm.com/developerworks/library/l-linuxboot/index.html">IBM description of Linux boot process</a></i></dd>
+</dl>
+<p>The startup function for the kernel (also called the swapper or process 0) establishes <a href="http://en.wikipedia.org/wiki/Memory_management" title="Memory management">memory management</a> (paging tables and memory paging), detects the type of <a href="http://en.wikipedia.org/wiki/Central_processing_unit" title="Central processing unit">CPU</a> and any additional functionality such as <a href="http://en.wikipedia.org/wiki/Floating_point" title="Floating point">floating point</a> capabilities, and then switches to non-architecture specific Linux kernel functionality via a call to <code>start_kernel()</code>.</p>
+<p>start_kernel executes a wide range of initialization functions. It sets up <a href="http://en.wikipedia.org/wiki/Interrupt_handling" title="Interrupt handling" class="mw-redirect">interrupt handling</a> (<a href="http://en.wikipedia.org/wiki/Interrupt_request" title="Interrupt request">IRQs</a>), further configures memory, starts the Init process (the first user-space process), and then starts the idle task via <code>cpu_idle()</code>. Notably, the kernel startup process also mounts the <a href="http://en.wikipedia.org/wiki/Initrd" title="Initrd">initial RAM disk</a>
+ ("initrd") that was loaded previously as the temporary root file system
+ during the boot phase. The initrd allows driver modules to be loaded 
+directly from memory, without reliance upon other devices (e.g. a hard 
+disk) and the drivers that are needed to access them (e.g. an SATA 
+driver). This split of some drivers statically compiled into the kernel 
+and other drivers loaded from initrd allows for a smaller kernel. The 
+root file system is later switched via a call to <code>pivot_root()</code>
+ which unmounts the temporary root file system and replaces it with the 
+use of the real one, once the latter is accessible. The memory used by 
+the temporary root file system is then reclaimed.</p>
+<p>Thus, the kernel initializes devices, mounts the root filesystem specified by the boot loader as <a href="http://en.wikipedia.org/wiki/File_system_permissions" title="File system permissions">read only</a>, and runs <a href="http://en.wikipedia.org/wiki/Init_process" title="Init process" class="mw-redirect">Init</a> (<code>/sbin/init</code>) which is designated as the first process run by the system (<a href="http://en.wikipedia.org/wiki/Process_identifier" title="Process identifier">PID</a> = 1).<sup id="cite_ref-oldfield_2-2" class="reference"><a href="#cite_note-oldfield-2"><span>[</span>2<span>]</span></a></sup>
+ A message is printed by the kernel upon mounting the file system, and 
+by Init upon starting the Init process. It may also optionally run <a href="http://en.wikipedia.org/wiki/Initrd" title="Initrd">Initrd</a><sup class="noprint Inline-Template" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Please_clarify" title="Wikipedia:Please clarify"><span title="The text near this tag may need clarification or removal of jargon. (March 2010)">clarification needed</span></a></i>]</sup> to allow setup and device related matters (<a href="http://en.wikipedia.org/wiki/RAM_disk" title="RAM disk" class="mw-redirect">RAM disk</a> or similar) to be handled before the root file system is mounted.<sup id="cite_ref-oldfield_2-3" class="reference"><a href="#cite_note-oldfield-2"><span>[</span>2<span>]</span></a></sup></p>
+<p>According to <a href="http://en.wikipedia.org/wiki/Red_Hat" title="Red Hat">Red Hat</a>, the detailed kernel process at this stage is therefore summarized as follows:<sup id="cite_ref-redhat_startup_3-1" class="reference"><a href="#cite_note-redhat_startup-3"><span>[</span>3<span>]</span></a></sup></p>
+<dl>
+<dd>"When the kernel is loaded, it immediately initializes and 
+configures the computer's memory and configures the various hardware 
+attached to the system, including all processors, I/O subsystems, and 
+storage devices. It then looks for the compressed initrd image in a 
+predetermined location in memory, decompresses it, mounts it, and loads 
+all necessary drivers. Next, it initializes virtual devices related to 
+the file system, such as <a href="http://en.wikipedia.org/wiki/Logical_Volume_Manager_%28Linux%29" title="Logical Volume Manager (Linux)">LVM</a> or software <a href="http://en.wikipedia.org/wiki/RAID" title="RAID">RAID</a> before unmounting the initrd <a href="http://en.wikipedia.org/wiki/Disk_image" title="Disk image">disk image</a> and freeing up all the memory the disk image once occupied. The kernel then creates a root device,<sup class="noprint Inline-Template" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Please_clarify" title="Wikipedia:Please clarify"><span title="The text near this tag may need clarification or removal of jargon. (March 2010)">clarification needed</span></a></i>]</sup>
+ mounts the root partition read-only, and frees any unused memory. At 
+this point, the kernel is loaded into memory and operational. However, 
+since there are no user applications that allow meaningful input to the 
+system, not much can be done with it." An initramfs-style boot is 
+similar, but not identical to the described initrd boot.</dd>
+</dl>
+<p>At this point, with interrupts enabled, the scheduler can take 
+control of the overall management of the system, to provide pre-emptive 
+multi-tasking, and the init process is left to continue booting the user
+ environment in user space.</p>
+<h2><span class="mw-headline" id="Init_process">Init process</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=10" title="Edit section: Init process">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="SysV_init">SysV init</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=11" title="Edit section: SysV init">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<blockquote class="templatequote">
+<p>Init is the father of all <a href="http://en.wikipedia.org/wiki/Process_%28computing%29" title="Process (computing)">processes</a>. Its primary role is to create processes from a script stored in the file <code>/etc/inittab</code>. This file usually has entries which cause init to spawn <a href="http://en.wikipedia.org/wiki/Getty_%28Unix%29" title="Getty (Unix)">gettys</a> on each line that users can log in. It also controls <a href="http://en.wikipedia.org/wiki/Daemon_%28computer_software%29" title="Daemon (computer software)" class="mw-redirect">autonomous processes</a> required by any particular system. A <a href="http://en.wikipedia.org/wiki/Runlevel" title="Runlevel">run level</a>
+ is a software configuration of the system which allows only a selected 
+group of processes to exist. The processes spawned by init for each of 
+these run levels are defined in the /etc/inittab file.</p>
+<div class="templatequotecite">— manual page for Init<sup id="cite_ref-man_init_6-0" class="reference"><a href="#cite_note-man_init-6"><span>[</span>6<span>]</span></a></sup></div>
+</blockquote>
+<p>Init's job is "to get everything running the way it should be"<sup id="cite_ref-p2b_6_7-0" class="reference"><a href="#cite_note-p2b_6-7"><span>[</span>7<span>]</span></a></sup> once the kernel is fully running. Essentially it establishes and operates the entire <a href="http://en.wikipedia.org/wiki/User_space" title="User space">user space</a>. This includes checking and mounting <a href="http://en.wikipedia.org/wiki/File_system" title="File system">file systems</a>,
+ starting up necessary user services, and ultimately switching to a 
+user-environment when system startup is completed. It is similar to the <a href="http://en.wikipedia.org/wiki/Unix" title="Unix">Unix</a> and <a href="http://en.wikipedia.org/wiki/BSD" title="BSD" class="mw-redirect">BSD</a>
+ init processes, from which it derived, but in some cases has diverged 
+or became customized. In a standard Linux system, Init is executed with a
+ parameter, known as a <a href="http://en.wikipedia.org/wiki/Runlevel" title="Runlevel">runlevel</a>, that takes a value from 0 to 6, and that determines which subsystems are to be made operational. Each runlevel has its own <a href="http://en.wikipedia.org/wiki/Script_%28computing%29" title="Script (computing)" class="mw-redirect">scripts</a>
+ which codify the various processes involved in setting up or leaving 
+the given runlevel, and it is these scripts which are referenced as 
+necessary in the boot process. Init scripts are typically held in 
+directories with names such as <code>"/etc/rc..."</code>. The top level configuration file for init is at <code>/etc/inittab</code>.<sup id="cite_ref-p2b_6_7-1" class="reference"><a href="#cite_note-p2b_6-7"><span>[</span>7<span>]</span></a></sup></p>
+<p>During system boot, it checks whether a default runlevel is specified
+ in /etc/inittab, and requests the runlevel to enter via the <a href="http://en.wikipedia.org/wiki/System_console" title="System console">system console</a> if not. It then proceeds to run all the relevant boot scripts for the given runlevel, including loading <a href="http://en.wikipedia.org/wiki/Loadable_kernel_module" title="Loadable kernel module">modules</a>,
+ checking the integrity of the root file system (which was mounted 
+read-only) and then remounting it for full read-write access, and sets 
+up the <a href="http://en.wikipedia.org/wiki/Computer_network" title="Computer network">network</a>.<sup id="cite_ref-oldfield_2-4" class="reference"><a href="#cite_note-oldfield-2"><span>[</span>2<span>]</span></a></sup></p>
+<p>After it has spawned all of the processes specified, init goes 
+dormant, and waits for one of three events to happen: processes that 
+started to end or die, a power failure signal,<sup class="noprint Inline-Template" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Please_clarify" title="Wikipedia:Please clarify"><span title="The text near this tag may need clarification or removal of jargon. (March 2010)">clarification needed</span></a></i>]</sup> or a request via <code>/sbin/telinit</code> to further change the runlevel.<sup id="cite_ref-man_init_6-1" class="reference"><a href="#cite_note-man_init-6"><span>[</span>6<span>]</span></a></sup></p>
+<p>This applies to <a href="http://en.wikipedia.org/wiki/UNIX_System_V" title="UNIX System V">SysV</a>-style init.</p>
+<h3><span class="mw-headline" id="systemd">systemd</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=12" title="Edit section: systemd">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/Systemd" title="Systemd">systemd</a></div>
+<h3><span class="mw-headline" id="Upstart">Upstart</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=13" title="Edit section: Upstart">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/Upstart" title="Upstart">Upstart</a></div>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=14" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/SYSLINUX" title="SYSLINUX">SYSLINUX</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Windows_NT_startup_process" title="Windows NT startup process">Windows NT startup process</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Windows_Vista_startup_process" title="Windows Vista startup process">Windows Vista startup process</a></li>
+</ul>
+<h2><span class="mw-headline" id="Notes">Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=15" title="Edit section: Notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://lwn.net/Articles/14776/">"Initramfs arrives"</a><span class="reference-accessdate">. Retrieved 14 November 2011</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ALinux+startup+process&amp;rft.btitle=Initramfs+arrives&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Flwn.net%2FArticles%2F14776%2F&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-oldfield-2"><span class="mw-cite-backlink">^ <a href="#cite_ref-oldfield_2-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-oldfield_2-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-oldfield_2-2"><sup><i><b>c</b></i></sup></a> <a href="#cite_ref-oldfield_2-3"><sup><i><b>d</b></i></sup></a> <a href="#cite_ref-oldfield_2-4"><sup><i><b>e</b></i></sup></a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://oldfield.wattle.id.au/luv/boot.html">http://oldfield.wattle.id.au/luv/boot.html</a> Linux Boot Process - by Kim Oldfield (2001)</span></li>
+<li id="cite_note-redhat_startup-3"><span class="mw-cite-backlink">^ <a href="#cite_ref-redhat_startup_3-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-redhat_startup_3-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.redhat.com/docs/manuals/linux/RHL-9-Manual/ref-guide/s1-boot-init-shutdown-process.html">http://www.redhat.com/docs/manuals/linux/RHL-9-Manual/ref-guide/s1-boot-init-shutdown-process.html</a></span></li>
+<li id="cite_note-redhat_lilo-4"><span class="mw-cite-backlink">^ <a href="#cite_ref-redhat_lilo_4-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-redhat_lilo_4-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-redhat_lilo_4-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.redhat.com/docs/manuals/linux/RHL-9-Manual/ref-guide/s1-grub-lilo.html">http://www.redhat.com/docs/manuals/linux/RHL-9-Manual/ref-guide/s1-grub-lilo.html</a></span></li>
+<li id="cite_note-ibm_description-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-ibm_description_5-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www-128.ibm.com/developerworks/library/l-linuxboot/index.html">IBM description of Linux boot process</a></span></li>
+<li id="cite_note-man_init-6"><span class="mw-cite-backlink">^ <a href="#cite_ref-man_init_6-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-man_init_6-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://man.he.net/man8/init">init</a></span></li>
+<li id="cite_note-p2b_6-7"><span class="mw-cite-backlink">^ <a href="#cite_ref-p2b_6_7-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-p2b_6_7-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://axiom.anu.edu.au/%7Eokeefe/p2b/power2bash/power2bash-6.html">From Power Up To Bash Prompt: Init</a></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=16" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="refbegin" style="">
+<ul>
+<li><a rel="nofollow" class="external text" href="http://axiom.anu.edu.au/%7Eokeefe/p2b/power2bash/power2bash.html">Greg O'Keefe - From Power Up To Bash Prompt</a></li>
+<li><a rel="nofollow" class="external text" href="http://www-128.ibm.com/developerworks/library/l-linuxboot/index.html">IBM description of Linux boot process</a> a developerWorks article by M. Tim Jones</li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit&amp;section=17" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.bootchart.org/">Bootchart: Boot Process Performance Visualization</a></li>
+</ul>
+<table class="navbox" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<td style="padding:2px;">
+<table id="collapsibleTable0" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton0">hide</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/Template:Linux" title="Template:Linux"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li>
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/Template_talk:Linux" title="Template talk:Linux"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li>
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=Template:Linux&amp;action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li>
+</ul>
+</div>
+<div style="font-size:110%;">The <a href="http://en.wikipedia.org/wiki/Linux" title="Linux">Linux</a> operating system family</div>
+</th>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<td class="navbox-abovebelow" colspan="2">
+<div>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/History_of_Linux" title="History of Linux">History</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_kernel" title="Linux kernel">Kernel</a>
+<ul>
+<li><small style="font-size:85%;"><a href="http://en.wikipedia.org/wiki/List_of_Linux_kernel_names" title="List of Linux kernel names">kernel names</a></small></li>
+<li><small style="font-size:85%;"><a href="http://en.wikipedia.org/wiki/List_of_Linux_supported_architectures" title="List of Linux supported architectures">supported architectures</a></small></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Criticism_of_Linux" title="Criticism of Linux">Criticism</a>
+<ul>
+<li><small style="font-size:85%;"><a href="http://en.wikipedia.org/wiki/Criticism_of_desktop_Linux" title="Criticism of desktop Linux">of desktop Linux</a></small></li>
+</ul>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Organization</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group">Linux kernel</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Foundation" title="Linux Foundation">Linux Foundation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Mark_Institute" title="Linux Mark Institute">Linux Mark Institute</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linus%27s_Law" title="Linus's Law">Linus's Law</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate" title="Tanenbaum–Torvalds debate">Tanenbaum–Torvalds debate</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux-libre" title="Linux-libre">Linux-libre</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tux" title="Tux">Tux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Vmlinux" title="Vmlinux">vmlinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/SCO%E2%80%93Linux_controversies" title="SCO–Linux controversies">SCO and Linux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linaro" title="Linaro">Linaro</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Xenomai" title="Xenomai">Xenomai</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">GNU</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Free_Software_Foundation" title="Free Software Foundation">Free Software Foundation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU" title="GNU">GNU</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU_General_Public_License" title="GNU General Public License">GNU GPL</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU/Linux_naming_controversy" title="GNU/Linux naming controversy">GNU/Linux naming controversy</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_GNU_packages" title="List of GNU packages">GNU packages</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU_Project" title="GNU Project">GNU Project</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Distribution</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Linux_distribution" title="Linux distribution">Linux distribution</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_Linux_distributions" title="Comparison of Linux distributions">General comparison</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_Linux_distributions" title="List of Linux distributions">Distributions list</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_netbook-oriented_Linux_distributions" title="Comparison of netbook-oriented Linux distributions">Netbook-specific comparison</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_Linux_distributions_that_run_from_RAM" title="List of Linux distributions that run from RAM">Distributions that run from RAM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Lightweight_Linux_distribution" title="Lightweight Linux distribution">Lightweight Linux distribution</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Package_management_system" title="Package management system">Package management system</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Package_format" title="Package format">Package formats</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Other</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Live_CD" title="Live CD">Live CD</a>
+<ul>
+<li><small style="font-size:85%;"><a href="http://en.wikipedia.org/wiki/List_of_live_CDs#Linux-based" title="List of live CDs">List</a></small></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Live_USB" title="Live USB">Live USB</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_proprietary_software_for_Linux" title="List of proprietary software for Linux">Proprietary software for Linux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Documentation</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Documentation_Project" title="Linux Documentation Project">Linux Documentation Project</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Software_Package_Data_Exchange" title="Software Package Data Exchange">Software Package Data Exchange</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Developers</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_conference" title="Linux conference" class="mw-redirect">Linux conferences</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Users</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_user_group" title="Linux user group">Linux User Group (LUG)</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Technical</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group">Standards</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Standard_Base" title="Linux Standard Base">Linux Standard Base</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" title="Filesystem Hierarchy Standard">Filesystem Hierarchy Standard</a></li>
+<li><a href="http://en.wikipedia.org/wiki/POSIX" title="POSIX">POSIX</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Unix" title="Unix">Unix</a></li>
+<li><a href="http://en.wikipedia.org/wiki/RTAI" title="RTAI">RTAI</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Carrier_Grade_Linux" title="Carrier Grade Linux">Carrier Grade Linux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Operation</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><strong class="selflink">Linux startup process</strong></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_kernel_oops" title="Linux kernel oops">Linux kernel oops</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_kernel_API" title="Linux kernel API">Linux kernel API</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Package_management_system" title="Package management system">Package management system</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Package_format" title="Package format">Linux package formats</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Core components</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/C_standard_library" title="C standard library">C standard library</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/GNU_C_Library" title="GNU C Library">glibc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/UClibc" title="UClibc">uClibc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bionic_%28software%29" title="Bionic (software)">Bionic</a>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Hybris_%28software%29" title="Hybris (software)">libhybris</a></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Dietlibc" title="Dietlibc">dietlibc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Embedded_GLIBC" title="Embedded GLIBC">EGLIBC</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Klibc" title="Klibc">klibc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Musl" title="Musl">musl</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Newlib" title="Newlib">Newlib</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Init daemons</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Systemd" title="Systemd">systemd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Upstart" title="Upstart">upstart</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Initng" title="Initng">Initng</a></li>
+<li><a href="http://en.wikipedia.org/wiki/OpenWrt#procd" title="OpenWrt">procd</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Sysutils</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Util-linux" title="Util-linux">util-linux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU_Core_Utilities" title="GNU Core Utilities">GNU Core Utilities</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU_Find_Utilities" title="GNU Find Utilities">GNU Find Utilities</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU_Binutils" title="GNU Binutils">GNU Binutils</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Busybox" title="Busybox" class="mw-redirect">Busybox</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Linux_kernel" title="Linux kernel">Linux kernel</a><br>
+components</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Loadable_kernel_module" title="Loadable kernel module">Kernel modules</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Advanced_Linux_Sound_Architecture" title="Advanced Linux Sound Architecture">ALSA</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Direct_Rendering_Manager" title="Direct Rendering Manager">DRM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dm-crypt" title="Dm-crypt">dm-crypt</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_console" title="Linux console">Console</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Device_mapper" title="Device mapper">Device mapper</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Evdev" title="Evdev">evdev</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LIO" title="LIO" class="mw-redirect">LIO</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_framebuffer" title="Linux framebuffer">Framebuffer</a></li>
+<li><a href="http://en.wikipedia.org/wiki/KMS_%28Linux_kernel%29" title="KMS (Linux kernel)" class="mw-redirect">KMS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Logical_Volume_Manager_%28Linux%29" title="Logical Volume Manager (Linux)">LVM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Netfilter" title="Netfilter">Netfilter</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Network_scheduler" title="Network scheduler">Network scheduler</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Zram" title="Zram">zram</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cgroups" title="Cgroups">cgroups</a></li>
+</ul>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Security_Modules" title="Linux Security Modules">Security Modules</a>:
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/AppArmor" title="AppArmor">AppArmor</a></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Exec_Shield" title="Exec Shield">Exec Shield</a>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Grsecurity" title="Grsecurity">grsecurity</a>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/PaX" title="PaX">PaX</a></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Seccomp" title="Seccomp">seccomp</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Security-Enhanced_Linux" title="Security-Enhanced Linux">SELinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Smack_%28Linux_security_module%29" title="Smack (Linux security module)">Smack</a></li>
+<li><a href="http://en.wikipedia.org/wiki/TOMOYO_Linux" title="TOMOYO Linux">TOMOYO Linux</a></li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_open-source_wireless_drivers" title="Comparison of open-source wireless drivers">Device drivers: 802.11</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Free_and_open-source_graphics_device_driver" title="Free and open-source graphics device driver">Device drivers: graphics</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Video4Linux" title="Video4Linux">Video4Linux</a></li>
+</ul>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Initramfs" title="Initramfs">initramfs</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Variants</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group">Main line</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_kernel" title="Linux kernel">Linux kernel</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/High-performance_computing" title="High-performance computing" class="mw-redirect">High-performance<br>
+computing</a> (HPC)</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/INK_%28operating_system%29" title="INK (operating system)">INK</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Compute_Node_Linux" title="Compute Node Linux">Compute Node Linux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Real-time_computing" title="Real-time computing">Real-time<br>
+computing</a> (RTC)</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/RTLinux" title="RTLinux">RTLinux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Memory_management_unit" title="Memory management unit">MMU</a>-less</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/%CE%9CClinux" title="ΜClinux">μClinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/PSXLinux" title="PSXLinux">PSXLinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/DSLinux" title="DSLinux">DSLinux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Virtualization" title="Virtualization">Virtualization</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Hypervisor" title="Hypervisor">Hypervisor</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine" title="Kernel-based Virtual Machine">KVM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Xen" title="Xen">Xen</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Operating_system-level_virtualization" title="Operating system-level virtualization">OS-level virtualization</a></th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux-VServer" title="Linux-VServer">Linux-VServer</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Lguest" title="Lguest">Lguest</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LXC" title="LXC">LXC</a></li>
+<li><a href="http://en.wikipedia.org/wiki/OpenVZ" title="OpenVZ">OpenVZ</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Other</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/L4Linux" title="L4Linux">L4Linux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/ELinOS" title="ELinOS">ELinOS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/User-mode_Linux" title="User-mode Linux">User-mode Linux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/MkLinux" title="MkLinux">MkLinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cooperative_Linux" title="Cooperative Linux">coLinux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Malware</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_malware" title="Linux malware">Malware</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/User_interface" title="User interface">User interfaces</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Cinnamon_%28user_interface%29" title="Cinnamon (user interface)" class="mw-redirect">Cinnamon</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Command-line_interface" title="Command-line interface">CLI</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNOME_Shell" title="GNOME Shell">GNOME Shell</a></li>
+<li><a href="http://en.wikipedia.org/wiki/KDE_Plasma_Workspaces" title="KDE Plasma Workspaces">KDE Plasma Workspaces</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Unity_%28user_interface%29" title="Unity (user interface)">Unity</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Display_server" title="Display server">Graphical UI</a></th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/X_Window_System" title="X Window System">X Window System</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29" title="Wayland (display server protocol)">Wayland</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mir_%28software%29" title="Mir (software)">Mir</a></li>
+</ul>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/X_window_manager" title="X window manager">X Window Manager</a></li>
+<li><a href="http://en.wikipedia.org/wiki/AfterStep" title="AfterStep">AfterStep</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Blackbox" title="Blackbox">Blackbox</a></li>
+<li><a href="http://en.wikipedia.org/wiki/CTWM" title="CTWM">CTWM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Enlightenment_%28window_manager%29" title="Enlightenment (window manager)">Enlightenment</a></li>
+<li><a href="http://en.wikipedia.org/wiki/FVWM" title="FVWM">FVWM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Hackedbox" title="Hackedbox">Hackedbox</a></li>
+<li><a href="http://en.wikipedia.org/wiki/IceWM" title="IceWM">IceWM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Metisse" title="Metisse">Metisse</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Olvwm" title="Olvwm" class="mw-redirect">OLVWM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/PLWM" title="PLWM">PLWM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/PWM_%28window_manager%29" title="PWM (window manager)">PWM</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sawfish_%28window_manager%29" title="Sawfish (window manager)">Sawfish</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Vtwm" title="Vtwm">vtwm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Wm2" title="Wm2">wm2</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Wmx#wmx" title="Wmx" class="mw-redirect">wmx</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Xmonad" title="Xmonad">Xmonad</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Compiz" title="Compiz">Compiz</a></li>
+<li><a href="http://en.wikipedia.org/wiki/KWin" title="KWin">KWin</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Xfwm" title="Xfwm" class="mw-redirect">Xfwm</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Linux_adoption" title="Linux adoption">Linux adoption</a></th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Linux_range_of_use" title="Linux range of use">Linux range of use</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_desktop_environments" title="Linux desktop environments" class="mw-redirect">Desktop</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_for_embedded_systems" title="Linux for embedded systems" class="mw-redirect">Embedded</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_gaming" title="Linux gaming">Gaming</a></li>
+<li>Thin client:
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Terminal_Server_Project" title="Linux Terminal Server Project">LTSP</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Thinstation" title="Thinstation">Thinstation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/PC_TSC" title="PC TSC">PC TSC</a></li>
+</ul>
+</li>
+<li>Server:
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/LAMP_%28software_bundle%29" title="LAMP (software bundle)">LAMP</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LYME_%28software_bundle%29" title="LYME (software bundle)">LYME/LYCE</a></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Linux-powered_device" title="Linux-powered device">Devices</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Mobile</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Access_Linux_Platform" title="Access Linux Platform">Access Linux Platform</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Android_%28operating_system%29" title="Android (operating system)">Android</a></li>
+<li><a href="http://en.wikipedia.org/wiki/%C3%85ngstr%C3%B6m_distribution" title="Ångström distribution">Ångström</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bada" title="Bada">Bada</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Firefox_OS" title="Firefox OS">Firefox OS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LiMo_Foundation" title="LiMo Foundation">LiMo Foundation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LiMo_Platform" title="LiMo Platform">LiMo Platform</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Phone_Standards_Forum" title="Linux Phone Standards Forum">Linux Phone Standards Forum</a></li>
+<li><a href="http://en.wikipedia.org/wiki/IPodLinux" title="IPodLinux">iPodLinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mer_%28software_distribution%29" title="Mer (software distribution)">mer</a>
+<ul>
+<li><a href="http://en.wikipedia.org/w/index.php?title=Nemo_Mobile&amp;action=edit&amp;redlink=1" class="new" title="Nemo Mobile (page does not exist)">Nemo Mobile</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sailfish_OS" title="Sailfish OS">Sailfish OS</a></li>
+<li><a href="http://en.wikipedia.org/wiki/MeeGo" title="MeeGo">MeeGo</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Maemo" title="Maemo">Maemo</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Moblin" title="Moblin">Moblin</a></li>
+</ul>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Mobilinux" title="Mobilinux">Mobilinux</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Open_Handset_Alliance" title="Open Handset Alliance">Open Handset Alliance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Openmoko_Linux" title="Openmoko Linux">Openmoko</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Replicant_%28operating_system%29" title="Replicant (operating system)">Replicant</a></li>
+<li><a href="http://en.wikipedia.org/wiki/OPhone" title="OPhone">OPhone</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sailfish_OS" title="Sailfish OS">Sailfish</a></li>
+<li><a href="http://en.wikipedia.org/wiki/SHR_%28operating_system%29" title="SHR (operating system)">SHR</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tizen" title="Tizen">Tizen</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ubuntu_Mobile" title="Ubuntu Mobile">Ubuntu Mobile</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ubuntu_Touch" title="Ubuntu Touch">Ubuntu Touch</a></li>
+<li><a href="http://en.wikipedia.org/wiki/WebOS" title="WebOS">webOS</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Adopters</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/List_of_Linux_adopters" title="List of Linux adopters">List of Linux adopters</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GENIVI_Alliance" title="GENIVI Alliance">GENIVI Alliance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_proprietary_software_for_Linux" title="List of proprietary software for Linux">Proprietary software for Linux</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Media</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Free_Software_Magazine" title="Free Software Magazine">Free Software Magazine</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux.com" title="Linux.com">Linux.com</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Format" title="Linux Format">Linux Format</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Open_Source_For_You" title="Open Source For You">Open Source For You</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Gazette" title="Linux Gazette">Linux Gazette</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Journal" title="Linux Journal">Linux Journal</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Magazine" title="Linux Magazine">Linux Magazine</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linux_Outlaws" title="Linux Outlaws">Linux Outlaws</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LugRadio" title="LugRadio">LugRadio</a></li>
+<li><a href="http://en.wikipedia.org/wiki/LWN.net" title="LWN.net">LWN.net</a></li>
+<li><a href="http://en.wikipedia.org/wiki/O3_Magazine" title="O3 Magazine">O3 Magazine</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Phoronix" title="Phoronix">Phoronix</a></li>
+<li><i><a href="http://en.wikipedia.org/wiki/Revolution_OS" title="Revolution OS">Revolution OS</a></i></li>
+<li><i><a href="http://en.wikipedia.org/wiki/The_Code_%282001_film%29" title="The Code (2001 film)">The Code (2001 film)</a></i></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">People</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Jono_Bacon" title="Jono Bacon">Jono Bacon</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Alan_Cox" title="Alan Cox">Alan Cox</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ulrich_Drepper" title="Ulrich Drepper">Ulrich Drepper</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Jon_Hall_%28programmer%29" title="Jon Hall (programmer)">Jon "maddog" Hall</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Benjamin_Mako_Hill" title="Benjamin Mako Hill">Benjamin Mako Hill</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Greg_Kroah-Hartman" title="Greg Kroah-Hartman">Greg Kroah-Hartman</a></li>
+<li><a href="http://en.wikipedia.org/wiki/David_S._Miller" title="David S. Miller">David S. Miller</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Andrew_Morton_%28computer_programmer%29" title="Andrew Morton (computer programmer)">Andrew Morton</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ian_Murdock" title="Ian Murdock">Ian Murdock</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bruce_Perens" title="Bruce Perens">Bruce Perens</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Daniel_Robbins" title="Daniel Robbins">Daniel Robbins</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mark_Shuttleworth" title="Mark Shuttleworth">Mark Shuttleworth</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Richard_Stallman" title="Richard Stallman">Richard Stallman</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linus_Torvalds" title="Linus Torvalds">Linus Torvalds</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Theodore_Ts%27o" title="Theodore Ts'o">Theodore Ts'o</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Patrick_Volkerding" title="Patrick Volkerding">Patrick Volkerding</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Matt_Zimmerman_%28technologist%29" title="Matt Zimmerman (technologist)">Matt Zimmerman</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<td class="navbox-abovebelow" colspan="2">
+<div>
+<ul>
+<li><img alt="Project page" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/16px-Symbol_information_vote.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Symbol_information_vote.svg/24px-Symbol_information_vote.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Symbol_information_vote.svg/32px-Symbol_information_vote.svg.png 2x" width="16" height="16"> <b><a href="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Desktop_Linux" title="Wikipedia:WikiProject Desktop Linux">Project</a></b></li>
+<li><img alt="Category" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/16px-Folder_Hexagonal_Icon.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/4/48/Folder_Hexagonal_Icon.svg/24px-Folder_Hexagonal_Icon.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/4/48/Folder_Hexagonal_Icon.svg/32px-Folder_Hexagonal_Icon.svg.png 2x" width="16" height="14"> <b><a href="http://en.wikipedia.org/wiki/Category:Linux" title="Category:Linux">Category</a></b></li>
+<li><img alt="Commons page" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/12px-Commons-logo.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/18px-Commons-logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/24px-Commons-logo.svg.png 2x" width="12" height="16"> <b><a href="http://commons.wikimedia.org/wiki/Linux" class="extiw" title="commons:Linux">Commons</a></b></li>
+<li><img alt="Wikipedia book" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/16px-Symbol_book_class2.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/89/Symbol_book_class2.svg/24px-Symbol_book_class2.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/89/Symbol_book_class2.svg/32px-Symbol_book_class2.svg.png 2x" width="16" height="16"> <b><a href="http://en.wikibooks.org/wiki/Linux" class="extiw" title="b:Linux">Book</a></b></li>
+<li><img alt="Wikiversity page" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/16px-Wikiversity-logo.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/Wikiversity-logo.svg/24px-Wikiversity-logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/91/Wikiversity-logo.svg/32px-Wikiversity-logo.svg.png 2x" width="16" height="13"> <b><a href="http://en.wikiversity.org/wiki/Linux" class="extiw" title="v:Linux">Wikiversity</a></b></li>
+<li><img alt="Portal" src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/16px-Portal-puzzle.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/f/fd/Portal-puzzle.svg/24px-Portal-puzzle.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/f/fd/Portal-puzzle.svg/32px-Portal-puzzle.svg.png 2x" width="16" height="14"> <b><a href="http://en.wikipedia.org/wiki/Portal:Linux" title="Portal:Linux">Portal</a></b></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1166
+CPU time usage: 0.820 seconds
+Real time usage: 0.893 seconds
+Preprocessor visited node count: 2178/1000000
+Preprocessor generated node count: 5687/1500000
+Post‐expand include size: 109100/2048000 bytes
+Template argument size: 3171/2048000 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 7/500
+Lua time usage: 0.089s
+Lua memory usage: 1.88 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:10439244-0!*!0!!en!4!* and timestamp 20140103040829
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;oldid=587332304">http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;oldid=587332304</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Linux" title="Category:Linux">Linux</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Booting" title="Category:Booting">Booting</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Wikipedia_introduction_cleanup_from_October_2011" title="Category:Wikipedia introduction cleanup from October 2011">Wikipedia introduction cleanup from October 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_pages_needing_cleanup" title="Category:All pages needing cleanup">All pages needing cleanup</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_covered_by_WikiProject_Wikify_from_October_2011" title="Category:Articles covered by WikiProject Wikify from October 2011">Articles covered by WikiProject Wikify from October 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_covered_by_WikiProject_Wikify" title="Category:All articles covered by WikiProject Wikify">All articles covered by WikiProject Wikify</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Wikipedia_articles_needing_clarification_from_August_2011" title="Category:Wikipedia articles needing clarification from August 2011">Wikipedia articles needing clarification from August 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Wikipedia_articles_needing_clarification_from_March_2010" title="Category:Wikipedia articles needing clarification from March 2010">Wikipedia articles needing clarification from March 2010</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Linux+startup+process&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Linux+startup+process" title="You're encouraged to log in; however, it's not mandatory. [alt-shift-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Linux_startup_process" title="View the content page [alt-shift-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Linux_startup_process" title="Discussion about the content page [alt-shift-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Linux_startup_process">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=edit" title="You can edit this page. 
+Please review your changes before saving. [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Wikipedia [alt-shift-f]" accesskey="f" id="searchInput">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input name="title" value="Special:Search" type="hidden">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div class="collapsible-nav" id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 tabindex="2" id="p-interaction-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-interaction-list" aria-haspopup="true" href="#">Interaction</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 tabindex="3" id="p-tb-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-tb-list" aria-haspopup="true" href="#">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Linux_startup_process" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Linux_startup_process" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;oldid=587332304" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q1068500" title="Link to connected data repository item [alt-shift-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Linux_startup_process&amp;id=587332304" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 tabindex="4" id="p-coll-print_export-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-coll-print_export-list" aria-haspopup="true" href="#">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Linux+startup+process">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Linux+startup+process&amp;oldid=587332304&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Linux_startup_process&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span>
+	<h3 tabindex="5" id="p-lang-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-lang-list" aria-haspopup="true" href="#">Languages</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/Proceso_de_arranque_en_Linux" title="Proceso de arranque en Linux – Spanish" hreflang="es" lang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%DB%8C%D9%86%D8%AF_%D8%B1%D8%A7%D9%87%E2%80%8C%D8%A7%D9%86%D8%AF%D8%A7%D8%B2%DB%8C_%D9%84%DB%8C%D9%86%D9%88%DA%A9%D8%B3" title="فرایند راه‌اندازی لینوکس – Persian" hreflang="fa" lang="fa">فارسی</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EB%A6%AC%EB%88%85%EC%8A%A4_%EC%8B%9C%EC%9E%91_%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4" title="리눅스 시작 프로세스 – Korean" hreflang="ko" lang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-ro"><a href="http://ro.wikipedia.org/wiki/Procesul_de_startup_Linux" title="Procesul de startup Linux – Romanian" hreflang="ro" lang="ro">Română</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81_%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8_Linux" title="Процесс загрузки Linux – Russian" hreflang="ru" lang="ru">Русский</a></li>
+			
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q1068500#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 23 December 2013 at 05:42.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Linux_startup_process" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaEvents.moduleStorage","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","mw.PopUpMediaTransform","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="Linux%20startup%20process%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_003.php"></script><div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div>
+<!-- Served by mw1220 in 0.143 secs. -->
+	
+
+</body></html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Learning the vi Editor/Vim/Modes - Wikibooks, open books for an open world</title>
+<meta name="generator" content="MediaWiki 1.23wmf9">
+<link rel="alternate" type="application/x-wiki" title="Edit" href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit">
+<link rel="edit" title="Edit" href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikibooks.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikibooks.org/w/opensearch_desc.php" title="Wikibooks (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikibooks.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikibooks Atom feed" href="http://en.wikibooks.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes">
+<link rel="stylesheet" href="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_002.css">
+<style>
+@media print{#centralNotice{display:none}}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//bits.wikimedia.org/static-1.23wmf9/resources/jquery.tipsy/images/tipsy.png?2014-01-02T16:45:00Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:650c74b725e9881130c218eb78deabf6 */
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.uls-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAQCAMAAADQzfSkAAABqlBMVEX////f3/+Ov+/n5+fp6enp6eno6Ojp6enn5+ff39/q6urp6enp6enp6enq6urp6en////q6urr6+upv+rU1NTJycnR0dEaGhrp6enT4/SEuuK9vb3l5eU2ktCxsbFdXV1paWmzwc9ITFDo6OhaWlpsbGxtbW2BipSZpK/X19d2dnZ8hI2/v79PT09gZm2CgoLIyMjD0eGksL1JTVHM2+spKywnKCkcHBzAzt3I1+cxMzZxcXFkZGSvr69WW2C8vLyFjphqcXiLlZ8dHh4gISLa2trQ3/Dc3NzZ2dl7e3uioqIfHyBCRko9QEPh4eFgYGDGxsZoaGiPj4/Ly8uRm6a6yNcbGxuSnKfL2uqVn6scHR20tLR/f3+Kioq4uLienp54gIipqanA2e+71u9GSk5yeoKgoKCAgIB0dHRLS0tlZWWDg4PBwcHFxcWxvsxkanGapbCKlJ7O4fNXo9hQn9bM3/OPmaRfZWve3t6mpqbR0dG+vr6JiYnKyspPVFl1s99+fn5srdzm5ubNzc1BREh2s99xsN7S0tIxMzUiIyQ2OTt/iJFwcHBbYWc3S28lAAAAF3RSTlMACBAg7P3LiTYIX6LmmDzeAYMnDN+1MJx17ncAAAEQSURBVHheddBTb0VREIbhVduYWVuHRm3btm3bNv9zJ2v3IE36Xk3yZG4+xkMKw0BREYwJMzkcO38MY37tG6AmYN48YZFxwsbeiys6y/02rT1Wa4TxwoYgpx4adLMbfRubs9tk0cJuYK8ACv1/Xy5LLlIYS5bf2FTUUlJapptiqKwyuOfJEsjq4M3j+YBPYc02X6utTWnvQEwk6wJRNxn29Pb1D2iIg0bEJMaHYWTU6RyfABPZ5BTa7xBxxo2YzPgcPPGFRb4Ey2Qrq2vrXlRk6xampDK+a94/ODw6PjGfkp2dX1y6ZOvVNWKavsutqt6HbGZ5QCqdMUmSnlXqhY6M12CZtKcaUnhtsKz/Tc5m7AfjN0jzWIipawAAAABJRU5ErkJggg==) no-repeat scroll left center;background:transparent url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.png?2014-01-02T16:50:00Z) no-repeat scroll left center!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.svg?2014-01-02T16:50:00Z);background-image:-moz-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.svg?2014-01-02T16:50:00Z);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../../lib/jquery.uls/images/icon-language.svg?2014-01-02T16:50:00Z);padding-left:30px}#pt-uls a.uls-trigger{padding-left:30px; line-height:1}#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAMAAAAVMLmlAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAALpQTFRF////W1tbgICAWVlZgICAUVFRgICAWVlZhYWFUlJShYWFVFRUgYGBVVVVgYGBVVVVgICAVFRUVVVVVlZWgYGBgICAVFRUgYGBVFRUgICAgYGBVVVVVVVVgYGBVlZWgYGBVFRUgICAVFRUgICAVVVVgICAVlZWgICAVFRUgICAVVVVgICAVFRUgICAVlZWgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICA9Fa9bgAAADx0Uk5TAA4OFBQWFhcXGRlJSUtLWlpbXV9fYGFhZGRlZmlpa2twcIiIioqPj5GRn5+goKGh6+vv7/Dw+fn8/P7+YuRUVgAAAOlJREFUGBmNwcdWAgEURMFLFCUaAcWAEhQYHBRmCN3//1u+BYcVC6s4p2U3OLrrVxN7Xn7uELoH5w65Dx1g6JNnoLazfz++VnZehkZir4pQ3NjzBg5TwtgBhzFh6kDr294UobiykxZc7ezVdLyx8yrw6pM+8GjnDjsf7gj3/WpiJ7Vhl6OW3eC/mlKdo5teZSHNSoM24XqvTCHTvg0MdDIASpn08/6ZSlkJ6jMpLUBhLc3qKEwIIwUURoSJAs2ltC5AIZUWTbjcSulktJayCvCikx7wJG0VttrfEp5eLpfS4uLtgaOmVOeMP8BAM9RClMO9AAAAAElFTkSuQmCC) no-repeat right top;background:transparent url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2014-01-02T16:50:00Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-01-02T16:50:00Z);background-image:-moz-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-01-02T16:50:00Z);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-01-02T16:50:00Z);height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}   x:-o-prefocus,body.rtl li#pt-uls{ direction:ltr}#settings-block{border-top:1px solid #C9C9C9;background:#f8f8f8;background:-webkit-gradient(linear,left top,left bottom,from(#FBFBFB),to(#F0F0F0));background:-webkit-linear-gradient(top,#FBFBFB,#F0F0F0);background:-moz-linear-gradient(top,#FBFBFB,#F0F0F0);background:-o-linear-gradient(top,#FBFBFB,#F0F0F0);background:linear-gradient(#FBFBFB,#F0F0F0);padding-left:10px;line-height:1.2em;-webkit-border-radius:0 0 5px 5px;-moz-border-radius:0 0 5px 5px;border-radius:0 0 5px 5px}.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #AAA;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}#settings-block div.display-settings-block,#settings-block div.input-settings-block{display:inline-block;margin:8px 15px;color:#565656}#settings-block div.display-settings-block:hover,#settings-block div.input-settings-block:hover{color:#252525}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525} .ime-perime-help{display:none}.ime-checked .ime-perime-help{display:inline-block;width:20px;height:100%;position:absolute;top:0;bottom:0;right:0;opacity:0.75;padding:0;background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAFdQTFRF////AAAAZmZmVVVVSUlJW1tbVVVVV1dXWFhYVVVVV1dXVlZWWFhYV1dXWFhYVlZWV1dXVlZWV1dXV1dXWFhYV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXrNxhuAAAABx0Uk5TAAEFBgcOJCkxNlVla3KDi5WrsrbJ09ny9vf9/uWqFuIAAACESURBVBjTdZDBDsIgEERHai2KUqmllfr+/zs9AFYTnMsmL7uTmZX+yVjnrPkCnU8AyXeVDJGiOJSdCLzmsAIx73ngeZKOC+AlySSA8LjrCiQjyRafmzyAleQymQ7nFcDt6NItVFQOp5Cn/dgzjlDts+vW9xs1RI7KPLNHbRRq1W4951dvPF4RAFiSul8AAAAASUVORK5CYII=) left center no-repeat;background:transparent url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/help.png?2014-01-02T16:50:00Z) left center no-repeat!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxOCIKICAgaGVpZ2h0PSIxOCIKICAgdmlld0JveD0iMCAwIDE4IDE4LjAwMDAwMSIKICAgaWQ9IkxheWVyXzEiCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiPjxtZXRhZGF0YQogICBpZD0ibWV0YWRhdGE5Ij48cmRmOlJERj48Y2M6V29yawogICAgICAgcmRmOmFib3V0PSIiPjxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PjxkYzp0eXBlCiAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwvcmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgIGlkPSJkZWZzNyIgLz4KPHBhdGgKICAgZD0ibSA5LjAwMDAwMDMsMS40OTk2NDM3IGMgLTQuMTQxNDE5MSwwIC03LjUwMDAwMDQsMy4zNTc4NjkgLTcuNTAwMDAwNCw3LjUwMDAwMTQgMCw0LjE0MjEzMDkgMy4zNTg1ODEzLDcuNTAwNzExOSA3LjUwMDAwMDQsNy41MDA3MTE5IEMgMTMuMTQyODQ0LDE2LjUwMDM1NyAxNi41LDEzLjE0MTc3NiAxNi41LDguOTk5NjQ1MSAxNi41LDQuODU3NTEyNyAxMy4xNDM1NTYsMS40OTk2NDM3IDkuMDAwMDAwMywxLjQ5OTY0MzcgeiBtIC0wLjAwMTQyLDExLjk0MzQ0MjMgYyAtMC42MTMzMDYyLDAgLTEuMDY3MDUzLC0wLjQ5MDA3NCAtMS4wNjcwNTMsLTEuMDc5ODc0IDAsLTAuNjE0MDE4IDAuNDUzNzQ2OCwtMS4wOTI2OTcgMS4wNjcwNTMsLTEuMDkyNjk3IDAuNTg5Nzk5NSwwIDEuMDY4NDc4NywwLjQ3ODY3OSAxLjA2ODQ3ODcsMS4wOTI2OTcgMCwwLjU4OTA4NyAtMC40Nzg2NzkyLDEuMDc5ODc0IC0xLjA2ODQ3ODcsMS4wNzk4NzQgeiBNIDEwLjUyMDgwOCw4LjgwNDQ3MDIgQyAxMC4wMDU4MDMsOS4yMDkwNjY4IDkuODA4NDg5Myw5LjQ2NzYzODQgOS44MDg0ODkzLDEwLjA0MzE5MSBWIDEwLjM5OTM1IEggOC4yMzc4MTk1IFYgOS45Njk4MjI2IGMgMCwtMS4wODA1ODY2IDAuMzE5ODMxLC0xLjUyMTUxMyAwLjgyMjAxNTgsLTEuOTE0NzEzIDAuNTAzNjA5MywtMC4zOTMxOTkxIDAuODExMzMwNiwtMC42MDE5MDkxIDAuODExMzMwNiwtMS4xNjYwNjQ4IDAsLTAuNDc4Njc4MSAtMC4yOTQ5LC0wLjc0ODY0NjcgLTAuODgzMjc0OCwtMC43NDg2NDY3IC0wLjUwMzYwOTQsMCAtMC45NDU5NTkxLDAuMTM0NjI4MSAtMS40MTE4MTUzLDAuNDU0NDU5MiBMIDYuODI3NDI5MSw1LjMwNzY5NzggQyA3LjQ0MDczNTMsNC44Nzc0NTc1IDguMjAyMjAzNiw0LjU3MTE2MDcgOS4yMDc5OTY5LDQuNTcxMTYwNyBjIDEuMzYxOTUzMSwwIDIuNTA0NTEyMSwwLjc0ODY0NjUgMi41MDQ1MTIxLDIuMTgzOTY4MiAtNy4xMmUtNCwxLjAxODYxNDkgLTAuNTY1NTgsMS41NTg1NTI1IC0xLjE5MTcwOSwyLjA0OTM0MTMgeiIKICAgaWQ9InBhdGgzIgogICBzdHlsZT0iZmlsbDojNTc1NzU3IiAvPgo8L3N2Zz4=);background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/help.svg?2014-01-02T16:50:00Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSIxOCIKICAgaGVpZ2h0PSIxOCIKICAgdmlld0JveD0iMCAwIDE4IDE4LjAwMDAwMSIKICAgaWQ9IkxheWVyXzEiCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiPjxtZXRhZGF0YQogICBpZD0ibWV0YWRhdGE5Ij48cmRmOlJERj48Y2M6V29yawogICAgICAgcmRmOmFib3V0PSIiPjxkYzpmb3JtYXQ+aW1hZ2Uvc3ZnK3htbDwvZGM6Zm9ybWF0PjxkYzp0eXBlCiAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+PGRjOnRpdGxlPjwvZGM6dGl0bGU+PC9jYzpXb3JrPjwvcmRmOlJERj48L21ldGFkYXRhPjxkZWZzCiAgIGlkPSJkZWZzNyIgLz4KPHBhdGgKICAgZD0ibSA5LjAwMDAwMDMsMS40OTk2NDM3IGMgLTQuMTQxNDE5MSwwIC03LjUwMDAwMDQsMy4zNTc4NjkgLTcuNTAwMDAwNCw3LjUwMDAwMTQgMCw0LjE0MjEzMDkgMy4zNTg1ODEzLDcuNTAwNzExOSA3LjUwMDAwMDQsNy41MDA3MTE5IEMgMTMuMTQyODQ0LDE2LjUwMDM1NyAxNi41LDEzLjE0MTc3NiAxNi41LDguOTk5NjQ1MSAxNi41LDQuODU3NTEyNyAxMy4xNDM1NTYsMS40OTk2NDM3IDkuMDAwMDAwMywxLjQ5OTY0MzcgeiBtIC0wLjAwMTQyLDExLjk0MzQ0MjMgYyAtMC42MTMzMDYyLDAgLTEuMDY3MDUzLC0wLjQ5MDA3NCAtMS4wNjcwNTMsLTEuMDc5ODc0IDAsLTAuNjE0MDE4IDAuNDUzNzQ2OCwtMS4wOTI2OTcgMS4wNjcwNTMsLTEuMDkyNjk3IDAuNTg5Nzk5NSwwIDEuMDY4NDc4NywwLjQ3ODY3OSAxLjA2ODQ3ODcsMS4wOTI2OTcgMCwwLjU4OTA4NyAtMC40Nzg2NzkyLDEuMDc5ODc0IC0xLjA2ODQ3ODcsMS4wNzk4NzQgeiBNIDEwLjUyMDgwOCw4LjgwNDQ3MDIgQyAxMC4wMDU4MDMsOS4yMDkwNjY4IDkuODA4NDg5Myw5LjQ2NzYzODQgOS44MDg0ODkzLDEwLjA0MzE5MSBWIDEwLjM5OTM1IEggOC4yMzc4MTk1IFYgOS45Njk4MjI2IGMgMCwtMS4wODA1ODY2IDAuMzE5ODMxLC0xLjUyMTUxMyAwLjgyMjAxNTgsLTEuOTE0NzEzIDAuNTAzNjA5MywtMC4zOTMxOTkxIDAuODExMzMwNiwtMC42MDE5MDkxIDAuODExMzMwNiwtMS4xNjYwNjQ4IDAsLTAuNDc4Njc4MSAtMC4yOTQ5LC0wLjc0ODY0NjcgLTAuODgzMjc0OCwtMC43NDg2NDY3IC0wLjUwMzYwOTQsMCAtMC45NDU5NTkxLDAuMTM0NjI4MSAtMS40MTE4MTUzLDAuNDU0NDU5MiBMIDYuODI3NDI5MSw1LjMwNzY5NzggQyA3LjQ0MDczNTMsNC44Nzc0NTc1IDguMjAyMjAzNiw0LjU3MTE2MDcgOS4yMDc5OTY5LDQuNTcxMTYwNyBjIDEuMzYxOTUzMSwwIDIuNTA0NTEyMSwwLjc0ODY0NjUgMi41MDQ1MTIxLDIuMTgzOTY4MiAtNy4xMmUtNCwxLjAxODYxNDkgLTAuNTY1NTgsMS41NTg1NTI1IC0xLjE5MTcwOSwyLjA0OTM0MTMgeiIKICAgaWQ9InBhdGgzIgogICBzdHlsZT0iZmlsbDojNTc1NzU3IiAvPgo8L3N2Zz4=);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf9/extensions/UniversalLanguageSelector/resources/css/../images/help.svg?2014-01-02T16:50:00Z)!ie}.ime-checked .ime-perime-help:hover{opacity:1}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:01ffdf54a91b574b63c3f1bba4f01044 */
+#p-lang li.interlanguage-link,.autonym{ font-family:'Autonym',sans-serif}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:ddc946d0b392bcbc2c1fb86246818001 */</style><style>
+.mw-collapsible-toggle{float:right} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:a69d6f9ef6a7fa7065c5da3b52c08eb2 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf9/resources/mediawiki.action/images/green-checkmark.png?2014-01-02T16:45:00Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:96f8b5c575ae411df32f4c14652872fd */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf9/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-01-02T16:48:20Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf9/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-01-02T16:48:20Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf9/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-01-02T16:48:20Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf9/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-01-02T16:48:20Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:2738dbd14b44076b2bddc3eb51299d70 */
+.PopUpMediaTransform a .play-btn-large{position :absolute;top:50%;left :50%;width:70px;height:53px;margin-left:-35px;margin-top:-25px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA1CAMAAADLRm3ZAAABnlBMVEUAAAAAAAAAAABaWlp4eHh7e3t/f393d3eDg4N0dHRtbW2FhYVra2uJiYmNjY1nZ2eRkZFkZGSUlJRiYmKYmJhgYGCcnJxeXl5cXFyfn58AAACioqKlpaWsrKwAAACpqakAAAAAAAAAAAAAAABEREQFBQUHBwdMTEwAAAAYGBgAAAAAAAABAQEXFxcAAAAAAAAAAABxcXGoqKh3d3eampp8fHyIiIgUFBQcHBw0NDSFhYV+fn5FRUUmJiaNjY11dXWPj4+Hh4c9PT14eHifn59nZ2eBgYFISEiBgYFubm5vb28ODg4lJSVra2tiYmJoaGgEBAQmJiZmZmaLi4saGhpiYmKYmJhZWVlgYGBfX19vb29DQ0MGBgZcXFyBgYFKSkoPDw9ZWVlzc3NQUFBXV1eKiopUVFQdHR1VVVUQEBBYWFglJSVTU1NXV1cKCgosLCySkpJRUVFISEgyMjJPT08dHR2GhoY4ODhNTU09PT0MDAwuLi57e3sTExNJSUkgICBOTk4hISEbGxtTU1MoKChBQUEsLCxXV1cAAABycnIdNM6eAAAAinRSTlOzj6jO1dbX1NfU09nS2drR29Hc0N3Q3c/O3gDf3+Ce4EgIGW7HtbXKnLouq7S5cHIq1ODQ3NTXuLq/1tXEvNjT2NjC093N18bW0dC2vNHM0LW90Ne5z9rLzsrTxbXN1Me3zdDKzdfLu8y3zb3Lyba/2svFwcq618PKxLa/1LjJu8q8u8y+xsDKrdJqj5XQAAABYklEQVR4Xu3XVVNCQRjH4VdQEbvFVRAOIRl2d3d3d3d317d2GEaGOOfM1oUXPB/gN7NX/30BIYPeGMPAqDcgBMhrBUZWLwJBAcwcAriBAzfogAMdKIADBUUmmqm64JAxl2m1k/XMmZkin+YaxsxYqd9iA1OmsfDPajVDZqMgoL1jhzpTmR+k/OCQMlObG+L4dJgq050d5rKVJlOXGaHijjxzny6i94k005YqatBFlmlKEdfy1UeS+UmS0tllwc/0JEhT9WNnBuJlqCy4maE4OSO4mdFYOeO4mQm1jCnAzUyXSJqdm8fOLCRKWVomWIaVZHFrLqJlWE8Ts7lFuAzbGZF294iXYT8rnPLICcSZk5xQyjMzzTKc5wXTXFnoluFaE+TmlnYZipUBpgcA5syjjWU1Tf7I8wvbhr/6Im/vTmDLgO3D9Gn+R5+2aIbXzeABDjwgOIDZtwDIzvwsnR1xujV/AS6zSfMs2bS9AAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf9/extensions/TimedMediaHandler/resources/player_big_play_button.png?2014-01-02T16:50:00Z)!ie}.PopUpMediaTransform a .play-btn-large :hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA1CAMAAADLRm3ZAAABtlBMVEUAAAAAAAAAAAC5ubm1tbWwsLC+vr6Li4vExMSrq6umpqbIyMjOzs6ioqLT09OdnZ3Y2NiZmZnc3NyWlpbh4eGSkpLn5+eQkJCNjY0AAADr6+vv7+/z8/P39/cAAAD9/f0AAAAAAAAAAAAAAAB2dnYAAAAoKCj5+flra2sMDAwAAAAAAAAAAAAAAAAAAAACAgLW1tbPz88wMDCHh4fExMS8vLxKSkpubm6vr6+qqqo0NDQQEBDCwsK1tbUmJiaysrLT09PLy8uIiIgXFxetra2+vr7r6+tycnIbGxvMzMyTk5O1tbU8PDyjo6PR0dG0tLQLCwufn58HBwc9PT2bm5shISEqKiqXl5cICAiJiYmTk5Pj4+OoqKhpaWkKCgqOjo5TU1OXl5cYGBiKioo9PT18fHwlJSWGhoYuLi6CgoIvLy+Dg4Ofn5+oqKg7OzuAgIDk5OSLi4tHR0fIyMh9fX3Z2dlycnJPT08JCQl7e3vJyclhYWFZWVl4eHhhYWEUFBS6urpqamofHx9ycnK2trZzc3N6eno1NTUsLCyKioqAgIBBQUFmZmZHR0cICAjBwcEAAACIiIg+YVJpAAAAknRSTlOzj6jt6+ru4O/p5/Hy5vPl9eT24/ji+eHgAPr7/P2e/hlICG7YLr7+07accipwq7Tw777X6erGzuLjv7fs4rzn8PDYuObr+dK57tjqwuTu6rbjtcPiur3htdvg8+jRtt7H3Lndwdi83b7bwNze5cPb9t/G7drz0Mq22e7MzdjPuOrUu9fo1NnCwN/cxdLItu6t3VahkKcAAAFlSURBVHhe7dfFcgJBFIbRGyLEXegIDBAITtzd3d3d3d3d88ZJigqFzExNyyILzgN8Vb36+wJCGrXWj4JWrUEIkMUElEwWBJwMqNk4sAIDVlACA0qQAQMygowv05fNIDNYplKNFFBnmjN+ZU5SZtrTHHJnqTKVqX8KFykyWSlO9auNxJmmZBebOSWEmZ1EN3v73USZ0ngPxyckmbpYL3n5+JnLaB5FxbiZ20heU+V4mYpwflXVNTiZ2jAhHw1G6Zm1YGEtrZIzbUEiOjqlZrr8xfRIzfQGiOmXmhkIFDEEUjPDIYJGx8YlZyZChdxNYyzDTAS/uXmsZViI4rO0jLkMKzHevtaxl2EjztPWth2wM7sJ7uQHhyTLcJTkSnFqJFuGM4WL8wvSZUiXO11dA1BnbvQ0q2lwRO4f6Db88ekn8vxiB7oM6F8Nb+//6NPmy7C6GczAgBk4G1D75ADpqJ+l1CFGt+Y3XGRJEJqP8KwAAAAASUVORK5CYII=);background-image:url(//bits.wikimedia.org/static-1.23wmf9/extensions/TimedMediaHandler/resources/player_big_play_button_hover.png?2014-01-02T16:50:00Z)!ie}.PopUpMediaTransform{position :relative;display:inline-block}li.gallerybox div.thumb div.PopUpMediaTransform{margin:0 auto}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:a01c57d7f51041a06afe1375b7542d54 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:4969bf752d40e7c60e4c1bc8e4153549 */</style>
+
+<script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_005.php"></script><script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_002.php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Learning_the_vi_Editor/Vim/Modes","wgTitle":"Learning the vi Editor/Vim/Modes","wgCurRevisionId":2537380,"wgRevisionId":2537380,"wgArticleId":98509,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Learning_the_vi_Editor/Vim/Modes","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgBetaFeaturesFeatures":[],"wgULSAcceptLanguageList":["en-us","en","de","ja"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"value":{"levels":3,"quality":2,"pristine":3}}},"wgStableRevisionId":0,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikibooks"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":0,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,
+"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":true,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs102":false,"searchNs103":false,"searchNs108":false,"searchNs109":false,"searchNs110":false,"searchNs111":false,"searchNs112":true,"searchNs113":false,"searchNs828":false,"searchNs829":false,"gadget-extlinks":1,"gadget-commons-file":1,"gadget-toolboxcompat":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwikibooks:resourceloader:filter:minify-js:7:148f4b1575816e142ecd709efbb55961 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.uls.init","ext.uls.interface","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script><script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load.php"></script><script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/checkLoggedIn" async=""></script>
+<script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf9/skins/vector/csshover.min.htc")}</style><![endif]--><style>@font-face { font-family: 'Autonym';
+	src: url('//bits.wikimedia.org/static-current/extensions/UniversalLanguageSelector/data/fontrepo/fonts/Autonym/Autonym.eot?version=20131205');
+	src: local('Autonym'),		url('//bits.wikimedia.org/static-current/extensions/UniversalLanguageSelector/data/fontrepo/fonts/Autonym/Autonym.woff?version=20131205') format('woff'),		url('//bits.wikimedia.org/static-current/extensions/UniversalLanguageSelector/data/fontrepo/fonts/Autonym/Autonym.ttf?version=20131205') format('truetype');
+	font-style: normal;}
+</style><script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_003.php" async=""></script><link href="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index.css" rel="stylesheet"><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_008.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_006.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_012.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_007.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_011.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_014.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_005.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_009.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_015.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_002.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_010.php"></script><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index.php"></script><link href="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_002.css" rel="stylesheet"><script type="text/javascript" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_003.php"></script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Learning_the_vi_Editor_Vim_Modes skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Learning the vi Editor/Vim/Modes</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikibooks, open books for an open world</div>
+								<div id="contentSub"><span class="subpages">&lt; <a href="http://en.wikibooks.org/wiki/Learning_the_vi_Editor" title="Learning the vi Editor">Learning the vi Editor</a>‎&nbsp;| <a href="http://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim" title="Learning the vi Editor/Vim">Vim</a></span><div id="mw-fr-revisiontag" class="flaggedrevs_notice plainlinks noprint"><img class="flaggedrevs-icon" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/1.png" alt="Unreviewed changes are displayed on this page" title="Unreviewed changes are displayed on this page">This page may need to be <a href="http://en.wikibooks.org/wiki/Wikibooks:REVIEW" title="Wikibooks:REVIEW" class="mw-redirect">reviewed</a> for quality.</div>
+</div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/TOC&amp;action=edit&amp;redlink=1" class="new" title="Learning the vi Editor/TOC (does not exist)">Learning the vi Editor/TOC</a></p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Modes"><span class="tocnumber">1</span> <span class="toctext">Modes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#insert_.28and_replace.29"><span class="tocnumber">1.1</span> <span class="toctext">insert (and replace)</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#normal_.28command.29"><span class="tocnumber">1.2</span> <span class="toctext">normal (command)</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#visual"><span class="tocnumber">1.3</span> <span class="toctext">visual</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#plain_visual_mode"><span class="tocnumber">1.3.1</span> <span class="toctext">plain visual mode</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#block_visual_mode"><span class="tocnumber">1.3.2</span> <span class="toctext">block visual mode</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#linewise_visual_mode"><span class="tocnumber">1.3.3</span> <span class="toctext">linewise visual mode</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#select"><span class="tocnumber">1.4</span> <span class="toctext">select</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#command-line"><span class="tocnumber">1.5</span> <span class="toctext">command-line</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Ex-mode"><span class="tocnumber">1.6</span> <span class="toctext">Ex-mode</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Modes">Modes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=1" title="Edit section: Modes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>VIM offers more modes than vi (which offers only the "normal", 
+"insert" and "command–line" modes). Theses additional modes make VIM 
+more powerful and easier to use; because of this, vim users should at 
+least be aware that they exist. (NOTE: <i>If you ever enter a mode you are unfamiliar with, you can usually press <font style="color:DodgerBlue; font-weight: bold;">ESC</font> to get back to</i> normal <i>mode.</i>)</p>
+<p>Here a short overview of each mode available in vim:</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<th>Name</th>
+<th>Description</th>
+<th>help page</th>
+</tr>
+<tr>
+<td>normal</td>
+<td>For navigation and manipulation of text. This is the mode that vim 
+will usually start in, which you can usually get back to with <font style="color:DodgerBlue; font-weight: bold;">ESC</font>.</td>
+<td><code>:help Normal-mode</code></td>
+</tr>
+<tr>
+<td>insert</td>
+<td>For inserting new text. The main difference from vi is that many 
+important "normal" commands are also available in insert mode - provided
+ you have a keyboard with enough meta keys (such as Ctrl, Alt, 
+Windows-key, etc.).</td>
+<td><code>:help Insert-mode</code></td>
+</tr>
+<tr>
+<td>visual</td>
+<td>For navigation and manipulation of text selections, this mode allows
+ you to perform most normal commands, and a few extra commands, on 
+selected text.</td>
+<td><code>:help visual-mode</code></td>
+</tr>
+<tr>
+<td>select</td>
+<td>Similar to visual but with a more MS-Window like behavior.</td>
+<td><code>:help select-mode</code></td>
+</tr>
+<tr>
+<td>command-line</td>
+<td>For entering editor commands - like the help command in the 3rd column.</td>
+<td><span style="white-space:nowrap;"><code>:help Command-line-mode</code></span></td>
+</tr>
+<tr>
+<td>Ex-mode</td>
+<td>Similar to the command-line mode but optimized for batch processing.</td>
+<td><code>:help Ex-mode</code></td>
+</tr>
+</tbody></table>
+<p>Each mode is described below.</p>
+<h3><span class="mw-headline" id="insert_.28and_replace.29">insert (and replace)</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=2" title="Edit section: insert (and replace)">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>In insert mode you can type new text. In classic vi the insert mode 
+was just that: insert text and nothing else. Vim makes use of many meta 
+keys on modern keyboards; with a correctly configured vim, cursor keys 
+should work in insert mode.</p>
+<p>Insert mode can be reached in several ways, but some of the most common ones are <font style="color:maroon">&lt;a&gt;</font> <small>(append after cursor)</small>, <font style="color:maroon">&lt;i&gt;</font> <small>(insert before cursor)</small>, <font style="color:maroon">&lt;A&gt;</font> <small>(append at end of line)</small>, <font style="color:maroon">&lt;I&gt;</font> <small>(insert at beginning of line)</small>, <font style="color:maroon">&lt;C&gt;</font> <small>(change to end of line)</small>, and <font style="color:maroon">&lt;s&gt;</font> <small>(substitute characters)</small>.</p>
+<p>If you wish to edit text by selecting and replacing, as is common in many GUI-based editors, <font style="color:maroon">&lt;C&gt;</font> does nicely. The selected text is deleted before entering insert mode.</p>
+<h3><span class="mw-headline" id="normal_.28command.29">normal (command)</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=3" title="Edit section: normal (command)">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Unless you use the evim interface this is the standard mode for vim 
+(vim starts in normal mode). Everything the user types in normal mode is
+ interpreted as commands (including those which switch the user to other
+ modes).</p>
+<p>If vim is started as evim (<i>evim</i> on the command line), vim 
+keeps the user in insert mode all the time. Normal mode can be reached 
+for individual commands by pressing <font style="color:maroon">&lt;Ctrl-O&gt;</font>
+ followed by the desired command. After one command, the user is 
+returned to insert mode. (Each normal command must be started first by 
+pressing <font style="color:maroon">&lt;Ctrl-O&gt;</font>).</p>
+<h3><span class="mw-headline" id="visual">visual</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=4" title="Edit section: visual">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>There are three different types of highlighting in visual mode. Each 
+allows the user to highlight text in different ways. Commands that 
+normally only affect one character, line, or area will affect the 
+highlighted text (such as changing text to uppercase (<font style="color:maroon">&lt;Ctrl-~&gt;</font>), deleting text (<font style="color:maroon">&lt;d&gt;</font>), indenting lines (&gt;&gt;, &lt;&lt;, and =), and so forth).</p>
+<p>There are three (sub)types of the visual modes which are <i>visual</i>, <i>block-visual</i> , and <i>linewise-visual</i></p>
+<h4><span class="mw-headline" id="plain_visual_mode">plain visual mode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=5" title="Edit section: plain visual mode">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>The plain <i>visual</i> mode is started by pressing 'v' in normal mode. At any point, pressing ESC or <font style="color:maroon">&lt;v&gt;</font>
+ will leave VISUAL mode without performing an operation. Movement 
+commands change the selection area, while other commands will generally 
+perform the expected operation on the text (there are some exceptions 
+where the behavior will change or where the command won't work, but if 
+it doesn't do what you hoped you can always undo with <font style="color:maroon">&lt;u&gt;</font>).</p>
+<h4><span class="mw-headline" id="block_visual_mode">block visual mode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=6" title="Edit section: block visual mode">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p><b>block-visual</b> is started by pressing <font style="color:maroon">&lt;Ctrl-V&gt;</font> (or <font style="color:maroon">&lt;Ctrl-Q&gt;</font>
+ in some windows versions. If neither of these works use ":help 
+visual-block" to find out how). Visual blocks always maintain a 
+rectangular selection, highlighting only specific columns of characters 
+over multiple lines. In this following example the user wants to put a 
+dash in each phone number between the second and third number fields:</p>
+<p>The user first moves the cursor to the top of the column (you could start at the bottom if you want).</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<td><a href="http://en.wikibooks.org/wiki/File:Vim_block_change_example.jpg" class="image"><img alt="Vim block change example.jpg" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/Vim_block_change_example.jpg" width="396" height="140"></a></td>
+</tr>
+</tbody></table>
+<p>Next, press <font style="color:maroon">&lt;Ctrl-V&gt;</font>. This 
+puts you in block-visual mode (VISUAL BLOCK appears at the bottom to 
+tell you what visual mode you're in). Next, move down to the bottom 
+desired line. You can see a single column highlighted in this example, 
+but you could move right or left and highlight more columns.</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<td><a href="http://en.wikibooks.org/wiki/File:Vim_block_change_example2.jpg" class="image"><img alt="Vim block change example2.jpg" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/Vim_block_change_example2.jpg" width="396" height="140"></a></td>
+</tr>
+</tbody></table>
+<p>In this case, the user wants to <i>change</i> the spaces to dashes. 
+To change text, we press 'c'. The spaces all disappear, and the changes 
+are shown only in the current line while we type:</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<td><a href="http://en.wikibooks.org/wiki/File:Vim_block_change_example3.jpg" class="image"><img alt="Vim block change example3.jpg" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/Vim_block_change_example3.jpg" width="396" height="140"></a></td>
+</tr>
+</tbody></table>
+<p>when we press <font style="color:maroon">&lt;ESC&gt;</font>, though, the change is duplicated on all the lines.</p>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<td><a href="http://en.wikibooks.org/wiki/File:Vim_block_change_example4.jpg" class="image"><img alt="Vim block change example4.jpg" src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/Vim_block_change_example4.jpg" width="395" height="139"></a></td>
+</tr>
+</tbody></table>
+<p>(Note: if you simply want to <i>insert</i> text rather than change it, you will need to use '<font style="color:maroon">&lt;I&gt;</font>' or '<font style="color:maroon">&lt;A&gt;</font>' rather than '<font style="color:maroon">&lt;i&gt;</font>' or '<font style="color:maroon">&lt;a&gt;</font>'.)</p>
+<h4><span class="mw-headline" id="linewise_visual_mode">linewise visual mode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=7" title="Edit section: linewise visual mode">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>In <b>linewise-visual</b> mode, enterd by <font style="color:maroon">&lt;Shift-V&gt;</font>, entire lines are highlighted. Otherwise, it generally works like the plain <b>visual</b> mode.</p>
+<h3><span class="mw-headline" id="select">select</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=8" title="Edit section: select">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>like the visual mode but with more <a target="_blank" href="http://en.wikipedia.org/wiki/Common_User_Access" class="extiw" title="w:Common User Access">CUA</a>
+ like behavior. This means that if you type a single character it 
+replaces the selection. Of course you lose all the one key operation on 
+selection like <font style="color:maroon">&lt;U&gt;</font> to make a selection uppercase.</p>
+<p>This mode is usually activated by:</p>
+<pre>:<font style="color:DodgerBlue; font-weight: bold;">behave</font> mswin
+</pre>
+<p>which is default for MS-Windows installations. You can get the normal mode with</p>
+<pre>:<font style="color:DodgerBlue; font-weight: bold;">behave</font> xterm
+</pre>
+<h3><span class="mw-headline" id="command-line">command-line</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=9" title="Edit section: command-line">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Within the command-line you can run <a target="_blank" href="http://en.wikipedia.org/wiki/Ex_%28editor%29" class="extiw" title="w:Ex (editor)">Ex</a>
+ commands, enter search patterns, and enter filter commands. At the 
+bottom a command line appears where you can enter the command. Unlike vi
+ - vim supports cursor keys which makes entering commands a lot easier. 
+After one command the editor returns into normal mode.</p>
+<p>You can enter an Ex command by typing a <tt>:</tt> in normal mode. Some examples include:</p>
+<pre>:<font style="color:DodgerBlue; font-weight: bold;">set</font> number
+:<font style="color:DodgerBlue; font-weight: bold;">substitute</font>/search/replace/ig
+</pre>
+<p>You can enter a search pattern by typing <tt>/</tt> to search forward, or <tt>?</tt> to search backward. You can use vim's expanded regular expressions in these search patterns. For example,</p>
+<pre>/word
+</pre>
+<p>will jump to the next occurrence of "word" (even if it is "sword" or "wordlessly"), but</p>
+<pre>/\&lt;word\&gt;
+</pre>
+<p>will jump only to a complete word "word" (not "sword" or "wordless").</p>
+<p>You can enter a filter by typing <font style="color:DodgerBlue; font-weight: bold;">!</font> followed by a motion command, then a shell command to run on the text captured by the motion. For example, typing</p>
+<pre><font style="color:DodgerBlue; font-weight: bold;">!</font>22jsort
+</pre>
+<p>in Linux will sort the current and 22 following lines with the <i>sort</i> system command. The same thing can be done with</p>
+<pre>:.,.+22<font style="color:DodgerBlue; font-weight: bold;">!</font>sort
+</pre>
+<p>As a matter of fact, vim creates the above command for you if you follow the first example!</p>
+<h3><span class="mw-headline" id="Ex-mode">Ex-mode</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;section=10" title="Edit section: Ex-mode">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The Ex mode is similar to the command line mode as it also allows you to enter <a target="_blank" href="http://en.wikipedia.org/wiki/Ex_%28editor%29" class="extiw" title="w:Ex (editor)">Ex</a> commands. Unlike the command-line mode you won't return to normal mode automatically. You can enter an Ex command by typing a <tt>Q</tt> in normal mode and leave it again with the <tt>:visual</tt> command. Note that the Ex mode is designed for Batch processing and as such won't support mappings or command-line editing.</p>
+<p>For batch processing the Ex-mode is normally started from outside by 
+calling the editor with the "-E" option. Here is a real live example 
+from the <a target="_blank" href="http://en.wikipedia.org/wiki/RPM_Package_Manager" class="extiw" title="w:RPM Package Manager">RPM Package Manager</a> specification:</p>
+<pre>vim -E -s Makefile &lt;&lt;-EOF
+   :%<font style="color:DodgerBlue; font-weight: bold;">substitute</font>/CFLAGS = -g$/CFLAGS =-fPIC -DPIC -g/
+   :%<font style="color:DodgerBlue; font-weight: bold;">substitute</font>/CFLAGS =$/CFLAGS =-fPIC -DPIC/
+   :%<font style="color:DodgerBlue; font-weight: bold;">substitute</font>/ADAFLAGS =$/ADAFLAGS =-fPIC -DPIC/
+   :<font style="color:DodgerBlue; font-weight: bold;">update</font>
+   :<font style="color:DodgerBlue; font-weight: bold;">quit</font>
+EOF
+</pre>
+<p>The RPM uses <a target="_blank" href="http://en.wikipedia.org/wiki/Bash" class="extiw" title="w:Bash">Bash</a>
+ as script language which make the example a little difficult to 
+understand as two different script languages are mixed in one file.</p>
+<dl>
+<dt><code>vim -E -s</code>&nbsp;</dt>
+<dd>starts vim in improved Ex mode which allows for more advanced commands than the vi compatible Ex-mode <small>(which is started with <code>vim -e -s</code>)</small>.</dd>
+<dt><code>&lt;&lt;-EOF</code>&nbsp;</dt>
+<dd>tells bash to copy all lines that follow into the standard input of 
+the external program just started. The '-' tells the shell to strip the 
+tab characters.</dd>
+<dt><code>:</code>&nbsp;</dt>
+<dd>are lines with Ex commands which vim will execute. The <tt>:</tt> is optional but helpful when two script languages are mixed in one file</dd>
+<dt><code>:update</code>&nbsp;</dt>
+<dd>A beginners mistake is to forget to actually save the file after the change - falsely assuming that this happens automatically.</dd>
+<dt><code>:quit</code>&nbsp;</dt>
+<dd>Last not least: don't forget to actually exit vim again.</dd>
+<dt><code>EOF</code>&nbsp;</dt>
+<dd>marks the end of the standard input redirection - from now on bash will execute the command itself again.</dd>
+</dl>
+<p>If your shell does not allow such nifty redirection of standard input
+ then you can always use a more classic approach to I/O redirection 
+using two files:</p>
+<pre>vim -E -s Makefile &lt;Makefile-Fix1.vim
+</pre>
+<p>And if have no standard input redirection available then you can try the <tt>-c</tt> option in combination with the <tt>source</tt> command:</p>
+<pre>vim -E -s -c "<font style="color:DodgerBlue; font-weight: bold;">source</font> Makefile-Fix1.vim" Makefile
+</pre>
+<p>With the improved Ex mode many tasks classically performed by <a target="_blank" href="http://en.wikipedia.org/wiki/AWK_programming_language" class="extiw" title="w:AWK programming language">awk</a> or <a target="_blank" href="http://en.wikipedia.org/wiki/sed" class="extiw" title="w:sed">sed</a> can be done with vim and often better so:</p>
+<ul>
+<li><a target="_blank" href="http://en.wikipedia.org/wiki/AWK_programming_language" class="extiw" title="w:AWK programming language">awk</a> and <a target="_blank" href="http://en.wikipedia.org/wiki/sed" class="extiw" title="w:sed">sed</a>
+ are stream oriented - they only read the file forward from beginning to
+ end while vim is buffer oriented - you can move forward and backward in
+ the file as you like.</li>
+<li>vim's <a target="_blank" href="http://en.wikipedia.org/wiki/Regular_expression" class="extiw" title="w:Regular expression">regular expressions</a> are more powerful than <a target="_blank" href="http://en.wikipedia.org/wiki/AWK_programming_language" class="extiw" title="w:AWK programming language">awk</a>'s and <a target="_blank" href="http://en.wikipedia.org/wiki/sed" class="extiw" title="w:sed">sed</a>'s expressions - for example vim can match over several lines and supports zero matches.</li>
+</ul>
+<p><br>
+<a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/TOC&amp;action=edit&amp;redlink=1" class="new" title="Learning the vi Editor/TOC (does not exist)">Learning the vi Editor/TOC</a></p>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1022
+CPU time usage: 0.196 seconds
+Real time usage: 0.226 seconds
+Preprocessor visited node count: 315/1000000
+Preprocessor generated node count: 940/1500000
+Post‐expand include size: 2116/2048000 bytes
+Template argument size: 177/2048000 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/500
+-->
+
+<!-- Saved in parser cache with key enwikibooks:pcache:idhash:98509-0!*!0!!en!4!* and timestamp 20131217170104
+ -->
+<noscript><img src="//en.wikibooks.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;oldid=2537380">http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;oldid=2537380</a>"				</div>
+												<div id="catlinks" class="catlinks catlinks-allhidden"></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikibooks.org/w/index.php?title=Special:UserLogin&amp;returnto=Learning+the+vi+Editor%2FVim%2FModes&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikibooks.org/w/index.php?title=Special:UserLogin&amp;returnto=Learning+the+vi+Editor%2FVim%2FModes" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes" title="View the content page [alt-shift-c]" accesskey="c">Book</a></span></li>
+					<li id="ca-talk" class="new"><span><a href="http://en.wikibooks.org/w/index.php?title=Talk:Learning_the_vi_Editor/Vim/Modes&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=edit" title="You can edit this page. Please use the preview button before saving [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Wikibooks [alt-shift-f]" accesskey="f" id="searchInput">						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input name="title" value="Special:Search" type="hidden">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div class="collapsible-nav" id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikibooks/en/b/bc/Wiki.png);" href="http://en.wikibooks.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-Navigation" aria-labelledby="p-Navigation-label">
+	<h3 id="p-Navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="http://en.wikibooks.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main Page</a></li>
+			<li id="n-help"><a href="http://en.wikibooks.org/wiki/Help:Contents" title="Find help on how to use and edit Wikibooks">Help</a></li>
+			<li id="n-Browse"><a href="http://en.wikibooks.org/wiki/Wikibooks:Card_Catalog_Office" title="Check out what Wikibooks has to offer">Browse</a></li>
+			<li id="n-Cookbook"><a href="http://en.wikibooks.org/wiki/Cookbook:Table_of_Contents" title="Learn recipes from around the world">Cookbook</a></li>
+			<li id="n-Wikijunior"><a href="http://en.wikibooks.org/wiki/Wikijunior" title="Books for children">Wikijunior</a></li>
+			<li id="n-Featured-books"><a href="http://en.wikibooks.org/wiki/Wikibooks:Featured_books" title="The best of Wikibooks">Featured books</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikibooks.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-sitesupport"><a href="http://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikibooks.org&amp;uselang=en" title="Support Wikibooks">Donations</a></li>
+			<li id="n-randomrootpage"><a href="http://en.wikibooks.org/wiki/Special:Randomrootpage">Random book</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-Community" aria-labelledby="p-Community-label">
+	<h3 tabindex="2" id="p-Community-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-Community-list" aria-haspopup="true" href="#">Community</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-Community-list">
+			<li id="n-Reading-room"><a href="http://en.wikibooks.org/wiki/Wikibooks:Reading_room" title="Discuss Wikibooks-related questions and concerns with others">Reading room</a></li>
+			<li id="n-portal"><a href="http://en.wikibooks.org/wiki/Wikibooks:Community_Portal" title="Find your way around the Wikibooks community">Community portal</a></li>
+			<li id="n-currentevents"><a href="http://en.wikibooks.org/wiki/Wikibooks:Reading_room/Bulletin_Board" title="Important community news">Bulletin Board</a></li>
+			<li id="n-maintenance"><a href="http://en.wikibooks.org/wiki/Wikibooks:Maintenance" title="Frequent tasks that you can help with">Help out!</a></li>
+			<li id="n-Policies-and-guidelines"><a href="http://en.wikibooks.org/wiki/Wikibooks:Policies_and_guidelines" title="Pages detailing important rules and procedures">Policies and guidelines</a></li>
+			<li id="n-contact"><a href="http://en.wikibooks.org/wiki/Wikibooks:Contact_us" title="Alternative methods of communication">Contact us</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 tabindex="3" id="p-tb-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-tb-list" aria-haspopup="true" href="#">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikibooks.org/wiki/Special:WhatLinksHere/Learning_the_vi_Editor/Vim/Modes" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikibooks.org/wiki/Special:RecentChangesLinked/Learning_the_vi_Editor/Vim/Modes" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://commons.wikimedia.org/wiki/Special:UploadWizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikibooks.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;oldid=2537380" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;action=info">Page information</a></li>
+<li id="t-cite"><a href="http://en.wikibooks.org/w/index.php?title=Special:Cite&amp;page=Learning_the_vi_Editor%2FVim%2FModes&amp;id=2537380" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span>
+	<h3 tabindex="4" id="p-lang-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-lang-list" aria-haspopup="true" href="#">Languages</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-lang-list">
+			
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-Sister_projects" aria-labelledby="p-Sister_projects-label">
+	<h3 tabindex="5" id="p-Sister_projects-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-Sister_projects-list" aria-haspopup="true" href="#">Sister projects</a></h3>
+	<div class="body">
+		<ul id="p-Sister_projects-list">
+			<li id="n-Wikipedia"><a href="http://en.wikipedia.org/wiki/Main_Page">Wikipedia</a></li>
+			<li id="n-Wikiversity"><a href="http://en.wikiversity.org/wiki/Wikiversity:Main_Page">Wikiversity</a></li>
+			<li id="n-Wiktionary"><a href="http://en.wiktionary.org/wiki/Wiktionary:Main_Page">Wiktionary</a></li>
+			<li id="n-Wikiquote"><a href="http://en.wikiquote.org/wiki/Main_Page">Wikiquote</a></li>
+			<li id="n-Wikisource"><a href="http://en.wikisource.org/wiki/Main_Page">Wikisource</a></li>
+			<li id="n-Wikinews"><a href="http://en.wikinews.org/wiki/Main_Page">Wikinews</a></li>
+			<li id="n-Wikivoyage"><a href="http://en.wikivoyage.org/wiki/Main_Page">Wikivoyage</a></li>
+			<li id="n-Commons"><a href="http://commons.wikimedia.org/wiki/Main_Page">Commons</a></li>
+			<li id="n-Wikidata"><a href="http://www.wikidata.org/wiki/Wikidata:Main_Page">Wikidata</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 tabindex="6" id="p-coll-print_export-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-coll-print_export-list" aria-haspopup="true" href="#">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikibooks.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Learning+the+vi+Editor%2FVim%2FModes">Create a collection</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikibooks.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Learning+the+vi+Editor%2FVim%2FModes&amp;oldid=2537380&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikibooks.org/w/index.php?title=Learning_the_vi_Editor/Vim/Modes&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 19 June 2013, at 09:31.</li>
+											<li id="footer-info-copyright">Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution/Share-Alike License</a>; additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikibooks.org/wiki/Wikibooks:Welcome" title="Wikibooks:Welcome">About Wikibooks</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikibooks.org/wiki/Wikibooks:General_disclaimer" title="Wikibooks:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.extlinks","mw.MwEmbedSupport.style","ext.wikimediaEvents.moduleStorage","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","mw.PopUpMediaTransform","ext.flaggedRevs.advanced","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_013.php"></script>
+<script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_004.php"></script>
+<script src="Learning%20the%20vi%20Editor_Vim_Modes%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_004.php"></script>
+<!-- Served by mw1087 in 0.117 secs. -->
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

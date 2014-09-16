@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Serial Programming/Serial Linux - Wikibooks, open books for an open world</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="generator" content="MediaWiki 1.23wmf14">
+<link rel="alternate" type="application/x-wiki" title="Edit" href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit">
+<link rel="edit" title="Edit" href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikibooks.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikibooks.org/w/opensearch_desc.php" title="Wikibooks (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikibooks.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikibooks Atom feed" href="http://en.wikibooks.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikibooks.org/wiki/Serial_Programming/Serial_Linux">
+<link rel="stylesheet" href="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_002.css">
+<style>
+@media print{#centralNotice{display:none}}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//bits.wikimedia.org/static-1.23wmf14/resources/jquery.tipsy/images/tipsy.png?2014-02-13T17:46:40Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:a698aa5d67345d60aabc59a329d04328 */
+.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #AAA;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:491ee552778d7da2edfaacae0417e09b */
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */</style><style>
+#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAMAAAAVMLmlAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAALpQTFRF////W1tbgICAWVlZgICAUVFRgICAWVlZhYWFUlJShYWFVFRUgYGBVVVVgYGBVVVVgICAVFRUVVVVVlZWgYGBgICAVFRUgYGBVFRUgICAgYGBVVVVVVVVgYGBVlZWgYGBVFRUgICAVFRUgICAVVVVgICAVlZWgICAVFRUgICAVVVVgICAVFRUgICAVlZWgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICA9Fa9bgAAADx0Uk5TAA4OFBQWFhcXGRlJSUtLWlpbXV9fYGFhZGRlZmlpa2twcIiIioqPj5GRn5+goKGh6+vv7/Dw+fn8/P7+YuRUVgAAAOlJREFUGBmNwcdWAgEURMFLFCUaAcWAEhQYHBRmCN3//1u+BYcVC6s4p2U3OLrrVxN7Xn7uELoH5w65Dx1g6JNnoLazfz++VnZehkZir4pQ3NjzBg5TwtgBhzFh6kDr294UobiykxZc7ezVdLyx8yrw6pM+8GjnDjsf7gj3/WpiJ7Vhl6OW3eC/mlKdo5teZSHNSoM24XqvTCHTvg0MdDIASpn08/6ZSlkJ6jMpLUBhLc3qKEwIIwUURoSJAs2ltC5AIZUWTbjcSulktJayCvCikx7wJG0VttrfEp5eLpfS4uLtgaOmVOeMP8BAM9RClMO9AAAAAElFTkSuQmCC) no-repeat right top;background:transparent url(//bits.wikimedia.org/static-1.23wmf14/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2014-02-13T17:50:00Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTRweCIgaGVpZ2h0PSIzMnB4Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTMuNTgyLDYuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTEuMzU5LTEuMzZjLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1QzkuNDMsMi44MzMsOC45MDgsMi42MTUsOC4zNjksMi40ODJWMS40MThDOC4zNjksMS4xODcsOC4xODIsMSw3Ljk1LDFINi4wMzJDNS44MDEsMSw1LjYxNCwxLjE4Nyw1LjYxNCwxLjQxOHYxLjA2M0M1LjA3MywyLjYxNiw0LjU1MiwyLjgzMyw0LjA2MiwzLjEyN2wtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQyOS0wLjE2NC0wLjU5MywwbC0xLjM2LDEuMzZjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMC43NSwwLjc1QzEuODE3LDUuNTY4LDEuNjE1LDYuMDk1LDEuNDgyLDYuNjMxSDAuNDE4QzAuMTg3LDYuNjMxLDAsNi44MTgsMCw3LjA1djEuOTE4YzAsMC4yMzEsMC4xODcsMC40MTgsMC40MTgsMC40MThoMS4wNDZjMC4xMzQsMC41NDIsMC4zNTEsMS4wNjIsMC42NDUsMS41NTFsLTAuNzUsMC43NWMtMC4xNjQsMC4xNjQtMC4xNjQsMC40MjksMCwwLjU5M2wxLjM2LDEuMzZjMC4xNjQsMC4xNjQsMC40MjksMC4xNjQsMC41OTMsMGwwLjc1LTAuNzVjMC40OTEsMC4yOTYsMS4wMSwwLjQ5MywxLjU1MSwwLjYyN3YxLjA2M0M1LjYxNCwxNC44MTMsNS44MDEsMTUsNi4wMzIsMTVINy45NWMwLjIzMSwwLDAuNDE5LTAuMTg3LDAuNDE5LTAuNDE4di0xLjA2M2MwLjU0Mi0wLjEzNCwxLjA2MS0wLjMzMywxLjU1MS0wLjYyN2wwLjc1LDAuNzVjMC4xNjQsMC4xNjQsMC40MywwLjE2NCwwLjU5NCwwbDEuMzU5LTEuMzZjMC4xNjQtMC4xNjQsMC4xNjQtMC40MjksMC0wLjU5M2wtMC43NS0wLjc1YzAuMjk1LTAuNDg5LDAuNTEtMS4wMTMsMC42NDUtMS41NTFoMS4wNjRDMTMuODEyLDkuMzg2LDE0LDkuMTk5LDE0LDguOTY4VjcuMDVDMTQsNi44MTgsMTMuODEyLDYuNjMyLDEzLjU4Miw2LjYzMnogTTcsMTAuNjQ0QzUuNTM5LDEwLjY0NCw0LjM1NSw5LjQ2LDQuMzU1LDhTNS41MzksNS4zNTYsNyw1LjM1NlM5LjY0NSw2LjU0LDkuNjQ1LDhTOC40NjEsMTAuNjQ0LDcsMTAuNjQ0eiIvPjxwYXRoIGZpbGw9IiM1NTU1NTUiIGQ9Ik0xMy41ODIsMjIuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDMsMC0wLjU5NGwtMS4zNTktMS4zNTljLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1Yy0wLjQ5LTAuMjk0LTEuMDEyLTAuNTEyLTEuNTUxLTAuNjQ1di0xLjA2NEM4LjM2OSwxNy4xODgsOC4xODIsMTcsNy45NSwxN0g2LjAzMmMtMC4yMzEsMC0wLjQxOSwwLjE4OC0wLjQxOSwwLjQxOHYxLjA2MmMtMC41NCwwLjEzNi0xLjA2MiwwLjM1My0xLjU1MSwwLjY0NmwtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQzLTAuMTY0LTAuNTk0LDBsLTEuMzU5LDEuMzU5Yy0wLjE2NCwwLjE2NC0wLjE2NCwwLjQzLDAsMC41OTRsMC43NSwwLjc1Yy0wLjI5MywwLjQ4OC0wLjQ5NCwxLjAxNS0wLjYyNywxLjU1MUgwLjQxOEMwLjE4OCwyMi42MzEsMCwyMi44MTgsMCwyMy4wNXYxLjkxOGMwLDAuMjMxLDAuMTg4LDAuNDE4LDAuNDE4LDAuNDE4aDEuMDQ2YzAuMTM0LDAuNTQyLDAuMzUxLDEuMDYyLDAuNjQ2LDEuNTUybC0wLjc1LDAuNzVjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMS4zNTksMS4zNmMwLjE2NCwwLjE2NCwwLjQzLDAuMTY0LDAuNTk0LDBsMC43NS0wLjc1YzAuNDksMC4yOTUsMS4wMSwwLjQ5MiwxLjU1MSwwLjYyN3YxLjA2MmMwLDAuMjMyLDAuMTg4LDAuNDIsMC40MTksMC40Mkg3Ljk1YzAuMjMxLDAsMC40MTktMC4xODgsMC40MTktMC40MThWMjkuNTJjMC41NDItMC4xMzUsMS4wNjEtMC4zMzQsMS41NTEtMC42MjdsMC43NSwwLjc1YzAuMTY0LDAuMTY0LDAuNDMsMC4xNjQsMC41OTQsMGwxLjM1OS0xLjM2YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTAuNzUtMC43NWMwLjI5NS0wLjQ4OSwwLjUxLTEuMDE0LDAuNjQ1LTEuNTUxaDEuMDY0QzEzLjgxMiwyNS4zODYsMTQsMjUuMTk5LDE0LDI0Ljk2OFYyMy4wNUMxNCwyMi44MTgsMTMuODEyLDIyLjYzMiwxMy41ODIsMjIuNjMyeiBNNywyNi42NDVjLTEuNDYxLDAtMi42NDUtMS4xODQtMi42NDUtMi42NDVTNS41MzksMjEuMzU1LDcsMjEuMzU1UzkuNjQ1LDIyLjUzOSw5LjY0NSwyNFM4LjQ2MSwyNi42NDUsNywyNi42NDV6Ii8+PC9zdmc+);background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf14/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-13T17:50:00Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTRweCIgaGVpZ2h0PSIzMnB4Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTMuNTgyLDYuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTEuMzU5LTEuMzZjLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1QzkuNDMsMi44MzMsOC45MDgsMi42MTUsOC4zNjksMi40ODJWMS40MThDOC4zNjksMS4xODcsOC4xODIsMSw3Ljk1LDFINi4wMzJDNS44MDEsMSw1LjYxNCwxLjE4Nyw1LjYxNCwxLjQxOHYxLjA2M0M1LjA3MywyLjYxNiw0LjU1MiwyLjgzMyw0LjA2MiwzLjEyN2wtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQyOS0wLjE2NC0wLjU5MywwbC0xLjM2LDEuMzZjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMC43NSwwLjc1QzEuODE3LDUuNTY4LDEuNjE1LDYuMDk1LDEuNDgyLDYuNjMxSDAuNDE4QzAuMTg3LDYuNjMxLDAsNi44MTgsMCw3LjA1djEuOTE4YzAsMC4yMzEsMC4xODcsMC40MTgsMC40MTgsMC40MThoMS4wNDZjMC4xMzQsMC41NDIsMC4zNTEsMS4wNjIsMC42NDUsMS41NTFsLTAuNzUsMC43NWMtMC4xNjQsMC4xNjQtMC4xNjQsMC40MjksMCwwLjU5M2wxLjM2LDEuMzZjMC4xNjQsMC4xNjQsMC40MjksMC4xNjQsMC41OTMsMGwwLjc1LTAuNzVjMC40OTEsMC4yOTYsMS4wMSwwLjQ5MywxLjU1MSwwLjYyN3YxLjA2M0M1LjYxNCwxNC44MTMsNS44MDEsMTUsNi4wMzIsMTVINy45NWMwLjIzMSwwLDAuNDE5LTAuMTg3LDAuNDE5LTAuNDE4di0xLjA2M2MwLjU0Mi0wLjEzNCwxLjA2MS0wLjMzMywxLjU1MS0wLjYyN2wwLjc1LDAuNzVjMC4xNjQsMC4xNjQsMC40MywwLjE2NCwwLjU5NCwwbDEuMzU5LTEuMzZjMC4xNjQtMC4xNjQsMC4xNjQtMC40MjksMC0wLjU5M2wtMC43NS0wLjc1YzAuMjk1LTAuNDg5LDAuNTEtMS4wMTMsMC42NDUtMS41NTFoMS4wNjRDMTMuODEyLDkuMzg2LDE0LDkuMTk5LDE0LDguOTY4VjcuMDVDMTQsNi44MTgsMTMuODEyLDYuNjMyLDEzLjU4Miw2LjYzMnogTTcsMTAuNjQ0QzUuNTM5LDEwLjY0NCw0LjM1NSw5LjQ2LDQuMzU1LDhTNS41MzksNS4zNTYsNyw1LjM1NlM5LjY0NSw2LjU0LDkuNjQ1LDhTOC40NjEsMTAuNjQ0LDcsMTAuNjQ0eiIvPjxwYXRoIGZpbGw9IiM1NTU1NTUiIGQ9Ik0xMy41ODIsMjIuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDMsMC0wLjU5NGwtMS4zNTktMS4zNTljLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1Yy0wLjQ5LTAuMjk0LTEuMDEyLTAuNTEyLTEuNTUxLTAuNjQ1di0xLjA2NEM4LjM2OSwxNy4xODgsOC4xODIsMTcsNy45NSwxN0g2LjAzMmMtMC4yMzEsMC0wLjQxOSwwLjE4OC0wLjQxOSwwLjQxOHYxLjA2MmMtMC41NCwwLjEzNi0xLjA2MiwwLjM1My0xLjU1MSwwLjY0NmwtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQzLTAuMTY0LTAuNTk0LDBsLTEuMzU5LDEuMzU5Yy0wLjE2NCwwLjE2NC0wLjE2NCwwLjQzLDAsMC41OTRsMC43NSwwLjc1Yy0wLjI5MywwLjQ4OC0wLjQ5NCwxLjAxNS0wLjYyNywxLjU1MUgwLjQxOEMwLjE4OCwyMi42MzEsMCwyMi44MTgsMCwyMy4wNXYxLjkxOGMwLDAuMjMxLDAuMTg4LDAuNDE4LDAuNDE4LDAuNDE4aDEuMDQ2YzAuMTM0LDAuNTQyLDAuMzUxLDEuMDYyLDAuNjQ2LDEuNTUybC0wLjc1LDAuNzVjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMS4zNTksMS4zNmMwLjE2NCwwLjE2NCwwLjQzLDAuMTY0LDAuNTk0LDBsMC43NS0wLjc1YzAuNDksMC4yOTUsMS4wMSwwLjQ5MiwxLjU1MSwwLjYyN3YxLjA2MmMwLDAuMjMyLDAuMTg4LDAuNDIsMC40MTksMC40Mkg3Ljk1YzAuMjMxLDAsMC40MTktMC4xODgsMC40MTktMC40MThWMjkuNTJjMC41NDItMC4xMzUsMS4wNjEtMC4zMzQsMS41NTEtMC42MjdsMC43NSwwLjc1YzAuMTY0LDAuMTY0LDAuNDMsMC4xNjQsMC41OTQsMGwxLjM1OS0xLjM2YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTAuNzUtMC43NWMwLjI5NS0wLjQ4OSwwLjUxLTEuMDE0LDAuNjQ1LTEuNTUxaDEuMDY0QzEzLjgxMiwyNS4zODYsMTQsMjUuMTk5LDE0LDI0Ljk2OFYyMy4wNUMxNCwyMi44MTgsMTMuODEyLDIyLjYzMiwxMy41ODIsMjIuNjMyeiBNNywyNi42NDVjLTEuNDYxLDAtMi42NDUtMS4xODQtMi42NDUtMi42NDVTNS41MzksMjEuMzU1LDcsMjEuMzU1UzkuNjQ1LDIyLjUzOSw5LjY0NSwyNFM4LjQ2MSwyNi42NDUsNywyNi42NDV6Ii8+PC9zdmc+);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf14/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-13T17:50:00Z)!ie;height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:23c8d0fb96f860393f9f8127be6cddad */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf14/resources/mediawiki.action/images/green-checkmark.png?2014-02-13T17:46:40Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:835b467bd250310b6e90d133c28a7a61 */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-02-13T17:50:00Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-02-13T17:50:00Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-02-13T17:50:00Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-02-13T17:50:00Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:f5d4c58e1b6cf163822d8d14275c99c2 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwikibooks:resourceloader:filter:minify-css:7:4969bf752d40e7c60e4c1bc8e4153549 */</style>
+
+<script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_005.php"></script><script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_004.php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Serial_Programming/Serial_Linux","wgTitle":"Serial Programming/Serial Linux","wgCurRevisionId":2528271,"wgRevisionId":2528271,"wgArticleId":12270,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Serial Programming","Section stubs"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Serial_Programming/Serial_Linux","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgBetaFeaturesFeatures":[],"wgULSAcceptLanguageList":["en-us","en"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"value":{"levels":3,"quality":2,"pristine":3}}},"wgStableRevisionId":2528271,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikibooks"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,
+"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":0,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu",
+"variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":true,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs102":false,"searchNs103":false,"searchNs108":false,"searchNs109":false,"searchNs110":false,"searchNs111":false,"searchNs112":true,"searchNs113":false,"searchNs828":false,"searchNs829":false,"gadget-extlinks":1,"gadget-commons-file":1,"gadget-toolboxcompat":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwikibooks:resourceloader:filter:minify-js:7:b8e9efae7c8e626ad373177bdd42de66 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.uls.init","ext.uls.interface","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script><script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_002.php"></script><script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/checkLoggedIn" async=""></script>
+<style type="text/css">/*<![CDATA[*/
+.source-c {line-height: normal;}
+.source-c li, .source-c pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for c
+ * CSS class: source-c, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.c.source-c  {font-family:monospace;}
+.c.source-c .imp {font-weight: bold; color: red;}
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;}
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c.source-c .li2 {font-weight: bold; vertical-align:top;}
+.c.source-c .kw1 {color: #b1b100;}
+.c.source-c .kw2 {color: #000000; font-weight: bold;}
+.c.source-c .kw3 {color: #000066;}
+.c.source-c .kw4 {color: #993333;}
+.c.source-c .co1 {color: #666666; font-style: italic;}
+.c.source-c .co2 {color: #339933;}
+.c.source-c .coMULTI {color: #808080; font-style: italic;}
+.c.source-c .es0 {color: #000099; font-weight: bold;}
+.c.source-c .es1 {color: #000099; font-weight: bold;}
+.c.source-c .es2 {color: #660099; font-weight: bold;}
+.c.source-c .es3 {color: #660099; font-weight: bold;}
+.c.source-c .es4 {color: #660099; font-weight: bold;}
+.c.source-c .es5 {color: #006699; font-weight: bold;}
+.c.source-c .br0 {color: #009900;}
+.c.source-c .sy0 {color: #339933;}
+.c.source-c .st0 {color: #ff0000;}
+.c.source-c .nu0 {color: #0000dd;}
+.c.source-c .nu6 {color: #208080;}
+.c.source-c .nu8 {color: #208080;}
+.c.source-c .nu12 {color: #208080;}
+.c.source-c .nu16 {color:#800080;}
+.c.source-c .nu17 {color:#800080;}
+.c.source-c .nu18 {color:#800080;}
+.c.source-c .nu19 {color:#800080;}
+.c.source-c .me1 {color: #202020;}
+.c.source-c .me2 {color: #202020;}
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;}
+.c.source-c span.xtra { display:block; }
+
+/*]]>*/
+</style><script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf14/skins/vector/csshover.min.htc")}</style><![endif]--><script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load_003.php" async=""></script><link href="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index.css" rel="stylesheet"><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_009.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_007.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_013.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_008.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_012.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_014.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_005.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_010.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_015.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_011.php"></script><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_003.php"></script><link href="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_002.css" rel="stylesheet"><script type="text/javascript" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_004.php"></script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Serial_Programming_Serial_Linux skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div class="cn-ToUAmendment" id="centralNotice"><style type="text/css">
+
+#centralNotice.collapsed #ChangeToU2014_v1 {
+ display: none;
+}
+
+#ChangeToU2014_v1 {
+ position: relative;
+ overflow: hidden;
+ background: url(//upload.wikimedia.org/wikipedia/commons/0/0d/Gray-gradient1.png) bottom repeat-x;
+ margin-bottom: 0.5em !important;
+ margin-top: 0.5em !important;
+ background-color:#FFFFFF;
+ border: solid 1px #aaaaaa; 
+ height:66px;
+}
+
+#ChangeToU2014_v1 a.cn-full-banner-click {
+ display:block;
+ height:100%;
+ width:100%;
+ cursor: pointer;
+}
+
+
+#ChangeToU2014_v1-logo {
+ position: absolute;
+ top: 8px;
+ left: 15px;
+ background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/50px-Wikimedia_logo_text_RGB.svg.png);
+ height: 50px;
+ width: 50px;
+ background-repeat: no-repeat;
+}
+
+#ChangeToU2014_v1 #black-text {
+ font-size: 1.1em;
+ color: black;
+ padding: 0.5em 40px 0.4em 60px;
+ line-height: 1.3em;
+ text-align: center;
+ font-weight:bold;
+}
+
+
+#ChangeToU2014_v1 div#cn-toggle-box {
+ position: absolute;
+ z-index: 98;
+ top: 2px;
+ right: 6px;
+}
+
+#ChangeToU2014_v1 div#cn-translation-link {
+ position:absolute;
+ z-index:50;
+ bottom: -4px;
+ right: 6px;
+ font-size: 0.7em;
+}
+
+#ChangeToU2014_v1 #calltoaction {
+ padding-top: 5px;
+ color: #0645ad;
+}
+
+#cn-translation-link a:link, 
+#cn-translation-link a:visited, 
+#cn-translation-link a:hover { 
+ color: black; 
+} 
+
+</style>
+
+<div id="ChangeToU2014_v1">
+
+  <a class="cn-full-banner-click" href="http://meta.wikimedia.org/wiki/Terms_of_use/Paid_contributions_amendment" title="">
+<div id="ChangeToU2014_v1-logo"></div>
+    <div id="black-text">
+   Amending our Terms of Use: <br> Please comment on a proposed amendment regarding undisclosed paid editing.
+     </div>
+  </a>
+<div id="cn-translation-link">
+<a href="http://meta.wikimedia.org/w/index.php?title=Special:Translate&amp;group=Centralnotice-tgroup-ChangeToU2014_v1&amp;filter=" class="black-text2">
+			[ Help with translations! ]
+		</a>
+</div>
+ <div id="cn-toggle-box">
+  <a href="#" title="Close" onclick="mw.centralNotice.hideBanner();return false;"><img src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/CloseWindow19x19.png" alt="close" border="0"></a>  
+ </div>
+</div></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Serial Programming/Serial Linux</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikibooks, open books for an open world</div>
+								<div id="contentSub"><span class="subpages">&lt; <a href="http://en.wikibooks.org/wiki/Serial_Programming" title="Serial Programming">Serial Programming</a></span></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><div style="background:#f2fff2; border:1px solid #bfffbf; padding:0.5em 1em; margin:0.5em 0em;">
+<p><b><a href="http://en.wikibooks.org/wiki/Serial_Programming" title="Serial Programming">Serial Programming</a></b>: <a href="http://en.wikibooks.org/wiki/Serial_Programming/Introduction_and_OSI_Model" title="Serial Programming/Introduction and OSI Model">Introduction and OSI Network Model</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/RS-232_Connections" title="Serial Programming/RS-232 Connections">RS-232 Wiring and Connections</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Typical_RS232_Hardware_Configuration" title="Serial Programming/Typical RS232 Hardware Configuration">Typical RS232 Hardware Configuration</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming" title="Serial Programming/8250 UART Programming">8250 UART</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/DOS_Programming" title="Serial Programming/DOS Programming">DOS</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/MAX232_Driver_Receiver" title="Serial Programming/MAX232 Driver Receiver">MAX232 Driver/Receiver Family</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Windows_TAPI" title="Serial Programming/Windows TAPI">TAPI Communications In Windows</a> -- <strong class="selflink">Linux and Unix</strong> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Serial_Java" title="Serial Programming/Serial Java">Java</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Modems_and_AT_Commands" title="Serial Programming/Modems and AT Commands">Hayes-compatible Modems and AT Commands</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/USB" title="Serial Programming/USB">Universal Serial Bus (USB)</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Forming_Data_Packets" title="Serial Programming/Forming Data Packets">Forming Data Packets</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Error_Correction_Methods" title="Serial Programming/Error Correction Methods">Error Correction Methods</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Bi-directional_Communication&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Bi-directional Communication (does not exist)">Two Way Communication</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Packet_Recovery&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Packet Recovery (does not exist)">Packet Recovery Methods</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Networking&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Serial Networking (does not exist)">Serial Data Networks</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Application_Messaging&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Application Messaging (does not exist)">Practical Application Development</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/IP_Over_Serial_Connections" title="Serial Programming/IP Over Serial Connections">IP Over Serial Connections</a></p>
+</div>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#The_Classic_Unix_C_APIs_for_Serial_Communication"><span class="tocnumber">1</span> <span class="toctext">The Classic Unix C APIs for Serial Communication</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Introduction"><span class="tocnumber">1.1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-3 tocsection-3"><a href="#Scope"><span class="tocnumber">1.1.1</span> <span class="toctext">Scope</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="#Basics"><span class="tocnumber">1.1.2</span> <span class="toctext">Basics</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-5"><a href="#Serial_I.2FO_via_Terminal_I.2FO"><span class="tocnumber">1.2</span> <span class="toctext">Serial I/O via Terminal I/O </span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Basics_2"><span class="tocnumber">1.2.1</span> <span class="toctext">Basics</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Line_Discipline"><span class="tocnumber">1.2.2</span> <span class="toctext">Line Discipline</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Unix_V6.2FPWB"><span class="tocnumber">1.3</span> <span class="toctext">Unix V6/PWB</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Unix_V7"><span class="tocnumber">1.4</span> <span class="toctext">Unix V7</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#termios"><span class="tocnumber">1.5</span> <span class="toctext">termios</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#termio_.2F_ioctl.282.29"><span class="tocnumber">1.6</span> <span class="toctext">termio / ioctl(2) </span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Serial_I.2FO_on_the_Shell_Command_Line"><span class="tocnumber">2</span> <span class="toctext">Serial I/O on the Shell Command Line </span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Introduction_2"><span class="tocnumber">2.1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Configuration_with_stty"><span class="tocnumber">2.2</span> <span class="toctext">Configuration with stty</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Permanent_Configuration"><span class="tocnumber">2.3</span> <span class="toctext">Permanent Configuration</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#Overview"><span class="tocnumber">2.3.1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#.2Fetc.2Fttytab"><span class="tocnumber">2.3.2</span> <span class="toctext">/etc/ttytab</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#.2Fetc.2Fttydefs"><span class="tocnumber">2.3.3</span> <span class="toctext">/etc/ttydefs</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#.2Fetc.2Fserial.conf"><span class="tocnumber">2.3.4</span> <span class="toctext">/etc/serial.conf</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="#tty"><span class="tocnumber">2.4</span> <span class="toctext">tty</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#tip"><span class="tocnumber">2.5</span> <span class="toctext">tip</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#uucp"><span class="tocnumber">2.6</span> <span class="toctext">uucp</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="#Overview_2"><span class="tocnumber">2.6.1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#cu"><span class="tocnumber">2.6.2</span> <span class="toctext">cu</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#ct"><span class="tocnumber">2.6.3</span> <span class="toctext">ct</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-26"><a href="#System_Configuration"><span class="tocnumber">3</span> <span class="toctext">System Configuration</span></a></li>
+<li class="toclevel-1 tocsection-27"><a href="#Other_Serial_Programming_Articles"><span class="tocnumber">4</span> <span class="toctext">Other Serial Programming Articles</span></a></li>
+<li class="toclevel-1 tocsection-28"><a href="#External_links"><span class="tocnumber">5</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="The_Classic_Unix_C_APIs_for_Serial_Communication">The Classic Unix C APIs for Serial Communication</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=1" title="Edit section: The Classic Unix C APIs for Serial Communication">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Introduction">Introduction</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=2" title="Edit section: Introduction">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<h4><span class="mw-headline" id="Scope">Scope</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=3" title="Edit section: Scope">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>This page talks about the classic Unix C APIs for controlling serial 
+devices. Languages other than C might provide appropriate wrappers to 
+these APIs which look similar, or come with their own abstraction (e.g. <a href="http://en.wikibooks.org/wiki/Serial_Programming/Serial_Java" title="Serial Programming/Serial Java">Java</a>).
+ Nevertheless, these APIs are the lowest level of abstraction one can 
+find for serial I/O in Unix. And, in fact they are also the highest 
+abstraction in C on standard Unix. Some Unix versions ship additional 
+vendor-specific proprietary high-level APIs. These APIs are not 
+discussed here.</p>
+<p>Actual implementations of classic Unix serial APIs do vary in 
+practice, due to the different versions of Unix and its clones, like 
+Linux. Therefore, this module just provides a general outline. It is 
+highly recommended that you study a particular Unix version's manual 
+(man pages) when programming for a serial device in Unix. The relevant 
+man pages are not too great a read, but they are usually complete in 
+their listing of options and parameters. Together with this overview it 
+should be possible to implement programs doing serial I/O under Unix.</p>
+<h4><span class="mw-headline" id="Basics">Basics</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=4" title="Edit section: Basics">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>Linux, or any Unix, is a multi-user, multi-tasking operating system. 
+As such, programs usually don't, and are usually not allowed to, access 
+hardware resources like serial UARTs directly. Instead, the operating 
+system provides</p>
+<ol>
+<li>low-level drivers for mapping the device into the file system (<tt>/dev</tt> and/or <tt>/device/</tt> file system entries),</li>
+<li>the standard system calls for opening, reading, writing, and closing the device, and</li>
+<li>the standard system call for controlling a device, and/or</li>
+<li>high-level C libraries for controlling the device.</li>
+</ol>
+<p>The low-level driver not only maps the device into the file system 
+with the help of the kernel, it also encapsulates the particular 
+hardware. The user often does not even know or care what type of UART is
+ in use.</p>
+<p>Classic Unix systems often provide two different device nodes (or 
+minor numbers) for serial I/O hardware. These provide access to the same
+ physical device via two different names in the <tt>/dev</tt> hierarchy.
+ Which node is used affects how certain serial control signals, such as 
+DCD (data carrier detect), are handled when the device is opened. In 
+some cases this can be changed programmatically, making the difference 
+largely irrelevant. As a consequence, Linux only provides the different 
+devices for legacy programs.</p>
+<p>Device names in the file system can vary, even on the same Unix 
+system, as they are simply aliases. The important parts of a device name
+ (such as in <tt>/dev</tt>) are the major and minor numbers. The major 
+number distinguishes a serial port, for example, from a keyboard driver,
+ and is used to select the correct driver in the kernel. Note that the 
+major number differs between different Unix systems. The minor number is
+ interpreted by the device driver itself. For serial device drivers, it 
+is typically used to detect which physical interface to use. Sometimes, 
+the minor number will also be used by the device driver to determine the
+ DCD behavior or the hardware flow control signals to be used.</p>
+<p>The typical (but not standardized, see above) device names under Unix for serial interfaces are:</p>
+<dl>
+<dt>/dev/tty<i>xxx</i></dt>
+<dd>Normal, generic access to the device. Used for terminal and other serial communication (originally for <b>t</b>ele<b>ty</b>pes). More recently, they are also used in modem communication, for example, whereas the <tt>/dev/cua<i>xxx</i></tt> was used on older systems.</dd>
+<dd>See the following module on how terminal I/O and serial I/O relate on Unix.</dd>
+</dl>
+<dl>
+<dt>/dev/cua<i>xxx</i></dt>
+<dd>Legacy device driver with special DCD handling. Typically this was 
+used for accessing a modem on old Unix systems, such as running the <a target="_blank" href="http://en.wikipedia.org/wiki/UUCP" class="extiw" title="wikipedia:UUCP">UUCP</a> communication protocol over the serial line and the modem. The <i>cu</i> in the name stands for the [[#<tt>cu</tt>]] program. The <i>a</i> for ACU (automatic call unit).</dd>
+</dl>
+<p>The <b>xxx</b> part in the names above is typically a one or two digit number, or a lowercase letter, starting at 'a' for the first interface.</p>
+<p>PC-based Unix systems often mimic the DOS/Windows naming for the devices and call them <tt>/dev/com<i>xxx</i></tt>. Linux system generally call serial ports <tt>/dev/ttyS<i>xxx</i></tt> instead.</p>
+<p>To summarize, when programming for the serial interface of a Unix system it is <b>highly advisable</b> to provide complete configuration for the device name. Not even the typical <tt>/dev</tt> path should be hard coded.</p>
+<p>Note, devices with the name <tt>/dev/pty<i>xxx</i></tt> are pseudo terminal devices, typically used by a graphical user interface to provide a terminal emulator like <i>xterm</i> or <i>dtterm</i>
+ with a "terminal" device, and to provide a terminal device for network 
+logins. There is no serial hardware behind these device drivers.</p>
+<h3><span class="mw-headline" id="Serial_I.2FO_via_Terminal_I.2FO">Serial I/O via Terminal I/O <span class="noprint"><a href="http://en.wikibooks.org/wiki/Help:Development_stages" title="75% developed&nbsp; as of Jul 23, 2005"><img alt="75% developed&nbsp; as of Jul 23, 2005" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/9px-75_percents.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b6/75_percents.svg/14px-75_percents.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/b6/75_percents.svg/18px-75_percents.svg.png 2x" width="9" height="9"></a></span></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=5" title="Edit section: Serial I/O via Terminal I/O">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<h4><span class="mw-headline" id="Basics_2">Basics</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=6" title="Edit section: Basics">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>Serial I/O under Unix is implemented as part of the terminal I/O 
+capabilities of Unix. And the terminal I/O capabilities of Unix were 
+originally the typewriter/teletype capabilities. Terminal I/O is not 
+limited to terminals, though. The terminal I/O API is used for 
+communication with many serial devices other than terminals, such as 
+modems and printers.</p>
+<p>The terminal API itself has evolved over time. These days three 
+terminal APIs are still used in Unix programs and can be found in recent
+ Unix implementations. A fourth one, the very old one from Unix Version 6
+ exists, but is quite rare these days.</p>
+<p>The three common ones are:</p>
+<ol>
+<li>V7, 4BSD, XENIX style device-specific <a href="http://en.wikibooks.org/wiki/Serial_Programming:Serial_Linux#V7_.2F_ioctl.282.29" title="Serial Programming:Serial Linux" class="mw-redirect">ioctl-based API</a>,</li>
+<li>An old one called <a href="http://en.wikibooks.org/wiki/Serial_Programming:Serial_Linux#termio_.2F_ioctl.282.29" title="Serial Programming:Serial Linux" class="mw-redirect">termio</a></li>
+<li>A newer one (although still already a few decades old), which is called <a href="http://en.wikibooks.org/wiki/Serial_Programming:Serial_Linux#termios" title="Serial Programming:Serial Linux" class="mw-redirect">termios</a> (note the additional 's').</li>
+</ol>
+<p>The newer <tt>termios</tt> API is based on the older <tt>termio</tt> API, and so the two <tt>termio...</tt> APIs share a lot of similarities. The <tt>termios</tt>
+ API has also undergone changes since inception. For example, the method
+ of specifying the baud rate has changed from using pre-defined 
+constants to a more relaxed schema (the constants can still be used as 
+well on most implementations).</p>
+<p>Systems that support the newer <tt>termios</tt> often also support the older <tt>termio</tt> API, either by providing it in addition, or by providing a <tt>termios</tt> implementation with data structures which can be used in place of the <tt>termio</tt> data structures and work as <tt>termio</tt>. These systems also often just provide one man page under the older name <b>termio</b><i>(7)</i> which is then in fact the <tt>termios</tt> man page, too.</p>
+<p>In addition, some systems provide other, similar APIs, either in addition or as a replacement. <tt>termiox</tt> is such an API, which is largely compatible with <tt>termio</tt> and adds some extensions to it taken from <tt>termios</tt>. So <tt>termiox</tt> can logically be seen as an intermediate step between <tt>termio</tt> and <tt>termios</tt>.</p>
+<p>The terminal I/O APIs rely on the standard system calls for reading 
+and writing data. They don't provide their own reading/writing 
+functions. Reading and writing data is done via the <b>read</b><i>(2)</i> and <b>write</b><i>(2)</i>
+ system calls. The terminal I/O APIs just add functions for controlling 
+and configuring the device. Most of this happens via the <b>ioctl</b><i>(2)</i> system call.</p>
+<p>Unfortunately, whichever of the standard APIs is used, one fact holds
+ for all of them: They are a slight mess. Well, not really. 
+Communication with terminals was and is a difficult issue, and the APIs 
+reflect these difficulties. But due to the fact that one can do 
+"everything" with the APIs, it is overwhelming when one "just" wants to 
+do some serial communication. So why is there no separate 
+serial-I/O-only API in Unix? There are probably two reasons for this:</p>
+<ol>
+<li>Terminals/teletypes were the first, and apparently very important, 
+serial devices which were connected to Unix. So that API was created 
+first.</li>
+<li>Once the API was there, there was no need to create a separate one 
+for serial I/O only, since a large part of terminal I/O is serial I/O, 
+and all needed features were already there in the terminal I/O API.</li>
+</ol>
+<p>So which API should one use? There is one good reason to use the old 
+V7 API. It is the simplest among the APIs - after going through some 
+initialization woes on modern Unix systems. In general, however, the 
+newer <tt>termios</tt> API makes the most sense, although it is the most complex one.</p>
+<h4><span class="mw-headline" id="Line_Discipline">Line Discipline</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=7" title="Edit section: Line Discipline">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>When programming serial interfaces on Unix, there is one phrase - <i>line discipline</i>
+ - which can drive programmers crazy. The line discipline provides the 
+hardware-independent interface for the communication between the 
+computer and the terminal device. It handles such things as editing, job
+ control, and special character interpretation, and performs 
+transformations on the incoming and outgoing data.</p>
+<p>This is useful for terminal communication (e.g. when a backspace 
+character should erase the latest character from the send buffer before 
+it goes over the wire, or when different end-of-line character sequences
+ between the terminal and the computer need to be converted). These 
+features are, however, hardly useful when communicating with the 
+plethora of other serial devices, where unaltered data communication is 
+desired.</p>
+<p>Much of the serial programming in Unix is hitting the line discipline
+ which is in use over the head so it doesn't touch the data. Monitoring 
+what actually goes over the wire is a good idea.</p>
+<h3><span class="mw-headline" id="Unix_V6.2FPWB">Unix V6/PWB</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=8" title="Edit section: Unix V6/PWB">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Unix <i>Bell Version 6</i> with the <i>programmer's workbench</i> 
+(PWB) was released in 1975 to universities. It was the first Unix with 
+an audience outside AT&amp;T. It already had a terminal programming API.
+ Actually, at that point it was the <i>typewriter</i> API. That API is not described here in depth.</p>
+<p>The usage of this API can in theory be identified by the presence of the following signature in some source code:</p>
+<pre>#include &lt;sgtty.h&gt;
+stty(fd, data)
+int fd;
+char *data;<br>gtty(fd, data)
+int fd;
+char *data;
+</pre>
+<p>In theory, because at that time the C language was still a little bit different.</p>
+<p><code>data</code> is supposed to point to a</p>
+<pre>struct {
+   char ispeed, ospeed;
+   char erase, kill;
+   int  mode;
+} *data;
+</pre>
+<p>structure. That structure later became <code>struct sgttyb</code> in 
+Unix V7. Finding the V6 API in source code should be rare. Anyhow, 
+recent Unix versions and clones typically don't support this API any 
+more.</p>
+<h3><span class="mw-headline" id="Unix_V7">Unix V7</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=9" title="Edit section: Unix V7">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>See <a href="http://en.wikibooks.org/wiki/Serial_Programming:Unix/V7" title="Serial Programming:Unix/V7" class="mw-redirect">Serial Programming:Unix/V7</a></p>
+<h3><span class="mw-headline" id="termios">termios</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=10" title="Edit section: termios">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>A simple terminal program with termios.h can look like this:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="c source-c">
+<pre class="de1"><span class="co2">#include &lt;string.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;unistd.h&gt;</span>
+<span class="co2">#include &lt;fcntl.h&gt;</span>
+<span class="co2">#include &lt;termios.h&gt;</span>
+ 
+<span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">int</span> argc<span class="sy0">,</span><span class="kw4">char</span><span class="sy0">**</span> argv<span class="br0">)</span>
+<span class="br0">{</span>
+        <span class="kw4">struct</span> termios tio<span class="sy0">;</span>
+        <span class="kw4">struct</span> termios stdio<span class="sy0">;</span>
+        <span class="kw4">struct</span> termios old_stdio<span class="sy0">;</span>
+        <span class="kw4">int</span> tty_fd<span class="sy0">;</span>
+ 
+        <span class="kw4">unsigned</span> <span class="kw4">char</span> c<span class="sy0">=</span><span class="st0">'D'</span><span class="sy0">;</span>
+        tcgetattr<span class="br0">(</span>STDOUT_FILENO<span class="sy0">,&amp;</span>old_stdio<span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="kw3">printf</span><span class="br0">(</span><span class="st0">"Please start with %s /dev/ttyS1 (for example)<span class="es1">\n</span>"</span><span class="sy0">,</span>argv<span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw3">memset</span><span class="br0">(</span><span class="sy0">&amp;</span>stdio<span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="kw4">sizeof</span><span class="br0">(</span>stdio<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+        stdio.<span class="me1">c_iflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        stdio.<span class="me1">c_oflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        stdio.<span class="me1">c_cflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        stdio.<span class="me1">c_lflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        stdio.<span class="me1">c_cc</span><span class="br0">[</span>VMIN<span class="br0">]</span><span class="sy0">=</span><span class="nu0">1</span><span class="sy0">;</span>
+        stdio.<span class="me1">c_cc</span><span class="br0">[</span>VTIME<span class="br0">]</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        tcsetattr<span class="br0">(</span>STDOUT_FILENO<span class="sy0">,</span>TCSANOW<span class="sy0">,&amp;</span>stdio<span class="br0">)</span><span class="sy0">;</span>
+        tcsetattr<span class="br0">(</span>STDOUT_FILENO<span class="sy0">,</span>TCSAFLUSH<span class="sy0">,&amp;</span>stdio<span class="br0">)</span><span class="sy0">;</span>
+        fcntl<span class="br0">(</span>STDIN_FILENO<span class="sy0">,</span> F_SETFL<span class="sy0">,</span> O_NONBLOCK<span class="br0">)</span><span class="sy0">;</span>       <span class="co1">// make the reads non-blocking</span>
+ 
+        <span class="kw3">memset</span><span class="br0">(</span><span class="sy0">&amp;</span>tio<span class="sy0">,</span><span class="nu0">0</span><span class="sy0">,</span><span class="kw4">sizeof</span><span class="br0">(</span>tio<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+        tio.<span class="me1">c_iflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        tio.<span class="me1">c_oflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        tio.<span class="me1">c_cflag</span><span class="sy0">=</span>CS8<span class="sy0">|</span>CREAD<span class="sy0">|</span>CLOCAL<span class="sy0">;</span>           <span class="co1">// 8n1, see termios.h for more information</span>
+        tio.<span class="me1">c_lflag</span><span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
+        tio.<span class="me1">c_cc</span><span class="br0">[</span>VMIN<span class="br0">]</span><span class="sy0">=</span><span class="nu0">1</span><span class="sy0">;</span>
+        tio.<span class="me1">c_cc</span><span class="br0">[</span>VTIME<span class="br0">]</span><span class="sy0">=</span><span class="nu0">5</span><span class="sy0">;</span>
+ 
+        tty_fd<span class="sy0">=</span>open<span class="br0">(</span>argv<span class="br0">[</span><span class="nu0">1</span><span class="br0">]</span><span class="sy0">,</span> O_RDWR <span class="sy0">|</span> O_NONBLOCK<span class="br0">)</span><span class="sy0">;</span>      
+        cfsetospeed<span class="br0">(</span><span class="sy0">&amp;</span>tio<span class="sy0">,</span>B115200<span class="br0">)</span><span class="sy0">;</span>            <span class="co1">// 115200 baud</span>
+        cfsetispeed<span class="br0">(</span><span class="sy0">&amp;</span>tio<span class="sy0">,</span>B115200<span class="br0">)</span><span class="sy0">;</span>            <span class="co1">// 115200 baud</span>
+ 
+        tcsetattr<span class="br0">(</span>tty_fd<span class="sy0">,</span>TCSANOW<span class="sy0">,&amp;</span>tio<span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">while</span> <span class="br0">(</span>c<span class="sy0">!=</span><span class="st0">'q'</span><span class="br0">)</span>
+        <span class="br0">{</span>
+                <span class="kw1">if</span> <span class="br0">(</span>read<span class="br0">(</span>tty_fd<span class="sy0">,&amp;</span>c<span class="sy0">,</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">&gt;</span><span class="nu0">0</span><span class="br0">)</span>        write<span class="br0">(</span>STDOUT_FILENO<span class="sy0">,&amp;</span>c<span class="sy0">,</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>              <span class="co1">// if new data is available on the serial port, print it out</span>
+                <span class="kw1">if</span> <span class="br0">(</span>read<span class="br0">(</span>STDIN_FILENO<span class="sy0">,&amp;</span>c<span class="sy0">,</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">&gt;</span><span class="nu0">0</span><span class="br0">)</span>  write<span class="br0">(</span>tty_fd<span class="sy0">,&amp;</span>c<span class="sy0">,</span><span class="nu0">1</span><span class="br0">)</span><span class="sy0">;</span>                     <span class="co1">// if new data is available on the console, send it to the serial port</span>
+        <span class="br0">}</span>
+ 
+        close<span class="br0">(</span>tty_fd<span class="br0">)</span><span class="sy0">;</span>
+        tcsetattr<span class="br0">(</span>STDOUT_FILENO<span class="sy0">,</span>TCSANOW<span class="sy0">,&amp;</span>old_stdio<span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="kw1">return</span> EXIT_SUCCESS<span class="sy0">;</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>See <a href="http://en.wikibooks.org/wiki/Serial_Programming:Unix/termios" title="Serial Programming:Unix/termios" class="mw-redirect">Serial_Programming:Unix/termios</a></p>
+<h3><span class="mw-headline" id="termio_.2F_ioctl.282.29">termio / ioctl(2) <span class="noprint"><a href="http://en.wikibooks.org/wiki/Help:Development_stages" title="0% developed&nbsp; as of Jul 23, 2005"><img alt="0% developed&nbsp; as of Jul 23, 2005" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/9px-00.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/d/d6/00%25.svg/14px-00%25.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/d/d6/00%25.svg/18px-00%25.svg.png 2x" width="9" height="9"></a></span></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=11" title="Edit section: termio / ioctl(2)">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>See <a href="http://en.wikibooks.org/wiki/Serial_Programming:Unix/termio" title="Serial Programming:Unix/termio" class="mw-redirect">Serial Programming:Unix/termio</a></p>
+<h2><span class="mw-headline" id="Serial_I.2FO_on_the_Shell_Command_Line">Serial I/O on the Shell Command Line <span class="noprint"><a href="http://en.wikibooks.org/wiki/Help:Development_stages" title="75% developed&nbsp; as of Jul 23, 2005"><img alt="75% developed&nbsp; as of Jul 23, 2005" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/9px-75_percents.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/b6/75_percents.svg/14px-75_percents.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/b6/75_percents.svg/18px-75_percents.svg.png 2x" width="9" height="9"></a></span></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=12" title="Edit section: Serial I/O on the Shell Command Line">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Introduction_2">Introduction</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=13" title="Edit section: Introduction">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>It is possible to do serial I/O on the Unix command line. However, 
+the available control is limited. Reading and writing data can be done 
+with the shell I/O redirections like <b>&lt;</b>, <b>&gt;</b>, and <b>|</b>. Setting basic configuration, like the baud rate, can be done with the <tt>stty</tt> (set terminal type) command.</p>
+<p>There is also <tt>libserial</tt> for Linux. It's a simple C++ class which hides some of the complexity of termios.</p>
+<h3><span class="mw-headline" id="Configuration_with_stty">Configuration with <tt>stty</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=14" title="Edit section: Configuration with stty">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The Unix command <tt>stty</tt> allows one to configure a "terminal". 
+Since all serial I/O under Unix is done via terminal I/O, it should be 
+no surprise that stty can also be used to configure serial lines. 
+Indeed, the options and parameters which can be set via stty often have a
+ 1:1 mapping to termio/termios. If the explanations regarding an option 
+in the <b>stty</b><i>(1)</i> man page is not sufficient, looking up the option in the termio/termios man page can often help.</p>
+<p>On "modern" (System V) Unix versions, stty changes the parameters of its current <b>standard input</b>. On older systems, stty changes the parameters of its current <b>standard output</b>.
+ We assume a modern Unix is in use here. So, to change the settings of a
+ particular serial interface, its device name must be provided to stty 
+via an I/O redirect:</p>
+<pre>stty <i>parameters</i> &lt; /dev/com0  # change setting of /dev/com0
+</pre>
+<p>On some systems, the settings done by stty are reverted to system 
+defaults as soon as the device is closed again. This closing is done by 
+the shell as soon as the <tt>stty <i>parameters</i> &lt; /dev/com0</tt> command has finished. So when using the above command, the changes will only be in effect for a few milliseconds.</p>
+<p>One way to keep the device open for the duration of the communication
+ is to start the whole communication in a sub shell (using, for example,
+ '( ... )'), and redirecting that input. So to send the string "ATI0" 
+over the serial line, one could use:</p>
+<pre>( stty <i>parameters</i>
+  echo "ATI0"
+) &lt; /dev/com0 &gt; /dev/com0
+  
+</pre>
+<p>Interweaving sending and receiving data is difficult from the command
+ line. Two processes are needed; one reading from the device, and the 
+other writing to the device. This makes it difficult to coordinate 
+commands sent with the responses received. Some extensive shell 
+scripting might be needed to manage this.</p>
+<p>A common way to organize the two processes is to put the reading 
+process in the background, and let the writing process continue to run 
+in the foreground. For example, the following script configures the 
+device and starts a background process for copying all received data 
+from the serial device to standard output. Then it starts writing 
+commands to the device:</p>
+<pre># Set up device and read from it.
+# Capture PID of background process so it is possible
+# to terminate background process once writing is done
+# TODO: Also set up a trap in case script is killed
+#       or crashes.
+( stty <i>parameters</i>; cat; )&amp; &lt; /dev/com0
+bgPid=$?<br># Read commands from user, send them to device
+while read cmd; do
+   echo "$cmd" 
+done &gt;/dev/com0<br># Terminate background read process
+kill $bgPid
+</pre>
+<p>If there is a chance that a response to some command might never 
+come, and if there is no other way to terminate the process, it is 
+advisable to set up a timeout by using the alarm signal and <code>trap</code> that signal (signal 14), or simply kill the process:</p>
+<pre>trap timeout 14
+timeout() {
+   echo "timeout occurred"
+}
+pid=$$
+( sleep 60 ; kill -14 $pid; )&amp; # send alarm signal after 60 sec.
+# normal script contents goes here
+</pre>
+<p>or</p>
+<pre>pid=$$
+( sleep 60; kill -9 $pid;)&amp; # brutally kill process after 60 sec.
+# normal script contents goes here
+</pre>
+<h3><span class="mw-headline" id="Permanent_Configuration">Permanent Configuration</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=15" title="Edit section: Permanent Configuration">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<h4><span class="mw-headline" id="Overview">Overview</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=16" title="Edit section: Overview">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>It is possible to provide a serial line with a default configuration. On classic Unix this is done with entries in the <tt>/etc/ttytab</tt> configuration file, on newer (System V R4) systems with <tt>/etc/ttydefs</tt>.</p>
+<p>The default configurations make some sense when they are used for 
+setting up terminal lines or dialup lines for a Unix system (and that's 
+what they are for). However, such default configurations are not of much
+ use when doing some serial communication with some other device. The 
+correct function of the communication program should better not depend 
+on some operating system configuration. Instead, the application should 
+be self-contained and configure the device as needed by it.</p>
+<h4><span class="mw-headline" id=".2Fetc.2Fttytab"><tt>/etc/ttytab</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=17" title="Edit section: /etc/ttytab">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>The ttytab format varies from Unix to Unix, so checking the 
+corresponding man page is a good idea. If the device is not intended for
+ a terminal (no login), then the <i>getty</i> field (sometimes also 
+called the program field, usually the 3rd field) for the device entry 
+should be empty. The init field (often the 4th field) can contain an 
+initialization command. Using <tt>stty</tt> here is a good idea. So, a typical entry for a serial line might look like:</p>
+<pre> # Device    TermType    Getty   Init
+ tty0        unknown     ""      "stty <i>parameters</i>"
+</pre>
+<h4><span class="mw-headline" id=".2Fetc.2Fttydefs"><tt>/etc/ttydefs</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=18" title="Edit section: /etc/ttydefs">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<table class="metadata plainlinks ambox ambox-content" style="">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><img alt="" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/40px-Book_important2.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/Book_important2.svg/60px-Book_important2.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/91/Book_important2.svg/80px-Book_important2.svg.png 2x" width="40" height="40"></div>
+</td>
+<td class="mbox-text" style=""><b>This section is a stub.</b><br>
+You can help Wikibooks by <a class="external text" href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit">expanding it</a>.</td>
+</tr>
+</tbody></table>
+<p>Just some hints:</p>
+<p><tt>/etc/ttydefs</tt> provides the configuration as used by the <b>ttymon</b> program. The settings are similar to the settings possible with stty.</p>
+<p><tt>ttymon</tt> is a program which is typically run under control of 
+the Service Access Controller (SAC), as part of the Service Access 
+Facility (SAF).</p>
+<p><i>TODO: Provide info to set up all the sac/sacadm junk.</i></p>
+<h4><span class="mw-headline" id=".2Fetc.2Fserial.conf"><tt>/etc/serial.conf</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=19" title="Edit section: /etc/serial.conf">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<table class="metadata plainlinks ambox ambox-content" style="">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><img alt="" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/40px-Book_important2.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/Book_important2.svg/60px-Book_important2.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/91/Book_important2.svg/80px-Book_important2.svg.png 2x" width="40" height="40"></div>
+</td>
+<td class="mbox-text" style=""><b>This section is a stub.</b><br>
+You can help Wikibooks by <a class="external text" href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit">expanding it</a>.</td>
+</tr>
+</tbody></table>
+<p>Just some hints:</p>
+<p>A Linux-specific way of configuring serial devices using the <b>setserial</b> program.</p>
+<h3><span class="mw-headline" id="tty"><tt>tty</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=20" title="Edit section: tty">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>tty with the <b>-s</b> option can be used to test if a device is a 
+terminal (supports the termio/termios ioctl()'s). Therefore it can also 
+be used to check if a given file name is indeed a device name of a 
+serial line.</p>
+<pre>echo "Enter serial device name: \c"
+read dev
+if tty -s &lt; "$dev"; then
+  echo "$dev is indeed a serial device."
+else
+  echo "$dev is not a serial device."
+fi
+</pre>
+<h3><span class="mw-headline" id="tip"><tt>tip</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=21" title="Edit section: tip">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>It is a simple program for establishing a terminal connection with a remote system over a serial line. <tt>tip</tt>
+ takes the necessary communication parameters, including the parameters 
+for the serial communication, from a tip-specific configuration file. 
+Details can be found in the <tt>tip</tt><i>(1)</i> manual page.</p>
+<p>Example:</p>
+<p>To start the session over the first serial interface (here <tt>ttya</tt>):</p>
+<pre>tip -9600 /dev/ttya
+</pre>
+<p>To leave the session:</p>
+<pre>~.
+</pre>
+<h3><span class="mw-headline" id="uucp"><tt>uucp</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=22" title="Edit section: uucp">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<h4><span class="mw-headline" id="Overview_2">Overview</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=23" title="Edit section: Overview">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p>Uucp (Unix-to-Unix-Copy) is a set of programs for moving data over 
+serial lines/modems between Unix computers. Before the rise of the 
+Internet uucp was the heart and foundation of services like e-mail and 
+Usenet (net news) between Unix computers. Today uucp is largely 
+insignificant. However, it is still a good choice if two or more Unix 
+systems should be connected via serial lines/modems.</p>
+<p>The uucp suite also contains command line tools for login over a 
+serial line (or another UUCP bearer to a remote system. These tools are <tt>cu</tt> and <tt>ct</tt>. They are e.g. useful when trying to access a device connected via a serial line and when debugging some serial line protocol.</p>
+<h4><span class="mw-headline" id="cu"><tt>cu</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=24" title="Edit section: cu">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p><tt>cu</tt> "call another UNIX system", does what the name implies. 
+Only, that the other system does not have to be a UNIX system at all. It
+ just sets up a serial connection, possibly by dialing via a modem.</p>
+<p><tt>cu</tt> is the oldest Unix program for serial communication. It's
+ the reason why some serial devices on classic Unix systems are called 
+something like <tt>/dev/cul0</tt> and <tt>/dev/cua0</tt>. Where <i>cu</i> of course stands for the <tt>cu</tt> program supposed to use the devices, <i>l</i> stands for <i>line</i> - the communication line, and <i>a</i> for acu (automatic call unit).</p>
+<table class="notice notice-note noprint" style="background: #f2fff2; border: solid 1px #bfffbf; padding: 0.5em; width: 95%; margin: auto; vertical-align: top; -moz-border-radius:10px;">
+<tbody><tr>
+<td>
+<p><b>Note:</b><br>
+An ACU is kind of a modem. Modern modems work slightly different and 
+don't provide separate serial interfaces for dialing and communicating 
+with the remote side. Instead they do both over the same serial 
+interface, using some kind of inband signaling. See <a href="http://en.wikibooks.org/wiki/Serial_Programming:Modems_and_AT_Commands" title="Serial Programming:Modems and AT Commands" class="mw-redirect">Serial Programming:Modems and AT Commands</a>.</p>
+</td>
+</tr>
+</tbody></table>
+<h4><span class="mw-headline" id="ct"><tt>ct</tt></span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=25" title="Edit section: ct">edit</a><span class="mw-editsection-bracket">]</span></span></h4>
+<p><tt>ct</tt> is intended to spawn a login to a remote system over a 
+modem line, serial line, or similar bearer. It uses the uucp devices 
+list to find the necessary dialing (modem) commands, and the serial line
+ settings.</p>
+<h2><span class="mw-headline" id="System_Configuration">System Configuration</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=26" title="Edit section: System Configuration">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<table class="metadata plainlinks ambox ambox-content" style="">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><img alt="" src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/40px-Book_important2.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/Book_important2.svg/60px-Book_important2.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/91/Book_important2.svg/80px-Book_important2.svg.png 2x" width="40" height="40"></div>
+</td>
+<td class="mbox-text" style=""><b>This section is a stub.</b><br>
+You can help Wikibooks by <a class="external text" href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit">expanding it</a>.</td>
+</tr>
+</tbody></table>
+<p><i>inittab, ttytab, SAF configuration</i></p>
+<h2><span class="mw-headline" id="Other_Serial_Programming_Articles">Other Serial Programming Articles</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=27" title="Edit section: Other Serial Programming Articles">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div style="background:#f2fff2; border:1px solid #bfffbf; padding:0.5em 1em; margin:0.5em 0em;">
+<p><b><a href="http://en.wikibooks.org/wiki/Serial_Programming" title="Serial Programming">Serial Programming</a></b>: <a href="http://en.wikibooks.org/wiki/Serial_Programming/Introduction_and_OSI_Model" title="Serial Programming/Introduction and OSI Model">Introduction and OSI Network Model</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/RS-232_Connections" title="Serial Programming/RS-232 Connections">RS-232 Wiring and Connections</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Typical_RS232_Hardware_Configuration" title="Serial Programming/Typical RS232 Hardware Configuration">Typical RS232 Hardware Configuration</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/8250_UART_Programming" title="Serial Programming/8250 UART Programming">8250 UART</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/DOS_Programming" title="Serial Programming/DOS Programming">DOS</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/MAX232_Driver_Receiver" title="Serial Programming/MAX232 Driver Receiver">MAX232 Driver/Receiver Family</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Windows_TAPI" title="Serial Programming/Windows TAPI">TAPI Communications In Windows</a> -- <strong class="selflink">Linux and Unix</strong> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Serial_Java" title="Serial Programming/Serial Java">Java</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Modems_and_AT_Commands" title="Serial Programming/Modems and AT Commands">Hayes-compatible Modems and AT Commands</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/USB" title="Serial Programming/USB">Universal Serial Bus (USB)</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Forming_Data_Packets" title="Serial Programming/Forming Data Packets">Forming Data Packets</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/Error_Correction_Methods" title="Serial Programming/Error Correction Methods">Error Correction Methods</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Bi-directional_Communication&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Bi-directional Communication (does not exist)">Two Way Communication</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Packet_Recovery&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Packet Recovery (does not exist)">Packet Recovery Methods</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Networking&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Serial Networking (does not exist)">Serial Data Networks</a> -- <a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Application_Messaging&amp;action=edit&amp;redlink=1" class="new" title="Serial Programming/Application Messaging (does not exist)">Practical Application Development</a> -- <a href="http://en.wikibooks.org/wiki/Serial_Programming/IP_Over_Serial_Connections" title="Serial Programming/IP Over Serial Connections">IP Over Serial Connections</a></p>
+</div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit&amp;section=28" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a target="_blank" rel="nofollow" class="external text" href="http://trainingkits.gweb.io/serial-linux.html">Serial Port Programming in Linux</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1061
+CPU time usage: 0.256 seconds
+Real time usage: 0.319 seconds
+Preprocessor visited node count: 372/1000000
+Preprocessor generated node count: 1837/1500000
+Post‐expand include size: 6990/2048000 bytes
+Template argument size: 732/2048000 bytes
+Highest expansion depth: 8/40
+Expensive parser function count: 0/500
+-->
+
+<!-- Saved in parser cache with key enwikibooks:pcache:idhash:12270-0!*!0!!en!4!* and timestamp 20140217225902
+ -->
+<noscript><img src="//en.wikibooks.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;oldid=2528271">http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;oldid=2528271</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikibooks.org/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="http://en.wikibooks.org/wiki/Category:Serial_Programming" title="Category:Serial Programming">Serial Programming</a></li><li><a href="http://en.wikibooks.org/wiki/Category:Section_stubs" title="Category:Section stubs">Section stubs</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikibooks.org/w/index.php?title=Special:UserLogin&amp;returnto=Serial+Programming%2FSerial+Linux&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikibooks.org/w/index.php?title=Special:UserLogin&amp;returnto=Serial+Programming%2FSerial+Linux" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikibooks.org/wiki/Serial_Programming/Serial_Linux" title="View the content page [alt-shift-c]" accesskey="c">Book</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikibooks.org/wiki/Talk:Serial_Programming/Serial_Linux" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikibooks.org/wiki/Serial_Programming/Serial_Linux">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=edit" title="You can edit this page. Please use the preview button before saving [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+					<div id="simpleSearch">
+					<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Wikibooks [alt-shift-f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if exists" id="searchButton" class="searchButton" type="submit">		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div class="collapsible-nav" id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikibooks/en/b/bc/Wiki.png);" href="http://en.wikibooks.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-Navigation" aria-labelledby="p-Navigation-label">
+	<h3 id="p-Navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="http://en.wikibooks.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main Page</a></li>
+			<li id="n-help"><a href="http://en.wikibooks.org/wiki/Help:Contents" title="Find help on how to use and edit Wikibooks">Help</a></li>
+			<li id="n-Browse"><a href="http://en.wikibooks.org/wiki/Wikibooks:Card_Catalog_Office" title="Check out what Wikibooks has to offer">Browse</a></li>
+			<li id="n-Cookbook"><a href="http://en.wikibooks.org/wiki/Cookbook:Table_of_Contents" title="Learn recipes from around the world">Cookbook</a></li>
+			<li id="n-Wikijunior"><a href="http://en.wikibooks.org/wiki/Wikijunior" title="Books for children">Wikijunior</a></li>
+			<li id="n-Featured-books"><a href="http://en.wikibooks.org/wiki/Wikibooks:Featured_books" title="The best of Wikibooks">Featured books</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikibooks.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-sitesupport"><a href="http://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikibooks.org&amp;uselang=en" title="Support Wikibooks">Donations</a></li>
+			<li id="n-randomrootpage"><a href="http://en.wikibooks.org/wiki/Special:RandomRootpage">Random book</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-Community" aria-labelledby="p-Community-label">
+	<h3 tabindex="2" id="p-Community-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-Community-list" aria-haspopup="true" href="#">Community</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-Community-list">
+			<li id="n-Reading-room"><a href="http://en.wikibooks.org/wiki/Wikibooks:Reading_room" title="Discuss Wikibooks-related questions and concerns with others">Reading room</a></li>
+			<li id="n-portal"><a href="http://en.wikibooks.org/wiki/Wikibooks:Community_Portal" title="Find your way around the Wikibooks community">Community portal</a></li>
+			<li id="n-currentevents"><a href="http://en.wikibooks.org/wiki/Wikibooks:Reading_room/Bulletin_Board" title="Important community news">Bulletin Board</a></li>
+			<li id="n-maintenance"><a href="http://en.wikibooks.org/wiki/Wikibooks:Maintenance" title="Frequent tasks that you can help with">Help out!</a></li>
+			<li id="n-Policies-and-guidelines"><a href="http://en.wikibooks.org/wiki/Wikibooks:Policies_and_guidelines" title="Pages detailing important rules and procedures">Policies and guidelines</a></li>
+			<li id="n-contact"><a href="http://en.wikibooks.org/wiki/Wikibooks:Contact_us" title="Alternative methods of communication">Contact us</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 tabindex="3" id="p-tb-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-tb-list" aria-haspopup="true" href="#">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikibooks.org/wiki/Special:WhatLinksHere/Serial_Programming/Serial_Linux" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikibooks.org/wiki/Special:RecentChangesLinked/Serial_Programming/Serial_Linux" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://commons.wikimedia.org/wiki/Special:UploadWizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikibooks.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;oldid=2528271" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;action=info">Page information</a></li>
+<li id="t-cite"><a href="http://en.wikibooks.org/w/index.php?title=Special:Cite&amp;page=Serial_Programming%2FSerial_Linux&amp;id=2528271" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span>
+	<h3 tabindex="4" id="p-lang-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-lang-list" aria-haspopup="true" href="#">Languages</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-lang-list">
+			
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-Sister_projects" aria-labelledby="p-Sister_projects-label">
+	<h3 tabindex="5" id="p-Sister_projects-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-Sister_projects-list" aria-haspopup="true" href="#">Sister projects</a></h3>
+	<div class="body">
+		<ul id="p-Sister_projects-list">
+			<li id="n-Wikipedia"><a href="http://en.wikipedia.org/wiki/Main_Page">Wikipedia</a></li>
+			<li id="n-Wikiversity"><a href="http://en.wikiversity.org/wiki/Wikiversity:Main_Page">Wikiversity</a></li>
+			<li id="n-Wiktionary"><a href="http://en.wiktionary.org/wiki/Wiktionary:Main_Page">Wiktionary</a></li>
+			<li id="n-Wikiquote"><a href="http://en.wikiquote.org/wiki/Main_Page">Wikiquote</a></li>
+			<li id="n-Wikisource"><a href="http://en.wikisource.org/wiki/Main_Page">Wikisource</a></li>
+			<li id="n-Wikinews"><a href="http://en.wikinews.org/wiki/Main_Page">Wikinews</a></li>
+			<li id="n-Wikivoyage"><a href="http://en.wikivoyage.org/wiki/Main_Page">Wikivoyage</a></li>
+			<li id="n-Commons"><a href="http://commons.wikimedia.org/wiki/Main_Page">Commons</a></li>
+			<li id="n-Wikidata"><a href="http://www.wikidata.org/wiki/Wikidata:Main_Page">Wikidata</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 tabindex="6" id="p-coll-print_export-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-coll-print_export-list" aria-haspopup="true" href="#">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikibooks.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Serial+Programming%2FSerial+Linux">Create a collection</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikibooks.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Serial+Programming%2FSerial+Linux&amp;oldid=2528271&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikibooks.org/w/index.php?title=Serial_Programming/Serial_Linux&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 23 May 2013, at 08:30.</li>
+											<li id="footer-info-copyright">Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution/Share-Alike License</a>; additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikibooks.org/wiki/Wikibooks:Welcome" title="Wikibooks:Welcome">About Wikibooks</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikibooks.org/wiki/Wikibooks:General_disclaimer" title="Wikibooks:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikibooks.org/wiki/Serial_Programming/Serial_Linux" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.extlinks","mw.MwEmbedSupport.style","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","ext.uls.interlanguage","ext.flaggedRevs.advanced","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_006.php"></script>
+<script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/index_002.php"></script>
+<script src="Serial%20Programming_Serial%20Linux%20-%20Wikibooks,%20open%20books%20for%20an%20open%20world_files/load.php"></script>
+<!-- Served by mw1090 in 0.204 secs. -->
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body></html>

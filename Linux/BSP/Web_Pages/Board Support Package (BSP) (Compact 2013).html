@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="en-us" name="WT.seg_1"><link rel="canonical" href="http://msdn.microsoft.com/en-us/library/gg156127.aspx">
+        <title>Board Support Package (BSP) (Compact 2013)</title>
+
+
+
+
+<meta name="DCS.dcsuri" content="/en-us/library/gg156127(d=default,l=en-us,v=winembedded.80).aspx">
+
+<meta name="NormalizedUrl" content="http://msdn.microsoft.com/en-us/library/gg156127(d=default,l=en-us,v=winembedded.80).aspx">
+
+<meta name="ms.normalizedurl" content="http://msdn.microsoft.com/en-us/library/gg156127(d=default,l=en-us,v=winembedded.80).aspx">
+
+<meta name="VotingContextUrl" content="http://msdn.microsoft.com/en-us/library/gg156127(d=default,l=en-us,v=winembedded.80).aspx">
+
+<meta name="MN" content="EE4293BE-10:32:51 PM">
+
+<meta name="Search.ShortId" content="gg156127">
+
+<meta name="ms.shortidmsdn" content="gg156127">
+
+<meta name="Ms.Locale" content="en-us">
+
+
+
+
+
+
+
+        
+    <link rel="stylesheet" type="text/css" href="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/Combined.css"><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/ms2.js" async="" type="text/javascript"></script><script async="" src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/ai.js" type="text/javascript"></script><script class="mtps-injected">try {
+/**/
+(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { 
+	"image": "http://i.msdn.microsoft.com", 
+	"js": "http://i2.msdn.microsoft.com", 
+	"css": "http://i3.msdn.microsoft.com"
+});
+/**/
+} finally { MTPS._injectNextScript_0 && MTPS._injectNextScript_0(); }</script><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/jquery-1.js" class="mtps-injected"></script><script class="mtps-injected">try {
+//
+    window.appInsightsId = '60854590-027a-4ae4-98be-2741a40f355f';
+    //
+} finally { MTPS._injectNextScript_2 && MTPS._injectNextScript_2(); }</script><script class="mtps-injected">try {
+//
+  var literalNormalizedUrl = '/en-us/library/gg156127(d=default,l=en-us,v=winembedded.80).aspx';
+  var wt_nvr_ru = 'WT_NVR_RU';
+  var wt_fpcdom = '.microsoft.com';
+  var wt_domlist = 'msdn.microsoft.com';
+  var wt_pathlist = '';
+  var wt_paramlist = 'DCSext.mtps_devcenter';
+  var wt_siteid = 'MSDN';
+  var gDomain = 'm.webtrends.com';
+  var gDcsId = 'dcsmgru7m99k7mqmgrhudo0k8_8c6m';
+  var gFpc = 'WT_FPC';
+
+
+
+  if (document.cookie.indexOf(gFpc + "=") == -1) {
+    var wtidJs = document.createElement("script");
+    wtidJs.src = "//" + gDomain + "/" + gDcsId + "/wtid.js";
+    document.getElementsByTagName("head")[0].appendChild(wtidJs);
+  }
+
+
+
+  var detectedLocale = 'en-us';
+  var wtsp = 'msdnlib_mobile';
+  var gTrackEvents = '0';
+/**/
+} finally { MTPS._injectNextScript_3 && MTPS._injectNextScript_3(); }</script><script class="mtps-injected">try {
+/**/
+  var omni_guid = "41d7fbca-6fa3-4560-af77-6815c9fdbcf2";
+/**/
+} finally { MTPS._injectNextScript_4 && MTPS._injectNextScript_4(); }</script><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/Combined.js" class="mtps-injected"></script><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/SearchBox.js" class="mtps-injected"></script><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/Combined_003.js" class="mtps-injected"></script><script class="mtps-injected">try {
+MTPS = window.MTPS || {}; MTPS.LocalizedStrings = window.MTPS.LocalizedStrings || {}; MTPS.LocalizedStrings.ExpandButtonTooltip = 'Expand'; MTPS.LocalizedStrings.CollapseButtonTooltip = 'Collapse'; MTPS.LocalizedStrings.EnhancedExpandTooltip = 'Click to expand. Double-click to expand all.'; MTPS.LocalizedStrings.EnhancedCollapseTooltip = 'Click to collapse. Double-click to collapse all.'; MTPS.LocalizedStrings.ExpandAllButtonTooltip = 'Expand All'; MTPS.LocalizedStrings.CollapseAllButtonTooltip = 'Collapse All';
+} finally { MTPS._injectNextScript_8 && MTPS._injectNextScript_8(); }</script><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/Combined_002.js" class="mtps-injected"></script><script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/broker.js"></script><script class="mtps-injected">try {
+$(document).ready(function() {
+        try {
+            var token = $("#globalRequestVerification input[name='__RequestVerificationToken']").clone();
+            $("#siteFeedbackForm").append(token);
+        } catch(err) {
+            
+        }
+    });
+} finally { MTPS._injectNextScript_10 && MTPS._injectNextScript_10(); }</script><link media="print" type="text/css" rel="stylesheet" href="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/PrintView.css"></head>
+    <body class="library">
+        <div class="noL2" id="page">
+            
+            
+  
+            
+        <input id="isHeaderBleeding" value="true" type="hidden">
+    <div id="ux-header" dir="ltr" class="ltr">
+        
+
+        <header>
+            <div class="row">
+                <div class="top mobile"></div>
+                <div class="left">
+                    <div class="siteLogo">                    
+                            <a class="msdnLogo" href="http://msdn.microsoft.com/">
+                                <img src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/microsoftLogoForHeader.png">
+                            </a>
+                        <div data-fragmentname="SiteLogo" id="Fragment_SiteLogo" xmlns="http://www.w3.org/1999/xhtml">
+  <div class="LinkWithImage topImage">
+    <a href="http://msdn.microsoft.com/" id="SiteLogo_2152_1" xmlns="http://www.w3.org/1999/xhtml">Developer Network</a>
+  </div>
+</div>    
+                    </div>
+                    <div id="grip"></div>
+                </div>
+                
+                <div class="right desktop">
+                    <div class="auxNav">
+                        <div data-fragmentname="Subscriptions" id="Fragment_Subscriptions" xmlns="http://www.w3.org/1999/xhtml">
+  <a href="http://msdn.microsoft.com/dn369243" id="Subscriptions_2153_1" xmlns="http://www.w3.org/1999/xhtml">MSDN subscriptions</a>
+</div>   
+                        <div data-fragmentname="GetTools" id="Fragment_GetTools" xmlns="http://www.w3.org/1999/xhtml">
+  <a href="http://go.microsoft.com/fwlink/?LinkId=309297&amp;clcid=0x409&amp;slcid=0x409" id="GetTools_2153_3" xmlns="http://www.w3.org/1999/xhtml">Get tools</a>
+</div>   
+                        
+
+    <div class="signIn"><a class="scarabLink" href="https://login.live.com/login.srf?wa=wsignin1.0&amp;rpsnv=12&amp;ct=1395639171&amp;rver=6.0.5276.0&amp;wp=MCLBI&amp;wlcxt=MSDN%24MSDN%24MSDN&amp;wreply=http%3a%2f%2fmsdn.microsoft.com%2fen-us%2flibrary%2fgg156127.aspx&amp;lc=1033&amp;id=254354&amp;mkt=en-US" title="Sign in">Sign in</a></div>
+
+                    </div>
+                    <div data-fragmentname="SearchBox" id="Fragment_SearchBox" xmlns="http://www.w3.org/1999/xhtml">
+  <div class="SearchBox">
+    <form id="HeaderSearchForm" name="HeaderSearchForm" method="get" onsubmit="return Epx.Controls.SearchBox.searchBoxOnSubmit(this);">
+      <input autocomplete="off" id="HeaderSearchTextBox" name="query" maxlength="200" onfocus="Epx.Controls.SearchBox.watermarkFocus(event, this.title)" onblur="Epx.Controls.SearchBox.watermarkBlur(event, this.title)" type="text">
+      <button title="Search MSDN" id="HeaderSearchButton" value="" type="submit" class="header-search-button"></button>
+    <div style="display: none; text-align: left; border: 1px solid buttonshadow; position: absolute; z-index: 1000; padding: 2px; background-color: rgb(255, 255, 255); color: rgb(255, 255, 255); font-family: 'Segoe UI',Tahoma,Helvetica,Sans-Serif; font-size: 13.3333px;" id="SearchFlyoutContainer"><div id="SuggestionContainer"><ul style="list-style: none outside none; padding: 4px 2px 0px 1px; cursor: pointer; margin: 1px; white-space: nowrap;"></ul></div></div></form>
+    
+    
+  </div>
+</div> 
+                </div>
+            </div>
+       
+            <div class="row" id="droor">
+                <div class="left">
+                            <nav>
+            <ul>
+                     <li class="inactive">
+
+                         <a href="http://msdn.microsoft.com/dn308572" title="Home">Home</a>
+
+                     </li>
+                     <li class="inactive">
+
+                         <a href="http://msdn.microsoft.com/dn271881" title="Opportunity">Opportunity</a>
+                                 <div class="area">
+                                     <div class="arrow"></div>
+                                 </div>
+                                 <div class="subNav">
+                                     <ul>
+                                                 <li><a href="http://msdn.microsoft.com/dn338450" title=".NET">.NET</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn338159" title="Cloud">Cloud</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn469160" title="Desktop">Desktop</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn338268" title="Phone">Phone</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn308583" title="Tablet &amp; PC">Tablet &amp; PC</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn338449" title="Web">Web</a></li>
+                                     </ul>
+                                 </div>
+
+                     </li>
+                     <li class="inactive">
+
+                         <a href="http://msdn.microsoft.com/dn271880" title="Platform">Platform</a>
+
+                     </li>
+                     <li class="inactive">
+
+                         <a href="http://msdn.microsoft.com/dn338064" title="Connect">Connect</a>
+                                 <div class="area">
+                                     <div class="arrow"></div>
+                                 </div>
+                                 <div class="subNav">
+                                     <ul>
+                                                 <li><a href="http://tech-advisors.msdn.microsoft.com/en-us" title="Tech Advisors">Tech Advisors</a></li>
+                                                 <li><a href="http://events.msdn.microsoft.com/en-us" title="Events">Events</a></li>
+                                                 <li><a href="http://social.msdn.microsoft.com/forums/" title="Forums">Forums</a></li>
+                                     </ul>
+                                 </div>
+
+                     </li>
+                     <li class="inactive">
+
+                         <a href="http://msdn.microsoft.com/dn292944" title="Downloads">Downloads</a>
+                                 <div class="area">
+                                     <div class="arrow"></div>
+                                 </div>
+                                 <div class="subNav">
+                                     <ul>
+                                                 <li><a href="http://msdn.microsoft.com/dn369242" title="Developer tools">Developer tools</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn369240" title="SDKs">SDKs</a></li>
+                                                 <li><a href="http://msdn.microsoft.com/dn369243" title="MSDN subscriptions">MSDN subscriptions</a></li>
+                                     </ul>
+                                 </div>
+
+                     </li>
+                     <li class="active current">
+
+                         <a href="http://msdn.microsoft.com/library" title="Library">Library</a>
+
+                     </li>
+                     <li class="inactive">
+
+                         <a href="http://code.msdn.microsoft.com/" title="Samples">Samples</a>
+
+                     </li>
+            </ul>
+          
+        </nav>        
+       
+                </div>
+                <div class="right mobile"></div>
+                <div class="right">
+                    <div data-fragmentname="SocialLinks" id="Fragment_SocialLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="LinkListTitle">Follow us</div>
+    <div class="Links">
+      <ul class="LinkColumn horizontal">
+        <li>
+          <a href="http://www.facebook.com/microsoftdeveloper" target="_blank" id="SocialLinks_2152_4" class="facebook" xmlns="http://www.w3.org/1999/xhtml">http://www.facebook.com/microsoftdeveloper</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/msdev" target="_blank" id="SocialLinks_2152_5" class="twitter" xmlns="http://www.w3.org/1999/xhtml">https://twitter.com/msdev</a>
+        </li>
+        <li>
+          <a href="http://plus.google.com/111221966647232053570/" target="_blank" id="SocialLinks_2152_6" class="googlePlus" xmlns="http://www.w3.org/1999/xhtml">http://plus.google.com/111221966647232053570/</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div> 
+                </div>
+                <span id="singleCol"></span>
+                <span id="doubleCol"></span>
+            </div>
+        </header>
+    </div>
+    
+    
+
+        
+    <div class="printExportMenus ltr">
+        <a style="display: inline;" id="isd_printABook" href="http://msdn.microsoft.com/en-us/library/export/help/?returnUrl=%2fen-us%2flibrary%2fgg156127.aspx">
+            Export (<span class="count">0</span>)
+        </a>
+        <a id="isd_print" href="http://msdn.microsoft.com/en-us/library/gg156127%28d=printer%29.aspx" rel="nofollow">
+            Print 
+        </a>
+    </div>
+    
+
+        <div class="printExportMenus ltr">
+        <a id="expandCollapseAll" href="javascript:void(0)">Collapse All</a>
+    </div>
+
+    
+
+        
+            <div id="body">
+                
+
+
+
+
+
+
+
+
+    <div style="width: 280px; max-width: 480px; min-height: 1056px;" id="leftNav">
+
+
+
+<div id="tocnav">
+            <div style="padding-left: 0px;" class="toclevel0" data-toclevel="0">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ms123401.aspx" id="ms310241_MSDN.10_en-us" mtpsaliasid="" mtpsassetid="5DDC0A78-6B2C-43E3-9C56-55F45C0DFFA5_MSDN.10_en-us" mtpsshortid="ms123401_MSDN.10_en-us" title="MSDN Library">MSDN Library</a>            </div>
+            <div style="padding-left: 0px;" class="toclevel0" data-toclevel="0">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ms376734.aspx" id="ms376734_MSDN.10_en-us" mtpsaliasid="" mtpsassetid="MSDN|mobileembed|$\mobileembed.hxt@0,0_MSDN.10_en-us" mtpsshortid="ms376734_MSDN.10_en-us" title="Mobile and Embedded Development">Mobile and Embedded Development</a>            </div>
+            <div style="padding-left: 0px;" class="toclevel0" data-toclevel="0">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee504814%28v=winembedded.70%29.aspx" id="gg130873_WinEmbedded.0_en-us" mtpsaliasid="" mtpsassetid="85510c83-5656-4767-a4f6-6583e600ef79_WinEmbedded.0_en-us" mtpsshortid="ee504814_WinEmbedded.70_en-us" title="Windows Embedded">Windows Embedded</a>            </div>
+            <div style="padding-left: 0px;" class="toclevel0" data-toclevel="0">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee504813%28v=winembedded.70%29.aspx" id="gg144979_WinEmbedded.0_en-us" mtpsaliasid="" mtpsassetid="e09041d9-88cd-4114-8983-e213b9a3223b_WinEmbedded.0_en-us" mtpsshortid="ee504813_WinEmbedded.70_en-us" title="Windows Embedded Compact">Windows Embedded Compact</a>            </div>
+            <div style="padding-left: 0px;" class="toclevel0" data-toclevel="0">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/gg154201.aspx" id="gg144980_WinEmbedded.0_en-us" mtpsaliasid="" mtpsassetid="6ab6f1e0-aed6-40ab-ad8d-345484c520de_WinEmbedded.0_en-us" mtpsshortid="gg154201_WinEmbedded.80_en-us" title="Windows Embedded Compact 2013">Windows Embedded Compact 2013</a>            </div>
+            <div style="padding-left: 0px;" class="toclevel0" data-toclevel="0">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/jj200464.aspx" id="gg162641_WinEmbedded.0_en-us" mtpsaliasid="" mtpsassetid="f71c1263-017d-4b10-86e9-6c136ff6a8c1_WinEmbedded.0_en-us" mtpsshortid="jj200464_WinEmbedded.80_en-us" title="Reference">Reference</a>            </div>
+            <div style="padding-left: 17px;" data-childrenloaded="true" class="toclevel1 current" data-toclevel="1">
+<a class="toc_expanded" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/gg156127.aspx" id="jj891241_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="fcefe4ac-6e35-4ea2-96e7-65a3fe5ec84d_WinEmbedded.80_en-us" mtpsshortid="gg156127_WinEmbedded.80_en-us" title="Board Support Package (BSP)">Board Support Package (BSP)</a>            </div>
+            <div style="padding-left: 34px;" class="toclevel2" data-toclevel="2">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/gg154428.aspx" id="dn269558_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="ARM Microprocessor BSPs">ARM Microprocessor BSPs</a>            </div>
+            <div style="padding-left: 34px;" class="toclevel2" data-toclevel="2">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee479172.aspx" id="jj891246_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="x86 Microprocessor BSPs">x86 Microprocessor BSPs</a>            </div>
+            <div style="padding-left: 34px;" class="toclevel2" data-toclevel="2">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee479323.aspx" id="jj891329_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Kernel Independent Transport Layer">Kernel Independent Transport Layer</a>            </div>
+            <div style="padding-left: 34px;" class="toclevel2" data-toclevel="2">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee478467.aspx" id="jj891336_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Production-Quality OAL Reference">Production-Quality OAL Reference</a>            </div>
+            <div style="padding-left: 34px;" class="toclevel2" data-toclevel="2">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee479200.aspx" id="jj891404_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="OEM Adaptation Layer Reference">OEM Adaptation Layer Reference</a>            </div>
+            <div style="padding-left: 34px;" class="toclevel2" data-toclevel="2">
+<a class="toc_collapsed" href="#"></a><a data-tochassubtree="true" href="http://msdn.microsoft.com/en-us/library/ee479223.aspx" id="jj891631_WinEmbedded.80_en-us" mtpsaliasid="" mtpsassetid="" mtpsshortid="" title="Boot Loader Reference">Boot Loader Reference</a>            </div>
+</div>
+        
+
+        
+
+        
+        
+        <div id="toc-resizable-ew" class="toc-resizable-ew"></div>
+        
+
+<a style="left: 280.083px; display: inline-block;" id="NavigationResize" href="javascript:void(0)">
+    <img style="" class="cl_nav_resize_open" src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/ImageSprite.png" title="Expand" alt="Expand">
+    <img style="display: none;" class="cl_nav_resize_close" src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/ImageSprite.png" title="Minimize" alt="Minimize">
+</a>
+
+
+
+    </div>
+<div style="margin-left: 280.083px; width: auto;" id="content" class="content">
+
+
+
+
+
+
+
+    
+    
+
+    <div id="ratingCounterSeperator" class="cl_lw_vs_seperator" style="display: none;"></div>
+
+    
+
+        
+
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">Board Support Package (BSP) (Compact 2013)</h1><div style="display: block;" id="ratingCounter">
+        <span id="rcA" class="ratingText">
+            1 out of 1 rated this helpful <span id="rateThisPrefix">- </span><a id="rateThisTopic" href="#feedback" title="Rate this topic">Rate this topic</a>
+            
+        </span>
+    </div>
+  
+  <div id="mainSection">
+      <div id="mainBody">
+        
+        1/28/2014 <p></p> 
+        <span id="changeHistory">
+        </span>
+				<p>A board support package (BSP) is a set of software components 
+that allows the OS to run on a specific hardware platform. The BSP 
+consists of the following components:</p>
+				<ul><li>
+						The kernel independent transport layer (KITL), which is the 
+communication link between your development computer and the Windows 
+Embedded Compact powered device<br>
+					</li><li>
+						The OEM adaptation layer (OAL), which is the interface between the kernel and the hardware<br>
+					</li><li>
+						The boot loader, which initializes the hardware, loads the OS 
+run-time image into memory, and jumps to the OS startup routine<br>
+					</li><li>
+						Device drivers<br>
+					</li><li>
+						Configuration files, which control how the OS run-time image is built<br>
+					</li></ul>
+				<p>Creating a BSP is one of the first steps in developing a Windows Embedded Compact powered device. </p>
+				<p>
+					Platform Builder for Windows Embedded Compact 2013 provides board 
+support packages (BSPs) for software development boards or hardware 
+platforms that are readily available for purchase.</p>
+				<p>These BSPs cover the full range of supported microprocessors in 
+Windows Embedded Compact 2013 and enable you to quickly evaluate various
+ OS features on your hardware platform and reduce your time to market.</p>
+				<p>For information about the sample BSPs provided in Platform 
+Builder and how you can order the hardware platforms for these BSPs, see
+ the following topics:</p>
+				<ul><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/gg154428.aspx">ARM Microprocessor BSPs</a>
+						<br>
+					</li><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee479172.aspx">x86 Microprocessor BSPs</a>
+						<br>
+					</li></ul>
+				<p>Third-party BSPs are also available for different versions of Windows Embedded Compact. For more information, see <a href="http://go.microsoft.com/fwlink/p/?LinkId=178832" target="_blank">Find Board Support Packages</a>.</p>
+				<p>For reference information, see: </p>
+				<ul><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee479323.aspx">Kernel Independent Transport Layer</a>
+						<br>
+					</li><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee478467.aspx">Production-Quality OAL Reference</a>
+						<br>
+					</li><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee479200.aspx">OEM Adaptation Layer Reference</a>
+						<br>
+					</li><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee479223.aspx">Boot Loader Reference</a>
+						<br>
+					</li><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee481059.aspx">Device Drivers</a>
+						<br>
+					</li><li>
+						
+							<a href="http://msdn.microsoft.com/en-us/library/ee478986.aspx">Run-Time Image Configuration Files</a>
+						<br>
+					</li></ul>
+				<p>Sample code for each of the supported BSPs is available at %_WINCEROOT%\Platform\&lt;<em>Hardware Platform Name</em>&gt;.</p>
+				<p>Source code for the OEM adaptation layer (OAL) common library is available at %_WINCEROOT%\Platform\Common.</p>
+				<p>OAL programming elements specific to CPU architecture are available at %_WINCEROOT%\Platform\Common\Src\&lt;<em>CPU Architecture</em>&gt;.</p>
+				<p>Programming elements that are not hardware-specific are available at %_WINCEROOT%\Platform\Common\Src\Common.</p>
+			<div><div class="LW_CollapsibleArea_TitleDiv"><div><a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="Click to collapse. Double-click to collapse all."><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">See Also</span></a><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr"></div></div></div><div class="sectionblock"><a id="seeAlsoToggle"></a><h4 class="subHeading">Other Resources</h4><a href="http://msdn.microsoft.com/en-us/library/ee478986.aspx">Run-Time Image Configuration Files</a><br><a href="http://msdn.microsoft.com/en-us/library/ee490440.aspx">Registry</a><br><br></div></div>
+			
+		</div>
+      
+    </div>
+</div>
+
+    <p style="padding: 15px 0px; margin: 0px;"></p>
+    
+    
+    
+
+
+
+
+<div class="libraryMemberFilter">
+    <div class="filterContainer">
+        <span>Show:</span>
+        <label>
+            <input class="libraryFilterInherited" checked="checked" value="Inherit" type="checkbox">Inherited
+        </label>
+        <label>
+            <input class="libraryFilterProtected" checked="checked" value="Protected" type="checkbox">Protected
+        </label>
+    </div>
+</div>
+    
+<input id="libraryMemberFilterEmptyWarning" value="There are no members available with your current filter settings." type="hidden">
+
+
+ 
+</div>
+
+
+
+
+
+            </div>
+            <div class="clear"></div>
+        
+            
+    
+<input name="__RequestVerificationToken" value="74pKSznKMHwggnQDCcZeSdLMvHKoNFwmlvwSmjzj1Vsexxk3DPaX7nq9mflFGWrUdpQLS1XsU2TmBjLXyOBaWwkGOcabQ27OddZj9j8Glh1cp3hASMOU2wTVpClTgBBk9ZCfVw2" type="hidden">
+<input id="ratingSubmitUrl" value="http://msdn.microsoft.com/en-us/library/feedback/add/gg156127.aspx" type="hidden">
+<input id="isTopicRated" value="false" type="hidden">
+
+
+
+
+    <div id="ux-footer" class="" style="" dir="ltr">
+    <footer class="top">
+        <div data-fragmentname="LeftLinks" id="Fragment_LeftLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="LinkListTitle">Dev centers</div>
+    <div class="Links">
+      <ul class="LinkColumn" style="width: 100%">
+        <li>
+          <a href="http://msdn.microsoft.com/windows" id="LeftLinks_2148_1" class="windowsBlue" xmlns="http://www.w3.org/1999/xhtml">Windows</a>
+        </li>
+        <li>
+          <a href="http://dev.windowsphone.com/" id="LeftLinks_2148_2" class="windowsPurple" xmlns="http://www.w3.org/1999/xhtml">Windows Phone</a>
+        </li>
+        <li>
+          <a href="http://msdn.microsoft.com/office" id="LeftLinks_2148_3" class="office" xmlns="http://www.w3.org/1999/xhtml">Office</a>
+        </li>
+        <li>
+          <a href="http://www.windowsazure.com/en-us/documentation/" id="LeftLinks_2148_12" class="windowsBlue" xmlns="http://www.w3.org/1999/xhtml">Windows Azure</a>
+        </li>
+        <li>
+          <a href="http://msdn.microsoft.com/vstudio" id="LeftLinks_2148_4" class="visualStudio" xmlns="http://www.w3.org/1999/xhtml">Visual Studio</a>
+        </li>
+        <li>
+          <a href="http://msdn.microsoft.com/aa937802" id="LeftLinks_2148_5" xmlns="http://www.w3.org/1999/xhtml">More...</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>    
+        <div id="rightLinks">
+            <div data-fragmentname="CenterLinks1" id="Fragment_CenterLinks1" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="LinkListTitle">Learning resources</div>
+    <div class="Links">
+      <ul class="LinkColumn" style="width: 100%">
+        <li>
+          <a href="http://www.microsoftvirtualacademy.com/" id="CenterLinks1_2151_4" xmlns="http://www.w3.org/1999/xhtml">Microsoft Virtual Academy</a>
+        </li>
+        <li>
+          <a href="http://channel9.msdn.com/" id="CenterLinks1_2151_5" xmlns="http://www.w3.org/1999/xhtml">Channel 9</a>
+        </li>
+        <li>
+          <a href="http://www.interoperabilitybridges.com/" id="CenterLinks1_2151_6" xmlns="http://www.w3.org/1999/xhtml">Interoperability Bridges</a>
+        </li>
+        <li>
+          <a href="http://msdn.microsoft.com/magazine/" id="CenterLinks1_2151_7" xmlns="http://www.w3.org/1999/xhtml">MSDN Magazine</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+            <div data-fragmentname="CenterLinks2" id="Fragment_CenterLinks2" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="LinkListTitle">Community</div>
+    <div class="Links">
+      <ul class="LinkColumn" style="width: 100%">
+        <li>
+          <a href="http://social.msdn.microsoft.com/forums/en-us/home" id="CenterLinks2_2151_8" xmlns="http://www.w3.org/1999/xhtml">Forums</a>
+        </li>
+        <li>
+          <a href="http://blogs.msdn.com/b/developer-tools/" id="CenterLinks2_2151_9" xmlns="http://www.w3.org/1999/xhtml">Blogs</a>
+        </li>
+        <li>
+          <a href="http://www.codeplex.com/" id="CenterLinks2_2151_10" xmlns="http://www.w3.org/1999/xhtml">Codeplex</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+            <div data-fragmentname="CenterLinks3" id="Fragment_CenterLinks3" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="LinkListTitle">Support</div>
+    <div class="Links">
+      <ul class="LinkColumn" style="width: 100%">
+        <li>
+          <a href="http://msdn.microsoft.com/hh361695" id="CenterLinks3_2151_11" xmlns="http://www.w3.org/1999/xhtml">Self support</a>
+        </li>
+        <li>
+          <a href="http://support.microsoft.com/" id="CenterLinks3_2151_12" xmlns="http://www.w3.org/1999/xhtml">Other support options</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+            <div class="nth-child-4n" data-fragmentname="CenterLinks4" id="Fragment_CenterLinks4" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="LinkListTitle">Programs</div>
+    <div class="Links">
+      <ul class="LinkColumn" style="width: 100%">
+        <li>
+          <a href="http://www.microsoft.com/bizspark/" id="CenterLinks4_2151_13" xmlns="http://www.w3.org/1999/xhtml">BizSpark (for startups)</a>
+        </li>
+        <li>
+          <a href="https://www.dreamspark.com/" id="CenterLinks4_2151_14" xmlns="http://www.w3.org/1999/xhtml">DreamSpark</a>
+        </li>
+        <li>
+          <a href="https://www.microsoft.com/faculty" id="CenterLinks4_2151_15" xmlns="http://www.w3.org/1999/xhtml">Faculty Connection</a>
+        </li>
+        <li>
+          <a href="http://www.microsoft.com/student/" id="CenterLinks4_2151_16" xmlns="http://www.w3.org/1999/xhtml">Microsoft Student</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+    <div class="feedbackContainer">
+        <div id="feedbackSection1" class="clear">
+            <div class="left">Did you find this helpful?</div>
+            <div class="left">
+                <div class="left">
+                    <input name="feedback" id="feedbackYes" value="1" class="feedbackYesClick" data-enhance="false" type="radio"><label class="feedbackYesClick" for="feedbackYes"> Yes</label>
+                </div>
+                <div class="left">
+                    <input name="feedback" id="feedbackNo" value="0" class="feedbackNoClick" data-enhance="false" type="radio"><label class="feedbackNoClick" for="feedbackNo"> No</label>
+                </div>
+            </div>
+            <a class="rateThisAnchor" name="feedback"></a>
+        </div>
+        <div id="feedbackSection2" class="clear">
+        </div>
+        <div id="feedbackSection3" class="clear">
+                    <div>
+                        <input id="checkboxNo201" name="chkbxNo" value="201" data-enhance="false" type="checkbox">
+                        <label for="checkboxNo201">Not accurate</label>
+                    </div>
+                    <div>
+                        <input id="checkboxNo202" name="chkbxNo" value="202" data-enhance="false" type="checkbox">
+                        <label for="checkboxNo202">Not enough depth</label>
+                    </div>
+                    <div>
+                        <input id="checkboxNo203" name="chkbxNo" value="203" data-enhance="false" type="checkbox">
+                        <label for="checkboxNo203">Need more code examples</label>
+                    </div>
+        </div>
+        <div id="feedbackSection4" class="clear">
+            <div>
+                <textarea id="feedbackTextArea" name="feedbackText" class="TellUsMoreTextBoxSearchLoaded" data-enhance="false">Tell us more...</textarea>
+            </div>
+            <div class="left"><span class="counter">(<span id="feedbackTextCounter">1500</span> characters remaining)</span></div>
+            <div class="right">
+                <button type="button" id="feedbackSubmit" title="Click to Submit Feedback" data-enhance="false">Submit</button>
+            </div>
+        </div>
+        <div id="feedbackSection5">Thank you for your feedback</div>
+        <input id="feedbackValue" value="" type="hidden">
+        <input id="tellUsMoreText" value="Tell us more..." type="hidden">
+        <input id="maxTextBoxCharacters" value="1500" type="hidden">
+        <input id="submitUrl" value="/en-us/msdn/ux/uxservices/feedback/add/footer" type="hidden">
+        <input id="feedbackSiteName" name="feedbackSiteName" value="" type="hidden">
+        <input id="feedbackPriority" name="feedbackPriority" value="" type="hidden">
+        <input id="feedbackSourceUrl" name="feedbackSourceUrl" value="" type="hidden">
+        <input id="ClientIP" name="ClientIP" value="" type="hidden">
+        <input id="ClientOS" name="ClientOS" value="" type="hidden">
+        <input id="ClientBrowser" name="ClientBrowser" value="" type="hidden">
+        <input id="ClientTime" name="ClientTime" value="" type="hidden">
+        <input id="ClientDate" name="ClientDate" value="" type="hidden">
+    </div>
+    
+    
+        </div>
+    </footer>
+    
+    <footer class="bottom">
+        <span class="localeContainer">
+                <form class="selectLocale" id="selectLocaleForm" action="http://msdn.microsoft.com/en-us/selectlocale-dmc">
+        <input name="fromPage" value="http%3a%2f%2fmsdn.microsoft.com%2fen-us%2flibrary%2fgg156127.aspx" type="hidden">
+        <a href="#" onclick="$('#selectLocaleForm').submit();return false;" title="Change your language">United States (English)</a>
+    </form>    
+
+
+        </span>
+        
+        <div data-fragmentname="BottomLinks" id="Fragment_BottomLinks" xmlns="http://www.w3.org/1999/xhtml">
+  
+  <div class="LinkList">
+    <div class="Links">
+      <ul class="LinkColumn horizontal">
+        <li>
+          <a href="http://msdn.microsoft.com/newsletter.aspx" id="BottomLinks_2148_7" xmlns="http://www.w3.org/1999/xhtml">Newsletter</a>
+        </li>
+        <li>
+          <a href="http://msdn.microsoft.com/dn529288" id="BottomLinks_2148_8" xmlns="http://www.w3.org/1999/xhtml">Privacy &amp; cookies</a>
+        </li>
+        <li>
+          <a href="http://msdncp.redmond.corp.microsoft.com/cc300389.aspx" id="BottomLinks_2148_9" xmlns="http://www.w3.org/1999/xhtml">Terms of use</a>
+        </li>
+        <li>
+          <a href="http://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" id="BottomLinks_2148_10" xmlns="http://www.w3.org/1999/xhtml">Trademarks</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>    
+        <span class="logoLegal">
+            <span class="logo"></span>
+            <span class="copyright">© 2014 Microsoft</span>
+        </span>
+    </footer>
+</div>
+    
+
+
+            <div class="footerPrintView">
+                <div class="footerCopyrightPrintView">© 2014 Microsoft. All rights reserved.</div>
+            </div>
+
+            
+            
+    
+    
+    <input id="tocPaddingPerLevel" value="17" type="hidden">
+
+
+        
+            <input id="MtpsDevice" value="Default" type="hidden">
+
+
+<!--[CDATA[ Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx. ]]-->
+        
+            
+            
+            
+            
+            
+        
+
+
+
+
+
+<noscript><div><img alt="DCSIMG" id="Img1" width="1" height="1" src="http://m.webtrends.com/dcsmgru7m99k7mqmgrhudo0k8_8c6m/njs.gif?dcsuri=/nojavascript&amp;WT.js=No" /></div></noscript>
+
+
+
+
+
+
+
+
+
+<noscript>
+  <a href="http://www.omniture.com" title="Web Analytics">
+    <img src="//msstonojsmsdn.112.2o7.net/b/ss/msstonojsmsdn/1/H.20.2--NS/0" height="1" width="1" border="0" alt="" />
+  </a>
+</noscript>
+
+
+
+
+<div id="globalRequestVerification">
+    <input name="__RequestVerificationToken" value="PVKh-ZEJEkZE_MmvK2kVaTnhbLa7c-C_GZo80GCxC_oXHAint3jwwIBZSKuAwNDFtPwiHuMXOCQckJPxQYkA45JHodUBJNTkGob_0P-q7fxavhEwrPNXMIxPM28BqaC1Tqe-oQ2" type="hidden">
+</div>
+
+
+        </div>
+    <script type="text/javascript" class="mtps-injected">
+/*<![CDATA[*/
+(function(window,document){"use strict";function preload(scripts){for(var result=[],script,e,i=0;i<scripts.length;i++)script=scripts[i],script.hasOwnProperty("url")&&(e=document.createElement("script"),e.src=script.url,script.throwaway=e),result.push(script);return result}function inject(scripts,index){var script,elem;if(index>=scripts.length){delete mtps.injectScripts;return}script=scripts[index];elem=document.createElement("script");elem.className="mtps-injected";elem.async=!1;var isLoaded=!1,timeoutId=0,injectNextFnName="",injectNext=elem.onerror=function(){isLoaded||(isLoaded=!0,inject(scripts,index+1),window.clearTimeout(timeoutId),elem.onload=elem.onerror=elem.onreadystatechange=null,injectNextFnName&&delete mtps[injectNextFnName],elem.removeEventListener&&elem.removeEventListener("load",injectNext,!1))};elem.addEventListener?elem.addEventListener("load",injectNext,!1):elem.readyState==="uninitialized"?elem.onreadystatechange=function(){(this.readyState==="loaded"||this.readyState==="complete")&&injectNext()}:elem.onload=injectNext;script.hasOwnProperty("url")?(timeoutId=window.setTimeout(injectNext,12e4),elem.src=script.url):(injectNextFnName="_injectNextScript_"+index,mtps[injectNextFnName]=injectNext,timeoutId=window.setTimeout(injectNext,2e3),elem.text="try {\n"+script.txt+"\n} finally { MTPS."+injectNextFnName+" && MTPS."+injectNextFnName+"(); }");parent.appendChild(elem)}var mtps=window.MTPS||(window.MTPS={}),parent=document.getElementsByTagName("head")[0];mtps.injectScripts=function(scripts){inject(preload(scripts),0)}})(window,document);
+MTPS.injectScripts([
+	{ txt: "/**/\r\n(window.MTPS || (window.MTPS = {})).cdnDomains || (window.MTPS.cdnDomains = { \r\n\t\"image\": \"http://i.msdn.microsoft.com\", \r\n\t\"js\": \"http://i2.msdn.microsoft.com\", \r\n\t\"css\": \"http://i3.msdn.microsoft.com\"\r\n});\r\n/**/" },
+	{ url: "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js" },
+	{ txt: "//\n    window.appInsightsId = \u002760854590-027a-4ae4-98be-2741a40f355f\u0027;\n    //" },
+	{ txt: "//\n  var literalNormalizedUrl = \u0027/en-us/library/gg156127(d=default,l=en-us,v=winembedded.80).aspx\u0027;\n  var wt_nvr_ru = \u0027WT_NVR_RU\u0027;\n  var wt_fpcdom = \u0027.microsoft.com\u0027;\n  var wt_domlist = \u0027msdn.microsoft.com\u0027;\n  var wt_pathlist = \u0027\u0027;\n  var wt_paramlist = \u0027DCSext.mtps_devcenter\u0027;\n  var wt_siteid = \u0027MSDN\u0027;\n  var gDomain = \u0027m.webtrends.com\u0027;\n  var gDcsId = \u0027dcsmgru7m99k7mqmgrhudo0k8_8c6m\u0027;\n  var gFpc = \u0027WT_FPC\u0027;\n\n\n\n  if (document.cookie.indexOf(gFpc + \"=\") == -1) {\n    var wtidJs = document.createElement(\"script\");\n    wtidJs.src = \"//\" + gDomain + \"/\" + gDcsId + \"/wtid.js\";\n    document.getElementsByTagName(\"head\")[0].appendChild(wtidJs);\n  }\n\n\n\n  var detectedLocale = \u0027en-us\u0027;\n  var wtsp = \u0027msdnlib_mobile\u0027;\n  var gTrackEvents = \u00270\u0027;\n/**/" },
+	{ txt: "/**/\n  var omni_guid = \"41d7fbca-6fa3-4560-af77-6815c9fdbcf2\";\n/**/" },
+	{ url: "http://i2.msdn.microsoft.com/Combined.js?resources=0:Utilities,1:Layout,2:Header,0:AppInsightsPerf,2:Footer,3:Feedback,0:Topic,4:webtrendsscript,5:omni_rsid_MSDN,6:SearchBox;/Areas/Epx/Content/Scripts:0,/Areas/Centers/Themes/Base/Content:1,/Areas/Centers/Themes/StandardDevCenter/Content:2,/Areas/Epx/Shared/Content:3,/Areas/Global/Content/Webtrends/resources:4,/Areas/Global/Content/Omniture/resources/MSDN:5,/Areas/Epx/Themes/Base/Content:6\u0026amp;hashKey=FA23DAE5847615BCA829FA269597FE5A" },
+	{ url: "http://i2.services.social.microsoft.com/search/Widgets/SearchBox.jss?boxid=HeaderSearchTextBox\u0026btnid=HeaderSearchButton\u0026brand=Msdn\u0026loc=en-us\u0026focusOnInit=false\u0026emptyWatermark=true\u0026searchButtonTooltip=Search MSDN" },
+	{ url: "http://i2.msdn.microsoft.com/Combined.js?resources=0:PrintExportButton,1:Toc,1:NavigationResize,2:FeedbackCounter;/Areas/Library/Themes/Base/Content:0,/Areas/Library/Content:1,/Areas/Epx/Shared/Content:2\u0026amp;hashKey=66872A62A3ED5011793DE8DC80B4968C" },
+	{ txt: "MTPS = window.MTPS || {}; MTPS.LocalizedStrings = window.MTPS.LocalizedStrings || {}; MTPS.LocalizedStrings.ExpandButtonTooltip = \u0027Expand\u0027; MTPS.LocalizedStrings.CollapseButtonTooltip = \u0027Collapse\u0027; MTPS.LocalizedStrings.EnhancedExpandTooltip = \u0027Click to expand. Double-click to expand all.\u0027; MTPS.LocalizedStrings.EnhancedCollapseTooltip = \u0027Click to collapse. Double-click to collapse all.\u0027; MTPS.LocalizedStrings.ExpandAllButtonTooltip = \u0027Expand All\u0027; MTPS.LocalizedStrings.CollapseAllButtonTooltip = \u0027Collapse All\u0027;" },
+	{ url: "http://i2.msdn.microsoft.com/Combined.js?resources=0:LibraryMemberFilter,1:Toc_Fixed,1:CodeSnippet,1:TopicNotInScope,1:CollapsibleArea,1:VersionSelector,1:SurveyBroker;/Areas/Library/Content:0,/Areas/Epx/Content/Scripts:1\u0026amp;hashKey=711E232AAF8151D1B9B66E635E8CECE0" },
+	{ txt: "$(document).ready(function() {\n        try {\n            var token = $(\"#globalRequestVerification input[name=\u0027__RequestVerificationToken\u0027]\").clone();\n            $(\"#siteFeedbackForm\").append(token);\n        } catch(err) {\n            \n        }\n    });" }
+]);
+
+/*]]>*/
+</script>
+<script src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/broker-config.js"></script><div id="_WEDCSInsertedData" style="display: none;"><iframe id="_msnFrame" src="Board%20Support%20Package%20%28BSP%29%20%28Compact%202013%29_files/c_002.gif" style="z-index:-1;height:1px;width:1px;display:none;visibility:hidden;" onload="javascript:MscomBeacon();"></iframe></div></body></html>

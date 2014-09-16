@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>c - Problem in Timers and signal - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6">
+    <meta name="og:title" content="Problem in Timers and signal">
+    <meta name="og:description" content="I have implemented a POSIX timer using timer_create( ) API, and this will generate SIGUSR1 when the timer expires for which i have put a handler code. Now the problem is, if this program receives a...">
+    <meta name="og:url" content="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal">
+    <link rel="canonical" href="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal">
+
+    
+    
+    <script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/quant.js" async=""></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/beacon.js" async=""></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/analytics.js" async=""></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/ados.js" async="" type="text/javascript"></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/ados_002.js" async="" type="text/javascript"></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/jquery.js"></script>
+    <script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/stub.js"></script>
+    <link rel="stylesheet" type="text/css" href="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Problem in Timers and signal'" href="http://stackoverflow.com/feeds/question/5740954">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:5740954});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '5740954');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1393238420,"styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true,"ab":{"welcome_email":{"v":"2","g":1},"hot_questions_sidebar":{"v":"1_random_order","g":1},"question_show_tweaks":{"v":"sidebar_wo_tag_stats","g":2}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"e0bbd4760e83","js/moderator.en.js":"f24049d774be","js/full-anon.en.js":"7874f742c9cc","js/full.en.js":"4f3a75ab4b76","js/wmd.en.js":"9eff1dc444d0","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"3eb1042ba6b3","js/help.en.js":"d3cc74d8a93a","js/tageditor.en.js":"6d51a5f8d7f3","js/tageditornew.en.js":"5761dfb80bd0","js/inline-tag-editing.en.js":"f951bd09dc69","js/revisions.en.js":"33fd38144303","js/review.en.js":"44c8a0044283","js/tagsuggestions.en.js":"e4e7b952fcc7","js/post-validation.en.js":"c275fe37d674","js/explore-qlist.en.js":"73825bd006fc","js/events.en.js":"38e15ed1ddd8"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+        
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/full-anon.js" async=""></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/post-validation.js" async=""></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/prettify-full.js" async=""></script><script src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/adFeedback.js" type="text/javascript"></script><link href="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/adFeedback.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/sidebar.css"></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="4" data-gps-track="
+            site.switch({ target_site:4, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link" href="http://careers.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Careers 2.0
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 118 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                        <a href="http://stackoverflow.com/users/login?returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f5740954%2fproblem-in-timers-and-signal&amp;signup=true" class="login-link">sign up</a>    
+                        <a href="http://stackoverflow.com/users/login?returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f5740954%2fproblem-in-timers-and-signal" class="login-link">log in</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                        Tour
+                        <span class="item-summary">
+                            Start here for a quick overview of the site
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                            <a href="http://careers.stackoverflow.com/">careers 2.0</a>
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () {
+        //topbar.init();
+        StackExchange.topbar.init();
+    });
+</script>    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://stackoverflow.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://stackoverflow.com/about" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a question and answer site for 
+professional and enthusiast programmers. It's 100% free, no registration
+ required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal" class="question-hyperlink">Problem in Timers and signal</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="5740954" id="question">
+    
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1223639173",4).setZone(43) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1223639173"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjI5MTEsImNoIjoxMTc4LCJjciI6NTkyMSwiZGkiOiI5ODAxODJjMmUzNmM0MDdlOTZhOGU3ODIzMWM1NTcwZiIsImRtIjoxLCJmYyI6MTAxODYsImZsIjo3NDcyLCJrdyI6ImMsbGludXgsdGltZXIsc2lnbmFscyIsIm53IjoyMiwicGMiOjAsInByIjoxNjA0LCJydCI6MSwicmYiOiJodHRwOi8vd3d3Lmdvb2dsZS5jby5pbi91cmw_c2E9dCZyY3Q9aiZxPSZlc3JjPXMmc291cmNlPXdlYiZjZD0zJnZlZD0wQ0RzUUZqQUMmdXJsPWh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNTc0MDk1NC9wcm9ibGVtLWluLXRpbWVycy1hbmQtc2lnbmFsJmVpPWpTRUxVOGZlQ002RnJBZXd3NEhvREEmdXNnPUFGUWpDTkhiVmNnOTBLMkRtNEd2YkVFUzZFRVhGTldQTncmYnZtPWJ2LjYxNzI1OTQ4LGQuYm1rJmNhZD1yamEiLCJzdCI6ODI3Nywiem4iOjQzLCJ0cyI6MTM5MzIzODQ5MzY4OCwidXIiOiJodHRwOi8vY2FyZWVycy5zdGFja292ZXJmbG93LmNvbS8ifQ&amp;s=vQd58tbq20waTmP1I9c1ju7HDTg" rel="nofollow" target="_blank" title=""><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/9241eb4107b24c588c0ca0042534c03e.png" title="" alt="" width="728" height="90" border="0"></a><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/i_002.gif" width="0px" height="0px" border="0"><div class="adzerk-vote-controls" style="display: none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="5740954" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">2</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>3</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I have implemented a POSIX timer using timer_create( ) API, 
+and this will generate SIGUSR1 when the timer expires for which i have 
+put a handler code. Now the problem is, if this program receives another
+ SIGUSR1, then the same signal handler will be invoked and caught.</p>
+
+<p>Is there any way to prevent this, so that the handler can catch signals only generated by the timer?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag js-gps-track" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag js-gps-track" title="show questions tagged 'linux'" rel="tag">linux</a> <a href="http://stackoverflow.com/questions/tagged/timer" class="post-tag js-gps-track" title="show questions tagged 'timer'" rel="tag">timer</a> <a href="http://stackoverflow.com/questions/tagged/signals" class="post-tag js-gps-track" title="show questions tagged 'signals'" rel="tag">signals</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/5740954" title="short permalink to this question" class="short-link" id="link-post-5740954">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/5740954/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2011-04-21 07:31:58Z" class="relativetime">Apr 21 '11 at 7:31</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/575281/kingsmasher1"><div class="gravatar-wrapper-32"><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/2a3iz.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/575281/kingsmasher1">kingsmasher1</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,780</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="25 silver badges"><span class="badge2"></span><span class="badgecount">25</span></span><span title="60 bronze badges"><span class="badge3"></span><span class="badgecount">60</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-5740954" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-5740954" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								4 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="5741871"></a>
+<div id="answer-5741871" class="answer accepted-answer" data-answerid="5741871">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="5741871" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">5</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Will this work for you? (Modified the code from example in <code>timer_create</code> man page.)</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;stdlib.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;unistd.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;stdio.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;signal.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;time.h&gt;</span><span class="pln">
+
+</span><span class="com">#define</span><span class="pln"> CLOCKID CLOCK_REALTIME
+</span><span class="com">#define</span><span class="pln"> SIG SIGUSR1
+</span><span class="typ">timer_t</span><span class="pln"> timerid</span><span class="pun">;</span><span class="pln">
+
+
+</span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> handler</span><span class="pun">(</span><span class="typ">int</span><span class="pln"> sig</span><span class="pun">,</span><span class="pln"> </span><span class="typ">siginfo_t</span><span class="pln"> </span><span class="pun">*</span><span class="pln">si</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln">uc</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">si</span><span class="pun">-&gt;</span><span class="pln">si_value</span><span class="pun">.</span><span class="pln">sival_ptr </span><span class="pun">!=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">timerid</span><span class="pun">){</span><span class="pln">
+        printf</span><span class="pun">(</span><span class="str">"Stray signal\n"</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        printf</span><span class="pun">(</span><span class="str">"Caught signal %d from timer\n"</span><span class="pun">,</span><span class="pln"> sig</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="typ">int</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">int</span><span class="pln"> argc</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">char</span><span class="pln"> </span><span class="pun">*</span><span class="pln">argv</span><span class="pun">[])</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">struct</span><span class="pln"> sigevent sev</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">struct</span><span class="pln"> itimerspec its</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">long</span><span class="pln"> </span><span class="kwd">long</span><span class="pln"> freq_nanosecs</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">sigset_t</span><span class="pln"> mask</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">struct</span><span class="pln"> sigaction sa</span><span class="pun">;</span><span class="pln">
+
+    printf</span><span class="pun">(</span><span class="str">"Establishing handler for signal %d\n"</span><span class="pun">,</span><span class="pln"> SIG</span><span class="pun">);</span><span class="pln">
+    sa</span><span class="pun">.</span><span class="pln">sa_flags </span><span class="pun">=</span><span class="pln"> SA_SIGINFO</span><span class="pun">;</span><span class="pln">
+    sa</span><span class="pun">.</span><span class="pln">sa_sigaction </span><span class="pun">=</span><span class="pln"> handler</span><span class="pun">;</span><span class="pln">
+    sigemptyset</span><span class="pun">(&amp;</span><span class="pln">sa</span><span class="pun">.</span><span class="pln">sa_mask</span><span class="pun">);</span><span class="pln">
+    sigaction</span><span class="pun">(</span><span class="pln">SIG</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">sa</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">);</span><span class="pln">
+
+    sev</span><span class="pun">.</span><span class="pln">sigev_notify </span><span class="pun">=</span><span class="pln"> SIGEV_SIGNAL</span><span class="pun">;</span><span class="pln">
+    sev</span><span class="pun">.</span><span class="pln">sigev_signo </span><span class="pun">=</span><span class="pln"> SIG</span><span class="pun">;</span><span class="pln">
+    sev</span><span class="pun">.</span><span class="pln">sigev_value</span><span class="pun">.</span><span class="pln">sival_ptr </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">timerid</span><span class="pun">;</span><span class="pln">
+    timer_create</span><span class="pun">(</span><span class="pln">CLOCKID</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">sev</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">timerid</span><span class="pun">);</span><span class="pln">
+    </span><span class="com">/* Start the timer */</span><span class="pln">
+
+    its</span><span class="pun">.</span><span class="pln">it_value</span><span class="pun">.</span><span class="pln">tv_sec </span><span class="pun">=</span><span class="pln"> </span><span class="lit">10</span><span class="pun">;</span><span class="pln">
+    its</span><span class="pun">.</span><span class="pln">it_value</span><span class="pun">.</span><span class="pln">tv_nsec </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+    its</span><span class="pun">.</span><span class="pln">it_interval</span><span class="pun">.</span><span class="pln">tv_sec </span><span class="pun">=</span><span class="pln"> its</span><span class="pun">.</span><span class="pln">it_value</span><span class="pun">.</span><span class="pln">tv_sec</span><span class="pun">;</span><span class="pln">
+    its</span><span class="pun">.</span><span class="pln">it_interval</span><span class="pun">.</span><span class="pln">tv_nsec </span><span class="pun">=</span><span class="pln"> its</span><span class="pun">.</span><span class="pln">it_value</span><span class="pun">.</span><span class="pln">tv_nsec</span><span class="pun">;</span><span class="pln">
+
+    timer_settime</span><span class="pun">(</span><span class="pln">timerid</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">its</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">);</span><span class="pln">
+    sleep</span><span class="pun">(</span><span class="lit">100</span><span class="pun">);</span><span class="pln">
+    exit</span><span class="pun">(</span><span class="pln">EXIT_SUCCESS</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+<p>When signal from timer is caught <code>Caught signal 10 from timer</code> will be displayed. Otherwise <code>Stray signal</code> will be displayed.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/5741871" title="short permalink to this answer" class="short-link" id="link-post-5741871">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/5741871/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/5741871/revisions" title="show all edits to this post">edited <span title="2011-04-21 10:35:28Z" class="relativetime">Apr 21 '11 at 10:35</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-04-21 09:04:21Z" class="relativetime">Apr 21 '11 at 9:04</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/408426/rumple-stiltskin"><div><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/4822b4dd20ef7a51a7fde96535fc62c2.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/408426/rumple-stiltskin">Rumple Stiltskin</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">2,094</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="13 bronze badges"><span class="badge3"></span><span class="badgecount">13</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-5741871" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-6652958" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Extremely sorry, i saw your post late. You have given an excellent solution. Bravo!!!! And also loads and loads of thanks :)</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/575281/kingsmasher1" title="1780 reputation" class="comment-user owner">kingsmasher1</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment6652958_5741871"><span title="2011-04-27 08:17:02Z" class="relativetime-clean">Apr 27 '11 at 8:17</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-14064631" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">+1 Great thanks! It turned out that timer ins UNIX is simple, just a bit confusing</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/128028/viet" title="4292 reputation" class="comment-user">Viet</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment14064631_5741871"><span title="2012-05-29 23:45:30Z" class="relativetime-clean">May 29 '12 at 23:45</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-30003552" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">what if i have to use multiple timers using 
+this API? I tried but after executing handler once, the program exits. 
+is there any way?</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/1561935/mihirj" title="919 reputation" class="comment-user">mihirj</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment30003552_5741871"><span title="2013-11-21 21:25:23Z" class="relativetime-clean">Nov 21 '13 at 21:25</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-5741871" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1530727406",4).setZone(44) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1530727406"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjg0NywiY2giOjExNzgsImNyIjoxMDc2OSwiZGkiOiIwZmUzZmNkZTcwNjQ0MWI1OGJkYWEzN2M1OTM4ODg4NCIsImRtIjoxLCJmYyI6MTY4ODYsImZsIjoyNDQ0LCJrdyI6ImMsbGludXgsdGltZXIsc2lnbmFscyIsIm53IjoyMiwicGMiOjAsInByIjoxNTY4LCJydCI6MSwicmYiOiJodHRwOi8vd3d3Lmdvb2dsZS5jby5pbi91cmw_c2E9dCZyY3Q9aiZxPSZlc3JjPXMmc291cmNlPXdlYiZjZD0zJnZlZD0wQ0RzUUZqQUMmdXJsPWh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNTc0MDk1NC9wcm9ibGVtLWluLXRpbWVycy1hbmQtc2lnbmFsJmVpPWpTRUxVOGZlQ002RnJBZXd3NEhvREEmdXNnPUFGUWpDTkhiVmNnOTBLMkRtNEd2YkVFUzZFRVhGTldQTncmYnZtPWJ2LjYxNzI1OTQ4LGQuYm1rJmNhZD1yamEiLCJzdCI6ODI3Nywiem4iOjQ0LCJ0cyI6MTM5MzIzODQ5MzY5MSwidXIiOiJodHRwOi8vY2FyZWVycy5zdGFja292ZXJmbG93LmNvbS9qb2JzL3RlbGVjb21tdXRlIn0&amp;s=06RQfhb1b9NGIN9FPjc9twL9A7g" rel="nofollow" target="_blank" title=""><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/d893babe671c41118c1fece177e0a21a.jpg" title="" alt="" width="728" height="90" border="0"></a><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/i.gif" width="0px" height="0px" border="0"><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div></div>
+  
+<a name="5741288"></a>
+<div id="answer-5741288" class="answer" data-answerid="5741288">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="5741288" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>The question is whether you really need to use signals. 
+You may think of using callback that will be called when the timer 
+expires:</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="kwd">void</span><span class="pln"> cbf</span><span class="pun">(</span><span class="kwd">union</span><span class="pln"> sigval</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">struct</span><span class="pln"> sigevent sev</span><span class="pun">;</span><span class="pln">
+</span><span class="typ">timer_t</span><span class="pln"> timer
+
+sev</span><span class="pun">.</span><span class="pln">sigev_notify </span><span class="pun">=</span><span class="pln"> SIGEV_THREAD</span><span class="pun">;</span><span class="pln">
+sev</span><span class="pun">.</span><span class="pln">sigev_notify_function </span><span class="pun">=</span><span class="pln"> cbf</span><span class="pun">;</span><span class="pln"> </span><span class="com">//this function will be called when timer expires</span><span class="pln">
+sev</span><span class="pun">.</span><span class="pln">sigev_value</span><span class="pun">.</span><span class="pln">sival_ptr </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">void</span><span class="pun">*)</span><span class="pln"> arg</span><span class="pun">;</span><span class="com">//this argument will be passed to cbf</span><span class="pln">
+timer_create</span><span class="pun">(</span><span class="pln">CLOCK_MONOTONIC</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">sev</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">timer</span><span class="pun">);</span></code></pre>
+
+<p>The callback function will be called in a new thread. </p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/5741288" title="short permalink to this answer" class="short-link" id="link-post-5741288">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/5741288/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-04-21 08:08:15Z" class="relativetime">Apr 21 '11 at 8:08</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/467961/patryk"><div><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/177fbb5a0e65ec5b9eb8664385159a7c.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/467961/patryk">Patryk</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">675</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-5741288" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-6569409" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">No, we can't use SIGEV_THREAD, because our 
+library does not support that. Also, SIGEV_THREAD creates useless 
+threads which in turn cause memory leaks.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/575281/kingsmasher1" title="1780 reputation" class="comment-user owner">kingsmasher1</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment6569409_5741288"><span title="2011-04-21 08:29:22Z" class="relativetime-clean">Apr 21 '11 at 8:29</span></a></span>
+		<span class="edited-yes" title="this comment was edited 1 time"></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-5741288" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="5741300"></a>
+<div id="answer-5741300" class="answer" data-answerid="5741300">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="5741300" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>No, there is no easy way. Why don't you use SIGUSR2 
+instead for your timers if you have something else generating SIGUSR1 
+together with your timer. If that is not enough, use one of the real 
+time signals for your application.</p>
+
+<p>If it must be able to handle the same signal from the timer and some 
+other source, then depending on how fast, how many, what system, etc etc
+ you could try setting a timestamp before registering a timer on when 
+the timer will approximately exit, and then in the signal handler try to
+ deduce if it was within time margin. I would strongly advise not to use
+ this approach, but instead redesign what you are doing.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/5741300" title="short permalink to this answer" class="short-link" id="link-post-5741300">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/5741300/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-04-21 08:09:22Z" class="relativetime">Apr 21 '11 at 8:09</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/62570/milan"><div><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/1fe85e7c2138142e452c50fa97455b1b.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/62570/milan">Milan</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">5,323</span><span title="7 gold badges"><span class="badge1"></span><span class="badgecount">7</span></span><span title="31 silver badges"><span class="badge2"></span><span class="badgecount">31</span></span><span title="50 bronze badges"><span class="badge3"></span><span class="badgecount">50</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-5741300" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-6569443" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">One of the real-time signals? Can you please
+ elaborate? What if the test code also generates a real time signal? 
+Won't the same handler catch it?</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/575281/kingsmasher1" title="1780 reputation" class="comment-user owner">kingsmasher1</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment6569443_5741300"><span title="2011-04-21 08:32:32Z" class="relativetime-clean">Apr 21 '11 at 8:32</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-6569757" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Yes, the handler will catch the signal. The 
+point with real time signals is that they should be used within your own
+ application where you know what happens. Scroll down to real time 
+signals on the man page and read more <a href="http://linux.die.net/man/7/signal" rel="nofollow">linux.die.net/man/7/signal</a></span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/62570/milan" title="5323 reputation" class="comment-user">Milan</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment6569757_5741300"><span title="2011-04-21 08:52:48Z" class="relativetime-clean">Apr 21 '11 at 8:52</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-5741300" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="5744941"></a>
+<div id="answer-5744941" class="answer" data-answerid="5744941">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="5744941" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Use another RT signals. See answers on <a href="http://stackoverflow.com/questions/5741604/is-there-any-way-to-create-a-user-defined-signal-in-linux">Is there any way to create a user defined signal in Linux?</a></p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/5744941" title="short permalink to this answer" class="short-link" id="link-post-5744941">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/5744941/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2011-04-21 13:45:00Z" class="relativetime">Apr 21 '11 at 13:45</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/611560/ydroneaud"><div><img src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/25ee461bdf2849f6db82054c73192ea1.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/611560/ydroneaud">ydroneaud</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,815</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="19 bronze badges"><span class="badge3"></span><span class="badgecount">19</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-5744941" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-5744941" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/5740954/answer/submit" method="post" class="post-form">
+							<input id="post-id" value="5740954" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="23bbd1541cf66b08a7f83ec8f404e0e7" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f5740954%2fproblem-in-timers-and-signal%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f5740954%2fproblem-in-timers-and-signal%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag" title="show questions tagged 'linux'" rel="tag">linux</a> <a href="http://stackoverflow.com/questions/tagged/timer" class="post-tag" title="show questions tagged 'timer'" rel="tag">timer</a> <a href="http://stackoverflow.com/questions/tagged/signals" class="post-tag" title="show questions tagged 'signals'" rel="tag">signals</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2011-04-21 07:31:58Z"><b>2 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>3288 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://stackoverflow.com/questions/5740954/problem-in-timers-and-signal?lastactivity" class="lastactivity-link" title="2011-04-21 13:45:00Z">2 years ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <h4>Community Bulletin</h4>
+    <div class="related">
+            <div class="spacer"> 
+                <div class="bulletin-item-type event-date">event</div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/221594/2014-so-moderator-election-qa-questionnaire?cb=1" class="question-hyperlink" target="_blank">Moderator candidates' answers to your questions</a>
+                        <span class="event-date" style="white-space: nowrap;">– ends <span title="2014-02-25 20:00:00Z" class="relativetime">tomorrow</span></span>
+                </div>
+                <br class="cbt">
+            </div>
+            <div class="spacer bulletin-item-important"> 
+                <div class="bulletin-item-type event-date">event</div>
+                <div class="bulletin-item-content">
+                    <a href="http://stackoverflow.com/election?cb=1" class="question-hyperlink" target="_blank">2014 Community Moderator Election</a>
+                        <span class="event-date" style="white-space: nowrap;">– ends <span title="2014-02-25 20:00:00Z" class="relativetime">tomorrow</span></span>
+                </div>
+                <br class="cbt">
+            </div>
+
+    </div>
+</div>			
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk773943819",17).setZone(45) ; });                    
+            </script>
+              
+    <div id="hireme"> <a href="http://careers.stackoverflow.com/jobs?a=288" class="top" target="_blank"></a> <ul class="jobs"> <li> <a href="http://careers.stackoverflow.com/jobs/47523/software-developer-entrayn-education?a=VXu50ZSE" target="_blank" title="Software Developer at Entrayn Education Technologies (P). Click to learn more."> Software Developer<br> <span class="company">Entrayn Education Technologies…</span> <span class="location">Chennai, India</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/46654/engineering-lead-aplopio?a=UTM4V1MA" target="_blank" title="Engineering Lead at Aplopio. Click to learn more."> Engineering Lead<br> <span class="company">Aplopio</span> <span class="location">Bangalore, India / relocation</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/28748/front-end-dev-for-a-profitable-saas-startup-aplopio?a=z3O54Jtm" target="_blank" title="Front-end Dev for a profitable SaaS startup at Aplopio. Click to learn more."> Front-end Dev for a profitable SaaS startup<br> <span class="company">Aplopio</span> <span class="location">Bangalore, India</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/48907/software-development-engineer-digital-and-amazon?a=XE7j2RTq" target="_blank" title="Software Development Engineer - Digital and Mobile Products at Amazon. Click to learn more."> Software Development Engineer - Digital and Mobile Products<br> <span class="company">Amazon</span> <span class="location">Seattle / relocation</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/49363/wordpress-web-developer-pmc?a=YcCh3VVm" target="_blank" title="WordPress Web Developer at PMC. Click to learn more."> WordPress Web Developer<br> <span class="company">PMC</span> <span class="location">Mumbai, India / remote</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/48146/web-entwickler-m-w-payments-e-commerce-top-concepts-gmbh?a=WIzCNmOk" target="_blank" title="Web-Entwickler (m/w) Payments/E-Commerce at top concepts GmbH. Click to learn more."> Web-Entwickler (m/w) Payments/E-Commerce<br> <span class="company">top concepts GmbH</span> <span class="location">Hamburg, Deutschland</span> </a> </li> </ul> <img alt="" class="impression" src="c%20-%20Problem%20in%20Timers%20and%20signal%20-%20Stack%20Overflow_files/VXu50ZSE-UTM4V1MA-z3O54Jtm-XE7j2RTq-YcCh3VVm-WIzCNmOk-288.gif" style="display:none"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/5741604?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/5741604/is-there-any-way-to-create-a-user-defined-signal-in-linux?lq=1" class="question-hyperlink">Is there any way to create a user defined signal in Linux?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/5800342?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/5800342/problem-with-signals-timer-sigev-signal?lq=1" class="question-hyperlink">Problem with signals, timer (SIGEV_SIGNAL)</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/21691066?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">-2</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/21691066/why-use-sleep-when-creating-a-posix-timer?lq=1" class="question-hyperlink">Why use sleep when creating a posix timer?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/5437240?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">4
+    </div>
+</a><a href="http://stackoverflow.com/questions/5437240/linux-c-c-timer-signal-handler-in-userspace?rq=1" class="question-hyperlink">Linux C/C++ Timer signal handler in userspace</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/5800342?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/5800342/problem-with-signals-timer-sigev-signal?rq=1" class="question-hyperlink">Problem with signals, timer (SIGEV_SIGNAL)</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6440695?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/6440695/posix-timer-signal-handler-for-timer-freezes?rq=1" class="question-hyperlink">POSIX Timer : Signal Handler for Timer freezes</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6949025?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">20
+    </div>
+</a><a href="http://stackoverflow.com/questions/6949025/how-are-asynchronous-signal-handlers-executed-on-linux?rq=1" class="question-hyperlink">How are asynchronous signal handlers executed on Linux?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/9008330?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/9008330/posix-timers-and-posix-signals-handling?rq=1" class="question-hyperlink">POSIX timers and POSIX signals handling</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/10392429?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/10392429/non-blocking-timer-in-linux-user-space-in-c?rq=1" class="question-hyperlink">Non blocking timer in linux user space (in C)</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/15399802?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">3
+    </div>
+</a><a href="http://stackoverflow.com/questions/15399802/posix-timer-runs-at-twice-the-expected-frequency?rq=1" class="question-hyperlink">POSIX timer runs at twice the expected frequency</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/16543882?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/16543882/is-using-timers-signals-in-c-static-libraries-bad-practice?rq=1" class="question-hyperlink">Is using timers/signals in c static libraries bad practice?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/19758101?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/19758101/signal-handler-to-stop-timer-in-c?rq=1" class="question-hyperlink">Signal Handler to stop Timer in C</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/19782203?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/19782203/starting-multiple-timers-and-know-which-one-has-ended-in-c?rq=1" class="question-hyperlink">Starting multiple timers and know which one has ended in C</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/21835/most-creative-way-to-display-42" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Most creative way to display 42
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/34163/how-can-i-effectively-drop-clues-of-corruption-in-my-campaigns" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I effectively drop clues of corruption in my campaigns?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/34170/can-you-heal-yourself-at-0-hp" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can you heal yourself at 0 HP?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/162046/center-table-by-end-of-cell" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Center table by end of cell
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/52336/why-is-the-mouse-cursor-slightly-tilted-and-not-straight" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is the mouse cursor slightly tilted and not straight?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/687337/why-do-you-need-to-use-the-chain-rule-in-differentiation-of-ln" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do you need to use the chain rule in differentiation of ln?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/21831/program-that-creates-larger-versions-of-itself-quine-variant" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Program that creates larger versions of itself (quine-variant)
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/17347/cv-for-leaving-academia-after-phd" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    CV for leaving academia after PhD
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/100444/why-is-the-moment-of-inertia-for-a-hollow-sphere-higher-than-a-uniform-sphere" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is the moment of inertia for a hollow sphere higher than a uniform sphere?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/21975334/schrodingers-bitmask" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Schrödinger's Bitmask?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/21114/weirdest-way-to-produce-a-stack-overflow" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Weirdest way to produce a stack overflow
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/157410/do-steam-codes-need-a-physical-disc" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do Steam codes need a physical disc?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/687975/difference-of-consecutive-cubes-never-divisible-by-5" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Difference of consecutive cubes never divisible by 5.
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/116623/xy-unix-trick-for-all-instances-in-last-command" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    ^x^y unix trick for all instances in last command?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/162067/make-the-pattern-of-a-def-depend-on-another-macro" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Make the pattern of a \def depend on another macro
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/687220/why-is-there-antagonism-towards-extended-real-numbers" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is there antagonism towards extended real numbers?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/21571/generate-an-understandable-sentence" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Generate an understandable sentence
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/52115/dont-understand-how-my-mums-gmail-account-was-hacked" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Don't understand how my mum's Gmail account was hacked
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/21982768/stdofstreamwrite-adds-characters" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    std::ofstream::write adds characters
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/100443/does-electron-in-wave-form-have-mass" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does electron in wave form have mass?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/50660/why-did-early-american-publications-of-a-clockwork-orange-omit-the-21st-chapter" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why did early American publications of A Clockwork Orange omit the 21st chapter?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/17232/is-doing-two-phds-a-good-path" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is doing two PHDs a good path?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/19600/should-i-inform-my-manager-about-a-potential-job-offer-when-the-company-is-plann" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Should I inform my manager about a potential job offer when the company is planning layoffs?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/116640/what-is-maximum-ram-supportable-by-linux" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is maximum RAM supportable by Linux?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/5740954" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/5740954/ivc/1fad');});
+</script>
+<noscript>
+    <div><img src="/posts/5740954/ivc/1fad" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-c</div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/about">about</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                        <a href="http://stackoverflow.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MjAsImNtIjo5NTQsImNoIjoxMTc4LCJjciI6Mjc3NiwiZG0iOjQsImZjIjoyODYyLCJmbCI6Mjc1MSwibnciOjIyLCJydiI6MCwicHIiOjExNSwic3QiOjAsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2Fib3V0L2NvbnRhY3QiLCJyZSI6MX0&amp;s=hRods5B22XvRBwWIwtIMekcyNF8">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Answers</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackoverflow.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Overflow</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.2.24.1391
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('c,linux,timer,signals');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        
+        ga('set', 'dimension2', '|c|linux|timer|signals|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>            
+    
+</body></html>

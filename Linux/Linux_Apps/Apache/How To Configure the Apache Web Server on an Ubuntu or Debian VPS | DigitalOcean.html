@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html class="wf-proximanova-i4-active wf-proximanova-i6-active wf-proximanova-i7-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-active m-pikabu-transitions m-pikabu-translate3d"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>How To Configure the Apache Web Server on an Ubuntu or Debian VPS | DigitalOcean</title>
+
+<meta name="description" content="What is Apache Apache is the most popular web server on the internet. It is used to serve more than half of all active websites. 	 Although there are many viable web servers that will serve your content, it is helpful to understand how Apache works be">
+<meta name="keywords" content="Ubuntu Apache Getting Started Debian MySQL PHP">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="How To Configure the Apache Web Server on an Ubuntu or Debian VPS | DigitalOcean">
+<meta name="twitter:description" content="What is Apache Apache is the most popular web server on the internet. It is used to serve more than half of all active websites. 	 Although there are many viable web servers that will serve your content, it is helpful to understand how Apache works be">
+
+<meta name="og:title" content="How To Configure the Apache Web Server on an Ubuntu or Debian VPS | DigitalOcean">
+<meta name="og:description" content="What is Apache Apache is the most popular web server on the internet. It is used to serve more than half of all active websites. 	 Although there are many viable web servers that will serve your content, it is helpful to understand how Apache works be">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/ubuntu-67144c456aaf900139da0a121a33e692.png">
+
+    <link href="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/application-70356306801f52ee22c29cbfd9c3e728.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="0CWn8mOLxrlgRY4NByw3MR2gXiom5xnqphU3dZRxw6w=" name="csrf-token">
+    <script type="text/javascript" async="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/5850.js"></script><script src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/widgets.js" async="" id="twitter-wjs"></script><script src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link href="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/d.css" rel="stylesheet"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26573244-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  /* <![CDATA[ */
+  var google_conversion_id = 1010666955;
+  var google_conversion_language = "en";
+  var google_conversion_format = "3";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "g5d3CM2C9QIQy5v24QM";
+  var google_conversion_value = 0;
+  /* ]]> */
+</script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 80%;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 80%;
+}</style><script src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/roundtrip.js" type="text/javascript" async="true"></script><script src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/4IDGVTPEAFC4TM2QKYNQ53" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline;"><img style="border-style:none;" alt="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/out_003.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/out_002.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/out_004.gif" height="1" width="1">
+<img alt="" style="display:none" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/tr.gif" height="1" width="1"><img style="border-style:none;" alt="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/a.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/out.gif" height="1" width="1">
+<img src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/seg.gif" height="1" width="1">
+</div></head>
+  <body data-twttr-rendered="true" class="">
+      <div style="display: block; bottom: 0px; position: fixed;" id="table-of-contents" class="hide-on-pikabu tocify">
+  <h3 id="toc-trigger">
+    <a href="#">
+      Contents
+      <span class="icon-navicon"></span>
+    </a>
+  </h3>
+<ul style="display: none;" class="tocify-header" id="tocify-header0"><li data-unique="HowtoInstallApacheonUbuntuandDebian" class="tocify-item tocify-focus"><a>How to Install Apache on Ubuntu and Debian</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header1"><li data-unique="TheApacheFileHierarchyinUbuntuandDebian" class="tocify-item"><a>The Apache File Hierarchy in Ubuntu and Debian</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header2"><li data-unique="LookingattheApache2.confFile" class="tocify-item"><a>Looking at the Apache2.conf File</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header3"><li data-unique="GlobalConfigurationSection" class="tocify-item"><a>Global Configuration Section</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header4"><li data-unique="ExploringtheDefaultVirtualHostFile" class="tocify-item"><a>Exploring the Default Virtual Host File</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header5"><li data-unique="EnablingSitesandModulesinApache" class="tocify-item"><a>Enabling Sites and Modules in Apache</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header6"><li data-unique="Conclusion" class="tocify-item"><a>Conclusion</a></li></ul></div>
+
+
+
+    <div style="width: auto;" class="m-pikabu-viewport">
+      <div class="mobile-nav">
+  <div class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    <div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="/community/search" id="search" method="get"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>    
+    
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    <form accept-charset="UTF-8" action="/community/search" data-remote="true" id="search" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+  <input id="query" name="query" placeholder="Search the community" type="text">
+  <input id="dropdown" name="dropdown" value="true" type="hidden">
+
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button></form>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          <div class="flash-container"></div>
+          
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+
+      <p class="sidebar-avatar">
+        
+      </p>
+
+      <p class="sidebar-author">Justin Ellingwood</p>
+
+
+    <p class="sidebar-date">
+        Published
+        Aug  7, 2013
+    </p>
+      <p class="sidebar-date updated-at">Updated Jun 16, 2014</p>
+
+    <p class="sidebar-difficulty">
+      <span class="difficulty-level Beginner">Beginner</span>
+    </p>
+
+
+    <ul class="social-sharing">
+  <li class="shareBtn sbMain">
+    <a href="#">
+      <span class="sIcon icon-share"></span>  
+      SHARE
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS&amp;url=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps&amp;t=How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+  </div>
+
+  <div class="section-content content">
+
+    <h1 class="content-title">How To Configure the Apache Web Server on an Ubuntu or Debian VPS</h1>
+
+    <div class="tut-meta">
+        <div class="content-tags">
+          <span class="meta-label">Tagged In: </span>
+          <a href="https://www.digitalocean.com/community/tags/ubuntu">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/apache">Apache</a>, <a href="https://www.digitalocean.com/community/tags/getting-started">Getting Started</a>, <a href="https://www.digitalocean.com/community/tags/debian">Debian</a>, <a href="https://www.digitalocean.com/community/tags/mysql">MySQL</a>, <a href="https://www.digitalocean.com/community/tags/php">PHP</a>
+        </div>
+
+      <div class="feedable-info">
+          <span class="meta-label">Author:</span>
+          Justin Ellingwood
+          <span>•</span>
+
+          <span class="meta-label">Published:</span>
+          Aug  7, 2013
+
+          <span>•</span>
+          <span class="meta-label">Updated:</span>
+          Jun 16, 2014
+      </div>
+    
+      <ul class="social-sharing small-share">
+  <li class="shareBtn sbMain">
+    <a href="#">
+      <span class="sIcon icon-share"></span>  
+      SHARE
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS&amp;url=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps&amp;t=How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    
+
+    <div class="content-body tutorial-content">
+        <h3>What is Apache?</h3>
+
+<p>Apache is the most popular web server on the internet.  It is used to serve more than half of all active websites.</p>
+	
+<p>Although there are many viable web servers that will serve your 
+content, it is helpful to understand how Apache works because of its 
+ubiquity.</p>
+	
+<p>In this article, we will examine some general configuration files and
+ options that can be controlled within them.  This article will follow 
+the Ubuntu/Debian layout of Apache files, which is different from how 
+other distributions build the configuration hierarchy.</p>
+
+<div data-unique="HowtoInstallApacheonUbuntuandDebian" name="HowtoInstallApacheonUbuntuandDebian"></div><h2>How to Install Apache on Ubuntu and Debian</h2>
+
+<p>If you do not already have Apache installed, you can do so now by issuing the following commands:</p>
+	
+<pre>sudo apt-get update
+sudo apt-get install apache2</pre>
+
+<p>This is all that is necessary to have a working web server.  If you 
+visit your VPS's IP address in a web browser, you will get the default 
+Apache index page:</p>
+	
+<pre>your_domain_name_or_ip_address</pre>
+
+<pre>It works!
+This is the default web page for this server.
+The web server software is running but no content has been added, yet.</pre>
+
+<div data-unique="TheApacheFileHierarchyinUbuntuandDebian" name="TheApacheFileHierarchyinUbuntuandDebian"></div><h2>The Apache File Hierarchy in Ubuntu and Debian</h2>
+
+<p>On Ubuntu and Debian, Apache keeps its main configuration files within the "/etc/apache2" folder:</p>
+	
+<pre>cd /etc/apache2
+ls -F</pre>
+<pre>apache2.conf  envvars     magic            mods-enabled/  sites-available/
+conf.d/       httpd.conf  mods-available/  ports.conf     sites-enabled/</pre>
+
+<p>There are a number of plain text files and some sub-directories in 
+this directory.  These are some of the more useful locations to be 
+familiar with:</p>
+	
+<ul>
+<li><strong>apache2.conf</strong>: This is the main configuration file 
+for the server.  Almost all configuration can be done from within this 
+file, although it is recommended to use separate, designated files for 
+simplicity.  This file will configure defaults and be the central point 
+of access for the server to read configuration details.</li>
+
+<li><strong>ports.conf</strong>: This file is used to specify the ports 
+that virtual hosts should listen on.  Be sure to check that this file is
+ correct if you are configuring SSL.</li>
+
+<li><strong>conf.d/</strong>: This directory is used for controlling 
+specific aspects of the Apache configuration.  For example, it is often 
+used to define SSL configuration and default security choices.</li>
+
+<li><strong>sites-available/</strong>: This directory contains all of 
+the virtual host files that define different web sites.  These will 
+establish which content gets served for which requests.  These are 
+available configurations, not active configurations.</li>
+
+<li><strong>sites-enabled/</strong>: This directory establishes which 
+virtual host definitions are actually being used.  Usually, this 
+directory consists of symbolic links to files defined in the 
+"sites-available" directory.</li>
+
+<li><strong>mods-[enabled,available]/</strong>: These directories are 
+similar in function to the sites directories, but they define modules 
+that can be optionally loaded instead.</li>
+</ul>
+
+<p>As you can see, Apache configuration does not take place in a single 
+monolithic file, but instead happens through a modular design where new 
+files can be added and modified as needed.</p>
+
+
+
+
+
+<div data-unique="LookingattheApache2.confFile" name="LookingattheApache2.confFile"></div><h2>Looking at the Apache2.conf File</h2>
+
+<p>The main configuration details for your Apache server are held in the "/etc/apache2/apache2.conf" file.</p>
+	
+<p>This file is divided into three main sections: configuration for the 
+global Apache server process, configuration for the default server, and 
+configuration of Virtual Hosts.</p>
+	
+<p>In Ubuntu and Debian, the majority of the file is for global 
+definitions, and the configuration of the default server and virtual 
+hosts is handled at the end, by using the "Include ..." directive.</p>
+	
+<p>The "Include" directive allows Apache to read other configuration 
+files into the current file at the location that the statement appears. 
+ The result is that Apache dynamically generates an overarching 
+configuration file on startup.</p>
+	
+<p>If you scroll to the bottom of the file, there are a number of 
+different "Include" statements.  These load module definitions, the 
+ports.conf document, the specific configuration files in the "conf.d/" 
+directory, and finally, the Virtual Host definitions in the 
+"sites-enabled/" directory.</p>
+	
+<p>We will focus on the first part of the file to learn how Apache defines its global settings.</p>
+
+
+<div data-unique="GlobalConfigurationSection" name="GlobalConfigurationSection"></div><h2>Global Configuration Section</h2>
+
+<p>This section is used to configure some options that control how Apache works as a whole.</p>
+	
+<p>There are some interesting options you may want to modify in this section:</p>
+	
+<h3>Timeout</h3>
+
+<p>By default, this parameter is set to "300", which means that the server has a maximum of 300 seconds to fulfill each request.</p>
+	
+<p>This is probably too high for most set ups and can safely be dropped to something between 30 and 60 seconds.</p>
+	
+<h3>KeepAlive</h3>
+
+<p>This option, if set to "On", will allow each connection to remain open to handle multiple requests from the same client.</p>
+	
+<p>If this is set to "Off", each request will have to establish a new 
+connection, which can result in significant overhead depending on your 
+setup and traffic situation.</p>
+
+<h3>MaxKeepAliveRequests</h3>
+
+<p>This controls how many separate request each connection will handle 
+before dying.  Keeping this number high will allow Apache to serve 
+content to each client more effectively.</p>
+	
+<p>Setting this value to 0 will allow Apache to serve an unlimited amount of request for each connection.</p>
+	
+<h3>KeepAliveTimeout</h3>
+
+<p>This setting specifies how long to wait for the next request after 
+finishing the last one.  If the timeout threshold is reached, then the 
+connection will die.</p>
+	
+<p>This just means that the next time content is requested, the server 
+will establish a new connection to handle the request for the content 
+that make up the page the client is visiting.</p>
+
+<h3>MPM Configuration</h3>
+
+<p>The next section specifies the configuration of the MPM 
+(Multi-Processing Module) options.  You can cross-reference which 
+section your Apache installation was compiled with by exiting into the 
+terminal and typing:</p>
+
+<pre>apache2 -l</pre>
+
+<pre>Compiled in modules:
+  core.c
+  mod_log_config.c
+  mod_logio.c
+  prefork.c
+  http_core.c
+  mod_so.c</pre>
+
+<p>As you can see, in this server, "prefork.c" is a module that was 
+compiled in and is also in the "apache2.conf" file.  Your installation 
+may have multiple to choose from, but only one can be selected.</p>
+	
+<p>You can adjust the configuration of the prefork MPM in the appropriate section.</p>
+
+
+<div data-unique="ExploringtheDefaultVirtualHostFile" name="ExploringtheDefaultVirtualHostFile"></div><h2>Exploring the Default Virtual Host File</h2>
+
+<p>The default Virtual Host declaration can be found in a file called "default" in the "sites-available" directory.</p>
+	
+<p>We can learn about the general format of a Virtual Host file by examining this file.  Open the file with the following command:</p>
+	
+<pre>sudo nano /etc/apache2/sites-available/default</pre>
+
+<pre>&lt;VirtualHost *:80&gt;
+        ServerAdmin webmaster@localhost
+
+        DocumentRoot /var/www
+        &lt;Directory /&gt;
+                Options FollowSymLinks
+                AllowOverride None
+        &lt;/Directory&gt;
+        &lt;Directory /var/www/&gt;
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order allow,deny
+                allow from all
+        &lt;/Directory&gt;
+. . .</pre>
+
+<p>The default Virtual Host is configured to handle any request on port 
+80, the standard http port.  This is defined in the declaration header 
+where it says "*:80", meaning port 80 on any interface.</p>
+	
+<p>This does not mean that it will necessarily handle each request to 
+the server on this port however.  Apache uses the most specific Virtual 
+Host definition that matches the request.  This means that if there was a
+ more specific definition, it could supersede this definition.</p>
+
+
+<h3>Virtual Host Top Level Configuration</h3>
+	
+<p>These options are set within the Virtual Host definition outside of 
+any other lower level sub-declaration.  They apply to the whole Virtual 
+Host.</p>
+	
+<p>The "ServerAdmin" option specifies a contact email that should be used when there are server problems.</p>
+	
+<p>This can be inserted into an error page if you have "ServerSignature"
+ set to "Email" in the "/etc/apache2/conf.d/security" file, so make sure
+ you are willing to receive the mail if you adjust that setting.</p>
+	
+<p>If we were using this as a template for other Virtual Host 
+definitions, we would want to add a "ServerName" definition that 
+specifies the domain name or IP address that this request should handle.
+  This is the option that would add specificity to the Virtual Host, 
+allowing it to trump the default definition if it matches the ServerName
+ value.</p>
+	
+<p>You can also make the Virtual Host apply to more than one name by 
+using the "ServerAlias" definition. This provide alternate paths to get 
+to the same content.  A good use-case for this is adding the same 
+domain, preceded by "www".</p>
+	
+<p>The "DocumentRoot" option specifies where the content that is 
+requested for this Virtual Host will be located.  The default Virtual 
+Host is set up to serve content out of the "/var/www" directory on 
+Ubuntu.</p>
+	
+<h3>Directory Definitions</h3>
+
+<p>Within the Virtual Host definition, there are definitions for how the
+ server handles different directories within the file system.  Apache 
+will apply all of these directions in order from shortest to longest, so
+ there is again a chance to override previous options.</p>
+	
+<p>The first directory definition applies rules for the "/", or root, 
+directory.  This will provide the baseline configuration for your 
+Virtual Host, as it applies to all files served on the file system.</p>
+	
+<p>By default, Ubuntu does not set up any access restrictions to the 
+filesystem.  Apache recommends that you add some default access 
+restrictions.  You can modify this like so:</p>
+	
+<pre>&lt;Directory /&gt;
+	Options FollowSymLinks
+	AllowOverride None
+	Order Deny,Allow
+	Deny from All
+&lt;/Directory&gt;</pre>
+
+<p>This will deny access to all content unless specified otherwise in subsequent directory definitions.</p>
+	
+<p>The next directory definition is for the document root, so it 
+specifies the "allow from all" option that overrides the "/" option for 
+this directory.</p>
+	
+<p>The "AllowOverride" option is used to decide whether an ".htaccess" 
+file can override settings if it is placed in the content directory.  
+This is not allowed by default, but can be useful to enable in a variety
+ of circumstances.</p>
+	
+<h3>Alias and ScriptAlias Statements</h3>
+	
+<p>Directory definitions are sometimes preceded by "Alias" or "ScriptAlias" statements.  Alias maps a url path to a directory path.</p>
+	
+<p>ScriptAlias operates in the same way, but is used to define directories that will have executable components in them.</p>
+	
+<p>For instance, this line in a Virtual Host that handles request to 
+"example.com" would allow access to content within "/path/to/content/" 
+by navigating to "example.com/content/":</p>
+	
+<pre>Alias /content/ /path/to/content/</pre>
+
+<p>Following the alias, you should remember to define the directory with access privileges as discussed in the previous section.</p>
+
+
+<div data-unique="EnablingSitesandModulesinApache" name="EnablingSitesandModulesinApache"></div><h2>Enabling Sites and Modules in Apache</h2>
+
+<p>Once you have a Virtual Host file that meets your requirements, you 
+can use the tools included with Apache to transition them into live 
+sites.</p>
+	
+<p>To automatically create a symbolic link in the "sites-enabled" 
+directory to an existing file in the "sites-available" directory, issue 
+the following command:</p>
+	
+<pre>sudo a2ensite <span class="highlight">virtual_host_file_name</span></pre>
+
+<p>After enabling a site, issue the following command to tell Apache to 
+re-read its configuration files, allowing the change to propagate:</p>
+
+<pre>sudo service apache2 reload</pre>
+
+<p>There is also a companion command for disabling a Virtual Host.  It 
+operates by removing the symbolic link from the "sites-enabled" 
+directory:</p>
+
+<pre>sudo a2dissite <span class="highlight">virtual_host_file_name</span></pre>
+
+<p>Again, reload the configuration to make the change happen:</p>
+
+<pre>sudo service apache2 reload</pre>
+
+<p>Modules can be enabled or disabled by using the "a2enmod" and 
+"a2dismod" commands respectively.  They work in the same way as the 
+"site" versions of these commands.</p>
+	
+<p>Remember to reload your configuration changes after modules have been enabled or disabled as well.</p>
+
+
+<div data-unique="Conclusion" name="Conclusion"></div><h2>Conclusion</h2>
+
+<p>We have gone over some basic Apache configuration files.  Apache is 
+versatile and very modular, so configuration needs will be different 
+depending on your setup.</p>
+	
+<p>You should have a good understanding of what the main configuration 
+files are used for and how they interact with each other.  If you need 
+to know about specific configuration options, the provided files are 
+well commented and <a href="http://httpd.apache.org/docs/">Apache provides excellent documentation</a>.</p>
+	
+<p>Hopefully, the configuration files will not be as intimidating now, 
+and you feel more comfortable experimenting and modifying to suit your 
+needs.</p>
+
+
+<div class="author">By Justin Ellingwood</div>
+
+      <div class="clear"></div>
+      
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+    
+
+      <div class="related">
+    <h2>Related Tutorials</h2>
+
+    <ul>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-implement-ssl-termination-with-haproxy-on-ubuntu-14-04">How To Implement SSL Termination With HAProxy on Ubuntu 14.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/adding-logstash-filters-to-improve-centralized-logging">Adding Logstash Filters To Improve Centralized Logging</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-nsd-an-authoritative-only-dns-server-on-ubuntu-14-04">How To Use NSD, an Authoritative-Only DNS Server, on Ubuntu 14.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-an-authoritative-only-dns-server-on-ubuntu-14-04">How To Configure Bind as an Authoritative-Only DNS Server on Ubuntu 14.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04">How To Configure Bind as a Caching or Forwarding DNS Server on Ubuntu 14.04</a></li>
+    </ul>
+  </div>
+
+
+    <div class="content-comments">
+      <div class="comments-header">
+        <h4><span class="Comments">8 Comments</span></h4>
+      </div>
+      <div class="tutorial commentable" id="tutorial_453">
+  <div class="comments">
+  <ul class="response-list">
+      <li class="response   " id="comment_3402">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3402" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="lewisgoddard" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/29e9c619e35ae079cb8857c4c0200090.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">lewisgoddard</span>
+  
+  <span class="response-time">August 10, 2013</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">I wonder why not 
+tell people they can get rid of the warning about the Servers domain 
+name just by adding one line to any of the apache config files. (i use 
+the one that comes empty)
+
+The error that reads "[warning]: Could not determine the server's fully 
+qualified domain name, using 127.0.0.1 for ServerName"
+
+Just run:
+sudo nano /etc/apache2/httpd.conf
+
+Then add:
+ServerName YOUR.IP.ADDRESS.HERE</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3402_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_3817">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3817" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="rajeev1204" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/55cc3d9967f67eb20ae42ca179ea341d.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">rajeev1204</span>
+  
+  <span class="response-time">August 24, 2013</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">This tutorial assumes everyone is using the MPM worker module. What about MPM Prefork which is default in Ubuntu?</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3817_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_3818">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3818" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="rajeev1204" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/55cc3d9967f67eb20ae42ca179ea341d.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">rajeev1204</span>
+  
+  <span class="response-time">August 24, 2013</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Ah no it doesnt. In fact some MPM configuration options would be a  good addition to this tutorial.
+
+</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3818_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_10274">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_10274" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="mike.voermans" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/747020301e8225e225e426bb120a1d05.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">mike.voermans</span>
+  
+  <span class="response-time">February 22, 2014</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Under directory definitions you have an error in the sample. It should end with ``. Just an FYI</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_10274_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_10275">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_10275" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="mike.voermans" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/747020301e8225e225e426bb120a1d05.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">mike.voermans</span>
+  
+  <span class="response-time">February 22, 2014</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Uhh.. ok, so no tags. Lets just say your Directory tag doesn't close? Hows that.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_10275_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_10286">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_10286" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="Kamal Nasser" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">Kamal Nasser</span>
+  
+  <span class="response-time">February 22, 2014</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@mike.voermans: Tags are stripped off, you can type &gt; by replacing it with <strong>&amp;</strong><strong>gt;</strong> and &lt; by replacing it with <strong>&amp;</strong><strong>gt;</strong>.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_10286_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_12821">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_12821" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="online" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/2de39cfb0cbda06ebb6c9cb532b0cd16.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">online</span>
+  
+  <span class="response-time">May  6, 2014</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">I had to add a slash to  otherwise Apache complained...</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_12821_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+      <li class="response   " id="comment_12845">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_12845" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="Andrew SB" class="avatar avatar-small" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/a6051c05ce7dca251d644a1404210973.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">Andrew SB</span>
+  
+  <span class="response-time">May  6, 2014</span>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Ian Jones: Right. Thanks for catching that! I've fixed it in the article.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_453">Reply</a> 
+    -->
+
+    
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_12845_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+  </ul>
+</div>
+
+
+  <div id="reply_anchor_tutorial_453"></div>
+
+    <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice"><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a> to comment</div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input disabled="disabled" name="utf8" value="✓" type="hidden"></div>
+    <div style="height: auto;" class="meltdown_wrap"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li data-original-title="Bold" title="" class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled"><span unselectable="on">B</span></li><li data-original-title="Italics" title="" class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled"><span unselectable="on">I</span></li><li data-original-title="Header 1" title="" class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled"><span unselectable="on">H1</span></li><li data-original-title="Header 2" title="" class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled"><span unselectable="on">H2</span></li><li data-original-title="Header 3" title="" class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled"><span unselectable="on">H3</span></li><li data-original-title="Unordered List" title="" class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled"><span unselectable="on">UL</span></li><li data-original-title="Ordered List" title="" class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled"><span unselectable="on">OL</span></li><li data-original-title="Link" title="" class="meltdown_control-link meltdown_control meltdown_controlbutton disabled"><span unselectable="on">Link</span></li><li data-original-title="Code" title="" class="meltdown_control-code meltdown_control meltdown_controlbutton disabled"><span unselectable="on">Code</span></li><li data-original-title="Highlight" title="" class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled"><span unselectable="on">Highlight</span></li><li data-original-title="Table" title="" class="meltdown_control-table meltdown_control meltdown_controlbutton disabled"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li data-original-title="Toggle Preview" title="" class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;" disabled="disabled" class="js-comment-content meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..."></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+    <button disabled="disabled" type="submit" id="submit-comment" data-disable-with="Submitting...">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+</div>
+    </div>
+
+    <div id="creative-commons">
+      <div class="inner">
+        <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/88x31.png"></a><br>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+      </div>
+    </div>
+  </div>
+</div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/overview">Overview</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">2,094,681</span> Droplets Launched
+    </div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+    <script src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/application-7170e0b26f9f8124eaeafd63f53fc5e0.js"></script>
+    
+    <script type="text/javascript" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/conversion.js">
+</script><img alt="" src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/a_002.gif" border="0" height="1" width="1">
+<noscript>
+<div style="display:hidden;position:absolute;top:-1000px;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1010666955/?value=0&amp;label=g5d3CM2C9QIQy5v24QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<script src="How%20To%20Configure%20the%20Apache%20Web%20Server%20on%20an%20Ubuntu%20or%20Debian%20VPS%20%7C%20DigitalOcean_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid('l4etp');</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l4etp&p_id=Twitter" />
+<img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l4etp&p_id=Twitter" />
+</noscript>
+
+<script>
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+</script>
+<script type="text/javascript">
+  adroll_adv_id = "S4BPDI4QWNB57PEKEZSLIP";
+  adroll_pix_id = "4IDGVTPEAFC4TM2QKYNQ53";
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+</script>
+<script>
+  setTimeout(function(){var a=document.createElement("script");
+  var b=document.getElementsByTagName("script")[0];
+  a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0020/5850.js?"+Math.floor(new Date().getTime()/3600000);
+  a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+  
+<textarea id="autosizejs" class="autosizejs" tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px none; padding: 0px; -moz-box-sizing: content-box; word-wrap: break-word; height: 0px ! important; min-height: 0px ! important; overflow: hidden; transition: none 0s ease 0s ; font-family: 'proxima-nova',sans-serif; font-size: 18px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 23px; width: 743px;">Leave a comment...
+</textarea></body></html>

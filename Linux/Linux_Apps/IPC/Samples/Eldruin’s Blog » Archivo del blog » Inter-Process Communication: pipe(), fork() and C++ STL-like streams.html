@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11"><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/ga_002.js" async="" type="text/javascript" id="shr-google-analytics"></script><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/shareaholic-analytics.js" async="" type="text/javascript" id="shr-analytics"></script><script async="" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/cbgapi.loaded_1"></script><script async="" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/cbgapi.loaded_0"></script><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/data.html" async=""></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="WordPress 3.5.2">
+<link rel="stylesheet" href="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/A_003.css" type="text/css" media="screen">
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://blog.eldruin.com/en/feed/atom/">
+<link rel="alternate" type="application/rss+xml" title="Eldruin’s Blog Feed RSS" href="http://blog.eldruin.com/en/feed/">
+<link rel="pingback" href="http://blog.eldruin.com/xmlrpc.php">
+<link rel="archives" title="2011" href="http://blog.eldruin.com/en/2011/">
+<link rel="archives" title="2009" href="http://blog.eldruin.com/en/2009/">
+<title>Eldruin’s Blog » Archivo del blog » Inter-Process Communication: pipe(), fork() and C++ STL-like streams</title>
+<link rel="stylesheet" href="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/A_004.css" type="text/css" media="all">
+<script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/shareaholic-analytics.js" async="" type="text/javascript"></script><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/ga.js" async="" type="text/javascript"></script><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">//<![CDATA[
+function $(id){return document.getElementById(id);}
+function setStyleDisplay(id,status){$(id).style.display=status;}
+function switchTab(showPanels,hidePanels,activeTab,activeClass,fadeTab,fadeClass){$(activeTab).className=activeClass;$(fadeTab).className=fadeClass;var panel,panelList;panelList=showPanels.split(',');for(var i=0;i<panelList.length;i++){var panel=panelList[i];if($(panel)){setStyleDisplay(panel,'block');}}
+panelList=hidePanels.split(',');for(var i=0;i<panelList.length;i++){panel=panelList[i];if($(panel)){setStyleDisplay(panel,'none');}}}
+window['TabJS']={};window['TabJS']['switchTab']=switchTab;
+//]]></script>
+<script type="text/javascript">//<![CDATA[
+var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-4003933-4']);
+//]]></script><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/custom_se_async.js" type="text/javascript"></script>
+<script type="text/javascript">_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();</script>
+<link rel="alternate" type="application/rss+xml" title="Eldruin's Blog » Inter-Process Communication: pipe(), fork() and C++ STL-like streams Comments Feed" href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/feed/">
+<link rel="stylesheet" id="codecolorer-css" href="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/A_002.css" type="text/css" media="screen">
+<link rel="stylesheet" id="wp_dlmp_styles-css" href="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/A.css" type="text/css" media="all">
+<script type="text/javascript">//<![CDATA[
+var SHRSB_Globals={"src":"http:\/\/blog.eldruin.com\/wp-content\/plugins\/sexybookmarks\/spritegen_default","perfoption":"1","twitter_template":"%24%7Btitle%7D+-+%24%7Bshort_link%7D","locale":"0","shortener":"google","shortener_key":"","pubGaSocial":0,"pubGaKey":""};
+//]]></script><script type="text/javascript" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/jquery.js"></script>
+<script type="text/javascript">//<![CDATA[
+addComment={moveForm:function(d,f,i,c){var m=this,a,h=m.I(d),b=m.I(i),l=m.I("cancel-comment-reply-link"),j=m.I("comment_parent"),k=m.I("comment_post_ID");if(!h||!b||!l||!j){return}m.respondId=i;c=c||false;if(!m.I("wp-temp-form-div")){a=document.createElement("div");a.id="wp-temp-form-div";a.style.display="none";b.parentNode.insertBefore(a,b)}h.parentNode.insertBefore(b,h.nextSibling);if(k&&c){k.value=c}j.value=f;l.style.display="";l.onclick=function(){var n=addComment,e=n.I("wp-temp-form-div"),o=n.I(n.respondId);if(!e||!o){return}n.I("comment_parent").value="0";e.parentNode.insertBefore(o,e);e.parentNode.removeChild(e);this.style.display="none";this.onclick=null;return false};try{m.I("comment").focus()}catch(g){}return false},I:function(a){return document.getElementById(a)}};
+//]]></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.eldruin.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.eldruin.com/wp-includes/wlwmanifest.xml">
+<link rel="prev" title="Synfig developer!" href="http://blog.eldruin.com/en/2009/12/synfig-developer/">
+<meta name="generator" content="WordPress 3.5.2">
+<link rel="canonical" href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/">
+<link rel="shortlink" href="http://blog.eldruin.com/?p=424">
+<style type="text/css">.download-info .download-button{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAkCAMAAAB19g5sAAACwVBMVEWYVB2NUyyNVjKTViqTViqTViqTViqRWzmnXBynXBywXxihXyu3ZBi3ZBi3ZBiqZCqqZCqqZCq4aye4aye5bzKXZkeXZkeXZkeXZkedb1KmcEqhdlyhdlyle2HOZADAaxrPdBjXbADXbADaeBfaeBfaeBfaeBfaeBfCbSLKdSTKdSTKfDvKfDvsdwPsdwPsdwPsdwPsdwPjfBbjfBbydgDydgDydgDBf0u/glauiXO0iW20iW2/k3bXgzbXgzbXgzbsgAzrgxPrgxPrgxPrgxPrgxP2gwb2gwb2gwb2gwb2gwb6jRH6jRH6jRH6jRH6jRH6jRH6jRH+mR3+mR3vhCnqjTXqjTXskDvskDv2iyj2iyj2iyj2iyj2iyjxjjD+nSr+nSr+nSr+nSr4ljX4ljX4ljX4ljX4ljX4ljX+ojrNiE/ch0Lch0Lch0LQiVHJk2nOmnTammTRnXfRnXfQoH7kjkHplkrplkrplkrplkr6m0H6m0H6m0HspVz+pkj+pkj+pkj9qVX9qVX9qVX9qVX/sVnqpWjqpWjoqnfoqnfoqnf3qmn3qmn3qmnwrXT/uW75s3b5s3b5s3b5s3a5moi5moi5moi/oI/PpIXEqZnZrIzKsqXKsqXKsqXXvKzXvKzXvKzSvbDhrYbhrYbjsIjjt5bjt5bjt5bjt5bjt5b3uon3uon3uon3uon3uonyv5ThvKDXxLnXxLnXxLnXxLnXxLn7xJf7xJf7xJf7xJftyK3tyK3oybToybToybT3yqb3yqb3yqb3yqbzzbH+06b+06b92LT92LT92LT92LT92LTcy8DgzcHk1Mrk1Mrk1Mrv39X83sL83sL83sLx39Pr4tzr4tz+4sn759b759b759b759b759b759bu5+Pu5+P17OX17OX17OX98uf98uf98uf+/fz+/fz+/fz+/fwAAADTfxRSAAAA63RSTlP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AL+mNlAAAA5dJREFUWMPF171rG0kYBnBFLmISgSFExZ2xk6AmIWyzDNwlXGDVvM10QiFsIxWqdIK7XLi4EJzAhYNB4HNhSO4EAZmoUeOoUSECKWTc+AQR2FiVWFh4iv0r8r67kqwvS4GTnKeYnZ3Znd/MaAzekOel1MyQWnxSnhfylEpv78xIwvh7Z7EppJXyQimV3S5ks+kro41CerEp7GRVKsTrTSdmhYxsYsFhUoVUYc64S4AT2SzDcxa8HLggKx6GrXgQvVw4PQ4/2HwQZJOuFTaKx71UY9cB636eHw/y16CRYb3ozIDfLBfOC5y4hE8GmYCDM/dNmfVc0OfD+Uv49Qw4KrkRuv8NcDR6pZyMRqfC7UEmYBeS7kFkrpsBXlzVtwXYfEmMwxeD7A3BmR7s2zXT3zFz+kaaQ7AZ7zf2a+ZV8FZnkN1J+KPW+Tbwu9b3V35Yv3FP67XwHa1vB8WjR+E7q9H1lVgPjoQ3oqEYv7ga3di4KfsUubke/nU+TNNguZzq2IEsvfRQn+G9jnelOEe1glqLm5/qlMB3a1x3npj6bsvfp5h+KC0lQEZJZBjO+LCxycm5g+zKvSE9agT+hHP9C/C57qJEVXTjzxAUmQr/Fscuuj4cr8GtHwM/6yY6xX3gD81mvY5x2Dpyp6RCE/BHOJqXp/U2YPKm5l7xWM/+xBddkTH3gLjAOZ6J1g38p/c//LS64uBDHNjXujoM20RkNafBbYu7GOaSGJbLKRPAFtekPMO79zjCqxqOqIIvRHJ4GH6+iy4/8gYOrR3Uznhuh9yaInrBMHdcwpQL/lxG4uZoDDbXHDSZ/I0oBuTpCKfn3QzKDtcraPkD+/Aeujzpl3CsFpx68RyHNvCYmQC2bYZtqfFAnXG385pG4FI4vN4SroN/IpGnMgTvNRrk8DGiUZg7frx3q4wTvnkcu+XgkAd4G4m8nYQn5E6MerAdwEHqREWgXHKlxnNAkZp82MZgOoFT4mOc59+l9OQT8C+fRJTLCGDyYerFHJE7Jk3Cbrso9X25qUqNj6lNfGi3pXpBsgU2b2qG9Gd5nJvZQ/tCZiYt1WkwmWdT3D48GjtDcxMcHtL5/vvW4CVrFCaj0XcbBs2E/28E1kOfCn25YQz922/YC/+SsPQY3JObw+4yYCWwNdJiHAIVQy0btiZgpXK5sQYjeT3wRJYBq+8Ff88VJ5VhXDtsqKR8mM+RFw6L54U8byk7OTtJz/sK95oRTEBrftQAAAAASUVORK5CYII=)}.download-info .more-button{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAkCAMAAAB19g5sAAAB+1BMVEUWWncWWncfYX4eZYceZYceZYclaIglaIglaIglaIglaIgjbZMlcZolcZolcZo1bIg1cY46d5k6d5kse6cse6cse6c8faJIe5ZIe5ZIe5ZQfpcqh7Eqh7E0g6wyh7Yyh7Yyh7Yyh7Yyh7Yyh7Y8lb4yjMUyjMUyjMU0kss0kss0kss5mdU5mdU5mdU5mdVYhJtHgaJHgaJHgaJEjblEjblEjblLkrtLkrtYiqlYiqlYiqlRjLFUlrxUlrxUlrxgiJ1mj6Nmj6Njkatim752mKt2mKt2mKt2nrV2nrV2nrV8orl8orlLksBYmcJYmcJGoNxVpt9jn8dopMdopMdopMdopMd3qMZ3qMZ3qMZ3qMaLqLeLqLeLqLeVr72Zsb+Zsb+DqsODqsOKssyKttGKttGKttGZtMSZtMSZtMSZtMSZtMSZvNSZvNSmu8emu8emu8emu8emu8eZwNiZwNiZwNioxNeoxNeoxNeoxNeoxNe4y9e4y9e4y9e4y9e4y9e80N2myeGmyeGzzeC50+W50+W50+W92vHE0tvE0tvE0tvE0tvH2ebH2ebH2ebH2ebH2ebC3fLS3eTS3eTP4OzM4vTX4urX4urX4urX4urZ6fXZ6fXZ6fXZ6fXj6u7j6u7i7fXi7fXq8vjq8vjq8vj7/P37/P37/P37/P0AAADRkYpCAAAAqXRSTlP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8A+297FgAAA1BJREFUWMPll0Fr4kAUx0MDXhLolsAKO/hOFoQcKghhwUCLLQhFce0hh4JStuCl5CJ48aIo6MHLhpqDhyAD75CPuW8mRpNW7bKr7sL+D76XmXnvN29mEhklDG22V8AOLzsMlZCxgtnYI4BvjcPKLDAWKjYzG6ZpFnYKYE/nb4mAzFZYobF/2OHBhC4whZnmXwCbAly43CsCXx5afw1c+HfATDvLZrNnGjstGNTKcCI0rKhwQjBcRFiJvoCTgaEy+UEaVofCTCpwbHD8VJzMhTJKRtpJMQaLmelSBuw8groeWz1pfwFsjCRvfq6cR87ISIBdqcfzXeSa60pr06gc2TLZ/J4XWYJBqrqINO/NV1416gD6eAFG4kXYrlvk0jo0SMS5ZEuwS3kJzkcPvUWs/sr2UuCe43Q59snXVVWHyKqGiNZULQmmMbmArAVgUJchRuigaZvIFHixlGrdZJTIWy5S4Cf67aMHkOl4XjsD8Mn1A++REmX7fv8mAcYcfEVZsX439ad3Olh998u0v46EvPiTKKzAPNKVoigrl6fAVVU983EIFwEuOXoGFeWPOLagyJEvcQ0OfLyHDg4EuI24QHRztxhwfI0jY/BlCsx3gQPfR5yWaPdcTfPwvv460zUCUMMMYLQBv+DUCJBKL5UR61BHLN8izpq1OJLAeQFepV8dHyRw7KbANBFE7zP4OBsMfNpI9abVp6mAhw5Q+jW4hniFgUVgR+wMzPCJwDXYRFJKAq9WGvg7MH+7xzT5DtAKz0jdYoCL8ZTAvjjG5Q2YZuJjV4C/U684GM/R0YsjxSYnwIN34MGWwzWlAtqanr2/payG0aGGMbq6Xk2Anym2LsAPyDO6RssegePIN2DnHdiJ37o1+IXWjrK5bc6tFwyu7ziBH+j4tHgCXEL0QYDhFb3HKT1E4DjyDZiWTOiawNfS8yEFfpZpKYFDm7JwoETj+RjpnRMVdtdgLkrrgi3A1oy6ZhY0o95VpFASbEtcR0h6dhKckhV9k+x63FDf+Y2CemlLZARe521iUk3YCf5zpZaaSvDXWN+GY4NTDc5YYsfOpomxU4C36Chg+C/B+Q/vofmDX1PjPT49mCq2PiYfAcwscTE//R6Li3kYWuzkssLwJ4u3efr7mqnzAAAAAElFTkSuQmCC)}</style>
+<meta property="shareaholic:site_name" content="Eldruin" s="" blog'="">
+<script type="text/javascript">var icl_lang='en';var icl_home='http://blog.eldruin.com/en/';</script>
+<script type="text/javascript">//<![CDATA[
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){if(oldonload){oldonload();}
+func();}}}
+addLoadEvent(function(){var lhid=document.createElement('input');lhid.setAttribute('type','hidden');lhid.setAttribute('name','lang');lhid.setAttribute('value',icl_lang);src=document.getElementById('searchform');if(src){src.appendChild(lhid);src.action=icl_home;}});function icl_retry_mtr(a){var id=a.getAttribute('id');spl=id.split('_');var loc=location.href.replace(/#(.*)$/,'').replace(/(&|\?)(retry_mtr)=([0-9]+)/g,'').replace(/&nonce=([0-9a-z]+)(&|$)/g,'');if(-1==loc.indexOf('?')){url_glue='?';}else{url_glue='&';}
+location.href=loc+url_glue+'retry_mtr='+spl[3]+'&nonce='+spl[4];return false;}
+//]]></script>
+<meta name="generator" content="WPML ver:2.0.4.1 stt:1,2;0;0;0">
+<style type="text/css">#content{float:left}</style><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/shareaholic.js" async="" type="text/javascript"></script><link rel="stylesheet" media="screen" id="shareaholic-publisher-css" href="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/sprite.css"><style type="text/css">.shareaholic-arrow-down{ position: absolute !important; left:45% !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 6px solid #000000 !important; }.shareaholic-tip-text{font-size:12px !important; line-height:120% !important; background: #000000 !important; color: #ffffff !important; padding: 5px !important; border-radius: 5px !important; -webkit-border-radius:5px; !important; -moz-border-radius:5px; !important}</style><script gapi_processed="true" id="googplusonescript" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/plusone.js" async="">{"parsetags": "explicit"}</script><script async="" data-cfasync="false" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/shareaholic_tools.js" type="text/javascript"></script><link id="recommendations_css" href="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/recommendations.css" type="text/css" rel="stylesheet"><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+<body>
+<div id="base">
+<div id="base2">
+<div id="header">
+<div id="blogtitle"><a href="http://blog.eldruin.com/en/">Eldruin’s Blog</a></div>
+<div id="subtitle">Eldruin’s Blog, a computer and Japan lover</div>
+<a href="http://blog.eldruin.com/en/"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Home" class="home"></a>
+<ul><li class="page_item page-item-377"><a href="http://blog.eldruin.com/en/sound2header-en/">Sound2Header</a></li>
+<li class="page_item page-item-532"><a href="http://blog.eldruin.com/en/about-me/">About me</a></li>
+<li class="page_item page-item-542"><a href="http://blog.eldruin.com/en/oseater-en/">OSEater</a></li>
+<li class="page_item page-item-545"><a href="http://blog.eldruin.com/en/dsmemorizer-en/">DSMemorizer</a></li>
+</ul>
+</div>
+<div id="container"><div id="content">
+<div class="spacer"></div>
+<div id="post-424" class="post-424 post type-post status-publish format-standard hentry category-sin-categoria-en tag-c tag-code tag-ipc tag-stl post">
+<h1 class="title"><a href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/" rel="bookmark" title="Enlace permanente a Inter-Process Communication: pipe(), fork() and C++ STL-like streams">Inter-Process Communication: pipe(), fork() and C++ STL-like streams</a></h1>
+<div class="date">
+Friday, April 22nd, 2011&nbsp;|&nbsp;Autor: <a href="http://blog.eldruin.com/author/admin/" title="Posts by eldruin" rel="author">eldruin</a>	</div>
+<div class="entry">
+<p>I’ve run into some troubles lately trying to communicate processes 
+through C++ STL-like streams with fork() and pipe(), so I’ve created an 
+example of how can this be done in a POSIX environment using the GCC’s 
+libstdc++ (GCC &gt;= 3.4.0).</p>
+<p>The scenario is: A parent process wants to handle another program’s input and output streams, a process-level wrapper.</p>
+<p>So the example is: A parent process forks into another child process.
+ The parent sends the child a message, the child receives it and outputs
+ it to the parent to show the communication works just fine.</p>
+<p>The forked process calls the program we want to control, which in 
+this case is the easiest C++ program ever: Just reads a line from the 
+standard input and outputs a message containing the line just read 
+through the standard output. In addition, another message is sent 
+through the standard error stream.<span id="more-424"></span></p>
+<h4>Controlled program</h4>
+<p>Let’s see the code for the controlled program:</p>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br></div></td><td><div class="cpp codecolorer"><span class="co2">#include &lt;iostream&gt;</span><br>
+<br>
+<span class="kw2">using</span> <span class="kw2">namespace</span> std<span class="sy4">;</span><br>
+<br>
+<span class="kw4">int</span> main<span class="br0">(</span><span class="br0">)</span><br>
+<span class="br0">{</span><br>
+&nbsp; string message<span class="sy4">;</span><br>
+&nbsp; getline<span class="br0">(</span><span class="kw3">cin</span>, message<span class="br0">)</span><span class="sy4">;</span><br>
+<br>
+&nbsp; <span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Program: I've received: "</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp;<span class="sy1">&lt;&lt;</span> <span class="st0">"'"</span> <span class="sy1">&lt;&lt;</span> message&nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">"'"</span><br>
+&nbsp; &nbsp; &nbsp; &nbsp;<span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+&nbsp; <span class="kw3">cerr</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Program: This is the error stream!"</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+&nbsp; <span class="kw1">return</span> <span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span class="sy4">;</span><br>
+<span class="br0">}</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>As you can see, we use the standard input/output streams cin, cout and cerr.</p>
+<h4>Main Program</h4>
+<p>Now let’s see chunks of the main program:</p>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br></div></td><td><div class="cpp codecolorer"><span class="co2">#define CHILD_STDIN_READ pipefds_input[0]</span><br>
+<span class="co2">#define CHILD_STDIN_WRITE pipefds_input[1]</span><br>
+<br>
+<span class="kw4">int</span> pipefds_input<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span>, pipefds_output<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span>, pipefds_error<span class="br0">[</span><span class="nu0">2</span><span class="br0">]</span><span class="sy4">;</span><br>
+<br>
+<span class="co1">// Create the pipes</span><br>
+<span class="co1">// We do this before the fork so both processes will know about</span><br>
+<span class="co1">// the same pipe and they can communicate.</span><br>
+<br>
+pipe_status <span class="sy1">=</span> pipe<span class="br0">(</span>pipefds_input<span class="br0">)</span><span class="sy4">;</span><br>
+<span class="kw1">if</span> <span class="br0">(</span>pipe_status <span class="sy1">==</span> <span class="sy2">-</span><span class="nu0">1</span><span class="br0">)</span><br>
+&nbsp; <span class="br0">{</span><br>
+&nbsp; &nbsp; <span class="kw3">perror</span><span class="br0">(</span><span class="st0">"Error creating the pipe"</span><span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; &nbsp; <span class="kw3">exit</span><span class="br0">(</span><span class="kw2">EXIT_FAILURE</span><span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; <span class="br0">}</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>With the definitions, you won’t mistake the pipe ends.</p>
+<p>We repeat the same process for the pipes for standard output and error.</p>
+<h4>fork() skeleton</h4>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br></div></td><td><div class="cpp codecolorer">pid_t pid<span class="sy4">;</span><br>
+pid <span class="sy1">=</span> fork<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span><br>
+<br>
+<span class="kw1">if</span> <span class="br0">(</span>pid <span class="sy1">==</span> pid_t<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">)</span><br>
+&nbsp; <span class="br0">{</span><br>
+&nbsp; &nbsp; <span class="co1">// Child process</span><br>
+&nbsp; <span class="br0">}</span><br>
+<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">(</span>pid <span class="sy1">&gt;</span> pid_t<span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span class="br0">)</span><br>
+&nbsp; <span class="br0">{</span><br>
+&nbsp; &nbsp; <span class="co1">// Parent</span><br>
+&nbsp; <span class="br0">}</span><br>
+<span class="kw1">else</span><br>
+&nbsp; &nbsp; <span class="co1">// Error: fork failed</span><br>
+<br>
+<span class="co1">// Shared code</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>This is the skeleton for a fork(). When you call fork(), a new 
+process is created in memory and the PID return value is set to two 
+different values in each process.</p>
+<h4>Tying standard streams</h4>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br></div></td><td><div class="cpp codecolorer"><span class="co1">// Child Process</span><br>
+<span class="co1">// Tie the standard input, output and error streams to the</span><br>
+<span class="co1">// appropiate pipe ends</span><br>
+<span class="co1">// The file descriptor 0 is the standard input</span><br>
+<span class="co1">// We tie it to the read end of the pipe as we will use</span><br>
+<span class="co1">// this end of the pipe to read from it</span><br>
+<span class="co1">// Same for the others</span><br>
+dup2 <span class="br0">(</span>CHILD_STDIN_READ,<span class="nu0">0</span><span class="br0">)</span><span class="sy4">;</span><br>
+dup2 <span class="br0">(</span>CHILD_STDOUT_WRITE,<span class="nu0">1</span><span class="br0">)</span><span class="sy4">;</span> <span class="co1">// standard output</span><br>
+dup2 <span class="br0">(</span>CHILD_STDERR_WRITE,<span class="nu0">2</span><span class="br0">)</span><span class="sy4">;</span> <span class="co1">// standard error</span><br>
+<span class="co1">// Close in the child the unused ends of the pipes</span><br>
+close<span class="br0">(</span>CHILD_STDIN_WRITE<span class="br0">)</span><span class="sy4">;</span><br>
+close<span class="br0">(</span>CHILD_STDOUT_READ<span class="br0">)</span><span class="sy4">;</span><br>
+close<span class="br0">(</span>CHILD_STDERR_READ<span class="br0">)</span><span class="sy4">;</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>In each process, we only use one end of the pipes. This is, in the 
+child, we only read from stdin and only write to stdout and stderr. So 
+we close the other ends.</p>
+<p>We do the same in the parent process but don’t need to tie anything this time.</p>
+<h4>exec()</h4>
+<p>In the child, we execute the program to be controlled through <strong>execl()</strong></p>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br></div></td><td><div class="cpp codecolorer"><span class="co1">// Child</span><br>
+<span class="co1">// Execute the program</span><br>
+execl<span class="br0">(</span><span class="st0">"./program"</span>, <span class="st0">"program"</span>, <span class="br0">(</span><span class="kw4">char</span><span class="sy2">*</span><span class="br0">)</span><span class="kw2">NULL</span><span class="br0">)</span><span class="sy4">;</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>When you call exec(), the called program replaces the executing 
+program, so the streams of the called program are still tied to our 
+pipes.</p>
+<h4>Sending messages</h4>
+<p>Everything is set up now! Let’s send messages!</p>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br></div></td><td><div class="cpp codecolorer"><span class="co1">// Parent</span><br>
+string message<span class="sy4">;</span><br>
+<br>
+<span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Parent: I'll send the child a message."</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span><br>
+<br>
+ofdstream in_stream<span class="br0">(</span>CHILD_STDIN_WRITE<span class="br0">)</span><span class="sy4">;</span><br>
+in_stream <span class="sy1">&lt;&lt;</span> <span class="st0">"Hello Child!<span class="es1">\n</span>"</span><span class="sy4">;</span><br>
+<br>
+ifdstream out_stream<span class="br0">(</span>CHILD_STDOUT_READ<span class="br0">)</span><span class="sy4">;</span><br>
+getline<span class="br0">(</span>out_stream, message<span class="br0">)</span><span class="sy4">;</span><br>
+<br>
+<span class="kw3">cout</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Parent: Child just said through stdout: "</span> <span class="sy1">&lt;&lt;</span> endl<br>
+&nbsp; &nbsp; &nbsp;<span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\t</span><span class="es1">\"</span>"</span> <span class="sy1">&lt;&lt;</span> message&nbsp; <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\"</span>"</span> <span class="sy1">&lt;&lt;</span> endl<span class="sy4">;</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>We send the message “Hello Child!” through the write end of the child’s stdin pipe.</p>
+<p>The child process gets it and outputs another message that we read from the read end of the child’s stdout pipe.</p>
+<h4>Pipes I/O&nbsp; with file descriptors using C++ STL streams</h4>
+<p>You can see here two simple functions to read and write strings 
+through pipes using file descriptors and C++ STL-like input/output 
+streams.</p>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;height:300px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br></div></td><td><div class="cpp codecolorer">string read_from_pipe <span class="br0">(</span><span class="kw4">int</span> file_descriptor<span class="br0">)</span><br>
+<span class="br0">{</span><br>
+&nbsp; <span class="co1">// We create a C++ stream from a file descriptor</span><br>
+&nbsp; <span class="co1">// stdio_filebuf is not synced with stdio.</span><br>
+&nbsp; <span class="co1">// From GCC 3.4.0 on exists in addition stdio_sync_filebuf</span><br>
+&nbsp; <span class="co1">// You can also create the filebuf from a FILE* with</span><br>
+&nbsp; <span class="co1">// FILE* f = fdopen(file_descriptor, mode);</span><br>
+&nbsp; __gnu_cxx<span class="sy4">::</span><span class="me2">stdio_filebuf</span><span class="sy1">&lt;</span><span class="kw4">char</span><span class="sy1">&gt;</span> filebuf<span class="br0">(</span>file_descriptor,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;std<span class="sy4">::</span><span class="me2">ios_base</span><span class="sy4">::</span><span class="me2">in</span><span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; istream stream<span class="br0">(</span><span class="sy3">&amp;</span>filebuf<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; <span class="co1">// You can also do:</span><br>
+&nbsp; <span class="co1">// ostringstream stream;</span><br>
+&nbsp; <span class="co1">// stream &lt;&lt; &amp;filebuf;</span><br>
+&nbsp; <span class="co1">// return stream.str();</span><br>
+<br>
+&nbsp; string line<span class="sy4">;</span><br>
+&nbsp; <span class="kw1">if</span> <span class="br0">(</span>stream.<span class="me1">good</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><br>
+&nbsp; &nbsp; getline<span class="br0">(</span>stream, line<span class="br0">)</span><span class="sy4">;</span><br>
+<br>
+&nbsp; <span class="kw1">return</span> line<span class="sy4">;</span><br>
+<span class="br0">}</span></div></td></tr></tbody></table></div>
+
+</pre>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br></div></td><td><div class="cpp codecolorer"><span class="kw4">void</span> write_to_pipe <span class="br0">(</span><span class="kw4">int</span> file_descriptor, <span class="kw4">const</span> string<span class="sy3">&amp;</span> line<span class="br0">)</span><br>
+<span class="br0">{</span><br>
+&nbsp; __gnu_cxx<span class="sy4">::</span><span class="me2">stdio_filebuf</span><span class="sy1">&lt;</span><span class="kw4">char</span><span class="sy1">&gt;</span> filebuf<span class="br0">(</span>file_descriptor,<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;std<span class="sy4">::</span><span class="me2">ios_base</span><span class="sy4">::</span><span class="me2">out</span><span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ostream stream<span class="br0">(</span><span class="sy3">&amp;</span>filebuf<span class="br0">)</span><span class="sy4">;</span><br>
+<br>
+&nbsp; <span class="kw1">if</span> <span class="br0">(</span>stream.<span class="me1">good</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><br>
+&nbsp; &nbsp; stream <span class="sy1">&lt;&lt;</span> line<span class="sy4">;</span><br>
+<span class="br0">}</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>I use the __gnu_cxx::stdio_filebuf class. This class is part of the GNU extensions of the libstdc++ library.</p>
+<p>From the library documentation:</p>
+<blockquote><p>[This class] Provides a layer of compatibility for 
+C/POSIX. This GNU extension provides extensions for working with 
+standard C FILE*’s and POSIX file descriptors. It must be instantiated 
+by the user with the type of character used in the file stream, e.g., 
+stdio_filebuf&lt;char&gt;.</p></blockquote>
+<p>With this object, we can create a STL istream or ostream, giving its constructor the address of our object.</p>
+<p>I’ve created two C++ classes, so we can interact with the child’s 
+streams like they were C++ STL streams, instead of using these 
+functions. You can see the interface here.</p>
+<pre>
+<div class="codecolorer-container cpp blackboard" style="overflow:auto;white-space:nowrap;width:600px;height:300px;"><table cellpadding="0" cellspacing="0"><tbody><tr><td class="line-numbers"><div>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br></div></td><td><div class="cpp codecolorer"><span class="kw2">class</span> ifdstream <span class="sy4">:</span> <span class="kw2">public</span> _fdstream<br>
+<span class="br0">{</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; ifdstream<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ifdstream<span class="br0">(</span><span class="kw4">int</span> file_descriptor<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; <span class="kw4">void</span> open<span class="br0">(</span><span class="kw4">int</span> file_descriptor<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ifdstream<span class="sy3">&amp;</span> operator<span class="sy1">&gt;&gt;</span> <span class="br0">(</span>string<span class="sy3">&amp;</span> str<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; <span class="kw4">size_t</span> getline <span class="br0">(</span><span class="kw4">char</span><span class="sy2">*</span> s, streamsize n<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; <span class="kw4">size_t</span> getline <span class="br0">(</span><span class="kw4">char</span><span class="sy2">*</span> s, streamsize n, <span class="kw4">char</span> delim<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ~ifdstream<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span><br>
+<span class="br0">}</span><span class="sy4">;</span><br>
+<br>
+<span class="kw2">class</span> ofdstream <span class="sy4">:</span> <span class="kw2">public</span> _fdstream<br>
+<span class="br0">{</span><br>
+<span class="kw2">public</span><span class="sy4">:</span><br>
+&nbsp; ofdstream<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ofdstream<span class="br0">(</span><span class="kw4">int</span> file_descriptor<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; <span class="kw4">void</span> open<span class="br0">(</span><span class="kw4">int</span> file_descriptor<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ofdstream<span class="sy3">&amp;</span> operator<span class="sy1">&lt;&lt;</span> <span class="br0">(</span><span class="kw4">const</span> string<span class="sy3">&amp;</span> str<span class="br0">)</span><span class="sy4">;</span><br>
+&nbsp; ~ofdstream<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span><br>
+<span class="br0">}</span><span class="sy4">;</span></div></td></tr></tbody></table></div>
+
+</pre>
+<p>With these classes, you can create STL-like C++ streams from your 
+file descriptors, so you can read and write from/to the pipes with the 
+usual &gt;&gt; and &lt;&lt; operators. I haven’t implemented more 
+functions, as this is only a demonstration.</p>
+<p><strong>That’s all folks!</strong> You can now create families of talking processes!</p>
+<h4>Source code:</h4>
+<p>Repository in Github!: <a title="IPC-FDStream repository on Github" href="https://github.com/eldruin/IPC-FDStream" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://github.com/eldruin/IPC-FDStream']);">Repository link</a></p>
+<h4>Download the full source code</h4>
+<p>You can download the full source code of this example here:</p>
+<p>C++ streams mini-library: <a class="downloadlink" href="http://blog.eldruin.com/download/ipc-fdstream.hpp" title="Version1 downloaded 509 times">ipc-fdstream.hpp (509)</a><br>
+Parent process source: <a class="downloadlink" href="http://blog.eldruin.com/download/ipc-parent.cpp" onclick="javascript:_gaq.push(['_trackEvent','download','http://blog.eldruin.com/download/ipc-parent.cpp']);" title="Version1 downloaded 547 times">ipc-parent.cpp (547)</a><br>
+Controlled program: <a class="downloadlink" href="http://blog.eldruin.com/download/ipc-program.cpp" onclick="javascript:_gaq.push(['_trackEvent','download','http://blog.eldruin.com/download/ipc-program.cpp']);" title="Version1 downloaded 398 times">ipc-program.cpp (398)</a><br>
+Makefile: <a class="downloadlink" href="http://blog.eldruin.com/download/ipc-makefile" title="Version1 downloaded 295 times">ipc-makefile (295)</a></p>
+<p>Also, all in a tarball: <a class="downloadlink" href="http://blog.eldruin.com/download/Tarball+IPC-FDStream" title="Version1 downloaded 342 times">Tarball IPC-FDStream (342)</a></p>
+<p>The code is in the public domain, you can do whatever you want with it.</p>
+<p>I’d appreciate any improvement or comment.</p>
+<p>Of course this code is for educational purposes only. If you want to 
+do something serious about file descriptors and C++ streams, have a look
+ at boost::iostreams::file_descriptor and boost::iostreams::stream.</p>
+<h5>Resources</h5>
+<ul>
+<li><a href="http://www.yolinux.com/TUTORIALS/ForkExecProcesses.html" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.yolinux.com/TUTORIALS/ForkExecProcesses.html']);">YoLinux Tutorial: Fork, Exec and Process control</a></li>
+<li><a title="Advanced Linux Programming" href="http://www.advancedlinuxprogramming.com/alp-folder" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.advancedlinuxprogramming.com/alp-folder']);">Advanced Linux Programming Book</a>: IPC chapter</li>
+<li><a href="http://tldp.org/LDP/lpg-0.4.pdf" onclick="javascript:_gaq.push(['_trackEvent','download','http://tldp.org/LDP/lpg-0.4.pdf']);">Linux Programmer’s Guide</a> – <a href="http://www.ibiblio.org/pub/Linux/docs/linux-doc-project/programmers-guide/translations/es/gulp-0.11.pdf" onclick="javascript:_gaq.push(['_trackEvent','download','http://www.ibiblio.org/pub/Linux/docs/linux-doc-project/programmers-guide/translations/es/gulp-0.11.pdf']);">spanish translation</a></li>
+<li><a title="The GNU C Library Manual" href="http://www.gnu.org/software/libc/manual/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.gnu.org/software/libc/manual/']);">The GNU C Library manual</a></li>
+<li><a href="http://gcc.gnu.org/onlinedocs/libstdc++/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://gcc.gnu.org/onlinedocs/libstdc++/']);">The GNU C++ Library manual</a></li>
+<li><a href="http://www.ginac.de/%7Ekreckel/fileno/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://www.ginac.de/~kreckel/fileno/']);">fileno(3) on C++ Streams: A Hacker’s Lament</a>, Richard B. Kreckel</li>
+</ul>
+<div style="margin-left: 169px; overflow: hidden; height: 96px;" class="shr-publisher-424 shareaholic-show-on-load"><div style="margin-left: 10px; height: 100%; overflow: hidden; display: block; padding: 26px 0px 0px 10px; background: url(&quot;http://blog.eldruin.com/wp-content/plugins/sexybookmarks/images/share-enjoy.png&quot;) no-repeat scroll 0% 0% transparent;" class="shr-bookmarks shr-bookmarks-bg-shr"><ul class="shr-socials"><li style="margin-left:0px !important;" class="shr-5 shareaholic"><a orig_title="Post to Facebook" class="external" target="_blank" rel="nofollow" href="http://www.shareaholic.com/api/share/?title=Inter-Process+Communication%3A+pipe%28%29%2C+fork%28%29+and+C%2B%2B+STL-like+streams&amp;link=http%3A%2F%2Fblog.eldruin.com%2Fen%2F2011%2F04%2Finter-process-communication-pipe-fork-and-c-stl-streams%2F&amp;notes=&amp;short_link=&amp;shortener=google&amp;shortener_key=&amp;v=1&amp;apitype=1&amp;apikey=8afa39428933be41f8afdb8ea21a495c&amp;source=Shareaholic-Publishers&amp;template=&amp;service=5&amp;ctype=">Post to Facebook</a></li><li style="margin-left:0px !important;" class="shr-7 shareaholic"><a orig_title="Post to Twitter" class="external" target="_blank" rel="nofollow">Post to Twitter</a></li><li style="margin-left:0px !important;" class="shr-205 shareaholic"><a orig_title="Post to Identi.ca" class="external" target="_blank" rel="nofollow" href="http://www.shareaholic.com/api/share/?title=Inter-Process+Communication%3A+pipe%28%29%2C+fork%28%29+and+C%2B%2B+STL-like+streams&amp;link=http%3A%2F%2Fblog.eldruin.com%2Fen%2F2011%2F04%2Finter-process-communication-pipe-fork-and-c-stl-streams%2F&amp;notes=&amp;short_link=&amp;shortener=google&amp;shortener_key=&amp;v=1&amp;apitype=1&amp;apikey=8afa39428933be41f8afdb8ea21a495c&amp;source=Shareaholic-Publishers&amp;template=&amp;service=205&amp;ctype=">Post to Identi.ca</a></li><li style="margin-left:0px !important;" class="shr-33 shareaholic"><a orig_title="Add to Meneame" class="external" target="_blank" rel="nofollow" href="http://www.shareaholic.com/api/share/?title=Inter-Process+Communication%3A+pipe%28%29%2C+fork%28%29+and+C%2B%2B+STL-like+streams&amp;link=http%3A%2F%2Fblog.eldruin.com%2Fen%2F2011%2F04%2Finter-process-communication-pipe-fork-and-c-stl-streams%2F&amp;notes=&amp;short_link=&amp;shortener=google&amp;shortener_key=&amp;v=1&amp;apitype=1&amp;apikey=8afa39428933be41f8afdb8ea21a495c&amp;source=Shareaholic-Publishers&amp;template=&amp;service=33&amp;ctype=">Add to Meneame</a></li><li style="margin-left:0px !important;" class="shr-201 shareaholic"><a orig_title="Send via E-mail program" class="external" target="_blank" rel="nofollow" href="http://www.shareaholic.com/api/share/?title=Inter-Process+Communication%3A+pipe%28%29%2C+fork%28%29+and+C%2B%2B+STL-like+streams&amp;link=http%3A%2F%2Fblog.eldruin.com%2Fen%2F2011%2F04%2Finter-process-communication-pipe-fork-and-c-stl-streams%2F&amp;notes=&amp;short_link=&amp;shortener=google&amp;shortener_key=&amp;v=1&amp;apitype=1&amp;apikey=8afa39428933be41f8afdb8ea21a495c&amp;source=Shareaholic-Publishers&amp;template=&amp;service=201&amp;ctype=">Send via E-mail program</a></li></ul><div style="clear: both;"></div><div class="shr-getshr" style="visibility:hidden;font-size:10px !important"><a target="_blank" href="http://www.shareaholic.com/?src=pub">Get Shareaholic for Firefox</a></div><div style="clear: both;"></div><style type="text/css">ul.shr-socials li.shareaholic{background-image:url(http://blog.eldruin.com/wp-content/plugins/sexybookmarks/spritegen_default/sprite.png) !important;}</style></div></div><div style="clear: both; min-height: 1px; height: 3px; width: 100%;"></div><div class="shareaholic-like-buttonset" style="float:none;height:30px;"><div style="float:left;padding-top:0px !important; margin:0px 5px !important;"><fb:like class=" fb_edge_widget_with_comment fb_iframe_widget" fb-xfbml-state="parsed" action="like" send="false" href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/" layout="standard" show_faces="false" width="60" font=""><span style="height: 35px; width: 225px;"><iframe src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/like.xhtml" class="fb_ltr" title="Like this content on Facebook." style="border: medium none; overflow: hidden; height: 35px; width: 225px;" name="f1730389287ebc" id="fdfda00b695daa" scrolling="no"></iframe></span></fb:like></div><div style="float:left;  margin:0px 0px 0px 10px !important;"><div style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 38px; height: 24px;" id="___plusone_0"><iframe title="+1" data-gapiattached="true" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/fastbutton.html" name="I0_1389171585979" id="I0_1389171585979" vspace="0" tabindex="0" style="position: static; top: 0px; width: 38px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div></div></div><div style="clear: both; min-height: 1px; height: 3px; width: 100%;"></div><div class="shr_rd-424"><div style="height: auto; display: block;" class="shareaholic-recommendations-container shareaholic-ui xl"><div class="shareaholic-recommendations-header">You may also like:</div><div class="shareaholic-recommendations shareaholic-contains-6"><div class="shareaholic-recommendation recommendation-1"> <a href="http://blog.eldruin.com/en/dsmemorizer-en/" class="recommendation-article-link" rel="norewrite">   <i class="shareaholic-image blue_lighter ">     <span class="recommendation-placeholder-title">Eldruin’s Blog » DSMemorizer</span>     <img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/e_006.gif" class="recommendation-impression-image" alt="" nopin="nopin">   </i>   <div class="recommendation-article-title">Eldruin’s Blog » DSMemorizer</div>   <div class="recommendation-article-summary"></div> </a> </div><div class="shareaholic-recommendation recommendation-2"> <a href="http://blog.eldruin.com/2009/11/nuevo-dominio-eldruin-com/" class="recommendation-article-link" rel="norewrite">   <i class="shareaholic-image green_lighter ">     <span class="recommendation-placeholder-title">Eldruin's Blog » Archivo del blog » Nuevo dominio: eldruin.com</span>     <img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/e_005.gif" class="recommendation-impression-image" alt="" nopin="nopin">   </i>   <div class="recommendation-article-title">Eldruin's Blog » Archivo del blog » Nuevo dominio: eldruin.com</div>   <div class="recommendation-article-summary"></div> </a> </div><div class="shareaholic-recommendation recommendation-3"> <a href="http://blog.eldruin.com/2009/12/actualizacion-de-la-web-del-curso-de-japones-ii/" class="recommendation-article-link" rel="norewrite">   <i class="shareaholic-image aqua_lighter has-recommendation-image" style="background-image: url(//images.shareaholic.com/pagePic/afb8d249-28f4-4987-87f5-e49eecd3eb85?width=300)">     <span class="recommendation-placeholder-title">Eldruin's Blog » Archivo del blog » Actualización de la web del curso de japonés II</span>     <img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/e.gif" class="recommendation-impression-image" alt="" nopin="nopin">   </i>   <div class="recommendation-article-title">Eldruin's Blog » Archivo del blog » Actualización de la web del curso de japonés II</div>   <div class="recommendation-article-summary"></div> </a> </div><div class="shareaholic-recommendation recommendation-4"> <a href="http://blog.eldruin.com/2010/01/portatil-nuevo-dell-studio-1557/" class="recommendation-article-link" rel="norewrite">   <i class="shareaholic-image blue_lighter ">     <span class="recommendation-placeholder-title">Eldruin's Blog » Archivo del blog » Portátil nuevo: Dell Studio 1557</span>     <img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/e_002.gif" class="recommendation-impression-image" alt="" nopin="nopin">   </i>   <div class="recommendation-article-title">Eldruin's Blog » Archivo del blog » Portátil nuevo: Dell Studio 1557</div>   <div class="recommendation-article-summary"></div> </a> </div><div class="shareaholic-recommendation recommendation-5"> <a href="http://blog.eldruin.com/2008/10/strike-y-line-through/" class="recommendation-article-link" rel="norewrite">   <i class="shareaholic-image orange_lighter ">     <span class="recommendation-placeholder-title">Eldruin's Blog » Archivo del blog » Strike y line-through</span>     <img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/e_003.gif" class="recommendation-impression-image" alt="" nopin="nopin">   </i>   <div class="recommendation-article-title">Eldruin's Blog » Archivo del blog » Strike y line-through</div>   <div class="recommendation-article-summary"></div> </a> </div><div class="shareaholic-recommendation recommendation-6"> <a href="http://blog.eldruin.com/2007/08/20-anos-de-recuerdos/" class="recommendation-article-link" rel="norewrite">   <i class="shareaholic-image red_lighter ">     <span class="recommendation-placeholder-title">Eldruin's Blog » Archivo del blog » 20 Años de recuerdos</span>     <img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/e_004.gif" class="recommendation-impression-image" alt="" nopin="nopin">   </i>   <div class="recommendation-article-title">Eldruin's Blog » Archivo del blog » 20 Años de recuerdos</div>   <div class="recommendation-article-summary"></div> </a> </div></div><div class="shareaholic-recommendations-footer"><a title="Powered by Shareaholic" href="https://shareaholic.com/publishers/recommendations/?src=relatedapp&amp;src_ref=blog.eldruin.com" target="_blank" class="shareaholic-recommendations-attribution foo"><span class="shareaholic-recommendations-attribution-text">[ what's this ]</span><i class="shareaholic-recommendations-attribution-logo"></i></a></div></div></div><div class="clear"></div>
+<div class="tags">Tags: <a href="http://blog.eldruin.com/tag/c/" rel="tag">c++</a>, <a href="http://blog.eldruin.com/tag/code/" rel="tag">code</a>, <a href="http://blog.eldruin.com/tag/ipc/" rel="tag">ipc</a>, <a href="http://blog.eldruin.com/tag/stl/" rel="tag">stl</a></div>	<div class="category">Categoría: <a href="http://blog.eldruin.com/en/en/category/sin-categoria-en/" title="View all posts in Sin categoría" rel="category tag">Sin categoría</a></div>
+</div>
+</div>
+<div id="postmetadata">
+Puede seguir las respuestas a esta entrada a través del feed <a href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/feed/">RSS 2.0</a>.
+Puedes <a href="#respond">dejar una respuesta</a>, o hacer <a href="http://blog.eldruin.com/en/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/trackback/" rel="trackback">trackback</a> desde tu propio sitio.
+</div>
+<div id="respond">
+<strong>Deja una respuesta</strong>
+<span class="cancel-comment-reply"><small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/#respond" style="display:none;">Click here to cancel reply.</a></small></span>
+<form action="http://blog.eldruin.com/wp-comments-post.php" method="post" id="commentform">
+<p><input name="author" id="author" size="22" tabindex="1" aria-required="true">
+<label for="author"><small>Nombre (requerido)</small></label></p>
+<p><input name="email" id="email" size="22" tabindex="2" aria-required="true">
+<label for="email"><small>E-Mail (No será publicado) (requerido)</small></label></p>
+<p><input name="url" id="url" size="22" tabindex="3">
+<label for="url"><small>Website</small></label></p>
+<p><small><strong>XHTML:</strong> Puedes usar estos tags: <code>&lt;a 
+href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; 
+&lt;strong&gt; </code></small></p>
+<p><textarea class="growfield growfieldDummy" style="overflow: hidden; position: absolute; left: -9999px; top: 0px; height: 20px; resize: none;" name="" id="comment" cols="100%" rows="10" tabindex="-9999">dummy text</textarea><textarea class="growfield" style="overflow: hidden; height: 140px;" name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+<p><input name="submit" id="submit" tabindex="5" value="Submit" type="submit"></p>
+<input name="comment_post_ID" value="424" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="8a09aad806" type="hidden"></p>
+<input name="icl_comment_language" value="en" type="hidden">
+</form>
+</div>	<div class="navigation">
+<div class="alignleft">« <a href="http://blog.eldruin.com/en/2009/12/synfig-developer/" rel="prev">Synfig developer!</a></div>
+<div class="alignright"></div>
+</div>
+</div>
+<div id="sidebar">
+<form id="searchform" action="http://blog.eldruin.com/en/">
+<div class="searchbox">
+<div class="search-field"><input value="Search ..." onfocus="if (this.value == 'Search ...') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search ...';}" name="s" id="s"></div>
+<div class="search-but"><input id="searchsubmit" value=" " src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" type="image"></div>
+</div>
+<input value="en" name="lang" type="hidden"></form>
+<ul>
+<li><div id="language-selector" class="widget icl_languages_selector"><h4>Languages</h4>
+<div id="lang_sel_list">
+<ul>
+<li class="icl-en">
+<a href="http://blog.eldruin.com/en/2011/04/inter-process-communication-pipe-fork-and-c-stl-streams/" class="lang_sel_sel">
+<img class="iclflag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAMCAMAAABYzB2OAAAABGdBTUEAALGPC/xhBQAAANhQTFRFAABNAABVAABdAAB9AAB+AACFAACMExNhGRl/Hh6YS0R7UkqGVFSRXFyeamqVa2u4b2S1cExhcnLEdWrAdXWkgy8vh4efi4vDlmaDnp7epSYmpqbqqp2dqwAArxERsLDQtHudvAAAwFFXwRISwsLlyImJyoqwy8vwzKam08jk1dXw1jEx3E9P3Nzi4AAA4be35BER5GBo5RYW6zY28VdX8aTR9fX/9zg4/K2t/gAA/wAA/xkZ/xoa/0RE/1xc/212/3l5/7Ky/9fX/9nZ//f3//n5//z8////SOlW3wAAAKJJREFUCNdjcHA342RlZZW2sZEGUpxq5hYMprZO7kIsLJLW1pIsLAL2dq7yDGzChiZuKhziRkbiHArGju68TAysLGCWlpGRJliOiZHB3cUZDAwMILS+BoOVpR4KUJTFJoRFI9B4FTcTQ00jIy13R2MFkPHM/GAW2BEgOS4GBnVXHSVuJiYRZWURJiYeXVUpQQYLbQl2RkZGPjk5PiDFLiYjCgBxoSDlZKzrYQAAAABJRU5ErkJggg==" alt="en">&nbsp;
+English </a>
+</li>
+<li class="icl-es">
+<a href="http://blog.eldruin.com/" class="lang_sel_other">
+<img class="iclflag" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAMCAMAAABYzB2OAAAABGdBTUEAALGPC/xhBQAAAGlQTFRFmAAArgAAwDkPwgAAxAAAzzEF0kgB1gAA1tYA2AAA252g47d+5HgI5HkJ59s16gAA674Z7AAA7OwA8PQY9axh+GAF+IU8/gAA/wAA/8I6/9Q8/+MY/+sX//sA//8A//8B//8C//8F//8GkesVQwAAAFVJREFUCNdjkMAADBgi4phC/AxyICAvLwcDQhxgIQVeHgU0IQE2bj5UIVkxJi4RNFVSoqySqEJKwjLSwooIIXQ3cDKDhASRACcLI4OEOD87EmBmZAAASjMTP5AJDN0AAAAASUVORK5CYII=" alt="es">&nbsp;
+Español </a>
+</li>
+</ul>
+</div>
+</div></li><li><div id="pages-3" class="widget widget_pages"><h4>Pages</h4>	<ul>
+<li class="page_item page-item-532"><a href="http://blog.eldruin.com/en/about-me/">About me</a></li>
+<li class="page_item page-item-545"><a href="http://blog.eldruin.com/en/dsmemorizer-en/">DSMemorizer</a></li>
+<li class="page_item page-item-542"><a href="http://blog.eldruin.com/en/oseater-en/">OSEater</a></li>
+<li class="page_item page-item-377"><a href="http://blog.eldruin.com/en/sound2header-en/">Sound2Header</a></li>
+</ul>
+</div></li><li><div id="categories-3" class="widget widget_categories"><h4>Categories</h4>	<ul>
+<li class="cat-item cat-item-89"><a href="http://blog.eldruin.com/en/en/category/projects/" title="View all posts filed under Projects">Projects</a> (1)
+<ul class="children">
+<li class="cat-item cat-item-90"><a href="http://blog.eldruin.com/en/en/category/projects/synfig/" title="View all posts filed under Synfig">Synfig</a> (1)
+</li>
+</ul>
+</li>
+<li class="cat-item cat-item-88"><a href="http://blog.eldruin.com/en/en/category/sin-categoria-en/" title="View all posts filed under Sin categoría">Sin categoría</a> (1)
+</li>
+</ul>
+</div></li><li><div id="text-6" class="widget widget_text"><h4>My Github profile</h4>	<div class="textwidget"><a href="https://github.com/eldruin" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://github.com/eldruin']);"><img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/xgithub-profile.png" alt="Github logo" width="200" height="176"></a></div>
+</div></li><li><div id="text-8" class="widget widget_text"><h4>Linked in Profile</h4>	<div class="textwidget"><a href="http://de.linkedin.com/in/diegobarriosromero">
+<img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/btn_viewmy_160x33.png" alt="View Diego Barrios Romero's profile on LinkedIn" width="160" height="33" border="0">
+</a></div>
+</div></li><li><div id="linkcat-2" class="widget widget_links"><h4>Enlaces</h4>
+<ul class="xoxo blogroll">
+<li><a href="http://www.japonesporlibre.com/" rel="me" title="Curso de japonés gratuito que escribo" target="" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.japonesporlibre.com']);"><img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/xjpl.png" alt="Curso de japonés" title="Curso de japonés gratuito que escribo" width="88" height="31"></a></li>
+<li><a href="http://jisho.org/" title="Diccionario muy bueno" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://jisho.org']);">Diccionario Inglés &lt;-&gt; Japonés</a></li>
+<li><a href="http://gitorious.org/dsmemorizer" title="Juego para Nintendo DS para aprender japonés" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://gitorious.org/dsmemorizer']);">DSMemorizer</a></li>
+<li><a href="http://www.gentoo.org/" title="Mi sistema operativo. No a Window$!" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.gentoo.org']);"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAACVVBMVEVGNXx3dYN3dph3eH14eYt6eIV6enh8e4l8e4t9fX9+ga5/fYt/f4GChK2FgKmFhImGg5SHha2Hhq6KiLmPiqqPj5uPkseTk5GUkbyUlcOVkMaVlsSYmceZlsWcns6dnJqenZmfmcegotWhoaOjo8mno76oq+KqqqqrqaqsqMuurP+urf2vrvywrfqysfW0tv+0uN61tf+1tuK2tP+3uLq5s9+7uvO7uv+8u/28u/+9vP69vv++vNG+vbu+vvC/vf7AwMjAwP7Bv/7Bv//FxP3FxfnFxvTFxv7Hx/3IxvXIyPzLyP3LyP/LyvbLy//M0PPM0P/NzPbNzdXNzu3N0O/Py/DPzP/P09bQ0czQ0f/Rzf/Sz/7S0+/U0ufV1P7X1O/X1P/X1/PX2PbX2f/Y2v/Z1v/a2dfa2ubb2vzb3v/c2+nc2+3c3Nzc3P7c3vXc4fTd3Pvd3vDd3vze2v/e3f3f3fXf3v7f4P7g4Pjh3/Xh4P/h4f3i4OHi4f/i5fjj4PPj4P3k5vvl5f/m4//m5v/n6v3o5f/o5v7p5/3q6P3q6P7q6//r6+vr7P/s7v3t7evt7/7u7Pfu7fXu7f/v7P/v7v7w7f7w7//w8PDx8P7x8P/x9P3y7//y8f/y8v7y9f7z8f7z8v/z8//z9v/08v/09PL09Pz09P/19Pr29f329/v29/z39/n39//3+P349v/49/35+v76/v/7+v/7/fz8+vv8/P78///9/P/9/f39/f/9/v/9//7+/vz+/v7+/v/+//3+/////f///v////v///3///+JOXB3AAABd0lEQVQ4y2NgYIhfffDo/nlFYc56SQzUAFkLju49dmzXrFx3a13fLceOHTpGGOA1sHLvscN7Ww3kYlKdzHXcNh4+RqGB6Z0HDh7e5CPFJlLgZ6mvFbiTUgODFCu2Hzu22FNFMyPA0dJYO49SAxlE+Uy7Du49vH5uSbSHvYWh6yqIBggGsSHaIYJQEiLNcAymCsEEghx+Rt7Qo8eOrmyI83axSkkMPwY2B2IYA5SGY5gVMAOPwQ1kgFl9qEZDdeKxY0eX1CZHemXWSZggdBxjgBuBy0AoRLgP5Ib6FYf3Hd0xp7k4oaNRkiUCrBduEAMBAxmOobvwYOH8gwcOHNs8taV6Zr40h/JSjDCEhQFKGEKNh6g8huzG7GWHgWDz8u7Ja4OF2eX7KY3lSaW7t27bvG7htA19RlysCj3HKDUwtqx7yvQJvYtmh8gwMavPOHaEUgNtosqrmtra/ZUEuXls1xw7uucAhQY6yNq5mqmJCQlwiqdRo6wBABTCv/+5zlW/AAAAAElFTkSuQmCC" alt="Gentoo GNU/Linux" title="Mi sistema operativo. No a Window$!"></a></li>
+</ul>
+</div></li>
+<li><div id="text-3" class="widget widget_text"><h4>Suscribe!</h4>	<div class="textwidget"><p align="center"><a href="http://feeds2.feedburner.com/BlogEldruin" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://feeds2.feedburner.com/BlogEldruin']);"><img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/80x80xfeed-icon.png" style="border:0" alt="Feed Icon" width="80" height="80"></a></p></div>
+</div></li>	<li><h4>Nube de tags</h4><div style="padding:5px 2px 5px 2px;"></div></li>
+<li><div id="rss-3" class="widget widget_rss"><h4><a class="rsswidget" href="http://feeds2.feedburner.com/CursoJapones" title="Syndicate this content"><img style="border:0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAACJ0lEQVQoFQXBO2hdZQAA4O//z7k5x9hbMZRrKrWDgtVaAmmlouhmBk0ydwjqoIOTndSugos6N0M3QUFEhYBFRQQfgxU0aY3YGCpGm1RC7b1pmse997z8vnBt1njDQt0Yx12BOgQCAAABsIHptGEhjj94ul/Uxp59URhsq7t/cXNFK0tkWZRkUdJKxFij7qx/vXwxbRrHyiZIjj7q/rm3AMDer58rLp2XVF2tViSJlH2YTEMQ0yxK08rGB28IMUju6Rh96JT2xAwTM4aL76svXxBDJGYgRR1bQbn1j+ZWm6Knvn7b7asf2/39Gfc+9bLs5EuKkZyf5zV1BVIQaQ4ddeTsJ6D/5w+K5Y/017+3ufCbzux78hNnDH6a12z/B5LXjjmXH+7ksX1AObhj2F1z4LHnZY9MS4ZbytUv7Nz4w8GTZ1RFpVz9zu7GlhiQ393S1hN/mdf/6k0bF6btr/0of/p1o0dOKdcXdb89L3viFcUwgFg31M1Q3b8pLXvaWWGku2zzs7Ng5PSrVAy6/4Jm7DiIVcPOfk869bb2uRuyqXfkIwnbm7aXPpU9PCXk9yl2d0CVjoFYNUKB0ePPgXRiTmyCNATFrTWQ5IeogGT8BEiTII7mib2VLx18/AXFlQ+pgixG9co3umuX1devqnq71t+ds3flkgRhdcZi58kHJrUSQZA0QV1QDiiG1EOG+xR9qgExVMKdv5fCtVmHcRGTAAAAAIAlTP8PcSHgBc2HEN0AAAAASUVORK5CYII=" alt="RSS"></a> <a class="rsswidget" href="http://www.japonesporlibre.com/" title="Aprenda gratis japonés de una forma amena y sencilla poco a poco siguiendo este curso.">Free japanese language course (spanish)</a></h4><ul><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/y7Kr72uE1VY/leccion-13" title="Perífrasis verbal &quot;Empezar a&quot;. Perífrasis verbal &quot;Terminar de&quot;. Transformación de adjetivos en adverbios. Unión de adjetivos. Ejercicios. Kanjis. Katakana. leer más […]">Lección 13</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/2cI-XVbBDCA/leccion-12" title="¿Con qué método? (douyatte) Intervalos del día. Más o menos a una hora. Más o menos durante... Palabras compuestas. Ejercicios. Kanjis. Primera lección de katakana. leer más […]">Lección 12</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/kVV2otqsTRo/leccion-11" title="Imperativo formal. Preposición &quot;para&quot;. (oración final) Preposición &quot;por&quot;. (causa) Conjunción &quot;pero&quot;. Pronombre interrogativo &quot;cómo&quot; Oraciones compuestas con igual sujeto y tiempo. Sujetos en concordancia. (tanto x como y, ni x ni y) Ejercicios Kanjis. Últimas explicaciones de hiragana y silabario completo. leer más […]">Lección 11</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/UVbMAz-lG7Y/leccion-10" title="Grupos verbales. La forma &quot;-te&quot; del verbo. El gerundio. Los colores. Determinantes demostrativos. Ejercicios. Kanjis e hiragana. leer más […]">Lección 10</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/yoKFPMu3Aow/leccion-9" title="Invitación (-mashou). Indicar desplazamiento (ir a). Verbos estar y haber y cómo se usan (iru, aru y partículas ga y ni). Posiciones (encima, debajo,...). Ejercicios. Kanjis e hiragana. leer más […]">Lección 9</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/oQHPn0aAMXQ/leccion-8" title="$(document).ready(function() { $(&quot;#verrespuestas&quot;).click(function(){ $('#respuestas').slideToggle() }) }); Pasado afirmativo y negativo en los adjetivos. Imperativo de fuerza media (nasai). Ejercicios. Kanjis e hiragana. leer más […]">Lección 8</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/6ShiKwwjdFA/leccion-7" title="$(document).ready(function() { $(&quot;#verrespuestas&quot;).click(function(){ $('#respuestas').slideToggle() }) }); Verbos: Ir: iku, ikimasu. Venir: kuru, kimasu. Despertarse: okosu, okoshimasu. Levantarse: okiru, okimasu. Conducir: unten suru, unten shimasu leer más […]">Lección 7</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/60KVfdb_-lM/leccion-6" title="La forma negativa formal de los verbos. El pasado afirmativo y negativo de los verbos. Partícula para indicar lugar como el &quot;en&quot; (de), y de complemento indirecto (ni). Ejercicios. Kanjis e hiragana. leer más […]">Lección 6</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/7LTz3RoDHtU/leccion-5" title="Los días del mes. Los minutos de las horas. Algunos verbos. Complementos directo y circunstancial de tiempo (wo y ni). Ejercicios. Kanjis e hiragana. leer más […]">Lección 5</a></li><li><a class="rsswidget" href="http://feedproxy.google.com/%7Er/CursoJapones/%7E3/i8Iujfja7zU/leccion-4" title="Los números. La edad. Los meses del año. Las horas. Ejercicios. Kanjis e hiragana. leer más […]">Lección 4</a></li></ul></div></li><li><div id="text-5" class="widget widget_text"><h4>Follow Me on Twitter!</h4>	<div class="textwidget"><a href="http://twitter.com/eldruin" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://twitter.com/eldruin']);"><img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/xfollow-me-on-twitter.png" width="152" height="68"></a></div>
+</div></li><li><div id="text-7" class="widget widget_text">	<div class="textwidget">
+<a href="http://ipv6-test.com/validate.php?url=referer" onclick="javascript:_gaq.push(['_trackEvent','outbound-widget','http://ipv6-test.com/validate.php?url=referer']);"><img src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/button-ipv6-small.png" alt="ipv6 ready" title="ipv6 ready" border="0"></a>
+</div>
+</div></li>
+</ul>
+</div></div>
+<div id="footer">
+Copyright 2007, 2008, 2009, 2010, 2011 - Diego Barrios Romero. Contenido licenciado bajo <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/es/"><img alt="Creative Commons License" style="padding:0px;" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/80x15.png"></a><br> Impulsado por <a href="http://wordpress.org/">WordPress</a> -
+Presented by <a href="http://www.themegrade.com/">Wordpress Themes</a>, <a href="http://www.webhostingreport.com/web-hosting-company-reviews.html">Web Hosting Reviews</a>, <a href="http://www.allreseller.com/">cheap reseller hosting</a></div>
+</div>
+</div>
+<script type="text/javascript">var pkBaseURL=document.location.protocol+"//"+"management.eldruin.com"+"/piwik/";document.write(unescape("%3Cscript src='"+pkBaseURL+"piwik.js' type='text/javascript'%3E%3C/script%3E"));</script><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/piwik.js" type="text/javascript"></script><script type="text/javascript">try{var piwikTracker=Piwik.getTracker(pkBaseURL+"piwik.php",2);piwikTracker.setDocumentTitle(document.title);piwikTracker.trackPageView();piwikTracker.enableLinkTracking();}catch(err){}</script>
+<script type="text/javascript">var SHRSB_Settings={"shr-publisher-424":{"link":"http:\/\/blog.eldruin.com\/en\/2011\/04\/inter-process-communication-pipe-fork-and-c-stl-streams\/","shortener":"google","title":"Inter-Process Communication: pipe(), fork() and C++ STL-like streams","notes":"I%27ve%20run%20into%20some%20troubles%20lately%20trying%20to%20communicate%20processes%20through%20C%2B%2B%20STL-like%20streams%20with%20fork%28%29%20and%20pipe%28%29%2C%20so%20I%27ve%20created%20an%20example%20of%20how%20can%20this%20be%20done%20in%20a%20POSIX%20environment%20using%20the%20GCC%27s%20libstdc%2B%2B%20%28GCC%20%26gt%3B%3D%203.4.0%29.%0D%0A%0D%0AThe%20scenario%20is%3A%20A%20parent%20process%20wants%20to%20handle%20another%20","service":"5,7,205,33,201","apikey":"8afa39428933be41f8afdb8ea21a495c","expand":true,"src":"http:\/\/blog.eldruin.com\/wp-content\/plugins\/sexybookmarks\/spritegen_default","localize":true,"share_src":"http:\/\/www.shareaholic.com","rel":"nofollow","target":"_blank","bgimg":"http:\/\/blog.eldruin.com\/wp-content\/plugins\/sexybookmarks\/images\/share-enjoy.png","bgimg_padding":"26px 0 0 10px","center":true,"twitter_template":"%24%7Btitle%7D+-+%24%7Bshort_link%7D","mode":"inject","designer_toolTips":"1","tip_bg_color":"#000000","tip_text_color":"#ffffff","dontShowShareCount":true,"shrlink":"1"}};</script><script type="text/javascript">var SHRRD_Settings={"shr_rd-424":{"link":"http:\/\/blog.eldruin.com\/en\/2011\/04\/inter-process-communication-pipe-fork-and-c-stl-streams\/","apikey":"8afa39428933be41f8afdb8ea21a495c","number":"3","style":"image"}};</script><script type="text/javascript" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/growfield.js"></script>
+<script type="text/javascript" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/jquery_003.js"></script>
+<script type="text/javascript" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/jquery_002.js"></script>
+<script type="text/javascript">jQuery(document).ready(function($){$('#comment').growfield();});</script>
+
+<div class=" fb_reset" id="fb-root"><script src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/all.js" async=""></script><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/xd_arbiter.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/xd_arbiter.xhtml" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/ping.xhtml" style="display: none;" allowtransparency="true" name="f397494a201edee" frameborder="0" scrolling="no"></iframe></div></div></div><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/postmessageRelay.html" id="oauth2relay1434509393" name="oauth2relay1434509393"></iframe><iframe style="display: none;" src="Eldruin%E2%80%99s%20Blog%20%C2%BB%20Archivo%20del%20blog%20%C2%BB%20Inter-Process%20Communication:%20pipe%28%29,%20fork%28%29%20and%20C++%20STL-like%20streams_files/a.html" id="shr_oven"></iframe></body></html>

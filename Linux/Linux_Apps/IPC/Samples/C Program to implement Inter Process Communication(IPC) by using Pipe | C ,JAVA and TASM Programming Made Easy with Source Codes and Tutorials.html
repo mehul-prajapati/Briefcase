@@ -1,0 +1,2284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b" xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr"><head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<script async="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/cbgapi.loaded_2"></script><script async="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/cbgapi.loaded_1"></script><script async="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/cbgapi.loaded_0"></script><script src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">(function() { var b=window,f="chrome",g="jstiming",k="tick";(function(){function d(a){this.t={};this.tick=function(a,d,c){var e=void 0!=c?c:(new Date).getTime();this.t[a]=[e,d];if(void 0==c)try{b.console.timeStamp("CSI/"+a)}catch(h){}};this[k]("start",null,a)}var a;b.performance&&(a=b.performance.timing);var n=a?new d(a.responseStart):new d;b.jstiming={Timer:d,load:n};if(a){var c=a.navigationStart,h=a.responseStart;0<c&&h>=c&&(b[g].srt=h-c)}if(a){var e=b[g].load;0<c&&h>=c&&(e[k]("_wtsrt",void 0,c),e[k]("wtsrt_","_wtsrt",h),e[k]("tbsd_","wtsrt_"))}try{a=null,
+b[f]&&b[f].csi&&(a=Math.floor(b[f].csi().pageT),e&&0<c&&(e[k]("_tbnd",void 0,b[f].csi().startE),e[k]("tbnd_","_tbnd",c))),null==a&&b.gtbExternal&&(a=b.gtbExternal.pageT()),null==a&&b.external&&(a=b.external.pageT,e&&0<c&&(e[k]("_tbnd",void 0,b.external.startE),e[k]("tbnd_","_tbnd",c))),a&&(b[g].pt=a)}catch(p){}})();b.tickAboveFold=function(d){var a=0;if(d.offsetParent){do a+=d.offsetTop;while(d=d.offsetParent)}d=a;750>=d&&b[g].load[k]("aft")};var l=!1;function m(){l||(l=!0,b[g].load[k]("firstScrollTime"))}b.addEventListener?b.addEventListener("scroll",m,!1):b.attachEvent("onscroll",m);
+ })();</script>
+<meta content="blogger" name="generator">
+<link href="http://c-madeeasy.blogspot.in/favicon.ico" rel="icon" type="image/x-icon">
+<link href="http://c-madeeasy.blogspot.com/2011/11/c-program-to-to-implement-inter-process.html" rel="canonical">
+<link rel="alternate" type="application/atom+xml" title="C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - Atom" href="http://c-madeeasy.blogspot.com/feeds/posts/default">
+<link rel="alternate" type="application/rss+xml" title="C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - RSS" href="http://c-madeeasy.blogspot.com/feeds/posts/default?alt=rss">
+<link rel="service.post" type="application/atom+xml" title="C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - Atom" href="http://www.blogger.com/feeds/2264228289887876963/posts/default">
+
+<link rel="alternate" type="application/atom+xml" title="C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - Atom" href="http://c-madeeasy.blogspot.com/feeds/1574838314886073551/comments/default">
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<meta content="C-MadeEasy Coding Made Easy" name="title">
+<meta content="This blog aims at helping you learn C, Java and TASM programming languages and thus enabling you to use its immense possibilities in the computing world.It features Step by step instructions on doing a C program ,Complete Source Codes of C, Java and TASM Programs ,sample program downloads,programming tutorials and general tips for programmers." name="description">
+<meta content="programming,c,java,c++,tasm,operating systems,system,examples,sample,tutorial,complete,source,codes,tips,tricks,programmers,students,btech,computer science,coding,easy,made" name="keywords">
+<meta content="Techman" name="author">
+<meta content="Techman" name="owner">
+<meta content="(c) 2012" name="copyright">
+<title>C Program to implement Inter Process Communication(IPC) by using 
+Pipe | C ,JAVA and TASM Programming Made Easy with Source Codes and 
+Tutorials</title>
+<link type="text/css" rel="stylesheet" href="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/3189209027-widget_css_bundle.css">
+<link type="text/css" rel="stylesheet" href="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/authorization.css">
+<style id="page-skin-1" type="text/css"><!--
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:     Magazine Basic
+Designed By : Bavotasan
+URL : http://themes.bavotasan.com/
+Bloggerized By : Free Blogger Template
+URL : http://www.freebloggertemplate.info
+----------------------------------------------- */
+/* Variable definitions
+====================
+<Variable name="bgcolor" description="Page Background Color"
+type="color" default="#fff">
+<Variable name="textcolor" description="Text Color"
+type="color" default="#333">
+<Variable name="linkcolor" description="Link Color"
+type="color" default="#58a">
+<Variable name="pagetitlecolor" description="Blog Title Color"
+type="color" default="#666">
+<Variable name="descriptioncolor" description="Blog Description Color"
+type="color" default="#999">
+<Variable name="titlecolor" description="Post Title Color"
+type="color" default="#c60">
+<Variable name="bordercolor" description="Border Color"
+type="color" default="#ccc">
+<Variable name="sidebarcolor" description="Sidebar Title Color"
+type="color" default="#999">
+<Variable name="sidebartextcolor" description="Sidebar Text Color"
+type="color" default="#666">
+<Variable name="visitedlinkcolor" description="Visited Link Color"
+type="color" default="#999">
+<Variable name="bodyfont" description="Text Font"
+type="font" default="normal normal 100% Georgia, Serif">
+<Variable name="headerfont" description="Sidebar Title Font"
+type="font"
+default="normal normal 78% 'Trebuchet MS',Trebuchet,Arial,Verdana,Sans-serif">
+<Variable name="pagetitlefont" description="Blog Title Font"
+type="font"
+default="normal normal 200% Georgia, Serif">
+<Variable name="descriptionfont" description="Blog Description Font"
+type="font"
+default="normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif">
+<Variable name="postfooterfont" description="Post Footer Font"
+type="font"
+default="normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif">
+<Variable name="startSide" description="Side where text starts in blog language"
+type="automatic" default="left">
+<Variable name="endSide" description="Side where text ends in blog language"
+type="automatic" default="right">
+*/
+#navbar-iframe {display:none}
+body {
+background: none repeat scroll 0 0 #EEEEEE;
+color: #444444;
+font-size: 14px;
+margin: 0 auto;
+padding: 0;
+position: relative;
+font:x-small Georgia Serif;
+font-size/* */:/**/small;
+font-size: /**/small;
+text-align: center;
+}
+a:link {
+color:#5588aa;
+text-decoration:none;
+}
+a:visited {
+color:#5588aa;
+text-decoration:none;
+}
+a:hover {
+text-decoration:underline;
+}
+a img {
+border-width:0;
+}
+/* Header
+-----------------------------------------------
+*/
+#header-wrapper {
+width:100%;
+margin:0 auto 0px;
+}
+#login {
+height: 16px;
+font-size: 12px;
+color: #fff;
+text-align: right;
+padding: 10px 20px 15px;
+background: url(http://1.bp.blogspot.com/-ZfMAMOzpX6E/Tq7QsCn4kdI/AAAAAAAABfk/1baN-vzWcmU/s000/login.png) repeat-x;
+}
+#login a {
+color: #fff;
+}
+#login ul {
+padding: 0;
+margin: 0;
+}
+#login ul li {
+display: inline;
+}
+#header-inner {
+background-position: center;
+margin-left: auto;
+margin-right: auto;
+}
+#header {
+width:480px;
+float:left;
+margin: 5px;
+text-align: left;
+color:#666666;
+overflow:hidden;
+}
+#headerads {
+width:500px;
+float:right;
+padding:20px 0px 0;
+margin:0;
+overflow:hidden;
+}
+#header h1 {
+margin:5px 5px 0;
+padding:15px 0px .25em 20px;
+line-height:25px;
+text-transform:uppercase;
+letter-spacing:0em;
+font-size:20px;
+font-weight:bold;
+color:#000;
+}
+#header a {
+color:#000;
+text-decoration:none;
+}
+#header a:hover {
+color:#000;
+text-decoration:underline;
+}
+#header .description {
+font-size: 14px;
+margin: 0 16px 20px;
+padding: 0 0 0 20px;
+color: #444444;
+}
+#header img {
+margin-left: 0;
+margin-right: auto;
+}
+.main-navigation {
+margin: 0;
+float:left;
+clear: both;
+width: 100%;
+background: url(http://2.bp.blogspot.com/-852FvpTdx-E/Tq7QsZLP-RI/AAAAAAAABfs/Xt0w682YWdw/s000/nav.png);
+position: relative;
+z-index: 1000;
+}
+.main-navigation a {
+color: #fff;
+}
+.main-navigation ul ul li {
+background: #888;
+}
+.sf-menu, .sf-menu * {
+margin:			0;
+padding:		0;
+list-style:		none;
+}
+.sf-menu {
+line-height:	1.0;
+}
+.sf-menu ul {
+position:		absolute;
+top:			-999em;
+width:			10em; /* left offset of submenus need to match (see below) */
+}
+.sf-menu ul li {
+width:			100%;
+}
+.sf-menu li:hover {
+visibility:		inherit; /* fixes IE7 'sticky bug' */
+}
+.sf-menu li {
+float:			left;
+position:		relative;
+}
+.sf-menu a {
+display:		block;
+position:		relative;
+}
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+left:			0;
+top:			28px; /* match top ul list item height */
+z-index:		99;
+}
+.sub-navigation .sf-menu li:hover ul,
+.sub-navigation .sf-menu li.sfHover ul {
+top:			2.1em; /* match top ul list item height */
+left:			0;
+}
+ul.sf-menu li:hover li ul,
+ul.sf-menu li.sfHover li ul {
+top:			-999em;
+}
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+left:			10em; /* match ul width */
+top:			0;
+}
+ul.sf-menu li li:hover li ul,
+ul.sf-menu li li.sfHover li ul {
+top:			-999em;
+}
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+left:			10em; /* match ul width */
+top:			0;
+}
+.sf-menu {
+float:			left;
+margin-bottom:	0;
+}
+.sf-menu a {
+border-right:	1px solid #fff;
+padding: 		7px 15px;
+text-decoration:none;
+}
+.sf-menu li li a {
+border: 0;
+}
+.main-navigation .sf-menu li:hover, .main-navigation .sf-menu li.sfHover,
+.main-navigation .sf-menu a:focus, .main-navigation .sf-menu a:hover, .main-navigation .sf-menu a:active {
+background:		#666;
+outline:		0;
+}
+.sf-menu a.sf-with-ul {
+padding-right: 	2.25em;
+min-width:		1px; /* trigger IE7 hasLayout so spans position accurately */
+}
+.sf-sub-indicator {
+position:		absolute;
+display:		block;
+right:			.75em;
+top:			.90em; /* IE6 only */
+width:			10px;
+height:			10px;
+text-indent: 	-999em;
+overflow:		hidden;
+background:		url(http://2.bp.blogspot.com/--Mt3CBt69Qg/Tq7QsQKEoUI/AAAAAAAABf0/DdyF9i6RoLw/s000/arrows-ffffff.png) no-repeat -10px -100px; /* 8-bit indexed alpha png. IE6 gets solid image only */
+}
+.sub-navigation .sf-sub-indicator {
+background:	url(http://3.bp.blogspot.com/-LPyStoNDaVM/Tq7Qsg1CvwI/AAAAAAAABf8/wSZCNXIitSw/s000/arrows-000000.png) no-repeat -10px -100px; /* 8-bit indexed alpha png. IE6 gets solid image only */
+}
+a > .sf-sub-indicator {  /* give all except IE6 the correct values */
+top:			.65em;
+background-position: 0 -100px; /* use translucent arrow for modern browsers*/
+}
+.sub-navigation a > .sf-sub-indicator {  /* give all except IE6 the correct values */
+top: .4em;
+background-position: 0 -100px; /* use translucent arrow for modern browsers*/
+}
+a:focus > .sf-sub-indicator,
+a:hover > .sf-sub-indicator,
+a:active > .sf-sub-indicator,
+li:hover > a > .sf-sub-indicator,
+li.sfHover > a > .sf-sub-indicator {
+background-position: -10px -100px; /* arrow hovers for modern browsers*/
+}
+.sf-menu ul .sf-sub-indicator { background-position:  -10px 0; }
+.sf-menu ul a > .sf-sub-indicator { background-position:  0 0; }
+.sub-navigation .sf-menu ul .sf-sub-indicator { background-position:  -10px 0; top: .65em; }
+.sub-navigation .sf-menu ul a > .sf-sub-indicator { background-position:  0 0; top: .65em; }
+/* apply hovers to modern browsers */
+.sf-menu ul a:focus > .sf-sub-indicator,
+.sf-menu ul a:hover > .sf-sub-indicator,
+.sf-menu ul a:active > .sf-sub-indicator,
+.sf-menu ul li:hover > a > .sf-sub-indicator,
+.sf-menu ul li.sfHover > a > .sf-sub-indicator {
+background-position: -10px 0; /* arrow hovers for modern browsers*/
+}
+/* Outer-Wrapper
+----------------------------------------------- */
+#outer-wrapper {
+width: 1024px;
+margin:0 auto;
+padding:0px;
+text-align:left;
+font: normal normal 100% Georgia, Serif;
+background:#fff;
+font-size:12px;
+}
+#content-wrapper {
+width: 1024px;
+background: none repeat scroll 0 0 #FFFFFF;
+border-bottom: 2px solid #CCCCCC;
+border-top: 2px solid #CCCCCC;
+margin: 0;
+padding: 0;
+}
+#contentarea-wrapper {
+width: 984px;
+margin: 15px auto;
+padding: 0;
+}
+#mainarea-wrapper {
+width:776px;
+float:left;
+}
+#main-wrapper {
+width: 576px;
+padding:0;
+margin:0;
+float: right;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;     /* fix for long non-text content breaking IE sidebar float */
+}
+#sidebarleft-wrapper {
+width: 180px;
+float: left;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;      /* fix for long non-text content breaking IE sidebar float */
+}
+#sidebar-wrapper {
+width: 180px;
+float: right;
+word-wrap: break-word; /* fix for long text breaking sidebar float in IE */
+overflow: hidden;      /* fix for long non-text content breaking IE sidebar float */
+}
+/* Headings
+----------------------------------------------- */
+h2 {
+background: url("http://1.bp.blogspot.com/-u5xsAoAK698/Tq7Qs5THkjI/AAAAAAAABgE/Sxp8Mb8qWZQ/s000/h2line.gif") repeat-x scroll center bottom transparent;
+font-size: 14px;
+margin-top: 0;
+padding: 0 0 5px;
+text-align: center;
+text-transform: uppercase;
+color: #222222;
+font-family: Georgia,Times,serif;
+font-weight: normal;
+}
+/* Posts
+-----------------------------------------------
+*/
+h2.date-header {
+margin:0;display:none;
+}
+.post {
+margin:0 0 0;
+border-bottom: 1px solid #EEEEEE;
+margin-bottom: 10px;
+padding-bottom: 10px;
+}
+.post h3 {
+color: #222222;
+font-family: Georgia,Times,serif;
+font-weight: normal;
+font-size: 36px;
+line-height: 38px;
+margin: 0;
+padding: 0;
+}
+.post h3 a, .post h3 a:visited, .post h3 strong {
+display:block;
+text-decoration:none;
+color: #222222;
+font-weight:normal;
+}
+.post h3 strong, .post h3 a:hover {
+color: #222222;
+text-decoration:underline;
+}
+.post-body {
+margin:0 0 .75em;
+line-height:1.6em;
+}
+.post-body blockquote {
+line-height:1.3em;
+}
+a.rmlink {
+background: none repeat scroll 0 0 #AAAAAA;
+color: #FFFFFF;
+font-size: 10px;
+line-height: 20px;
+margin: 12px 0;
+padding: 5px 8px;
+text-align: center;
+}
+a.rmlink:hover {
+background: none repeat scroll 0 0 #666;
+text-decoration:none;
+}
+.post-footer {
+margin: .75em 0;
+color:#999999;
+font-size: 10px;
+font-weight:bold;
+}
+.comment-link {
+margin-left:.6em;
+}
+.post img, table.tr-caption-container {
+padding:0px;
+}
+.tr-caption-container img {
+border: none;
+padding: 0;
+}
+.post blockquote {
+margin:1em 20px;
+}
+.post blockquote p {
+margin:.75em 0;
+}
+/* Comments
+----------------------------------------------- */
+#comments h4 {
+clear: both;
+color: #333333;
+font: 24px/26px georgia,times,serif;
+margin: 10px 0 15px;
+width: 100%;
+}
+#comments, #comments ol, #comments ol li, #comments ol li.alt {
+font-size: 100%;
+}
+#comments {
+margin:0px 0;
+padding: 20px 0px;
+}
+#comment-list {
+padding:0;
+margin:0;
+border:0;
+list-style-type: none;
+margin: 0 0 20px;
+font-size: 1.75em;
+}
+.commentlistdiv {
+padding:0;
+margin:0;
+border:0;
+list-style-type: none;
+margin-bottom: 20px;
+font-size: 1.75em;
+}
+.commentlistdiv h1 {
+font-size: 1.3em;
+color: #366799;
+line-height: 1.5em;}
+.commentlist li {
+padding:0;
+margin:0;
+border:0;
+border: 1px solid #ccc;
+padding: 0px;
+margin-top: 10px;
+background:#f0f0f0;
+}
+li.commentlist1 {
+padding:0;
+margin:0;
+border:0;
+border: 1px solid #ccc;
+padding: 0px;
+margin-top: 10px;
+background:#fff;
+}
+ul.commentlist {list-style-type: none;margin:0 auto;padding:0;}
+.commentlist li.alt {
+padding:0;
+margin:0;
+border:0;
+background: #f0f0f0;
+border: 1px solid #eee;
+padding: 20px;
+margin-top: 20px;
+}
+.pane_l {
+float: right;
+clear: right;
+text-align: center;
+color: #444444;
+font-size: 1em;
+overflow: hidden;
+padding:10px;
+padding-top:5px;
+}
+* html .pane_l{margin-top:15px; }
+.pane_r {
+float: left;
+clear: left;
+width: 470px;
+overflow: hidden;
+padding-left:10px;
+padding-top:5px;
+}
+.c_author {
+display: block;
+font-size: 14px;
+font-style: normal;
+font-weight: bold;
+letter-spacing: -0.05em;
+padding-top: 9px;
+}
+.c_author a:link,
+.c_author a:visited{
+font-style: normal;
+color: #333;
+text-decoration:none;
+}
+.c_author a:hover {
+color: #333;
+text-decoration:none;
+}
+.c_avatar {display: block;margin: 0px 0px 7px 0px;}
+.avatar-image-container img{
+height:48px;width:48px;
+padding: 3px;
+background:#fff url(http://4.bp.blogspot.com/-TisSC1T5qfQ/Tq7Qs8sSKnI/AAAAAAAABgM/1YGsWdStZro/s000/no_avatar-small.jpg) no-repeat center;
+border: 1px solid #E9E9E9;
+}
+.c_date {font-size: 13px;margin: 0px 0px 0px 0px;
+padding-top:5px;color: #666;font-weight:normal}
+.c_approved {color: #aaa;font-size: 0.9em;}
+.comment-form { background:transparent; border:0px solid #FF8A00;
+margin:0 10px 20px 0px; padding:10px 0 0;}
+* html .comment-form {  width:87%; }
+.deleted-comment {
+font-style:italic;  color:gray;
+}
+#blog-pager-newer-link {
+float: left;
+}
+#blog-pager-older-link {
+float: right;
+}
+#blog-pager {
+padding:0;
+text-align: center;
+clear:both;
+}
+.feed-links {
+clear: both;
+line-height: 2.5em;
+}
+/* Sidebar Content
+----------------------------------------------- */
+.sidebar {
+color: #666666;
+line-height: 13px;
+font-size:11px;
+}
+.sidebar ul {
+list-style:none;
+margin:0 0 0;
+padding:0 0 0;
+}
+.sidebar li {
+margin:0;
+padding-top:0;
+padding-right:0;
+padding-bottom:.25em;
+padding-left:0px;
+text-indent:0px;
+line-height:1.5em;
+}
+.sidebar .widget {
+background: url("http://2.bp.blogspot.com/-jYTa9CnF0x4/Tq7QtOcL1II/AAAAAAAABgU/g7btxZpffms/s000/bg-hatch.gif") repeat scroll 0 0 transparent;
+border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+border-style: solid;
+border-width: 1px;
+margin: 0 0 15px;
+padding: 15px 10px 15px;
+}
+.main .widget {
+margin:0 0 1.5em;
+padding:0 0 1.5em;
+}
+.main .Blog {
+border-bottom-width: 0;
+}
+/* Profile
+----------------------------------------------- */
+.profile-img {
+float: left;
+margin-top: 0;
+margin-right: 5px;
+margin-bottom: 5px;
+margin-left: 0;
+padding: 4px;
+border: 1px solid #cccccc;
+}
+.profile-data {
+margin:0;
+text-transform:uppercase;
+letter-spacing:.1em;
+font: normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif;
+color: #999999;
+font-weight: bold;
+line-height: 1.6em;
+}
+.profile-datablock {
+margin:.5em 0 .5em;
+}
+.profile-textblock {
+margin: 0.5em 0;
+line-height: 1.6em;
+}
+.profile-link {
+font: normal normal 78% 'Trebuchet MS', Trebuchet, Arial, Verdana, Sans-serif;
+text-transform: uppercase;
+letter-spacing: .1em;
+}
+/* Footer
+----------------------------------------------- */
+#footer {
+clear: both;
+width: 100%;
+padding: 10px 0;
+text-align: center;
+font-size: 11px;
+border-top: 1px solid #888;
+background: #fff;
+}
+.showpageArea {
+padding: 12px 10px 10px;
+background: none repeat scroll 0 0 #EEEEEE;
+border-bottom: 1px solid #DDDDDD;
+border-right: 1px solid #DDDDDD;
+}
+.showpageArea a {
+text-decoration:underline;
+}
+.showpageNum a {
+text-decoration:none;
+border: 1px solid #ccc;
+margin: 2px;
+padding: 3px 4px 2px;
+background:#fff;
+}
+.showpageNum a:hover {
+border: 1px solid #000;
+background-color:#fff;
+}
+.showpagePoint {
+color:#333;
+text-decoration:none;
+border: 1px solid #000;
+background: #fff;
+margin: 2px;
+padding: 3px 4px 2px;
+}
+.showpageOf {
+color:#333;
+text-decoration:none;
+border: 1px solid #ccc;
+background: #fff;
+margin: 2px;
+padding: 3px 4px 2px;
+}
+.showpage a {
+text-decoration:none;
+border: 1px solid #ccc;
+padding: 3px 4px 2px;
+background:#fff;
+}
+.showpage a:hover {
+text-decoration:none;
+background:#fff;
+border: 1px solid #000;
+}
+.showpageNum a:link,.showpage a:link {
+text-decoration:none;
+color:#333;
+}
+
+--></style>
+<script type="text/javascript">
+//<![CDATA[
+function convertEntities(b){var d,a;d=function(c){if(/&[^;]+;/.test(c)){var f=document.createElement("div");f.innerHTML=c;return !f.firstChild?c:f.firstChild.nodeValue}return c};if(typeof b==="string"){return d(b)}else{if(typeof b==="object"){for(a in b){if(typeof b[a]==="string"){b[a]=d(b[a])}}}}return b};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+/*
+ * PseudoCSS 1.0 - Enables Cross Browser support of CSS2 and CSS3 pseudo classes
+ *
+ * Copyright (c) 2008 Alen Grakalic (pseudocss.com)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ * Built using jQuery library 
+ *	
+ * jQuery 1.2.3 - New Wave Javascript
+ * Copyright (c) 2008 John Resig (jquery.com)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ */
+ 
+ (function(){if(window.jQuery)var _jQuery=window.jQuery;var jQuery=window.jQuery=function(selector,context){return new jQuery.prototype.init(selector,context);};if(window.$)var _$=window.$;window.$=jQuery;var quickExpr=/^[^<]*(<(.|\s)+>)[^>]*$|^#(\w+)$/;var isSimple=/^.[^:#\[\.]*$/;jQuery.fn=jQuery.prototype={init:function(selector,context){selector=selector||document;if(selector.nodeType){this[0]=selector;this.length=1;return this;}else if(typeof selector=="string"){var match=quickExpr.exec(selector);if(match&&(match[1]||!context)){if(match[1])selector=jQuery.clean([match[1]],context);else{var elem=document.getElementById(match[3]);if(elem)if(elem.id!=match[3])return jQuery().find(selector);else{this[0]=elem;this.length=1;return this;}else
+selector=[];}}else
+return new jQuery(context).find(selector);}else if(jQuery.isFunction(selector))return new jQuery(document)[jQuery.fn.ready?"ready":"load"](selector);return this.setArray(selector.constructor==Array&&selector||(selector.jquery||selector.length&&selector!=window&&!selector.nodeType&&selector[0]!=undefined&&selector[0].nodeType)&&jQuery.makeArray(selector)||[selector]);},jquery:"1.2.3",size:function(){return this.length;},length:0,get:function(num){return num==undefined?jQuery.makeArray(this):this[num];},pushStack:function(elems){var ret=jQuery(elems);ret.prevObject=this;return ret;},setArray:function(elems){this.length=0;Array.prototype.push.apply(this,elems);return this;},each:function(callback,args){return jQuery.each(this,callback,args);},index:function(elem){var ret=-1;this.each(function(i){if(this==elem)ret=i;});return ret;},attr:function(name,value,type){var options=name;if(name.constructor==String)if(value==undefined)return this.length&&jQuery[type||"attr"](this[0],name)||undefined;else{options={};options[name]=value;}return this.each(function(i){for(name in options)jQuery.attr(type?this.style:this,name,jQuery.prop(this,options[name],type,i,name));});},css:function(key,value){if((key=='width'||key=='height')&&parseFloat(value)<0)value=undefined;return this.attr(key,value,"curCSS");},text:function(text){if(typeof text!="object"&&text!=null)return this.empty().append((this[0]&&this[0].ownerDocument||document).createTextNode(text));var ret="";jQuery.each(text||this,function(){jQuery.each(this.childNodes,function(){if(this.nodeType!=8)ret+=this.nodeType!=1?this.nodeValue:jQuery.fn.text([this]);});});return ret;},wrapAll:function(html){if(this[0])jQuery(html,this[0].ownerDocument).clone().insertBefore(this[0]).map(function(){var elem=this;while(elem.firstChild)elem=elem.firstChild;return elem;}).append(this);return this;},wrapInner:function(html){return this.each(function(){jQuery(this).contents().wrapAll(html);});},wrap:function(html){return this.each(function(){jQuery(this).wrapAll(html);});},append:function(){return this.domManip(arguments,true,false,function(elem){if(this.nodeType==1)this.appendChild(elem);});},prepend:function(){return this.domManip(arguments,true,true,function(elem){if(this.nodeType==1)this.insertBefore(elem,this.firstChild);});},before:function(){return this.domManip(arguments,false,false,function(elem){this.parentNode.insertBefore(elem,this);});},after:function(){return this.domManip(arguments,false,true,function(elem){this.parentNode.insertBefore(elem,this.nextSibling);});},end:function(){return this.prevObject||jQuery([]);},find:function(selector){var elems=jQuery.map(this,function(elem){return jQuery.find(selector,elem);});return this.pushStack(/[^+>] [^+>]/.test(selector)||selector.indexOf("..")>-1?jQuery.unique(elems):elems);},clone:function(events){var ret=this.map(function(){if(jQuery.browser.msie&&!jQuery.isXMLDoc(this)){var clone=this.cloneNode(true),container=document.createElement("div");container.appendChild(clone);return jQuery.clean([container.innerHTML])[0];}else
+return this.cloneNode(true);});var clone=ret.find("*").andSelf().each(function(){if(this[expando]!=undefined)this[expando]=null;});if(events===true)this.find("*").andSelf().each(function(i){if(this.nodeType==3)return;var events=jQuery.data(this,"events");for(var type in events)for(var handler in events[type])jQuery.event.add(clone[i],type,events[type][handler],events[type][handler].data);});return ret;},filter:function(selector){return this.pushStack(jQuery.isFunction(selector)&&jQuery.grep(this,function(elem,i){return selector.call(elem,i);})||jQuery.multiFilter(selector,this));},not:function(selector){if(selector.constructor==String)if(isSimple.test(selector))return this.pushStack(jQuery.multiFilter(selector,this,true));else
+selector=jQuery.multiFilter(selector,this);var isArrayLike=selector.length&&selector[selector.length-1]!==undefined&&!selector.nodeType;return this.filter(function(){return isArrayLike?jQuery.inArray(this,selector)<0:this!=selector;});},add:function(selector){return!selector?this:this.pushStack(jQuery.merge(this.get(),selector.constructor==String?jQuery(selector).get():selector.length!=undefined&&(!selector.nodeName||jQuery.nodeName(selector,"form"))?selector:[selector]));},is:function(selector){return selector?jQuery.multiFilter(selector,this).length>0:false;},hasClass:function(selector){return this.is("."+selector);},val:function(value){if(value==undefined){if(this.length){var elem=this[0];if(jQuery.nodeName(elem,"select")){var index=elem.selectedIndex,values=[],options=elem.options,one=elem.type=="select-one";if(index<0)return null;for(var i=one?index:0,max=one?index+1:options.length;i<max;i++){var option=options[i];if(option.selected){value=jQuery.browser.msie&&!option.attributes.value.specified?option.text:option.value;if(one)return value;values.push(value);}}return values;}else
+return(this[0].value||"").replace(/\r/g,"");}return undefined;}return this.each(function(){if(this.nodeType!=1)return;if(value.constructor==Array&&/radio|checkbox/.test(this.type))this.checked=(jQuery.inArray(this.value,value)>=0||jQuery.inArray(this.name,value)>=0);else if(jQuery.nodeName(this,"select")){var values=value.constructor==Array?value:[value];jQuery("option",this).each(function(){this.selected=(jQuery.inArray(this.value,values)>=0||jQuery.inArray(this.text,values)>=0);});if(!values.length)this.selectedIndex=-1;}else
+this.value=value;});},html:function(value){return value==undefined?(this.length?this[0].innerHTML:null):this.empty().append(value);},replaceWith:function(value){return this.after(value).remove();},eq:function(i){return this.slice(i,i+1);},slice:function(){return this.pushStack(Array.prototype.slice.apply(this,arguments));},map:function(callback){return this.pushStack(jQuery.map(this,function(elem,i){return callback.call(elem,i,elem);}));},andSelf:function(){return this.add(this.prevObject);},data:function(key,value){var parts=key.split(".");parts[1]=parts[1]?"."+parts[1]:"";if(value==null){var data=this.triggerHandler("getData"+parts[1]+"!",[parts[0]]);if(data==undefined&&this.length)data=jQuery.data(this[0],key);return data==null&&parts[1]?this.data(parts[0]):data;}else
+return this.trigger("setData"+parts[1]+"!",[parts[0],value]).each(function(){jQuery.data(this,key,value);});},removeData:function(key){return this.each(function(){jQuery.removeData(this,key);});},domManip:function(args,table,reverse,callback){var clone=this.length>1,elems;return this.each(function(){if(!elems){elems=jQuery.clean(args,this.ownerDocument);if(reverse)elems.reverse();}var obj=this;if(table&&jQuery.nodeName(this,"table")&&jQuery.nodeName(elems[0],"tr"))obj=this.getElementsByTagName("tbody")[0]||this.appendChild(this.ownerDocument.createElement("tbody"));var scripts=jQuery([]);jQuery.each(elems,function(){var elem=clone?jQuery(this).clone(true)[0]:this;if(jQuery.nodeName(elem,"script")){scripts=scripts.add(elem);}else{if(elem.nodeType==1)scripts=scripts.add(jQuery("script",elem).remove());callback.call(obj,elem);}});scripts.each(evalScript);});}};jQuery.prototype.init.prototype=jQuery.prototype;function evalScript(i,elem){if(elem.src)jQuery.ajax({url:elem.src,async:false,dataType:"script"});else
+jQuery.globalEval(elem.text||elem.textContent||elem.innerHTML||"");if(elem.parentNode)elem.parentNode.removeChild(elem);}jQuery.extend=jQuery.fn.extend=function(){var target=arguments[0]||{},i=1,length=arguments.length,deep=false,options;if(target.constructor==Boolean){deep=target;target=arguments[1]||{};i=2;}if(typeof target!="object"&&typeof target!="function")target={};if(length==1){target=this;i=0;}for(;i<length;i++)if((options=arguments[i])!=null)for(var name in options){if(target===options[name])continue;if(deep&&options[name]&&typeof options[name]=="object"&&target[name]&&!options[name].nodeType)target[name]=jQuery.extend(target[name],options[name]);else if(options[name]!=undefined)target[name]=options[name];}return target;};var expando="jQuery"+(new Date()).getTime(),uuid=0,windowData={};var exclude=/z-?index|font-?weight|opacity|zoom|line-?height/i;jQuery.extend({noConflict:function(deep){window.$=_$;if(deep)window.jQuery=_jQuery;return jQuery;},isFunction:function(fn){return!!fn&&typeof fn!="string"&&!fn.nodeName&&fn.constructor!=Array&&/function/i.test(fn+"");},isXMLDoc:function(elem){return elem.documentElement&&!elem.body||elem.tagName&&elem.ownerDocument&&!elem.ownerDocument.body;},globalEval:function(data){data=jQuery.trim(data);if(data){var head=document.getElementsByTagName("head")[0]||document.documentElement,script=document.createElement("script");script.type="text/javascript";if(jQuery.browser.msie)script.text=data;else
+script.appendChild(document.createTextNode(data));head.appendChild(script);head.removeChild(script);}},nodeName:function(elem,name){return elem.nodeName&&elem.nodeName.toUpperCase()==name.toUpperCase();},cache:{},data:function(elem,name,data){elem=elem==window?windowData:elem;var id=elem[expando];if(!id)id=elem[expando]=++uuid;if(name&&!jQuery.cache[id])jQuery.cache[id]={};if(data!=undefined)jQuery.cache[id][name]=data;return name?jQuery.cache[id][name]:id;},removeData:function(elem,name){elem=elem==window?windowData:elem;var id=elem[expando];if(name){if(jQuery.cache[id]){delete jQuery.cache[id][name];name="";for(name in jQuery.cache[id])break;if(!name)jQuery.removeData(elem);}}else{try{delete elem[expando];}catch(e){if(elem.removeAttribute)elem.removeAttribute(expando);}delete jQuery.cache[id];}},each:function(object,callback,args){if(args){if(object.length==undefined){for(var name in object)if(callback.apply(object[name],args)===false)break;}else
+for(var i=0,length=object.length;i<length;i++)if(callback.apply(object[i],args)===false)break;}else{if(object.length==undefined){for(var name in object)if(callback.call(object[name],name,object[name])===false)break;}else
+for(var i=0,length=object.length,value=object[0];i<length&&callback.call(value,i,value)!==false;value=object[++i]){}}return object;},prop:function(elem,value,type,i,name){if(jQuery.isFunction(value))value=value.call(elem,i);return value&&value.constructor==Number&&type=="curCSS"&&!exclude.test(name)?value+"px":value;},className:{add:function(elem,classNames){jQuery.each((classNames||"").split(/\s+/),function(i,className){if(elem.nodeType==1&&!jQuery.className.has(elem.className,className))elem.className+=(elem.className?" ":"")+className;});},remove:function(elem,classNames){if(elem.nodeType==1)elem.className=classNames!=undefined?jQuery.grep(elem.className.split(/\s+/),function(className){return!jQuery.className.has(classNames,className);}).join(" "):"";},has:function(elem,className){return jQuery.inArray(className,(elem.className||elem).toString().split(/\s+/))>-1;}},swap:function(elem,options,callback){var old={};for(var name in options){old[name]=elem.style[name];elem.style[name]=options[name];}callback.call(elem);for(var name in options)elem.style[name]=old[name];},css:function(elem,name,force){if(name=="width"||name=="height"){var val,props={position:"absolute",visibility:"hidden",display:"block"},which=name=="width"?["Left","Right"]:["Top","Bottom"];function getWH(){val=name=="width"?elem.offsetWidth:elem.offsetHeight;var padding=0,border=0;jQuery.each(which,function(){padding+=parseFloat(jQuery.curCSS(elem,"padding"+this,true))||0;border+=parseFloat(jQuery.curCSS(elem,"border"+this+"Width",true))||0;});val-=Math.round(padding+border);}if(jQuery(elem).is(":visible"))getWH();else
+jQuery.swap(elem,props,getWH);return Math.max(0,val);}return jQuery.curCSS(elem,name,force);},curCSS:function(elem,name,force){var ret;function color(elem){if(!jQuery.browser.safari)return false;var ret=document.defaultView.getComputedStyle(elem,null);return!ret||ret.getPropertyValue("color")=="";}if(name=="opacity"&&jQuery.browser.msie){ret=jQuery.attr(elem.style,"opacity");return ret==""?"1":ret;}if(jQuery.browser.opera&&name=="display"){var save=elem.style.outline;elem.style.outline="0 solid black";elem.style.outline=save;}if(name.match(/float/i))name=styleFloat;if(!force&&elem.style&&elem.style[name])ret=elem.style[name];else if(document.defaultView&&document.defaultView.getComputedStyle){if(name.match(/float/i))name="float";name=name.replace(/([A-Z])/g,"-$1").toLowerCase();var getComputedStyle=document.defaultView.getComputedStyle(elem,null);if(getComputedStyle&&!color(elem))ret=getComputedStyle.getPropertyValue(name);else{var swap=[],stack=[];for(var a=elem;a&&color(a);a=a.parentNode)stack.unshift(a);for(var i=0;i<stack.length;i++)if(color(stack[i])){swap[i]=stack[i].style.display;stack[i].style.display="block";}ret=name=="display"&&swap[stack.length-1]!=null?"none":(getComputedStyle&&getComputedStyle.getPropertyValue(name))||"";for(var i=0;i<swap.length;i++)if(swap[i]!=null)stack[i].style.display=swap[i];}if(name=="opacity"&&ret=="")ret="1";}else if(elem.currentStyle){var camelCase=name.replace(/\-(\w)/g,function(all,letter){return letter.toUpperCase();});ret=elem.currentStyle[name]||elem.currentStyle[camelCase];if(!/^\d+(px)?$/i.test(ret)&&/^\d/.test(ret)){var style=elem.style.left,runtimeStyle=elem.runtimeStyle.left;elem.runtimeStyle.left=elem.currentStyle.left;elem.style.left=ret||0;ret=elem.style.pixelLeft+"px";elem.style.left=style;elem.runtimeStyle.left=runtimeStyle;}}return ret;},clean:function(elems,context){var ret=[];context=context||document;if(typeof context.createElement=='undefined')context=context.ownerDocument||context[0]&&context[0].ownerDocument||document;jQuery.each(elems,function(i,elem){if(!elem)return;if(elem.constructor==Number)elem=elem.toString();if(typeof elem=="string"){elem=elem.replace(/(<(\w+)[^>]*?)\/>/g,function(all,front,tag){return tag.match(/^(abbr|br|col|img|input|link|meta|param|hr|area|embed)$/i)?all:front+"></"+tag+">";});var tags=jQuery.trim(elem).toLowerCase(),div=context.createElement("div");var wrap=!tags.indexOf("<opt")&&[1,"<select multiple='multiple'>","</select>"]||!tags.indexOf("<leg")&&[1,"<fieldset>","</fieldset>"]||tags.match(/^<(thead|tbody|tfoot|colg|cap)/)&&[1,"<table>","</table>"]||!tags.indexOf("<tr")&&[2,"<table><tbody>","</tbody></table>"]||(!tags.indexOf("<td")||!tags.indexOf("<th"))&&[3,"<table><tbody><tr>","</tr></tbody></table>"]||!tags.indexOf("<col")&&[2,"<table><tbody></tbody><colgroup>","</colgroup></table>"]||jQuery.browser.msie&&[1,"div<div>","</div>"]||[0,"",""];div.innerHTML=wrap[1]+elem+wrap[2];while(wrap[0]--)div=div.lastChild;if(jQuery.browser.msie){var tbody=!tags.indexOf("<table")&&tags.indexOf("<tbody")<0?div.firstChild&&div.firstChild.childNodes:wrap[1]=="<table>"&&tags.indexOf("<tbody")<0?div.childNodes:[];for(var j=tbody.length-1;j>=0;--j)if(jQuery.nodeName(tbody[j],"tbody")&&!tbody[j].childNodes.length)tbody[j].parentNode.removeChild(tbody[j]);if(/^\s/.test(elem))div.insertBefore(context.createTextNode(elem.match(/^\s*/)[0]),div.firstChild);}elem=jQuery.makeArray(div.childNodes);}if(elem.length===0&&(!jQuery.nodeName(elem,"form")&&!jQuery.nodeName(elem,"select")))return;if(elem[0]==undefined||jQuery.nodeName(elem,"form")||elem.options)ret.push(elem);else
+ret=jQuery.merge(ret,elem);});return ret;},attr:function(elem,name,value){if(!elem||elem.nodeType==3||elem.nodeType==8)return undefined;var fix=jQuery.isXMLDoc(elem)?{}:jQuery.props;if(name=="selected"&&jQuery.browser.safari)elem.parentNode.selectedIndex;if(fix[name]){if(value!=undefined)elem[fix[name]]=value;return elem[fix[name]];}else if(jQuery.browser.msie&&name=="style")return jQuery.attr(elem.style,"cssText",value);else if(value==undefined&&jQuery.browser.msie&&jQuery.nodeName(elem,"form")&&(name=="action"||name=="method"))return elem.getAttributeNode(name).nodeValue;else if(elem.tagName){if(value!=undefined){if(name=="type"&&jQuery.nodeName(elem,"input")&&elem.parentNode)throw"type property can't be changed";elem.setAttribute(name,""+value);}if(jQuery.browser.msie&&/href|src/.test(name)&&!jQuery.isXMLDoc(elem))return elem.getAttribute(name,2);return elem.getAttribute(name);}else{if(name=="opacity"&&jQuery.browser.msie){if(value!=undefined){elem.zoom=1;elem.filter=(elem.filter||"").replace(/alpha\([^)]*\)/,"")+(parseFloat(value).toString()=="NaN"?"":"alpha(opacity="+value*100+")");}return elem.filter&&elem.filter.indexOf("opacity=")>=0?(parseFloat(elem.filter.match(/opacity=([^)]*)/)[1])/100).toString():"";}name=name.replace(/-([a-z])/ig,function(all,letter){return letter.toUpperCase();});if(value!=undefined)elem[name]=value;return elem[name];}},trim:function(text){return(text||"").replace(/^\s+|\s+$/g,"");},makeArray:function(array){var ret=[];if(typeof array!="array")for(var i=0,length=array.length;i<length;i++)ret.push(array[i]);else
+ret=array.slice(0);return ret;},inArray:function(elem,array){for(var i=0,length=array.length;i<length;i++)if(array[i]==elem)return i;return-1;},merge:function(first,second){if(jQuery.browser.msie){for(var i=0;second[i];i++)if(second[i].nodeType!=8)first.push(second[i]);}else
+for(var i=0;second[i];i++)first.push(second[i]);return first;},unique:function(array){var ret=[],done={};try{for(var i=0,length=array.length;i<length;i++){var id=jQuery.data(array[i]);if(!done[id]){done[id]=true;ret.push(array[i]);}}}catch(e){ret=array;}return ret;},grep:function(elems,callback,inv){var ret=[];for(var i=0,length=elems.length;i<length;i++)if(!inv&&callback(elems[i],i)||inv&&!callback(elems[i],i))ret.push(elems[i]);return ret;},map:function(elems,callback){var ret=[];for(var i=0,length=elems.length;i<length;i++){var value=callback(elems[i],i);if(value!==null&&value!=undefined){if(value.constructor!=Array)value=[value];ret=ret.concat(value);}}return ret;}});var userAgent=navigator.userAgent.toLowerCase();jQuery.browser={version:(userAgent.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/)||[])[1],safari:/webkit/.test(userAgent),opera:/opera/.test(userAgent),msie:/msie/.test(userAgent)&&!/opera/.test(userAgent),mozilla:/mozilla/.test(userAgent)&&!/(compatible|webkit)/.test(userAgent)};var styleFloat=jQuery.browser.msie?"styleFloat":"cssFloat";jQuery.extend({boxModel:!jQuery.browser.msie||document.compatMode=="CSS1Compat",props:{"for":"htmlFor","class":"className","float":styleFloat,cssFloat:styleFloat,styleFloat:styleFloat,innerHTML:"innerHTML",className:"className",value:"value",disabled:"disabled",checked:"checked",readonly:"readOnly",selected:"selected",maxlength:"maxLength",selectedIndex:"selectedIndex",defaultValue:"defaultValue",tagName:"tagName",nodeName:"nodeName"}});jQuery.each({parent:function(elem){return elem.parentNode;},parents:function(elem){return jQuery.dir(elem,"parentNode");},next:function(elem){return jQuery.nth(elem,2,"nextSibling");},prev:function(elem){return jQuery.nth(elem,2,"previousSibling");},nextAll:function(elem){return jQuery.dir(elem,"nextSibling");},prevAll:function(elem){return jQuery.dir(elem,"previousSibling");},siblings:function(elem){return jQuery.sibling(elem.parentNode.firstChild,elem);},children:function(elem){return jQuery.sibling(elem.firstChild);},contents:function(elem){return jQuery.nodeName(elem,"iframe")?elem.contentDocument||elem.contentWindow.document:jQuery.makeArray(elem.childNodes);}},function(name,fn){jQuery.fn[name]=function(selector){var ret=jQuery.map(this,fn);if(selector&&typeof selector=="string")ret=jQuery.multiFilter(selector,ret);return this.pushStack(jQuery.unique(ret));};});jQuery.each({appendTo:"append",prependTo:"prepend",insertBefore:"before",insertAfter:"after",replaceAll:"replaceWith"},function(name,original){jQuery.fn[name]=function(){var args=arguments;return this.each(function(){for(var i=0,length=args.length;i<length;i++)jQuery(args[i])[original](this);});};});jQuery.each({removeAttr:function(name){jQuery.attr(this,name,"");if(this.nodeType==1)this.removeAttribute(name);},addClass:function(classNames){jQuery.className.add(this,classNames);},removeClass:function(classNames){jQuery.className.remove(this,classNames);},toggleClass:function(classNames){jQuery.className[jQuery.className.has(this,classNames)?"remove":"add"](this,classNames);},remove:function(selector){if(!selector||jQuery.filter(selector,[this]).r.length){jQuery("*",this).add(this).each(function(){jQuery.event.remove(this);jQuery.removeData(this);});if(this.parentNode)this.parentNode.removeChild(this);}},empty:function(){jQuery(">*",this).remove();while(this.firstChild)this.removeChild(this.firstChild);}},function(name,fn){jQuery.fn[name]=function(){return this.each(fn,arguments);};});jQuery.each(["Height","Width"],function(i,name){var type=name.toLowerCase();jQuery.fn[type]=function(size){return this[0]==window?jQuery.browser.opera&&document.body["client"+name]||jQuery.browser.safari&&window["inner"+name]||document.compatMode=="CSS1Compat"&&document.documentElement["client"+name]||document.body["client"+name]:this[0]==document?Math.max(Math.max(document.body["scroll"+name],document.documentElement["scroll"+name]),Math.max(document.body["offset"+name],document.documentElement["offset"+name])):size==undefined?(this.length?jQuery.css(this[0],type):null):this.css(type,size.constructor==String?size:size+"px");};});var chars=jQuery.browser.safari&&parseInt(jQuery.browser.version)<417?"(?:[\\w*_-]|\\\\.)":"(?:[\\w\u0128-\uFFFF*_-]|\\\\.)",quickChild=new RegExp("^>\\s*("+chars+"+)"),quickID=new RegExp("^("+chars+"+)(#)("+chars+"+)"),quickClass=new RegExp("^([#.]?)("+chars+"*)");jQuery.extend({expr:{"":function(a,i,m){return m[2]=="*"||jQuery.nodeName(a,m[2]);},"#":function(a,i,m){return a.getAttribute("id")==m[2];},":":{lt:function(a,i,m){return i<m[3]-0;},gt:function(a,i,m){return i>m[3]-0;},nth:function(a,i,m){return m[3]-0==i;},eq:function(a,i,m){return m[3]-0==i;},first:function(a,i){return i==0;},last:function(a,i,m,r){return i==r.length-1;},even:function(a,i){return i%2==0;},odd:function(a,i){return i%2;},"first-child":function(a){return a.parentNode.getElementsByTagName("*")[0]==a;},"last-child":function(a){return jQuery.nth(a.parentNode.lastChild,1,"previousSibling")==a;},"only-child":function(a){return!jQuery.nth(a.parentNode.lastChild,2,"previousSibling");},parent:function(a){return a.firstChild;},empty:function(a){return!a.firstChild;},contains:function(a,i,m){return(a.textContent||a.innerText||jQuery(a).text()||"").indexOf(m[3])>=0;},visible:function(a){return"hidden"!=a.type&&jQuery.css(a,"display")!="none"&&jQuery.css(a,"visibility")!="hidden";},hidden:function(a){return"hidden"==a.type||jQuery.css(a,"display")=="none"||jQuery.css(a,"visibility")=="hidden";},enabled:function(a){return!a.disabled;},disabled:function(a){return a.disabled;},checked:function(a){return a.checked;},selected:function(a){return a.selected||jQuery.attr(a,"selected");},text:function(a){return"text"==a.type;},radio:function(a){return"radio"==a.type;},checkbox:function(a){return"checkbox"==a.type;},file:function(a){return"file"==a.type;},password:function(a){return"password"==a.type;},submit:function(a){return"submit"==a.type;},image:function(a){return"image"==a.type;},reset:function(a){return"reset"==a.type;},button:function(a){return"button"==a.type||jQuery.nodeName(a,"button");},input:function(a){return/input|select|textarea|button/i.test(a.nodeName);},has:function(a,i,m){return jQuery.find(m[3],a).length;},header:function(a){return/h\d/i.test(a.nodeName);},animated:function(a){return jQuery.grep(jQuery.timers,function(fn){return a==fn.elem;}).length;}}},parse:[/^(\[) *@?([\w-]+) *([!*$^~=]*) *('?"?)(.*?)\4 *\]/,/^(:)([\w-]+)\("?'?(.*?(\(.*?\))?[^(]*?)"?'?\)/,new RegExp("^([:.#]*)("+chars+"+)")],multiFilter:function(expr,elems,not){var old,cur=[];while(expr&&expr!=old){old=expr;var f=jQuery.filter(expr,elems,not);expr=f.t.replace(/^\s*,\s*/,"");cur=not?elems=f.r:jQuery.merge(cur,f.r);}return cur;},find:function(t,context){if(typeof t!="string")return[t];if(context&&context.nodeType!=1&&context.nodeType!=9)return[];context=context||document;var ret=[context],done=[],last,nodeName;while(t&&last!=t){var r=[];last=t;t=jQuery.trim(t);var foundToken=false;var re=quickChild;var m=re.exec(t);if(m){nodeName=m[1].toUpperCase();for(var i=0;ret[i];i++)for(var c=ret[i].firstChild;c;c=c.nextSibling)if(c.nodeType==1&&(nodeName=="*"||c.nodeName.toUpperCase()==nodeName))r.push(c);ret=r;t=t.replace(re,"");if(t.indexOf(" ")==0)continue;foundToken=true;}else{re=/^([>+~])\s*(\w*)/i;if((m=re.exec(t))!=null){r=[];var merge={};nodeName=m[2].toUpperCase();m=m[1];for(var j=0,rl=ret.length;j<rl;j++){var n=m=="~"||m=="+"?ret[j].nextSibling:ret[j].firstChild;for(;n;n=n.nextSibling)if(n.nodeType==1){var id=jQuery.data(n);if(m=="~"&&merge[id])break;if(!nodeName||n.nodeName.toUpperCase()==nodeName){if(m=="~")merge[id]=true;r.push(n);}if(m=="+")break;}}ret=r;t=jQuery.trim(t.replace(re,""));foundToken=true;}}if(t&&!foundToken){if(!t.indexOf(",")){if(context==ret[0])ret.shift();done=jQuery.merge(done,ret);r=ret=[context];t=" "+t.substr(1,t.length);}else{var re2=quickID;var m=re2.exec(t);if(m){m=[0,m[2],m[3],m[1]];}else{re2=quickClass;m=re2.exec(t);}m[2]=m[2].replace(/\\/g,"");var elem=ret[ret.length-1];if(m[1]=="#"&&elem&&elem.getElementById&&!jQuery.isXMLDoc(elem)){var oid=elem.getElementById(m[2]);if((jQuery.browser.msie||jQuery.browser.opera)&&oid&&typeof oid.id=="string"&&oid.id!=m[2])oid=jQuery('[@id="'+m[2]+'"]',elem)[0];ret=r=oid&&(!m[3]||jQuery.nodeName(oid,m[3]))?[oid]:[];}else{for(var i=0;ret[i];i++){var tag=m[1]=="#"&&m[3]?m[3]:m[1]!=""||m[0]==""?"*":m[2];if(tag=="*"&&ret[i].nodeName.toLowerCase()=="object")tag="param";r=jQuery.merge(r,ret[i].getElementsByTagName(tag));}if(m[1]==".")r=jQuery.classFilter(r,m[2]);if(m[1]=="#"){var tmp=[];for(var i=0;r[i];i++)if(r[i].getAttribute("id")==m[2]){tmp=[r[i]];break;}r=tmp;}ret=r;}t=t.replace(re2,"");}}if(t){var val=jQuery.filter(t,r);ret=r=val.r;t=jQuery.trim(val.t);}}if(t)ret=[];if(ret&&context==ret[0])ret.shift();done=jQuery.merge(done,ret);return done;},classFilter:function(r,m,not){m=" "+m+" ";var tmp=[];for(var i=0;r[i];i++){var pass=(" "+r[i].className+" ").indexOf(m)>=0;if(!not&&pass||not&&!pass)tmp.push(r[i]);}return tmp;},filter:function(t,r,not){var last;while(t&&t!=last){last=t;var p=jQuery.parse,m;for(var i=0;p[i];i++){m=p[i].exec(t);if(m){t=t.substring(m[0].length);m[2]=m[2].replace(/\\/g,"");break;}}if(!m)break;if(m[1]==":"&&m[2]=="not")r=isSimple.test(m[3])?jQuery.filter(m[3],r,true).r:jQuery(r).not(m[3]);else if(m[1]==".")r=jQuery.classFilter(r,m[2],not);else if(m[1]=="["){var tmp=[],type=m[3];for(var i=0,rl=r.length;i<rl;i++){var a=r[i],z=a[jQuery.props[m[2]]||m[2]];if(z==null||/href|src|selected/.test(m[2]))z=jQuery.attr(a,m[2])||'';if((type==""&&!!z||type=="="&&z==m[5]||type=="!="&&z!=m[5]||type=="^="&&z&&!z.indexOf(m[5])||type=="$="&&z.substr(z.length-m[5].length)==m[5]||(type=="*="||type=="~=")&&z.indexOf(m[5])>=0)^not)tmp.push(a);}r=tmp;}else if(m[1]==":"&&m[2]=="nth-child"){var merge={},tmp=[],test=/(-?)(\d*)n((?:\+|-)?\d*)/.exec(m[3]=="even"&&"2n"||m[3]=="odd"&&"2n+1"||!/\D/.test(m[3])&&"0n+"+m[3]||m[3]),first=(test[1]+(test[2]||1))-0,last=test[3]-0;for(var i=0,rl=r.length;i<rl;i++){var node=r[i],parentNode=node.parentNode,id=jQuery.data(parentNode);if(!merge[id]){var c=1;for(var n=parentNode.firstChild;n;n=n.nextSibling)if(n.nodeType==1)n.nodeIndex=c++;merge[id]=true;}var add=false;if(first==0){if(node.nodeIndex==last)add=true;}else if((node.nodeIndex-last)%first==0&&(node.nodeIndex-last)/first>=0)add=true;if(add^not)tmp.push(node);}r=tmp;}else{var fn=jQuery.expr[m[1]];if(typeof fn=="object")fn=fn[m[2]];if(typeof fn=="string")fn=eval("false||function(a,i){return "+fn+";}");r=jQuery.grep(r,function(elem,i){return fn(elem,i,m,r);},not);}}return{r:r,t:t};},dir:function(elem,dir){var matched=[];var cur=elem[dir];while(cur&&cur!=document){if(cur.nodeType==1)matched.push(cur);cur=cur[dir];}return matched;},nth:function(cur,result,dir,elem){result=result||1;var num=0;for(;cur;cur=cur[dir])if(cur.nodeType==1&&++num==result)break;return cur;},sibling:function(n,elem){var r=[];for(;n;n=n.nextSibling){if(n.nodeType==1&&(!elem||n!=elem))r.push(n);}return r;}});jQuery.event={add:function(elem,types,handler,data){if(elem.nodeType==3||elem.nodeType==8)return;if(jQuery.browser.msie&&elem.setInterval!=undefined)elem=window;if(!handler.guid)handler.guid=this.guid++;if(data!=undefined){var fn=handler;handler=function(){return fn.apply(this,arguments);};handler.data=data;handler.guid=fn.guid;}var events=jQuery.data(elem,"events")||jQuery.data(elem,"events",{}),handle=jQuery.data(elem,"handle")||jQuery.data(elem,"handle",function(){var val;if(typeof jQuery=="undefined"||jQuery.event.triggered)return val;val=jQuery.event.handle.apply(arguments.callee.elem,arguments);return val;});handle.elem=elem;jQuery.each(types.split(/\s+/),function(index,type){var parts=type.split(".");type=parts[0];handler.type=parts[1];var handlers=events[type];if(!handlers){handlers=events[type]={};if(!jQuery.event.special[type]||jQuery.event.special[type].setup.call(elem)===false){if(elem.addEventListener)elem.addEventListener(type,handle,false);else if(elem.attachEvent)elem.attachEvent("on"+type,handle);}}handlers[handler.guid]=handler;jQuery.event.global[type]=true;});elem=null;},guid:1,global:{},remove:function(elem,types,handler){if(elem.nodeType==3||elem.nodeType==8)return;var events=jQuery.data(elem,"events"),ret,index;if(events){if(types==undefined||(typeof types=="string"&&types.charAt(0)=="."))for(var type in events)this.remove(elem,type+(types||""));else{if(types.type){handler=types.handler;types=types.type;}jQuery.each(types.split(/\s+/),function(index,type){var parts=type.split(".");type=parts[0];if(events[type]){if(handler)delete events[type][handler.guid];else
+for(handler in events[type])if(!parts[1]||events[type][handler].type==parts[1])delete events[type][handler];for(ret in events[type])break;if(!ret){if(!jQuery.event.special[type]||jQuery.event.special[type].teardown.call(elem)===false){if(elem.removeEventListener)elem.removeEventListener(type,jQuery.data(elem,"handle"),false);else if(elem.detachEvent)elem.detachEvent("on"+type,jQuery.data(elem,"handle"));}ret=null;delete events[type];}}});}for(ret in events)break;if(!ret){var handle=jQuery.data(elem,"handle");if(handle)handle.elem=null;jQuery.removeData(elem,"events");jQuery.removeData(elem,"handle");}}},trigger:function(type,data,elem,donative,extra){data=jQuery.makeArray(data||[]);if(type.indexOf("!")>=0){type=type.slice(0,-1);var exclusive=true;}if(!elem){if(this.global[type])jQuery("*").add([window,document]).trigger(type,data);}else{if(elem.nodeType==3||elem.nodeType==8)return undefined;var val,ret,fn=jQuery.isFunction(elem[type]||null),event=!data[0]||!data[0].preventDefault;if(event)data.unshift(this.fix({type:type,target:elem}));data[0].type=type;if(exclusive)data[0].exclusive=true;if(jQuery.isFunction(jQuery.data(elem,"handle")))val=jQuery.data(elem,"handle").apply(elem,data);if(!fn&&elem["on"+type]&&elem["on"+type].apply(elem,data)===false)val=false;if(event)data.shift();if(extra&&jQuery.isFunction(extra)){ret=extra.apply(elem,val==null?data:data.concat(val));if(ret!==undefined)val=ret;}if(fn&&donative!==false&&val!==false&&!(jQuery.nodeName(elem,'a')&&type=="click")){this.triggered=true;try{elem[type]();}catch(e){}}this.triggered=false;}return val;},handle:function(event){var val;event=jQuery.event.fix(event||window.event||{});var parts=event.type.split(".");event.type=parts[0];var handlers=jQuery.data(this,"events")&&jQuery.data(this,"events")[event.type],args=Array.prototype.slice.call(arguments,1);args.unshift(event);for(var j in handlers){var handler=handlers[j];args[0].handler=handler;args[0].data=handler.data;if(!parts[1]&&!event.exclusive||handler.type==parts[1]){var ret=handler.apply(this,args);if(val!==false)val=ret;if(ret===false){event.preventDefault();event.stopPropagation();}}}if(jQuery.browser.msie)event.target=event.preventDefault=event.stopPropagation=event.handler=event.data=null;return val;},fix:function(event){var originalEvent=event;event=jQuery.extend({},originalEvent);event.preventDefault=function(){if(originalEvent.preventDefault)originalEvent.preventDefault();originalEvent.returnValue=false;};event.stopPropagation=function(){if(originalEvent.stopPropagation)originalEvent.stopPropagation();originalEvent.cancelBubble=true;};if(!event.target)event.target=event.srcElement||document;if(event.target.nodeType==3)event.target=originalEvent.target.parentNode;if(!event.relatedTarget&&event.fromElement)event.relatedTarget=event.fromElement==event.target?event.toElement:event.fromElement;if(event.pageX==null&&event.clientX!=null){var doc=document.documentElement,body=document.body;event.pageX=event.clientX+(doc&&doc.scrollLeft||body&&body.scrollLeft||0)-(doc.clientLeft||0);event.pageY=event.clientY+(doc&&doc.scrollTop||body&&body.scrollTop||0)-(doc.clientTop||0);}if(!event.which&&((event.charCode||event.charCode===0)?event.charCode:event.keyCode))event.which=event.charCode||event.keyCode;if(!event.metaKey&&event.ctrlKey)event.metaKey=event.ctrlKey;if(!event.which&&event.button)event.which=(event.button&1?1:(event.button&2?3:(event.button&4?2:0)));return event;},special:{ready:{setup:function(){bindReady();return;},teardown:function(){return;}},mouseenter:{setup:function(){if(jQuery.browser.msie)return false;jQuery(this).bind("mouseover",jQuery.event.special.mouseenter.handler);return true;},teardown:function(){if(jQuery.browser.msie)return false;jQuery(this).unbind("mouseover",jQuery.event.special.mouseenter.handler);return true;},handler:function(event){if(withinElement(event,this))return true;arguments[0].type="mouseenter";return jQuery.event.handle.apply(this,arguments);}},mouseleave:{setup:function(){if(jQuery.browser.msie)return false;jQuery(this).bind("mouseout",jQuery.event.special.mouseleave.handler);return true;},teardown:function(){if(jQuery.browser.msie)return false;jQuery(this).unbind("mouseout",jQuery.event.special.mouseleave.handler);return true;},handler:function(event){if(withinElement(event,this))return true;arguments[0].type="mouseleave";return jQuery.event.handle.apply(this,arguments);}}}};jQuery.fn.extend({bind:function(type,data,fn){return type=="unload"?this.one(type,data,fn):this.each(function(){jQuery.event.add(this,type,fn||data,fn&&data);});},one:function(type,data,fn){return this.each(function(){jQuery.event.add(this,type,function(event){jQuery(this).unbind(event);return(fn||data).apply(this,arguments);},fn&&data);});},unbind:function(type,fn){return this.each(function(){jQuery.event.remove(this,type,fn);});},trigger:function(type,data,fn){return this.each(function(){jQuery.event.trigger(type,data,this,true,fn);});},triggerHandler:function(type,data,fn){if(this[0])return jQuery.event.trigger(type,data,this[0],false,fn);return undefined;},toggle:function(){var args=arguments;return this.click(function(event){this.lastToggle=0==this.lastToggle?1:0;event.preventDefault();return args[this.lastToggle].apply(this,arguments)||false;});},hover:function(fnOver,fnOut){return this.bind('mouseenter',fnOver).bind('mouseleave',fnOut);},ready:function(fn){bindReady();if(jQuery.isReady)fn.call(document,jQuery);else
+jQuery.readyList.push(function(){return fn.call(this,jQuery);});return this;}});jQuery.extend({isReady:false,readyList:[],ready:function(){if(!jQuery.isReady){jQuery.isReady=true;if(jQuery.readyList){jQuery.each(jQuery.readyList,function(){this.apply(document);});jQuery.readyList=null;}jQuery(document).triggerHandler("ready");}}});var readyBound=false;function bindReady(){if(readyBound)return;readyBound=true;if(document.addEventListener&&!jQuery.browser.opera)document.addEventListener("DOMContentLoaded",jQuery.ready,false);if(jQuery.browser.msie&&window==top)(function(){if(jQuery.isReady)return;try{document.documentElement.doScroll("left");}catch(error){setTimeout(arguments.callee,0);return;}jQuery.ready();})();if(jQuery.browser.opera)document.addEventListener("DOMContentLoaded",function(){if(jQuery.isReady)return;for(var i=0;i<document.styleSheets.length;i++)if(document.styleSheets[i].disabled){setTimeout(arguments.callee,0);return;}jQuery.ready();},false);if(jQuery.browser.safari){var numStyles;(function(){if(jQuery.isReady)return;if(document.readyState!="loaded"&&document.readyState!="complete"){setTimeout(arguments.callee,0);return;}if(numStyles===undefined)numStyles=jQuery("style, link[rel=stylesheet]").length;if(document.styleSheets.length!=numStyles){setTimeout(arguments.callee,0);return;}jQuery.ready();})();}jQuery.event.add(window,"load",jQuery.ready);}jQuery.each(("blur,focus,load,resize,scroll,unload,click,dblclick,"+"mousedown,mouseup,mousemove,mouseover,mouseout,change,select,"+"submit,keydown,keypress,keyup,error").split(","),function(i,name){jQuery.fn[name]=function(fn){return fn?this.bind(name,fn):this.trigger(name);};});var withinElement=function(event,elem){var parent=event.relatedTarget;while(parent&&parent!=elem)try{parent=parent.parentNode;}catch(error){parent=elem;}return parent==elem;};jQuery(window).bind("unload",function(){jQuery("*").add(document).unbind();});jQuery.fn.extend({load:function(url,params,callback){if(jQuery.isFunction(url))return this.bind("load",url);var off=url.indexOf(" ");if(off>=0){var selector=url.slice(off,url.length);url=url.slice(0,off);}callback=callback||function(){};var type="GET";if(params)if(jQuery.isFunction(params)){callback=params;params=null;}else{params=jQuery.param(params);type="POST";}var self=this;jQuery.ajax({url:url,type:type,dataType:"html",data:params,complete:function(res,status){if(status=="success"||status=="notmodified")self.html(selector?jQuery("<div/>").append(res.responseText.replace(/<script(.|\s)*?\/script>/g,"")).find(selector):res.responseText);self.each(callback,[res.responseText,status,res]);}});return this;},serialize:function(){return jQuery.param(this.serializeArray());},serializeArray:function(){return this.map(function(){return jQuery.nodeName(this,"form")?jQuery.makeArray(this.elements):this;}).filter(function(){return this.name&&!this.disabled&&(this.checked||/select|textarea/i.test(this.nodeName)||/text|hidden|password/i.test(this.type));}).map(function(i,elem){var val=jQuery(this).val();return val==null?null:val.constructor==Array?jQuery.map(val,function(val,i){return{name:elem.name,value:val};}):{name:elem.name,value:val};}).get();}});jQuery.each("ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend".split(","),function(i,o){jQuery.fn[o]=function(f){return this.bind(o,f);};});var jsc=(new Date).getTime();jQuery.extend({get:function(url,data,callback,type){if(jQuery.isFunction(data)){callback=data;data=null;}return jQuery.ajax({type:"GET",url:url,data:data,success:callback,dataType:type});},getScript:function(url,callback){return jQuery.get(url,null,callback,"script");},getJSON:function(url,data,callback){return jQuery.get(url,data,callback,"json");},post:function(url,data,callback,type){if(jQuery.isFunction(data)){callback=data;data={};}return jQuery.ajax({type:"POST",url:url,data:data,success:callback,dataType:type});},ajaxSetup:function(settings){jQuery.extend(jQuery.ajaxSettings,settings);},ajaxSettings:{global:true,type:"GET",timeout:0,contentType:"application/x-www-form-urlencoded",processData:true,async:true,data:null,username:null,password:null,accepts:{xml:"application/xml, text/xml",html:"text/html",script:"text/javascript, application/javascript",json:"application/json, text/javascript",text:"text/plain",_default:"*/*"}},lastModified:{},ajax:function(s){var jsonp,jsre=/=\?(&|$)/g,status,data;s=jQuery.extend(true,s,jQuery.extend(true,{},jQuery.ajaxSettings,s));if(s.data&&s.processData&&typeof s.data!="string")s.data=jQuery.param(s.data);if(s.dataType=="jsonp"){if(s.type.toLowerCase()=="get"){if(!s.url.match(jsre))s.url+=(s.url.match(/\?/)?"&":"?")+(s.jsonp||"callback")+"=?";}else if(!s.data||!s.data.match(jsre))s.data=(s.data?s.data+"&":"")+(s.jsonp||"callback")+"=?";s.dataType="json";}if(s.dataType=="json"&&(s.data&&s.data.match(jsre)||s.url.match(jsre))){jsonp="jsonp"+jsc++;if(s.data)s.data=(s.data+"").replace(jsre,"="+jsonp+"$1");s.url=s.url.replace(jsre,"="+jsonp+"$1");s.dataType="script";window[jsonp]=function(tmp){data=tmp;success();complete();window[jsonp]=undefined;try{delete window[jsonp];}catch(e){}if(head)head.removeChild(script);};}if(s.dataType=="script"&&s.cache==null)s.cache=false;if(s.cache===false&&s.type.toLowerCase()=="get"){var ts=(new Date()).getTime();var ret=s.url.replace(/(\?|&)_=.*?(&|$)/,"$1_="+ts+"$2");s.url=ret+((ret==s.url)?(s.url.match(/\?/)?"&":"?")+"_="+ts:"");}if(s.data&&s.type.toLowerCase()=="get"){s.url+=(s.url.match(/\?/)?"&":"?")+s.data;s.data=null;}if(s.global&&!jQuery.active++)jQuery.event.trigger("ajaxStart");if((!s.url.indexOf("http")||!s.url.indexOf("//"))&&s.dataType=="script"&&s.type.toLowerCase()=="get"){var head=document.getElementsByTagName("head")[0];var script=document.createElement("script");script.src=s.url;if(s.scriptCharset)script.charset=s.scriptCharset;if(!jsonp){var done=false;script.onload=script.onreadystatechange=function(){if(!done&&(!this.readyState||this.readyState=="loaded"||this.readyState=="complete")){done=true;success();complete();head.removeChild(script);}};}head.appendChild(script);return undefined;}var requestDone=false;var xml=window.ActiveXObject?new ActiveXObject("Microsoft.XMLHTTP"):new XMLHttpRequest();xml.open(s.type,s.url,s.async,s.username,s.password);try{if(s.data)xml.setRequestHeader("Content-Type",s.contentType);if(s.ifModified)xml.setRequestHeader("If-Modified-Since",jQuery.lastModified[s.url]||"Thu, 01 Jan 1970 00:00:00 GMT");xml.setRequestHeader("X-Requested-With","XMLHttpRequest");xml.setRequestHeader("Accept",s.dataType&&s.accepts[s.dataType]?s.accepts[s.dataType]+", */*":s.accepts._default);}catch(e){}if(s.beforeSend)s.beforeSend(xml);if(s.global)jQuery.event.trigger("ajaxSend",[xml,s]);var onreadystatechange=function(isTimeout){if(!requestDone&&xml&&(xml.readyState==4||isTimeout=="timeout")){requestDone=true;if(ival){clearInterval(ival);ival=null;}status=isTimeout=="timeout"&&"timeout"||!jQuery.httpSuccess(xml)&&"error"||s.ifModified&&jQuery.httpNotModified(xml,s.url)&&"notmodified"||"success";if(status=="success"){try{data=jQuery.httpData(xml,s.dataType);}catch(e){status="parsererror";}}if(status=="success"){var modRes;try{modRes=xml.getResponseHeader("Last-Modified");}catch(e){}if(s.ifModified&&modRes)jQuery.lastModified[s.url]=modRes;if(!jsonp)success();}else
+jQuery.handleError(s,xml,status);complete();if(s.async)xml=null;}};if(s.async){var ival=setInterval(onreadystatechange,13);if(s.timeout>0)setTimeout(function(){if(xml){xml.abort();if(!requestDone)onreadystatechange("timeout");}},s.timeout);}try{xml.send(s.data);}catch(e){jQuery.handleError(s,xml,null,e);}if(!s.async)onreadystatechange();function success(){if(s.success)s.success(data,status);if(s.global)jQuery.event.trigger("ajaxSuccess",[xml,s]);}function complete(){if(s.complete)s.complete(xml,status);if(s.global)jQuery.event.trigger("ajaxComplete",[xml,s]);if(s.global&&!--jQuery.active)jQuery.event.trigger("ajaxStop");}return xml;},handleError:function(s,xml,status,e){if(s.error)s.error(xml,status,e);if(s.global)jQuery.event.trigger("ajaxError",[xml,s,e]);},active:0,httpSuccess:function(r){try{return!r.status&&location.protocol=="file:"||(r.status>=200&&r.status<300)||r.status==304||r.status==1223||jQuery.browser.safari&&r.status==undefined;}catch(e){}return false;},httpNotModified:function(xml,url){try{var xmlRes=xml.getResponseHeader("Last-Modified");return xml.status==304||xmlRes==jQuery.lastModified[url]||jQuery.browser.safari&&xml.status==undefined;}catch(e){}return false;},httpData:function(r,type){var ct=r.getResponseHeader("content-type");var xml=type=="xml"||!type&&ct&&ct.indexOf("xml")>=0;var data=xml?r.responseXML:r.responseText;if(xml&&data.documentElement.tagName=="parsererror")throw"parsererror";if(type=="script")jQuery.globalEval(data);if(type=="json")data=eval("("+data+")");return data;},param:function(a){var s=[];if(a.constructor==Array||a.jquery)jQuery.each(a,function(){s.push(encodeURIComponent(this.name)+"="+encodeURIComponent(this.value));});else
+for(var j in a)if(a[j]&&a[j].constructor==Array)jQuery.each(a[j],function(){s.push(encodeURIComponent(j)+"="+encodeURIComponent(this));});else
+s.push(encodeURIComponent(j)+"="+encodeURIComponent(a[j]));return s.join("&").replace(/%20/g,"+");}});jQuery.fn.extend({show:function(speed,callback){return speed?this.animate({height:"show",width:"show",opacity:"show"},speed,callback):this.filter(":hidden").each(function(){this.style.display=this.oldblock||"";if(jQuery.css(this,"display")=="none"){var elem=jQuery("<"+this.tagName+" />").appendTo("body");this.style.display=elem.css("display");if(this.style.display=="none")this.style.display="block";elem.remove();}}).end();},hide:function(speed,callback){return speed?this.animate({height:"hide",width:"hide",opacity:"hide"},speed,callback):this.filter(":visible").each(function(){this.oldblock=this.oldblock||jQuery.css(this,"display");this.style.display="none";}).end();},_toggle:jQuery.fn.toggle,toggle:function(fn,fn2){return jQuery.isFunction(fn)&&jQuery.isFunction(fn2)?this._toggle(fn,fn2):fn?this.animate({height:"toggle",width:"toggle",opacity:"toggle"},fn,fn2):this.each(function(){jQuery(this)[jQuery(this).is(":hidden")?"show":"hide"]();});},slideDown:function(speed,callback){return this.animate({height:"show"},speed,callback);},slideUp:function(speed,callback){return this.animate({height:"hide"},speed,callback);},slideToggle:function(speed,callback){return this.animate({height:"toggle"},speed,callback);},fadeIn:function(speed,callback){return this.animate({opacity:"show"},speed,callback);},fadeOut:function(speed,callback){return this.animate({opacity:"hide"},speed,callback);},fadeTo:function(speed,to,callback){return this.animate({opacity:to},speed,callback);},animate:function(prop,speed,easing,callback){var optall=jQuery.speed(speed,easing,callback);return this[optall.queue===false?"each":"queue"](function(){if(this.nodeType!=1)return false;var opt=jQuery.extend({},optall);var hidden=jQuery(this).is(":hidden"),self=this;for(var p in prop){if(prop[p]=="hide"&&hidden||prop[p]=="show"&&!hidden)return jQuery.isFunction(opt.complete)&&opt.complete.apply(this);if(p=="height"||p=="width"){opt.display=jQuery.css(this,"display");opt.overflow=this.style.overflow;}}if(opt.overflow!=null)this.style.overflow="hidden";opt.curAnim=jQuery.extend({},prop);jQuery.each(prop,function(name,val){var e=new jQuery.fx(self,opt,name);if(/toggle|show|hide/.test(val))e[val=="toggle"?hidden?"show":"hide":val](prop);else{var parts=val.toString().match(/^([+-]=)?([\d+-.]+)(.*)$/),start=e.cur(true)||0;if(parts){var end=parseFloat(parts[2]),unit=parts[3]||"px";if(unit!="px"){self.style[name]=(end||1)+unit;start=((end||1)/e.cur(true))*start;self.style[name]=start+unit;}if(parts[1])end=((parts[1]=="-="?-1:1)*end)+start;e.custom(start,end,unit);}else
+e.custom(start,val,"");}});return true;});},queue:function(type,fn){if(jQuery.isFunction(type)||(type&&type.constructor==Array)){fn=type;type="fx";}if(!type||(typeof type=="string"&&!fn))return queue(this[0],type);return this.each(function(){if(fn.constructor==Array)queue(this,type,fn);else{queue(this,type).push(fn);if(queue(this,type).length==1)fn.apply(this);}});},stop:function(clearQueue,gotoEnd){var timers=jQuery.timers;if(clearQueue)this.queue([]);this.each(function(){for(var i=timers.length-1;i>=0;i--)if(timers[i].elem==this){if(gotoEnd)timers[i](true);timers.splice(i,1);}});if(!gotoEnd)this.dequeue();return this;}});var queue=function(elem,type,array){if(!elem)return undefined;type=type||"fx";var q=jQuery.data(elem,type+"queue");if(!q||array)q=jQuery.data(elem,type+"queue",array?jQuery.makeArray(array):[]);return q;};jQuery.fn.dequeue=function(type){type=type||"fx";return this.each(function(){var q=queue(this,type);q.shift();if(q.length)q[0].apply(this);});};jQuery.extend({speed:function(speed,easing,fn){var opt=speed&&speed.constructor==Object?speed:{complete:fn||!fn&&easing||jQuery.isFunction(speed)&&speed,duration:speed,easing:fn&&easing||easing&&easing.constructor!=Function&&easing};opt.duration=(opt.duration&&opt.duration.constructor==Number?opt.duration:{slow:600,fast:200}[opt.duration])||400;opt.old=opt.complete;opt.complete=function(){if(opt.queue!==false)jQuery(this).dequeue();if(jQuery.isFunction(opt.old))opt.old.apply(this);};return opt;},easing:{linear:function(p,n,firstNum,diff){return firstNum+diff*p;},swing:function(p,n,firstNum,diff){return((-Math.cos(p*Math.PI)/2)+0.5)*diff+firstNum;}},timers:[],timerId:null,fx:function(elem,options,prop){this.options=options;this.elem=elem;this.prop=prop;if(!options.orig)options.orig={};}});jQuery.fx.prototype={update:function(){if(this.options.step)this.options.step.apply(this.elem,[this.now,this]);(jQuery.fx.step[this.prop]||jQuery.fx.step._default)(this);if(this.prop=="height"||this.prop=="width")this.elem.style.display="block";},cur:function(force){if(this.elem[this.prop]!=null&&this.elem.style[this.prop]==null)return this.elem[this.prop];var r=parseFloat(jQuery.css(this.elem,this.prop,force));return r&&r>-10000?r:parseFloat(jQuery.curCSS(this.elem,this.prop))||0;},custom:function(from,to,unit){this.startTime=(new Date()).getTime();this.start=from;this.end=to;this.unit=unit||this.unit||"px";this.now=this.start;this.pos=this.state=0;this.update();var self=this;function t(gotoEnd){return self.step(gotoEnd);}t.elem=this.elem;jQuery.timers.push(t);if(jQuery.timerId==null){jQuery.timerId=setInterval(function(){var timers=jQuery.timers;for(var i=0;i<timers.length;i++)if(!timers[i]())timers.splice(i--,1);if(!timers.length){clearInterval(jQuery.timerId);jQuery.timerId=null;}},13);}},show:function(){this.options.orig[this.prop]=jQuery.attr(this.elem.style,this.prop);this.options.show=true;this.custom(0,this.cur());if(this.prop=="width"||this.prop=="height")this.elem.style[this.prop]="1px";jQuery(this.elem).show();},hide:function(){this.options.orig[this.prop]=jQuery.attr(this.elem.style,this.prop);this.options.hide=true;this.custom(this.cur(),0);},step:function(gotoEnd){var t=(new Date()).getTime();if(gotoEnd||t>this.options.duration+this.startTime){this.now=this.end;this.pos=this.state=1;this.update();this.options.curAnim[this.prop]=true;var done=true;for(var i in this.options.curAnim)if(this.options.curAnim[i]!==true)done=false;if(done){if(this.options.display!=null){this.elem.style.overflow=this.options.overflow;this.elem.style.display=this.options.display;if(jQuery.css(this.elem,"display")=="none")this.elem.style.display="block";}if(this.options.hide)this.elem.style.display="none";if(this.options.hide||this.options.show)for(var p in this.options.curAnim)jQuery.attr(this.elem.style,p,this.options.orig[p]);}if(done&&jQuery.isFunction(this.options.complete))this.options.complete.apply(this.elem);return false;}else{var n=t-this.startTime;this.state=n/this.options.duration;this.pos=jQuery.easing[this.options.easing||(jQuery.easing.swing?"swing":"linear")](this.state,n,0,1,this.options.duration);this.now=this.start+((this.end-this.start)*this.pos);this.update();}return true;}};jQuery.fx.step={scrollLeft:function(fx){fx.elem.scrollLeft=fx.now;},scrollTop:function(fx){fx.elem.scrollTop=fx.now;},opacity:function(fx){jQuery.attr(fx.elem.style,"opacity",fx.now);},_default:function(fx){fx.elem.style[fx.prop]=fx.now+fx.unit;}};jQuery.fn.offset=function(){var left=0,top=0,elem=this[0],results;if(elem)with(jQuery.browser){var parent=elem.parentNode,offsetChild=elem,offsetParent=elem.offsetParent,doc=elem.ownerDocument,safari2=safari&&parseInt(version)<522&&!/adobeair/i.test(userAgent),fixed=jQuery.css(elem,"position")=="fixed";if(elem.getBoundingClientRect){var box=elem.getBoundingClientRect();add(box.left+Math.max(doc.documentElement.scrollLeft,doc.body.scrollLeft),box.top+Math.max(doc.documentElement.scrollTop,doc.body.scrollTop));add(-doc.documentElement.clientLeft,-doc.documentElement.clientTop);}else{add(elem.offsetLeft,elem.offsetTop);while(offsetParent){add(offsetParent.offsetLeft,offsetParent.offsetTop);if(mozilla&&!/^t(able|d|h)$/i.test(offsetParent.tagName)||safari&&!safari2)border(offsetParent);if(!fixed&&jQuery.css(offsetParent,"position")=="fixed")fixed=true;offsetChild=/^body$/i.test(offsetParent.tagName)?offsetChild:offsetParent;offsetParent=offsetParent.offsetParent;}while(parent&&parent.tagName&&!/^body|html$/i.test(parent.tagName)){if(!/^inline|table.*$/i.test(jQuery.css(parent,"display")))add(-parent.scrollLeft,-parent.scrollTop);if(mozilla&&jQuery.css(parent,"overflow")!="visible")border(parent);parent=parent.parentNode;}if((safari2&&(fixed||jQuery.css(offsetChild,"position")=="absolute"))||(mozilla&&jQuery.css(offsetChild,"position")!="absolute"))add(-doc.body.offsetLeft,-doc.body.offsetTop);if(fixed)add(Math.max(doc.documentElement.scrollLeft,doc.body.scrollLeft),Math.max(doc.documentElement.scrollTop,doc.body.scrollTop));}results={top:top,left:left};}function border(elem){add(jQuery.curCSS(elem,"borderLeftWidth",true),jQuery.curCSS(elem,"borderTopWidth",true));}function add(l,t){left+=parseInt(l)||0;top+=parseInt(t)||0;}return results;};})();
+
+
+
+
+
+
+
+
+//]]>
+</script>
+<script type="text/javascript"> var thumbnail_mode = "no-float" ; summary_noimg = 430; summary_img = 340; img_thumb_height = 100; img_thumb_width = 150; </script>
+<script type="text/javascript">
+//<![CDATA[
+function removeHtmlTag(strx,chop){
+if(strx.indexOf("<")!=-1)
+{
+var s = strx.split("<");
+for(var i=0;i<s.length;i++){
+if(s[i].indexOf(">")!=-1){
+s[i] = s[i].substring(s[i].indexOf(">")+1,s[i].length);
+}
+}
+strx = s.join("");
+}
+chop = (chop < strx.length-1) ? chop : strx.length-2;
+while(strx.charAt(chop-1)!=' ' && strx.indexOf(' ',chop)!=-1) chop++;
+strx = strx.substring(0,chop-1);
+return strx+'...';
+}
+function createSummaryAndThumb(pID){
+var div = document.getElementById(pID);
+var imgtag = "";
+var img = div.getElementsByTagName("img");
+var summ = summary_noimg;
+if(img.length>=1) {
+imgtag = '<span style="float:left; padding:0px 10px 5px 0px;"><img src="'+img[0].src+'" width="'+img_thumb_width+'px" height="'+img_thumb_height+'px"/></span>';
+summ = summary_img;
+}
+var summary = imgtag + '<div>' + removeHtmlTag(div.innerHTML,summ) + '</div>';
+div.innerHTML = summary;
+}
+//]]>
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22421942-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript">var a="indexOf",b="&m=1",e="(^|&)m=",f="?",g="?m=1";function h(){var c=window.location.href,d=c.split(f);switch(d.length){case 1:return c+g;case 2:return 0<=d[1].search(e)?null:c+b;default:return null}}var k=navigator.userAgent;if(-1!=k[a]("Mobile")&&-1!=k[a]("WebKit")&&-1==k[a]("iPad")||-1!=k[a]("Opera Mini")||-1!=k[a]("IEMobile")){var l=h();l&&window.location.replace(l)};
+</script><script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script><script src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/google_top_exp.js" type="text/javascript"></script><style>.gc-bubbleDefault{background-color:transparent !important;text-align:left;padding:0 !important;margin:0 !important;border:0 !important;table-layout:auto !important}.gc-reset{background-color:transparent !important;border:0 !important;padding:0 !important;margin:0 !important;text-align:left}.pls-bubbleTop{border-bottom:1px solid #ccc !important}.pls-topTail,.pls-vertShimLeft,.pls-contentLeft{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/border_3.gif) !important}.pls-topTail{background-repeat:repeat-x !important;background-position:bottom !important}.pls-vertShim{background-color:#fff !important;text-align:right}.tbl-grey .pls-vertShim{background-color:#f5f5f5 !important}.pls-vertShimLeft{background-repeat:repeat-y !important;background-position:right !important;height:4px}.pls-vertShimRight{height:4px}.pls-confirm-container .pls-vertShim{background-color:#fff3c2 !important}.pls-contentWrap{background-color:#fff !important;position:relative !important;vertical-align:top}.pls-contentLeft{background-repeat:repeat-y;background-position:right;vertical-align:top}.pls-dropRight{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropR_3.png) !important;background-repeat:repeat-y !important;vertical-align:top}.pls-vert,.pls-tailleft,.pls-dropTR .pls-dropBR,.pls-dropBL,.pls-vert img{vertical-align:top}.pls-dropBottom{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropB_3.png) !important;background-repeat:repeat-x !important;width:100%;vertical-align:top}.pls-topLeft{background:inherit !important;text-align:right;vertical-align:bottom}.pls-topRight{background:inherit !important;text-align:left;vertical-align:bottom}.pls-bottomLeft{background:inherit !important;text-align:right}.pls-bottomRight{background:inherit !important;text-align:left;vertical-align:top}.pls-tailtop,.pls-tailright,.pls-tailbottom,.pls-tailleft{display:none;position:relative}.pls-tailbottom,.pls-tailtop,.pls-tailright,.pls-tailleft,.pls-dropTR,.pls-dropBR,.pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite_3.png) !important;background-repeat:no-repeat}.tbl-grey .pls-tailbottom,.tbl-grey .pls-tailtop,.tbl-grey .pls-tailright,.tbl-grey .pls-tailleft,.tbl-grey .pls-dropTR,.tbl-grey .pls-dropBR,.tbl-grey .pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite-grey.png) !important}.pls-tailbottom{background-position:-23px 0}.pls-confirm-container .pls-tailbottom{background-position:-23px -10px}.pls-tailtop{background-position:-19px -20px}.pls-tailright{background-position:0 0}.pls-tailleft{background-position:-10px 0}.pls-tailtop{vertical-align:top}.gc-bubbleDefault td{line-height:0;font-size:0}.pls-topLeft img,.pls-topRight img,.pls-tailbottom{vertical-align:bottom}.pls-bottomLeft img,.bubbleDropTR,.pls-dropBottomL img,.pls-dropBottom img,.pls-dropBottomR img,.pls-bottomLeft{vertical-align:top}.pls-dropTR{background-position:0 -22px}.pls-dropBR{background-position:0 -27px}.pls-dropBL{background-position:0 -16px}.pls-spacertop,.pls-spacerright,.pls-spacerbottom,.pls-spacerleft{position:static !important}.pls-spinner{bottom:0;position:absolute;left:0;margin:auto;right:0;top:0}</style></head>
+<body>
+<div class="navbar section" id="navbar"><div class="widget Navbar" id="Navbar1"><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener('load',
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<div id="navbar-iframe-container"><iframe src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/navbar.html" name="navbar-iframe" id="navbar-iframe" vspace="0" tabindex="0" style="" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+<script gapi_processed="true" type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/plusone.js"></script>
+<script type="text/javascript">
+        gapi.load("gapi.iframes:gapi.iframes.style.bubble", function() {
+          if (gapi.iframes && gapi.iframes.getContext) {
+            gapi.iframes.getContext().openChild({
+                url: 'https://www.blogger.com/navbar.g?targetBlogID\0752264228289887876963\46blogName\75C+,JAVA+and+TASM+Programming+Made+Eas...\46publishMode\75PUBLISH_MODE_BLOGSPOT\46navbarType\75LIGHT\46layoutType\75LAYOUTS\46searchRoot\75http://c-madeeasy.blogspot.com/search\46blogLocale\75en\46v\0752\46homepageUrl\75http://c-madeeasy.blogspot.com/\46targetPostID\0751574838314886073551\46blogPostOrPageUrl\75http://c-madeeasy.blogspot.com/2011/11/c-program-to-to-implement-inter-process.html\46vt\0756586245391600510395',
+                where: document.getElementById("navbar-iframe-container"),
+                id: "navbar-iframe"
+            });
+          }
+        });
+      </script><script type="text/javascript">
+(function() {
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = '//pagead2.googlesyndication.com/pagead/js/google_top_exp.js';
+var head = document.getElementsByTagName('head')[0];
+if (head) {
+head.appendChild(script);
+}})();
+</script>
+</div></div>
+<div id="outer-wrapper"><div id="wrap2">
+<!-- skip links for text browsers -->
+<span id="skiplinks" style="display:none;">
+<a href="#main">skip to main </a> |
+      <a href="#sidebar">skip to sidebar</a>
+</span>
+<div id="header-wrapper">
+<div id="login">
+<ul><li><a href="http://www.blogger.com/">Log In</a></li></ul>
+</div>
+<div class="header section" id="header"><div class="widget Header" id="Header1">
+<div id="header-inner">
+<div class="titlewrapper">
+<h1 class="title">
+<a href="http://c-madeeasy.blogspot.in/">C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials</a>
+</h1>
+</div>
+<div class="descriptionwrapper">
+<p class="description"><span>This blog aims at helping you learn C, Java
+ and TASM programming languages and thus enabling you to use its immense
+ possibilities in the computing world.It features Step by step 
+instructions on doing a C program ,Complete Source Codes of C, Java and 
+TASM Programs ,sample program downloads,programming tutorials and 
+general tips for programmers.</span></p>
+</div>
+</div>
+</div></div>
+<div id="headerads">
+<div class="crosscol section" id="crosscol"><div class="widget Image" id="Image1">
+<div class="widget-content">
+<a href="http://c-madeeasy.blogspot.com/">
+<img alt="" id="Image1_img" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/Untitled.png" width="537" height="187">
+</a>
+<br>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Image&amp;widgetId=Image1&amp;action=editWidget&amp;sectionId=crosscol" onclick='return _WidgetManager._PopupConfig(document.getElementById("Image1"));' target="configImage1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div></div>
+</div>
+<div style="clear:both;"></div>
+<!-- Pages-based menu added by BTemplates.com -->
+<div class="main-navigation"><div>
+<!-- Pages -->
+<div class="section" id="pages"><div class="widget PageList" id="PageList1">
+<div>
+<ul class="sf-menu sf-js-enabled sf-shadow" id="menu-main">
+<li><a href="http://c-madeeasy.blogspot.in/">Home</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/p/ccc-complete-source-codes.html">Source Codes for C,C++ and C# Programs+Explanation...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/p/support-page.html">Support Page:Get Answers for Programming Questions...</a></li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=PageList&amp;widgetId=PageList1&amp;action=editWidget&amp;sectionId=pages" onclick='return _WidgetManager._PopupConfig(document.getElementById("PageList1"));' target="configPageList1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+<!-- /Pages -->
+</div></div>
+<div style="clear:both"></div>
+</div>
+<div id="content-wrapper">
+<div id="contentarea-wrapper">
+<div id="mainarea-wrapper">
+<div id="sidebarleft-wrapper">
+<div class="sidebar section" id="sidebarleft"><div class="widget AdSense" id="AdSense3">
+<div class="widget-content">
+<script type="text/javascript"><!--
+google_ad_client="pub-5973300328949807";
+google_ad_host="pub-1556223355139109";
+google_ad_width=160;
+google_ad_height=600;
+google_ad_format="160x600_as";
+google_ad_type="text_image";
+google_ad_host_channel="0001+S0004+L0001";
+google_color_border="FFFFFF";
+google_color_bg="FFFFFF";
+google_color_link="999999";
+google_color_url="5588AA";
+google_color_text="666666";
+//--></script>
+<script type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="600" scrolling="no"></iframe></ins></ins>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=AdSense&amp;widgetId=AdSense3&amp;action=editWidget&amp;sectionId=sidebarleft" onclick='return _WidgetManager._PopupConfig(document.getElementById("AdSense3"));' target="configAdSense3" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget Label" id="Label1">
+<h2>Category</h2>
+<div class="widget-content list-label-widget-content">
+<ul>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/.NET?&amp;max-results=6">.NET</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Abstraction?&amp;max-results=6">Abstraction</a>
+<span dir="ltr">(3)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Applet?&amp;max-results=6">Applet</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Bison%28Yacc%29?&amp;max-results=6">Bison(Yacc)</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/C?&amp;max-results=6">C</a>
+<span dir="ltr">(13)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/C%23?&amp;max-results=6">C#</a>
+<span dir="ltr">(5)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/C%2B%2B?&amp;max-results=6">C++</a>
+<span dir="ltr">(10)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Client-Server?&amp;max-results=6">Client-Server</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Compiler%20Construction?&amp;max-results=6">Compiler Construction</a>
+<span dir="ltr">(3)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Data%20Structures%20and%20Algorithms?&amp;max-results=6">Data Structures and Algorithms</a>
+<span dir="ltr">(6)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Flex?&amp;max-results=6">Flex</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Friend%20Class?&amp;max-results=6">Friend Class</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Inheritance?&amp;max-results=6">Inheritance</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/IPC%28Interprocess%20Communication%29?&amp;max-results=6">IPC(Interprocess Communication)</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Java?&amp;max-results=6">Java</a>
+<span dir="ltr">(20)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Lex?&amp;max-results=6">Lex</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Linux?&amp;max-results=6">Linux</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/LISP?&amp;max-results=6">LISP</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Networking%20using%20Java?&amp;max-results=6">Networking using Java</a>
+<span dir="ltr">(2)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Object%20Oriented%20Programming?&amp;max-results=6">Object Oriented Programming</a>
+<span dir="ltr">(6)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Operating%20Systems?&amp;max-results=6">Operating Systems</a>
+<span dir="ltr">(4)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Operator%20Overloading?&amp;max-results=6">Operator Overloading</a>
+<span dir="ltr">(3)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Polymorphism?&amp;max-results=6">Polymorphism</a>
+<span dir="ltr">(5)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Security?&amp;max-results=6">Security</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Sockets?&amp;max-results=6">Sockets</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Sorting%2FSearching%20Techniques?&amp;max-results=6">Sorting/Searching Techniques</a>
+<span dir="ltr">(4)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/TASM?&amp;max-results=6">TASM</a>
+<span dir="ltr">(5)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Technology%20Trends?&amp;max-results=6">Technology Trends</a>
+<span dir="ltr">(6)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Template%20Class?&amp;max-results=6">Template Class</a>
+<span dir="ltr">(1)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Tips%20and%20Tutorials?&amp;max-results=6">Tips and Tutorials</a>
+<span dir="ltr">(26)</span>
+</li>
+<li>
+<a dir="ltr" href="http://c-madeeasy.blogspot.in/search/label/Video%20Editing?&amp;max-results=6">Video Editing</a>
+<span dir="ltr">(1)</span>
+</li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Label&amp;widgetId=Label1&amp;action=editWidget&amp;sectionId=sidebarleft" onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' target="configLabel1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget Followers" id="Followers1">
+<div class="widget-content">
+<div id="Followers1-wrapper">
+<div style="margin-right:2px;">
+<script type="text/javascript">
+        if (!window.google || !google.friendconnect) {
+          document.write('<script type="text/javascript"' +
+              'src="//www.google.com/friendconnect/script/friendconnect.js">' +
+              '</scr' + 'ipt>');
+        }
+      </script><script type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/friendconnect.js"></script>
+<script type="text/javascript">
+      if (!window.registeredBloggerCallbacks) {
+        window.registeredBloggerCallbacks = true;
+
+        
+
+        
+        gadgets.rpc.register('requestReload', function() {
+          document.location.reload();
+        });
+
+        
+        gadgets.rpc.register('requestSignOut', function(siteId) {
+          
+          google.friendconnect.container.openSocialSiteId = siteId;
+          google.friendconnect.requestSignOut();
+        });
+      }
+    </script>
+<script type="text/javascript">
+    
+    function registerGetBlogUrls() {
+      gadgets.rpc.register('getBlogUrls', function() {
+        var holder = {};
+        
+          
+            
+            
+              holder.currentPost = "http://www.blogger.com/feeds/2264228289887876963/posts/default/1574838314886073551";
+            
+            
+            
+              holder.currentComments = "http://www.blogger.com/feeds/2264228289887876963/1574838314886073551/comments/default";
+            
+            holder.currentPostUrl = "";
+            holder.currentPostId = 1574838314886073551
+          
+          
+          
+            holder.postFeed = "http://www.blogger.com/feeds/2264228289887876963/posts/default";
+          
+          
+          
+            holder.commentFeed = "http://www.blogger.com/feeds/2264228289887876963/comments/default";
+          
+          holder.currentBlogUrl = "http://c-madeeasy.blogspot.com/";
+          holder.currentBlogId = "2264228289887876963";
+        
+        return holder;
+      });
+    }
+  </script>
+<script type="text/javascript">
+  if (!window.registeredCommonBloggerCallbacks) {
+    window.registeredCommonBloggerCallbacks = true;
+
+    gadgets.rpc.register('resize_iframe', function(height) {
+      var el = document.getElementById(this['f']);
+      if (el) {
+        el.style.height = height + 'px';
+      }
+    });
+
+    
+    gadgets.rpc.register('set_pref', function() {});
+
+    registerGetBlogUrls();
+  }
+  </script>
+<div class="gadgets-gadget-container" id="div-15ny6ty65bmkj" style="width: 100%; visibility: visible;"><div id="gfc_iframe_1388932641_0_body"><iframe id="gfc_iframe_1388932641_0" name="gfc_iframe_1388932641_0" style="width: 100%; height: 254px;" allowtransparency="true" frameborder="0" height="260" scrolling="no"></iframe></div></div>
+<script type="text/javascript">
+    var skin = {};
+    skin['FACE_SIZE'] = '32';
+    skin['HEIGHT'] = "260";
+    skin['TITLE'] = "";
+    skin['BORDER_COLOR'] = "transparent";
+    skin['ENDCAP_BG_COLOR'] = "transparent";
+    skin['ENDCAP_TEXT_COLOR'] = "#666666";
+    skin['ENDCAP_LINK_COLOR'] = "#5588aa";
+    skin['ALTERNATE_BG_COLOR'] = "transparent";
+    
+    skin['CONTENT_BG_COLOR'] = "transparent";
+    skin['CONTENT_LINK_COLOR'] = "#5588aa";
+    skin['CONTENT_TEXT_COLOR'] = "#666666";
+    skin['CONTENT_SECONDARY_LINK_COLOR'] = "#5588aa";
+    skin['CONTENT_SECONDARY_TEXT_COLOR'] = "#999999";
+    skin['CONTENT_HEADLINE_COLOR'] = "#cc6600";
+    skin['FONT_FACE'] = "normal normal 100% Georgia, Serif";
+    google.friendconnect.container.setParentUrl("/");
+    google.friendconnect.container["renderMembersGadget"](
+    {id: "div-15ny6ty65bmkj",
+     height: 260,
+     
+     
+     
+     site: "02512273259933951210",
+     
+     locale: 'en' },
+     skin);
+  </script>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Followers&amp;widgetId=Followers1&amp;action=editWidget&amp;sectionId=sidebarleft" onclick='return _WidgetManager._PopupConfig(document.getElementById("Followers1"));' target="configFollowers1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget PopularPosts" id="PopularPosts1">
+<h2>Popular Posts</h2>
+<div class="widget-content popular-posts">
+<ul>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="http://c-madeeasy.blogspot.in/2011/07/how-to-run-dave-in-windows-7-64-bit.html" target="_blank">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/dangerousdave.html" width="72" height="72" border="0">
+</a>
+</div>
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2011/07/how-to-run-dave-in-windows-7-64-bit.html">How to Run Dave in Windows 7 64 Bit Version Using DOSBOX</a></div>
+<div class="item-snippet">      If you are a Windows 7 64 bit  version 
+user you wont be able to play or run Good Old Games Like Dave  that you 
+enjoyed playing when yo...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2011/10/c-program-to-add-substractmultiply-and.html">C++ Program to Add ,Substract,Multiply and Divide Complex Numbers Using Operator Overloading</a></div>
+<div class="item-snippet">The following menu driven C++ program uses 
+operator overloading to to perform Addition,Subtraction,Multiplication 
+and Division of two comple...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2011/08/dfsdepth-first-search-program-in-java.html">Depth First Search Program in Java</a></div>
+<div class="item-snippet">DFS:Depth First Search is a Method to Traverse
+ a Tree and find the Required Element in a Tree.This Algorithm is 
+referred to as Depth First S...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2012/03/c-program-example-for-hybrid.html">Hybrid Inheritance Example Program in C++ to Calculate the Marks and Percentage of a Student</a></div>
+<div class="item-snippet">   Hybrid Inheritance is the combination of 
+two or more inheritances : single, multiple,multilevel or hierarchical 
+Inheritances. The followi...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2011/12/round-robin-process-sheduling-algorithm.html">Round Robin Process Sheduling Algorithm and Example Source Code in C</a></div>
+<div class="item-snippet">Round robin is the most widely used process 
+scheduling algorithm .The basic strategy for round robin scheduling is 
+that if there are n proce...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2011/08/queue-using-array-in-java-complete.html">Queue using array in Java + Complete Program Source Code to Implement a Queue</a></div>
+<div class="item-snippet">Queue is an a Linear Data Structure which 
+follows a FIFO(First in First Out) approach.There are two operations for
+ a Queue  a)Enqueue -Inser...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2012/02/c-program-to-implement-friend-class-for.html">C++ Program to Implement Friend Class for Adding two Numbers</a></div>
+<div class="item-snippet">   Friends are functions or classes declared 
+using the friend  keyword.   Friend Class can access the private and 
+protected  members of the ...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2012/05/program-for-lexical-analyser-for-c.html">Program to create Lexical Analyser for C Programming Language using Lex/Flex</a></div>
+<div class="item-snippet"> Flex/Lex is a compiler construction tool that
+ can be used to design a compiler.In this example flex is used to create
+ a sample lexical anal...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-thumbnail">
+<a href="http://c-madeeasy.blogspot.in/2012/05/net-45-end-of-microsoft-net-framework.html" target="_blank">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/ner%2520framework.png" width="72" height="72" border="0">
+</a>
+</div>
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2012/05/net-45-end-of-microsoft-net-framework.html">.Net 4.5-The End of Microsoft .Net Framework Client Profile</a></div>
+<div class="item-snippet">       Microsoft had introduced 2 Variants of 
+the .net Frameworks till .Net Framework Version 4,the Complete Framework
+ and the Client Profil...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+<li>
+<div class="item-content">
+<div class="item-title"><a href="http://c-madeeasy.blogspot.in/2012/05/best-4-ides-for-coding-programs-in-c.html">The Best 4 Free IDEs for coding programs in C Language</a></div>
+<div class="item-snippet"> C Language is the Base for all Softwares 
+existing today,it is a powerful language for programming applications 
+which require Low Level Syst...</div>
+</div>
+<div style="clear: both;"></div>
+</li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=PopularPosts&amp;widgetId=PopularPosts1&amp;action=editWidget&amp;sectionId=sidebarleft" onclick='return _WidgetManager._PopupConfig(document.getElementById("PopularPosts1"));' target="configPopularPosts1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div>
+<div class="widget Attribution" id="Attribution1">
+<div class="widget-content" style="text-align: center;">
+CopyRight TechMan. Powered by <a href="http://www.blogger.com/" target="_blank">Blogger</a>.
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Attribution&amp;widgetId=Attribution1&amp;action=editWidget&amp;sectionId=sidebarleft" onclick='return _WidgetManager._PopupConfig(document.getElementById("Attribution1"));' target="configAttribution1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div></div>
+</div>
+<div id="main-wrapper">
+<div class="main section" id="main"><div class="widget TextList" id="TextList1">
+<h2>Programs by Category</h2>
+<div class="widget-content">
+<ul>
+<li><a href="http://c-madeeasy.blogspot.in/search/label/Networking%20using%20Java?&amp;max-results=6" target="_new">Networking in Java:Sockets,Client-Server etc</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/search/label/Operator%20Overloading?&amp;max-results=6" target="_new">Operator Overloading</a></li>
+<li><a href="http://c-madeeasy.blogspot.com/search/label/Sorting%2FSearching%20Techniques?&amp;max-results=6" target="_new">Sorting/Searching Techniques</a></li>
+<li><a href="http://c-madeeasy.blogspot.com/search/label/Data%20Structures%20and%20Algorithms?&amp;max-results=6" target="_new">Data Structures and Algorithms(Queue,Stack,Linked List etc)</a></li>
+<li><a href="http://c-madeeasy.blogspot.com/search/label/Operating%20Systems?&amp;max-results=6" target="_new">Process Communication/Sheduling/Operating System</a></li>
+<li><a href="http://c-madeeasy.blogspot.com/2011/08/dfsdepth-first-search-program-in-java.html" target="_new">Tree Spanning/Searching Algoritms</a></li>
+</ul>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=TextList&amp;widgetId=TextList1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("TextList1"));' target="configTextList1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget Blog" id="Blog1">
+<script type="text/javascript">
+var postCount=0;
+</script>
+<div class="blog-posts hfeed">
+<!-- google_ad_section_start(name=default) -->
+
+          <div class="date-outer">
+        
+<h2 class="date-header"><span>Thursday, November 17, 2011</span></h2>
+
+          <div class="date-posts">
+        
+<div id="postfirst1574838314886073551">
+<div class="post-outer">
+<div class="post hentry">
+<a name="1574838314886073551"></a>
+<h3 class="post-title entry-title">
+C Program to implement Inter Process Communication(IPC) by using Pipe
+</h3>
+<div class="post-header">
+<div class="post-header-line-1" style="color: #444444;font-family: Verdana,Arial,Helvetica,sans-serif;font-size: 11px;margin-bottom:15px;">
+<div style="color: #888888;font-style: italic;margin:5px; 0">
+<span class="post-timestamp">
+at
+<a class="timestamp-link" href="http://c-madeeasy.blogspot.in/2011/11/c-program-to-to-implement-inter-process.html" rel="bookmark" title="permanent link"><abbr class="published" title="2011-11-17T10:38:00-08:00">10:38 AM</abbr></a>
+</span>
+</div>
+<div style="clear:both"></div>
+<span class="post-author vcard">
+Posted by
+<span class="fn">Techman</span>
+</span>
+</div>
+</div>
+<div class="post-body entry-content" id="post-body-1574838314886073551">
+ 
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5973300328949807";
+google_ad_host = "pub-1556223355139109";
+/* media2 */
+google_ad_slot = "9440805238";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" width="336" frameborder="0" height="280" scrolling="no"></iframe></ins></ins>
+<br>
+<div dir="ltr" style="text-align: left;" trbidi="on">Inter Process 
+communication is a technique by which a thread in one process shares 
+some information with threads in other processes.A pipe is a 
+buffer,specifically a FIFO(First in First Out) buffer that has 2 ends,a 
+read end and a write end.A thread can write or read depending on the 
+file reference it has.<br>
+read() is used to read data and write() is used to write data.<br>
+<br>
+The following is an implementation of Pipe in C Language.There is a main
+ process P1 and 2 child processes C1 and C2 , the main process reads a 
+string and passes it to one of the child process ,the child process C1 
+receive string from P1,find its length and sends the value to P1.C1 also
+ reads an integer array of length equal to the length of the string and 
+sends it to C2.C2 receive integer array from C1,find the sum of the 
+elements and sends the sum to the parent process P1.The sleep() function
+ is used in the program to suspend the processes for a desired interval 
+of time.<br>
+The complete C language source code of&nbsp; this example program 
+that&nbsp; implements IPC(Interprocess Communication) using PIPE is 
+given below.<br>
+<pre style="font-family:arial;font-size:12px;border:1px dashed #CCCCCC;width:99%;height:auto;overflow:auto;background:#f0f0f0;;background-image:URL(http://2.bp.blogspot.com/_z5ltvMQPaa8/SjJXr_U2YBI/AAAAAAAAAAM/46OqEP32CJ8/s320/codebg.gif);padding:0px;color:#000000;text-align:left;line-height:20px;"><code style="color:#000000;word-wrap:normal;"> #include&lt;stdio.h&gt;  
+ #include&lt;unistd.h&gt;  
+ #include&lt;string.h&gt;  
+ void main()  
+ {  
+ // www.c-madeeasy.blogspot.com  
+  int pid[2],pid1[2],pid2[2],pid3[2],pid4[2];  
+  int a[20],i,l,s=0;  
+  char str[20];  
+  pipe(pid);  
+  pipe(pid1);  
+  pipe(pid2);  
+  pipe(pid3);  
+  pipe(pid4);   
+ if(fork()==0)  
+ {  
+  sleep(5);  
+  close(pid[1]);  
+  read(pid[0],str,sizeof(str));  
+  for(i=0,l=0;str[i]!='\0';i++)  
+  l=l+1;  
+  close(pid3[0]);  
+  write(pid3[1],&amp;l,sizeof(l));  
+  sleep(6);  
+  printf("Enter %d array elementz:",l);  
+  for(i=0;i&lt;l;i++)  
+  scanf("%d",&amp;a[i]);  
+  close(pid1[0]);  
+  write(pid1[1],a,sizeof(a));  
+  close(pid4[0]);  
+  write(pid4[1],&amp;l,sizeof(l));  
+ }  
+ else if(fork()==0)  
+ {  
+  sleep(2);  
+  close(pid1[1]);  
+  close(pid4[1]);  
+  read(pid4[0],&amp;l,sizeof(l));  
+  read(pid1[0],a,sizeof(a));  
+  for(i=0;i&lt;l;i++)  
+  s=s+a[i];  
+  close(pid2[0]);  
+  write(pid2[1],&amp;s,sizeof(s));  
+ }   
+ else    
+ {  
+  printf("\nEnter string:");  
+  scanf("%s",str);  
+  close(pid[0]);  
+  write(pid[1],str,sizeof(str));  
+  sleep(7);  
+  close(pid3[1]);  
+  read(pid3[0],&amp;l,sizeof(l));  
+  printf("\nThe string length=%d",l);  
+  sleep(8);  
+  close(pid2[1]);  
+  read(pid2[0],&amp;s,sizeof(s));  
+  printf("\nSum=%d",s);  
+ }  
+ }  
+</code></pre></div>
+<div style="clear: both;"></div>
+</div>
+<div class="post-footer">
+<div class="post-footer-line post-footer-line-1">
+<span class="post-comment-link">
+</span>
+<span class="post-icons">
+<span class="item-action">
+<a href="http://www.blogger.com/email-post.g?blogID=2264228289887876963&amp;postID=1574838314886073551" title="Email Post">
+<img alt="" class="icon-action" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_email.gif" width="18" height="13">
+</a>
+</span>
+<span class="item-control blog-admin pid-1815550012">
+<a href="http://www.blogger.com/post-edit.g?blogID=2264228289887876963&amp;postID=1574838314886073551&amp;from=pencil" title="Edit Post">
+<img alt="" class="icon-action" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_edit_allbkg.gif" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="post-share-buttons goog-inline-block">
+<a class="goog-inline-block share-button sb-email" href="http://www.blogger.com/share-post.g?blogID=2264228289887876963&amp;postID=1574838314886073551&amp;target=email" target="_blank" title="Email This"><span class="share-button-link-text">Email This</span></a><a class="goog-inline-block share-button sb-blog" href="http://www.blogger.com/share-post.g?blogID=2264228289887876963&amp;postID=1574838314886073551&amp;target=blog" onclick='window.open(this.href, "_blank", "height=270,width=475"); return false;' target="_blank" title="BlogThis!"><span class="share-button-link-text">BlogThis!</span></a><a class="goog-inline-block share-button sb-twitter" href="http://www.blogger.com/share-post.g?blogID=2264228289887876963&amp;postID=1574838314886073551&amp;target=twitter" target="_blank" title="Share to Twitter"><span class="share-button-link-text">Share to Twitter</span></a><a class="goog-inline-block share-button sb-facebook" href="http://www.blogger.com/share-post.g?blogID=2264228289887876963&amp;postID=1574838314886073551&amp;target=facebook" onclick='window.open(this.href, "_blank", "height=430,width=640"); return false;' target="_blank" title="Share to Facebook"><span class="share-button-link-text">Share to Facebook</span></a><div class="goog-inline-block dummy-container"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/fastbutton.html" name="I0_1389171706949" id="I0_1389171706949" vspace="0" tabindex="0" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div></div>
+</div>
+</div>
+<div class="post-footer-line post-footer-line-2"><span class="post-labels">
+Labels:
+<a href="http://c-madeeasy.blogspot.in/search/label/C?&amp;max-results=6" rel="tag">C</a>,
+<a href="http://c-madeeasy.blogspot.in/search/label/IPC%28Interprocess%20Communication%29?&amp;max-results=6" rel="tag">IPC(Interprocess Communication)</a>,
+<a href="http://c-madeeasy.blogspot.in/search/label/Operating%20Systems?&amp;max-results=6" rel="tag">Operating Systems</a>
+</span>
+<span class="reaction-buttons">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr>
+<td class="reactions-label-cell" valign="top" width="1%" nowrap="nowrap">
+<span class="reactions-label">
+Reactions:</span>&nbsp;</td>
+<td><iframe allowtransparency="true" class="reactions-iframe" name="reactions" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/blog-post-reactions.html" frameborder="0" scrolling="no"></iframe></td>
+</tr></tbody></table>
+</span>
+</div>
+<div class="post-footer-line post-footer-line-3"><span class="post-location">
+</span>
+</div>
+</div>
+</div>
+<div class="comments" id="comments">
+<a name="comments"></a>
+<h4>
+2
+comments:
+        
+</h4>
+<ul class="commentlist">
+<li>
+<div class="" id="2425352782521838644">
+<div class="pane_l">
+<div class="c_avatar"></div>
+<div class="avatar-comment-indent" style="margin-top:.5em;"></div>
+<a name="c2425352782521838644"></a>
+<div class="avatar-image-container vcard"><span dir="ltr"><a href="http://www.blogger.com/profile/10040693448942845966" rel="nofollow" onclick="" class="avatar-hovercard" id="av-0-10040693448942845966"><img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/photo.jpg" alt="" class="delayLoad" style="" longdesc="//lh6.googleusercontent.com/-JoYbqlTMUBw/AAAAAAAAAAI/AAAAAAAAABE/X5zfX_-c2G4/s512-c/photo.jpg" title="vaishnavi cvaishu" width="35" height="35">
+
+<noscript><img src="//lh6.googleusercontent.com/-JoYbqlTMUBw/AAAAAAAAAAI/AAAAAAAAABE/X5zfX_-c2G4/s512-c/photo.jpg" width="35" height="35" class="photo" alt=""></noscript></a></span></div>
+<a name="c2425352782521838644"></a>
+<div class="c_approved"></div>
+</div>
+<div class="pane_r">
+<div class="c_author"><dt class="comment-author" id="comment-2425352782521838644">
+<a name="comment-2425352782521838644"></a>
+<a href="http://www.blogger.com/profile/10040693448942845966" rel="nofollow">vaishnavi cvaishu</a>
+
+ says: 
+<span class="item-control blog-admin pid-559604362">
+<a class="comment-delete" href="http://www.blogger.com/delete-comment.g?blogID=2264228289887876963&amp;postID=2425352782521838644" title="Delete Comment">
+<img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_delete13.gif">
+</a>
+</span>
+</dt>
+<div class="c_date">September 11, 2012 at 2:41 AM</div>
+</div>
+<p>I couldn't use the unistd.h in Microsoft visual c++.</p>
+</div>
+</div>
+<div class=" clear"></div></li>
+<li class="commentlist1">
+<div class="" id="1648997813826196472">
+<div class="pane_l">
+<div class="c_avatar"></div>
+<div class="avatar-comment-indent" style="margin-top:.5em;"></div>
+<a name="c1648997813826196472"></a>
+<div class="avatar-image-container avatar-stock"><span dir="ltr"><a href="http://www.blogger.com/profile/15803365680938318490" rel="nofollow" onclick="" class="avatar-hovercard" id="av-1-15803365680938318490"><img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/b16-rounded.gif" alt="" title="Techman" width="16" height="16">
+
+</a></span></div>
+<a name="c1648997813826196472"></a>
+<div class="c_approved"></div>
+</div>
+<div class="pane_r">
+<div class="c_author"><dt class="comment-author" id="comment-1648997813826196472">
+<a name="comment-1648997813826196472"></a>
+<a href="http://www.blogger.com/profile/15803365680938318490" rel="nofollow">Techman</a>
+
+ says: 
+<span class="item-control blog-admin pid-1815550012">
+<a class="comment-delete" href="http://www.blogger.com/delete-comment.g?blogID=2264228289887876963&amp;postID=1648997813826196472" title="Delete Comment">
+<img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_delete13.gif">
+</a>
+</span>
+</dt>
+<div class="c_date">September 11, 2012 at 6:59 PM</div>
+</div>
+<p>This is a C program</p>
+</div>
+</div>
+<div class=" clear"></div>
+</li>
+</ul>
+<p class="comment-footer">
+</p><div class="comment-form">
+<a name="comment-form"></a>
+<h4 id="comment-post-message">Post a Comment</h4>
+<p>
+</p>
+<a href="https://www.blogger.com/comment-iframe.g?blogID=2264228289887876963&amp;postID=1574838314886073551&amp;blogspotRpcToken=3443226" id="comment-editor-src"></a>
+<iframe allowtransparency="true" class="blogger-iframe-colorize blogger-comment-from-post" id="comment-editor" name="comment-editor" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/comment-iframe.html" width="100%" frameborder="0" height="270px"></iframe>
+<script type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/3121195295-comment_from_post_iframe.js"></script>
+<script type="text/javascript">
+      BLOG_CMT_createIframe('https://www.blogger.com/rpc_relay.html', '02512273259933951210');
+    </script>
+</div>
+<p></p>
+<div id="backlinks-container">
+<div id="Blog1_backlinks-container">
+</div>
+</div>
+</div>
+</div>
+</div>
+
+        </div></div>
+      
+<!-- google_ad_section_end -->
+</div>
+<div class="blog-pager" id="blog-pager">
+<span id="blog-pager-newer-link">
+<a class="blog-pager-newer-link" href="http://c-madeeasy.blogspot.in/2011/11/unsolved-this-is-not-true-type-font.html" id="Blog1_blog-pager-newer-link" title="Newer Post">Newer Post</a>
+</span>
+<span id="blog-pager-older-link">
+<a class="blog-pager-older-link" href="http://c-madeeasy.blogspot.in/2011/11/what-is-google-2-step-verification-and.html" id="Blog1_blog-pager-older-link" title="Older Post">Older Post</a>
+</span>
+<a class="home-link" href="http://c-madeeasy.blogspot.in/">Home</a>
+</div>
+<div class="clear"></div>
+<div class="post-feeds">
+<div class="feed-links">
+Subscribe to:
+<a class="feed-link" href="http://c-madeeasy.blogspot.com/feeds/1574838314886073551/comments/default" target="_blank" type="application/atom+xml">Post Comments (Atom)</a>
+</div>
+</div>
+<script type="text/javascript">window.___gcfg = {'lang': 'en'};</script>
+</div><div class="widget Subscribe" id="Subscribe1">
+<div style="white-space:nowrap">
+<h2 class="title">Subscribe To</h2>
+<div class="widget-content">
+<div class="subscribe-wrapper subscribe-type-POST">
+<div class="subscribe expanded subscribe-type-POST" id="SW_READER_LIST_Subscribe1POST" style="display:none;">
+<div class="top">
+<span class="inner" onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img class="subscribe-dropdown-arrow" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/arrow_dropdown.gif">
+<img alt="" class="feed-icon" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_feed12.png" align="absmiddle" border="0">
+Posts
+</span>
+<div class="feed-reader-links">
+<a class="feed-reader-link" href="http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fc-madeeasy.blogspot.com%2Ffeeds%2Fposts%2Fdefault" target="_blank">
+<img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/subscribe-netvibes.png">
+</a>
+<a class="feed-reader-link" href="http://add.my.yahoo.com/content?url=http%3A%2F%2Fc-madeeasy.blogspot.com%2Ffeeds%2Fposts%2Fdefault" target="_blank">
+<img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/subscribe-yahoo.png">
+</a>
+<a class="feed-reader-link" href="http://c-madeeasy.blogspot.com/feeds/posts/default" target="_blank">
+<img class="feed-icon" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_feed12.png" align="absmiddle">
+                Atom
+              </a>
+</div>
+</div>
+<div class="bottom"></div>
+</div>
+<div class="subscribe" id="SW_READER_LIST_CLOSED_Subscribe1POST" onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<div class="top">
+<span class="inner">
+<img class="subscribe-dropdown-arrow" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/arrow_dropdown.gif">
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img alt="" class="feed-icon" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_feed12.png" align="absmiddle" border="0">
+Posts
+</span>
+</span>
+</div>
+<div class="bottom"></div>
+</div>
+</div>
+<div class="subscribe-wrapper subscribe-type-PER_POST">
+<div class="subscribe expanded subscribe-type-PER_POST" id="SW_READER_LIST_Subscribe1PER_POST" style="display:none;">
+<div class="top">
+<span class="inner" onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<img class="subscribe-dropdown-arrow" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/arrow_dropdown.gif">
+<img alt="" class="feed-icon" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_feed12.png" align="absmiddle" border="0">
+Comments
+</span>
+<div class="feed-reader-links">
+<a class="feed-reader-link" href="http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fc-madeeasy.blogspot.com%2Ffeeds%2F1574838314886073551%2Fcomments%2Fdefault" target="_blank">
+<img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/subscribe-netvibes.png">
+</a>
+<a class="feed-reader-link" href="http://add.my.yahoo.com/content?url=http%3A%2F%2Fc-madeeasy.blogspot.com%2Ffeeds%2F1574838314886073551%2Fcomments%2Fdefault" target="_blank">
+<img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/subscribe-yahoo.png">
+</a>
+<a class="feed-reader-link" href="http://c-madeeasy.blogspot.com/feeds/1574838314886073551/comments/default" target="_blank">
+<img class="feed-icon" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_feed12.png" align="absmiddle">
+                Atom
+              </a>
+</div>
+</div>
+<div class="bottom"></div>
+</div>
+<div class="subscribe" id="SW_READER_LIST_CLOSED_Subscribe1PER_POST" onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<div class="top">
+<span class="inner">
+<img class="subscribe-dropdown-arrow" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/arrow_dropdown.gif">
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<img alt="" class="feed-icon" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon_feed12.png" align="absmiddle" border="0">
+Comments
+</span>
+</span>
+</div>
+<div class="bottom"></div>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Subscribe&amp;widgetId=Subscribe1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("Subscribe1"));' target="configSubscribe1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget FollowByEmail" id="FollowByEmail1">
+<h2 class="title">Subscribe</h2>
+<div class="widget-content">
+<div class="follow-by-email-inner">
+<form action="http://feedburner.google.com/fb/a/mailverify" method="post" onsubmit='window.open("http://feedburner.google.com/fb/a/mailverify?uri=CProgrammingMadeEasyWithCodeExamplesAndTutorials", "popupwindow", "scrollbars=yes,width=550,height=520"); return true' target="popupwindow">
+<table width="100%">
+<tbody><tr>
+<td>
+<input class="follow-by-email-address" name="email" placeholder="Email address..." type="text">
+</td>
+<td width="64px">
+<input class="follow-by-email-submit" value="Submit" type="submit">
+</td>
+</tr>
+</tbody></table>
+<input name="uri" value="CProgrammingMadeEasyWithCodeExamplesAndTutorials" type="hidden">
+<input name="loc" value="en_US" type="hidden">
+</form>
+</div>
+</div>
+<span class="item-control blog-admin">
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=FollowByEmail&amp;widgetId=FollowByEmail1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("FollowByEmail1"));' target="configFollowByEmail1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</span>
+</div><div class="widget HTML" id="HTML3">
+<div class="widget-content">
+<a href="http://www.giveawayoftheday.com/"><img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/ticker1.png" alt="Giveaway of the Day" style="border: none"></a>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=HTML&amp;widgetId=HTML3&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML3"));' target="configHTML3" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget Text" id="Text1">
+<div class="widget-content">
+The Source Codes Published in this Blog can be used freely for 
+Educational purposes but should not be reproduced on any other Blog or 
+Website without the consent of the author.<br>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Text&amp;widgetId=Text1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("Text1"));' target="configText1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" id="HTML1">
+<div class="widget-content">
+<script src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/Loader_997934.html" type="text/javascript"></script><noscript><a href="http://www.wibiya.com/">Web Toolbar by Wibiya</a></noscript>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=HTML&amp;widgetId=HTML1&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target="configHTML1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" id="HTML6">
+<div class="widget-content">
+<a href="http://www.zimbio.com/member/rainbow9"><img alt="My Zimbio" title="My Zimbio" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/badgeBlue.html" border="0"></a>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=HTML&amp;widgetId=HTML6&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML6"));' target="configHTML6" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" id="HTML2">
+<div class="widget-content">
+<script language="javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/block.html" type="text/javascript">
+    </script>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=HTML&amp;widgetId=HTML2&amp;action=editWidget&amp;sectionId=main" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target="configHTML2" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div></div>
+</div>
+</div>
+<div id="sidebar-wrapper">
+<div class="sidebar section" id="sidebar"><div class="widget HTML" id="HTML4">
+<h2 class="title">Search</h2>
+<div class="widget-content">
+<style type="text/css">
+@import url(http://www.google.com/cse/api/branding.css);
+</style>
+<div class="cse-branding-bottom" style="background-color:#FFFFFF;color:#000000">
+  <div class="cse-branding-form">
+    <form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+      <div>
+        <input name="cx" value="partner-pub-5973300328949807:9831656437" type="hidden">
+        <input name="ie" value="UTF-8" type="hidden">
+        <input name="q" size="20" type="text">
+        <input name="sa" value="Search" type="submit">
+      </div>
+    </form>
+  </div>
+  <div class="cse-branding-logo">
+    <img src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/poweredby_FFFFFF.gif" alt="Google">
+  </div>
+  <div class="cse-branding-text">
+    Custom Search
+  </div>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=HTML&amp;widgetId=HTML4&amp;action=editWidget&amp;sectionId=sidebar" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML4"));' target="configHTML4" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget Image" id="Image2">
+<div class="widget-content">
+<a href="http://c-madeeasy.blogspot.in/search/label/Compiler%20Construction?&amp;max-results=6#en">
+<img alt="" id="Image2_img" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/compiler-construction-programs-yacc-bison.png" width="180" height="172">
+</a>
+<br>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=Image&amp;widgetId=Image2&amp;action=editWidget&amp;sectionId=sidebar" onclick='return _WidgetManager._PopupConfig(document.getElementById("Image2"));' target="configImage2" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget HTML" id="HTML8">
+<h2 class="title">C-made easy Channel</h2>
+<div class="widget-content">
+<center><!--Subscribe to Channnel --><iframe src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/subscribe_widget.html" style="overflow: hidden; height: 200px; width: 100px; border: 0;" frameborder="0" scrolling="no"></iframe></center>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=HTML&amp;widgetId=HTML8&amp;action=editWidget&amp;sectionId=sidebar" onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML8"));' target="configHTML8" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div><div class="widget AdSense" id="AdSense1">
+<div class="widget-content">
+<script type="text/javascript"><!--
+google_ad_client="pub-5973300328949807";
+google_ad_host="pub-1556223355139109";
+google_ad_width=160;
+google_ad_height=600;
+google_ad_format="160x600_as";
+google_ad_type="text_image";
+google_ad_host_channel="0001+S0004+L0001";
+google_color_border="FFFFFF";
+google_color_bg="FFFFFF";
+google_color_link="999999";
+google_color_url="5588AA";
+google_color_text="666666";
+//--></script>
+<script type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="600" scrolling="no"></iframe></ins></ins>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=AdSense&amp;widgetId=AdSense1&amp;action=editWidget&amp;sectionId=sidebar" onclick='return _WidgetManager._PopupConfig(document.getElementById("AdSense1"));' target="configAdSense1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div><div class="widget BlogArchive" id="BlogArchive1">
+<h2>Blog Archive</h2>
+<div class="widget-content">
+<div class="ltr" id="ArchiveList">
+<div id="BlogArchive1_ArchiveList">
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/search?updated-min=2013-01-01T00:00:00-08:00&amp;updated-max=2014-01-01T00:00:00-08:00&amp;max-results=1">2013</a>
+<span class="post-count" dir="ltr">(1)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2013_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/search?updated-min=2012-01-01T00:00:00-08:00&amp;updated-max=2013-01-01T00:00:00-08:00&amp;max-results=23">2012</a>
+<span class="post-count" dir="ltr">(23)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(2)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_05_01_archive.html">May</a>
+<span class="post-count" dir="ltr">(9)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_04_01_archive.html">April</a>
+<span class="post-count" dir="ltr">(1)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_03_01_archive.html">March</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_02_01_archive.html">February</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2012_01_01_archive.html">January</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">▼&nbsp;</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/search?updated-min=2011-01-01T00:00:00-08:00&amp;updated-max=2012-01-01T00:00:00-08:00&amp;max-results=49">2011</a>
+<span class="post-count" dir="ltr">(49)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2011_12_01_archive.html">December</a>
+<span class="post-count" dir="ltr">(4)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate expanded">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy toggle-open">▼&nbsp;</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2011_11_01_archive.html">November</a>
+<span class="post-count" dir="ltr">(8)</span>
+<ul class="posts">
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/is-your-cloud-securesecurity.html">Is your Cloud Secure?Security Vulnerabilities Disc...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/how-to-reverse-video-quickly-and-easily.html">How to Reverse a Video Quickly and Easily with Vir...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/unsolved-this-is-not-true-type-font.html">The Unsolved 'This is Not a True Type Font' Except...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/c-program-to-to-implement-inter-process.html">C Program to implement Inter Process Communication...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/what-is-google-2-step-verification-and.html">What is Google 2 Step Verification and How to Setu...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/good-and-free-custom-progress-bar.html">A Good and free Custom Progress Bar Control with A...</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/how-to-recharge-bsnl-3g-datacard-online.html">How to Recharge BSNL 3G DataCard Online</a></li>
+<li><a href="http://c-madeeasy.blogspot.in/2011/11/hd-or-full-hdwhat-to-buyneed-to-know.html">HD or Full HD?What to Buy?Need to Know Buying Advi...</a></li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2011_10_01_archive.html">October</a>
+<span class="post-count" dir="ltr">(6)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2011_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(5)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2011_08_01_archive.html">August</a>
+<span class="post-count" dir="ltr">(16)</span>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2011_07_01_archive.html">July</a>
+<span class="post-count" dir="ltr">(10)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/search?updated-min=2010-01-01T00:00:00-08:00&amp;updated-max=2011-01-01T00:00:00-08:00&amp;max-results=3">2010</a>
+<span class="post-count" dir="ltr">(3)</span>
+<ul class="hierarchy">
+<li class="archivedate collapsed">
+<a class="toggle" href="javascript:void(0)">
+<span class="zippy">
+
+          ►&nbsp;
+        
+</span>
+</a>
+<a class="post-count-link" href="http://c-madeeasy.blogspot.in/2010_09_01_archive.html">September</a>
+<span class="post-count" dir="ltr">(3)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+<span class="widget-item-control">
+<span class="item-control blog-admin">
+<a class="quickedit" href="http://www.blogger.com/rearrange?blogID=2264228289887876963&amp;widgetType=BlogArchive&amp;widgetId=BlogArchive1&amp;action=editWidget&amp;sectionId=sidebar" onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target="configBlogArchive1" title="Edit">
+<img alt="" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/icon18_wrench_allbkg.png" width="18" height="18">
+</a>
+</span>
+</span>
+<div class="clear"></div>
+</div>
+</div></div>
+</div>
+</div>
+<!-- end contentarea-wrapper -->
+<div style="clear:both;"></div>
+</div>
+<!-- end content-wrapper -->
+<div id="footer">
+    Copyright © 2011 <a href="http://c-madeeasy.blogspot.in/">C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials</a>. All Rights Reserved.<br>
+<span style="color:#f00;">Magazine Basic</span> theme designed by <a href="http://themes.bavotasan.com/"><span style="color:#f00;">Themes by bavotasan.com</span></a>. Bloggerized by <a href="http://www.freebloggertemplate.info/"><span style="color:#f00;">Free Blogger Template</span></a>.<br>
+    Powered by <a href="http://www.blogger.com/">Blogger</a>.
+
+</div>
+</div></div><iframe src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/blank.html" style="height: 0px; width: 0px; position: absolute;" name="google_top_static_frame" id="google_top_static_frame" frameborder="0"></iframe>
+<!-- end outer-wrapper -->
+<!--Page Navigation Starts-->
+<!--Page Navigation Ends -->
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/3561504294-widgets.js"></script>
+<script gapi_processed="true" type="text/javascript" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/plusone.js"></script><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="C%20Program%20to%20implement%20Inter%20Process%20Communication%28IPC%29%20by%20using%20Pipe%20%7C%20C%20,JAVA%20and%20TASM%20Programming%20Made%20Easy%20with%20Source%20Codes%20and%20Tutorials_files/postmessageRelay.html" id="oauth2relay1395815324" name="oauth2relay1395815324"></iframe>
+<script type="text/javascript">
+if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) { window['blogger_templates_experiment_id'] = "templatesV1";window['blogger_blog_id'] = '2264228289887876963';BLOG_attachCsiOnload('item_'); }_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d2264228289887876963','//c-madeeasy.blogspot.in/2011/11/c-program-to-to-implement-inter-process.html','2264228289887876963');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '2264228289887876963', 'bloggerUrl': 'http://www.blogger.com', 'title': 'C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials', 'pageType': 'item', 'url': 'http://c-madeeasy.blogspot.in/2011/11/c-program-to-to-implement-inter-process.html', 'canonicalUrl': 'http://c-madeeasy.blogspot.com/2011/11/c-program-to-to-implement-inter-process.html', 'canonicalHomepageUrl': 'http://c-madeeasy.blogspot.com/', 'homepageUrl': 'http://c-madeeasy.blogspot.in/', 'blogspotFaviconUrl': 'http://c-madeeasy.blogspot.in/favicon.ico', 'enabledCommentProfileImages': true, 'adultContent': false, 'disableAdSenseWidget': false, 'analyticsAccountNumber': '', 'searchLabel': '', 'searchQuery': '', 'pageName': 'C Program to implement Inter Process Communication(IPC) by using Pipe', 'pageTitle': 'C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials: C Program to implement Inter Process Communication(IPC) by using Pipe', 'encoding': 'UTF-8', 'locale': 'en', 'localeUnderscoreDelimited': 'en', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - Atom\42 href\75\42http://c-madeeasy.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - RSS\42 href\75\42http://c-madeeasy.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - Atom\42 href\75\42http://www.blogger.com/feeds/2264228289887876963/posts/default\42 /\76\n\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42C ,JAVA and TASM Programming Made Easy with Source Codes and Tutorials - Atom\42 href\75\42http://c-madeeasy.blogspot.com/feeds/1574838314886073551/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'imageSrcTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var b\75window,f\75\42chrome\42,g\75\42jstiming\42,k\75\42tick\42;(function(){function d(a){this.t\75{};this.tick\75function(a,d,c){var e\75void 0!\75c?c:(new Date).getTime();this.t[a]\75[e,d];if(void 0\75\75c)try{b.console.timeStamp(\42CSI/\42+a)}catch(h){}};this[k](\42start\42,null,a)}var a;b.performance\46\46(a\75b.performance.timing);var n\75a?new d(a.responseStart):new d;b.jstiming\75{Timer:d,load:n};if(a){var c\75a.navigationStart,h\75a.responseStart;0\74c\46\46h\76\75c\46\46(b[g].srt\75h-c)}if(a){var e\75b[g].load;0\74c\46\46h\76\75c\46\46(e[k](\42_wtsrt\42,void 0,c),e[k](\42wtsrt_\42,\42_wtsrt\42,h),e[k](\42tbsd_\42,\42wtsrt_\42))}try{a\75null,\nb[f]\46\46b[f].csi\46\46(a\75Math.floor(b[f].csi().pageT),e\46\0460\74c\46\46(e[k](\42_tbnd\42,void 0,b[f].csi().startE),e[k](\42tbnd_\42,\42_tbnd\42,c))),null\75\75a\46\46b.gtbExternal\46\46(a\75b.gtbExternal.pageT()),null\75\75a\46\46b.external\46\46(a\75b.external.pageT,e\46\0460\74c\46\46(e[k](\42_tbnd\42,void 0,b.external.startE),e[k](\42tbnd_\42,\42_tbnd\42,c))),a\46\46(b[g].pt\75a)}catch(p){}})();b.tickAboveFold\75function(d){var a\0750;if(d.offsetParent){do a+\75d.offsetTop;while(d\75d.offsetParent)}d\75a;750\76\75d\46\46b[g].load[k](\42aft\42)};var l\75!1;function m(){l||(l\75!0,b[g].load[k](\42firstScrollTime\42))}b.addEventListener?b.addEventListener(\42scroll\42,m,!1):b.attachEvent(\42onscroll\42,m);\n })();\74/script\076', 'mobileHeadScript': '', 'adsenseClientId': 'pub-5973300328949807', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/d6f37bb30c327165', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'testHtml5CssSrc': 'https://www.blogger.com/static/v1/widgets/2412321170-css_bundle_html5.css', 'sf': 'n', 'tf': ''}}, {'name': 'skin', 'data': {'vars': {'sidebartextcolor': '#666666', 'linkcolor': '#5588aa', 'visitedlinkcolor': '#999999', 'textcolor': '#333333', 'headerfont': 'normal normal 78% \47Trebuchet MS\47,Trebuchet,Arial,Verdana,Sans-serif', 'pagetitlefont': 'normal normal 200% Georgia, Serif', 'bgcolor': '#ffffff', 'descriptioncolor': '#999999', 'titlecolor': '#cc6600', 'bordercolor': '#cccccc', 'postfooterfont': 'normal normal 78% \47Trebuchet MS\47, Trebuchet, Arial, Verdana, Sans-serif', 'pagetitlecolor': '#666666', 'bodyfont': 'normal normal 100% Georgia, Serif', 'endSide': 'right', 'startSide': 'left', 'descriptionfont': 'normal normal 78% \47Trebuchet MS\47, Trebuchet, Arial, Verdana, Sans-serif', 'sidebarcolor': '#999999'}, 'override': ''}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '/?view\75classic'}, 'flipcard': {'name': 'flipcard', 'url': '/?view\75flipcard'}, 'magazine': {'name': 'magazine', 'url': '/?view\75magazine'}, 'mosaic': {'name': 'mosaic', 'url': '/?view\75mosaic'}, 'sidebar': {'name': 'sidebar', 'url': '/?view\75sidebar'}, 'snapshot': {'name': 'snapshot', 'url': '/?view\75snapshot'}, 'timeslide': {'name': 'timeslide', 'url': '/?view\75timeslide'}}}]);
+_WidgetManager._RegisterWidget('_ImageView', new _WidgetInfo('Image1', 'crosscol', null, document.getElementById('Image1'), {'resize': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PageListView', new _WidgetInfo('PageList1', 'pages', null, document.getElementById('PageList1'), {'title': 'Pages', 'links': [{'href': 'http://c-madeeasy.blogspot.in/', 'title': 'Home', 'isCurrentPage': false}, {'href': 'http://c-madeeasy.blogspot.in/p/ccc-complete-source-codes.html', 'title': 'Source Codes for C,C++ and C# Programs+Explanation...', 'isCurrentPage': false}, {'href': 'http://c-madeeasy.blogspot.in/p/support-page.html', 'title': 'Support Page:Get Answers for Programming Questions...', 'isCurrentPage': false}], 'mobile': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML4', 'sidebar', null, document.getElementById('HTML4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ImageView', new _WidgetInfo('Image2', 'sidebar', null, document.getElementById('Image2'), {'resize': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML8', 'sidebar', null, document.getElementById('HTML8'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense1', 'sidebar', null, document.getElementById('AdSense1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense3', 'sidebarleft', null, document.getElementById('AdSense3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebarleft', null, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowersView', new _WidgetInfo('Followers1', 'sidebarleft', null, document.getElementById('Followers1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'sidebarleft', null, document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'sidebarleft', null, document.getElementById('Attribution1'), {'attribution': 'CopyRight TechMan. Powered by \74a href\75\47http://www.blogger.com\47 target\75\47_blank\47\76Blogger\74/a\76.'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar', null, document.getElementById('Navbar1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextListView', new _WidgetInfo('TextList1', 'main', null, document.getElementById('TextList1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/3672639782-lbx.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/4138445517-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_SubscribeView', new _WidgetInfo('Subscribe1', 'main', null, document.getElementById('Subscribe1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowByEmailView', new _WidgetInfo('FollowByEmail1', 'main', null, document.getElementById('FollowByEmail1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'main', null, document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text1', 'main', null, document.getElementById('Text1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'main', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML6', 'main', null, document.getElementById('HTML6'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'main', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PageListView', new _WidgetInfo('PageList1', 'null', null, document.getElementById('PageList1'), {'title': 'Pages', 'links': [{'href': 'http://c-madeeasy.blogspot.in/', 'title': 'Home', 'isCurrentPage': false}, {'href': 'http://c-madeeasy.blogspot.in/p/support-page.html', 'title': 'Support Page:Get Answers for Programming Questions...', 'isCurrentPage': false}, {'href': 'http://c-madeeasy.blogspot.in/p/ccc-complete-source-codes.html', 'title': 'Source Codes for C,C++ and C# Programs+Explanation...', 'isCurrentPage': false}], 'mobile': false}, 'displayModeFull'));
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+// HOVERINTENT
+(function($){$.fn.hoverIntent=function(f,g){var cfg={sensitivity: 7,interval: 100,timeout: 0};cfg=$.extend(cfg,g?{over: f,out: g}: f);var cX,cY,pX,pY;var track=function(ev){cX=ev.pageX;cY=ev.pageY;};var compare=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);if((Math.abs(pX-cX)+Math.abs(pY-cY))<cfg.sensitivity){$(ob).unbind("mousemove",track);ob.hoverIntent_s=1;return cfg.over.apply(ob,[ev]);}else{pX=cX;pY=cY;ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}};var delay=function(ev,ob){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);ob.hoverIntent_s=0;return cfg.out.apply(ob,[ev]);};var handleHover=function(e){var p=(e.type=="mouseover"?e.fromElement : e.toElement)||e.relatedTarget;while(p&&p!=this){try{p=p.parentNode;}catch(e){p=this;}}if(p==this){return false;}var ev=jQuery.extend({},e);var ob=this;if(ob.hoverIntent_t){ob.hoverIntent_t=clearTimeout(ob.hoverIntent_t);}if(e.type=="mouseover"){pX=ev.pageX;pY=ev.pageY;$(ob).bind("mousemove",track);if(ob.hoverIntent_s!=1){ob.hoverIntent_t=setTimeout(function(){compare(ev,ob);},cfg.interval);}}else{$(ob).unbind("mousemove",track);if(ob.hoverIntent_s==1){ob.hoverIntent_t=setTimeout(function(){delay(ev,ob);},cfg.timeout);}}};return this.mouseover(handleHover).mouseout(handleHover);};})(jQuery);
+
+// SUPERFISH
+;(function($){$.fn.superfish=function(op){var sf=$.fn.superfish,c=sf.c,$arrow=$(['<span class="',c.arrowClass,'">�</span>'].join('')),over=function(){var $$=$(this),menu=getMenu($$);clearTimeout(menu.sfTimer);$$.showSuperfishUl().siblings().hideSuperfishUl();},out=function(){var $$=$(this),menu=getMenu($$),o=sf.op;clearTimeout(menu.sfTimer);menu.sfTimer=setTimeout(function(){o.retainPath=($.inArray($$[0],o.$path)>-1);$$.hideSuperfishUl();if(o.$path.length&&$$.parents(['li.',o.hoverClass].join('')).length<1){over.call(o.$path);}},o.delay);},getMenu=function($menu){var menu=$menu.parents(['ul.',c.menuClass,':first'].join(''))[0];sf.op=sf.o[menu.serial];return menu;},addArrow=function($a){$a.addClass(c.anchorClass).append($arrow.clone());};return this.each(function(){var s=this.serial=sf.o.length;var o=$.extend({},sf.defaults,op);o.$path=$('li.'+o.pathClass,this).slice(0,o.pathLevels).each(function(){$(this).addClass([o.hoverClass,c.bcClass].join(' ')).filter('li:has(ul)').removeClass(o.pathClass);});sf.o[s]=sf.op=o;$('li:has(ul)',this)[($.fn.hoverIntent&&!o.disableHI)?'hoverIntent' : 'hover'](over,out).each(function(){if(o.autoArrows)addArrow($('>a:first-child',this));}).not('.'+c.bcClass).hideSuperfishUl();var $a=$('a',this);$a.each(function(i){var $li=$a.eq(i).parents('li');$a.eq(i).focus(function(){over.call($li);}).blur(function(){out.call($li);});});o.onInit.call(this);}).each(function(){var menuClasses=[c.menuClass];if(sf.op.dropShadows&&!($.browser.msie&&$.browser.version<7))menuClasses.push(c.shadowClass);$(this).addClass(menuClasses.join(' '));});};var sf=$.fn.superfish;sf.o=[];sf.op={};sf.IE7fix=function(){var o=sf.op;if($.browser.msie&&$.browser.version>6&&o.dropShadows&&o.animation.opacity!=undefined)this.toggleClass(sf.c.shadowClass+'-off');};sf.c={bcClass : 'sf-breadcrumb',menuClass : 'sf-js-enabled',anchorClass : 'sf-with-ul',arrowClass : 'sf-sub-indicator',shadowClass : 'sf-shadow'};sf.defaults={hoverClass	: 'sfHover',pathClass	: 'overideThisToUse',pathLevels	: 1,delay : 800,animation	:{opacity:'show'},speed : 'normal',autoArrows	: true,dropShadows : true,disableHI	: false,onInit : function(){},onBeforeShow: function(){},onShow : function(){},onHide : function(){}};$.fn.extend({hideSuperfishUl : function(){var o=sf.op,not=(o.retainPath===true)?o.$path : '';o.retainPath=false;var $ul=$(['li.',o.hoverClass].join(''),this).add(this).not(not).removeClass(o.hoverClass).find('>ul').hide().css('visibility','hidden');o.onHide.call($ul);return this;},showSuperfishUl : function(){var o=sf.op,sh=sf.c.shadowClass+'-off',$ul=this.addClass(o.hoverClass).find('>ul:hidden').css('visibility','visible');sf.IE7fix.call($ul);o.onBeforeShow.call($ul);$ul.animate(o.animation,o.speed,function(){sf.IE7fix.call($ul);o.onShow.call($ul);});return this;}});})(jQuery);
+
+// SUPERSUBS
+;(function($){$.fn.supersubs=function(options){var opts=$.extend({},$.fn.supersubs.defaults,options);return this.each(function(){var $$=$(this);var o=$.meta?$.extend({},opts,$$.data()): opts;var fontsize=$('<li id="menu-fontsize">�</li>').css({'padding' : 0,'position' : 'absolute','top' : '-999em','width' : 'auto'}).appendTo($$).width();$('#menu-fontsize').remove();$ULs=$$.find('ul');$ULs.each(function(i){var $ul=$ULs.eq(i);var $LIs=$ul.children();var $As=$LIs.children('a');var liFloat=$LIs.css('white-space','nowrap').css('float');var emWidth=$ul.add($LIs).add($As).css({'float' : 'none','width'	: 'auto'}).end().end()[0].clientWidth/fontsize;emWidth+=o.extraWidth;if(emWidth>o.maxWidth){emWidth=o.maxWidth;}else if(emWidth<o.minWidth){emWidth=o.minWidth;}emWidth+='em';$ul.css('width',emWidth);$LIs.css({'float' : liFloat,'width' : '100%','white-space' : 'normal'}).each(function(){var $childUl=$('>ul',this);var offsetDirection=$childUl.css('left')!==undefined?'left' : 'right';$childUl.css(offsetDirection,emWidth);});});});};$.fn.supersubs.defaults={minWidth : 9,maxWidth : 25,extraWidth : 0};})(jQuery);
+
+jQuery(".main-navigation ul.sf-menu, .sub-navigation ul.sf-menu").supersubs({ 
+	minWidth:    12,
+	maxWidth:    30,
+	extraWidth:  1
+}).superfish({ 
+	delay:       200,
+	speed:       250 
+});
+//]]>
+</script>
+</body></html>

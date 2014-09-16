@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html style="overflow: auto;" class=" js no-touch no-ie8compat csstransforms no-csstransforms3d csstransitions" lang="en"><!--<![endif]--><!-- UTEIIS01 --><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/ico" href="http://www.embedded.com/images/embedded/favicon.ico">
+    <meta name="pagecaching" content="436">
+	<meta name="server_addr" content="192.155.49.95">
+	
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/track.js" defer="defer" async="" type="application/javascript"></script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/elqCfg.js" async="" type="text/javascript"></script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/vXhNDLnX1CtX07Kf4sAFw.js" async="" type="text/javascript"></script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ga.js" async="" type="text/javascript"></script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/all.js" id="facebook-jssdk"></script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/jquery_002.js" type="text/javascript"></script>
+    
+	
+	<title>FPGA programming step by step | Embedded</title><meta property="og:title" content="FPGA programming step by step">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step">
+<meta property="og:image" content="http://www.embedded.com/content/images/icons/contentitem-default.png">
+<meta property="og:site_name" content="Embedded">
+<meta property="og:description" content="FPGAs and microprocessors are more similar than you may think. Here's a primer on how to program an FPGA and some reasons why you'd want to.">
+<meta property="fb:admins" content="337533009670734">
+<meta name="description" content="FPGAs and microprocessors are more similar than you may think. Here's a primer on how to program an FPGA and some reasons why you'd want to.">
+<meta name="Headline" content="FPGA programming step by step">
+<meta name="news_keywords" content="FPGA, basics">
+<meta name="author" content="Ed Klingman">
+<meta name="created" content="March 04, 2004">
+<meta name="original-source" content="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step"><link href="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" rel="canonical">
+<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/twlightbox.css" media="screen" rel="stylesheet" type="text/css"><script type="text/javascript">
+    //<![CDATA[
+$.ajax({
+	   type: "GET",
+	   url: "/checkauth",
+	   data: {"referer": encodeURIComponent(document.referrer), "redirectTo": encodeURIComponent(window.location.href)},
+	   success: function(data){
+		   if (data != null)
+			{
+				window.location = data.redirectTo;
+			}
+	   },
+	   dataType: "json",
+	   async: false,
+	   cache: false
+	 });    //]]>
+</script>
+<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/lightbox.js"></script>
+<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/nextgen.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+    			$.ajax({
+			  url: "/index/welcome",
+			  type: 'POST',
+			  data: {"redirectTo": encodeURIComponent(window.location.href) , "refferURL":"http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step"},
+			  success: function(data) {	
+			    $('.login-bar').html(data);
+			    $('.login-bar').nextGenInit({				
+					width: 780,
+					siteUrlPrefix:''
+				});
+			  }
+			});
+});
+//]]>
+
+</script><!-- Start: GPT Sync -->
+<script type="text/javascript">
+ var gptadslots=[];
+ (function(){
+  var useSSL = 'https:' == document.location.protocol;
+  var src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+  document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+ })();
+</script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/gpt.js"></script>
+
+<script type="text/javascript">
+
+
+ googletag.pubads().setTargeting('kw',['dc_article','SystemDesignTools','FPGAPLDCPLD','SoftwareHardwareDevelopment','','4006429']);
+ googletag.pubads().setTargeting('aid',['4006429']);
+gptadslots[1]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[2,2]],'div-gpt-ad-942957474691236830-1')
+.addService(googletag.pubads())
+.setTargeting('pos',['welcome']);
+gptadslots[2]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[1,2]],'div-gpt-ad-942957474691236830-2')
+.addService(googletag.pubads())
+.setTargeting('pos',['wallpaper']);
+gptadslots[3]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[728,90],[970,250]],'div-gpt-ad-942957474691236830-3')
+.addService(googletag.pubads())
+.setTargeting('pos',['top']);
+gptadslots[4]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[300,250],[300,600],[336,280],[336,850]],'div-gpt-ad-942957474691236830-4')
+.addService(googletag.pubads())
+.setTargeting('pos',['rec1']);
+gptadslots[5]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[300,250],[300,600],[336,280],[336,850]],'div-gpt-ad-942957474691236830-5')
+.addService(googletag.pubads())
+.setTargeting('pos',['rec2']);
+gptadslots[21]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[336,90]],'div-gpt-ad-942957474691236830-21')
+.addService(googletag.pubads())
+.setTargeting('pos',['Promo1']);
+gptadslots[37]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[1,1]],'div-gpt-ad-942957474691236830-37')
+.addService(googletag.pubads())
+.setTargeting('pos',['KnowledgeCenter1']);
+gptadslots[38]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[1,1]],'div-gpt-ad-942957474691236830-38')
+.addService(googletag.pubads())
+.setTargeting('pos',['KnowledgeCenter2']);
+gptadslots[39]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[1,1]],'div-gpt-ad-942957474691236830-39')
+.addService(googletag.pubads())
+.setTargeting('pos',['KnowledgeCenter3']);
+gptadslots[40]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[1,1]],'div-gpt-ad-942957474691236830-40')
+.addService(googletag.pubads())
+.setTargeting('pos',['KnowledgeCenter4']);
+gptadslots[41]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[1,1]],'div-gpt-ad-942957474691236830-41')
+.addService(googletag.pubads())
+.setTargeting('pos',['KnowledgeCenter5']);
+gptadslots[42]=googletag.defineSlot('/2441/emd/prototyping-and-development',[[4,4]],'div-gpt-ad-942957474691236830-42')
+.addService(googletag.pubads())
+.setTargeting('pos',['video']);
+googletag.pubads().enableSingleRequest();
+googletag.pubads().enableSyncRendering();
+googletag.enableServices();
+</script><script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/pubads_impl_34.js"></script>
+    
+    <script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/modernizr.js" type="text/javascript"></script>
+    <script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/BrightcoveExperiences.html" type="text/javascript"></script>
+    <script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/contentgating.js"></script>
+    
+    <link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/socialfeed.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/css.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/jquery-ui.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/global.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/lightbox.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/lightbox-embedded.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/app.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/start-up.css" rel="stylesheet" type="text/css">
+	<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/registration.css" rel="stylesheet" type="text/css">
+		
+	<!-- IE Fix for HTML5 Tags -->
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="/css/embedded/ie.css">
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script> /* break us out of any containing iframes */if (top != self) { top.location.replace(self.location.href); }</script>
+	<script type="text/javascript">
+		var _doubleclickRand = Math.random() * 10000000000000000;
+	</script>   
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			_listService.applyListing();
+			initCalendar();
+			//$("a[alt^='prettyPhoto']").each(function(){ $(this).attr('href', $(this).attr('href').replace(/returnurl=&/gi,'returnUrl=' + encodeURIComponent(window.location) + '&')); });
+			//$("a[alt^='prettyPhoto']").prettyPhoto({ social_tools: false });
+		});
+	</script>
+	    <!-- Start Visual Website Optimizer Asynchronous Code -->
+<script type="text/javascript">
+var _vwo_code=(function(){
+var account_id=32069,
+settings_tolerance=2000,
+library_tolerance=2500,
+use_existing_jquery=false,
+// DO NOT EDIT BELOW THIS LINE
+f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+</script><script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/j.js"></script>
+<!-- End Visual Website Optimizer Asynchronous Code -->
+ <script type="text/javascript">
+    var _elqQ = _elqQ || []; _elqQ.push(['elqSetSiteId', '657486201']);
+    _elqQ.push(['elqTrackPageView']);
+    (function () {
+        function async_load() {
+            var s = document.createElement('script'); s.type = 'text/javascript';
+            s.async = true; s.src = '//img.en25.com/i/elqCfg.min.js';
+            var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+        }
+        if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+        else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+</script>
+<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/osd.js" type="text/javascript"></script><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/nonSecureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link{height:1% !important;}#li_ui_li_gen_1395117795562_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link:link, #li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link:visited, #li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link:hover, #li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1395117795562_0 a#li_ui_li_gen_1395117795562_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-logo{background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -276px no-repeat !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;}#li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-logo, #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-logo{}#li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-moz-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title, #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title{}.IN-shadowed #li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title{}.IN-shadowed #li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title, .IN-shadowed #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title{}#li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title-text, #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title-text, #li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title-text *{color:#000 !important;}#li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title-text, #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title-text, #li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title-text *, #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title-text *{color:#666 !important;}#li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title #li_ui_li_gen_1395117795562_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title-text, .success #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1395117795562_0 #li_ui_li_gen_1395117795562_0-title{}.success #li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title-text, .success #li_ui_li_gen_1395117795562_0.hovered #li_ui_li_gen_1395117795562_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title, .success #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title-text, .success #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title-text, .success #li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title-text *, .success #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1395117795562_0.clicked #li_ui_li_gen_1395117795562_0-title, .IN-shadowed .success #li_ui_li_gen_1395117795562_0.down #li_ui_li_gen_1395117795562_0-title{}#li_ui_li_gen_1395117795595_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1395117795595_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) right -100px no-repeat !important;}#li_ui_li_gen_1395117795595_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -60px no-repeat !important;}#li_ui_li_gen_1395117795595_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1395117795595_1-container.IN-hovered #li_ui_li_gen_1395117795595_1.IN-right, #li_ui_li_gen_1395117795595_1-container.IN-clicked #li_ui_li_gen_1395117795595_1.IN-right, #li_ui_li_gen_1395117795595_1-container.IN-down #li_ui_li_gen_1395117795595_1.IN-right {background-position-y:-120px !important;}#li_ui_li_gen_1395117795595_1-container.IN-hovered #li_ui_li_gen_1395117795595_1-inner.IN-right, #li_ui_li_gen_1395117795595_1-container.IN-clicked #li_ui_li_gen_1395117795595_1-inner.IN-right, #li_ui_li_gen_1395117795595_1-container.IN-down #li_ui_li_gen_1395117795595_1-inner.IN-right {background-position-y:-80px !important;}#li_ui_li_gen_1395117795595_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1395117795595_1-container.IN-hidden #li_ui_li_gen_1395117795595_1 {display:none !important;}* html #li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link{height:1% !important;}#li_ui_li_gen_1395117795609_2{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link:link, #li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link:visited, #li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link:hover, #li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1395117795609_2 a#li_ui_li_gen_1395117795609_2-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-logo{background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -276px no-repeat !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;}#li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-logo, #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-logo{}#li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-moz-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title, #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title{}.IN-shadowed #li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title{}.IN-shadowed #li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title, .IN-shadowed #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title{}#li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title-text, #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title-text em{font-style:italic !important;}#li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title-text, #li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title-text *{color:#000 !important;}#li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title-text, #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title-text, #li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title-text *, #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title-text *{color:#666 !important;}#li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title #li_ui_li_gen_1395117795609_2-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title-text, .success #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1395117795609_2 #li_ui_li_gen_1395117795609_2-title{}.success #li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title-text, .success #li_ui_li_gen_1395117795609_2.hovered #li_ui_li_gen_1395117795609_2-title-text *{color:#000 !important;}.success #li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title, .success #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title-text, .success #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title-text, .success #li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title-text *, .success #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1395117795609_2.clicked #li_ui_li_gen_1395117795609_2-title, .IN-shadowed .success #li_ui_li_gen_1395117795609_2.down #li_ui_li_gen_1395117795609_2-title{}#li_ui_li_gen_1395117795616_3-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1395117795616_3.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) right -100px no-repeat !important;}#li_ui_li_gen_1395117795616_3-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -60px no-repeat !important;}#li_ui_li_gen_1395117795616_3-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1395117795616_3-container.IN-hovered #li_ui_li_gen_1395117795616_3.IN-right, #li_ui_li_gen_1395117795616_3-container.IN-clicked #li_ui_li_gen_1395117795616_3.IN-right, #li_ui_li_gen_1395117795616_3-container.IN-down #li_ui_li_gen_1395117795616_3.IN-right {background-position-y:-120px !important;}#li_ui_li_gen_1395117795616_3-container.IN-hovered #li_ui_li_gen_1395117795616_3-inner.IN-right, #li_ui_li_gen_1395117795616_3-container.IN-clicked #li_ui_li_gen_1395117795616_3-inner.IN-right, #li_ui_li_gen_1395117795616_3-container.IN-down #li_ui_li_gen_1395117795616_3-inner.IN-right {background-position-y:-80px !important;}#li_ui_li_gen_1395117795616_3-container.IN-empty {display:none !important;}#li_ui_li_gen_1395117795616_3-container.IN-hidden #li_ui_li_gen_1395117795616_3 {display:none !important;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/svrGP.js" type="text/javascript"></script><style media="screen" type="text/css">.uv-icon{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:inline-block;cursor:pointer;position:relative;-webkit-transition:all 300ms;-moz-transition:all 300ms;-o-transition:all 300ms;transition:all 300ms;width:39px;height:39px;position:fixed;z-index:100002;opacity:0.8;-webkit-transition:opacity 100ms;-moz-transition:opacity 100ms;-o-transition:opacity 100ms;transition:opacity 100ms}.uv-icon.uv-bottom-right{bottom:10px;right:12px}.uv-icon.uv-top-right{top:10px;right:12px}.uv-icon.uv-bottom-left{bottom:10px;left:12px}.uv-icon.uv-top-left{top:10px;left:12px}.uv-icon.uv-is-selected{opacity:1}.uv-icon svg{width:39px;height:39px}.uv-popover{font-family:sans-serif;font-weight:100;font-size:13px;color:black;position:fixed;z-index:100001}.uv-popover-content{-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;background:white;position:relative;width:325px;height:325px;-webkit-transition:background 200ms;-moz-transition:background 200ms;-o-transition:background 200ms;transition:background 200ms}.uv-bottom .uv-popover-content{-webkit-box-shadow:rgba(0,0,0,0.3) 0 -10px 60px,rgba(0,0,0,0.1) 0 0 20px;-moz-box-shadow:rgba(0,0,0,0.3) 0 -10px 60px,rgba(0,0,0,0.1) 0 0 20px;box-shadow:rgba(0,0,0,0.3) 0 -10px 60px,rgba(0,0,0,0.1) 0 0 20px}.uv-top .uv-popover-content{-webkit-box-shadow:rgba(0,0,0,0.3) 0 10px 60px,rgba(0,0,0,0.1) 0 0 20px;-moz-box-shadow:rgba(0,0,0,0.3) 0 10px 60px,rgba(0,0,0,0.1) 0 0 20px;box-shadow:rgba(0,0,0,0.3) 0 10px 60px,rgba(0,0,0,0.1) 0 0 20px}.uv-left .uv-popover-content{-webkit-box-shadow:rgba(0,0,0,0.3) 10px 0 60px,rgba(0,0,0,0.1) 0 0 20px;-moz-box-shadow:rgba(0,0,0,0.3) 10px 0 60px,rgba(0,0,0,0.1) 0 0 20px;box-shadow:rgba(0,0,0,0.3) 10px 0 60px,rgba(0,0,0,0.1) 0 0 20px}.uv-right .uv-popover-content{-webkit-box-shadow:rgba(0,0,0,0.3) -10px 0 60px,rgba(0,0,0,0.1) 0 0 20px;-moz-box-shadow:rgba(0,0,0,0.3) -10px 0 60px,rgba(0,0,0,0.1) 0 0 20px;box-shadow:rgba(0,0,0,0.3) -10px 0 60px,rgba(0,0,0,0.1) 0 0 20px}.uv-ie8 .uv-popover-content{position:relative}.uv-ie8 .uv-popover-content .uv-popover-content-shadow{display:block;background:black;content:'';position:absolute;left:-15px;top:-15px;width:100%;height:100%;filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius=15,MakeShadow=true,ShadowOpacity=0.30);z-index:-1}.uv-popover-tail{border:8px solid transparent;width:0;z-index:10;position:absolute;-webkit-transition:border-top-color 200ms;-moz-transition:border-top-color 200ms;-o-transition:border-top-color 200ms;transition:border-top-color 200ms}.uv-top .uv-popover-tail{bottom:-20px;border-top:12px solid white}.uv-bottom .uv-popover-tail{top:-20px;border-bottom:12px solid white}.uv-left .uv-popover-tail{right:-20px;border-left:12px solid white}.uv-right .uv-popover-tail{left:-20px;border-right:12px solid white}.uv-popover-loading{background:white;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;position:absolute;width:100%;height:100%;left:0;top:0}.uv-popover-loading-text{position:absolute;top:50%;margin-top:-0.5em;width:100%;text-align:center}.uv-popover-iframe-container{height:100%}.uv-popover-iframe{-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;overflow:hidden}.uv-is-hidden{display:none}.uv-is-invisible{display:block !important;visibility:hidden !important}.uv-is-transitioning{display:block !important}.uv-no-transition{-moz-transition:none !important;-webkit-transition:none !important;-o-transition:color 0 ease-in !important;transition:none !important}.uv-fade{opacity:1;-webkit-transition:opacity 200ms ease-out;-moz-transition:opacity 200ms ease-out;-o-transition:opacity 200ms ease-out;transition:opacity 200ms ease-out}.uv-fade.uv-is-hidden{opacity:0}.uv-scale-top,.uv-scale-top-left,.uv-scale-top-right,.uv-scale-bottom,.uv-scale-bottom-left,.uv-scale-bottom-right,.uv-scale-right,.uv-scale-right-top,.uv-scale-right-bottom,.uv-scale-left,.uv-scale-left-top,.uv-scale-left-bottom,.uv-slide-top,.uv-slide-bottom,.uv-slide-left,.uv-slide-right{opacity:1;-webkit-transition:all 80ms ease-out;-moz-transition:all 80ms ease-out;-o-transition:all 80ms ease-out;transition:all 80ms ease-out}.uv-scale-top.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateY(-15%);-moz-transform:scale(0.8) translateY(-15%);-ms-transform:scale(0.8) translateY(-15%);-o-transform:scale(0.8) translateY(-15%);transform:scale(0.8) translateY(-15%)}.uv-scale-top-left.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateY(-15%) translateX(-10%);-moz-transform:scale(0.8) translateY(-15%) translateX(-10%);-ms-transform:scale(0.8) translateY(-15%) translateX(-10%);-o-transform:scale(0.8) translateY(-15%) translateX(-10%);transform:scale(0.8) translateY(-15%) translateX(-10%)}.uv-scale-top-right.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateY(-15%) translateX(10%);-moz-transform:scale(0.8) translateY(-15%) translateX(10%);-ms-transform:scale(0.8) translateY(-15%) translateX(10%);-o-transform:scale(0.8) translateY(-15%) translateX(10%);transform:scale(0.8) translateY(-15%) translateX(10%)}.uv-scale-bottom.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateY(15%);-moz-transform:scale(0.8) translateY(15%);-ms-transform:scale(0.8) translateY(15%);-o-transform:scale(0.8) translateY(15%);transform:scale(0.8) translateY(15%)}.uv-scale-bottom-left.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateY(15%) translateX(-10%);-moz-transform:scale(0.8) translateY(15%) translateX(-10%);-ms-transform:scale(0.8) translateY(15%) translateX(-10%);-o-transform:scale(0.8) translateY(15%) translateX(-10%);transform:scale(0.8) translateY(15%) translateX(-10%)}.uv-scale-bottom-right.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateY(15%) translateX(10%);-moz-transform:scale(0.8) translateY(15%) translateX(10%);-ms-transform:scale(0.8) translateY(15%) translateX(10%);-o-transform:scale(0.8) translateY(15%) translateX(10%);transform:scale(0.8) translateY(15%) translateX(10%)}.uv-scale-right.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateX(15%);-moz-transform:scale(0.8) translateX(15%);-ms-transform:scale(0.8) translateX(15%);-o-transform:scale(0.8) translateX(15%);transform:scale(0.8) translateX(15%)}.uv-scale-right-top.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateX(15%) translateY(-10%);-moz-transform:scale(0.8) translateX(15%) translateY(-10%);-ms-transform:scale(0.8) translateX(15%) translateY(-10%);-o-transform:scale(0.8) translateX(15%) translateY(-10%);transform:scale(0.8) translateX(15%) translateY(-10%)}.uv-scale-right-bottom.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateX(15%) translateY(10%);-moz-transform:scale(0.8) translateX(15%) translateY(10%);-ms-transform:scale(0.8) translateX(15%) translateY(10%);-o-transform:scale(0.8) translateX(15%) translateY(10%);transform:scale(0.8) translateX(15%) translateY(10%)}.uv-scale-left.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateX(-15%);-moz-transform:scale(0.8) translateX(-15%);-ms-transform:scale(0.8) translateX(-15%);-o-transform:scale(0.8) translateX(-15%);transform:scale(0.8) translateX(-15%)}.uv-scale-left-top.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateX(-15%) translateY(-10%);-moz-transform:scale(0.8) translateX(-15%) translateY(-10%);-ms-transform:scale(0.8) translateX(-15%) translateY(-10%);-o-transform:scale(0.8) translateX(-15%) translateY(-10%);transform:scale(0.8) translateX(-15%) translateY(-10%)}.uv-scale-left-bottom.uv-is-hidden{opacity:0;-webkit-transform:scale(0.8) translateX(-15%) translateY(10%);-moz-transform:scale(0.8) translateX(-15%) translateY(10%);-ms-transform:scale(0.8) translateX(-15%) translateY(10%);-o-transform:scale(0.8) translateX(-15%) translateY(10%);transform:scale(0.8) translateX(-15%) translateY(10%)}.uv-slide-top.uv-is-hidden{-webkit-transform:translateY(-100%);-moz-transform:translateY(-100%);-ms-transform:translateY(-100%);-o-transform:translateY(-100%);transform:translateY(-100%)}.uv-slide-bottom.uv-is-hidden{-webkit-transform:translateY(100%);-moz-transform:translateY(100%);-ms-transform:translateY(100%);-o-transform:translateY(100%);transform:translateY(100%)}.uv-slide-left.uv-is-hidden{-webkit-transform:translateX(-100%);-moz-transform:translateX(-100%);-ms-transform:translateX(-100%);-o-transform:translateX(-100%);transform:translateX(-100%)}.uv-slide-right.uv-is-hidden{-webkit-transform:translateX(100%);-moz-transform:translateX(100%);-ms-transform:translateX(100%);-o-transform:translateX(100%);transform:translateX(100%)}
+</style><style media="print" type="text/css">#uvTab,.uv-tray,.uv-icon,.uv-popover,.uv-bubble{display:none!important}</style><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/svrGP_002.js" type="text/javascript"></script></head>
+<body data-twttr-rendered="true"><div class="uv-tab uv-slide-bottom " id="uvTab" style="background:red url(http://widget.uservoice.com/images/clients/widget2/tab-horizontal-dark.png) 0 50% no-repeat;border:1px solid #FFF;border-bottom:none;-moz-border-radius:4px 4px 0 0;-webkit-border-radius:4px 4px 0 0;border-radius:4px 4px 0 0;-moz-box-shadow:inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;-webkit-box-shadow:inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;box-shadow:inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;font:normal normal bold 14px/1em Arial, sans-serif;position:fixed;right:10px;bottom:0;z-index:9999;background-color:#afafaf;"><a id="uvTabLabel" style="background-color: transparent; display:block;padding:6px 10px 2px 42px;text-decoration:none;" href="javascript:return%20false;"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/feedback-tab.png" alt="Contact" style="border:0; background-color: transparent; padding:0; margin:0;"></a></div>
+        <div class="ads">
+        		<div id="div-gpt-ad-942957474691236830-1">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-1');
+		 </script><script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ads"></script><div id="div-gpt-ad-942957474691236830-1_ad_container"><script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/flashwrite_1_2.js"></script>
+<script type="text/javascript">
+var thirdtrackingURL_4100631639239672556 = '';
+var timerMax_4100631639239672556=15;
+var timerCount_4100631639239672556=0;
+var secondsLeft_4100631639239672556=timerMax_4100631639239672556;
+var headerImgURL_4100631639239672556="http://pagead2.googlesyndication.com/pagead/imgad?id=CICAgKDjud2DtgEQARgBMggr-1MY3J-2lQ";
+var zindex_4100631639239672556=9999999;
+var bgColor_4100631639239672556="#FFF";
+var opacity_4100631639239672556=1;
+var JScriptAdTag_4100631639239672556='';
+var iFrameAdTag_4100631639239672556=''; 
+var imageURL_4100631639239672556='http://pagead2.googlesyndication.com/pagead/imgad?id=CICAgKDjue3GURABGAEyCOMG5Poln0Db'; 
+var swfURL_4100631639239672556='';
+var clickTag_4100631639239672556=encodeURIComponent('http://adclick.g.doubleclick.net/aclk%253Fsa%253DL%2526ai%253DB3l04xM4nU4uwGsfOigfRu4CwD6Tm-94EAAAAEAEg_NGRITgAWOzF95aSAWDl0uSDqA6yARB3d3cuZW1iZWRkZWQuY29tugEJZ2ZwX2ltYWdlyAEJ2gFgaHR0cDovL3d3dy5lbWJlZGRlZC5jb20vZGVzaWduL3Byb3RvdHlwaW5nLWFuZC1kZXZlbG9wbWVudC80MDA2NDI5L0ZQR0EtcHJvZ3JhbW1pbmctc3RlcC1ieS1zdGVwwAIC4AIA6gIlLzI0NDEvZW1kL3Byb3RvdHlwaW5nLWFuZC1kZXZlbG9wbWVudPgC_9EegAMBkAOaCJgD4AOoAwHgBAGgBh8%2526num%253D0%2526sig%253DAOD64_06ZBLO-Io8GW_cTM7JfZ-4Arn96g%2526client%253Dca-pub-3676602997119685%2526adurl%253Dhttp://www.eeliveshow.com/sanjose%3F_mc%3DAD_ELEC_LE_WELAD022814');
+var contentWidth_4100631639239672556=640;
+var contentHeight_4100631639239672556=480;
+var skipTextAlign="right";
+var skipTextTopMargin =15;
+var miniDocWidth=1028;
+var swf_wmode_4100631639239672556='opaque';
+var swf_minversion_4100631639239672556='6';
+
+var content_4100631639239672556="";
+if (  JScriptAdTag_4100631639239672556=="" && iFrameAdTag_4100631639239672556=="" ){
+content_4100631639239672556='<a href="http://adclick.g.doubleclick.net/aclk%253Fsa%253DL%2526ai%253DB3l04xM4nU4uwGsfOigfRu4CwD6Tm-94EAAAAEAEg_NGRITgAWOzF95aSAWDl0uSDqA6yARB3d3cuZW1iZWRkZWQuY29tugEJZ2ZwX2ltYWdlyAEJ2gFgaHR0cDovL3d3dy5lbWJlZGRlZC5jb20vZGVzaWduL3Byb3RvdHlwaW5nLWFuZC1kZXZlbG9wbWVudC80MDA2NDI5L0ZQR0EtcHJvZ3JhbW1pbmctc3RlcC1ieS1zdGVwwAIC4AIA6gIlLzI0NDEvZW1kL3Byb3RvdHlwaW5nLWFuZC1kZXZlbG9wbWVudPgC_9EegAMBkAOaCJgD4AOoAwHgBAGgBh8%2526num%253D0%2526sig%253DAOD64_06ZBLO-Io8GW_cTM7JfZ-4Arn96g%2526client%253Dca-pub-3676602997119685%2526adurl%253Dhttp://www.eeliveshow.com/sanjose%3F_mc%3DAD_ELEC_LE_WELAD022814" target="_blank"><img border="0" src="'+imageURL_4100631639239672556+'"></a>';
+if ( checkFlash(swf_minversion_4100631639239672556) && swfURL_4100631639239672556!="" )  {  
+content_4100631639239672556= '<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'+
+' ID=FLASH_AD WIDTH="'+ contentWidth_4100631639239672556+'" HEIGHT="'+ contentHeight_4100631639239672556+'">'+
+'<PARAM NAME=movie VALUE="' + swfURL_4100631639239672556+'"><PARAM NAME="FlashVars" VALUE="' +
+'clickTag='+clickTag_4100631639239672556+'"><PARAM NAME=quality VALUE=high><PARAM NAME=wmode VALUE='+ swf_wmode_4100631639239672556+'><PARAM NAME="AllowScriptAccess" VALUE="always">'+
+ '<EMBED src="' + swfURL_4100631639239672556+'" flashvars="' +
+'clickTag='+clickTag_4100631639239672556+'" quality=high wmode='+swf_wmode_4100631639239672556+
+' swLiveConnect=TRUE WIDTH="'+ contentWidth_4100631639239672556+'" HEIGHT="'+ contentHeight_4100631639239672556+'" TYPE="application/x-shockwave-flash" AllowScriptAccess="always"></EMBED></OBJECT>';
+}}
+
+var interstitialBox_4100631639239672556={
+interheaderDiv: '<div id="interHeader" style="height:150px;width:950px;background-image:url('+ headerImgURL_4100631639239672556+');background-repeat:no-repeat;font-family:Arial;"><div id="interTimer"  style="height:20px;width:950px;left:0;top:'+ skipTextTopMargin +'px;font-size:13px;text-align:'+skipTextAlign+';position:absolute;"><a href="javascript:interstitialBox_4100631639239672556.closeit();" style="text-decoration:none;color:#000;">Click to skip or ad will close in <span id="timerSecondLeft">' + timerMax_4100631639239672556+ '</span> second(s)</a></div></div>',
+
+intercontentDiv: '<div id="interContent" style="width:'+contentWidth_4100631639239672556+'px;height:'+contentHeight_4100631639239672556+'px;margin:10px auto 0 auto;overflow:hidden;">'+content_4100631639239672556+'</div>',
+
+createcontainer:function(){
+document.write('<div id="interContainer" style="position:absolute;width:950px;left:0;top:0;visibility:hidden;z-index:'+ zindex_4100631639239672556+';">'+ interstitialBox_4100631639239672556.interheaderDiv + interstitialBox_4100631639239672556.intercontentDiv + '</div>' );
+
+if (JScriptAdTag_4100631639239672556!="" || iFrameAdTag_4100631639239672556!="" ){
+var interContent =document.getElementById('interContent');
+var iFrame=document.createElement('iframe');
+iFrame.setAttribute("width",contentWidth_4100631639239672556);
+iFrame.setAttribute("height", contentHeight_4100631639239672556);
+iFrame.setAttribute("frameBorder","0");
+iFrame.setAttribute("marginWidth", 0);
+iFrame.setAttribute("marginHeight", 0);
+iFrame.border=0;
+iFrame.scrolling='no';
+interContent.appendChild(iFrame);
+var iFrameContent=(JScriptAdTag_4100631639239672556=='')?'':'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></head><body style="margin:0;"><script type="text/javascript" src="'+JScriptAdTag_4100631639239672556+'"></scr'+'ipt></body></html>';
+iFrame.contentWindow.iFrameContent = iFrameContent;
+if(JScriptAdTag_4100631639239672556!=''){
+   iFrame.src='javascript:window["iFrameContent"]';
+}else if (iFrameAdTag_4100631639239672556!='') {
+  iFrame.src=iFrameAdTag_4100631639239672556;
+}}
+
+document.write('<div id="interBgWrap" style="position:absolute;background-color:'+bgColor_4100631639239672556+';left:0;width:10px;height:10px;top:0;z-index:'+ (zindex_4100631639239672556- 1) +';visibility: hidden;opacity:'+opacity_4100631639239672556+';}"></div>');
+
+this.interContainer=document.getElementById("interContainer") //reference interstitial container
+this.interBgWrap=document.getElementById("interBgWrap") //reference veil
+this.standardbody=(document.compatMode=="CSS1Compat")? document.documentElement : document.body  //IE6 with standard mode have issue with document.body.clientWidth
+this.standardbody.style.overflow="hidden"
+},
+
+showcontainer:function(){
+if (this.interContainer.style.display=="none") return //if interstitial box has already closed, just exit (window.onresize event triggers function)
+var ie=document.all && !window.opera
+var docwidth=(ie)? this.standardbody.clientWidth : window.innerWidth
+if (docwidth < miniDocWidth)  docwidth= miniDocWidth;
+var containerwidth=this.interContainer.offsetWidth
+this.interBgWrap.style.width=docwidth+"px" //set up veil over page
+this.interBgWrap.style.height="6000px" //set up veil over page
+this.interBgWrap.style.left=0 //Position veil over page
+this.interBgWrap.style.top=0 //Position veil over page
+this.interBgWrap.style.visibility="visible" //Show veil over page
+this.interContainer.style.left=docwidth/2-containerwidth/2+"px" //Position interstitial box
+this.interContainer.style.top="10px"
+this.interContainer.style.visibility="visible"  
+window.scrollTo(0,0);
+},
+
+closeit:function(){
+this.interBgWrap.style.display="none"
+this.interContainer.style.display="none"
+this.standardbody.style.overflow="auto"
+clearInterval(interTimer_4100631639239672556);
+unbindEvent(window, 'resize', resizeInterstitial_ADCODE);
+this.interContainer.parentNode.removeChild(this.interContainer)
+this. interBgWrap.parentNode.removeChild(this. interBgWrap)
+document.ontouchmove = function(e){ return true; }
+},
+
+init:function(){
+this.createcontainer()
+setTimeout("interstitialBox_4100631639239672556.showcontainer()", 100)
+}}
+
+
+interstitialBox_4100631639239672556.init();
+
+interTimer_4100631639239672556= setInterval('timeInterstitial_ADCODE()', 1000);
+function timeInterstitial_ADCODE() {
+ timerCount_4100631639239672556+= 1;
+ secondsLeft_4100631639239672556= timerMax_4100631639239672556-timerCount_4100631639239672556;
+ document.getElementById('timerSecondLeft').innerHTML = secondsLeft_4100631639239672556;
+ if (timerCount_4100631639239672556>= timerMax_4100631639239672556) {
+  interstitialBox_4100631639239672556.closeit();
+ }
+} 
+
+bindEvent(window, 'resize', resizeInterstitial_ADCODE);
+
+function resizeInterstitial_ADCODE() { 
+   interstitialBox_4100631639239672556.showcontainer();
+}
+
+window.onload = function () {
+interstitialBox_4100631639239672556.showcontainer();
+};
+
+function bindEvent(el, eventName, eventHandler) {
+  if (el.addEventListener){
+    el.addEventListener(eventName, eventHandler, false); 
+  } else if (el.attachEvent){
+    el.attachEvent('on'+eventName, eventHandler);
+  }
+}
+function unbindEvent(el, eventName, eventHandler) {
+  if (el.addEventListener){
+    el.removeEventListener(eventName, eventHandler, false); 
+  } else if (el.attachEvent){
+    el.detachEvent('on'+eventName, eventHandler);
+  }
+}
+document.ontouchmove = function(e){ e.preventDefault(); }
+
+function checkFlash(v){ 
+var y, x, s="Shockwave", f="Flash", o="object", u="undefined", np=navigator.plugins, nm=navigator.mimeTypes, nmd="application/x-shockwave-flash"; 
+v = Math.max(Math.floor(v) || 0, 6); // check if v is a number and use Flash Player 6 as the minimum player version 
+if(typeof np!=u&&typeof np[s+" "+f]==o&&(x=np[s+" "+f].description)&&!(typeof nm!=u&&nm[nmd]&&!nm[nmd].enabledPlugin)){ 
+if(v<=x.match(/Shockwave Flash (\d+)/)[1])return true;} 
+else if(typeof window.ActiveXObject!=u){ 
+for(y=16;y>=v;y--){ 
+try{x=new ActiveXObject(s+f+"."+s+f+"."+y);if((x!=null)&&(typeof x==o))return true;}catch(e){}} 
+} 
+return false;}
+
+if (thirdtrackingURL_4100631639239672556 != ""){
+    var expPixel = document.createElement('img');
+    expPixel.setAttribute('src', thirdtrackingURL_4100631639239672556 );
+    expPixel.setAttribute('style', 'display:none;');
+    document.body.appendChild(expPixel);
+    document.body.removeChild(expPixel);
+}
+</script>
+
+</div>
+
+	</div>
+        </div>   
+       	
+			<div id="div-gpt-ad-942957474691236830-2">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-2');
+		 </script>
+	</div>
+		
+
+
+	<div class="page">
+	    <header>
+		<!-- UTEIIS01 -->
+<div class="universal-header">
+	<a class="datasheets" href="http://www.datasheets.com/?cid=UniversalHeader" title="Datasheets.com: Search For Over 250 Million Parts">datasheets.com</a>
+	<a class="ebn" href="http://www.ebnonline.com/?cid=UniversalHeader" title="EBN: The Online Community for Global Supply Chain Professionals">EBN.com</a>
+	<a class="edn" href="http://www.edn.com/?cid=UniversalHeader" title="EDN: Join Electronics Engineers and Experts around the Globe">EDN.com</a>
+	<a class="eet" href="http://www.eet.com/?cid=UniversalHeader" title="EE Times: The Information Powerhouse for the Global Electronics Industry">EETimes.com</a>
+	<a class="emb" href="http://www.embedded.com/?cid=UniversalHeader" title="Embedded: The Source For Everything Embedded">Embedded.com</a>
+	<a class="pa" href="http://www.planetanalog.com/?cid=UniversalHeader" title="Planet Analog: All Signal, No Noise">PlanetAnalog.com</a>
+	<a class="tol" href="http://www.techonline.com/?cid=UniversalHeader" title="TechOnline: Education For The Creators of Technology ">TechOnline.com</a>
+	<span class="spacer">&nbsp;</span>
+	<div class="events">
+		<a>Events <i>▼</i></a>
+		<ul class="unstyled">
+			<li><a href="http://www.eeliveshow.com/?cid=UniversalHeader" target="_blank">EE Live!</a></li>
+			<li><a href="http://www.designcon.com/?cid=UniversalHeader" target="_blank">DesignCon</a></li>
+			<li><a href="http://www.escbrazil.com.br/?cid=UniversalHeader" target="_blank">ESC Brazil</a></li>
+			<li><a href="http://www.esc-india.com.com/?cid=UniversalHeader" target="_blank">ESC India</a></li>
+			<li><a href="http://e.ubmelectronics.com/armtechcon/index.html?cid=UniversalHeader" target="_blank">ARM TechCon</a></li>
+		</ul>
+	</div>
+	<a class="ubmt" href="http://tech.ubm.com/?cid=UniversalHeader">UBM Tech</a>
+</div>
+<div class="universal-header-for-mobile">
+<a>UBM Tech <i>▼</i></a>
+<ul class="unstyled">
+	<a href="http://www.datasheets.com/?cid=UniversalHeader">datasheets.com</a>
+	<a href="http://www.ebn.com/?cid=UniversalHeader">EBN.com</a>
+	<a href="http://www.edn.com/?cid=UniversalHeader">EDN.com</a>
+	<a href="http://www.eet.com/?cid=UniversalHeader">EETimes.com</a>
+	<a href="http://www.embedded.com/?cid=UniversalHeader">Embedded.com</a>
+	<a href="http://www.planetanalog.com/?cid=UniversalHeader">PlanetAnalog.com</a>
+	<a href="http://www.techonline.com/?cid=UniversalHeader">TechOnline.com</a>
+</ul>
+</div>
+        
+	    <div class="ads row hide-for-small">
+	            <div class="twelve columns wrap">
+	               <div class="banner">
+                    	<div id="div-gpt-ad-942957474691236830-3">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-3');
+		 </script><div id="div-gpt-ad-942957474691236830-3_ad_container">
+<ins style="width: 728px; height: 90px; display: inline-table; position: relative; border: 0px none; vertical-align: bottom;"><ins style="width: 728px; height: 90px; display: block; position: relative; border: 0px none;"><iframe style="border: 0px none; position: absolute; top: 0px; left: 0px;" marginheight="0" marginwidth="0" name="google_ads_iframe_/2441/emd/prototyping-and-development_2" id="google_ads_iframe_/2441/emd/prototyping-and-development_2" scrolling="no" width="728" frameborder="0" height="90"></iframe></ins></ins></div>
+<script>googletag.impl.pubads.createDomIframe("div-gpt-ad-942957474691236830-3_ad_container" ,"/2441/emd/prototyping-and-development_2",false,undefined);</script>
+	</div>
+                 </div>
+                    <div class="milestone">
+            		 <!-- MILESTONE -->    
+        		</div>		
+	            </div>
+	    </div>
+	    
+	    <div class="welcome row">
+        	<p class="welcome"></p>
+        </div>
+        
+        <div class="masthead row">
+            <div class="five columns">
+                <a href="http://www.embedded.com/"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/embedded-logo.png" alt=""></a>
+            </div>
+            <div class="seven columns user-meta hide-for-small">
+                <div class="links">
+                    <a href="http://www.embedded.com/contactus">Contact Us</a> <span class="divider">•</span>
+                    <span id="newsletter-signed-in" style="display:none;">
+                          <a alt="prettyPhoto" href="http://www.embedded.com/UserAccount/Subscribe?iframe=true&amp;width=570&amp;height=600">Subscribe to Newsletters</a>
+                    </span>
+                    <span id="newsletter-login">                    
+	                    					    	<a class="first" onclick="NextGen.loginForm('/login?successfulLoginRedirect=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step')" href="javascript:void(0)"><b>Subscribe to Newsletters</b></a>
+					                        </span>
+                </div>
+
+                <div class="login-bar">	<div id="login" class="account">
+	
+	<a class="button" rel="nofollow" onclick="NextGen.loginForm('/login?assetId=203&amp;successfulLoginRedirect=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step')" href="javascript:void(0)">login</a>
+	<a rel="nofollow" class="button register" onclick="NextGen.register('/shortregistration/index?assetId=203&amp;successfulLoginRedirect=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step');" href="javascript:void(0)">register</a>
+	</div>
+	<link rel="stylesheet" href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/disqusLoggedOff.css" type="text/css"></div>                <div class="search">
+                    <a href="#" class="button"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/transparent-swatch.png" alt=""></a>
+                </div>
+
+            </div>
+
+        </div>
+     	<!-- Navigation MOBILE -->
+        <div class="navigation row show-for-small">
+            <div class="seven mobile-three columns">
+                <ul class="nav-bar">
+                    <li class="has-flyout">
+                        <a href="#">Navigation</a>
+                        <a href="#" class="flyout-toggle"><span></span></a>
+                        <ul class="flyout">
+                            <li><a href="">Development</a></li>
+                            <li><a href="">Essentials &amp; Education</a></li>
+                            <li><a href="">Community</a></li>
+                            <li><a href="">Archives </a></li>
+                            <li><a href="">About Us</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="three mobile-one columns">
+                <div class="search">
+                    <a href="#" class="button"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/transparent-swatch.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+         <div class="row">
+            <div class="twelve mobile-four columns">
+                <div class="search-popup">
+                    <form class="form-inline search-form clearfix" _lpchecked="1">
+                        <input class="input-text" placeholder="Search" type="text">
+                        <input class="button" value="Submit" type="submit">
+                        <label class="error"></label>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <!-- Navigation -->
+
+
+	<div class="navigation row hide-for-small">
+    <div class="twelve columns">
+        <label class="error"></label>
+        <ul class="nav-bar">
+            <li class="active home-btn">
+                <a href="http://www.embedded.com/">Home</a>
+            </li>
+            <li class="has-flyout double">
+                <a href="#">Development</a>
+                <a class="flyout-toggle" href="#"><span></span></a>
+                <div class="flyout-wrapper row hidden">
+                <div class="six mobile-two columns">
+                    <ul style="display:block;" class="flyout">
+                        <li><a href="http://www.embedded.com/development">All Articles</a></li>
+                        <li><a href="http://www.embedded.com/development/configurable-systems">Configurable Systems</a></li>
+                        <li><a href="http://www.embedded.com/development/connectivity">Connectivity</a></li>
+                        <li><a href="http://www.embedded.com/development/debug-and-optimization">Debug &amp; Optimization</a></li>
+                        <li><a href="http://www.embedded.com/development/mcus-processors-and-socs">MCUs, Processors &amp; SoCs</a></li>
+                        <li><a href="http://www.embedded.com/development/operating-systems">Operating Systems</a></li>
+                        <li><a href="http://www.embedded.com/development/power-optimization">Power Optimization</a></li>
+                    </ul>
+                </div>
+                        <div class="six mobile-two columns">
+                <ul style="display:block;" class="flyout">
+                    <li><a href="http://www.embedded.com/development/programming-languages-and-tools">Programming Languages &amp; Tools</a></li>
+                    <li><a href="http://www.embedded.com/development/prototyping-and-development">Prototyping &amp; Development</a></li>
+                    <li><a href="http://www.embedded.com/development/real-time-and-performance">Real-time &amp; Performance</a></li>
+                    <li><a href="http://www.embedded.com/development/real-world-applications">Real-world Applications</a></li>
+                    <li><a href="http://www.embedded.com/development/safety-and-security">Safety &amp; Security</a></li>
+                    <li><a href="http://www.embedded.com/development/system-integration">System Integration</a></li>
+                </ul>
+                </div>
+                </div>
+            </li>
+            <li class="has-flyout">
+                <a href="#">Essentials &amp; Education</a>
+                <a class="flyout-toggle" href="#"><span></span></a>
+                <ul class="flyout" style="display: none;">
+                    <li><a href="http://www.embedded.com/products/all">Products</a></li>
+				    <li><a href="http://www.embedded.com/news/all">News</a></li>
+				    <li><a href="http://www.embedded.com/education-training/source-codes">Source Code Library</a></li>
+				    <li><a href="http://www.embedded.com/education-training/webinars">Webinars</a></li>
+                    <li><a href="http://www.embedded.com/education-training/courses">Courses</a></li>
+                    <li><a href="http://www.embedded.com/education-training/tech-papers">Tech Papers</a></li>
+                </ul>
+            </li>
+            <li class="has-flyout">
+                <a href="#">Community</a>
+                <a class="flyout-toggle" href="#"><span></span></a>
+                <ul style="display: none;" class="flyout">
+                    <li><a href="http://www.embedded.com/insights">Insights</a></li>				   
+				    <li><a href="http://www.embedded.com/events">Events</a></li>
+                </ul>
+            </li>
+            <li class="has-flyout">
+                <a href="#">Archives</a>
+                <a class="flyout-toggle" href="#"><span></span></a>
+                <ul class="flyout">
+                    <li><a href="http://www.embedded.com/magazines">ESP / ESD Magazine</a></li>
+                    <li><a href="http://www.embedded.com/archive/Embedded-com-Tech-Focus-Newsletter-Archive">Newsletters</a></li>
+                    <li><a href="http://www.embedded.com/videos">Videos</a></li>
+				    <li><a href="http://www.embedded.com/collections/all">Collections</a></li>
+                </ul>
+            </li>
+            <li class="has-flyout">
+                <a href="#">About Us</a>
+                <a class="flyout-toggle" href="#"><span></span></a>
+                <ul class="flyout">
+                    <li><a href="http://www.embedded.com/aboutus">About Embedded</a></li>
+                    <li><a href="http://www.embedded.com/contactus">Contact Us</a></li>
+                    <li><a href="http://www.embedded.com/newsletters">Newsletters</a></li>
+                    <li><a href="http://www.embedded.com/advertising">Advertising</a></li>
+                    <li><a href="http://www.embedded.com/editorial-contributions">Editorial Contributions</a></li>
+                    <li><a href="http://www.embedded.com/site-map">Site Map</a></li>
+                </ul>
+            </li>
+            <li class="search">
+                <form _lpchecked="1" class="form-inline search-form clearfix">
+                    <input value="Search" class="input-text" type="text">
+                    <input value="" class="search-button" type="submit">
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+</header>
+	    <div id="embedded-main-content">
+	    <div class="row">
+	<div class="twelve columns">
+		<div class="announcements"><div id="lecture_topper_filler"></div></div>
+	</div>
+</div>	        <!-- BREADCRUMBS ROW -->
+	<div class="row">
+		<div class="twelve columns hide-for-small">
+			<!-- Breadcrumbs -->
+<ul class="bread-crumbs">
+				
+        <li><a class="button" href="http://www.embedded.com/">Home</a></li><li class="arrow">&gt;</li> 
+        					<li><a class="button" href="http://www.embedded.com/development/prototyping-and-development">Prototyping &amp; Development Development Centers</a></li> <li class="arrow">&gt;</li> <li><a class="button active" href="http://www.embedded.com/development/prototyping-and-development/articles">Design How-To</a></li>
+				        </ul>
+<!-- Breadcrumbs -->		</div>
+	</div>
+	<div class="content row">
+	    <!-- LEFT COLUMN -->
+	    <div class="eight columns tablet-clear">
+	        <!-- BLOG DETAILED ROW -->
+			<div class="row">
+						 				<div class="twelve columns">
+			        <div class="module bigbox blog">
+			            <div class="body content-detail">
+			                <!-- <p class="company-text-ad">Sponsored by <a href="#">Cirrus</a></p> Show for Tablet and Mobile -->
+			                <div class="item full">
+			                    <h1>FPGA programming step by step</h1>
+			                    <p class="meta darkgrey hide-for-small">
+			                    <span class="author">
+			                    <strong>
+			                    Ed Klingman			                    </strong>
+			                    </span>
+								</p>
+			                    <p class="meta">
+			                        <span class="date">March 04, 2004</span>
+			                    </p>
+			                    <div class="social-strip hide-for-small">
+	<div class="social-plugins left">
+		<span class="social_media linkedin">
+		  <script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/in.js" type="text/javascript"></script>
+		    <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1395117795562_0"><a id="li_ui_li_gen_1395117795562_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1395117795562_0-logo">in</span><span id="li_ui_li_gen_1395117795562_0-title"><span id="li_ui_li_gen_1395117795562_0-mark"></span><span id="li_ui_li_gen_1395117795562_0-title-text">Share</span></span></a></span></span><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1395117795595_1-container" class="IN-right"><span id="li_ui_li_gen_1395117795595_1" class="IN-right"><span id="li_ui_li_gen_1395117795595_1-inner" class="IN-right"><span id="li_ui_li_gen_1395117795595_1-content" class="IN-right">3</span></span></span></span></span></span><script type="IN/Share+init" data-url="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" data-counter="right"></script>
+		</span>    
+		<span class="social_media" style="position: static !important;">
+			    <g:plusone size="medium"></g:plusone>
+		</span>
+		<span class="social_media">
+			    <div id="twitter">
+					<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/widgets.js"></script>
+					<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" scrolling="no" frameborder="0"></iframe>
+			    </div>    
+		</span>
+		<span class="social_media">
+			    <div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/LEdxGgtB9cN.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" scrolling="no" frameborder="0"></iframe><iframe src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/LEdxGgtB9cN_002.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" scrolling="no" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ping.xhtml" style="display: none;" allowtransparency="true" name="f39bd4f7353ef4a" scrolling="no" frameborder="0"></iframe></div></div></div>
+			    <script>            (function (d, s, id) {
+				    var js, fjs = d.getElementsByTagName(s)[0];
+				    if (d.getElementById(id)) return;
+				    js = d.createElement(s); js.id = id;
+				    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=22297258016";
+				    fjs.parentNode.insertBefore(js, fjs);
+				} (document, 'script', 'facebook-jssdk'));</script>
+			    <div fb-iframe-plugin-query="app_id=22297258016&amp;href=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=42" fb-xfbml-state="parsed" class="fb-like fb_iframe_widget" data-href="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" data-send="false" data-layout="button_count" data-width="42" data-show-faces="false"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/like.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like Facebook Social Plugin" allowtransparency="true" name="f2229a4d9822266" scrolling="no" width="42px" frameborder="0" height="1000px"></iframe></span></div>
+
+
+		</span>
+	</div>
+	<div class="traditional right">        
+		<span class="relative social-save">
+			<a href="#" class="save-follow"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/folder.png" alt="Save As File"></a>
+			<span class="save-dropdown button content_4006429 author_" data-contentitemid="4006429" data-authorid="">
+				<a class="save-content" href="#">Save to My Library</a>
+				<a class="follow-comment" href="#">Follow Comments</a>
+							</span>
+		</span>
+		<a href="#" class="hide-for-tablet" onclick="openprintviewwindow('/print/4006429');"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/printer.png" alt="Print"></a>
+		<a href="mailto:?subject=FPGA%20programming%20step%20by%20step&amp;body=http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" target="_blank"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/envelope.png" alt="Email"></a>
+	</div>
+</div>			                    <p class="meta darkgrey show-for-small">
+			                         <span class="author">
+			                         <strong>
+			                         Ed KlingmanMarch 04, 2004			                         </strong>
+			                         </span>
+								</p>
+															
+			                    <p>
+			                   		   <font size="2" face="Verdana"><font size="2" color="#003366" face="Verdana"><b>FPGAs
+ and microprocessors are more similar than you may think. Here's a 
+primer on how to program an FPGA and some reasons why you'd want to.
+</b></font>
+</font></p><p><font size="2" face="Verdana">
+Small processors are, by far, the largest selling class of computers and
+ form the basis of many embedded systems. The first single-chip 
+microprocessors contained approximately 10,000 gates of logic and 10,000
+ bits of memory. Today, field programmable gate arrays (FPGAs) provide 
+single chips approaching 10 million gates of logic and 10 million bits 
+of memory. Figure 1 compares one of these microprocessors with an FPGA.
+</font></p><p><font size="2" face="Verdana">
+<img alt="" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/0404feat2fig1.gif"><br clear="all"><b>Figure 1:  Comparison of first microprocessors to current FPGAs</b>
+</font></p><p><font size="2" face="Verdana">
+Powerful tools exist to program these powerful chips. Unlike 
+microprocessors, not only the memory bits, but also the logical gates 
+are under your control as the programmer. This article will show the 
+programming process used for FPGA design.
+</font></p><p><font size="2" face="Verdana">
+As an embedded systems programmer, you're aware of the development 
+processes used with microprocessors. The development process for FPGAs 
+is similar enough that you'll have no problem understanding it but 
+sufficiently different that you'll have to think differently to use it 
+well. We'll use the similarities to understand the basics, then discuss 
+the differences and how to think about them.
+</font></p><p><font size="2" face="Verdana">
+<font size="3" color="#003366" face="Verdana"><b>Similarities</b></font><br>
+Table 1 shows the steps involved in designing embedded systems with a 
+microprocessor and an FPGA. This side-by-side comparison lets you 
+quickly assess the two processes and see how similar they are.
+</font></p><p><font size="2" face="Verdana">
+
+<font size="3" color="#003366" face="Verdana"><b>Table 1:  Step-by-step design process for microprocessors and FPGAs</b></font><br>
+</font></p><table style="background-color: #ffffff;" width="400" border="0" cellpadding="3" cellspacing="0">
+	<tbody><tr valign="top">
+		<td>
+<font size="2" face="Verdana"><b>Microprocessor</b></font>
+		</td>
+		<td>
+<font size="2" face="Verdana"><b>FPGA</b></font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCC99">
+		<td>
+<font size="2" face="Verdana">Architectural design</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Architectural design</font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCCCC">
+		<td>
+<font size="2" face="Verdana">Choice of language<br>&nbsp;&nbsp;&nbsp;(C, JAVA)</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Choice of language&nbsp;&nbsp;&nbsp;(Verilog, VHDL)<br></font>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>
+<font size="2" face="Verdana">Editing programs</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Editing programs</font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCC99">
+		<td>
+<font size="2" face="Verdana">Compiling programs<br>&nbsp;&nbsp;&nbsp;(.DLL, .OBJ)</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Compiling programs</font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCCCC">
+		<td>
+<font size="2" face="Verdana">&nbsp;</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Synthesizing programs<br>&nbsp;&nbsp;&nbsp;(.EDIF)</font>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>
+<font size="2" face="Verdana">Linking programs<br>&nbsp;&nbsp;&nbsp;(.EXE)</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Placing and routing programs<br>&nbsp;&nbsp;&nbsp;(.VO, .SDF, .TTF)</font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCC99">
+		<td>
+<font size="2" face="Verdana">Loading programs to ROM</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Loading programs to FPGA</font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCCCC">
+		<td>
+<font size="2" face="Verdana">Debugging P programs</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Debugging FPGA programs</font>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td>
+<font size="2" face="Verdana">Documenting programs</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Documenting programs</font>
+		</td>
+	</tr>
+	<tr valign="top" bgcolor="#CCCC99">
+		<td>
+<font size="2" face="Verdana">Delivering programs</font>
+		</td>
+		<td>
+<font size="2" face="Verdana">Delivering programs</font>
+		</td>
+	</tr>
+</tbody></table><font size="2" face="Verdana">
+<p></p><p>
+
+<b>Architectural design</b><br>
+The architectural-design phase is surprisingly similar. Although people 
+will argue design philosophies, it's not unusual to perform a "first 
+cut" at programming in a pseudo-language that can be translated into and
+ refined as a specific language, say assembly, C++, or JAVA. I describe 
+my first FPGA architectural design in a pseudo-C language then translate
+ it to Verilog for an FPGA. Thus the ability to express yourself in C is
+ a good start in learning Verilog. Architectural issues could fill a 
+book; therefore we'll focus on development issues. 
+</p><p>
+Because you understand editing, compiling, assembling, linking, and 
+loading in microprocessor programming, you can relate this to editing, 
+compiling, synthesizing, placing, routing, and loading in FPGA 
+programming.
+</p><p>
+<b>Editing </b><br>
+Not only is Verilog syntax C-like, but, since it's 100% ASCII, you can use any editor to prepare fpga.v files. Nothing new here.
+</p><p>
+<b>Compiling </b><br>
+The process of compiling a program for the microprocessor combines the 
+edited files and builds a logically correct sequence of bits that are 
+used to control the sequencing of logical gates. These gates write data 
+onto buses, into latches and registers, out ports, and across channels. 
+The gates have fixed relationships designed to accomplish fixed 
+functions. The assembly-language instructions represent these functions.
+ Thus microprocessor compilers either produce assembly-language programs
+ that are then assembled into bit patterns or directly produce the bits 
+to drive the gates and fill the registers and the memories.
+</p><p>
+The analogous operation in FPGA programming is the compilation of 
+Verilog into register transfer logic (RTL) netlists. As the name 
+implies, data is transferred into registers, subject to some clocking 
+condition. At this stage FPGA programming departs from microprocessor 
+programming in that an additional synthesis process is required to 
+produce bits (or intermediate objects that can be converted to bits) 
+that will control gates and fill registers and memories on an FPGA. This
+ level is called <i>gate-level logic</i>, since it describes the logical
+ gates of which the system will be composed. The output format is 
+typically an Electronic Design Interchange Format (EDIF) file.
+</p><p>
+There's a large difference between compiling and synthesizing, and you 
+have to stretch some to encompass it. Whereas the compiler produces bits
+ to control fixed-gate patterns (the microprocessor decoders, registers,
+ arithmetic logic unit, and so on) the synthesizer defines gate patterns
+ described by the logic of the program. That is, your program logic gets
+ synthesized, or mapped into, logical gates, not into processor 
+instructions that control multigate structures. This is absolutely 
+amazing, and good FPGA programmers give thanks every day for living in 
+the rare time in history (post 1990+) when you can design architectures 
+with words and then synthesize your logic into (mostly silicon) gates 
+that execute your logic. Not to get carried away, but it's absolutely 
+wonderful.
+</p><p>
+<b>Linking</b><br>
+Linking was a latecomer to programming—maybe 1950. Previous computers 
+and programs simply put bits into console switches, and thereby into 
+registers. (Read about the development of linking in the sidebar.)
+</p><p>
+The bit-based outputs of the microprocessor compilation process 
+typically don't directly control gates but must be connected to other 
+bit patterns. This is true because most programs run under the control 
+of an operating system and must be connected, or linked, to the 
+operating system. In fact, the location in memory of the actual compiled
+ bits is usually unknown and not determined until linking and loading is
+ completed. Further, there may be programs existing in a library that 
+must also be linked to the compiled program before a useful product 
+exists.
+</p><p>
+The synthesis process, as we have discussed, produces bit patterns, in 
+an intermediate format. We compile Verilog to RTL netlists, then 
+synthesize Verilog to EDIF, then place and route EDIF to produce HEX or 
+TTF files that can be loaded into an FPGA. These bit patterns will end 
+up controlling logic gates and filling memory and registers.
+</p><p>
+In the same way that C and other programs include objects defined in 
+(possibly third-party) libraries, FPGA programs can include or import 
+portions of systems from third-party intellectual property, in the form 
+of FPGA-implementable programs or objects.
+</p><p>
+Also, in the same way that the linking and loading process of embedded 
+systems design connects various system objects, subsystems, or super 
+systems like the operating system, including library objects (and loads 
+or places them into specific memory locations), the place and route 
+function in FPGA design places the synthesized subsystems into FPGA 
+locations and makes connections (microprocessor links ~ FPGA routes) 
+between these subsystems, enabling their operation as an integrated 
+system. The actual linking and loading of compiled bits is essentially a
+ process of fitting, in one dimension, the bit patterns distributed over
+ a set of available linear memory addresses. The FPGA place and route 
+process fits, in two dimensions, the bit patterns (logic subsystems) 
+over a two dimensional array of available logic gates, and routes buses 
+between these logic subsystems as necessary. 
+</p><p>
+The similarity in the processes is obvious.
+</p><p>
+</p><table style="background-color: #ffffff;" width="400" border="0" cellpadding="3" cellspacing="0">
+	<tbody><tr valign="top">
+		<td style="background-color: #cccc99;">
+<font size="2" face="Verdana"><b>History of Linking</b><br>
+Early computers had a "patch board" that looked somewhat like the 
+telephone patch boards of the 1940s where "patch cords" were plugged 
+into "sockets" to make connections between various buses and register 
+inputs and outputs.
+The patch boards of the '40s and '50s evolved into the bit-slice 
+microprogramming of the 1970s, where, again, the focus was on control of
+ logical gates, and the patch cords were implemented as "wire wrap" 
+connections.
+In FPGAs the patch cords are routing connections between gates.
+Early FPGAs contained gates that numbered between the hundreds and the 
+thousands. The size was not sufficient to implement systems, but was 
+capable of implementing the types of circuitry built with Medium Scale 
+Integrated Circuits (dozens of gates), which implemented the "glue 
+logic" that held microprocessors and sophisticated peripheral chips 
+together. Therefore, the first practical applications of FPGAs consisted
+ of replacing many glue logic chips with one FPGA. Because these 
+circuits were already completely described by circuit diagrams, the 
+first FPGA editors used graphics capture; that is, the circuit diagrams 
+were redrawn in the editor, and this was the input information. No 
+high-level languages were used to program the FPGA in this process, 
+simply graphics editing and time-based simulation of waveforms.
+</font>		</td>
+	</tr>
+</tbody></table>
+<p></p><p>
+<b>Loading</b><br>
+Finally, just as embedded programs are often embedded in physical ROM, 
+flash, or downloaded live, FPGA programs (compiled, synthesized, placed,
+ and routed) must be embedded in the physical FPGAs. The actual 
+programming file may be a .HEX or similar. Programmers typically 
+download or burn the bits from these files into the hardware. If 
+nonvolatile, this is a one-time proposition. If not, it's a 
+download-at-power-up proposition. Many variations exist with FPGAs as 
+with microprocessor-based embedded systems, but in the end, in a 
+functioning microprocessor-based product, the bits compiled, linked, and
+ loaded must "get into" the physical memory to control the gates of the 
+processor, and in an FPGA-based functioning product, the bits compiled, 
+synthesized, placed, and routed, must "get into" the FPGA, to implement 
+the gates of the system.
+</p><p>
+<b>Debugging programs</b><br>
+All experienced programmers know that complex programs, even 
+subprograms, don't run correctly the first time. When we first see how 
+to solve a problem, we tend to be overjoyed, (it's possible!) and then 
+underestimate the time required to implement the solution. This is 
+because our powers of abstraction, based on experience, enable us to see
+ solutions without worrying about every nitty-gritty detail. But the 
+hard truth is that the physical system in which we're embedding our 
+programs requires that every nitty-gritty detail must be handled before 
+it will work. No doubt, you have had the experience of fixing a single 
+bit (or flag) that caused a crashing program to suddenly run correctly. 
+Hallelujah! It works. I can sleep now.
+</p><p>
+Anyway, things don't work right out of the gate. We generally have to 
+kick them and see what they do and where they expire. In embedded 
+systems program development, we typically use debuggers, simulators, and
+ emulators. These tools enable us to step through the program execution 
+and observe the effects on flags, register contents, memory locations, 
+and so on, and to try to match what we expect at a given place and time 
+with what we see, in the simulator or emulator.
+</p></font>			                    <p></p>
+
+			                    <div class="clear"></div>
+			                 <div class="social-strip hide-for-small">
+	<div class="social-plugins left">
+		<span class="social_media linkedin">
+		  <script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/in.js" type="text/javascript"></script>
+		    <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1395117795609_2"><a id="li_ui_li_gen_1395117795609_2-link" href="javascript:void(0);"><span id="li_ui_li_gen_1395117795609_2-logo">in</span><span id="li_ui_li_gen_1395117795609_2-title"><span id="li_ui_li_gen_1395117795609_2-mark"></span><span id="li_ui_li_gen_1395117795609_2-title-text">Share</span></span></a></span></span><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1395117795616_3-container" class="IN-right"><span id="li_ui_li_gen_1395117795616_3" class="IN-right"><span id="li_ui_li_gen_1395117795616_3-inner" class="IN-right"><span id="li_ui_li_gen_1395117795616_3-content" class="IN-right">3</span></span></span></span></span></span><script type="IN/Share+init" data-url="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" data-counter="right"></script>
+		</span>    
+		<span class="social_media" style="position: static !important;">
+			    <g:plusone size="medium"></g:plusone>
+		</span>
+		<span class="social_media">
+			    <div id="twitter">
+					<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/widgets.js"></script>
+					<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/tweet_button_002.html" allowtransparency="true" id="twitter-widget-1" scrolling="no" frameborder="0"></iframe>
+			    </div>    
+		</span>
+		<span class="social_media">
+			    <div id="fb-root"></div>
+			    <script>            (function (d, s, id) {
+				    var js, fjs = d.getElementsByTagName(s)[0];
+				    if (d.getElementById(id)) return;
+				    js = d.createElement(s); js.id = id;
+				    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=22297258016";
+				    fjs.parentNode.insertBefore(js, fjs);
+				} (document, 'script', 'facebook-jssdk'));</script>
+			    <div fb-iframe-plugin-query="app_id=22297258016&amp;href=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=42" fb-xfbml-state="parsed" class="fb-like fb_iframe_widget" data-href="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" data-send="false" data-layout="button_count" data-width="42" data-show-faces="false"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/like_002.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like Facebook Social Plugin" allowtransparency="true" name="fa2510baf2a8be" scrolling="no" width="42px" frameborder="0" height="1000px"></iframe></span></div>
+
+
+		</span>
+	</div>
+	<div class="traditional right">        
+		<span class="relative social-save">
+			<a href="#" class="save-follow"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/folder.png" alt="Save As File"></a>
+			<span class="save-dropdown button content_4006429 author_" data-contentitemid="4006429" data-authorid="">
+				<a class="save-content" href="#">Save to My Library</a>
+				<a class="follow-comment" href="#">Follow Comments</a>
+							</span>
+		</span>
+		<a href="#" class="hide-for-tablet" onclick="openprintviewwindow('/print/4006429');"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/printer.png" alt="Print"></a>
+		<a href="mailto:?subject=FPGA%20programming%20step%20by%20step&amp;body=http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step" target="_blank"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/envelope.png" alt="Email"></a>
+	</div>
+</div>			                 
+			                 <div class="pagination-detail clear">
+	        <span class="previous_disabled">&lt; Previous</span>
+	    
+    <div class="pages">Page 1 of 2</div>
+	
+	        <a href="http://www.embedded.com/design/prototyping-and-development/4006429/2/FPGA-programming-step-by-step"><span class="next">Next &gt;</span></a>
+							        
+</div>
+							    
+			                </div>
+			            </div>
+			        </div>
+				</div>
+						</div>
+			<!-- COMMENTS ROW -->
+       				<div class="row">
+    <div class="twelve column">
+        <div class="module comments">
+            <h2><span id="comment-counter">2 Comments</span> <a href="#" class="button orig-txt comments_login">Write a comment</a></h2>
+            <div id="post-comments" style="display:none;">
+                <div id="comment-signed-in" style="display: none;">
+                    <p><textarea name="description" id="mainComment" rows="4" class="postCommentTextarea"></textarea></p>
+					<p>
+						 <input name="submit" id="submit" onclick=" _commentService.postComment(4006429, $('#mainComment').val(), 0, 'design/prototyping-and-development/4006429/FPGA-programming-step-by-step', 1)" value="Submit Comment" class="button no-float" type="button">
+					</p>
+                </div>     
+                <div id="comment-login">
+                    <p class="center">To comment please
+                    <a class="red" onclick="NextGen.loginForm('/login?assetId=203&amp;successfulLoginRedirect=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step')" href="javascript:void(0)">Log In</a> 
+                    </p>
+                </div>
+            </div>
+            <div id="comments" class="body"><div class="comments childcomments1" id="comment-29510" data-contentitemid="4006429"><div class="user"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/avatar-large.png" alt="" width="75px" height="75px"></div><div class="NNA_CommentTextSubBase Level1"><p><a href="http://www.embedded.com/user/Yenks">Yenks</a></p><p>Thanks
+ for the article, I really enjoyed it. I'm trying to learn FPGA 
+programming and your article has helped me in understanding FPGAs and 
+their benefits a little better.  <br> However, I have a few questions. 
+Is it easy to port complex embedded system designs on to an FPGA? Take 
+for example a set-top box (whether cable receiver or a satellite 
+receiver box) or a game system (e.g. xbox, wii etc.) How can systems 
+like these make use of FPGA benefits? <br> Also, how are things like 
+security, threads etc. handled in FPGA programming? (If you've got other
+ sources that I could read, please let me know. thanks) <br> Finally, is there a reason why FPGAs are not used in PC design to replace the processors, or are they?</p><p>11.1.2010 10:11  PM  EDT</p></div><div class="clear"></div><p class="reply dark_blue"><a href="http://www.embedded.com/login?assetId=203&amp;successfulLoginRedirect=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step">Reply</a></p></div><div class="comments childcomments2" id="comment-29519" data-contentitemid="4006429"><div class="user"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/783981.png" alt="" width="75px" height="75px"></div><div class="NNA_CommentTextSubBase Level2"><p><a href="http://www.embedded.com/user/Jagdish%20Bisawa">Jagdish Bisawa</a></p><p>Yenks,
+ let me try to answer your questions. Yes, complex systems can be ported
+ to an FPGA. However, in most cases, you would like to only port the 
+computing or "IP" part onto your FPGA, though it is quite possible to 
+put the entire functionality. The typical approach is to let other 
+"house-keeping" features be handled by a microcontroller, while the FPGA
+ does the processing-intensive part, if required. <br> The examples you have mentioned can, &amp; in all probability, use an FPGA in some form or the other. <br>
+ Systems like the ones you have mentioned can avail the 
+"processing-in-hardware" benefit of the FPGA, besides using an FPGA for 
+expansion(of signals like I/O lines) of the existing microcontroller. <br>
+ These days we have a lot of processor cores that can be put into the 
+FPGA. You can even have the ubiquitous ARM core put on an FPGA &amp; 
+then have additional system components, thereby customizing your 
+processor. There are cores by Altera, Xilinx &amp; Actel that can be put
+ into an FPGA. <br> To add more flexibility, operating systems have been
+ ported to be put on these cores, enabling one to exploit the easy 
+availability of applications for such OS like uClinux or even Embedded 
+Linux. <br> You can have a lot of resources from the sites of Altera, Xilinx &amp; Actel. Try the site <a href="http://www.fpga4fun.com/" target="_blank" class="comment-urls">www.fpga4fun.com</a> for some more info. <br> Lastly, FPGA are indeed used on the motherboard of a PC, though they cannot replace the processors yet !</p><p>11.2.2010 3:43  AM  EST</p></div><div class="clear"></div><p class="reply dark_blue"><a href="http://www.embedded.com/login?assetId=203&amp;successfulLoginRedirect=http%3A%2F%2Fwww.embedded.com%2Fdesign%2Fprototyping-and-development%2F4006429%2FFPGA-programming-step-by-step">Reply</a></p></div></div>
+        </div>
+    </div>
+</div>
+  <script type="text/javascript">
+  $(document).ready(function () {
+ _commentService.loadComments(4006429, 'design/prototyping-and-development/4006429/FPGA-programming-step-by-step');
+  });
+</script>
+
+
+
+	    </div>
+		 <!-- RIGHT COLUMN -->
+ <div class="four columns tablet-clear">
+ 	<div class="module">
+ 	         	</div>
+ 	<div class="module">
+ 			<div id="div-gpt-ad-942957474691236830-4">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-4');
+		 </script><div id="div-gpt-ad-942957474691236830-4_ad_container">
+<ins style="width: 300px; height: 250px; display: inline-table; position: relative; border: 0px none; vertical-align: bottom;"><ins style="width: 300px; height: 250px; display: block; position: relative; border: 0px none;"><iframe style="border: 0px none; position: absolute; top: 0px; left: 0px;" marginheight="0" marginwidth="0" name="google_ads_iframe_/2441/emd/prototyping-and-development_3" id="google_ads_iframe_/2441/emd/prototyping-and-development_3" scrolling="no" width="300" frameborder="0" height="250"></iframe></ins></ins></div>
+<script>googletag.impl.pubads.createDomIframe("div-gpt-ad-942957474691236830-4_ad_container" ,"/2441/emd/prototyping-and-development_3",false,undefined);</script>
+	</div>
+ 	</div>
+ 	<!-- MOST READ ROW -->
+		<div class="module">
+		    <h2 class="blue">Most Read</h2>
+		    <div class="body">
+		    <ul>
+
+		    				           <li class="item small">
+				                <p class="meta">
+				                    <span class="date">03.04.2004</span>
+				                </p>
+				                <h2><a href="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step">FPGA programming step by step</a></h2>
+				            </li>
+				 				           <li class="item small">
+				                <p class="meta">
+				                    <span class="date">11.02.2013</span>
+				                </p>
+				                <h2><a href="http://www.embedded.com/design/prototyping-and-development/4423709/Protecting-your-low-voltage-electronic-devices-from-electrical-overstress">Protecting your low voltage electronic devices from electrical overstress</a></h2>
+				            </li>
+				 				           <li class="item small">
+				                <p class="meta">
+				                    <span class="date">10.21.2013</span>
+				                </p>
+				                <h2><a href="http://www.embedded.com/design/prototyping-and-development/4423024/A-database-approach-to-describing-device-hardware">A database approach to describing device hardware</a></h2>
+				            </li>
+				 		    </ul>
+		</div>
+		</div> 	 
+<div class="module tv">
+	<!--Brightcove Player -->
+	<h2 class="bg-darkgrey">
+        <a href="http://www.embedded.com/videos" class="button left no-bg no-padding">Embedded</a> 
+        <a href="http://www.embedded.com/videos" class="button left no-padding"><span>TV</span></a>
+		<a href="http://www.embedded.com/videos" class="right">&nbsp;&nbsp;<img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/expand-arrow.png" alt="Expand"></a>
+		<a href="http://www.embedded.com/videos" class="right">video library</a>
+	</h2>
+	<div class="body">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,47,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="flashObj" width="272" height="308"><param name="movie" value="http://c.brightcove.com/services/viewer/federated_f9?isVid=1&amp;isUI=1"><param name="bgcolor" value="#FFFFFF"><param name="flashVars" value="playerID=1831537276001&amp;playerKey=AQ~~,AAABpcur3jE~,ShoUMJBK2TkfW-KQ7l5RBm-nWwcn5hf6&amp;domain=embed&amp;dynamicStreaming=true"><param name="base" value="http://admin.brightcove.com"><param name="seamlesstabbing" value="false"><param name="allowFullScreen" value="true"><param name="wmode" value="transparent"><param name="swLiveConnect" value="true"><param name="allowScriptAccess" value="always"><embed src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/federated_f9.html" bgcolor="#FFFFFF" flashvars="playerID=1831537276001&amp;playerKey=AQ~~,AAABpcur3jE~,ShoUMJBK2TkfW-KQ7l5RBm-nWwcn5hf6&amp;domain=embed&amp;dynamicStreaming=true" base="http://admin.brightcove.com" name="flashObj" seamlesstabbing="false" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" wmode="transparent" swliveconnect="true" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" width="272" height="308"></object>	</div>	
+</div>
+ 	<div class="module">
+ 			<div id="div-gpt-ad-942957474691236830-5">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-5');
+		 </script><div id="div-gpt-ad-942957474691236830-5_ad_container">
+<ins style="width: 300px; height: 250px; display: inline-table; position: relative; border: 0px none; vertical-align: bottom;"><ins style="width: 300px; height: 250px; display: block; position: relative; border: 0px none;"><iframe style="border: 0px none; position: absolute; top: 0px; left: 0px;" marginheight="0" marginwidth="0" name="google_ads_iframe_/2441/emd/prototyping-and-development_4" id="google_ads_iframe_/2441/emd/prototyping-and-development_4" scrolling="no" width="300" frameborder="0" height="250"></iframe></ins></ins></div>
+<script>googletag.impl.pubads.createDomIframe("div-gpt-ad-942957474691236830-5_ad_container" ,"/2441/emd/prototyping-and-development_4",false,undefined);</script>
+	</div>
+ 	</div>
+ 	<!-- MOST READ ROW -->
+		<div class="module">
+		    <h2 class="blue">Most Commented</h2>
+		    <div class="body">
+		    <ul>
+
+		    				<li class="item small"><p></p><h2>Currently no items</h2></li>
+					    </ul>
+		</div>
+		</div>
+ 	<div data-maxitems="10" data-contentitemid="4420567" id="related-container"><div class="module">
+    <h2 class="blue">Related Content</h2>
+    <div class="body">
+            <ul>
+        	 
+            <li class="item small">
+                <p class="meta lightgrey"><span class="date no-padding">03.04.2004</span> | <span class="category">Design</span></p>
+                <h2><a href="http://www.embedded.com/design/prototyping-and-development/4006429/FPGA-programming-step-by-step">FPGA programming step by step</a></h2>
+            </li>
+             
+            <li class="item small">
+                <p class="meta lightgrey"><span class="date no-padding">10.24.2006</span> | <span class="category">Design</span></p>
+                <h2><a href="http://www.embedded.com/design/configurable-systems/4006729/Making-FPGAs-work-for-embedded-developers--Part-2">Making FPGAs work for embedded developers - Part 2</a></h2>
+            </li>
+             
+            <li class="item small">
+                <p class="meta lightgrey"><span class="date no-padding">08.17.2011</span> | <span class="category">Design</span></p>
+                <h2><a href="http://www.embedded.com/design/configurable-systems/4218841/The-basics-of-core-based-FPGA-design--Part-1---core-types---trade-offs">Basics of core-based FPGA design: Part 1 – core types &amp; trade-offs</a></h2>
+            </li>
+             
+            <li class="item small">
+                <p class="meta lightgrey"><span class="date no-padding">11.01.2010</span> | <span class="category">Discussion</span></p>
+                <h2><a href="http://www.embedded.com/electronics-blogs/cole-bin/4006749/More-about-designing-with-Embedded-DSPs">More about designing with Embedded DSPs</a></h2>
+            </li>
+             
+            <li class="item small">
+                <p class="meta lightgrey"><span class="date no-padding">01.22.2014</span> | <span class="category">Discussion</span></p>
+                <h2><a href="http://www.embedded.com/electronics-blogs/industry-comment/4427411/On-my-First-Job-as-an-Electrical-Engineer">On my first job as an Electrical Engineer</a></h2>
+            </li>
+                    </ul>
+        
+    </div>
+</div></div> 	<div class="module">
+<!-- Partial search -->
+        	    		<style type="text/css">
+
+
+#PartsSearchShort_Submit {
+background: url("http://eetimes.com/ContentEETimes/Images/EMB-GenericContent/transparent-swatch.png") no-repeat scroll center center #4996CF;
+    border: medium none;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 42px;
+    width: 48px;
+color:transparent;
+}
+#PartsSearchShort_Submit:hover {
+   background-color:#007F99;
+}
+.searchStyle {
+    color: #999999;
+    font-style: italic;
+}
+</style>
+<h2 class="blue">Parts Search <a href="http://www.datasheets.com/" class="right orig-txt">Datasheets.com</a></h2>
+<div class="body">
+
+
+<div class="searchbox">
+						<form class="search side-module">
+							<div class="row">
+								<div class="twelve columns">
+									<div class="row collapse">
+										<div class="ten mobile-three columns">
+											<input value="powered by DataSheets.com" class="searchStyle datasheets_search" id="PartsSearchShort_Text" type="text">
+										</div>
+										<div class="two mobile-one columns">
+<input id="PartsSearchShort_Submit" class="datasheets_submit" value=" " type="submit">   										
+										</div>
+									</div>
+								</div>
+							</div>
+							<label>185 Million Searchable Parts</label>
+						</form>
+
+
+
+	</div></div>    	    </div>
+ 	<!-- Knowledge Center ROW -->
+<div class="module">
+	<h2 class="blue"><span>KNOWLEDGE CENTER</span></h2>
+	
+		<div id="div-gpt-ad-942957474691236830-37">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-37');
+		 </script>
+	</div>
+	<br class="clear">
+    	<div id="div-gpt-ad-942957474691236830-38">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-38');
+		 </script>
+	</div>
+    <br class="clear">
+    	<div id="div-gpt-ad-942957474691236830-39">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-39');
+		 </script>
+	</div>
+    <br class="clear">
+    	<div id="div-gpt-ad-942957474691236830-40">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-40');
+		 </script>
+	</div>
+    <br class="clear">
+    	<div id="div-gpt-ad-942957474691236830-41">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-41');
+		 </script>
+	</div>
+    <br class="clear">  
+	    
+</div> 		<div class="partial">
+	 		<div id="div-gpt-ad-942957474691236830-42">
+		 <script type="text/javascript">
+		  googletag.display('div-gpt-ad-942957474691236830-42');
+		 </script>
+	</div>
+	</div>
+ </div>
+
+	</div><!-- ContainerSet CacheKey: embedded_article_Embedded_Detail_Design179 -->		</div>
+
+    
+     <footer>
+        <!-- RSS ROW -->
+		<div class="rss">
+			<div class="row">
+				<div class="twelve columns">
+					<div class="wrap">
+						<span class="bold">Subscribe to RSS updates</span>
+						<a class="button" href="http://www.embedded.com/rss/all">all articles</a>
+						<span>or</span>
+						<div class="has-flyout">
+							<a class="button category">category <span class="arrow">▼</span></a>
+		                    <div class="flyout-wrap row hidden">
+		                        <div class="six mobile-two columns">
+		                            <ul class="flyout">
+		                                <li><a href="http://www.embedded.com/rss/development-center/configurable-systems">Configurable Systems</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/connectivity">Connectivity</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/debug-and-optimization">Debug &amp; Optimization</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/mcus-processors-and-socs">MCUs, Processors &amp; SoCs</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/operating-systems">Operating Systems</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/power-optimization">Power Optimization</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/programming-languages-and-tools">Programming Languages &amp; Tools</a></li>   
+		                            </ul>									
+		                        </div>
+		                        <div class="six mobile-two columns">
+		                            <ul class="flyout">
+		                                <li><a href="http://www.embedded.com/rss/development-center/prototyping-and-development">Prototyping &amp; Development</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/real-time-and-performance">Real-time &amp; Performance</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/real-world-applications">Real-world Applications</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/safety-and-security">Safety &amp; Security</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/development-center/system-integration">System Integration</a></li>   
+		                                <li><a href="http://www.embedded.com/rss/blogs">Insights</a></li>
+		                                <li><a href="http://www.embedded.com/rss/products">Products</a></li>
+		                            </ul>									
+		                        </div>
+		                    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- FOOTER LINKS ROW -->
+		<div class="row">
+		    <ul class="block-grid five-up hide-for-small">
+		        <li>
+		            <ul class="list-links">
+						<li class="section">Development Centers</li>
+						<li><a href="http://www.embedded.com/development">All Articles</a></li>
+		                <li><a href="http://www.embedded.com/development/configurable-systems">Configurable Systems</a></li>
+		                <li><a href="http://www.embedded.com/development/connectivity">Connectivity</a></li>
+		                <li><a href="http://www.embedded.com/development/debug-and-optimization">Debug &amp; Optimization</a></li>
+		                <li><a href="http://www.embedded.com/development/mcus-processors-and-socs">MCUs, Processors &amp; SoCs</a></li>
+		                <li><a href="http://www.embedded.com/development/operating-systems">Operating Systems</a></li>
+		                <li><a href="http://www.embedded.com/development/power-optimization">Power Optimization</a></li>
+		                <li><a href="http://www.embedded.com/development/programming-languages-and-tools">Programming Languages &amp; Tools</a></li>
+		                <li><a href="http://www.embedded.com/development/prototyping-and-development">Prototyping &amp; Development</a></li>
+		                <li><a href="http://www.embedded.com/development/real-time-and-performance">Real-time &amp; Performance</a></li>
+		                <li><a href="http://www.embedded.com/development/real-world-applications">Real-world Applications</a></li>
+		                <li><a href="http://www.embedded.com/development/safety-and-security">Safety &amp; Security</a></li>
+		                <li><a href="http://www.embedded.com/development/system-integration">System Integration</a></li>
+					</ul>
+		        </li>
+		        <li>
+		            <ul class="list-links">
+						<li class="section">Essentials &amp; Education</li>
+						<li><a href="http://www.embedded.com/products/all">Products</a></li>
+						<li><a href="http://www.embedded.com/news/all">News</a></li>
+						<li><a href="http://www.embedded.com/education-training/source-codes">Source Code Library</a></li>
+						<li><a href="http://www.embedded.com/education-training/webinars">Webinars</a></li>
+		                <li><a href="http://www.embedded.com/education-training/courses">Courses</a></li>
+		                <li><a href="http://www.embedded.com/education-training/tech-papers">Tech Papers</a></li>
+					</ul>
+		        </li>
+		        <li>
+		            <ul class="list-links">
+						<li class="section">Community</li>
+						<li><a href="http://www.embedded.com/insights">Insights</a></li>
+						<li><a href="http://www.embedded.com/events">Events</a></li>
+					</ul>
+		        </li>
+		        <li>
+		            <ul class="list-links">
+		                <li class="section">Archives</li>
+		                <li><a href="http://www.embedded.com/magazines">Embedded Systems Programming / Embedded Systems Design Magazine</a></li>
+						<li><a href="http://www.embedded.com/archive/Embedded-com-Tech-Focus-Newsletter-Archive">Newsletters</a></li>
+						<li><a href="http://www.embedded.com/videos">Videos</a></li>
+						<li><a href="http://www.embedded.com/collections/all">Collections</a></li>
+					</ul>
+		        </li>
+		        <li>
+		            <ul class="list-links">
+						<li class="section">About Us</li>
+						<li><a href="http://www.embedded.com/aboutus">About Embedded</a></li>
+		                <li><a href="http://www.embedded.com/contactus">Contact Us</a></li>
+		                <li><a href="http://www.embedded.com/newsletters">Newsletters</a></li>
+		                <li><a href="http://www.embedded.com/advertising">Advertising</a></li>
+		                <li><a href="http://www.embedded.com/editorial-contributions">Editorial Contributions</a></li>
+		                <li><a href="http://www.embedded.com/site-map">Site Map</a></li>
+					</ul>
+		        </li>
+		    </ul>
+		    <div class="twelve columns show-for-small">
+		        <ul class="list-links">
+		            <li><a href="#">Design Centres</a></li>
+		            <li><a href="#">Essentials &amp; Education</a></li>
+		            <li><a href="#">Community</a></li>
+		            <li><a href="#">Archives</a></li>
+		            <li><a href="#">About Us</a></li>
+		        </ul>
+		    </div>
+		</div>
+		
+		<style type="text/css">
+				#footerblack li{
+                	font-size:0.8em;
+               	}
+                #footerblack #rightlinks ul {
+	                line-height: 0.7em !important;
+                }
+				#footerblack{				
+					padding-bottom:15px;
+				}
+				#footerblack ul.ubm-global-network{
+					margin : 10px 0;
+				}
+				#footerblack #left {
+				    width: 88px;
+				} 			
+		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm-global-footer.css" rel="stylesheet" type="text/css">
+		<!-- BEGIN BLACK FOOTER -->
+		  <div id="footerblack">  
+		  <ul class="ubm-global-network hide-for-small">
+					<li class="first"><b>GLOBAL NETWORK</b></li>
+					<li><a target="_blank" href="http://www.eetasia.com/">EE Times Asia</a></li>
+					<li><a target="_blank" href="http://www.eet-china.com/">EE Times China</a></li>
+					<li><a target="_blank" href="http://www.electronics-eetimes.com/">EE Times Europe</a></li>
+					<li><a target="_blank" href="http://www.eetindia.co.in/">EE Times India</a></li>
+					<li><a target="_blank" href="http://eetimes.jp/">EE Times Japan</a></li>
+					<li><a target="_blank" href="http://www.eetkorea.com/">EE Times Korea</a></li>
+					<li><a target="_blank" href="http://www.eettaiwan.com/">EE Times Taiwan</a></li>
+					<li><a target="_blank" href="http://www.ednasia.com/">EDN Asia</a></li>
+					<li><a target="_blank" href="http://www.ednchina.com/">EDN China</a></li>
+					<li><a target="_blank" href="http://ednjapan.com/">EDN Japan</a></li>
+					<li><a target="_blank" href="http://www.techonlineindia.com/">TechOnline India</a></li>
+					<li><a target="_blank" href="http://www.escbrazil.com.br/en/">ESC Brazil</a></li>
+					<li class="last"><a target="_blank" href="http://www.esc-india.com/">ESC India</a></li>
+				</ul>
+		    <div style="clear:both;"></div><!-- // to clear the right and left evenly // -->
+		    <!-- BLACK FOOTER LEFT SIDE -->
+		    <div id="left">
+		    <a href="http://tech.ubm.com/" target="_blank"><img src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm_tech_logo_footer_black88x111.jpg" alt="UBM Tech" id="UBM_global_footer_img" width="88" height="111" border="0"></a>
+		    </div><!-- /BLACK FOOTER LEFT SIDE -->
+		    <!--BLACK FOOTER rightlinks SIDE -->
+		    <div id="rightlinks">
+		      <ul class="hide-for-small">
+		        <li>FEATURED UBM TECH SITES:</li> 
+		        <li><a href="http://www.eetimes.com/" target="_blank">EE Times</a></li> | 
+		        <li><a href="http://www.ebnonline.com/" target="_blank">EBN</a></li> | 
+		        <li><a href="http://www.edn.com/" target="_blank">EDN</a></li> | 
+		        <li><a href="http://www.datasheets.com/search/index.jsp" target="_blank">DataSheets.com</a></li> |
+		        <!-- >li><a href="http://www.designnews.com/" target="_blank">Design News</a></li> | -->
+		        <li><a href="http://www.embedded.com/" target="_blank">Embedded</a></li> |
+		        <li><a href="http://techonline.com/" target="_blank">TechOnline</a></li> |
+		        <li><a href="http://www.planetanalog.com/" target="_blank">Planet Analog</a></li>
+		      </ul>
+		      <ul class="hide-for-small">
+		        <li>OUR MARKETS:</li> 
+		        <li><a href="http://tech.ubm.com/businesses/business-technology/" target="_blank">Business Technology</a></li> | 
+		        <li><a href="http://tech.ubm.com/businesses/electronics/" target="_blank">Electronics</a></li> | 
+		        <li><a href="http://tech.ubm.com/businesses/game-app-development/" target="_blank">Game &amp; App Development</a></li>
+		      </ul>
+		      <ul class="normal hide-for-small">
+		        <li><b>Working With Us:</b></li>
+		        <li><a href="http://tech.ubm.com/customer-support/advertising-contacts/" target="_blank" class="normal">Advertising Contacts</a></li> | 
+		        <li><a href="http://e.ubmelectronics.com/events/" target="_blank" class="normal">Event Calendar</a></li> | 
+		        <li><a href="http://ubmelectronics.com/services/" target="_blank" class="normal">Tech Marketing Solutions</a></li> | 
+		        <li><a href="http://ubmelectronics.com/" target="_blank" class="normal">Corporate Site</a></li> | 
+		        <li><a href="http://www.embedded.com/design/prototyping-and-development/4006429/undefined" target="_blank" class="normal" id="feedback_email">Contact Us / Feedback</a></li> 
+		      </ul>
+		      <ul class="blue">
+		        <li><a href="http://legal.us.ubm.com/terms-of-service/" target="_blank" class="blue">Terms of Service</a></li>  |
+		        <li><a href="http://legal.us.ubm.com/privacy-policy/" target="_blank" class="blue">Privacy Statement</a></li>  |
+		        <li><a href="http://legal.us.ubm.com/copyright-notice/" target="_blank" class="blue">Copyright © 2014 UBM Tech, All rights reserved</a></li>
+		      </ul>
+		    </div><!-- / BLACK FOOTER rightlinks -->
+		    <div style="clear:both;"></div><!-- // to clear the right and left evenly // -->
+		  </div><!-- END footerblack -->
+		<!-- / END BLACK FOOTER -->
+		<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm-global-footer.js"></script>
+		<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/custom_tracking.js"></script>
+		<script type="text/javascript">
+		    $('#rightlinks a').click(function (event) {
+		        itc_tracking($(this), event);
+		    }); 
+		</script>        
+</footer>    </div>
+   
+	<!-- SiteCatalyst code version: H.16.
+Copyright 1997-2008 Omniture, Inc. More info available at
+http://www.omniture.com -->
+<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/h_s_code_remote.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(function() {
+			var referer = '';
+			var eVar23 = '';
+			var userAgent = '';
+			$.ajax({
+			   type: "GET",
+			   url: "/omniture",
+			   data: "referer="+encodeURIComponent(document.referrer),
+			   success: function(data){		   
+				   if (data != null)
+					{
+						referer = data.referer;
+						eVar23 = data.eVar23;
+						userAgent = data.userAgent;					
+					}
+			   },
+			   dataType: "json",
+			   async: false,
+			   cache: false
+			 });}, 
+		 2000);
+	 });
+	 </script>
+<!--
+		
+s.hier1="Embedded | Development | Prototyping & Development | Design How-To";
+s.pageName="";
+s.server="";
+s.channel="embedded.com/design";
+s.pageType="";
+s.prop1="";
+s.prop2="4006429";
+s.prop3="Embedded | 4006429 | FPGA programming step by step";
+s.prop4="FPGA programming step by step";
+s.prop5="Prototyping & Development";
+s.prop6="";
+s.prop7="Ed Klingman";
+s.prop10="";
+s.prop11="Design How-To";
+s.prop17="";
+s.prop19="False";
+s.prop20="2000304";
+
+
+/* Conversion Variables */
+s.campaign="";
+s.state="";
+s.zip="";
+s.events="event5";
+s.products="";
+s.purchaseID="";
+s.eVar1="";
+s.eVar2="";
+s.eVar3="";
+s.eVar4="";
+s.eVar5="";
+
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//-->	
+<noscript><a href="http://www.omniture.com" title="Web Analytics"><img
+src="http://cmpglobalvista.112.2O7.net/b/ss/cmpglobalvista/1/H.16--NS/0"
+height="1" width="1" border="0" alt="" /></a></noscript><!--/DO NOT REMOVE/-->
+<script language="JavaScript" type="text/javascript">
+   function trackComment(){
+    	        var s=s_gi('cmpglobalvista'); 
+                s.evar24=s.prop7 +" | "+ s.prop4;  
+  			    s.events='event5,event9';
+  			    s.tl(this,'o','Article Comment Posted');
+          
+   }
+</script>
+
+<!-- End SiteCatalyst code version: H.16 -->	<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-20164576-1']);
+        _gaq.push(['_setDomainName', '.embedded.com']);
+	_gaq.push(['_trackPageview']);
+			_gaq.push(['_trackEvent']);
+		(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+	<script type="text/javascript">
+    var uvOptions = {};
+    (function () {
+        var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+        uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/vXhNDLnX1CtX07Kf4sAFw.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+    })();
+</script>	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/jquery-ui.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/jquery_003.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/plugins.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/app.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/script.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/jquery.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm_005.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm_003.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm_002.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm_006.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/ubm_004.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/main.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/emb.js" type="text/javascript"></script>
+	<script src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/fullcalendar.js" type="text/javascript"></script>
+	<script type="text/javascript" src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/beacon-min.js"></script>
+	<script>
+	
+		var _doubleclickRand = Math.random() * 10000000000000000;
+		var beacon = new UBM.Beacon({ environment: 'p', apiKey: '7a85ceb41b22f6b8c4f0ea4b1298b85809f1c2227aefa21507e3e8724f9d0394' });
+		beacon.pageview();
+	</script>
+
+
+<iframe src="FPGA%20programming%20step%20by%20step%20%7C%20Embedded_files/record.html" style="display:none" tabindex="-1" width="0" frameborder="0" height="0"></iframe><div style="background: none repeat scroll 0px 0px rgb(0, 0, 0); opacity: 0.9; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 1000; display: none;" id="TWLightBoxOverlay"></div><div style="width: 780px; margin-left: -404.5px; margin-top: -250px; position: fixed; display: none; top: 50%; left: 50%; z-index: 6000000;" id="TWLightBoxPanel" class="embedded"><div id="topLoginHeader"><div class="nextGenContainer_title">Techweb</div><div class="nextGenContainer_closeButton"><div id="nextGenContainer_closeButton_inner" onclick="NextGen.close();"></div></div></div><div id="nextGenLoginContainer" class=""><div id="nextGenContainer" class=""></div></div><div class="emptyFix" id="nextGenFooterContainer"></div></div><iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_5778274962621"></iframe></body></html>

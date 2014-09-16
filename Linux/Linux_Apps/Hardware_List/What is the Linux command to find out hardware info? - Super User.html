@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>What is the Linux command to find out hardware info? - Super User</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/superuser/img/favicon.ico?v=c82914fca0a9">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/superuser/img/apple-touch-icon.png?v=0ad5b7a83e49">
+    <link rel="search" type="application/opensearchdescription+xml" title="Super User" href="http://superuser.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@super_user">
+    <meta name="twitter:domain" content="superuser.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/superuser/img/apple-touch-icon@2.png?v=e869e4459439">
+    <meta name="og:title" content="What is the Linux command to find out hardware info?">
+    <meta name="og:description" content="I need to find out hardware information for the below items under Linux:
+
+
+CPU (and cores)
+CPU speed
+Memory
+Hard disks
+OS version
+
+
+Any advice?
+">
+    <meta name="og:url" content="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info">
+    <link rel="canonical" href="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info">
+
+    
+    
+    <script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/quant.js" async=""></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/beacon.js" async=""></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/analytics.js" async=""></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/ados.js" async="" type="text/javascript"></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/ados_002.js" async="" type="text/javascript"></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/jquery.js"></script>
+    <script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/stub.js"></script>
+    <link rel="stylesheet" type="text/css" href="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'What is the Linux command to find out hardware info?'" href="http://superuser.com/feeds/question/303981">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#BEB013',backgroundColor:'#FFF',questionId:303981});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('3', '303981');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('3');
+                StackExchange.realtime.subscribeToTopBarNotifications('3');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1408602953,"networkMetaHostname":"meta.stackexchange.com","styleCode":true,"enableUserHovercards":true,"site":{"name":"Super User","description":"Q&A for computer enthusiasts and power users","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LcDNwYAAAAAAG_X1rC8kTtLBP6XS2Ym1N0n9kSY","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"enableSocialMediaInSharePopup":true,"useGoogleOAuth2":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"055a220273ad","js/moderator.en.js":"eacc3f340c48","js/full-anon.en.js":"9fc4c75b3525","js/full.en.js":"dda4aad3b91b","js/wmd.en.js":"424330db47ca","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"d5f405da7750","js/help.en.js":"56d0a3a560ae","js/tageditor.en.js":"23435345d99d","js/tageditornew.en.js":"7cc53235ec27","js/inline-tag-editing.en.js":"21223186b436","js/revisions.en.js":"255b536e5531","js/review.en.js":"d6e338924b2d","js/tagsuggestions.en.js":"418b6018565f","js/post-validation.en.js":"a5aefd93c736","js/explore-qlist.en.js":"8b8b631bd679","js/events.en.js":"bb29d0b254c5","js/keyboard-shortcuts.en.js":"9153d2aef363"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/full-anon.js" async=""></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/post-validation.js" async=""></script><script src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/adFeedback.js" type="text/javascript"></script><link href="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/adFeedback.css" rel="stylesheet"></head>
+<body class="question-page new-topbar" itemscope="" itemtype="http://schema.org/QAPage">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://superuser.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.superuser.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://superuser.com/" class="current-site-link site-link js-gps-track" data-id="3" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-superuser" title="Super User"></div>
+        Super User
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.superuser.com/" class="site-link js-gps-track" data-id="77" data-gps-track="
+            site.switch({ target_site:77, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-superusermeta" title="Meta Super User"></div>
+        Meta Super User
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+                        <a href="https://superuser.com/users/signup?returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f303981%2fwhat-is-the-linux-command-to-find-out-hardware-info" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a>
+                    or
+                    <a href="https://superuser.com/users/login?returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f303981%2fwhat-is-the-linux-command-to-find-out-hardware-info" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a>
+
+                    to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 132 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                            <a href="https://superuser.com/users/signup?returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f303981%2fwhat-is-the-linux-command-to-find-out-hardware-info" class="login-link">sign up</a>
+                            <a href="https://superuser.com/users/login?returnurl=http%3a%2f%2fsuperuser.com%2fquestions%2f303981%2fwhat-is-the-linux-command-to-find-out-hardware-info" class="login-link">log in</a>
+                            <a href="http://superuser.com/tour">tour</a>
+
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://superuser.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://superuser.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.superuser.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () { StackExchange.topbar.init(); });
+</script>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://superuser.com/">
+                    Super User
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://superuser.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://superuser.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://superuser.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://superuser.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://superuser.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://superuser.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+	<link itemprop="image" href="http://cdn.sstatic.net/superuser/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://superuser.com/tour" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Super User is a question and answer site for computer 
+enthusiasts and power users. It's 100% free, no registration required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/", expires: 365 });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info" class="question-hyperlink">What is the Linux command to find out hardware info?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="303981" id="question">
+
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8476,"adzerk588584606",4).setZone(46) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk588584606"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjg0MSwiY2giOjExNzgsImNyIjoxMDc2OSwiZGkiOiIxYTAzMTY4MjllNmU0NDEwYjczOWVjODI2ZjM0NGMyYiIsImRtIjoxLCJmYyI6MTY4ODIsImZsIjoyNDIzLCJpcCI6IjIwMy44OC4xMzkuMjM3Iiwia3ciOiJsaW51eCIsIm53IjoyMiwicGMiOjAsInByIjoxNTY4LCJydCI6MSwicmYiOiJodHRwOi8vd3d3Lmdvb2dsZS5jby5pbi91cmw_c2E9dCZyY3Q9aiZxPSZlc3JjPXMmc291cmNlPXdlYiZjZD0xJnNxaT0yJnZlZD0wQ0JzUUZqQUEmdXJsPWh0dHA6Ly9zdXBlcnVzZXIuY29tL3F1ZXN0aW9ucy8zMDM5ODEvd2hhdC1pcy10aGUtbGludXgtY29tbWFuZC10by1maW5kLW91dC1oYXJkd2FyZS1pbmZvJmVpPVI1UDFVLTNvQklhMXVBU1dsb0RBQXcmdXNnPUFGUWpDTkViT2JoQXZ6NDlHM0lFQW56LUZRNEpzLTJXUmcmYnZtPWJ2LjczMjMxMzQ0LGQuYzJFJmNhZD1yamEiLCJzdCI6ODQ3NiwidWsiOiJ1ZTEtMTNiMDUxMTE2ODZkNGI2NDlhNmVkODIxMmEwOTViY2UiLCJ6biI6NDYsInRzIjoxNDA4NjAyOTU1MjM3LCJ1ciI6Imh0dHA6Ly9jYXJlZXJzLnN0YWNrb3ZlcmZsb3cuY29tL2pvYnMvdGVsZWNvbW11dGUifQ&amp;s=i0LUcfb_fRZDX_gAM_EPcpnKalQ" rel="nofollow" target="_blank" title=""><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/d893babe671c41118c1fece177e0a21a.jpg" title="" alt="" border="0" height="90" width="728"></a><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/i_003.gif" style="position:absolute;" border="0" height="0px" width="0px"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="303981" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">52</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>37</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+        <p>I need to find out hardware information for the below items under Linux:</p>
+
+<ul>
+<li>CPU (and cores)</li>
+<li>CPU speed</li>
+<li>Memory</li>
+<li>Hard disks</li>
+<li>OS version</li>
+</ul>
+
+<p>Any advice?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://superuser.com/questions/tagged/linux" class="post-tag js-gps-track" title="show questions tagged 'linux'" rel="tag">linux</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/q/303981" title="short permalink to this question" class="short-link" id="link-post-303981">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/303981/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/303981/revisions" title="show all edits to this post">edited <span title="2011-06-30 13:38:14Z" class="relativetime">Jun 30 '11 at 13:38</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/73637/8088"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/rLaSo.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/73637/8088">8088</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">8,182</span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="29 silver badges"><span class="badge2"></span><span class="badgecount">29</span></span><span title="49 bronze badges"><span class="badge3"></span><span class="badgecount">49</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2011-06-29 03:45:46Z" class="relativetime">Jun 29 '11 at 3:45</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        ddcd<br>
+        
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                    <tr>
+            <td class="special-status" colspan="2">
+                <div class="question-status">
+        <h2>                    <b>migrated</b> from <a href="http://stackoverflow.com/posts/6515537/revisions" title="what-is-the-linux-command-to-find-out-hardware-info">stackoverflow.com</a> <span dir="ltr"><span title="2011-06-29 15:44:27Z" class="relativetime">Jun 29 '11 at 15:44</span></span>
+</h2>
+        <p>This question came from our site for professional and enthusiast programmers.</p>
+    </div>
+            </td>
+        </tr>
+    
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-303981" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-303981" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>        </tbody></table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								9 Answers
+                                <span style="display:none;" itemprop="answerCount">9</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="303985"></a>
+<div id="answer-303985" class="answer" data-answerid="303985" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="303985" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">66</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>From <a href="http://www.pixelbeat.org/cmdline.html">Linux Commands - A practical reference</a>:</p>
+
+<p>Show kernel version and system architecture</p>
+
+<pre><code>uname -a
+</code></pre>
+
+<p>Show name and version of distribution</p>
+
+<pre><code>head -n1 /etc/issue
+</code></pre>
+
+<p>Show all partitions registered on the system</p>
+
+<pre><code>cat /proc/partitions
+</code></pre>
+
+<p>Show RAM total seen by the system</p>
+
+<pre><code>grep MemTotal /proc/meminfo
+</code></pre>
+
+<p>Show CPU(s) info</p>
+
+<pre><code>grep "model name" /proc/cpuinfo
+</code></pre>
+
+<p>Show info about disk sda</p>
+
+<pre><code>hdparm -i /dev/sda
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/303985" title="short permalink to this answer" class="short-link" id="link-post-303985">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/303985/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-06-29 04:08:31Z" class="relativetime">Jun 29 '11 at 4:08</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        Mufaka<br>
+        
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-303985" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-724603" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">+1 for the link. Not only did you answer the Q but the link is really useful. Thanks</span>
+                –&nbsp;
+                    <a href="http://superuser.com/users/190179/lordlupine" title="113 reputation" class="comment-user">lordlupine</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment724603_303985"><span title="2013-05-01 17:27:46Z" class="relativetime-clean">May 1 '13 at 17:27</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-303985" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8476,"adzerk731860958",4).setZone(48) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk731860958"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjg0MSwiY2giOjExNzgsImNyIjo1OTE4LCJkaSI6IjRlMjg1MGUwOGRhNDRhMzJhOWQzZGFmYjBmN2UwNjNkIiwiZG0iOjEsImZjIjoxMDEyOSwiZmwiOjI0MjMsImlwIjoiMjAzLjg4LjEzOS4yMzciLCJrdyI6ImxpbnV4IiwibnciOjIyLCJwYyI6MCwicHIiOjE1NjgsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTEmc3FpPTImdmVkPTBDQnNRRmpBQSZ1cmw9aHR0cDovL3N1cGVydXNlci5jb20vcXVlc3Rpb25zLzMwMzk4MS93aGF0LWlzLXRoZS1saW51eC1jb21tYW5kLXRvLWZpbmQtb3V0LWhhcmR3YXJlLWluZm8mZWk9UjVQMVUtM29CSWExdUFTV2xvREFBdyZ1c2c9QUZRakNORWJPYmhBdno0OUczSUVBbnotRlE0SnMtMldSZyZidm09YnYuNzMyMzEzNDQsZC5jMkUmY2FkPXJqYSIsInN0Ijo4NDc2LCJ1ayI6InVlMS0xM2IwNTExMTY4NmQ0YjY0OWE2ZWQ4MjEyYTA5NWJjZSIsInpuIjo0OCwidHMiOjE0MDg2MDI5NTUyMzksInVyIjoiaHR0cDovL2NhcmVlcnMuc3RhY2tvdmVyZmxvdy5jb20vIn0&amp;s=wz493UXkq92tO9KuJVIs2Rr48AE" rel="nofollow" target="_blank" title=""><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/030883e15a374ba397b57b8d4bf1033e.png" title="" alt="" border="0" height="90" width="728"></a><div class="adzerk-vote-controls" style="display: none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/i_002.gif" style="position:absolute;" border="0" height="0px" width="0px"></div>
+  
+<a name="303984"></a>
+<div id="answer-303984" class="answer" data-answerid="303984" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="303984" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">25</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Try <code>lshw</code> </p>
+
+<p>It will suggest you run it as <code>root</code>, so try</p>
+
+<pre><code>sudo lshw
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/303984" title="short permalink to this answer" class="short-link" id="link-post-303984">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/303984/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2011-06-29 03:59:07Z" class="relativetime">Jun 29 '11 at 3:59</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/9203/pavium"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/1917fdbabb454b750dd272c068e5f23d.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/9203/pavium">pavium</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">4,367</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="12 silver badges"><span class="badge2"></span><span class="badgecount">12</span></span><span title="22 bronze badges"><span class="badge3"></span><span class="badgecount">22</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-303984" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-322167" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">you will need to install it in many cases - iirc it wasn't stock in ubuntu</span>
+                –&nbsp;
+                    <a href="http://superuser.com/users/10165/journeyman-geek" title="66541 reputation" class="comment-user">Journeyman Geek<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment322167_303984"><span title="2011-06-29 15:46:24Z" class="relativetime-clean">Jun 29 '11 at 15:46</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-303984" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="427804"></a>
+<div id="answer-427804" class="answer" data-answerid="427804" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="427804" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">22</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Here is a list of commands to check hardware on Linux. Note that not 
+all commands are available on all distributions. It is better to launch 
+then as root (or via sudo) to get all the information.</p>
+
+<p><strong>Command: lscpu</strong></p>
+
+<ul>
+<li>List available cpus and their caracteristics</li>
+<li>Not available on older distribution</li>
+</ul>
+
+<p><strong>Command: lshal</strong></p>
+
+<ul>
+<li>Require HAL (Hardware Abstraction Layer) to be installed</li>
+<li>List all hardware visible by HAL</li>
+</ul>
+
+<p><strong>Command: lshw</strong></p>
+
+<ul>
+<li>Available on Ubuntu based distributions by default, and Debian in the main repo</li>
+<li>Available in the Fedora repositories</li>
+<li>Uses many inputs to detect all hardware: Kernel, HAL, DMI, etc.</li>
+<li>As a neat ‘-html’ switch that generates hardware reports</li>
+<li><a href="http://www.ducea.com/2006/06/03/use-lshw-hardware-lister-to-get-detailed-information-on-the-hardware-configuration-of-your-linux-system/">Check more on this page</a></li>
+</ul>
+
+<p><strong>Command: lspci</strong></p>
+
+<ul>
+<li>Standard command</li>
+<li>List all hardware connected to the PCI bus as detected by the kernel</li>
+</ul>
+
+<p><strong>Command: lsusb</strong></p>
+
+<ul>
+<li>Standard command</li>
+<li>List all hardware connected to the USB buses as detected by the kernel</li>
+</ul>
+
+<p><strong>Command: dmidecode</strong></p>
+
+<ul>
+<li>Standard command</li>
+<li>Get the source information from the DMI (a kind of BIOS interface)</li>
+<li>List all hardware as reported by the DMI interface</li>
+</ul>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/427804" title="short permalink to this answer" class="short-link" id="link-post-427804">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/427804/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/427804/revisions" title="show all edits to this post">edited <span title="2013-10-12 12:31:47Z" class="relativetime">Oct 12 '13 at 12:31</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-05-23 08:31:35Z" class="relativetime">May 23 '12 at 8:31</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/53206/huygens"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/32857d0f2ac2a60aaba519222786d494.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/53206/huygens">Huygens</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">820</span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="18 bronze badges"><span class="badge3"></span><span class="badgecount">18</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-427804" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+
+
+    <tr id="comment-829904" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">On Debian at least lshw is not installed by default. "apt-get install lshw" helps</span>
+                –&nbsp;
+                    <a href="http://superuser.com/users/73820/andreas-kuckartz" title="101 reputation" class="comment-user">Andreas Kuckartz</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment829904_427804"><span title="2013-10-12 07:44:32Z" class="relativetime-clean">Oct 12 '13 at 7:44</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-829967" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Thanks Andreas for the information, I will update my post.</span>
+                –&nbsp;
+                    <a href="http://superuser.com/users/53206/huygens" title="820 reputation" class="comment-user">Huygens</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment829967_427804"><span title="2013-10-12 12:30:38Z" class="relativetime-clean">Oct 12 '13 at 12:30</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-427804" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="303982"></a>
+<div id="answer-303982" class="answer" data-answerid="303982" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="303982" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">10</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Here is a link to various Linux commands for what you want:</p>
+
+<blockquote>
+  <p><a href="http://www.cyberciti.biz/tips/linux-command-to-gathers-up-information-about-a-linux-system.html">http://www.cyberciti.biz/tips/linux-command-to-gathers-up-information-about-a-linux-system.html</a></p>
+</blockquote>
+
+<p>Specifically, you're looking for commands like:</p>
+
+<pre><code>cat /proc/cpuinfo
+
+free -m
+
+cat /proc/version
+</code></pre>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/303982" title="short permalink to this answer" class="short-link" id="link-post-303982">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/303982/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/303982/revisions" title="show all edits to this post">edited <span title="2011-06-30 13:37:28Z" class="relativetime">Jun 30 '11 at 13:37</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/73637/8088"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/rLaSo.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/73637/8088">8088</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">8,182</span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="29 silver badges"><span class="badge2"></span><span class="badgecount">29</span></span><span title="49 bronze badges"><span class="badge3"></span><span class="badgecount">49</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-06-29 03:51:04Z" class="relativetime">Jun 29 '11 at 3:51</span>
+    </div>
+    <div class="user-gravatar32">
+        <span class="anonymous-gravatar"></span>
+    </div>
+    <div class="user-details">
+        Chris Hayes<br>
+        
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-303982" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-303982" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="657919"></a>
+<div id="answer-657919" class="answer" data-answerid="657919" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="657919" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">4</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>And, just to add my two cents worth, I would also try </p>
+
+<pre><code>hwinfo
+</code></pre>
+
+<p>Before using the full comand, you might perhaps try the short version,</p>
+
+<pre><code>hwinfo --short
+</code></pre>
+
+<p>which might already provide the info you are searching for. The fll 
+version is very rich in details, so it is probably best called with</p>
+
+<pre><code>hwinfo | more
+</code></pre>
+
+<p>And, by the way, a convenient condensed form of the info provided by lshw can be obtained by means of</p>
+
+<pre><code>sudo lshw -businfo
+</code></pre>
+
+<p>with easily readable output:</p>
+
+<pre><code>Bus info          Device      Class          Description
+========================================================
+                              system         PORTEGE R930 (PT331E)
+                              bus            PORTEGE R930
+                              memory         128KiB BIOS
+                              memory         6GiB System Memory
+                              memory         4GiB SODIMM DDR3 Synchronous 1600 MHz (0,6 ns)
+                              memory         2GiB SODIMM DDR3 Synchronous 1600 MHz (0,6 ns)
+cpu@0                         processor      Intel(R) Core(TM) i7-3520M CPU @ 2.90GHz
+                              memory         32KiB L1 cache
+                              memory         256KiB L2 cache
+                              memory         4MiB L3 cache
+                              memory         32KiB L1 cache
+pci@0000:00:00.0              bridge         3rd Gen Core processor DRAM Controller
+pci@0000:00:02.0              display        3rd Gen Core processor Graphics Controller
+pci@0000:00:14.0              bus            7 Series/C210 Series Chipset Family USB xHCI     Host Controller
+pci@0000:00:16.0              communication  7 Series/C210 Series Chipset Family 
+                                             MEI Controller #1
+pci@0000:00:16.3              communication  7 Series/C210 Series Chipset Family KT Controller
+pci@0000:00:19.0  eth0        network        82579LM Gigabit Network Connection
+pci@0000:00:1a.0              bus            7 Series/C210 Series Chipset Family USB Enhanced Host Controller #2
+pci@0000:00:1b.0              multimedia     7 Series/C210 Series Chipset Family High Definition Audio Controller
+pci@0000:00:1c.0              bridge         7 Series/C210 Series Chipset Family PCI Express Root Port 1
+pci@0000:01:00.0              generic        MMC/SD Host Controller
+pci@0000:00:1c.1              bridge         7 Series/C210 Series Chipset Family PCI Express Root Port 2
+pci@0000:00:1c.2              bridge         7 Series/C210 Series Chipset Family PCI Express Root Port 3
+pci@0000:04:00.0  wlan0       network        Centrino Advanced-N 6235
+pci@0000:00:1c.5              bridge         7 Series/C210 Series Chipset Family PCI Express Root Port 6
+pci@0000:00:1d.0              bus            7 Series/C210 Series Chipset Family USB Enhanced Host Controller #1
+pci@0000:00:1f.0              bridge         QM77 Express Chipset LPC Controller
+pci@0000:00:1f.2              storage        7 Series Chipset Family 6-port SATA Controller [AHCI mode]
+                 scsi0       storage        
+scsi@0:0.0.0      /dev/sda    disk           256GB TOSHIBA THNSNF25
+scsi@0:0.0.0,1    /dev/sda1   volume         27GiB EXT4 volume
+scsi@0:0.0.0,2    /dev/sda2   volume         210GiB Extended partition
+                 /dev/sda5   volume         5722MiB Linux swap / Solaris partition
+                 /dev/sda6   volume         204GiB Linux filesystem partition
+                 scsi2       storage        
+scsi@2:0.0.0      /dev/cdrom  disk           DVD-RAM UJ8C2
+                             power          Lithium Ion Battery
+                          power          
+                 wwan0       network        Ethernet interface
+</code></pre>
+
+<p>There is also a graphical version of lshw, called lshw-gtk:</p>
+
+<pre><code>sudo lshw-gtk &amp;
+</code></pre>
+
+<p>Depeding on the specific distro you are on, most of these commands may need to be installed
+(apt-get install, yum, pacman, ...)</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/657919" title="short permalink to this answer" class="short-link" id="link-post-657919">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/657919/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://superuser.com/posts/657919/revisions" title="show all edits to this post">edited <span title="2013-10-12 13:44:56Z" class="relativetime">Oct 12 '13 at 13:44</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-10-12 13:19:53Z" class="relativetime">Oct 12 '13 at 13:19</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/255732/mariusmatutiae"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/cRly1.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/255732/mariusmatutiae">MariusMatutiae</a><br>
+        <span class="reputation-score" title="reputation score 11782" dir="ltr">11.8k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="8 silver badges"><span class="badge2"></span><span class="badgecount">8</span></span><span title="29 bronze badges"><span class="badge3"></span><span class="badgecount">29</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-657919" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-657919" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="304029"></a>
+<div id="answer-304029" class="answer" data-answerid="304029" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="304029" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>If you want lots of information about all of the devices connected to your machine over the PCI (or PCI-Express) bus then type <code>lspci -vvknnqq</code></p>
+
+<p>If you want information about your disk partitioning then type <code>sudo fdisk -l /dev/sda</code></p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/304029" title="short permalink to this answer" class="short-link" id="link-post-304029">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/304029/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-06-29 16:58:57Z" class="relativetime">Jun 29 '11 at 16:58</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/87546/jack-kelly"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/16a7c04ad452db4e79d241a5047d5006.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/87546/jack-kelly">Jack Kelly</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">126</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-304029" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-304029" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="304435"></a>
+<div id="answer-304435" class="answer" data-answerid="304435" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="304435" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>You can also use <em>dmidecode</em> which will provide description of the systemâs hardware components.</p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/304435" title="short permalink to this answer" class="short-link" id="link-post-304435">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/304435/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-06-30 11:18:18Z" class="relativetime">Jun 30 '11 at 11:18</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/88273/ravindra-bhadramraju"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/20a1599063ed26fa5d2888785a3f99bb.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/88273/ravindra-bhadramraju">ravindra bhadramraju</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1</span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-304435" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-304435" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="717357"></a>
+<div id="answer-717357" class="answer" data-answerid="717357" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="717357" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>I am a co-developer of a utility that is making its way into several 
+distributions (Debian Unstable is the newest addition).  The tools is 
+called <a href="http://www.inxi.org/" rel="nofollow">inxi</a>.  It is a bash script that does what all the other answers here suggest in one easy command.  Check it out.</p>
+
+<p>To use it, simple go to a terminal and type 'inxi -F' and it will 
+display a full (-F) system information output.  'inxi -h' will show more
+ options.  It was originally made for IRC troubleshooting, so it works 
+in almost every IRC client (and comes boundled in some).  </p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/717357" title="short permalink to this answer" class="short-link" id="link-post-717357">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/717357/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-02-15 19:58:58Z" class="relativetime">Feb 15 at 19:58</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/300440/trash80"><div><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/fca724eef0c02bbc343a8a45a61362b7.png" alt="" height="32" width="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/300440/trash80">trash80</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1</span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-717357" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-717357" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="744684"></a>
+<div id="answer-744684" class="answer" data-answerid="744684" itemscope="" itemtype="http://schema.org/Answer">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="744684" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>If you use puppet to manage your infrastructure, use <a href="http://puppetlabs.com/facter" rel="nofollow">facter</a></p>
+
+<pre><code>facter processorcount sp_number_processors sp_current_processor_speed memorytotal operatingsystem  osfamily operatingsystemrelease
+
+processorcount =&gt; 4
+sp_current_processor_speed =&gt; 2.5 GHz
+sp_number_processors =&gt; 2
+memorytotal =&gt; 8.00 GB
+osfamily =&gt; RedHat
+operatingsystem =&gt; CentOS
+operatingsystemrelease =&gt; 6.5
+</code></pre>
+
+<p>You can even output as yaml or json</p>
+
+<pre><code>facter osfamily operatingsystem --json
+{"osfamily":"Darwin","operatingsystem":"Darwin"}
+
+facter osfamily operatingsystem --yaml
+osfamily: Darwin
+operatingsystem: Darwin
+</code></pre>
+
+<p>Chef has a similar tool called ohai </p>
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://superuser.com/a/744684" title="short permalink to this answer" class="short-link" id="link-post-744684">share</a><span class="lsep">|</span><a href="http://superuser.com/posts/744684/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-04-22 16:26:06Z" class="relativetime">Apr 22 at 16:26</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://superuser.com/users/167769/spuder"><div class="gravatar-wrapper-32"><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/8d4317dca5804dd7e9b30515b9bf3020.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://superuser.com/users/167769/spuder">spuder</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,789</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="8 silver badges"><span class="badge2"></span><span class="badgecount">8</span></span><span title="28 bronze badges"><span class="badge3"></span><span class="badgecount">28</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-744684" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="false" data-cansee="true" data-comments-unavailable="false" data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+            <div id="comments-link-744684" data-rep="50" data-anon="true">
+
+                <a class="js-add-link comments-link disabled-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span><a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="#" onclick=""></a>
+            </div>
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/303981/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="303981" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="23bbd1541cf66b08a7f83ec8f404e0e7" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://superuser.com/users/login?returnurl=%2fquestions%2f303981%2fwhat-is-the-linux-command-to-find-out-hardware-info%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f303981%2fwhat-is-the-linux-command-to-find-out-hardware-info%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2011-06-29 03:45:46Z"><b>3 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>146279 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://superuser.com/questions/303981/what-is-the-linux-command-to-find-out-hardware-info?lastactivity" class="lastactivity-link" title="2014-04-22 16:26:06Z">4 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8476,"adzerk1180212938",17).setZone(47) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1180212938"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjoyOTExLCJjaCI6MTE3OCwiY3IiOjgyMTEsImRpIjoiMDU3MDZhODY5NzVkNDJiMmJjY2FkZTE0YzU3Yjk4MDciLCJkbSI6MSwiZmMiOjE0ODc2LCJmbCI6NzQ3NCwiaXAiOiIyMDMuODguMTM5LjIzNyIsImt3IjoibGludXgiLCJudyI6MjIsInBjIjowLCJwciI6MTYwNCwicnQiOjEsInJmIjoiaHR0cDovL3d3dy5nb29nbGUuY28uaW4vdXJsP3NhPXQmcmN0PWomcT0mZXNyYz1zJnNvdXJjZT13ZWImY2Q9MSZzcWk9MiZ2ZWQ9MENCc1FGakFBJnVybD1odHRwOi8vc3VwZXJ1c2VyLmNvbS9xdWVzdGlvbnMvMzAzOTgxL3doYXQtaXMtdGhlLWxpbnV4LWNvbW1hbmQtdG8tZmluZC1vdXQtaGFyZHdhcmUtaW5mbyZlaT1SNVAxVS0zb0JJYTF1QVNXbG9EQUF3JnVzZz1BRlFqQ05FYk9iaEF2ejQ5RzNJRUFuei1GUTRKcy0yV1JnJmJ2bT1idi43MzIzMTM0NCxkLmMyRSZjYWQ9cmphIiwic3QiOjg0NzYsInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjQ3LCJ0cyI6MTQwODYwMjk1NTI0MSwidXIiOiJodHRwOi8vY2FyZWVycy5zdGFja292ZXJmbG93LmNvbS8ifQ&amp;s=HJiICKvqDpFdmQK_iKbQVoOkTO8" rel="nofollow" target="_blank" title=""><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/bd294ce7ff4c43b6aad4aa4169fb819b.jpg" title="" alt="" border="0" height="250" width="220"></a><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img src="What%20is%20the%20Linux%20command%20to%20find%20out%20hardware%20info%3F%20-%20Super%20User_files/i.gif" style="position:absolute;" border="0" height="0px" width="0px"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://superuser.com/q/427784?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="http://superuser.com/questions/427784/how-can-i-find-out-my-computers-hardware-details-in-linux?lq=1" class="question-hyperlink">How can I find out my computer's hardware details in Linux?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://superuser.com/q/28678?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://superuser.com/questions/28678/how-do-i-know-what-my-linux-version-is-on-a-hosting-server?rq=1" class="question-hyperlink">How do I know what my Linux Version is on a hosting server?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/29445?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://superuser.com/questions/29445/how-to-find-out-release-version-of-an-linux-os?rq=1" class="question-hyperlink">How to find out release version of an Linux OS?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/379910?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://superuser.com/questions/379910/linux-locate-command-false-info?rq=1" class="question-hyperlink">Linux Locate Command false info</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/398862?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">26
+    </div>
+</a><a href="http://superuser.com/questions/398862/linux-find-out-what-process-is-using-all-the-ram?rq=1" class="question-hyperlink">Linux: find out what process is using all the RAM?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/427784?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://superuser.com/questions/427784/how-can-i-find-out-my-computers-hardware-details-in-linux?rq=1" class="question-hyperlink">How can I find out my computer's hardware details in Linux?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/444459?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">-1
+    </div>
+</a><a href="http://superuser.com/questions/444459/how-can-i-display-details-of-a-computers-hardware-in-linux?rq=1" class="question-hyperlink">How can I display details of a computer's hardware in linux?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/587369?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://superuser.com/questions/587369/finding-hardware-information-on-linux-without-lspci?rq=1" class="question-hyperlink">Finding hardware information on linux without lspci</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/682840?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://superuser.com/questions/682840/speeding-up-find-command?rq=1" class="question-hyperlink">Speeding up find command?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/698904?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://superuser.com/questions/698904/is-there-a-linux-command-to-find-out-how-many-ssds-my-laptop-can-support?rq=1" class="question-hyperlink">Is there a linux command to find out how many SSDs my laptop can support?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://superuser.com/q/755125?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://superuser.com/questions/755125/how-can-i-find-out-what-speeds-are-supported-by-my-sdram-module?rq=1" class="question-hyperlink">How can I find out what speeds are supported by my SDRAM module?</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/192050/my-personal-opinion-is-is-it-always-pointless-to-use-the-words-personal-a" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    "My personal opinion is..." Is it always pointless to use the words "personal" and "personally"?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/66078/how-does-elsa-resolve-the-practical-problems-of-living-in-an-ice-palace" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How does Elsa resolve the practical problems of living in an ice palace?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/46385/how-do-you-encourage-group-decisions-over-individual-actions" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do you encourage group decisions over individual actions?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-japanese" title="Japanese Language Stack Exchange"></div><a href="http://japanese.stackexchange.com/questions/18324/how-were-hiragana-katakana-influenced-by-syllabary-writing-systems" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:257 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How were hiragana/katakana influenced by syllabary writing systems?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/57803/how-to-combine-one-or-more-rotated-graphics-objects" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to combine one or more rotated graphics objects?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/46406/should-i-leave-this-group-or-recover-it" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Should I leave this group or recover it?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-travel" title="Travel Stack Exchange"></div><a href="http://travel.stackexchange.com/questions/35513/if-a-baby-is-born-on-an-international-flight-over-international-waters-what-nat" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:273 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    If a baby is born on an international flight over international waters, what nationality are they?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/27415/what-is-the-equivalent-of-european-seminar-in-us-universities" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the equivalent of European "seminar" in US universities?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-apple" title="Ask Different"></div><a href="http://apple.stackexchange.com/questions/142356/why-does-numbers-hide-a-huge-png-file-in-exported-excel-sheets" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:118 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why does Numbers hide a huge PNG file in exported Excel sheets?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/797454/why-doesnt-add-more-cores-face-the-same-physical-limitations-as-make-the-cpu" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why doesn't "add more cores" face the same physical limitations as "make the CPU faster"?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/25400690/assigning-list-of-integer-into-a-list-of-string" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Assigning List of Integer Into a List of String
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="http://history.stackexchange.com/questions/14992/how-much-has-the-wealthy-elite-been-harmed-by-the-bolshevik-revolution" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How much has the wealthy elite been harmed by the Bolshevik revolution?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/57828/to-inscribe-a-circle-in-a-given-triangle" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    To inscribe a circle in a given triangle
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/25380599/is-c14-adding-new-keywords-to-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is C++14 adding new keywords to C++?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/32607/dealing-with-frustrated-outbursts-from-colleague-in-hall" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Dealing with frustrated outbursts from colleague in hall
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stats" title="Cross Validated"></div><a href="http://stats.stackexchange.com/questions/112451/mle-in-layman-terms" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:65 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    MLE in layman terms
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-webmasters" title="Webmasters Stack Exchange"></div><a href="http://webmasters.stackexchange.com/questions/68214/portable-website" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:45 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Portable website
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/60657/obtaining-bool-values-for-a-key" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Obtaining bool values for a key
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/131487/how-literally-should-you-take-the-higgs-boson-gives-other-particles-mass" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How literally should you take "The Higgs boson gives other particles mass"?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/57760/how-to-understand-the-usage-of-inner-and-outer-figuratively" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to understand the usage of Inner and Outer figuratively?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/904719/how-do-you-solve-for-x-in-this-equation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do you solve for x in this equation?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/151149/is-there-a-way-to-tell-sudo-to-set-my-username-as-owner-for-the-files-created-in" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a way to tell sudo to set my username as owner for the files created instead of root?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/197282/print-a-message-at-the-end-of-the-log-file" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Print a message at the END of the log file
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/46234/how-to-deal-with-a-character-that-does-not-fit-my-plot" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to deal with a character that does not fit my plot?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://superuser.com/feeds/question/303981" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/303981/ivc/e8f0');});
+</script>
+<noscript>
+    <div><img src="/posts/303981/ivc/e8f0" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang"></div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://superuser.com/tour">tour</a>
+                    <a href="http://superuser.com/help">help</a>
+                        <a href="http://superuser.com/help/badges">badges</a>
+                    <a href="http://blog.superuser.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://superuser.com/contact">contact us</a></b>
+                        <b><a href="http://meta.superuser.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.8.20.1790
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Super User works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('linux');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-3');        
+        
+        ga('set', 'dimension2', '|linux|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

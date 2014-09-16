@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>command line - How do I use 'notify-send' to immediately replace an existing notification? - Ask Ubuntu</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/askubuntu/img/favicon.ico?v=a2e2fb1f0677">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon.png?v=e16e1315edd6">
+    <link rel="search" type="application/opensearchdescription+xml" title="Ask Ubuntu" href="http://askubuntu.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@AskUbuntu">
+    <meta name="twitter:domain" content="askubuntu.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon@2.png?v=c492c9229955">
+    <meta name="og:title" content="How do I use 'notify-send' to immediately replace an existing notification?">
+    <meta name="og:description" content="When I use notify-send to show a notification on the desktop, and then use it again to show a different notification, I have noticed that the second one only shows after the first one has disappear...">
+    <meta name="og:url" content="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification">
+    <link rel="canonical" href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification">
+
+    
+    
+    <script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/quant.js" async=""></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/beacon.js" async=""></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/analytics.js" async=""></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/ados.js" async="" type="text/javascript"></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/ados_002.js" async="" type="text/javascript"></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/jquery.js"></script>
+    <script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/stub.js"></script>
+    <link rel="stylesheet" type="text/css" href="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'How do I use 'notify-send' to immediately replace an existing notification?'" href="http://askubuntu.com/feeds/question/161851">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:161851});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('89', '161851');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('89');
+                StackExchange.realtime.subscribeToTopBarNotifications('89');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1402384174,"networkMetaHostname":"meta.stackexchange.com","styleCode":true,"enableUserHovercards":true,"site":{"name":"Ask Ubuntu","description":"Q&A for Ubuntu users and developers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableSocialMediaInSharePopup":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true,"ab":{"welcome_email":{"v":"4","g":2}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"13167d1d4cf1","js/moderator.en.js":"0f409c40a6dd","js/full-anon.en.js":"b49b117490bc","js/full.en.js":"bb878f5244e9","js/wmd.en.js":"3027d8d7fca3","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"52ede8e7fbc0","js/help.en.js":"3394a5556c90","js/tageditor.en.js":"7be5376fd8b1","js/tageditornew.en.js":"a8bc6ef44028","js/inline-tag-editing.en.js":"1a5cabd8e30a","js/revisions.en.js":"8e050c5bb5cd","js/review.en.js":"5a1c17c21a35","js/tagsuggestions.en.js":"78eee7c19ab2","js/post-validation.en.js":"6dc179b8db73","js/explore-qlist.en.js":"8b8b631bd679","js/events.en.js":"82b1313c07d8"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/full-anon.js" async=""></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/post-validation.js" async=""></script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/prettify-full.js" async=""></script></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"><div class="nav-global"><div class="nav-global-wrapper"><ul><li><a href="http://www.ubuntu.com/">Ubuntu</a></li><li><a href="http://community.ubuntu.com/">Community</a></li><li><a href="http://askubuntu.com/" class="active">Ask!</a></li><li><a href="http://developer.ubuntu.com/">Developer</a></li><li><a href="http://design.ubuntu.com/">Design</a></li><li></li><li><a href="http://discourse.ubuntu.com/">Discourse</a></li><li><a href="http://www.ubuntu.com/certification">Hardware</a></li><li><a href="http://insights.ubuntu.com/">Insights</a></li><li><a href="http://juju.ubuntu.com/">Juju</a></li><li><a href="http://shop.ubuntu.com/">Shop</a></li><li class="more"><a href="#">More <span>›</span></a><ul><li><a href="http://apps.ubuntu.com/">Apps</a></li><li><a href="https://help.ubuntu.com/">Help</a></li><li><a href="http://ubuntuforums.org/">Forum</a></li><li><a href="http://www.launchpad.net/">Launchpad</a></li><li><a href="http://maas.ubuntu.com/">MAAS</a></li><li><a href="http://www.canonical.com/">Canonical</a></li></ul></li></ul></div></div> <script> $(function() { $(".nav-global .more > a").click(function(e){ $(this).closest(".more").toggleClass("open"); return false; }); $(document).click(function(){ $(".nav-global .more.open").removeClass("open"); }); }); </script></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://askubuntu.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://askubuntu.com/" class="current-site-link site-link js-gps-track" data-id="89" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-askubuntu" title="Ask Ubuntu"></div>
+        Ask Ubuntu
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.askubuntu.com/" class="site-link js-gps-track" data-id="91" data-gps-track="
+            site.switch({ target_site:91, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-askubuntumeta" title="Ask Ubuntu Meta"></div>
+        Ask Ubuntu Meta
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+                        <a href="https://askubuntu.com/users/signup?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f161851%2fhow-do-i-use-notify-send-to-immediately-replace-an-existing-notification" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a>
+                    or
+                    <a href="https://askubuntu.com/users/login?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f161851%2fhow-do-i-use-notify-send-to-immediately-replace-an-existing-notification" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a>
+
+                    to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 125 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                            <a href="https://askubuntu.com/users/signup?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f161851%2fhow-do-i-use-notify-send-to-immediately-replace-an-existing-notification" class="login-link">sign up</a>
+                            <a href="https://askubuntu.com/users/login?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f161851%2fhow-do-i-use-notify-send-to-immediately-replace-an-existing-notification" class="login-link">log in</a>
+                            <a href="http://askubuntu.com/tour">tour</a>
+
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://askubuntu.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://askubuntu.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.askubuntu.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () { StackExchange.topbar.init(); });
+</script>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://askubuntu.com/">
+                    Ask Ubuntu
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://askubuntu.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://askubuntu.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://askubuntu.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://askubuntu.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://askubuntu.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://askubuntu.com/about" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Ask Ubuntu is a question and answer site for Ubuntu users and developers. It's 100% free, no registration required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification" class="question-hyperlink">How do I use 'notify-send' to immediately replace an existing notification?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="161851" id="question">
+
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk1477823716",4).enableDynamicSiteSelection().setZone(29) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1477823716"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/i_002.gif" border="0" height="0px" width="0px"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="161851" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">10</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>5</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>When I use <code>notify-send</code> to show a notification on
+ the desktop, and then use it again to show a different notification, I 
+have noticed that the second one only shows <em>after</em> the first one has disappeared.</p>
+
+<p>Is there a way to get <code>notify-send</code> to immediately replace an existing notification with a different one?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://askubuntu.com/questions/tagged/command-line" class="post-tag js-gps-track" title="show questions tagged 'command-line'" rel="tag">command-line</a> <a href="http://askubuntu.com/questions/tagged/bash" class="post-tag js-gps-track" title="show questions tagged 'bash'" rel="tag">bash</a> <a href="http://askubuntu.com/questions/tagged/notification" class="post-tag js-gps-track" title="" rel="tag">notification</a> <a href="http://askubuntu.com/questions/tagged/notify-osd" class="post-tag js-gps-track" title="show questions tagged 'notify-osd'" rel="tag">notify-osd</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/q/161851" title="short permalink to this question" class="short-link" id="link-post-161851">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/161851/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/161851/revisions" title="show all edits to this post">edited <span title="2012-07-11 20:29:43Z" class="relativetime">Jul 11 '12 at 20:29</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2012-07-10 05:54:19Z" class="relativetime">Jul 10 '12 at 5:54</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/58612/izx"><div class="gravatar-wrapper-32"><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/2086f63f0c1ac9fe50190849114d8394.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/58612/izx">izx</a><br>
+        <span class="reputation-score" title="reputation score 62070" dir="ltr">62.1k</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="127 silver badges"><span class="badge2"></span><span class="badgecount">127</span></span><span title="197 bronze badges"><span class="badge3"></span><span class="badgecount">197</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-161851" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-161851" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>        </tbody></table>
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								2 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="161852"></a>
+<div id="answer-161852" class="answer accepted-answer" data-answerid="161852">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="161852" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">10</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <h3>You can, but you must use a patched <em>libnotify</em> to do so</h3>
+
+<p><code>notify-send</code> does not have the capability to replace existing notifications before they have timed out (or disappeared). This is a <a href="https://bugs.launchpad.net/ubuntu/+source/libnotify/+bug/257135">known bug</a>. However, a commenter on the bug report <a href="https://bugs.launchpad.net/ubuntu/+source/libnotify/+bug/257135/comments/10">has posted a patch</a> to fix it.</p>
+
+<h3>Installing the patched <em>libnotify-bin</em> from PPA</h3>
+
+<p>I have created a patched version of the <em>libnotify-bin</em> 
+package which allows replacements in my PPA. Currently it's for Ubuntu 
+12.04 only, but if you need it for any other currently supported 
+release, please post a comment and I will try my best to make it 
+available.</p>
+
+<p>To install, open a terminal and:</p>
+
+<pre>sudo apt-add-repository ppa:izx/askubuntu
+sudo apt-get update
+sudo apt-get install libnotify-bin
+</pre>
+
+<h3>How to use the replacement capabilities</h3>
+
+<p>The patched <code>notify-send</code> includes two new switches, <code>-p</code> (or <em>--print-id</em> ), and <code>-r</code> (or <em>--replace-id</em> ). The <code>--help</code> describes them as:</p>
+
+<pre>  -p, --print-id                    Print the notification ID.
+  -r, --replace-id=REPLACE_ID       The ID of the notification to replace.
+</pre>
+
+<ul>
+<li>With <code>-p</code>, each <code>notify-send</code> will return an ID <em>N</em> (number/integer).</li>
+<li>Issuing another <code>notify-send</code> with <code>-r N</code> will replace the previous notification <em>immediately</em>.</li>
+<li><p>For example, for bash, you can save the ID from <code>notify-send -p ...</code> with:</p>
+
+<pre style="" class="lang-bsh prettyprint prettyprinted"><code><span class="pln">NID</span><span class="pun">=</span><span class="pln">$</span><span class="pun">(</span><span class="pln">notify</span><span class="pun">-</span><span class="pln">send </span><span class="pun">-</span><span class="pln">p </span><span class="str">"MESSAGE-1"</span><span class="pun">)</span></code></pre>
+
+<p>and then replace it with:</p>
+
+<pre style="" class="lang-bsh prettyprint prettyprinted"><code><span class="pln">notify</span><span class="pun">-</span><span class="pln">send </span><span class="pun">-</span><span class="pln">r $NID </span><span class="str">"MESSAGE-2"</span></code></pre></li>
+<li><p>You can recursively use both <em>-p</em> and <em>-r</em> in a script, as long as the <em>-r</em> variable is initialized to 0 at the beginning.</p></li>
+<li><p>Here's a simple script that shows notifications counting from 0 to 100 at half-second intervals:</p>
+
+<pre>#!/bin/bash<br>
+NID=0<br>
+for i in {0..100..10}
+&nbsp;&nbsp;  do
+&nbsp;&nbsp; &nbsp;&nbsp;     NID=$(notify-send -p -r $NID $i)
+&nbsp;&nbsp; &nbsp;&nbsp;     sleep 0.5
+&nbsp;&nbsp;  done
+</pre></li>
+</ul>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/161852" title="short permalink to this answer" class="short-link" id="link-post-161852">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/161852/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature owner" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-07-10 05:54:20Z" class="relativetime">Jul 10 '12 at 5:54</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/58612/izx"><div class="gravatar-wrapper-32"><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/2086f63f0c1ac9fe50190849114d8394.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/58612/izx">izx</a><br>
+        <span class="reputation-score" title="reputation score 62070" dir="ltr">62.1k</span><span title="8 gold badges"><span class="badge1"></span><span class="badgecount">8</span></span><span title="127 silver badges"><span class="badge2"></span><span class="badgecount">127</span></span><span title="197 bronze badges"><span class="badge3"></span><span class="badgecount">197</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-161852" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-161852" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk1306060533",4).enableDynamicSiteSelection().setZone(30) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1306060533"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/i.gif" border="0" height="0px" width="0px"></div>
+  
+<a name="190397"></a>
+<div id="answer-190397" class="answer" data-answerid="190397">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="190397" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">4</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>X-ref:<br>
+<a href="http://askubuntu.com/questions/161662/how-to-force-a-new-notification-in-notify-osd-to-show-up-without-waiting-for-the?rq=1">How to force a new Notification in notify-osd to show up without waiting for the earlier one to exit?</a></p>
+
+<p>without patches you can simply do</p>
+
+<pre style="" class="lang-bsh prettyprint prettyprinted"><code><span class="com">#!/bin/bash</span><span class="pln">
+
+</span><span class="kwd">for</span><span class="pln"> i </span><span class="kwd">in</span><span class="pln"> </span><span class="pun">{</span><span class="lit">0.</span><span class="pun">.</span><span class="lit">100.</span><span class="pun">.</span><span class="lit">10</span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">do</span><span class="pln">
+          killall notify</span><span class="pun">-</span><span class="pln">osd
+          notify</span><span class="pun">-</span><span class="pln">send </span><span class="str">"testing"</span><span class="pln"> $i
+          sleep </span><span class="lit">1</span><span class="pln">
+    </span><span class="kwd">done</span></code></pre>
+
+<p>Bookmark:<br>
+<a href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification/190397#190397">How do I use 'notify-send' to immediately replace an existing notification?</a></p>
+
+<hr>
+
+<p>Sends an error notify-osd(2592): Operation not permitted. What does that mean?</p>
+
+<p>It may mean that privileges are inadequate requiring:</p>
+
+<pre style="" class="lang-bsh prettyprint prettyprinted"><code><span class="pln">sudo killall notify</span><span class="pun">-</span><span class="pln">osd</span></code></pre>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/190397" title="short permalink to this answer" class="short-link" id="link-post-190397">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/190397/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/190397/revisions" title="show all edits to this post">edited <span title="2013-10-02 02:34:42Z" class="relativetime">Oct 2 '13 at 2:34</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/44179/seth"><div class="gravatar-wrapper-32"><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/6fce102dc34236cd4e485c69d7293ee9.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/44179/seth">Seth</a><span class="mod-flair" title="moderator">♦</span><br>
+        <span class="reputation-score" title="reputation score 12177" dir="ltr">12.2k</span><span title="14 gold badges"><span class="badge1"></span><span class="badgecount">14</span></span><span title="47 silver badges"><span class="badge2"></span><span class="badgecount">47</span></span><span title="87 bronze badges"><span class="badge3"></span><span class="badgecount">87</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-09-19 03:37:13Z" class="relativetime">Sep 19 '12 at 3:37</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/89468/george-rowell"><div class="gravatar-wrapper-32"><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/668d76459ea6b73e6f1ca0d8d056ced4.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/89468/george-rowell">george rowell</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">285</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-190397" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-267858" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Sends an error <code>notify-osd(2592): Operation not permitted</code>. What does that mean?</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/99229/vedvals" title="867 reputation" class="comment-user">VedVals</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment267858_190397"><span title="2012-11-12 18:22:26Z" class="relativetime-clean">Nov 12 '12 at 18:22</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-190397" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/161851/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="161851" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="451627e0cd5038d9bfb071025e87aaf3" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://askubuntu.com/users/login?returnurl=%2fquestions%2f161851%2fhow-do-i-use-notify-send-to-immediately-replace-an-existing-notification%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f161851%2fhow-do-i-use-notify-send-to-immediately-replace-an-existing-notification%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://askubuntu.com/questions/tagged/command-line" class="post-tag" title="show questions tagged 'command-line'" rel="tag">command-line</a> <a href="http://askubuntu.com/questions/tagged/bash" class="post-tag" title="show questions tagged 'bash'" rel="tag">bash</a> <a href="http://askubuntu.com/questions/tagged/notification" class="post-tag" title="show questions tagged 'notification'" rel="tag">notification</a> <a href="http://askubuntu.com/questions/tagged/notify-osd" class="post-tag" title="show questions tagged 'notify-osd'" rel="tag">notify-osd</a>  or <a href="http://askubuntu.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2012-07-10 05:54:19Z"><b>1 year ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>4881 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://askubuntu.com/questions/161851/how-do-i-use-notify-send-to-immediately-replace-an-existing-notification?lastactivity" class="lastactivity-link" title="2013-10-02 02:34:42Z">8 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk893032144",17).enableDynamicSiteSelection().setZone(56016) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk893032144"><div id="a51-ad-container" style="height: 250px; width: 220px;">
+<style type="text/css">
+#a51-ad { background: url("//cdn.sstatic.net/area51/Img/bg-area51-ad-commitment.png") no-repeat bottom center; }
+#a51-ad, #a51-ad a { display:block; height: 250px; width: 220px; text-decoration: none; }
+#a51-ad table { position: relative; top: 55px; }
+#a51-ad-title-row { height: 95px; }
+#a51-ad-title { padding: 0 5px; text-align: center; font-size: 28.8px; line-height: 32.8px; font-family: Impact,'Futura-CondensedExtraBold',sans-serif; color: #FBF9E2; text-shadow: 3px 3px 3px #000; width: 220px; vertical-align: middle; }
+#a51-ad-subtitle { padding:3px; text-align: center; color: white; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 14px; font-weight: bold; }
+</style>
+<!--[if lte IE 7]>
+<style type-"text/css">
+#a51-ad { background: url(//cdn.sstatic.net/area51/Img/bg-area51-ad-commitment.png) no-repeat bottom center; }
+</style>
+<![endif]-->
+<div id="a51-ad">
+    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6Mjk3MSwiZGkiOiJlYTVhYzhlM2JmNmI0MzIwOGRkYjg4ZTc0ZmRkNWY1YyIsImRtIjoxLCJmYyI6MzMwOTY4LCJmbCI6MTcxNzU3LCJrdyI6ImNvbW1hbmQtbGluZSxiYXNoLG5vdGlmaWNhdGlvbixub3RpZnktb3NkLHgtY29tbXVuaXR5LHgtaG9zdC1hc2t1YnVudHUuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjU3MjIyLCJydCI6MSwicmYiOiJodHRwOi8vd3d3Lmdvb2dsZS5jby5pbi91cmw_c2E9dCZyY3Q9aiZxPSZlc3JjPXMmc291cmNlPXdlYiZjZD03JnZlZD0wQ0dJUUZqQUcmdXJsPWh0dHA6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xNjE4NTEvaG93LWRvLWktdXNlLW5vdGlmeS1zZW5kLXRvLWltbWVkaWF0ZWx5LXJlcGxhY2UtYW4tZXhpc3Rpbmctbm90aWZpY2F0aW9uJmVpPUphLVdVX1NKSmNmR3VBU2Mxb0x3QlEmdXNnPUFGUWpDTkZONWVyX25SRjUxQ1dEdXNUVVpwNGhjLVZwQmcmYnZtPWJ2LjY4NDQ1MjQ3LGQuYzJFJmNhZD1yamEiLCJzdCI6NTY3NDksInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjU2MDE2LCJ0cyI6MTQwMjM4NDIyMzk3NSwidXIiOm51bGx9&amp;s=TIEowestxTm_g5WkSV4AWJoRGro&amp;url=http%3A%2F%2Farea51.stackexchange.com%2Fproposals%2F55360%2Foperating-systems%3Fcommit%3D1">
+        <table>
+            <tbody><tr id="a51-ad-title-row"><td id="a51-ad-title">Operating Systems Q&amp;A</td></tr>
+            <tr><td id="a51-ad-subtitle">50% committed</td></tr>
+        </tbody></table>        
+    </a>
+</div>
+</div><script type="text/javascript">window._a51AdUrl = "http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6Mjk3MSwiZGkiOiJlYTVhYzhlM2JmNmI0MzIwOGRkYjg4ZTc0ZmRkNWY1YyIsImRtIjoxLCJmYyI6MzMwOTY4LCJmbCI6MTcxNzU3LCJrdyI6ImNvbW1hbmQtbGluZSxiYXNoLG5vdGlmaWNhdGlvbixub3RpZnktb3NkLHgtY29tbXVuaXR5LHgtaG9zdC1hc2t1YnVudHUuY29tIiwibnciOjIyLCJwYyI6MCwicHIiOjU3MjIyLCJydCI6MSwicmYiOiJodHRwOi8vd3d3Lmdvb2dsZS5jby5pbi91cmw_c2E9dCZyY3Q9aiZxPSZlc3JjPXMmc291cmNlPXdlYiZjZD03JnZlZD0wQ0dJUUZqQUcmdXJsPWh0dHA6Ly9hc2t1YnVudHUuY29tL3F1ZXN0aW9ucy8xNjE4NTEvaG93LWRvLWktdXNlLW5vdGlmeS1zZW5kLXRvLWltbWVkaWF0ZWx5LXJlcGxhY2UtYW4tZXhpc3Rpbmctbm90aWZpY2F0aW9uJmVpPUphLVdVX1NKSmNmR3VBU2Mxb0x3QlEmdXNnPUFGUWpDTkZONWVyX25SRjUxQ1dEdXNUVVpwNGhjLVZwQmcmYnZtPWJ2LjY4NDQ1MjQ3LGQuYzJFJmNhZD1yamEiLCJzdCI6NTY3NDksInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjU2MDE2LCJ0cyI6MTQwMjM4NDIyMzk3NSwidXIiOm51bGx9&s=TIEowestxTm_g5WkSV4AWJoRGro";</script><script src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/js" type="text/javascript"></script><img src="command%20line%20-%20How%20do%20I%20use%20%27notify-send%27%20to%20immediately%20replace%20an%20existing%20notification%3F%20-%20Ask%20Ubuntu_files/i_003.gif" border="0" height="0px" width="0px"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://askubuntu.com/q/161662?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">3</div>
+	</a>
+	<a href="http://askubuntu.com/questions/161662/how-to-force-a-new-notification-in-notify-osd-to-show-up-without-waiting-for-the?lq=1" class="question-hyperlink">How to force a new Notification in notify-osd to show up without waiting for the earlier one to exit?</a>
+</div><div class="spacer">
+	<a href="http://askubuntu.com/q/190406?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">3</div>
+	</a>
+	<a href="http://askubuntu.com/questions/190406/can-org-freedesktop-notifications-closenotificationuint-id-be-triggered-and-in?lq=1" class="question-hyperlink">Can org.freedesktop.Notifications.CloseNotification(uint id) be triggered and invoked via DBus?</a>
+</div><div class="spacer">
+	<a href="http://askubuntu.com/q/388749?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="http://askubuntu.com/questions/388749/indicator-notifier-and-blocker-of-internet-traffic?lq=1" class="question-hyperlink">Indicator, notifier and blocker of Internet traffic</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/51434?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://askubuntu.com/questions/51434/why-arent-there-multiple-notifications-and-how-to-enable?rq=1" class="question-hyperlink">Why aren't there multiple notifications? And how to enable?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/72646?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="http://askubuntu.com/questions/72646/gnome-3-notifications-are-replaced-with-notify-osd-when-the-machine-goes-to-slee?rq=1" class="question-hyperlink">Gnome 3 notifications are replaced with notify-osd when the machine goes to sleep</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/161662?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">3
+    </div>
+</a><a href="http://askubuntu.com/questions/161662/how-to-force-a-new-notification-in-notify-osd-to-show-up-without-waiting-for-the?rq=1" class="question-hyperlink">How to force a new Notification in notify-osd to show up without waiting for the earlier one to exit?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/182723?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/182723/expiry-time-in-notify-send-notifications?rq=1" class="question-hyperlink">Expiry time in notify-send notifications</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/295229?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">3
+    </div>
+</a><a href="http://askubuntu.com/questions/295229/how-to-remove-xubuntu-notification-style?rq=1" class="question-hyperlink">How to remove Xubuntu notification style?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/362365?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/362365/how-to-clear-unshown-osd-notifications?rq=1" class="question-hyperlink">How to clear unshown OSD notifications</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/371020?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">11
+    </div>
+</a><a href="http://askubuntu.com/questions/371020/notify-osd-notifications-appear-unthemed-in-top-left-corner-ubuntu-13-10?rq=1" class="question-hyperlink">Notify-osd notifications appear unthemed in top-left corner (ubuntu 13.10)</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/426089?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/426089/notify-send-wont-show-notification-unless-run-with-sudo?rq=1" class="question-hyperlink">Notify-send won't show notification unless run with sudo</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/470958?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/470958/notify-send-not-working-on-14-04-but-volume-and-brightness-notifications-do?rq=1" class="question-hyperlink">notify-send not working on 14.04, but volume and brightness notifications do</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/471157?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/471157/how-to-display-reboot-required-user-notification-after-installing-a-custom-packa?rq=1" class="question-hyperlink">How to display reboot required user notification after installing a custom package in linux?</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/828750/help-with-sum-of-series" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Help with sum of series
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/59660/how-can-i-make-monochrome-icons-work" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I make monochrome icons work?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/24130399/whiletrue-loop-throws-unreachable-code-when-isnt-in-a-void" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    while(true); loop throws Unreachable code when isn't in a void
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/176939/whats-the-english-name-for-this-three-wheeled-manual-pedal-vehicle-in-china" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What's the English name for this three-wheeled manual pedal vehicle in China?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/114744/lm317t-not-working-properly" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    LM317T not working properly?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-photo" title="Photography Stack Exchange"></div><a href="http://photo.stackexchange.com/questions/51908/how-do-i-get-a-consistent-white-balance-when-shooting-different-color-products" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:61 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I get a consistent White Balance when shooting different color products?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/176875/a-person-that-cannot-understand-that-there-may-be-other-perspectives" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A person that cannot understand that there may be other perspectives
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/136322/how-to-replace-the-content-of-specific-column-with-awk" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to replace the content of specific column with awk?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/58943/shrieking-noise-nazgul-or-his-beast" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Shrieking noise, Nazgûl or his beast?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-chinese" title="Chinese Language Stack Exchange"></div><a href="http://chinese.stackexchange.com/questions/8278/looking-for-very-common-dialect-words-which-have-no-standard-mandarin-chinese-ha" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:371 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Looking for very common dialect words which have no Standard Mandarin Chinese hanzi characters
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/23150/who-should-pursue-a-ph-d-degree" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Who should pursue a Ph.D degree?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/820686/obvious-theorems-that-are-actually-false" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    'Obvious' theorems that are actually false
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/30361/the-shortest-code-to-invert-a-binary-string" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The shortest code to invert a binary string
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/118633/reflection-at-intersection-of-2-mirrors" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    reflection at intersection of 2 mirrors
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gamedev" title="Game Development Stack Exchange"></div><a href="http://gamedev.stackexchange.com/questions/77393/is-it-a-good-plan-to-use-2d-physics-for-a-3d-racing-game" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:53 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it a good plan to use 2D physics for a 3D racing game?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/31439/convert-a-program-to-a-palindromic-program" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Convert a program to a palindromic program
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/27044/can-i-save-face-when-i-have-been-humiliated" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can I save face when I have been humiliated?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/828713/power-series-representation-in-terms-of-another" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    power series representation in terms of another
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/183988/latex-math-symbol" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Latex Math Symbol
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/30322/make-it-look-like-im-working" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Make it look like I'm working
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/827576/what-is-integration-by-parts-really" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is integration by parts, really?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-programmers" title="Programmers Stack Exchange"></div><a href="http://programmers.stackexchange.com/questions/244449/what-is-the-origin-of-the-negative-term-legacy-code" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:131 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the origin of the negative term "Legacy Code"
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/40714/how-to-make-a-fake-fortune-teller" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to make a fake fortune teller?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/626/paying-the-troll-toll" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Paying the Troll toll
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://askubuntu.com/feeds/question/161851" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/161851/ivc/3805');});
+</script>
+<noscript>
+    <div><img src="/posts/161851/ivc/3805" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-bsh</div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://askubuntu.com/about">about</a>
+                    <a href="http://askubuntu.com/help">help</a>
+                        <a href="http://askubuntu.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://stackexchange.com/about/contact">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://askubuntu.com/contact">contact us</a></b>
+                        <b><a href="http://meta.askubuntu.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="professional graphic designers and non-designers trying to do their own graphic design">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.6.9.1648
+            </div>
+                <div id="additional-notices">
+                    Ubuntu and Canonical are registered trademarks of Canonical Ltd.
+                </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Ask Ubuntu works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('command-line,bash,notification,notify-osd,x-community,x-host-askubuntu.com');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-29');        
+        
+        ga('set', 'dimension2', '|command-line|bash|notification|notify-osd|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

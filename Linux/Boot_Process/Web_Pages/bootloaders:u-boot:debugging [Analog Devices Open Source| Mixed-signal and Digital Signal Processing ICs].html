@@ -1,0 +1,695 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>
+    bootloaders:u-boot:debugging    [Analog Devices Open Source| Mixed-signal and Digital Signal Processing ICs]
+  </title>
+  <meta name="generator" content="DokuWiki">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2013-05-09T10:04:09+0200">
+<meta name="keywords" content="bootloaders,u-boot,debugging">
+<link rel="search" type="application/opensearchdescription+xml" href="http://blackfin.uclinux.org/lib/exe/opensearch.php" title="Analog Devices Open Source| Mixed-signal and Digital Signal Processing ICs">
+<link rel="start" href="http://blackfin.uclinux.org/">
+<link rel="contents" href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=index" title="Sitemap">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://blackfin.uclinux.org/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://blackfin.uclinux.org/feed.php?mode=list&amp;ns=bootloaders:u-boot">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://blackfin.uclinux.org/doku.php?do=export_xhtml&amp;id=bootloaders:u-boot:debugging">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="http://blackfin.uclinux.org/doku.php?do=export_raw&amp;id=bootloaders:u-boot:debugging">
+<link rel="canonical" href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging">
+<link rel="stylesheet" media="screen" type="text/css" href="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/css_002.css">
+<link rel="stylesheet" media="all" type="text/css" href="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/css.css">
+<link rel="stylesheet" media="print" type="text/css" href="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/css_003.css">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+var NS='bootloaders:u-boot';var JSINFO = {"id":"bootloaders:u-boot:debugging","namespace":"bootloaders:u-boot"};
+//--><!]]></script>
+<script type="text/javascript" charset="utf-8" src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/js.php"></script><style type="text/css" media="screen"><!--/*--><![CDATA[/*><!--*/ .folded.hidden { display: none; } .folder .indicator { visibility: visible; } /*]]>*/--></style>
+  <link rel="shortcut icon" href="http://blackfin.uclinux.org/lib/tpl/analog/images/favicon.ico">
+  <link href="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/translateelement.css" charset="UTF-8" rel="stylesheet" type="text/css"><script src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/main.js" charset="UTF-8" type="text/javascript"></script><script src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/element_main.js" charset="UTF-8" type="text/javascript"></script></head>
+
+<body>
+<div id="lo__container" class="dokuwiki">
+    
+    <div id="lo__tagline">
+        <div class="tagline" title="world leader in high performance signal processing">
+            <span>world leader in high performance signal processing</span>
+        </div>
+    </div>
+    <div id="lo__header">
+        <div class="top_header">
+            <div class="logo">
+                <a href="http://www.analog.com/" title="The Analog Website"><span>Analog Devices Open Source| Mixed-signal and Digital Signal Processing ICs</span></a>
+            </div>
+            <div class="loginmeta">
+                <a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=login&amp;sectok=66728def5a4e7bdf72b41485691a2c5b" class="action login" accesskey="" rel="nofollow" title="Login">Login</a>                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="http://ez.analog.com/community/dsp/software-and-development-tools/"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/forum.png" alt="Forum" title="Ask questions in ADI Engineering Zone communities"></a>
+            </div>
+<div id="google_translate_element" style="float:right;"></div>
+<script src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/element.js" type="text/javascript"></script>
+            <div class="pagename">
+		<a href="http://blackfin.uclinux.org/" name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/wiki.png" alt="Analog Devices Inc. Wiki :"></a>
+                [[<span class="notranslate"><a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=backlink" title="Backlinks">...bootloaders:u-boot:debugging</a></span>]]            </div>
+            <div class="bar" id="bar__top">
+                <form action="/doku.php" accept-charset="utf-8" class="search" id="dw__search" method="get"><div class="no"><input name="do" value="search" type="hidden"><input value=" Enter Keywords, Page Name, or part number to search the Wiki" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" type="text"><input value="Search" class="button" title="Search" type="submit"><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>                <form class="button btn_index" method="get" action="/doku.php"><div class="no"><input name="do" value="index" type="hidden"><input name="id" value="bootloaders:u-boot:debugging" type="hidden"><input value="Sitemap" class="button" accesskey="x" title="Sitemap [X]" type="submit"></div></form>            </div>
+        </div>
+
+        <div class="bot_header">
+                    <div class="left">
+                <a href="javascript:window.print()"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/printer.png" alt="print this page" title="Print This Page"></a>
+                &nbsp;&nbsp;<a href="http://blackfin.uclinux.org/doku.php?do=export_text&amp;id=bootloaders:u-boot:debugging"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/txt.png" alt="Text Export" title="Export Text"></a>
+		&nbsp;&nbsp;<a href="http://blackfin.uclinux.org/doku.php?do=export_odt&amp;id=bootloaders:u-boot:debugging"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/odt.png" alt="ODT Export" title="Export Open Office"></a>
+            </div>
+
+            <div class="right">
+                <a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=recent" class="action recent" accesskey="r" rel="nofollow" title="Recent changes">Recent changes</a> |
+                <a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=revisions" class="action revs" accesskey="o" rel="nofollow" title="Old revisions">Old revisions</a> |
+                <a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=edit&amp;rev=" class="action source" accesskey="v" rel="nofollow" title="Show pagesource">Show pagesource</a>            </div>
+                </div>
+    </div>
+
+    
+    <div id="lo__wrapper"><div id="lo__content">
+        <div class="inner">
+                        <span class="bchead">Trace:</span> <span class="bcsep">»</span> <span class="curid"><a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging" class="breadcrumbs" title="bootloaders:u-boot:debugging">debugging</a></span>            <div class="page">
+                <!-- TOC START -->
+<div class="toc">
+<div style="cursor: pointer;" class="tocheader toctoggle" id="toc__header"><span class="toc_close" style="cursor: pointer;" id="toc__toggle"><span>−</span></span>Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#debugging_das_u-boot" class="toc">Debugging Das U-Boot</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#startup_sequence" class="toc">Startup Sequence</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#ldr" class="toc">LDR</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#common" class="toc">Common</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#debug_options" class="toc">Debug Options</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#debug_dump" class="toc">DEBUG_DUMP</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#debug_dump_syms" class="toc">DEBUG_DUMP_SYMS</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#debug_early_serial" class="toc">DEBUG_EARLY_SERIAL</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#debug_null_ptr" class="toc">DEBUG_NULL_PTR</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#panic_hang" class="toc">PANIC_HANG</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#hw_watchdog" class="toc">HW_WATCHDOG</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#troubleshooting" class="toc">Troubleshooting</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#memory_timings" class="toc">Memory Timings</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#jtag_loading" class="toc">JTAG Loading</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#initcode" class="toc">Initcode</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#gdb_load" class="toc">GDB Load</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#example" class="toc">Example</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1"><a name="debugging_das_u-boot" id="debugging_das_u-boot">Debugging Das U-Boot</a></h1>
+<div class="level1">
+
+<p>
+
+In the ideal world, everything should “just work”.  In reality, porting 
+to new boards is far from that.  This page should help give direction in
+ such situations.
+</p>
+
+<p>
+First thing to do is check the <a href="http://blackfin.uclinux.org/doku.php?id=hw:checklist" class="wikilink1" title="hw:checklist">Hardware Design Checklist for the Blackfin® Processors</a>.
+</p>
+
+</div>
+
+<h2 class="sectionedit2"><a name="startup_sequence" id="startup_sequence">Startup Sequence</a></h2>
+<div class="level2">
+
+<p>
+
+Here we'll explain how things go from power on to command line.  The 
+very early startup sequence may differ slightly depending on whether 
+you're booting an LDR, booting in bypass mode (parallel flash), or 
+simply executing a binary via the U-Boot <code>go</code> command.
+</p>
+
+<p>
+Generally speaking, the files in question (in order) are:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>cpu/blackfin/initcode.c</strong> (first if booting from LDR, second otherwise)</div>
+</li>
+<li class="level1"><div class="li"> <strong>cpu/blackfin/start.S</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>cpu/blackfin/cpu.c</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>lib_blackfin/board.c</strong></div>
+</li>
+</ul>
+
+<p>
+
+One thing to keep in mind is that the Blackfin can make PC-relative 
+function calls.  That means you can make function calls at any time 
+without having yet relocated into the final place in memory.  The 
+Blackfin startup process takes advantage of this feature many times.
+</p>
+
+<p>
+Some common conventions used by U-Boot:
+</p>
+<ul>
+<li class="level1"><div class="li"> functions that end in <strong>_f</strong> need to be careful about things they do as relocation from flash is not yet finished</div>
+</li>
+<li class="level1"><div class="li"> functions that end in <strong>_r</strong> are used once U-Boot has finished relocating itself and global data structures have generally been initialized</div>
+</li>
+</ul>
+
+<p>
+However, due to the way the Blackfin processor boots (LDRs), the notion 
+of first executing in flash for a while, then relocating, then executing
+ in ram does not really apply to the Blackfin port.  All code is 
+relocated from flash to external memory either by the on-chip Boot ROM 
+or by the initial start function (in bypass mode).
+</p>
+
+</div>
+
+<h3 class="sectionedit3"><a name="ldr" id="ldr">LDR</a></h3>
+<div class="level3">
+
+<p>
+
+Since the LDR format has the ability to execute small pieces of code 
+(init blocks), as well as load chunks of code into specific memory 
+addresses, the startup sequence process is streamlined nicely.  For a 
+general overview of the LDR process, please see <a href="http://blackfin.uclinux.org/doku.php?id=bootloaders#overview" class="wikilink1" title="bootloaders">Booting Overview</a>.
+
+</p>
+<ol>
+<li class="level1"><div class="li"> Boot ROM loads and executes LDR init blocks: <strong>cpu/blackfin/initcode.c</strong>:<strong>initcode()</strong></div>
+<ol>
+<li class="level2"><div class="li"> U-Boot programs clock/memory settings (<acronym title="Phase Locked Loop">PLL</acronym>/<acronym title="External Bus Interface Unit">EBIU</acronym>) and interrupt sources (IWR/<acronym title="System Interrupt Controller">SIC</acronym>_IWR)</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> Boot ROM loads U-Boot LDR into external memory</div>
+</li>
+<li class="level1"><div class="li"> Boot ROM clears U-Boot BSS section</div>
+</li>
+<li class="level1"><div class="li"> Boot ROM jumps to start of U-Boot: <strong>cpu/blackfin/start.S</strong>:<strong>_start()</strong></div>
+</li>
+<li class="level1"><div class="li"> U-Boot starts up like normal</div>
+</li>
+</ol>
+
+</div>
+
+<h3 class="sectionedit4"><a name="common" id="common">Common</a></h3>
+<div class="level3">
+
+<p>
+
+Here we will start at the <acronym title="Executable and Linking Format">ELF</acronym> entry point of U-Boot which is <strong>cpu/blackfin/start.S</strong>:<strong>_start()</strong>.  When booting in bypass mode (parallel flash), or using the U-Boot <code>go</code> command, this is the first thing executed.
+
+</p>
+<ol>
+<li class="level1"><div class="li"> U-Boot starts at <acronym title="Executable and Linking Format">ELF</acronym> entry point: <strong>cpu/blackfin/start.S</strong>:<strong>_start()</strong></div>
+<ol>
+<li class="level2"><div class="li"> Initialize stack to L1 scratch space</div>
+</li>
+<li class="level2"><div class="li"> Initialize hardware watchdog (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Disable nested interrupts and enable CYCLES (which the udelay() function needs)</div>
+</li>
+<li class="level2"><div class="li"> Initialize minimal C runtime environment</div>
+</li>
+<li class="level2"><div class="li"> Call <strong>cpu/blackfin/initcode.c</strong>:<strong>initcode()</strong> (only in bypass mode)</div>
+<ol>
+<li class="level3"><div class="li"> Program clock/memory settings (<acronym title="Phase Locked Loop">PLL</acronym>/<acronym title="External Bus Interface Unit">EBIU</acronym>) and interrupt sources (IWR/<acronym title="System Interrupt Controller">SIC</acronym>_IWR)</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> Relocate U-Boot from point of execution to external memory monitor base</div>
+<ol>
+<li class="level3"><div class="li"> only as needed (according to how U-Boot was started)</div>
+</li>
+<li class="level3"><div class="li"> only copies U-Boot to monitor base -- does not start executing there</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> Call memset() to zero BSS</div>
+</li>
+<li class="level2"><div class="li"> Set stack to configured address (default is external memory)</div>
+</li>
+<li class="level2"><div class="li"> Lower self to the lowest Interrupt level (IVG15)</div>
+<ol>
+<li class="level3"><div class="li"> this is when U-Boot starts executing at configured memory monitor base</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> Jump to the next step …</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> U-Boot initializes the cpu: <strong>cpu/blackfin/cpu.c</strong>:<strong>cpu_init_f()</strong></div>
+<ol>
+<li class="level2"><div class="li"> Relocate L1 functions/data from external memory into L1 memory (only as needed)</div>
+</li>
+<li class="level2"><div class="li"> Turn on hardware trace buffer (if enabled via debug dumping)</div>
+</li>
+<li class="level2"><div class="li"> Enable reset on double fault (if panic hang is disabled)</div>
+</li>
+<li class="level2"><div class="li"> Jump to the next step …</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> U-Boot initializes important services: <strong>lib_blackfin/board.c</strong>:<strong>board_init_f()</strong></div>
+<ol>
+<li class="level2"><div class="li"> Initialize the Instruction and Data CPLB tables</div>
+</li>
+<li class="level2"><div class="li"> Initialize exception callbacks</div>
+</li>
+<li class="level2"><div class="li"> Turn on Instruction and Data caches (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Initialize the global and board data structures</div>
+</li>
+<li class="level2"><div class="li"> Initialize <acronym title="Interrupt request">IRQ</acronym> callbacks</div>
+</li>
+<li class="level2"><div class="li"> Initialize the default environment</div>
+</li>
+<li class="level2"><div class="li"> Initialize the console baudrate</div>
+</li>
+<li class="level2"><div class="li"> Initialize the console</div>
+</li>
+<li class="level2"><div class="li"> Call board-specific <strong>checkboard()</strong></div>
+<ol>
+<li class="level3"><div class="li"> Do whatever board-specific very early things</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> Initialize the Blackfin on-chip <acronym title="Real Time Clock">RTC</acronym></div>
+</li>
+<li class="level2"><div class="li"> Initialize the core timers</div>
+</li>
+<li class="level2"><div class="li"> Jump to the next step …</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> U-Boot initializes remaining services: <strong>lib_blackfin/board.c</strong>:<strong>board_init_r()</strong></div>
+<ol>
+<li class="level2"><div class="li"> Initialize malloc subsystem</div>
+</li>
+<li class="level2"><div class="li"> Initialize parallel flash (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Initialize <acronym title="Serial Peripheral Interface">SPI</acronym> flash (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Initialize <acronym title="Not AND (large flash memory type)">NAND</acronym> flash (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Relocate saved environment from flash (or wherever configured)</div>
+</li>
+<li class="level2"><div class="li"> Initialize common U-Boot devices</div>
+</li>
+<li class="level2"><div class="li"> Initialize common U-Boot function jumptable</div>
+</li>
+<li class="level2"><div class="li"> Call board-specific <strong>misc_init_r()</strong></div>
+<ol>
+<li class="level3"><div class="li"> Do whatever board-specific misc/late init things</div>
+</li>
+</ol>
+</li>
+<li class="level2"><div class="li"> Initialize the network (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Initialize <acronym title="Inter-Integrated Circuit">I2C</acronym> (if enabled)</div>
+</li>
+<li class="level2"><div class="li"> Jump to the next step …</div>
+</li>
+</ol>
+</li>
+<li class="level1"><div class="li"> U-Boot executes common code <strong>main_loop()</strong></div>
+<ol>
+<li class="level2"><div class="li"> See autoboot / U-Boot console / whatever like normal</div>
+</li>
+</ol>
+</li>
+</ol>
+
+</div>
+
+<h2 class="sectionedit5"><a name="debug_options" id="debug_options">Debug Options</a></h2>
+<div class="level2">
+
+<p>
+
+All of these options are placed into your board configuration file.  They require a <em>CONFIG_</em> prefix to be added (it has been omitted here for readability).
+</p>
+
+</div>
+
+<h3 class="sectionedit6"><a name="debug_dump" id="debug_dump">DEBUG_DUMP</a></h3>
+<div class="level3">
+
+<p>
+
+When an unhandled exception or interrupt occurs, the state of the 
+processor will be dumped to the console as well as the hardware trace 
+buffer.  You can use this information to easily locate the code that 
+triggered the exception.
+</p>
+
+<p>
+For more in-depth information for how to use the hardware trace effectively as well as some examples, see the <a href="http://blackfin.uclinux.org/doku.php?id=uclinux-dist:debugging_applications" class="wikilink1" title="uclinux-dist:debugging_applications">Debugging Applications</a> document.
+</p>
+
+<p>
+This option adds little overhead in terms of code size (1 kB) and adds 
+no runtime overhead as it is only executed when an unhandled exception 
+occurs -- which should never happen in at runtime.
+</p>
+
+</div>
+
+<h3 class="sectionedit7"><a name="debug_dump_syms" id="debug_dump_syms">DEBUG_DUMP_SYMS</a></h3>
+<div class="level3">
+
+<p>
+
+The normal dump output will only include undecoded addresses.  You need 
+to translate them by hand to the actual symbols by comparing them to the
+ objdump output of the U-Boot <acronym title="Executable and Linking Format">ELF</acronym>.
+  This can get tedious very quickly while doing development, so this 
+option will embed the symbol table in the U-Boot binary.  When a dump 
+occurs, the addresses will be translated automatically so the output 
+will include both the address and the associated symbol.
+</p>
+
+<p>
+This option adds quite a bit of overhead in terms of code size (11 kB) 
+but adds no runtime overhead as it is only executed by the dump code 
+mentioned above.
+</p>
+
+</div>
+
+<h3 class="sectionedit8"><a name="debug_early_serial" id="debug_early_serial">DEBUG_EARLY_SERIAL</a></h3>
+<div class="level3">
+
+<p>
+
+This will turn on serial output as early as possible (almost at power 
+on) so that status messages will be constantly written to the <acronym title="universal asynchronous receiver/transmitter">UART</acronym> console.  Additional status messages will also be enabled at significant steps in the booting process.
+</p>
+
+<p>
+The actual early implementation details can be found in the <strong>cpu/blackfin/serial.h</strong> and <strong>cpu/blackfin/serial.c</strong> files.
+</p>
+
+<p>
+This option adds little overhead in terms of code size (2 kB) but adds 
+runtime overhead and output that is really only suitable for debugging.
+</p>
+
+</div>
+
+<h3 class="sectionedit9"><a name="debug_null_ptr" id="debug_null_ptr">DEBUG_NULL_PTR</a></h3>
+<div class="level3">
+
+<p>
+
+If you have code that may be accessing initialized data (or NULL 
+pointers), then you can catch them.  This will cover the start of memory
+ (first 1kB) with two CPLB's.  That way, any memory access to that 
+region (data or instruction) will cause an exception.  Any unhandled 
+exceptions will cause a processor dump (see the <em>DEBUG_DUMP</em> options).
+</p>
+
+<p>
+Keep in mind that any valid accesses will also be flagged, so this 
+should only be enabled during development.  You will be unable to use 
+standard U-Boot commands such as memory display, copy, fill, etc… on the
+ protected memory region.
+</p>
+
+<p>
+This option adds little overhead (~70 bytes), but prevents the start of memory from being used.
+</p>
+
+</div>
+
+<h3 class="sectionedit10"><a name="panic_hang" id="panic_hang">PANIC_HANG</a></h3>
+<div class="level3">
+
+<p>
+
+This option is pretty straight forward.  Upon a crash that would 
+automatically reset the board, the board will instead hang and 
+constantly execute the <em>emuexcpt</em> instruction.  If a <acronym title="Joint Test Action Group - low level interface to cpu">JTAG</acronym> ICE is hooked up, it will automatically be triggered.
+</p>
+
+</div>
+
+<h3 class="sectionedit11"><a name="hw_watchdog" id="hw_watchdog">HW_WATCHDOG</a></h3>
+<div class="level3">
+
+<p>
+
+While not strictly a debug option, it can be quite useful while 
+debugging remotely.  This will enable the on-chip Blackfin hardware 
+watchdog right after power on, and then common pieces of U-Boot will 
+routinely poke it.  If some piece of code gets hung up, the watchdog 
+will reset the processor.
+</p>
+
+</div>
+
+<h4><a name="hw_watchdog_timeout_initcode" id="hw_watchdog_timeout_initcode">HW_WATCHDOG_TIMEOUT_INITCODE</a></h4>
+<div class="level4">
+
+<p>
+
+If you're booting an LDR image, you should use a “largish” timeout value
+ here as the processor will not be able to poke the watchdog until the 
+LDR has finished completely loading.  When booting over the <acronym title="universal asynchronous receiver/transmitter">UART</acronym> or slow <acronym title="Serial Peripheral Interface">SPI</acronym> devices, it can take a few seconds before U-Boot can take over.  The default timeout is set to 20 seconds.
+</p>
+
+</div>
+
+<h4><a name="hw_watchdog_timeout_start" id="hw_watchdog_timeout_start">HW_WATCHDOG_TIMEOUT_START</a></h4>
+<div class="level4">
+
+<p>
+
+Once U-Boot has started executing (before initialization/relocation), 
+the watchdog will be programmed with a 5 second timeout.  If your 
+initialization process can take a while, increase this timeout as 
+needed.
+</p>
+
+</div>
+
+<h2 class="sectionedit12"><a name="troubleshooting" id="troubleshooting">Troubleshooting</a></h2>
+<div class="level2">
+
+</div>
+
+<h3 class="sectionedit13"><a name="memory_timings" id="memory_timings">Memory Timings</a></h3>
+<div class="level3">
+
+<p>
+
+The most common problem people hit is external memory setup.  Either the
+ hardware is not solid and so cannot run at all or at the max 
+theoretical frequency, or the timings are wrong for the specified <acronym title="System Clock">SCLK</acronym> and memory part.
+</p>
+
+<p>
+This is often observed when enabling early serial debug and then only seeing a string of letters that end in <code>&gt;</code>.
+</p>
+
+<p>
+Rather than figure out the timings yourself, read the <a href="http://blackfin.uclinux.org/doku.php?id=bfin:sdram" class="wikilink1" title="bfin:sdram">sdram</a> page (and in particular, read the spreadsheet at the bottom).
+</p>
+
+<p>
+If things still aren't working, slow down the timings from whatever the 
+memory datasheet says.  Once you have a known working configuration, you
+ can try speeding things back up until they fail, and then reviewing the
+ hardware signals to fix any problems there.
+</p>
+
+<p>
+It might also be helpful to connect a <acronym title="Joint Test Action Group - low level interface to cpu">JTAG</acronym>
+ device and examine external memory to make sure the contents match 
+exactly the u-boot binary that should be there.  Failing memory 
+devices/timings will show random bit errors.
+</p>
+
+</div>
+
+<h2 class="sectionedit14"><a name="jtag_loading" id="jtag_loading">JTAG Loading</a></h2>
+<div class="level2">
+
+<p>
+
+Sometimes it is useful to load U-Boot directly up into external memory 
+and bypass the flash programming process.  Here are a few notes to show 
+you how with <acronym title="GNU Debugger">GDB</acronym> and a <acronym title="Joint Test Action Group - low level interface to cpu">JTAG</acronym> connection.  By themselves, these commands will not work.  You have to connect to a remote jtag target first, so see the <a href="http://blackfin.uclinux.org/doku.php?id=toolchain:debug:gdbproxy" class="wikilink1" title="toolchain:debug:gdbproxy">gdbproxy</a> if you need more information.
+</p>
+
+</div>
+
+<h3 class="sectionedit15"><a name="initcode" id="initcode">Initcode</a></h3>
+<div class="level3">
+
+<p>
+
+First, since <acronym title="GNU Debugger">GDB</acronym> will load 
+things directly into external memory, we need to make sure external 
+memory has been set up properly first.  Normally this is handled by the 
+Boot ROM calling our initcode, but since we are bypassing the Boot ROM, 
+we need to load it by hand.
+</p>
+
+<p>
+Start with a simple piece of code like so (call it <code>init.S</code>):
+
+</p>
+<pre class="notranslate code asm">#include &lt;asm<span class="sy0">/</span>blackfin<span class="sy0">.</span>h&gt;
+<span class="sy0">.</span>global __start
+__start<span class="sy0">:</span>
+	<span class="kw3">sp</span><span class="sy0">.</span>l = LO<span class="br0">(</span>L1_SRAM_SCRATCH_END <span class="sy0">-</span> <span class="nu0">20</span><span class="br0">)</span><span class="co1">;</span>
+	<span class="kw3">sp</span><span class="sy0">.</span>h = HI<span class="br0">(</span>L1_SRAM_SCRATCH_END <span class="sy0">-</span> <span class="nu0">20</span><span class="br0">)</span><span class="co1">;</span>
+	<span class="kw1">call</span> _initcode<span class="co1">;</span>
+<span class="nu0">1</span><span class="sy0">:</span>
+	emuexcpt<span class="co1">;</span>
+	jump <span class="nu0">1b</span><span class="co1">;</span>
+<span class="sy0">.</span><span class="kw4">size</span> __start<span class="sy0">,</span> <span class="sy0">.-</span>__start</pre>
+
+<p>
+Then just link it against the initcode to produce a standalone <acronym title="Executable and Linking Format">ELF</acronym> like so (make sure to replace the -mcpu argument with the appropriate value for your board):
+
+</p>
+<pre class="notranslate">$ bfin-elf-gcc -nostartfiles init.S arch/blackfin/cpu/initcode.o -o init.elf -Iinclude -D__ASSEMBLY__ -mcpu=bf547 </pre>
+
+</div>
+
+<h3 class="sectionedit16"><a name="gdb_load" id="gdb_load">GDB Load</a></h3>
+<div class="level3">
+
+<p>
+
+Now, armed with these two <acronym title="Executable and Linking Format">ELF</acronym>'s (<code>init.elf</code> and <code>u-boot</code>), we can get things running with <acronym title="GNU Debugger">GDB</acronym>.
+</p>
+
+<p>
+The important commands we run are:
+</p>
+<ol>
+<li class="level1"><div class="li"> <code>set remotetimeout 300</code> - do not time out when working with slow <acronym title="Joint Test Action Group - low level interface to cpu">JTAG</acronym> devices</div>
+</li>
+<li class="level1"><div class="li"> <code>load init.elf</code> - load the initcode into on-chip memory …</div>
+</li>
+<li class="level1"><div class="li"> <code>continue</code> - … and execute it -- the <code>emuexcpt</code> instruction we used earlier will automatically signal the <acronym title="Joint Test Action Group - low level interface to cpu">JTAG</acronym> when it is done</div>
+</li>
+<li class="level1"><div class="li"> <code>symbol-file u-boot</code> - you may need this when call memset fails …</div>
+</li>
+<li class="level1"><div class="li"> <code>load u-boot</code> - load u-boot into the right place …</div>
+</li>
+<li class="level1"><div class="li"> <code>call memset(&amp;_bss_vma, 0, &amp;_bss_len)</code> - clear the BSS since <acronym title="GNU Debugger">GDB</acronym> will not do it for us …</div>
+</li>
+<li class="level1"><div class="li"> <code>continue</code> - … and start executing U-Boot</div>
+</li>
+</ol>
+
+</div>
+
+<h3 class="sectionedit17"><a name="example" id="example">Example</a></h3>
+<div class="level3">
+
+<p>
+
+Here is a sample run.  Note that the addresses and sizes may be 
+significantly different from your setup -- that is perfectly normal!
+</p>
+
+<p>
+If you're using this procedure repeatedly, enter this sequence in .gdbinit (working directory)
+</p><pre class="xterm">$ <strong>bfin-elf-gdb ./u-boot</strong>
+(gdb) <strong>set remotetimeout 300</strong>
+
+... connect to your jtag device ...
+
+(gdb) <strong>load init.elf</strong>
+Loading section .text, size 0x32c lma 0xffa00000
+Start address 0xffa0031c, load size 812
+Transfer rate: 1676 bits/sec, 812 bytes/write.
+(gdb) <strong>c</strong>
+Continuing.
+Program received signal SIGTRAP, Trace/breakpoint trap.
+0xffa00328 in ?? ()
+
+(gdb) <strong>load u-boot</strong>
+Loading section .text, size 0xa778 lma 0xfeb00000
+Loading section .rodata, size 0x31e4 lma 0xfeb0a778
+Loading section .data, size 0x2300 lma 0xfeb0d95c
+Loading section .u_boot_cmd, size 0x280 lma 0xfeb0fc5c
+Loading section .text_l1, size 0x40 lma 0xfeb0fedc
+Start address 0xfeb00000, load size 65308
+Transfer rate: 7829 bits/sec, 9329 bytes/write.
+(gdb) <strong>call memset(&amp;_bss_vma, 0, &amp;_bss_len)</strong> (note for BF609 board you may skip this)
+warning: Unable to restore previously selected frame.
+$6 = 0xfeb0ff1c
+Current language:  auto; currently asm
+(gdb) <strong>c</strong>
+Continuing.
+</pre>
+
+<p></p>
+
+</div>
+
+            </div>
+            <div class="clearer">
+        </div>
+    </div></div>
+
+    
+    <div id="footer">
+    <div id="lo__footer">
+        <div class="left">
+ <a href="http://www.analog.com/en/careers/content/index.html">Careers</a>
+ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+ <a target="AdiWindow" href="http://investor.analog.com/">Investor Relations</a>
+ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+ <a href="http://www.analog.com/en/corporate/content/index.html">About ADI</a>
+ &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+ <a href="http://www.analog.com/en/content/contact_analog_devices_worldwide/fca.html">Contact ADI</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href="http://www.analog.com/en/aZcat.html">A-Z Product Index</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href="http://blackfin.uclinux.org/doku.php?id=bootloaders:u-boot:debugging&amp;do=index" class="action index" accesskey="x" rel="nofollow" title="Sitemap">Wiki Sitemap</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href="http://www.analog.com/en/technical-documentation/glossary/index.html">Glossary</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href="http://www.analog.com/en/content/privacy_and_security_statement/fca.html">Privacy / Security</a>
+ &nbsp;&nbsp;|&nbsp;&nbsp;
+ <a href="http://www.analog.com/en/content/terms_of_use/fca.html">Terms of Use</a>
+        </div>
+        <div class="right">
+            <a href="http://www.dokuwiki.org/dokuwiki" title="Powered by Dokuwiki"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/button-dw.png" alt="Powered by Dokuwiki"></a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="#dokuwiki__top" class="action top" accesskey="x" rel="nofollow" title="Back to top">Back to top</a>        </div>
+        <div class="center">
+            © 1995 - <script language="JavaScript" type="text/javascript">var today = new Date(); document.write(today.getFullYear());</script>2014 Analog Devices, Inc. and other contributors.
+        </div>
+    </div>
+</div>
+
+<div class="no"><img src="bootloaders:u-boot:debugging%20%5BAnalog%20Devices%20Open%20Source%7C%20Mixed-signal%20and%20Digital%20Signal%20Processing%20ICs%5D_files/indexer.gif" alt="" width="1" height="1"></div>
+</div>
+
+
+</div></body></html>

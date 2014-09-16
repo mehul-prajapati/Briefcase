@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>thread detached (Page 1) / Threads / UNIX Socket FAQ</title>
+<link rel="stylesheet" type="text/css" href="thread%20detached%20%28Page%201%29%20_%20Threads%20_%20UNIX%20Socket%20FAQ_files/Air.css">
+<!--[if lte IE 6]><script type="text/javascript" src="style/imports/minmax.js"></script><![endif]-->
+<link rel="alternate" type="application/atom+xml" href="http://developerweb.net/extern.php?action=feed&amp;tid=5250&amp;type=atom" title="Atom topic feed">
+</head>
+
+<body>
+
+<div id="punviewtopic" class="pun">
+<div class="top-box"><div><!-- Top Corners --></div></div>
+<div class="punwrap">
+
+<div id="brdheader" class="block">
+	<div class="box">
+		<div id="brdtitle" class="inbox">
+			<h1><span>UNIX Socket FAQ</span></h1>
+			<div id="brddesc"></div>
+		</div>
+		<div id="brdmenu" class="inbox">
+			<ul>
+				<li id="navindex" class="isactive"><a href="http://developerweb.net/index.php">Index</a></li>
+				<li id="navsearch"><a href="http://developerweb.net/search.php">Search</a></li>
+				<li id="navlogin"><a href="http://developerweb.net/l.php">Login</a></li>
+			</ul>
+		</div>
+		<div id="brdwelcome" class="inbox">
+			<p>You are not logged in.</p>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="brdmain">
+<div class="linkst">
+	<div class="inbox crumbsplus">
+		<ul class="crumbs">
+			<li><a href="http://developerweb.net/index.php">Index</a></li>
+			<li><span>»&nbsp;</span><a href="http://developerweb.net/viewforum.php?id=65">Threads</a></li>
+			<li><span>»&nbsp;</span><strong>thread detached</strong></li>
+		</ul>
+		<div class="pagepost">
+			<p class="pagelink conl"><span class="pages-label">Pages: </span><strong class="item1">1</strong></p>
+			<p class="postlink conr"><a href="http://developerweb.net/post.php?tid=5250">Post reply</a></p>
+		</div>
+		<div class="clearer"></div>
+	</div>
+</div>
+
+<div id="p22460" class="blockpost rowodd blockpost1">
+	<h2><span><span class="conr">#1</span> <a href="http://developerweb.net/viewtopic.php?pid=22460#p22460">2007-08-23 05:27 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=7031">zhn636</a></strong></dt>
+						<dd class="usertitle"><strong>Member</strong></dd>
+						<dd><span>Registered: 2007-04-24</span></dd>
+						<dd><span>Posts: 146</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>"A thread's underlying storage can be reclaimed immediately on 
+termination if that thread has been detached",can you tell me what is 
+the meaning of this sentence ,and what is the thread detached?
+<br>and how we can detach a thread?
+<br> thanks ,best wishes</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=22460">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p22464" class="blockpost roweven">
+	<h2><span><span class="conr">#2</span> <a href="http://developerweb.net/viewtopic.php?pid=22464#p22464">2007-08-23 05:55 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=3756">HectorLasso</a></strong></dt>
+						<dd class="usertitle"><strong>Administrator</strong></dd>
+						<dd><span>From: Colombia</span></dd>
+						<dd><span>Registered: 2002-06-12</span></dd>
+						<dd><span>Posts: 352</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>A thread can be detached by using "pthread_detach()" read the 
+man page... If you create the thread in the detached state, then you 
+won't need to run pthread_join() or pthread_detach().</p><p>The main 
+difference between a detached thread an a joinable thread is that you 
+don't need to join (pthread_join) the thread to release its storage 
+resources after pthread_exit() has been called. Of course you can also 
+call pthread_detach() instead of pthread_join() but you won't have 
+access to the exit status.</p><p>Read the man pages for pthread_detach(), pthread_create(), pthread_attr_setdetachstate() for more information.</p><p>Do you know what a thread is? Read this: <a href="http://%22http//en.wikipedia.org/wiki/Thread_%28computer_science%29%22">Thread</a>&nbsp; article.</p><p>If
+ you are wondering why not use pthread_join() instead of 
+pthread_detach() and just not look at the exit status, well, the answer 
+is that pthread_join() will wait for the thread to finish if it hasn't 
+already, thus blocking the calling thread until the other one finishes. 
+pthread_detach() is like saying: "I don't care about this thread 
+anymore, so when it dies (if it hasn't already) please send the exist 
+status to the trash can... I won't be waiting for that to happen..."</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=22464">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p22466" class="blockpost rowodd">
+	<h2><span><span class="conr">#3</span> <a href="http://developerweb.net/viewtopic.php?pid=22466#p22466">2007-08-23 06:02 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=7031">zhn636</a></strong></dt>
+						<dd class="usertitle"><strong>Member</strong></dd>
+						<dd><span>Registered: 2007-04-24</span></dd>
+						<dd><span>Posts: 146</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>oh,can you tell me why we put a thread in the detached state? 
+what are the differences between these threads and the thread in the 
+normal state?
+</p><p> thanks</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=22466">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p22499" class="blockpost roweven">
+	<h2><span><span class="conr">#4</span> <a href="http://developerweb.net/viewtopic.php?pid=22499#p22499">2007-08-25 07:42 AM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=3757">mlampkin</a></strong></dt>
+						<dd class="usertitle"><strong>Administrator</strong></dd>
+						<dd><span>From: Sol 3</span></dd>
+						<dd><span>Registered: 2002-06-12</span></dd>
+						<dd><span>Posts: 911</span></dd>
+						<dd class="usercontacts"><span class="website"><a href="http://www.cognitus.net/">Website</a></span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>If you DO NOT care about WHY you thread is exiting, then perform a detach operation...
+</p><p>If you DO care about WHY you thread is exiting, the either do NOT
+ detach and perform a join operation... OR detach BUT make certain that 
+there is a global repository for thread results and that every thread 
+calls it ( and deposits their result ) prior to exiting...
+</p><p>Of course - tis just my opinion...
+</p>
+<br><p>Michael</p>
+					</div>
+					<div class="postsignature postmsg"><hr><p>"The only difference between me and a madman is that I'm not mad."
+</p><p>Salvador Dali (1904-1989)</p></div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=22499">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p26141" class="blockpost rowodd">
+	<h2><span><span class="conr">#5</span> <a href="http://developerweb.net/viewtopic.php?pid=26141#p26141">2009-03-10 02:04 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=8070">overflow</a></strong></dt>
+						<dd class="usertitle"><strong>Member</strong></dd>
+						<dd><span>Registered: 2009-03-10</span></dd>
+						<dd><span>Posts: 2</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>Hello
+<br>I am going to open an old discussion, but i think this is an important information.
+</p><p>1) Is there any differences about the structures allocated by the kernel between a detached thread or a non-detached thread
+<br>2) Are the data structures of a non-detached thread deallocated 
+automatically after the&nbsp; thread termination, or you have to call 
+pthread_join()?</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=26141">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p26142" class="blockpost roweven">
+	<h2><span><span class="conr">#6</span> <a href="http://developerweb.net/viewtopic.php?pid=26142#p26142">2009-03-10 03:18 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=4214">i3839</a></strong></dt>
+						<dd class="usertitle"><strong>Oddministrator</strong></dd>
+						<dd><span>From: Amsterdam</span></dd>
+						<dd><span>Registered: 2003-06-07</span></dd>
+						<dd><span>Posts: 2,184</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>1. No, it only influences thread exit behaviour.
+</p><p>2. An exited, but not joined thread is comparable to a zombie process. So
+<br>although most resources are gone, you still need to call pthread_join.
+</p><p>If you can't always join a thread then make it detached, except if the
+<br>whole program exits, in which case it doesn't matter. Not doing a join
+<br>is just messy.
+</p><p>Of course there are exceptions, e.g. if it only happens a limited amount
+<br>of times in rare circumstances, when it's not worth worrying about it and
+<br>when doing it the "proper" just complicates the code.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=26142">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p26144" class="blockpost rowodd">
+	<h2><span><span class="conr">#7</span> <a href="http://developerweb.net/viewtopic.php?pid=26144#p26144">2009-03-10 03:42 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=8070">overflow</a></strong></dt>
+						<dd class="usertitle"><strong>Member</strong></dd>
+						<dd><span>Registered: 2009-03-10</span></dd>
+						<dd><span>Posts: 2</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>Thanks for the quick answer
+</p><p>I didn't know that you have deallocate a non detached thread... thanks for the information!
+</p><div class="quotebox"><cite>i3839;26142 wrote:</cite><blockquote><div><p>
+<br>If you can't always join a thread then make it detached, except if the
+<br>whole program exits, in which case it doesn't matter. Not doing a join
+<br>is just messy.</p></div></blockquote></div><p>
+</p><p>Why if the whole program exits you don't have worry about threads deallocation? 
+<br>Take a simple c program as example that create some threads. In this
+ case every thread is a child of the void main(). So as you said, you 
+have to manage also the deallocation of it when they finishes. 
+<br>Is the void main finishes earlier, all the children will became 
+zombies so I think you need to deallocated them. Did I do some mistakes?</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=26144">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p26145" class="blockpost roweven">
+	<h2><span><span class="conr">#8</span> <a href="http://developerweb.net/viewtopic.php?pid=26145#p26145">2009-03-10 04:39 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=4214">i3839</a></strong></dt>
+						<dd class="usertitle"><strong>Oddministrator</strong></dd>
+						<dd><span>From: Amsterdam</span></dd>
+						<dd><span>Registered: 2003-06-07</span></dd>
+						<dd><span>Posts: 2,184</span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>I'm not sure what you mean with deallocating a thread. A thread is (mostly)
+<br>gone when it calls exit or when it is killed, just like with processes, where
+<br>a minimal zombie process is kept around till the parent calls wait().
+</p><p>From the kernel's point of view, when a joinable thread exits it needs to 
+<br>keep around the exit value, among other things. So it can't free all used
+<br>resources until you called pthread_join(). On the user space side, the 
+<br>pthread implementation may also keep resources around per thread,
+<br>which it can only free after a join (whether this is the case or not depends
+<br>on the implementation).
+</p><p>In Linux a thread is more or less exactly the same as a process, but one
+<br>which shares more resources other processes, most importantly the memory
+<br>address space is shared.
+</p><div class="quotebox"><blockquote><div><p>Is the void main finishes 
+earlier, all the children will became zombies so I think you need to 
+deallocated them. Did I do some mistakes?</p></div></blockquote></div><p>
+<br>It's a bit fuzzy, and the main thread is a bit special, kind off. If the main 
+<br>function returns the program will exit, bringing down all threads. But they
+<br>won't hang around as zombies, because the whole thread group is gone.
+<br>Other threads than the main one can call pthread_join for exited threads
+<br>as far as I know, so even if the main thread is gone you need to join
+<br>undetached threads. But in that case it's better to just make those threads
+<br>detached, or to kill them before the main thread exits. I don't know all
+<br>the detailed behaviour, and that can change between implementations.
+<br>It's best to keep things somewhat simple and to not assume too much.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=26145">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p26147" class="blockpost rowodd">
+	<h2><span><span class="conr">#9</span> <a href="http://developerweb.net/viewtopic.php?pid=26147#p26147">2009-03-10 08:35 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong><a href="http://developerweb.net/profile.php?id=4463">Nope</a></strong></dt>
+						<dd class="usertitle"><strong>Administrator</strong></dd>
+						<dd><span>From: Germany</span></dd>
+						<dd><span>Registered: 2004-01-24</span></dd>
+						<dd><span>Posts: 383</span></dd>
+						<dd class="usercontacts"><span class="website"><a href="http://www.minxam.com/">Website</a></span></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>Let's take a look at the different scenarios:
+</p><p>Normal threads' resources are freed
+<br>- after the thread has exited and the main thread called pthread_join
+<br>- in case the main thread exits
+</p><p>Detached thread's resources are freed
+<br>- right after it exits/is finished
+<br>- in case the main thread exits
+</p><p>So, no matter what you do, if the main thread exits, it takes all its child threads with it.
+</p><p>What is a normal thread good for....
+<br>Your main thread on a 4 core computer has to do N independent 
+calculations and needs all of the results before it can continue. So it 
+starts N threads and then waits in a join loop until all N results are 
+ready. This way it can use all available cores and the program logic 
+needing all of the results will not be broken.
+</p><p>What is a detached thread good for...
+<br>You have a simple http server and use a thread for every incoming 
+connection. The thread that's created is detached as the main thread 
+doesn't need to know anything after the child thread is created 
+successfully.
+</p><p>Those examples are simplified of course, but you should get the drift...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"><p><span>Offline</span></p></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=26147">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p31364" class="blockpost roweven">
+	<h2><span><span class="conr">#10</span> <a href="http://developerweb.net/viewtopic.php?pid=31364#p31364">2011-04-08 08:02 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong>weldie</strong></dt>
+						<dd class="usertitle"><strong>Guest</strong></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<div class="quotebox"><cite>Loco wrote:</cite><blockquote><div><p>A
+ thread can be detached by using "pthread_detach()" read the man page...
+ If you create the thread in the detached state, then you won't need to 
+run pthread_join() or pthread_detach().</p><p>The main difference 
+between a detached thread an a joinable thread is that you don't need to
+ join (pthread_join) the thread to release its storage resources after 
+pthread_exit() has been called. Of course you can also call 
+pthread_detach() instead of pthread_join() but you won't have access to 
+the exit status.</p><p>Read the man pages for pthread_detach(), pthread_create(), pthread_attr_setdetachstate() for more information.</p><p>Do you know what a thread is? Read this: <a href="http://en.wikipedia.org/wiki/Thread_%28computer_science%29">Thread</a>&nbsp; article.</p><p>If
+ you are wondering why not use pthread_join() instead of 
+pthread_detach() and just not look at the exit status, well, the answer 
+is that pthread_join() will wait for the thread to finish if it hasn't 
+already, thus blocking the calling thread until the other one finishes. 
+pthread_detach() is like saying: "I don't care about this thread 
+anymore, so when it dies (if it hasn't already) please send the exist 
+status to the trash can... I won't be waiting for that to happen..."</p></div></blockquote></div><br><br><br><p>Thanks for your clear explanation!! like it</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=31364">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="p31365" class="blockpost rowodd">
+	<h2><span><span class="conr">#11</span> <a href="http://developerweb.net/viewtopic.php?pid=31365#p31365">2011-04-08 09:06 PM</a></span></h2>
+	<div class="box">
+		<div class="inbox">
+			<div class="postbody">
+				<div class="postleft">
+					<dl>
+						<dt><strong>weldie</strong></dt>
+						<dd class="usertitle"><strong>Guest</strong></dd>
+					</dl>
+				</div>
+				<div class="postright">
+					<h3>Re: thread detached</h3>
+					<div class="postmsg">
+						<p>Thank you Loco for your clear explanation</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="inbox">
+			<div class="postfoot clearb">
+				<div class="postfootleft"></div>
+				<div class="postfootright">
+					<ul>
+						<li class="postquote"><span><a href="http://developerweb.net/post.php?tid=5250&amp;qid=31365">Quote</a></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="postlinksb">
+	<div class="inbox crumbsplus">
+		<div class="pagepost">
+			<p class="pagelink conl"><span class="pages-label">Pages: </span><strong class="item1">1</strong></p>
+			<p class="postlink conr"><a href="http://developerweb.net/post.php?tid=5250">Post reply</a></p>
+		</div>
+		<ul class="crumbs">
+			<li><a href="http://developerweb.net/index.php">Index</a></li>
+			<li><span>»&nbsp;</span><a href="http://developerweb.net/viewforum.php?id=65">Threads</a></li>
+			<li><span>»&nbsp;</span><strong>thread detached</strong></li>
+		</ul>
+		<div class="clearer"></div>
+	</div>
+</div>
+</div>
+
+<div id="brdfooter" class="block">
+	<h2><span>Board footer</span></h2>
+	<div class="box">
+		<div id="brdfooternav" class="inbox">
+			<div class="conl">
+				<form id="qjump" method="get" action="viewforum.php">
+					<div><label><span>Jump to<br></span>
+					<select name="id" onchange="window.location=('viewforum.php?id='+this.options[this.selectedIndex].value)">
+						<optgroup label="FAQ">
+							<option value="70">UNIX Socket FAQ</option>
+						</optgroup>
+						<optgroup label="UNIX Platforms">
+							<option value="61">General</option>
+							<option value="62">Networking</option>
+							<option value="63">Files and Directories</option>
+							<option value="64">Processes</option>
+							<option value="65" selected="selected">Threads</option>
+						</optgroup>
+						<optgroup label="Languages">
+							<option value="58">C</option>
+							<option value="59">C++</option>
+							<option value="60">Java</option>
+						</optgroup>
+						<optgroup label="DeveloperWeb.net">
+							<option value="67">Bug Reports</option>
+							<option value="66">Suggestion Box</option>
+							<option value="68">The Lounge</option>
+							<option value="71">Jobs</option>
+						</optgroup>
+					</select>
+					<input value=" Go " accesskey="g" type="submit">
+					</label></div>
+				</form>
+			</div>
+			<div class="conr">
+				<p id="feedlinks"><span class="atom"><a href="http://developerweb.net/extern.php?action=feed&amp;tid=5250&amp;type=atom">Atom topic feed</a></span></p>
+				<p id="poweredby">Powered by <a href="http://fluxbb.org/">FluxBB</a></p>
+			</div>
+			<div class="clearer"></div>
+		</div>
+	</div>
+</div>
+
+</div>
+<div class="end-box"><div><!-- Bottom corners --></div></div>
+</div>
+
+
+
+</body></html>

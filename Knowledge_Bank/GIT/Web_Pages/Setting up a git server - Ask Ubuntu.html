@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>Setting up a git server - Ask Ubuntu</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/askubuntu/img/favicon.ico?v=a2e2fb1f0677">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon.png?v=e16e1315edd6">
+    <link rel="search" type="application/opensearchdescription+xml" title="Ask Ubuntu" href="http://askubuntu.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@AskUbuntu">
+    <meta name="twitter:domain" content="askubuntu.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon@2.png?v=c492c9229955">
+    <meta name="og:title" content="Setting up a git server">
+    <meta name="og:description" content="I've recently set up ubuntu-server on Amazon EC2. I would like to use it as my git server, so I could store my repos there. 
+
+So, where can I find some detailed instructions of how to setup git on ...">
+    <meta name="og:url" content="http://askubuntu.com/questions/12647/setting-up-a-git-server">
+    <link rel="canonical" href="http://askubuntu.com/questions/12647/setting-up-a-git-server">
+
+    
+    
+    <script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/quant.js" async=""></script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/beacon.js" async=""></script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/analytics.js" async=""></script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/ados_002.js" async="" type="text/javascript"></script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/ados.js" async="" type="text/javascript"></script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/jquery.js"></script>
+    <script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/stub.js"></script>
+    <link rel="stylesheet" type="text/css" href="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Setting up a git server'" href="http://askubuntu.com/feeds/question/12647">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:8,shownCommentCount:5,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:12647});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('89', '12647');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('89');
+                StackExchange.realtime.subscribeToTopBarNotifications('89');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1402909433,"networkMetaHostname":"meta.stackexchange.com","styleCode":true,"enableUserHovercards":true,"site":{"name":"Ask Ubuntu","description":"Q&A for Ubuntu users and developers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true,"ab":{"welcome_email":{"v":"4","g":2}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"4373b652f2b4","js/moderator.en.js":"b264b812e75c","js/full-anon.en.js":"a83e8e1db7fc","js/full.en.js":"daaa51cea1c9","js/wmd.en.js":"03da90d014d9","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"3261c9ba264d","js/help.en.js":"ce2977cf4348","js/tageditor.en.js":"b0f91d7ca890","js/tageditornew.en.js":"b31896aebf8e","js/inline-tag-editing.en.js":"de80429b1816","js/revisions.en.js":"ce4a692d0d20","js/review.en.js":"a3c2e600119f","js/tagsuggestions.en.js":"97867e3c2def","js/post-validation.en.js":"5f7ac913ef58","js/explore-qlist.en.js":"8b8b631bd679","js/events.en.js":"0618f858af1d"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/full-anon.js" async=""></script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/post-validation.js" async=""></script></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"><div class="nav-global"><div class="nav-global-wrapper"><ul><li><a href="http://www.ubuntu.com/">Ubuntu</a></li><li><a href="http://community.ubuntu.com/">Community</a></li><li><a href="http://askubuntu.com/" class="active">Ask!</a></li><li><a href="http://developer.ubuntu.com/">Developer</a></li><li><a href="http://design.ubuntu.com/">Design</a></li><li></li><li><a href="http://discourse.ubuntu.com/">Discourse</a></li><li><a href="http://www.ubuntu.com/certification">Hardware</a></li><li><a href="http://insights.ubuntu.com/">Insights</a></li><li><a href="http://juju.ubuntu.com/">Juju</a></li><li><a href="http://shop.ubuntu.com/">Shop</a></li><li class="more"><a href="#">More <span>›</span></a><ul><li><a href="http://apps.ubuntu.com/">Apps</a></li><li><a href="https://help.ubuntu.com/">Help</a></li><li><a href="http://ubuntuforums.org/">Forum</a></li><li><a href="http://www.launchpad.net/">Launchpad</a></li><li><a href="http://maas.ubuntu.com/">MAAS</a></li><li><a href="http://www.canonical.com/">Canonical</a></li></ul></li></ul></div></div> <script> $(function() { $(".nav-global .more > a").click(function(e){ $(this).closest(".more").toggleClass("open"); return false; }); $(document).click(function(){ $(".nav-global .more.open").removeClass("open"); }); }); </script></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://askubuntu.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://askubuntu.com/" class="current-site-link site-link js-gps-track" data-id="89" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-askubuntu" title="Ask Ubuntu"></div>
+        Ask Ubuntu
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.askubuntu.com/" class="site-link js-gps-track" data-id="91" data-gps-track="
+            site.switch({ target_site:91, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-askubuntumeta" title="Ask Ubuntu Meta"></div>
+        Ask Ubuntu Meta
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+                        <a href="https://askubuntu.com/users/signup?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f12647%2fsetting-up-a-git-server" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a>
+                    or
+                    <a href="https://askubuntu.com/users/login?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f12647%2fsetting-up-a-git-server" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a>
+
+                    to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 126 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                            <a href="https://askubuntu.com/users/signup?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f12647%2fsetting-up-a-git-server" class="login-link">sign up</a>
+                            <a href="https://askubuntu.com/users/login?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f12647%2fsetting-up-a-git-server" class="login-link">log in</a>
+                            <a href="http://askubuntu.com/tour">tour</a>
+
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://askubuntu.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://askubuntu.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.askubuntu.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () { StackExchange.topbar.init(); });
+</script>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://askubuntu.com/">
+                    Ask Ubuntu
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://askubuntu.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://askubuntu.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://askubuntu.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://askubuntu.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://askubuntu.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://askubuntu.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://askubuntu.com/tour" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Ask Ubuntu is a question and answer site for Ubuntu users and developers. It's 100% free, no registration required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://askubuntu.com/questions/12647/setting-up-a-git-server" class="question-hyperlink">Setting up a git server</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="12647" id="question">
+
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk972089985",4).enableDynamicSiteSelection().setZone(29) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk972089985"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/i.gif" border="0" height="0px" width="0px"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12647" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">36</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>28</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I've recently set up ubuntu-server on Amazon EC2. I would like to use it as my git server, so I could store my repos there. </p>
+
+<p>So, where can I find some detailed instructions of how to setup git 
+on ubuntu server? All these SSH keys and stuff like that, multiple 
+users, etc.</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://askubuntu.com/questions/tagged/server" class="post-tag js-gps-track" title="show questions tagged 'server'" rel="tag">server</a> <a href="http://askubuntu.com/questions/tagged/git" class="post-tag js-gps-track" title="show questions tagged 'git'" rel="tag">git</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/q/12647" title="short permalink to this question" class="short-link" id="link-post-12647">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/12647/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/12647/revisions" title="show all edits to this post">edited <span title="2010-11-12 04:30:11Z" class="relativetime">Nov 12 '10 at 4:30</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/235/jorge-castro"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/d4f7d15de2abdec49cacaac7d14f00fc.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/235/jorge-castro">Jorge Castro</a><br>
+        <span class="reputation-score" title="reputation score 22629" dir="ltr">22.6k</span><span title="67 gold badges"><span class="badge1"></span><span class="badgecount">67</span></span><span title="293 silver badges"><span class="badge2"></span><span class="badgecount">293</span></span><span title="509 bronze badges"><span class="badge3"></span><span class="badgecount">509</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2010-11-11 11:42:15Z" class="relativetime">Nov 11 '10 at 11:42</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/30730d26e03564a1f802b481a3cff0da.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski">Paweł Karpiński</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,265</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="18 silver badges"><span class="badge2"></span><span class="badgecount">18</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12647" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="3" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-27469" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I don't think this is an Ubuntu-related question (beyond the obvious "it's linux"), also have you even looked at the <a href="http://book.git-scm.com/index.html" rel="nofollow">git documentation</a>? There's mentions there of setting up a <a href="http://book.git-scm.com/4_setting_up_a_public_repository.html" rel="nofollow">public</a> as well as a <a href="http://book.git-scm.com/4_setting_up_a_private_repository.html" rel="nofollow">private</a> repository.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/506/ward-muylaert" title="2060 reputation" class="comment-user">Ward Muylaert</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment27469_12647"><span title="2011-02-07 11:06:41Z" class="relativetime-clean">Feb 7 '11 at 11:06</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27476" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Just search on google and here: <a href="https://help.ubuntu.com/community/Git" rel="nofollow">help.ubuntu.com/community/Git</a></span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/9520/bonbobingo" title="322 reputation" class="comment-user">BonboBingo</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment27476_12647"><span title="2011-02-07 13:08:36Z" class="relativetime-clean">Feb 7 '11 at 13:08</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27492" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="hot">17</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@BonboBingo Saying "Just 
+search Google" really isn't a solution. The majority of questions here 
+could be answered with "if you search long enough..." Ask Ubuntu aims to
+ be <i>the</i> authority Question and Answer site providing 1st level 
+answers instead of a wall of answers that say "Just Google" - for more 
+information check the <a href="http://askubuntu.com/faq">FAQ</a></span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/41/marco-ceppi" title="23405 reputation" class="comment-user">Marco Ceppi<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment27492_12647"><span title="2011-02-07 14:40:41Z" class="relativetime-clean">Feb 7 '11 at 14:40</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27495" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">There is a useful step guide 
+here: help.ubuntu.com/community/Git.   	 	 @Marco Ceppi Sorry but I 
+wasn't polemical. And then the link that I had posted seems to be quite 
+relevant to question ... Okay now as an answer?</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/9520/bonbobingo" title="322 reputation" class="comment-user">BonboBingo</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment27495_12647"><span title="2011-02-07 15:10:21Z" class="relativetime-clean">Feb 7 '11 at 15:10</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-27500" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">"instead of a wall of answers that say "Just Google" - for more information check the"... ok you're right :) Let's stop here.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/9520/bonbobingo" title="322 reputation" class="comment-user">BonboBingo</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment27500_12647"><span title="2011-02-07 15:24:02Z" class="relativetime-clean">Feb 7 '11 at 15:24</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12647" data-rep="50" data-anon="true" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">show <b>3</b> more comments</a>
+    </td>
+</tr>        </tbody></table>
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								10 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://askubuntu.com/questions/12647/setting-up-a-git-server?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://askubuntu.com/questions/12647/setting-up-a-git-server?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://askubuntu.com/questions/12647/setting-up-a-git-server?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="12739"></a>
+<div id="answer-12739" class="answer accepted-answer" data-answerid="12739">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12739" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">26</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>You can use the <a href="http://askubuntu.com/questions/12647/setting-up-a-git-server/12658#12658">tutorial to install a Git server as aking1012 proposed</a>
+ you or you could just install SSH server on your EC2 instance (probably
+ it would be wise to secure it and change the default port).</p>
+
+<p>Git can be server-less you init your repository and then you access 
+it from remote via SSH. So instructions like this on the Ubuntu Server 
+should do it:  </p>
+
+<pre><code>GIT_DIR=project.git git init  
+cd project.git  
+git --bare update-server-info  
+cp hooks/post-update.sample hooks/post-update
+</code></pre>
+
+<p>Finally install SSH on your server:  </p>
+
+<pre><code>sudo apt-get install ssh-server
+</code></pre>
+
+<p>Now, you should configure SSH to secure it.</p>
+
+<p>It's time to put your project online (the data you already have on your development machine):  </p>
+
+<pre><code>git push ssh://&lt;username&gt;@&lt;remote-git-hostname&gt;/path/to/project.git master
+</code></pre>
+
+<p>And now you can start cloning around. You go on your development machine:  </p>
+
+<pre><code>git clone ssh://&lt;username&gt;@&lt;remote-git-hostname&gt;/path/to/dir.git
+</code></pre>
+
+<p>Check this <a href="http://www-cs-students.stanford.edu/%7Eblynn/gitmagic/ch06.html#_git_over_ssh_http">excellent resource on Git</a>.</p>
+
+<p>And for generating your ssh keys for safer authentication, you can read this article about <a href="http://www.berthon.eu/wiki/foss%3awikishelf%3assh%3aauthentication">SSH authentication</a>.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/12739" title="short permalink to this answer" class="short-link" id="link-post-12739">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/12739/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/12739/revisions" title="show all edits to this post">edited <span title="2010-11-12 07:42:18Z" class="relativetime">Nov 12 '10 at 7:42</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-11-11 21:30:26Z" class="relativetime">Nov 11 '10 at 21:30</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/3004/huygens"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/32857d0f2ac2a60aaba519222786d494.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/3004/huygens">Huygens</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">2,200</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="16 silver badges"><span class="badge2"></span><span class="badgecount">16</span></span><span title="34 bronze badges"><span class="badge3"></span><span class="badgecount">34</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12739" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="2" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-13343" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Shouldn't thatbe <code>openssh-server</code>?</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/235/jorge-castro" title="22629 reputation" class="comment-user">Jorge Castro</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13343_12739"><span title="2010-11-12 04:32:05Z" class="relativetime-clean">Nov 12 '10 at 4:32</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13366" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@jorge it seems that <code>ssh-server</code> is an alias to openssh-server, at least on Ubuntu 10.04.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/3004/huygens" title="2200 reputation" class="comment-user">Huygens</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13366_12739"><span title="2010-11-12 07:38:02Z" class="relativetime-clean">Nov 12 '10 at 7:38</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13370" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">well, this could work, but 
+logging via SSH to Amazon EC2 machines requires public/private keypair 
+(ssh -i key.pem ubuntu@address). Also, I have to remember the path 
+(ubuntu@address:/var/www/dir1/dir2), instead of just git clone 
+git.mydomain.com/repository</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski" title="3265 reputation" class="comment-user owner">Paweł Karpiński</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13370_12739"><span title="2010-11-12 08:02:06Z" class="relativetime-clean">Nov 12 '10 at 8:02</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13386" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Pawel good point. That's why
+ some people put the git repository at the file system root. But yes, 
+you need ssh keys or accounts. Or you could use HTTP, but then you don't
+ have really nice access control AFAIK.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/3004/huygens" title="2200 reputation" class="comment-user">Huygens</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13386_12739"><span title="2010-11-12 09:56:45Z" class="relativetime-clean">Nov 12 '10 at 9:56</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-160074" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@PawełKarpiński - You can set up a client-side SSH config file in <code>~/.ssh/config</code> to handle the username/host address, key input, ports, and whatnot.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/14325/shauna" title="2179 reputation" class="comment-user">Shauna</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment160074_12739"><span title="2012-05-09 18:06:30Z" class="relativetime-clean">May 9 '12 at 18:06</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12739" data-rep="50" data-anon="true" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">show <b>2</b> more comments</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk460602582",4).enableDynamicSiteSelection().setZone(30) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk460602582"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/i_002.gif" border="0" height="0px" width="0px"></div>
+  
+<a name="25150"></a>
+<div id="answer-25150" class="answer" data-answerid="25150">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="25150" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">23</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>I recommend a book (free ebook download)</p>
+
+<blockquote>
+  <p>Pro Git by Scott Chacon </p>
+</blockquote>
+
+<p>Chapter 4 deals with setting up a Git server.</p>
+
+<p><a href="http://git-scm.com/book/en/Git-on-the-Server" rel="nofollow">http://git-scm.com/book/en/Git-on-the-Server</a></p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/25150" title="short permalink to this answer" class="short-link" id="link-post-25150">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/25150/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/25150/revisions" title="show all edits to this post">edited <span title="2014-01-05 02:15:05Z" class="relativetime">Jan 5 at 2:15</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/50713/zespri"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/7540f1aac4d78cc963f6551e8307b757.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/50713/zespri">zespri</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">118</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2011-02-07 14:35:38Z" class="relativetime">Feb 7 '11 at 14:35</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/3802/finley"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/08258b236e73e6c513b8f668bdf328c1.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/3802/finley">finley</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,187</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="11 bronze badges"><span class="badge3"></span><span class="badgecount">11</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-25150" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-27491" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">+1 Pro-Git is likely <i>the</i> best online resource.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/41/marco-ceppi" title="23405 reputation" class="comment-user">Marco Ceppi<span class="mod-flair" title="moderator">♦</span></a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment27491_25150"><span title="2011-02-07 14:39:18Z" class="relativetime-clean">Feb 7 '11 at 14:39</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-25150" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="25151"></a>
+<div id="answer-25151" class="answer" data-answerid="25151">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="25151" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">12</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>For all my Git server setups I use <a href="https://github.com/sitaramc/gitolite">Gitolite</a>
+ which allows for a security granularity of "per-branch" access. Setup 
+is pretty straight forward if you're doing it on a remote server it's as
+ easy as running an interactive script. In addition to this 
+"easy-to-setup" nature it also has a package in Natty and Maverick <a href="http://apt.ubuntu.com/p/gitolite"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/software-small.html" alt="install gitolite"></a></p>
+
+<p>This won't provide a web frontend like Github, or Gitweb - but you 
+can easily configure and install those on top of something like 
+Gitolite.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/25151" title="short permalink to this answer" class="short-link" id="link-post-25151">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/25151/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2011-02-07 14:46:27Z" class="relativetime">Feb 7 '11 at 14:46</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/41/marco-ceppi"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/4ddc8924e79bcec03256821af65fca91.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/41/marco-ceppi">Marco Ceppi</a><span class="mod-flair" title="moderator">♦</span><br>
+        <span class="reputation-score" title="reputation score 23405" dir="ltr">23.4k</span><span title="15 gold badges"><span class="badge1"></span><span class="badgecount">15</span></span><span title="94 silver badges"><span class="badge2"></span><span class="badgecount">94</span></span><span title="144 bronze badges"><span class="badge3"></span><span class="badgecount">144</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-25151" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-25151" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="12658"></a>
+<div id="answer-12658" class="answer" data-answerid="12658">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12658" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">7</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p><a href="http://scie.nti.st/2007/11/14/hosting-git-repositories-the-easy-and-secure-way">http://scie.nti.st/2007/11/14/hosting-git-repositories-the-easy-and-secure-way</a> can be slightly modified to suit your purposes...a similar tutorial <a href="http://blog.agdunn.net/?p=277">http://blog.agdunn.net/?p=277</a>.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/12658" title="short permalink to this answer" class="short-link" id="link-post-12658">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/12658/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-11-11 12:38:02Z" class="relativetime">Nov 11 '10 at 12:38</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/5768/hbdgaf"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/61d2bc0830d4865a62c42c5e23a8c85f.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/5768/hbdgaf">hbdgaf</a><br>
+        <span class="reputation-score" title="reputation score 15100" dir="ltr">15.1k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="29 silver badges"><span class="badge2"></span><span class="badgecount">29</span></span><span title="64 bronze badges"><span class="badge3"></span><span class="badgecount">64</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12658" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-13189" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">note: I am currently putting 
+together a 0 to done rvm,ree/ruby,rails,git tutorial for development 
+client and development server tutorial.  it just draws a lot of online 
+tutorials into one place and modifies them a bit, but it's still a work 
+in progress at the moment.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/5768/hbdgaf" title="15100 reputation" class="comment-user">hbdgaf</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13189_12658"><span title="2010-11-11 12:40:52Z" class="relativetime-clean">Nov 11 '10 at 12:40</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13371" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">these tutorials are awesome, but well, they're pretty much complicated. Aren't there any "shorter" tutorials? :)</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski" title="3265 reputation" class="comment-user owner">Paweł Karpiński</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13371_12658"><span title="2010-11-12 08:03:58Z" class="relativetime-clean">Nov 12 '10 at 8:03</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-13414" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I haven't seen anything more 
+straightforward...most of the tutorials for gitorious and gitosis don't 
+go through creating a sample project and testing(something I think 
+should be in every tutorial).  If I see another tut that's more direct 
+I'll keep this thread in mind</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/5768/hbdgaf" title="15100 reputation" class="comment-user">hbdgaf</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment13414_12658"><span title="2010-11-12 14:30:49Z" class="relativetime-clean">Nov 12 '10 at 14:30</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-160077" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@PawełKarpiński - What's so complicated about them? I've used the Gitosis setup before, and it's actually very easy.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/14325/shauna" title="2179 reputation" class="comment-user">Shauna</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment160077_12658"><span title="2012-05-09 18:08:15Z" class="relativetime-clean">May 9 '12 at 18:08</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12658" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="12887"></a>
+<div id="answer-12887" class="answer" data-answerid="12887">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12887" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">7</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>I like <a href="https://github.com/sitaramc/gitolite/wiki/">gitolite</a>. The Pro Git book has a <a href="http://progit.org/book/ch4-8.html">section</a> on it but I recommend reading the whole book.</p>
+
+<p>As for your multiple users requirement:</p>
+
+<blockquote>
+  <p>Gitolite allows you to specify
+  permissions not just by repository
+  (like Gitosis does), but also by
+  branch or tag names within each
+  repository. That is, you can specify
+  that certain people (or groups of
+  people) can only push certain “refs”
+  (branches or tags) but not others.</p>
+</blockquote>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/12887" title="short permalink to this answer" class="short-link" id="link-post-12887">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/12887/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-11-12 16:59:52Z" class="relativetime">Nov 12 '10 at 16:59</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/289/li-lo"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/b078a0ec2a7bb1235720515928c9ca4b.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/289/li-lo">Li Lo</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">5,678</span><span title="16 silver badges"><span class="badge2"></span><span class="badgecount">16</span></span><span title="33 bronze badges"><span class="badge3"></span><span class="badgecount">33</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12887" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-14000" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">the book you've mentioned ROCKS. Thanks!</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski" title="3265 reputation" class="comment-user owner">Paweł Karpiński</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment14000_12887"><span title="2010-11-16 15:30:04Z" class="relativetime-clean">Nov 16 '10 at 15:30</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12887" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="25159"></a>
+<div id="answer-25159" class="answer" data-answerid="25159">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="25159" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">6</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Definitely follow the official documentation: <a href="https://help.ubuntu.com/community/Git">https://help.ubuntu.com/community/Git</a> (section <strong>Setting up Git and Project Management</strong>)</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/25159" title="short permalink to this answer" class="short-link" id="link-post-25159">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/25159/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-02-07 15:25:36Z" class="relativetime">Feb 7 '11 at 15:25</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/2805/chris"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/f6fc838795dde1f2ebf5b97cfb630142.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/2805/chris">chris</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,294</span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="12 bronze badges"><span class="badge3"></span><span class="badgecount">12</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-25159" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-25159" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="13516"></a>
+<div id="answer-13516" class="answer" data-answerid="13516">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="13516" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">4</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>The solution that worked the best for me, was setting up WebDAV.</p>
+
+<ul>
+<li><p><code>sudo a2enmod sudo dav_fs</code> </p></li>
+<li><p><code>sudo a2enmod dav</code></p></li>
+<li><p>add new file to <code>/etc/apache2/sites-available</code> and name it, for example, <code>git.yourserver.com</code>. Edit it and add following lines:</p></li>
+</ul>
+
+<p><code>&lt;VirtualHost *:80&gt;</code></p>
+
+<pre><code>DocumentRoot /var/www/git.yourserver.com/repos
+ServerName git.yourserver.net
+Options Indexes FollowSymLinks MultiViews
+
+&lt;Location /&gt;
+    DAV On
+    AuthType Basic
+    AuthName "git repos"
+    AuthUserFile /var/www/git.yourserver.net/password.dav
+    Require valid-user
+&lt;/Location&gt;
+</code></pre>
+
+<p><code>&lt;/VirtualHost&gt;</code></p>
+
+<ul>
+<li>create directory <code>/var/www/git.yourserver.com</code> and directory <code>repos</code> inside id</li>
+<li><code>sudo chown www-data /var/www/git.yourserver.com/repos</code></li>
+<li><code>sudo htpasswd -c /var/www/git.yourserver.com/password.dav user_login</code> and enter password for user named <code>user_login</code></li>
+<li><code>sudo chown root:www-data /var/www/git.yourserver.com/password.dav</code></li>
+<li><code>sudo chmod 640 /var/www/git.yourserver.com/password.dav</code></li>
+</ul>
+
+<p>Now, <code>sudo a2ensite git.yourserver.com</code> and <code>sudo service apache2 restart</code>.</p>
+
+<ul>
+<li>Enter <code>/var/www/git.yourserver.com/repos</code> and create directory, for example, <code>myrepo.git</code></li>
+<li><code>cd myrepo.git</code></li>
+<li><code>git --bare init</code></li>
+<li><code>git update-server-info</code></li>
+</ul>
+
+<p>Now, logout from your remote server and go to local directory you want to edit your files in.</p>
+
+<pre><code>git clone http://user_login:user_password@git.yourserver.com/myrepo.git
+</code></pre>
+
+<p>and you've finished. If you want to send your commited changes to the server: </p>
+
+<pre><code>git push origin master
+</code></pre>
+
+<p>You can create as many users as you want using <code>sudo htpasswd</code>. Just remember not to use <code>-c</code> switch, when adding more users, because old file will be deleted.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/13516" title="short permalink to this answer" class="short-link" id="link-post-13516">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/13516/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/13516/revisions" title="show all edits to this post">edited <span title="2010-11-16 15:35:09Z" class="relativetime">Nov 16 '10 at 15:35</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature owner" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-11-16 15:25:43Z" class="relativetime">Nov 16 '10 at 15:25</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/30730d26e03564a1f802b481a3cff0da.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/2937/pawe%c5%82-karpi%c5%84ski">Paweł Karpiński</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,265</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="18 silver badges"><span class="badge2"></span><span class="badgecount">18</span></span><span title="38 bronze badges"><span class="badge3"></span><span class="badgecount">38</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-13516" class="comments " data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-39458" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">3</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">HTTP is the "dumb" protocol 
+that is supported but strongly discouraged.  The native git protocol 
+works much better, and is easier to set up since all you have to do is 
+have a working ssh server ( which you already should ) and install 
+git-core.  No need to muck about with apache at all.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/8500/psusi" title="18384 reputation" class="comment-user">psusi</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment39458_13516"><span title="2011-04-16 02:44:47Z" class="relativetime-clean">Apr 16 '11 at 2:44</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-13516" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="21139"></a>
+<div id="answer-21139" class="answer" data-answerid="21139">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="21139" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">3</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>It is very easy to achieve with <a href="https://github.com/sitaramc/gitolite/wiki/" rel="nofollow">gitolite</a>. In less than an hour you will have easy configurable and secure multiuser git server.</p>
+
+<p>I have an howto article on <a href="http://realcnbs.com/" rel="nofollow">my site</a></p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/21139" title="short permalink to this answer" class="short-link" id="link-post-21139">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/21139/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/21139/revisions" title="show all edits to this post">edited <span title="2012-05-09 17:55:18Z" class="relativetime">May 9 '12 at 17:55</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/5768/hbdgaf"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/61d2bc0830d4865a62c42c5e23a8c85f.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/5768/hbdgaf">hbdgaf</a><br>
+        <span class="reputation-score" title="reputation score 15100" dir="ltr">15.1k</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="29 silver badges"><span class="badge2"></span><span class="badgecount">29</span></span><span title="64 bronze badges"><span class="badge3"></span><span class="badgecount">64</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-01-11 22:41:25Z" class="relativetime">Jan 11 '11 at 22:41</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/2778/realcnbs"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/2b685ade74f612e617ef9f66f59674fc.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/2778/realcnbs">realcnbs</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">86</span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-21139" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-21139" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="35330"></a>
+<div id="answer-35330" class="answer" data-answerid="35330">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="35330" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">2</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>I also like the <strong>gitolite</strong> approach for 
+managing users and security.  I have a Git + gitolite server AMI for EC2
+ currently being tested.  Feel free to give it a try; documentation is 
+available here:</p>
+
+<blockquote>
+  <p><a href="http://alestic.com/alestic-git/" rel="nofollow"><strong>Alestic Git Server</strong></a></p>
+</blockquote>
+
+<p>Using this approach, you can have a central Git server with private 
+repositories running in a matter of minutes.  There is a learning curve 
+for gitolite and EC2 if you aren't familiar with them.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/35330" title="short permalink to this answer" class="short-link" id="link-post-35330">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/35330/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-04-15 21:13:22Z" class="relativetime">Apr 15 '11 at 21:13</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/14357/eric-hammond"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/8657cb93f1ec16293fd3a332d8e274c3.jpeg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/14357/eric-hammond">Eric Hammond</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">21</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-35330" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-35330" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+
+  
+<a name="268582"></a>
+<div id="answer-268582" class="answer" data-answerid="268582">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="268582" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>here is an example that explain "How do I host a Git repository?" for myself in local using ssh.
+just need "python-setuptools" and "ssh".
+<a href="http://shgn.ir/go_to.php?url=scie.nti.st/2007/11/14/hosting-git-repositories-the-easy-and-secure-way/" rel="nofollow">hosting-git-repositories-the-easy-and-secure-way</a></p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/268582" title="short permalink to this answer" class="short-link" id="link-post-268582">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/268582/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-03-16 17:00:59Z" class="relativetime">Mar 16 '13 at 17:00</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/25025/shgninc"><div class="gravatar-wrapper-32"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/1b885a5f2fda4f34c7cf52b6ae47cf37.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/25025/shgninc">shgnInc</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">346</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="18 bronze badges"><span class="badge3"></span><span class="badgecount">18</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+        
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-268582" class="comments  dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-268582" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/12647/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="12647" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="23bbd1541cf66b08a7f83ec8f404e0e7" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://askubuntu.com/users/login?returnurl=%2fquestions%2f12647%2fsetting-up-a-git-server%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f12647%2fsetting-up-a-git-server%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://askubuntu.com/questions/tagged/server" class="post-tag" title="show questions tagged 'server'" rel="tag">server</a> <a href="http://askubuntu.com/questions/tagged/git" class="post-tag" title="show questions tagged 'git'" rel="tag">git</a>  or <a href="http://askubuntu.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2010-11-11 11:42:15Z"><b>3 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>66646 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://askubuntu.com/questions/12647/setting-up-a-git-server?lastactivity" class="lastactivity-link" title="2014-01-05 02:15:05Z">5 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+						
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk1065199032",17).enableDynamicSiteSelection().setZone(56016) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1065199032"><div id="community_div" style="height: 250px; width: 220px;"><style type="text/css">
+    .ads {
+        margin-left: 60px;
+    }
+
+    .ad-container {
+        width: 220px;
+        height: 250px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+
+        .ad-container .ad {
+            height: 250px;
+        }
+
+        .ad-container .footer-container {
+            overflow: hidden;
+            height: 30px;
+            position: relative;
+            top: -30px;
+        }
+
+            .ad-container .footer-container .footer {
+                font-family: Arial,Helvetic,Sans-Serif;
+                font-size: 12px;
+                text-align: center;
+                padding-top: 9px;
+                background-color: #000;
+                color: #EFF;
+                opacity: 0.9;
+                filter: alpha(opacity=90);
+                top: 30px;
+                height: 30px;
+                position: relative;
+            }
+
+        .ad-container a:hover {
+            text-decoration: underline;
+        }
+
+    #adzerk2 {
+        height: 250px;
+    }
+</style>
+
+        <div class="ad-container">
+            <div class="ad">
+                <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6MjY1Nzk2LCJkaSI6IjA2MDU1M2M5MmZmYTQ2OWNiNThmODI0ZmYyNzQxNzI1IiwiZG0iOjEsImZjIjozMzA5NTAsImZsIjoxNzE3NTUsImt3Ijoic2VydmVyLGdpdCx4LWNvbW11bml0eSx4LWhvc3QtYXNrdWJ1bnR1LmNvbSIsIm1rIjoieC1jb21tdW5pdHkiLCJudyI6MjIsInBjIjowLCJwciI6NTU2OTUsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTImdmVkPTBDQ0VRRmpBQiZ1cmw9aHR0cDovL2Fza3VidW50dS5jb20vcXVlc3Rpb25zLzEyNjQ3L3NldHRpbmctdXAtYS1naXQtc2VydmVyJmVpPTlyS2VVOUdSQ1pDV3VBVDItSUxRREEmdXNnPUFGUWpDTkVTSG50MmkzZXlnWWRwc3hTRU5sc0dFSVIwYUEmYnZtPWJ2LjY4OTExOTM2LGQuYzJFJmNhZD1yamEiLCJzdCI6NTY3NDksInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjU2MDE2LCJ0cyI6MTQwMjkwOTU2Mzc2NSwidXIiOm51bGx9&amp;s=De9-aHnVgWLKN22FCwXaK0TW6K8&amp;url=http%3A%2F%2Fmeta.askubuntu.com%2Fads%2Fct%2F7779%3Furl%3Dhttp%253a%252f%252f2buntu.com" rel="nofollow" target="_blank"><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/B6yIq.png" alt="We're looking for new writers too!" title="We're looking for new writers too!" height="250" width="220"></a>
+            </div>
+            <div class="footer-container">
+                <div style="top: 30px;" class="footer">
+                    12 votes · <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6MjY1Nzk2LCJkaSI6IjA2MDU1M2M5MmZmYTQ2OWNiNThmODI0ZmYyNzQxNzI1IiwiZG0iOjEsImZjIjozMzA5NTAsImZsIjoxNzE3NTUsImt3Ijoic2VydmVyLGdpdCx4LWNvbW11bml0eSx4LWhvc3QtYXNrdWJ1bnR1LmNvbSIsIm1rIjoieC1jb21tdW5pdHkiLCJudyI6MjIsInBjIjowLCJwciI6NTU2OTUsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTImdmVkPTBDQ0VRRmpBQiZ1cmw9aHR0cDovL2Fza3VidW50dS5jb20vcXVlc3Rpb25zLzEyNjQ3L3NldHRpbmctdXAtYS1naXQtc2VydmVyJmVpPTlyS2VVOUdSQ1pDV3VBVDItSUxRREEmdXNnPUFGUWpDTkVTSG50MmkzZXlnWWRwc3hTRU5sc0dFSVIwYUEmYnZtPWJ2LjY4OTExOTM2LGQuYzJFJmNhZD1yamEiLCJzdCI6NTY3NDksInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjU2MDE2LCJ0cyI6MTQwMjkwOTU2Mzc2NSwidXIiOm51bGx9&amp;s=De9-aHnVgWLKN22FCwXaK0TW6K8&amp;url=http%3A%2F%2Fmeta.askubuntu.com%2Fquestions%2F7773%237779" title="click to comment on this ad" target="_blank">comment</a> · <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6MjY1Nzk2LCJkaSI6IjA2MDU1M2M5MmZmYTQ2OWNiNThmODI0ZmYyNzQxNzI1IiwiZG0iOjEsImZjIjozMzA5NTAsImZsIjoxNzE3NTUsImt3Ijoic2VydmVyLGdpdCx4LWNvbW11bml0eSx4LWhvc3QtYXNrdWJ1bnR1LmNvbSIsIm1rIjoieC1jb21tdW5pdHkiLCJudyI6MjIsInBjIjowLCJwciI6NTU2OTUsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTImdmVkPTBDQ0VRRmpBQiZ1cmw9aHR0cDovL2Fza3VidW50dS5jb20vcXVlc3Rpb25zLzEyNjQ3L3NldHRpbmctdXAtYS1naXQtc2VydmVyJmVpPTlyS2VVOUdSQ1pDV3VBVDItSUxRREEmdXNnPUFGUWpDTkVTSG50MmkzZXlnWWRwc3hTRU5sc0dFSVIwYUEmYnZtPWJ2LjY4OTExOTM2LGQuYzJFJmNhZD1yamEiLCJzdCI6NTY3NDksInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjU2MDE2LCJ0cyI6MTQwMjkwOTU2Mzc2NSwidXIiOm51bGx9&amp;s=De9-aHnVgWLKN22FCwXaK0TW6K8&amp;url=http%3A%2F%2Fmeta.askubuntu.com%2Fads%2Fdisplay%2F7773" target="_blank">stats</a>
+                </div>
+            </div>
+        </div></div><script type="text/javascript">window._passthroughAdUrl = "http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6MjY1Nzk2LCJkaSI6IjA2MDU1M2M5MmZmYTQ2OWNiNThmODI0ZmYyNzQxNzI1IiwiZG0iOjEsImZjIjozMzA5NTAsImZsIjoxNzE3NTUsImt3Ijoic2VydmVyLGdpdCx4LWNvbW11bml0eSx4LWhvc3QtYXNrdWJ1bnR1LmNvbSIsIm1rIjoieC1jb21tdW5pdHkiLCJudyI6MjIsInBjIjowLCJwciI6NTU2OTUsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTImdmVkPTBDQ0VRRmpBQiZ1cmw9aHR0cDovL2Fza3VidW50dS5jb20vcXVlc3Rpb25zLzEyNjQ3L3NldHRpbmctdXAtYS1naXQtc2VydmVyJmVpPTlyS2VVOUdSQ1pDV3VBVDItSUxRREEmdXNnPUFGUWpDTkVTSG50MmkzZXlnWWRwc3hTRU5sc0dFSVIwYUEmYnZtPWJ2LjY4OTExOTM2LGQuYzJFJmNhZD1yamEiLCJzdCI6NTY3NDksInVrIjoidWUxLTEzYjA1MTExNjg2ZDRiNjQ5YTZlZDgyMTJhMDk1YmNlIiwiem4iOjU2MDE2LCJ0cyI6MTQwMjkwOTU2Mzc2NSwidXIiOm51bGx9&s=De9-aHnVgWLKN22FCwXaK0TW6K8";</script><script src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/community" type="text/javascript"></script><img src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/i_003.gif" border="0" height="0px" width="0px"></div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://askubuntu.com/q/25131?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">30</div>
+	</a>
+	<a href="http://askubuntu.com/questions/25131/how-to-setup-a-git-server?lq=1" class="question-hyperlink">How to setup a Git server?</a>
+</div><div class="spacer">
+	<a href="http://askubuntu.com/q/134298?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="http://askubuntu.com/questions/134298/how-do-i-set-up-gitorious-server-on-ubuntu?lq=1" class="question-hyperlink">How do I set up Gitorious server on ubuntu?</a>
+</div><div class="spacer">
+	<a href="http://askubuntu.com/q/299802?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">2</div>
+	</a>
+	<a href="http://askubuntu.com/questions/299802/migrate-git-repositories?lq=1" class="question-hyperlink">migrate git repositories</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/10452?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">7
+    </div>
+</a><a href="http://askubuntu.com/questions/10452/setting-up-gitweb-apache2?rq=1" class="question-hyperlink">Setting up gitweb/apache2</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/25131?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">30
+    </div>
+</a><a href="http://askubuntu.com/questions/25131/how-to-setup-a-git-server?rq=1" class="question-hyperlink">How to setup a Git server?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/133622?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/133622/how-do-i-fix-problem-with-ubuntu-11-10-server-and-gitweb?rq=1" class="question-hyperlink">How do i fix problem with Ubuntu 11.10 server and gitweb?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/176176?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">3
+    </div>
+</a><a href="http://askubuntu.com/questions/176176/permission-to-referance-file-in-git-changed-on-push?rq=1" class="question-hyperlink">Permission to referance file in git changed on push</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/317764?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/317764/what-folders-and-settings-are-best-for-php-development-using-ubuntu-netbeans-a?rq=1" class="question-hyperlink">What
+ folders and settings are best for php development using Ubuntu, 
+Netbeans, a remote git repository and a localhost apache MySQL server?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/377343?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://askubuntu.com/questions/377343/easy-to-use-git-server-management?rq=1" class="question-hyperlink">Easy to use Git server management</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/405377?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/405377/git-url-does-not-appear-to-be-a-git-repository?rq=1" class="question-hyperlink">Git - URL does not appear to be a git repository</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/416254?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">3
+    </div>
+</a><a href="http://askubuntu.com/questions/416254/how-to-setup-a-private-git-repository?rq=1" class="question-hyperlink">How to setup a private git repository?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/416397?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/416397/setup-git-to-pull-vps-folder-var-www-from-ubuntu-12-04-apache-web-server-to-ub?rq=1" class="question-hyperlink">Setup git to pull VPS folder- /var/www from ubuntu 12.04 apache web server to ubuntu 13.10 desktop</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/461190?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/461190/jenkins-git-ubuntu-server?rq=1" class="question-hyperlink">Jenkins Git Ubuntu Server</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/178008/what-is-a-word-or-expression-to-define-that-you-have-reached-the-limit-of-your-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is a word or expression to define that you have reached the limit of your capabilities?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/31695/largest-number-in-ten-bytes-of-code" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Largest number in ten bytes of code
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/835829/what-can-be-said-about-a-matrix-which-is-both-symmetric-and-orthogonal" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What can be said about a matrix which is both symmetric and orthogonal?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-gis" title="Geographic Information Systems Stack Exchange"></div><a href="http://gis.stackexchange.com/questions/102116/vector-data-not-saved-in-qgis" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:79 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    vector data not saved in QGIS
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-gamedev" title="Game Development Stack Exchange"></div><a href="http://gamedev.stackexchange.com/questions/77735/multi-agent-a-avoiding-other-agents" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:53 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Multi agent A* - avoiding other agents
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/54333/prevent-re-entrant-function-call-in-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Prevent re-entrant function call in C++
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/59425/what-exactly-is-worse-than-death" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What exactly is worse than death?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/6312/why-are-airplanes-riveted-and-not-screwed" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are airplanes riveted and not screwed?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/137241/what-does-exit-1-exit-1-mean" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does `{ { (exit 1); exit 1; }; }` mean?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/835628/prove-that-the-laplace-trasform-is-a-linear-trasformation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Prove that the Laplace trasform is a Linear trasformation
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-electronics" title="Electrical Engineering Stack Exchange"></div><a href="http://electronics.stackexchange.com/questions/115545/need-help-with-diode-circuit" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:135 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Need help with diode circuit
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/137291/11-copy-with-dd" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    1:1 copy with dd
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/119394/how-can-the-earth-keep-spinning-with-a-liquid-core" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can the Earth keep spinning with a liquid core?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/178040/what-is-the-word-for-not-good-at-expressing-words-thoughts-emotions-in-pers" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the word for 'not good at expressing words / thoughts / emotions in person'?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/835795/help-for-mathematics-high-school" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Help for Mathematics High school
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/24237756/is-calling-a-c-constructor-from-a-c-file-possible" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is calling a C++ constructor from a C file possible?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/59419/was-cursing-the-dada-job-a-good-idea" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Was cursing the DADA job a good idea?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/119415/why-do-all-elements-above-fe-not-decay-to-fe" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why do all elements above Fe not decay to Fe?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/23420/how-to-motivate-students-to-complete-low-point-homework" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to motivate students to complete low-point homework?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-matheducators" title="Mathematics Educators Stack Exchange"></div><a href="http://matheducators.stackexchange.com/questions/2679/how-to-explain-monty-hall-problem-when-they-just-dont-get-it" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:548 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to explain Monty Hall problem when they just don't get it
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/61115/can-i-prevent-my-neighbors-whom-i-pay-for-shared-internet-wifi-from-seeing-t" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can I prevent my neighbors, whom I pay for shared internet (wifi), from seeing the sites I've visited?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/137270/alternative-for-locate-on-debian" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Alternative for "locate" on debian
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/50864/selecting-parts-of-a-matrix-via-indices-given-by-a-vector" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Selecting parts of a matrix via indices given by a vector
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/59461/why-was-harv-sick-in-diamond-age" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why was Harv sick in Diamond Age?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://askubuntu.com/feeds/question/12647" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/12647/ivc/ed41');});
+</script>
+<noscript>
+    <div><img src="/posts/12647/ivc/ed41" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang"></div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://askubuntu.com/tour">tour</a>
+                    <a href="http://askubuntu.com/help">help</a>
+                        <a href="http://askubuntu.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://askubuntu.com/contact">contact us</a></b>
+                        <b><a href="http://meta.askubuntu.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="professional graphic designers and non-designers trying to do their own graphic design">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.6.12.1658
+            </div>
+                <div id="additional-notices">
+                    Ubuntu and Canonical are registered trademarks of Canonical Ltd.
+                </div>
+            
+        </div>
+    <iframe id="global-auth-frame" style="display:none" src="Setting%20up%20a%20git%20server%20-%20Ask%20Ubuntu_files/read.html"></iframe></div>
+    <noscript>
+        <div id="noscript-warning">Ask Ubuntu works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('server,git,x-community,x-host-askubuntu.com');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-29');        
+        
+        ga('set', 'dimension2', '|server|git|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

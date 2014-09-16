@@ -1,0 +1,154 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>BOOTING THE DSP</title>
+</head>
+
+<body>
+
+<!-- -------------------------------------------------------------- -->
+<!--               Boot Code                                        -->
+<!-- -------------------------------------------------------------- -->
+<font color="blue"><h2>Booting the DSP</h2></font>
+<p>
+The 
+<a href="http://www.nevis.columbia.edu/%7Eevans/L2mu/slic/software/code_archive.html">code</a> used by the DSPs contains several
+modules, mostly written in c. 
+They are all contained in a single executable. 
+This is simpler and more compact than a scheme where a general
+operating system is used to load programs that perform specific
+analyses.
+It does mean, however, that different executables must be loaded to
+each DSP at boot time (because they perform different algorithms).
+</p><ol>
+  <li><b>Boot Initialization:</b> This is the only part of the code
+      written in linear assembly. It's purpose is to read in the
+      initialized data sections from external memory so that execution
+      of the main part of the code (which is written in c and uses
+      initialized data) can begin. This is necessary because the DSP
+      is configured to read one block of 64k bytes into program memory
+      (from the FIFO) when it is released from reset.</li>
+  <li><b>DSP Initialization:</b> Sets up all components of the DSP for
+      normal operations.</li>
+  <li><b>Utilities:</b> Contains functions for doing all I/O
+      operations.</li>
+  <li><b>Test Suite:</b> A set of 
+      <a href="http://www.nevis.columbia.edu/%7Eevans/L2mu/slic/software/slic_tests.html">verification and testing functions</a>
+      accessible by 
+      <a href="http://www.nevis.columbia.edu/%7Eevans/L2mu/slic/software/dsp_cmds.html">VME commands</a> to the DSP.</li>
+  <li><b>Input Buffers:</b> Functions for managing
+      <a href="http://www.nevis.columbia.edu/%7Eevans/L2mu/slic/software/buffers/buffers.html">buffers</a> where input data is
+      stored.
+  </li><li><b>Algorithm:</b> The
+      <a href="http://www-d0.fnal.gov/%7Emaciel/d0_private/l2alg/index.html">
+      algorithm</a> that performs the physics task of this DSP.
+</li></ol>
+The first four of these modules are the same for all DSPs.
+Input Buffers differ between DSPs 1-4 and DSP 5.
+The algorithm varies from DSP to DSP.
+<p>
+All code used by the DSPs is loaded at boot time as two files:
+
+<table width="595" border="">
+<tbody><tr> 
+  <td valign="top"><b>Section</b></td>
+  <td valign="top"><b>Where</b></td>
+  <td valign="top"><b>Address Range</b></td>
+</tr>
+<tr> 
+  <td valign="top">Executable</td>
+  <td valign="top">Program Memory</td>
+  <td valign="top">0x0000'0000 - 0x0000'4000</td>
+</tr>
+<tr> 
+  <td valign="top">Data</td>
+  <td valign="top">Data Memory</td>
+  <td valign="top">0x8000'0000 - 0x8000'0300</td>
+</tr>
+</tbody></table>
+This memory map is set up in the command files
+<b>hex_prog.cmd</b> and <b>hex_data.cmd</b> 
+used when making the boot executable.
+<i>Note: the sizes of the executable and data sections will change as
+the program expands.</i>
+
+</p><p>
+The process of booting the five DSPs on the SLIC boards is controlled
+by the driver code.
+The steps in the boot process are as follows.
+For full details of this process refer to the
+<a href="http://www.nevis.columbia.edu/%7Eevans/L2mu/slic/software/code_archive.html">driver code (SlicDrive)</a>
+and the
+<a href="http://www.nevis.columbia.edu/%7Eevans/L2mu/slic/software/code_archive.html">boot code (boot36)</a>.
+</p>
+
+<table width="595" border="">
+<tbody><tr> 
+  <td valign="top" width="50"><b>Step</b></td>
+  <td valign="top" width="270"><b>Driver Action</b></td>
+  <td valign="top" width="270"><b>DSP Action</b></td>
+</tr>
+<tr>
+  <td valign="top" width="50">1.</td>
+  <td valign="top" width="270">Put DSP in reset</td>
+  <td valign="top" width="270">&nbsp;</td>
+</tr>
+<tr>
+  <td valign="top" width="50">2.</td>
+  <td valign="top" width="270">Load <i>exe</i> sections 
+                             of Boot Code to DSP FIFO</td>
+  <td valign="top" width="270">&nbsp;</td>
+</tr>
+<tr>
+  <td valign="top" width="50">3.</td>
+  <td valign="top" width="270">Take DSP out of reset</td>
+  <td valign="top" width="270">Load program
+      <ol>
+        <li>DSP reads FIFO to program mem<br>
+	    (under control of GAL chip)</li>
+	<li>Jump to prog mem address 0 and begin execution</li>
+      </ol>
+  </td>
+</tr>
+<tr>
+  <td valign="top" width="50">4.</td>
+  <td valign="top" width="270">Load <i>data</i> sections of Boot Code
+                             to DSP FIFO</td>
+  <td valign="top" width="270">Boot Initialization
+      <ol>
+        <li>Init external memory (FIFO)</li>
+	<li>Init Serial Port 0 for general purpose I/O</li>
+      </ol>
+  </td>
+</tr>
+<tr>
+  <td valign="top" width="50">5.</td>
+  <td valign="top" width="270">Handshake with Boot Code</td>
+  <td valign="top" width="270">Handshake with Driver</td><td>
+</td></tr>
+<tr>
+  <td valign="top" width="50">6.</td>
+  <td valign="top" width="270">&nbsp;</td>
+  <td valign="top" width="270">Read data sections to data mem</td><td>
+</td></tr>
+<tr>
+  <td valign="top" width="50">7.</td>
+  <td valign="top" width="270">&nbsp;</td>
+  <td valign="top" width="270">Main boot sequence
+      <ol>
+        <li>jump to main (_c_int00)</li>
+	<li>Initialize External Memory (FIFO,SRAM)</li>
+	<li>Initialize MCBSP 0 for general purpose I/O</li>
+	<li>Initialize MCBSP 1 for serial data<br>
+	    • I/O rate set to 80 MHz</li>
+	<li>Initialize DMA Channels<br>
+	    • No. 0 5x8-bit serial output<br>
+	    • No. 1 32-bit data transfers (FIFO)</li>
+	<li>Perform boot verification</li>
+	<li>Jump to DSP Commands loop</li>
+      </ol>
+  </td>
+</tr>
+</tbody></table>
+
+
+</body></html>

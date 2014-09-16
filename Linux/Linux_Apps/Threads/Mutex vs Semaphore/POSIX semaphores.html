@@ -1,0 +1,351 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>POSIX semaphores</title>
+</head>
+
+
+<body><h1>Synchronizing Threads with POSIX Semaphores</h1>
+
+<ol>
+<li> Why semaphores? 
+</li><li> Posix semaphores are easy to use
+<ul>
+<li> <a href="#init"><tt>sem_init</tt></a>
+</li><li> <a href="#wait"><tt>sem_wait</tt></a>
+</li><li> <a href="#post"><tt>sem_post</tt></a>
+</li><li> <a href="#getvalue"><tt>sem_getvalue</tt></a>
+</li><li> <a href="#destroy"><tt>sem_destroy</tt></a>
+</li></ul>
+</li><li> <a href="#exercise_1">Exercises</a>
+&nbsp;&nbsp;<a href="#exercise_1">1</a>
+&nbsp;&nbsp;<a href="#exercise_2">2</a>
+&nbsp;&nbsp;<a href="#exercise_3">3</a>
+</li></ol>
+<p></p>
+<hr>
+Now it is time to take a look at some code that does something a little
+unexpected. The program <a href="http://www.csc.villanova.edu/%7Emdamian/threads/threadadd.txt"><code>threadadd.c</code></a> creates
+two new threads, both of which increment a global
+variable called <font color="blue"><code>count</code></font> exactly <code>NITER</code>, with
+<code>NITER = 1,000,000</code>.
+But the program produces unexpected results.
+
+<p>
+</p><hr>
+<a name="exercise_1">
+<font color="brown"><u>Exercise 1</u></font>. Create a directory called 
+<tt>posixsem</tt> in your class Unix directory. Download  
+in this directory the code 
+</a><a href="http://www.csc.villanova.edu/%7Emdamian/threads/threadadd.txt"><code>threadadd.c</code></a> 
+and compile it using
+<font color="blue">
+<pre>     gcc threadadd.c -o threadadd -lpthread </pre></font>
+Run the executable <tt>threadadd</tt> and observe the ouput. Try it on 
+both <tt>tanner</tt> and <tt>felix</tt>.
+<p>Quite unexpected! Since <b><code>count</code></b> starts at 0, and both 
+threads
+increment it <code>NITER</code> times, we should see <tt>count</tt> equal
+to <code>2*NITER</code> at the end of the program. Something fishy is going on here.
+
+</p><p>
+</p><hr>
+<p>
+Threads can greatly simplify writing elegant and efficient programs. However,
+there are problems when multiple threads share a common address
+space, like the variable <code>count</code> in our earlier example.
+</p>
+
+<p>
+To understand what might happen, let us analyze this simple piece of code: </p>
+
+<pre>      THREAD 1                THREAD 2
+      a = data;               b = data;
+      a++;                    b--;
+      data = a;               data = b;
+</pre>
+
+<p>Now if this code is executed serially (for instance, <tt>THREAD 1</tt> first and then 
+<tt>THREAD 2</tt>),
+there are no problems. However threads execute in an arbitrary order, so consider 
+the following situation: </p>
+
+<p></p><center><table width="80%" border="1" bordercolor="#000000">
+<tbody><tr><td width="230"><b>Thread 1</b></td><td width="230"><b>Thread 2</b>
+</td><td width="60"><center><b>data</b></center></td></tr>
+<tr><td><tt>a = data;</tt>
+</td><td><center><tt>---</tt></center>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><tt>a = a+1;</tt>
+</td><td><center><tt>---</tt></center>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><center><tt>---</tt></center>
+</td><td><tt>b = data;&nbsp;&nbsp;// 0</tt>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><center><tt>---</tt></center>
+</td><td><tt> b = b + 1;</tt><!--
+</TD--></td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><tt>data = a;&nbsp;&nbsp;// 1</tt>
+</td><td><center><tt>---</tt></center>
+</td><td><center><tt>1</tt></center>
+</td></tr>
+<tr><td><center><tt>---</tt></center>
+</td><td><tt>data = b;&nbsp;&nbsp;// 1</tt>
+</td><td><center><tt>1</tt></center>
+</td></tr>
+</tbody></table></center>
+
+<p>So data could end up +1, 0, -1, and there is <b>NO WAY</b> to
+know which value! It is completely non-deterministic!
+
+</p><p>The solution to this is to provide functions that will block a thread
+if another thread is accessing data that it is using. </p>
+
+<p>Pthreads may use semaphores to achieve this. </p>
+
+<hr>
+
+<a name="posix_sem">
+<font color="brown"><h2>Posix semaphores</h2></font>
+
+<p>All POSIX semaphore functions and types are prototyped or defined in
+<font color="blue"><tt>semaphore.h</tt></font>. To define a semaphore object, use
+
+<font color="blue">
+</font></p><pre><font color="blue"><tt>      sem_t <i>sem_name</i>;
+</tt></font></pre>
+
+<hr>
+
+</a><a name="init"></a>
+<p>To initialize a semaphore, use <tt>sem_init()</tt>:
+</p><p>
+<font color="brown">
+</font></p><pre><font color="brown"><tt>      int sem_init(sem_t *sem, int pshared, unsigned int value);
+</tt></font></pre>
+
+<p> 
+</p><ul>
+<li>   <font color="brown"><tt>sem</tt></font> points to a semaphore object to initialize
+ </li>
+<li>   <font color="brown"><tt>pshared</tt></font> is a flag indicating whether or not the semaphore should
+   be shared with fork()ed processes. LinuxThreads does not currently
+   support shared semaphores
+ </li>
+<li>   <font color="brown"><tt>value</tt></font> is an initial value to set the semaphore to
+ </li>
+</ul>
+Example of use: <font color="blue">
+</font><pre><font color="blue"><tt>      sem_init(&amp;sem_name, 0, 10);</tt></font><tt>
+</tt></pre>
+
+<a name="wait"></a>
+<hr>
+
+To wait on a semaphore, use <tt>sem_wait</tt>:
+<font color="brown">
+<pre><tt>      int sem_wait(sem_t *sem);
+</tt></pre></font>
+Example of use: <font color="blue">
+<pre><tt>      sem_wait(&amp;sem_name); </tt></pre></font>
+<p> 
+</p><ul>
+<li>   <!--<tt>sem_wait</tt> is an implementation of the DOWN operation 
+discussed in class.--> 
+If the value of the semaphore is negative, the calling process blocks; one of the blocked 
+processes wakes up when another process calls <tt>sem_post</tt>.</li></ul>
+
+<a name="post"></a><hr>
+To increment the value of a semaphore, use <tt>sem_post</tt>:
+ 
+<font color="brown">
+<pre><tt>      int sem_post(sem_t *sem);
+</tt></pre></font>
+Example of use:<font color="blue"> 
+<pre><tt>      sem_post(&amp;sem_name); </tt></pre></font>
+<p> 
+</p><ul>
+<li> <!--  <tt>sem_post</tt> is an implementation of the UP operation 
+discussed in class. --> 
+It increments the value of the semaphore and wakes up a blocked process waiting on the 
+semaphore, if any.
+ </li>
+</ul>
+
+<a name="getvalue"></a><hr>
+
+To find out the value of a semaphore, use
+
+<font color="brown">
+<pre><tt>      int sem_getvalue(sem_t *sem, int *valp);
+</tt></pre></font>
+<p> 
+</p><ul>
+<li>   gets the current value of sem and places it in the location pointed to
+   by <font color="brown"><tt>valp</tt></font>
+ </li>
+</ul>
+Example of use: 
+<pre><tt>      int value; <font color="blue">
+      sem_getvalue(&amp;sem_name, &amp;value); </font>
+      printf("The value of the semaphors is %d\n", value);
+</tt></pre>
+
+<a name="destroy"></a><hr>
+
+To destroy a semaphore, use
+<font color="brown">
+<pre><tt>      int sem_destroy(sem_t *sem);
+</tt></pre></font>
+<ul>
+<li>   destroys the semaphore; no threads should be waiting on the semaphore
+   if its destruction is to succeed.
+ </li>
+</ul>
+Example of use: <font color="blue">
+</font><pre><font color="blue"><tt>     sem_destroy(&amp;sem_name); </tt></font><tt>
+</tt></pre>
+<hr size="4">
+
+<a name="posix_sem_example">
+<font color="brown"><h4>Using semaphores - a short example</h4></font>
+</a>
+Consider the problem we had before and now let us use semaphores: <p></p>
+
+
+<pre> 
+      Declare the semaphore global (outside of any funcion):
+
+            sem_t mutex;
+
+      Initialize the semaphore in the main function:
+     
+            sem_init(&amp;mutex, 0, 1);
+
+</pre>
+
+<p></p><center><table width="80%" border="1" bordercolor="#000000">
+<tbody><tr><td width="226"><b>Thread 1</b></td><td width="226"><b>Thread 2</b>
+</td><td width="61"><center><b>data</b></center></td></tr>
+<tr><td><tt>sem_wait (&amp;mutex);</tt>
+</td><td><center><tt>---</tt></center>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><center><tt>---</tt></center></td>
+<td><tt>sem_wait (&amp;mutex);</tt>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><tt>a = data;</tt>
+</td><td><center><tt>/* blocked */</tt></center>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><tt>a = a+1;</tt>
+</td><td><center><tt>/* blocked */</tt></center>
+</td><td><center><tt>0</tt></center>
+</td></tr>
+<tr><td><tt>data = a;</tt>
+</td><td><center><tt>/* blocked */</tt></center>
+</td><td><center><tt>1</tt></center>
+</td></tr>
+<tr><td><tt>sem_post (&amp;mutex);</tt>                     
+</td><td><center><tt>/* blocked */</tt></center>
+</td><td><center><tt>1</tt></center>         
+</td></tr>
+<tr><td><center><tt>/* blocked */</tt></center>
+</td><td><tt>b = data;</tt>
+</td><td><center><tt>1</tt></center>
+</td></tr>
+<tr><td><center><tt>/* blocked */</tt></center>
+</td><td><tt>b = b + 1;</tt>
+</td><td><center><tt>1</tt></center>
+</td></tr>
+<tr><td><center><tt>/* blocked */</tt></center>
+</td><td><tt>data = b;</tt>
+</td><td><center><tt>2</tt></center>
+</td></tr>
+<tr><td><center><tt>/* blocked */</tt></center>
+</td><td><tt>sem_post (&amp;mutex);</tt>
+</td><td><center><tt>2</tt></center>         
+</td></tr>
+<tr><td colspan="3"><center><b>[data is fine.  The data race is gone.]</b></center></td></tr>
+</tbody></table></center>
+
+<p></p><hr>
+<p>
+<a name="exercise_2">
+<font color="brown"><u>Exercise 2</u></font>.Use the example above 
+as a guide to fix the program
+</a><a href="http://www.csc.villanova.edu/%7Emdamian/threads/threadadd.txt"><code>threadadd.c</code></a>, so that
+the program always produces the expected output (the value 
+<tt>2*NITER</tt>).
+
+</p><p> To compile a program that uses pthreads <i>and</i> posix semaphores, use
+<font color="blue">
+</font></p><pre><font color="blue"><tt>     gcc -o filename filename.c -lpthread -lrt </tt></font><tt>
+</tt></pre>
+
+<a name="exercise_3"></a><hr>
+<p>
+<font color="brown"><u>Exercise 3.</u></font> 
+Download this <b><i>incomplete</i></b> <a href="http://www.csc.villanova.edu/%7Emdamian/threads/PC.htm">producer-consumer</a>
+code in your <tt>posixsem</tt> directory. 
+<b><i>Complete the downloaded code</i></b> to implement a solution to 
+the Producer-Consumer problem using Posix threads and semaphores. 
+
+</p><p>Comment well your code.
+Compile and run your program and observe the
+output. Label each line in the output by the identifier for each producer and consumer (P1, P2,
+P3, C1, C2, C3). The output of your program should be similar to the following:
+
+<font color="brown">
+</font></p><pre><font color="brown"><tt>      [P1] Producing A ...
+      [P1] Producing B ...
+       ------&gt; [C1] Consuming A ...
+       ------&gt; [C1] Consuming B ...
+      [P2] Producing A ...
+      [P2] Producing B ...
+       ------&gt; [C2] Consuming A ...
+       ------&gt; [C2] Consuming B ...
+      [P3] Producing A ...
+      [P3] Producing B ...
+       ------&gt; [C3] Consuming A ...
+       ------&gt; [C3] Consuming B ...
+      [P1] Producing C ...
+      [P1] Producing D ...
+       ------&gt; [C1] Consuming C ...
+       ------&gt; [C1] Consuming D ...
+      [P2] Producing C ...
+      [P2] Producing D ...
+       ------&gt; [C2] Consuming C ...
+       ------&gt; [C2] Consuming D ...
+      [P3] Producing C ...
+      [P3] Producing D ...
+       ------&gt; [C1] Consuming C ...
+      [P2] Producing E ...
+       ------&gt; [C2] Consuming D ...
+      [P3] Producing E ...
+       ------&gt; [C3] Consuming E ...
+       ------&gt; [C3] Consuming E ...
+      [P1] Producing E ...
+       ------&gt; [C3] Consuming E ...
+      [P2] Producing F ...
+       ------&gt; [C2] Consuming F ...
+      [P3] Producing F ...
+       ------&gt; [C1] Consuming F ...
+      [P1] Producing F ...
+       ------&gt; [C3] Consuming F ...
+</tt></font></pre>
+
+<p> To compile a program that uses pthreads <i>and</i> posix semaphores, use
+<font color="blue">
+</font></p><pre><font color="blue"><tt>     gcc -o filename filename.c -lpthread -lrt </tt></font><tt>
+</tt></pre>
+
+<hr size="4">
+
+
+
+</body></html>

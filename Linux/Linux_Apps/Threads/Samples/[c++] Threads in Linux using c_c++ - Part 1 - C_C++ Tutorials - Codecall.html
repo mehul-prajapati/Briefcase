@@ -1,0 +1,3599 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<title>[c++] Threads in Linux using c/c++ - Part 1 - C/C++ Tutorials - Codecall</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="shortcut icon" href="http://forum.codecall.net/favicon.ico">
+		<link rel="image_src" href="http://img.codecall.net/public/style_images/master/meta_image.png">
+		<script async="" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/cbgapi.loaded_1"></script><script async="" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/cbgapi.loaded_0"></script><script src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/all.js" id="facebook-jssdk"></script><script src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/dc.js" async="" type="text/javascript"></script><script type="text/javascript">
+		//<![CDATA[
+			jsDebug			= 0; /* Must come before JS includes */
+			DISABLE_AJAX	= parseInt(0); /* Disables ajax requests where text is sent to the DB; helpful for charset issues */
+			inACP			= false;
+			var isRTL		= false;
+			var rtlIe		= '';
+			var rtlFull		= '';
+		//]]>
+		</script>
+		
+	
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen,print" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/facebook_like_box.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/calendar_select.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen,print" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ipb_common.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" title="Main" media="screen,print" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ipb_styles.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ipb_skingen.css">
+		
+	
+
+				
+			<link rel="stylesheet" type="text/css" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/prettify.css">
+		
+	
+	
+
+<!--[if lte IE 7]>
+	<link rel="stylesheet" type="text/css" title='Main' media="screen" href="http://cdn.codecall.net/public/style_css/css_31/ipb_ie.css" />
+<![endif]-->
+<!--[if lte IE 8]>
+	<style type='text/css'>
+		.ipb_table { table-layout: fixed; }
+		.ipsLayout_content { width: 99.5%; }
+	</style>
+<![endif]-->
+
+	<style type="text/css">
+		img.bbc_img { max-width: 100% !important; }
+	</style>
+
+		<meta property="og:title" content="Threads in Linux using c/c++ - Part 1 - C/C++ Tutorials">
+		<meta property="og:site_name" content="Codecall">
+		<meta property="og:type" content="article">
+		
+	
+		
+		
+			<meta property="og:updated_time" content="1389171936">
+		
+		
+		
+		
+	
+
+		
+		
+			<meta property="og:image" content="http://uploads.codecall.net/monthly_07_2011/post-73979-13333828678775.jpg">
+		
+		
+		
+		
+	
+
+		
+		
+			<meta name="keywords" content="Threads,Linux,using,c/c++,Part,How,create,use,C/C++,POSIX,threads,–,1This,going,starting,tutorial,how">
+		
+		
+		
+		
+	
+
+		
+		
+			<meta name="description" content="Threads in Linux using c/c++ - Part 1 - posted in C/C++ Tutorials: How to create and use Threads in C/C++ (POSIX threads) – Part 1This is going to be a starting tutorial on how to use threads. It will only assume basics of c/c++ i.e. you know how to write a function and use variables, what is a basic pointer etc. you would be just fine.The first thing to know is, there is no threading header / library available with the basic c/c++ compiler. So you need some extended one. That means you ca...">
+		
+		
+		
+			<meta property="og:description" content="Threads in Linux using c/c++ - Part 1 - posted in C/C++ Tutorials: How to create and use Threads in C/C++ (POSIX threads) – Part 1This is going to be a starting tutorial on how to use threads. It will only assume basics of c/c++ i.e. you know how to write a function and use variables, what is a basic pointer etc. you would be just fine.The first thing to know is, there is no threading header / library available with the basic c/c++ compiler. So you need some extended one. That means you ca...">
+		
+		
+	
+
+		
+		
+			<meta name="identifier-url" content="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/">
+		
+		
+			<meta property="og:url" content="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/">
+		
+		
+		
+	
+
+<meta property="og:image" content="http://img.codecall.net/public/style_images/master/meta_image.png">
+		
+		
+		
+		<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/prototype.js"></script>
+	
+	<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ipb_002.js"></script>
+	
+		<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/scriptaculous-cache.js"></script>
+	
+	<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ipb.js" charset="UTF-8"></script>
+
+
+	
+		
+			
+			
+			
+			
+				<link id="ipsCanonical" rel="canonical" href="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/">
+			
+		
+
+			
+			
+			
+			
+				<link rel="stylesheet" type="text/css" title="Main" media="print" href="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ipb_print.css">
+			
+		
+
+			
+			
+			
+			
+				<link rel="up" href="http://forum.codecall.net/forum/161-cc-tutorials/">
+			
+		
+
+			
+			
+			
+			
+				<link rel="author" href="http://forum.codecall.net/user/29619-fkl/">
+			
+		
+	
+
+		
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Codecall Blogs RSS feed" href="http://forum.codecall.net/rss/blog/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Codecall RSS" href="http://forum.codecall.net/rss/forums/1-codecall-rss/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Articles: Java" href="http://forum.codecall.net/rss/ccs/1c21-java/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Articles: C#" href="http://forum.codecall.net/rss/ccs/1c22-c/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Articles: C/C++" href="http://forum.codecall.net/rss/ccs/1c23-cc/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Articles: PHP" href="http://forum.codecall.net/rss/ccs/1c24-php/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Articles: Others" href="http://forum.codecall.net/rss/ccs/1c18-others/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Articles: Product Reviews" href="http://forum.codecall.net/rss/ccs/1c20-product-reviews/">
+			
+			
+			
+		
+
+			
+			
+				<link rel="alternate" type="application/rss+xml" title="Media Demo: CODECALL YouTube Videos" href="http://forum.codecall.net/rss/ccs/4c19-codecall-youtube-videos/">
+			
+			
+			
+		
+	
+
+	
+
+
+
+<script type="text/javascript">
+	//<![CDATA[
+		/* ---- URLs ---- */
+		ipb.vars['base_url'] 			= 'http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&';
+		ipb.vars['board_url']			= 'http://forum.codecall.net';
+		ipb.vars['img_url'] 			= "http://img.codecall.net/public/style_images/master";
+		ipb.vars['loading_img'] 		= 'http://img.codecall.net/public/style_images/master/loading.gif';
+		ipb.vars['active_app']			= 'forums';
+		ipb.vars['upload_url']			= 'http://uploads.codecall.net';
+		/* ---- Member ---- */
+		ipb.vars['member_id']			= parseInt( 0 );
+		ipb.vars['is_supmod']			= parseInt( 0 );
+		ipb.vars['is_admin']			= parseInt( 0 );
+		ipb.vars['secure_hash'] 		= '880ea6a14ea49e853634fbdc5015a024';
+		ipb.vars['session_id']			= '9e074fa2a14da35f772f8b6ef3001690';
+		ipb.vars['twitter_id']			= 0;
+		ipb.vars['fb_uid']				= 0;
+		ipb.vars['auto_dst']			= parseInt( 0 );
+		ipb.vars['dst_in_use']			= parseInt(  );
+		ipb.vars['is_touch']			= false;
+		ipb.vars['member_group']		= {"g_mem_info":"1"}
+		/* ---- cookies ----- */
+		ipb.vars['cookie_id'] 			= '';
+		ipb.vars['cookie_domain'] 		= '';
+		ipb.vars['cookie_path']			= '/';
+		/* ---- Rate imgs ---- */
+		ipb.vars['rate_img_on']			= 'http://img.codecall.net/public/style_images/master/star.png';
+		ipb.vars['rate_img_off']		= 'http://img.codecall.net/public/style_images/master/star_off.png';
+		ipb.vars['rate_img_rated']		= 'http://img.codecall.net/public/style_images/master/star_rated.png';
+		/* ---- Uploads ---- */
+		ipb.vars['swfupload_swf']		= 'http://forum.codecall.net/public/js/3rd_party/swfupload/swfupload.swf';
+		ipb.vars['swfupload_enabled']	= true;
+		ipb.vars['use_swf_upload']		= ( '' == 'flash' ) ? true : false;
+		ipb.vars['swfupload_debug']		= false;
+		/* ---- other ---- */
+		ipb.vars['highlight_color']     = "#ade57a";
+		ipb.vars['charset']				= "UTF-8";
+		ipb.vars['time_offset']			= "-8";
+		ipb.vars['hour_format']			= "12";
+		ipb.vars['seo_enabled']			= 1;
+		
+		ipb.vars['seo_params']			= {"start":"-","end":"\/","varBlock":"?","varPage":"page-","varSep":"&","varJoin":"="};
+		
+		/* Templates/Language */
+		ipb.templates['inlineMsg']		= "";
+		ipb.templates['ajax_loading'] 	= "<div id='ajax_loading'><img src='http://img.codecall.net/public/style_images/master/ajax_loading.gif' alt='" + ipb.lang['loading'] + "' /></div>";
+		ipb.templates['close_popup']	= "<img src='http://img.codecall.net/public/style_images/master/close_popup.png' alt='x' />";
+		ipb.templates['rss_shell']		= new Template("<ul id='rss_menu' class='ipbmenu_content'>#{items}</ul>");
+		ipb.templates['rss_item']		= new Template("<li><a href='#{url}' title='#{title}'>#{title}</a></li>");
+		
+		ipb.templates['autocomplete_wrap'] = new Template("<ul id='#{id}' class='ipb_autocomplete' style='width: 250px;'></ul>");
+		ipb.templates['autocomplete_item'] = new Template("<li id='#{id}' data-url='#{url}'><img src='#{img}' alt='' class='ipsUserPhoto ipsUserPhoto_mini' />&nbsp;&nbsp;#{itemvalue}</li>");
+		ipb.templates['page_jump']		= new Template("<div id='#{id}_wrap' class='ipbmenu_content'><h3 class='bar'>Jump to page</h3><p class='ipsPad'><input type='text' class='input_text' id='#{id}_input' size='8' /> <input type='submit' value='Go' class='input_submit add_folder' id='#{id}_submit' /></p></div>");
+		ipb.templates['global_notify'] 	= new Template("<div class='popupWrapper'><div class='popupInner'><div class='ipsPad'>#{message} #{close}</div></div></div>");
+		
+		
+		ipb.templates['header_menu'] 	= new Template("<div id='#{id}' class='ipsHeaderMenu boxShadow'></div>");
+		
+		Loader.boot();
+	//]]>
+	</script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_004.js"></script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_007.js"></script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_003.js"></script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips.js"></script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_002.js"></script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_005.js"></script><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_008.js"></script>
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17086927-1']);
+  _gaq.push(['_setDomainName', 'codecall.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script><script src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bsa.js" async="" type="text/javascript"></script><script async="async" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/s_fe0c97c496643c0ab9c6ea026ef481e1.js" id="_bsap_js_fe0c97c496643c0ab9c6ea026ef481e1" type="text/javascript"></script><style id="bsa_css" type="text/css">div.bsap_1285537{width:728px;display:block}div.bsap_1285537 a{width:728px}div.bsap_1285537 a img{padding:0}div.bsap_1285537 a em{font-style:normal}div.bsap_1285537 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285537 img{border:0;clear:right;}div.bsap_1285537 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}div.bsap_1285537 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}div.bsap_1285537 iframe{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285537 a{line-height:100%}div.bsap_1285537 a.adhere{width:728px;height:90px;line-height:720%}html>body div.bsap_1285537 a.adhere{width:726px;height:88px}div.bsap_1285537 img.s{height:0;width:0}div.bsap_1285537{line-height:9px}div.bsap_1285537 .bsap_adhere2,div.bsap_1285537 iframe{float:left}div.bsap_1285537 .bsap_adhere2 a{height:90px;width:20px;background:url(http://s3.buysellads.com/ac/ah20x90_1.gif) no-repeat 0 0;text-indent:-9999px}div.bsap_1285544{width:300px;display:block}div.bsap_1285544 a{width:300px}div.bsap_1285544 a img{padding:0}div.bsap_1285544 a em{font-style:normal}div.bsap_1285544 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 0 15px 0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285544 img{border:0;clear:right;}div.bsap_1285544 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}div.bsap_1285544 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}div.bsap_1285544 iframe{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 0 15px 0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285544 a{line-height:100%}div.bsap_1285544 a.adhere{width:300px;height:250px;line-height:2000%}html>body div.bsap_1285544 a.adhere{width:298px;height:248px}div.bsap_1285544 img.s{height:0;width:0}div.bsap_1285544{line-height:9px}div.bsap_1285544 .bsap_adhere a{height:19px;width:298px;font-size:10px;background:#f1f1f1;border:1px solid #e1e1e1;border-top:none;border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;-webkit-border-bottom-left-radius:4px;border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;-webkit-border-bottom-right-radius:4px;text-shadow:1px 1px 0 #fff;line-height:16px}.bsap_backfillframe{border:0}div.bsap_1289482{width:100%;display:block}div.bsap_1289482 a{width:125px}div.bsap_1289482 a img{padding:0}div.bsap_1289482 a em{font-style:normal}div.bsap_1289482 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 17px;text-align:center;text-decoration:none;overflow:hidden;float:left;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1289482 img{border:0;clear:right;}div.bsap_1289482 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}div.bsap_1289482 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}div.bsap_1289482 iframe{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 4px 10px 17px;text-align:center;text-decoration:none;overflow:hidden;float:left;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1289482 a{line-height:100%}div.bsap_1289482 a.adhere{width:125px;height:125px;line-height:1000%}html>body div.bsap_1289482 a.adhere{width:123px;height:123px}div.bsap_1289482 img.s{height:0;width:0}div.bsap_1285484{width:300px;display:block}div.bsap_1285484 a{width:300px}div.bsap_1285484 a img{padding:0}div.bsap_1285484 a em{font-style:normal}div.bsap_1285484 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 0 15px 0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285484 img{border:0;clear:right;}div.bsap_1285484 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}div.bsap_1285484 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}div.bsap_1285484 iframe{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0 0 15px 0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285484 a{line-height:100%}div.bsap_1285484 a.adhere{width:300px;height:250px;line-height:2000%}html>body div.bsap_1285484 a.adhere{width:298px;height:248px}div.bsap_1285484 img.s{height:0;width:0}div.bsap_1285484{line-height:9px}div.bsap_1285484 .bsap_adhere a{height:19px;width:298px;font-size:10px;background:#f1f1f1;border:1px solid #e1e1e1;border-top:none;border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;-webkit-border-bottom-left-radius:4px;border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;-webkit-border-bottom-right-radius:4px;text-shadow:1px 1px 0 #fff;line-height:16px}.bsap_backfillframe{border:0}div.bsap_1285543{width:728px;display:block}div.bsap_1285543 a{width:728px}div.bsap_1285543 a img{padding:0}div.bsap_1285543 a em{font-style:normal}div.bsap_1285543 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285543 img{border:0;clear:right;}div.bsap_1285543 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}div.bsap_1285543 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}div.bsap_1285543 iframe{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin:0;text-align:center;text-decoration:none;overflow:hidden;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;}div.bsap_1285543 a{line-height:100%}div.bsap_1285543 a.adhere{width:728px;height:90px;line-height:720%}html>body div.bsap_1285543 a.adhere{width:726px;height:88px}div.bsap_1285543 img.s{height:0;width:0}div.bsap_1285543{line-height:9px}div.bsap_1285543 .bsap_adhere2,div.bsap_1285543 iframe{float:left}div.bsap_1285543 .bsap_adhere2 a{height:90px;width:20px;background:url(http://s3.buysellads.com/ac/ah20x90_1.gif) no-repeat 0 0;text-indent:-9999px}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+	<body id="ipboard_body">
+		<p id="content_jump" class="hide"><a id="top"></a><a href="#j_content" title="Jump to content" accesskey="m">Jump to content</a></p>
+		<div id="ipbwrapper">
+			<!-- ::: TOP BAR: Sign in / register or user drop down and notification alerts ::: -->
+			<div id="header_bar" class="clearfix">
+				<div class="main_width">
+					
+					<div id="user_navigation" class="not_logged_in">
+							
+							<ul class="ipsList_inline right">
+								<li>
+									<span class="services">
+										
+											<a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=login&amp;serviceClick=facebook"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/facebook.png" alt="Log in with Facebook"></a>
+										
+										
+											<a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=login&amp;serviceClick=twitter"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/twitter.png" alt="Log in with Twitter"></a>
+										
+										
+									</span>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=login" title="Sign In" id="sign_in">Sign In</a>&nbsp;&nbsp;&nbsp;
+								</li>
+								<li>
+									<a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=register" title="Create Account" id="register_link">Create Account</a>
+								</li>
+							</ul>
+						</div>
+				</div>
+			</div>
+			<!-- ::: BRANDING STRIP: Logo and search box ::: -->
+			<div id="branding">
+				<div class="main_width">
+					<div id="logo">
+						
+							<a href="http://forum.codecall.net/" title="Go to community index" rel="home" accesskey="1"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/1_codecall_logo.png" alt="Logo"></a>
+						
+					</div>
+					
+						<div id="search" class="right">
+	<form action="http://forum.codecall.net/index.php?app=core&amp;module=search&amp;do=search&amp;fromMainBar=1" method="post" id="search-box">
+		<fieldset>
+			<label for="main_search" class="hide">Search</label>
+			<a href="http://forum.codecall.net/index.php?app=core&amp;module=search&amp;search_in=forums" title="Advanced Search" accesskey="4" rel="search" id="adv_search" class="right">Advanced</a>
+			<span id="search_wrap" class="right">
+				<input placeholder="Search..." id="main_search" name="search_term" class="" size="17" tabindex="100" type="text">
+				<span class="choice ipbmenu clickable" id="search_options" style="">This topic</span>
+				<ul id="search_options_menucontent" class="ipbmenu_content ipsPad" style="display: none; position: absolute; z-index: 9999;">
+					<li style="z-index: 10000;" class="title"><strong style="z-index: 10000;">Search section:</strong></li>
+					<li style="z-index: 10000;" class="special">
+							<label style="z-index: 10000;" for="s_topic" title="This topic">
+								<input style="z-index: 10000;" name="search_app" value="forums:topic:64933" class="input_radio" id="s_topic" checked="checked" type="radio"><strong style="z-index: 10000;">This topic</strong>
+							</label>
+						</li>
+					
+					
+					<li style="z-index: 10000;" class="app"><label style="z-index: 10000;" for="s_forums" title="Forums"><input style="z-index: 10000;" name="search_app" class="input_radio" id="s_forums" value="forums" type="radio">Forums</label></li>
+					<li style="z-index: 10000;" class="app"><label style="z-index: 10000;" for="s_members" title="Members"><input style="z-index: 10000;" name="search_app" class="input_radio" id="s_members" value="members" type="radio">Members</label></li>
+					<li style="z-index: 10000;" class="app"><label style="z-index: 10000;" for="s_core" title="Help Files"><input style="z-index: 10000;" name="search_app" class="input_radio" id="s_core" value="core" type="radio">Help Files</label></li>
+					
+						
+					
+
+						
+					
+
+						<li style="z-index: 10000;" class="app">
+								<label style="z-index: 10000;" for="s_blog" title="Blogs">
+									<input style="z-index: 10000;" name="search_app" class="input_radio" id="s_blog" value="blog" type="radio">Blogs
+								</label>
+							</li>
+					
+
+						<li style="z-index: 10000;" class="app">
+								<label style="z-index: 10000;" for="s_gallery" title="Gallery">
+									<input style="z-index: 10000;" name="search_app" class="input_radio" id="s_gallery" value="gallery" type="radio">Gallery
+								</label>
+							</li>
+					
+
+						
+					
+
+						
+					
+
+						<li style="z-index: 10000;" class="app">
+								<label style="z-index: 10000;" for="s_ccs" title="Pages">
+									<input style="z-index: 10000;" name="search_app" class="input_radio" id="s_ccs" value="ccs" type="radio">Pages
+								</label>
+							</li>
+					
+
+						
+					
+
+						
+					
+
+						
+					
+
+						
+					
+
+						
+					
+				</ul>
+				<input class="submit_input clickable" value="" type="submit">
+			</span>
+			
+		</fieldset>
+	</form>
+</div>
+					
+				</div>
+			</div>
+			<!-- ::: APPLICATION TABS ::: -->
+			<div id="primary_nav" class="clearfix">
+				<div class="main_width">
+					<ul class="ipsList_inline" id="community_app_menu">
+						
+							<li class="right">
+								<a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=navigation&amp;inapp=forums" rel="quickNavigation" accesskey="9" id="quickNavLaunch" title="Open Quick Navigation"><span>&nbsp;</span></a>
+							</li>
+						
+						<li id="nav_explore" class="right">
+							<a href="http://forum.codecall.net/index.php?app=core&amp;module=search&amp;do=viewNewContent&amp;search_app=forums" accesskey="2" title="View New Content">View New Content</a>
+						</li>
+						
+						
+								
+		
+			
+				
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+			
+			
+		
+
+			
+				
+																<li id="nav_menu_238" class="left skip_moremenu ">
+							<a id="nav_menu_238_trigger" href="http://forum.codecall.net/" title="Go to forum index">Home <span class="dropdownIndicator"></span></a>
+							<div id="nav_menu_238_menucontent" class="submenu_container clearfix boxShadow" style="display: none; position: absolute; z-index: 9999;">
+									<div style="z-index: 10000;" class="left">
+										<ul style="z-index: 10000;" class="submenu_links">
+											
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/forum/216-general-forums/?utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Join our general discussions">General Forums</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/forum/122-language-forums/?utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Find Q&amp;A for specific programming languages">Language Forums</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/forum/218-tutorial-forums/?utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Learn from tutorials in different programming languages">Tutorial Forums</a></li>
+												
+											
+										</ul>
+									</div>
+								</div>
+								<script type="text/javascript">
+									document.observe("dom:loaded", function(){
+										//$('content').insert( $('nav_menu_238_menucontent').remove() );
+										
+										new ipb.Menu( $('nav_menu_238_trigger'), $('nav_menu_238_menucontent'), { eventType: 'mouseover', closeOnMouseout: 'nav_menu_238' } );
+									});
+								</script>
+							
+						</li>
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+			
+			<li id="nav_app_blog" class="left "><a href="http://forum.codecall.net/blogs/" title="Go to Blogs">Blogs</a></li>
+		
+
+			
+				
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+			
+			<li id="nav_app_gallery" class="left "><a href="http://forum.codecall.net/gallery/" title="Go to Gallery">Gallery</a></li>
+		
+
+			
+				
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+																<li id="nav_menu_176" class="left skip_moremenu ">
+							<a id="nav_menu_176_trigger" href="http://forum.codecall.net/index.php?app=core&amp;module=search&amp;do=viewNewContent&amp;search_app=forums" title="Find out what's happening on Codecall.">Community <span class="dropdownIndicator"></span></a>
+							<div id="nav_menu_176_menucontent" class="submenu_container clearfix boxShadow" style="display: none; position: absolute; z-index: 9999;">
+									<div style="z-index: 10000;" class="left">
+										<ul style="z-index: 10000;" class="submenu_links">
+											
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://www.google.com/cse/publicurl?cx=009353018981250244325:qumksyqpcvw" title="Use Google CSE">Search Site</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/forum/144-the-lounge/?utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Relax and discuss anything with members">Members Lounge</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/forum/145-introductions/?utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Come by and say hello!">Introduce Yourself</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/gallery/" title="Member image gallery">Image Gallery</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://www.facebook.com/codecallprogramming" title="Like on Facebook">Facebook</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="https://twitter.com/codecall" title="Follow on Twitter">Twitter</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://www.youtube.com/user/CodecallTutorials/videos?view=0" title="Watch tutorial videos">YouTube</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=boardrules&amp;utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Read forum guidelines">Guidelines</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/forum-0/announcement-2-new-to-codecall-faq/?utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="Read FAQ">FAQ</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=core&amp;module=help&amp;utm_source=codecall&amp;utm_medium=menu&amp;utm_campaign=link" title="How to use the site?">Help</a></li>
+												
+											
+										</ul>
+									</div>
+								</div>
+								<script type="text/javascript">
+									document.observe("dom:loaded", function(){
+										//$('content').insert( $('nav_menu_176_menucontent').remove() );
+										
+										new ipb.Menu( $('nav_menu_176_trigger'), $('nav_menu_176_menucontent'), { eventType: 'mouseover', closeOnMouseout: 'nav_menu_176' } );
+									});
+								</script>
+							
+						</li>
+				
+
+																<li id="nav_menu_233" class="left  ">
+							<a id="nav_menu_233_trigger" href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=toggle&amp;do=noReplies" title="Help answer some questions">Unanswered </a>
+							
+							
+						</li>
+				
+
+										
+				
+
+																<li id="nav_menu_172" class="left skip_moremenu ">
+							<a id="nav_menu_172_trigger" href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=register" title="Ready to join Codecall">Join Codecall.net <span class="dropdownIndicator"></span></a>
+							<div id="nav_menu_172_menucontent" class="submenu_container clearfix boxShadow" style="display: none; position: absolute; z-index: 9999;">
+									<div style="z-index: 10000;" class="left">
+										<ul style="z-index: 10000;" class="submenu_links">
+											
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/topic/74629-why-join-codecall/" title="A few good reasons">Why Join Codecall?</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/interface/facebook/index.php?_reg=1" title="Use existing Facebook account">Register with Facebook</a></li>
+												
+											
+
+												
+													<li style="z-index: 10000;" class="submenu_li"><a style="z-index: 10000;" href="http://forum.codecall.net/interface/twitter/index.php?_reg=1" title="Use existing Twitter account">Register with Twitter</a></li>
+												
+											
+										</ul>
+									</div>
+								</div>
+								<script type="text/javascript">
+									document.observe("dom:loaded", function(){
+										//$('content').insert( $('nav_menu_172_menucontent').remove() );
+										
+										new ipb.Menu( $('nav_menu_172_trigger'), $('nav_menu_172_menucontent'), { eventType: 'mouseover', closeOnMouseout: 'nav_menu_172' } );
+									});
+								</script>
+							
+						</li>
+				
+			
+			
+		
+
+			
+				
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+			
+			
+		
+
+			
+				
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+			
+			
+		
+
+			
+				
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+
+										
+				
+			
+			
+		
+	
+	
+		
+						
+		
+
+						
+		
+
+						
+		
+
+						
+		
+
+						
+		
+
+						
+		
+
+						
+		
+
+						
+		
+	
+						
+						<li id="nav_other_apps" style="display: none;">
+							<a href="#" class="ipbmenu" id="more_apps">More <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/useropts_arrow.png"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<!-- ::: MAIN CONTENT AREA ::: -->
+			<div id="content" class="clearfix">
+				<!-- ::: NAVIGATION BREADCRUMBS ::: -->
+				<div id="secondary_navigation" class="clearfix">
+						<ol class="breadcrumb top ipsList_inline left">
+														<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+									<a href="http://forum.codecall.net/" itemprop="url">
+										<span itemprop="title">Codecall</span>
+									</a>
+								</li>
+								
+							
+								<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+									<span class="nav_sep">→</span>
+									 <a href="http://forum.codecall.net/forum/218-tutorial-forums/" title="Return to Tutorial Forums" itemprop="url"><span itemprop="title">Tutorial Forums</span></a>
+								</li>
+								
+							
+
+								<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+									<span class="nav_sep">→</span>
+									 <a href="http://forum.codecall.net/forum/161-cc-tutorials/" title="Return to C/C++ Tutorials" itemprop="url"><span itemprop="title">C/C++ Tutorials</span></a>
+								</li>
+								
+							
+						</ol>
+					</div>
+					<br>
+				<noscript>
+					<div class='message error'>
+						<strong>Javascript Disabled Detected</strong>
+						<p>You currently have javascript disabled. Several functions may not work. Please re-enable javascript to access full functionality.</p>
+					</div>
+					<br />
+				</noscript>
+				<!-- ::: CONTENT ::: -->
+				
+					<div class="ipsAd"><div class="nexusad" align="center"><!-- BuySellAds Ad Code -->
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = 'http://s3.buysellads.com/ac/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+<!-- End BuySellAds Ad Code -->
+
+<!-- BuySellAds Zone Code -->
+<div id="bsap_1285537" class="bsap_1285537 bsap"><a href="http://stats.buysellads.com/click.go?z=1285537&amp;b=3941383&amp;g=&amp;s=&amp;sw=1280&amp;sh=1024&amp;br=firefox,20,linux&amp;r=0.5523848961100226&amp;link=http://www.appdynamics.com/freetrial?utm_source=buysellads&amp;utm_medium=display&amp;utm_campaign=q3%20test%20flight&amp;utm_content=728x90-looking_glass-ss-eng.gif&amp;utm_term=728x90_top_center%7Ccodecall" onmouseover="window.status = 'http://www.appdynamics.com/freetrial?utm_source=buysellads&amp;utm_medium=display&amp;utm_campaign=q3%20test%20flight&amp;utm_content=728x90-looking_glass-ss-eng.gif&amp;utm_term=728x90_top_center|codecall'; return true;" onmouseout="window.status=''; return true;" class="ad1 odd" title="The end-to-end Application Monitoring Solution for Java, .NET, PHP" id="bsa_3941383" target="_blank"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/180100-1374264344.gif" alt="The end-to-end Application Monitoring Solution for Java, .NET, PHP" width="728" height="90"></a></div>
+<!-- End BuySellAds Zone Code --></div></div>
+				
+				<div class="ipsLayout clearfix ipsLayout_withright ipsLayout_bigright">
+	<div class="ipsLayout_right clearfix" style="margin-right: -335px; width: 330px;">
+	<div id="index_stats">
+		
+<div id="index_stats"><div style="width:300px;height:530px;margin-left: auto ;margin-right: auto ;">
+<!-- BuySellAds Zone Code -->
+<div id="bsap_1285544" class="bsap_1285544 bsap"><a href="http://stats.buysellads.com/click.go?z=1285544&amp;b=4161801&amp;g=&amp;s=&amp;sw=1280&amp;sh=1024&amp;br=firefox,20,linux&amp;r=0.32961698001033035&amp;link=http://www.appbackr.com/tizen/html5" onmouseover="window.status = 'http://www.appbackr.com/tizen/html5'; return true;" onmouseout="window.status=''; return true;" class="ad1 odd" title="Get your apps published in Tizen and earn a cash incentive from appbackr" id="bsa_4161801" target="_blank"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/200178-1386368684.png" alt="Get your apps published in Tizen and earn a cash incentive from appbackr" width="300" height="250"></a></div>
+<!-- End BuySellAds Zone Code -->
+</div>
+
+<br>
+
+<div style="width:300px;height:260px;margin-left: auto ;margin-right: auto ;">
+<!-- BuySellAds Zone Code -->
+<div id="bsap_1289482" class="bsap_1289482 bsap"><a href="http://stats.buysellads.com/click.go?z=1289482&amp;b=3881202&amp;g=&amp;s=&amp;sw=1280&amp;sh=1024&amp;br=firefox,20,linux&amp;r=0.8056270443275653&amp;link=http://www.kendoui.com/server-wrappers/jsp.aspx?utm_source=Codecall&amp;utm_medium=banner&amp;utm_campaign=BSA_Codecall_JSP_125x125" onmouseover="window.status = 'http://www.kendoui.com/server-wrappers/jsp.aspx?utm_source=Codecall&amp;utm_medium=banner&amp;utm_campaign=BSA_Codecall_JSP_125x125'; return true;" onmouseout="window.status=''; return true;" class="ad1 odd" title="Kendo UI HTML5/JavaScript Framework with JSP Wrappers" id="bsa_3881202" target="_blank"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/186750-1378408857.png" alt="Kendo UI HTML5/JavaScript Framework with JSP Wrappers" width="125" height="125"></a><a href="http://stats.buysellads.com/click.go?z=1289482&amp;b=3881201&amp;g=&amp;s=&amp;sw=1280&amp;sh=1024&amp;br=firefox,20,linux&amp;r=0.17624196266065395&amp;link=http://www.kendoui.com/server-wrappers/php.aspx?utm_source=Codecall&amp;utm_medium=banner&amp;utm_campaign=BSA_Codecall_PHP_125x125" onmouseover="window.status = 'http://www.kendoui.com/server-wrappers/php.aspx?utm_source=Codecall&amp;utm_medium=banner&amp;utm_campaign=BSA_Codecall_PHP_125x125'; return true;" onmouseout="window.status=''; return true;" class="ad2 even" title="Kendo UI HTML5/JavaScript Framework with PHP Wrappers" id="bsa_3881201" target="_blank"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/182761-1375973250.png" alt="Kendo UI HTML5/JavaScript Framework with PHP Wrappers" width="125" height="125"></a><a href="http://buysellads.com/buy/detail/176242/zone/1289482?utm_source=site_176242&amp;utm_medium=website&amp;utm_campaign=adhere&amp;utm_content=zone_1289482" title="Advertise Here" class="adhere ad3 odd" target="_blank">Advertise Here</a></div>
+<!-- End BuySellAds Zone Code -->
+</div>
+<br>
+<div class="ipsSideBlock clearfix __xXrecent20topics">
+	<h3 id="anonymous_element_41"><a href="#" class="ipsSidebar_trigger ipsType_smaller right desc mod_links">×</a>Recent Topics</h3>
+	<div class="_sbcollapsable">
+		<ul class="ipsList_withminiphoto">
+		
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/52525-lufuno/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/2a15fbfe1a494fcca08c5059a3974fd8.png" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<a href="http://forum.codecall.net/topic/77170-multi-sessions-on-a-dvd/" rel="bookmark" class="ipsType_small" title="multi-sessions on a dvd - started  Yesterday, 11:24 PM">multi-sessions on a dvd</a>
+				<p class="desc ipsType_smaller">
+					<a id="anonymous_element_1" hovercard-ref="member" hovercard-id="52525" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/52525-lufuno/" title=""><span itemprop="name">Lufuno</span></a>
+					- Yesterday, 11:24 PM
+				</p>
+			</div>
+		</li>
+		
+
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/42138-opcode/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-42138.jpeg" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<a href="http://forum.codecall.net/topic/77169-vb6-scan-byte-array-for-byte-matches/" rel="bookmark" class="ipsType_small" title="VB6 Scan Byte Array for byte matches - started  Yesterday, 10:46 PM">VB6 Scan Byte Array for byte matches</a>
+				<p class="desc ipsType_smaller">
+					<a id="anonymous_element_2" hovercard-ref="member" hovercard-id="42138" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/42138-opcode/" title=""><span itemprop="name">Opcode</span></a>
+					- Yesterday, 10:46 PM
+				</p>
+			</div>
+		</li>
+		
+
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/50916-cplusmc/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-50916.png" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<a href="http://forum.codecall.net/topic/77168-need-help-creating-new-objects-based-on-user-input/" rel="bookmark" class="ipsType_small" title="Need help creating new objects based on user input - started  Yesterday, 06:30 PM">Need help creating new objects based on user input</a>
+				<p class="desc ipsType_smaller">
+					<a id="anonymous_element_3" hovercard-ref="member" hovercard-id="50916" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/50916-cplusmc/" title=""><span itemprop="name">CplUSMC</span></a>
+					- Yesterday, 06:30 PM
+				</p>
+			</div>
+		</li>
+		
+
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/53397-gertk/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/fde77d779b3f962b249d5104ef6cb2e7.png" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<a href="http://forum.codecall.net/topic/77167-javascriptvoid0-help/" rel="bookmark" class="ipsType_small" title="Javascript:void(0); help! - started  Yesterday, 12:39 PM">Javascript:void(0); help!</a>
+				<p class="desc ipsType_smaller">
+					<a id="anonymous_element_4" hovercard-ref="member" hovercard-id="53397" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53397-gertk/" title=""><span itemprop="name">GertK</span></a>
+					- Yesterday, 12:39 PM
+				</p>
+			</div>
+		</li>
+		
+
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/44728-mailmindlin/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-44728.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<a href="http://forum.codecall.net/topic/77166-treat-php-file-as-script/" rel="bookmark" class="ipsType_small" title="Treat PHP file as script - started  Yesterday, 08:52 AM">Treat PHP file as script</a>
+				<p class="desc ipsType_smaller">
+					<a id="anonymous_element_5" hovercard-ref="member" hovercard-id="44728" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/44728-mailmindlin/" title=""><span itemprop="name">mailMindlin</span></a>
+					- Yesterday, 08:52 AM
+				</p>
+			</div>
+		</li>
+		
+		</ul>
+	</div>
+</div>
+<div class="ipsSideBlock clearfix __xXrecent20blog20entries">
+	<h3 id="anonymous_element_42"><a href="#" class="ipsSidebar_trigger ipsType_smaller right desc mod_links">×</a>Recent Blog Entries</h3>
+	<ul class="ipsList_withminiphoto">
+		
+			
+				<li class="clearfix">
+					
+	<a href="http://forum.codecall.net/user/52986-lkp/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-52986.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+					<div class="list_content">
+						
+							<a href="http://forum.codecall.net/blog/1827/entry-1999-day-4-media-server/?show=newcomment" title="Go to the first unread entry"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/new_post.png" alt="" title="Go to first unread post"></a>&nbsp;
+						
+						<a href="http://forum.codecall.net/blog/1827/entry-1999-day-4-media-server/">Day 4 - Media Server</a>
+						<p class="desc ipsType_smaller">
+							<a href="http://forum.codecall.net/blog/1827-lkps-blog/">LKP's Blog</a> <span class="desc lighter ipsType_smaller">05 Jan</span>
+						</p>
+					</div>
+				</li>
+			
+
+				<li class="clearfix">
+					
+	<a href="http://forum.codecall.net/user/52986-lkp/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-52986.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+					<div class="list_content">
+						
+							<a href="http://forum.codecall.net/blog/1827/entry-1998-day-3-youve-got-mail/?show=newcomment" title="Go to the first unread entry"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/new_post.png" alt="" title="Go to first unread post"></a>&nbsp;
+						
+						<a href="http://forum.codecall.net/blog/1827/entry-1998-day-3-youve-got-mail/">Day 3 - You've got mail!</a>
+						<p class="desc ipsType_smaller">
+							<a href="http://forum.codecall.net/blog/1827-lkps-blog/">LKP's Blog</a> <span class="desc lighter ipsType_smaller">04 Jan</span>
+						</p>
+					</div>
+				</li>
+			
+
+				<li class="clearfix">
+					
+	<a href="http://forum.codecall.net/user/52986-lkp/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-52986.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+					<div class="list_content">
+						
+							<a href="http://forum.codecall.net/blog/1827/entry-1997-day-2-an-idea/?show=newcomment" title="Go to the first unread entry"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/new_post.png" alt="" title="Go to first unread post"></a>&nbsp;
+						
+						<a href="http://forum.codecall.net/blog/1827/entry-1997-day-2-an-idea/">Day 2 - An idea!</a>
+						<p class="desc ipsType_smaller">
+							<a href="http://forum.codecall.net/blog/1827-lkps-blog/">LKP's Blog</a> <span class="desc lighter ipsType_smaller">03 Jan</span>
+						</p>
+					</div>
+				</li>
+			
+
+				<li class="clearfix">
+					
+	<a href="http://forum.codecall.net/user/52986-lkp/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-52986.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+					<div class="list_content">
+						
+							<a href="http://forum.codecall.net/blog/1827/entry-1996-raspberrypy-first-steps/?show=newcomment" title="Go to the first unread entry"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/new_post.png" alt="" title="Go to first unread post"></a>&nbsp;
+						
+						<a href="http://forum.codecall.net/blog/1827/entry-1996-raspberrypy-first-steps/">RaspberryPy - First steps</a>
+						<p class="desc ipsType_smaller">
+							<a href="http://forum.codecall.net/blog/1827-lkps-blog/">LKP's Blog</a> <span class="desc lighter ipsType_smaller">02 Jan</span>
+						</p>
+					</div>
+				</li>
+			
+
+				<li class="clearfix">
+					
+	<a href="http://forum.codecall.net/user/31584-lespauled/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-31584.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+					<div class="list_content">
+						
+							<a href="http://forum.codecall.net/blog/1699/entry-1995-a-couple-of-must-have-visual-studio-extensions/?show=newcomment" title="Go to the first unread entry"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/new_post.png" alt="" title="Go to first unread post"></a>&nbsp;
+						
+						<a href="http://forum.codecall.net/blog/1699/entry-1995-a-couple-of-must-have-visual-studio-extensions/">A couple of MUST HAVE Visual Studio extensions</a>
+						<p class="desc ipsType_smaller">
+							<a href="http://forum.codecall.net/blog/1699-blog-77241/">lespauled's Blog</a> <span class="desc lighter ipsType_smaller">24 Dec</span>
+						</p>
+					</div>
+				</li>
+			
+		
+	</ul>
+</div><script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ips_006.js"></script>
+<div class="ipsSideBlock clearfix __xXrecent20status20updates" id="statusHook">
+	<h3 id="anonymous_element_43"><a href="#" class="ipsSidebar_trigger ipsType_smaller right desc mod_links">×</a>Recent Status Updates</h3>
+	<div class="_sbcollapsable">
+		<div id="status_wrapper">
+			<div id="status_wrapper_inside"><script type="text/javascript">
+	ipb.status.maxReplies = 100;
+	ipb.status.smallSpace = 1;
+	ipb.status.skin_group = 'boards';
+</script>
+	
+	<ul class="ipsList_withminiphoto status_list" id="statusWrap-4980">
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/21064-donovan/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-21064.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<div id="statusContent-4980">
+					<div class="right desc lighter">
+						<span class="desc mod_links ipsType_smaller">
+							
+							<span id="statusUnlock-4980" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=unlockStatus&amp;status_id=4980&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusUnlockLink-4980" class="__sU __u4980">Unlock</a></span>
+							<span id="statusLock-4980" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=lockStatus&amp;status_id=4980&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusLockLink-4980" class="__sL __l4980">Lock</a></span>
+						</span>
+						&nbsp;&nbsp;<span class="ipsType_smaller blend_links"><a href="http://forum.codecall.net/statuses/user/21064-donovan/?status_id=4980">04 Jan</a></span>
+					</div>
+					<a id="anonymous_element_6" hovercard-ref="member" hovercard-id="21064" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/21064-donovan/" title=""><span itemprop="name">Donovan</span></a>
+					<p class="index_status_update ipsType_small">Back on CodeCall, looks like I will be coding some ** sometime!</p>
+					<span class="desc" id="statusToggle-4980">
+						<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_lock.png" id="statusLockImg-4980" alt="Locked Status" style="display: none">
+						
+						
+					</span>
+					<span class="desc" id="statusToggleOff-4980" style="display:none">
+						<a href="#" class="__sTO __to4980">Hide Comments</a>
+					</span>
+				</div>
+			</div>
+			<div id="statusFeedback-4980" class="status_feedback" style="display:none">
+				<div class="ipsList_withtinyphoto status_list" id="statusReplies-4980">
+					
+						<div id="statusReplyBlank-4980" style="display: none"></div>
+					
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+
+
+	
+	<ul class="ipsList_withminiphoto status_list" id="statusWrap-4979">
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/53392-lifecoder/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-53392.jpg" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<div id="statusContent-4979">
+					<div class="right desc lighter">
+						<span class="desc mod_links ipsType_smaller">
+							
+							<span id="statusUnlock-4979" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=unlockStatus&amp;status_id=4979&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusUnlockLink-4979" class="__sU __u4979">Unlock</a></span>
+							<span id="statusLock-4979" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=lockStatus&amp;status_id=4979&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusLockLink-4979" class="__sL __l4979">Lock</a></span>
+						</span>
+						&nbsp;&nbsp;<span class="ipsType_smaller blend_links"><a href="http://forum.codecall.net/statuses/user/53392-lifecoder/?status_id=4979">01 Jan</a></span>
+					</div>
+					<a id="anonymous_element_7" hovercard-ref="member" hovercard-id="53392" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53392-lifecoder/" title=""><span itemprop="name">lifecoder</span></a>
+					<p class="index_status_update ipsType_small">Happy New Year 2014 to each and every member of CodeCall, this is really a community and I am proud to belong here :D</p>
+					<span class="desc" id="statusToggle-4979">
+						<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_lock.png" id="statusLockImg-4979" alt="Locked Status" style="display: none">
+						
+						
+					</span>
+					<span class="desc" id="statusToggleOff-4979" style="display:none">
+						<a href="#" class="__sTO __to4979">Hide Comments</a>
+					</span>
+				</div>
+			</div>
+			<div id="statusFeedback-4979" class="status_feedback" style="display:none">
+				<div class="ipsList_withtinyphoto status_list" id="statusReplies-4979">
+					
+						<div id="statusReplyBlank-4979" style="display: none"></div>
+					
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+
+
+	
+	<ul class="ipsList_withminiphoto status_list" id="statusWrap-4978">
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/52986-lkp/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-52986.gif" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<div id="statusContent-4978">
+					<div class="right desc lighter">
+						<span class="desc mod_links ipsType_smaller">
+							
+							<span id="statusUnlock-4978" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=unlockStatus&amp;status_id=4978&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusUnlockLink-4978" class="__sU __u4978">Unlock</a></span>
+							<span id="statusLock-4978" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=lockStatus&amp;status_id=4978&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusLockLink-4978" class="__sL __l4978">Lock</a></span>
+						</span>
+						&nbsp;&nbsp;<span class="ipsType_smaller blend_links"><a href="http://forum.codecall.net/statuses/user/52986-lkp/?status_id=4978">31 Dec</a></span>
+					</div>
+					<a id="anonymous_element_8" hovercard-ref="member" hovercard-id="52986" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/52986-lkp/" title=""><span itemprop="name">LKP</span></a>
+					<p class="index_status_update ipsType_small">Happy new year to all! It's just gone midnight in the UK! :)</p>
+					<span class="desc" id="statusToggle-4978">
+						<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_lock.png" id="statusLockImg-4978" alt="Locked Status" style="display: none">
+						
+						
+								<a href="#" class="__sT __t4978 ipsType_smaller">Show comments (1)</a>
+							
+					</span>
+					<span class="desc" id="statusToggleOff-4978" style="display:none">
+						<a href="#" class="__sTO __to4978">Hide Comments</a>
+					</span>
+				</div>
+			</div>
+			<div id="statusFeedback-4978" class="status_feedback" style="display:none">
+				<div class="ipsList_withtinyphoto status_list" id="statusReplies-4978">
+					
+						
+	<div id="statusReply-218" class="ipsPad_half">
+		
+	<a href="http://forum.codecall.net/user/50704-kjgino/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-50704.jpg" alt="KJGino's Photo" class="ipsUserPhoto ipsUserPhoto_tiny">
+
+	</a>
+
+		<div class="list_content">
+			<div class="right lighter">
+				<span class="desc ipsType_smaller">31 Dec&nbsp;&nbsp;</span>
+				<span class="desc mod_links ipsType_smaller">
+					
+				</span>
+			</div>
+			<strong><a id="anonymous_element_9" hovercard-ref="member" hovercard-id="50704" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/50704-kjgino/" title=""><span itemprop="name">KJGino</span></a></strong>
+			<p class="index_status_update ipsType_small">Happy New Year LKP!</p>
+		</div>
+	</div>
+	
+		<div id="statusReplyBlank-4978" style="display: none"></div>
+	
+
+
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+
+
+	
+	<ul class="ipsList_withminiphoto status_list" id="statusWrap-4973">
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/50704-kjgino/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-50704.jpg" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<div id="statusContent-4973">
+					<div class="right desc lighter">
+						<span class="desc mod_links ipsType_smaller">
+							
+							<span id="statusUnlock-4973" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=unlockStatus&amp;status_id=4973&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusUnlockLink-4973" class="__sU __u4973">Unlock</a></span>
+							<span id="statusLock-4973" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=lockStatus&amp;status_id=4973&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusLockLink-4973" class="__sL __l4973">Lock</a></span>
+						</span>
+						&nbsp;&nbsp;<span class="ipsType_smaller blend_links"><a href="http://forum.codecall.net/statuses/user/50704-kjgino/?status_id=4973">12 Dec</a></span>
+					</div>
+					<a id="anonymous_element_10" hovercard-ref="member" hovercard-id="50704" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/50704-kjgino/" title=""><span itemprop="name">KJGino</span></a>
+					<p class="index_status_update ipsType_small">Thought I'd seen it 
+all until I saw this: "Free Software! *This software is absolutely free 
+to run and use for a lifetime - only downloading requires a reasonable 
+fee." Hmm...</p>
+					<span class="desc" id="statusToggle-4973">
+						<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_lock.png" id="statusLockImg-4973" alt="Locked Status" style="display: none">
+						
+						
+								<a href="#" class="__sT __t4973 ipsType_smaller">Show comments (3)</a>
+							
+					</span>
+					<span class="desc" id="statusToggleOff-4973" style="display:none">
+						<a href="#" class="__sTO __to4973">Hide Comments</a>
+					</span>
+				</div>
+			</div>
+			<div id="statusFeedback-4973" class="status_feedback" style="display:none">
+				<div class="ipsList_withtinyphoto status_list" id="statusReplies-4973">
+					
+						
+	<div id="statusReply-210" class="ipsPad_half">
+		
+	<a href="http://forum.codecall.net/user/26764-alexander/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-26764.jpg" alt="Alexander's Photo" class="ipsUserPhoto ipsUserPhoto_tiny">
+
+	</a>
+
+		<div class="list_content">
+			<div class="right lighter">
+				<span class="desc ipsType_smaller">19 Dec&nbsp;&nbsp;</span>
+				<span class="desc mod_links ipsType_smaller">
+					
+				</span>
+			</div>
+			<strong><a id="anonymous_element_11" hovercard-ref="member" hovercard-id="26764" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/26764-alexander/" title=""><span itemprop="name">Alexander</span></a></strong>
+			<p class="index_status_update ipsType_small">Yeah heh. It's like GPL 
+software I believe, you can still charge for the cost of the download. I
+ mean if it were 1.2GBs and popular sure I'd pay $5, but why not torrent
+ it at that point and let others share your load?</p>
+		</div>
+	</div>
+	
+
+
+	<div id="statusReply-212" class="ipsPad_half">
+		
+	<a href="http://forum.codecall.net/user/50704-kjgino/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-50704.jpg" alt="KJGino's Photo" class="ipsUserPhoto ipsUserPhoto_tiny">
+
+	</a>
+
+		<div class="list_content">
+			<div class="right lighter">
+				<span class="desc ipsType_smaller">19 Dec&nbsp;&nbsp;</span>
+				<span class="desc mod_links ipsType_smaller">
+					
+				</span>
+			</div>
+			<strong><a id="anonymous_element_12" hovercard-ref="member" hovercard-id="50704" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/50704-kjgino/" title=""><span itemprop="name">KJGino</span></a></strong>
+			<p class="index_status_update ipsType_small">Yeah...I think you may 
+be right about the license, and I think that the site was trying to use 
+it as a slick marketing ploy. You had to pay $29.95 to join the site, 
+then you could d/l the free software.</p>
+		</div>
+	</div>
+	
+
+
+	<div id="statusReply-213" class="ipsPad_half">
+		
+	<a href="http://forum.codecall.net/user/26764-alexander/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-26764.jpg" alt="Alexander's Photo" class="ipsUserPhoto ipsUserPhoto_tiny">
+
+	</a>
+
+		<div class="list_content">
+			<div class="right lighter">
+				<span class="desc ipsType_smaller">19 Dec&nbsp;&nbsp;</span>
+				<span class="desc mod_links ipsType_smaller">
+					
+				</span>
+			</div>
+			<strong><a id="anonymous_element_13" hovercard-ref="member" hovercard-id="26764" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/26764-alexander/" title=""><span itemprop="name">Alexander</span></a></strong>
+			<p class="index_status_update ipsType_small">Pretty awful, unless the
+ membership is really worth the $30 and the software is just a bonus 
+kind of deal that comes with it. If it is the other way around, then 
+there is no excuse.</p>
+		</div>
+	</div>
+	
+		<div id="statusReplyBlank-4973" style="display: none"></div>
+	
+
+
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+
+
+	
+	<ul class="ipsList_withminiphoto status_list" id="statusWrap-4964">
+		<li class="clearfix">
+			
+	<a href="http://forum.codecall.net/user/52397-pbj/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-52397.jpg" alt="Photo" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+			<div class="list_content">
+				<div id="statusContent-4964">
+					<div class="right desc lighter">
+						<span class="desc mod_links ipsType_smaller">
+							
+							<span id="statusUnlock-4964" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=unlockStatus&amp;status_id=4964&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusUnlockLink-4964" class="__sU __u4964">Unlock</a></span>
+							<span id="statusLock-4964" style="display:none"> · <a rel="nofollow" href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=members&amp;module=profile&amp;section=status&amp;do=lockStatus&amp;status_id=4964&amp;k=880ea6a14ea49e853634fbdc5015a024" id="statusLockLink-4964" class="__sL __l4964">Lock</a></span>
+						</span>
+						&nbsp;&nbsp;<span class="ipsType_smaller blend_links"><a href="http://forum.codecall.net/statuses/user/52397-pbj/?status_id=4964">27 Nov</a></span>
+					</div>
+					<a id="anonymous_element_14" hovercard-ref="member" hovercard-id="52397" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/52397-pbj/" title=""><span itemprop="name">PBJ</span></a>
+					<p class="index_status_update ipsType_small">"'What happened to the post war dream?'" - Waters</p>
+					<span class="desc" id="statusToggle-4964">
+						<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_lock.png" id="statusLockImg-4964" alt="Locked Status" style="display: none">
+						
+						
+					</span>
+					<span class="desc" id="statusToggleOff-4964" style="display:none">
+						<a href="#" class="__sTO __to4964">Hide Comments</a>
+					</span>
+				</div>
+			</div>
+			<div id="statusFeedback-4964" class="status_feedback" style="display:none">
+				<div class="ipsList_withtinyphoto status_list" id="statusReplies-4964">
+					
+						<div id="statusReplyBlank-4964" style="display: none"></div>
+					
+				</div>
+				
+			</div>
+		</li>
+	</ul>
+
+</div>
+			<div class="status_main_content ipsType_small" style="text-align: center">
+				<a href="http://forum.codecall.net/statuses/all/">View All Updates</a>
+			</div>
+		</div>
+	</div>
+</div><div class="ipsSideBlock clearfix __xXpopular20tags">
+	<h3 id="anonymous_element_44"><a href="#" class="ipsSidebar_trigger ipsType_smaller right desc mod_links">×</a>Popular Tags</h3>
+	<div class="_sbcollapsable">
+		<ul class="ipsList_inline">
+		
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/Managed%2BC%2B%2B/" data-tooltip="Find more content tagged 'Managed C++'"><span>Managed C++</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/networking/" data-tooltip="Find more content tagged 'networking'"><span>networking</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/sql/" data-tooltip="Find more content tagged 'sql'"><span>sql</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/stream/" data-tooltip="Find more content tagged 'stream'"><span>stream</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/console/" data-tooltip="Find more content tagged 'console'"><span>console</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/game/" data-tooltip="Find more content tagged 'game'"><span>game</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/Visual%2BBasic%2B4%2B%252F%2B5%2B%252F%2B6/" data-tooltip="Find more content tagged 'Visual Basic 4 / 5 / 6'"><span>Visual Basic 4 / 5 / 6</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/authentication/" data-tooltip="Find more content tagged 'authentication'"><span>authentication</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/Connection/" data-tooltip="Find more content tagged 'Connection'"><span>Connection</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/import/" data-tooltip="Find more content tagged 'import'"><span>import</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/session/" data-tooltip="Find more content tagged 'session'"><span>session</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/blog/python/" data-tooltip="Find more content tagged 'python'"><span>python</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/hardware/" data-tooltip="Find more content tagged 'hardware'"><span>hardware</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/element/" data-tooltip="Find more content tagged 'element'"><span>element</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/syntax/" data-tooltip="Find more content tagged 'syntax'"><span>syntax</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/help/" data-tooltip="Find more content tagged 'help'"><span>help</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/html5/" data-tooltip="Find more content tagged 'html5'"><span>html5</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_1"><a href="http://forum.codecall.net/tags/blog/array/" data-tooltip="Find more content tagged 'array'"><span>array</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/generator/" data-tooltip="Find more content tagged 'generator'"><span>generator</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_4"><a href="http://forum.codecall.net/tags/forums/mysql/" data-tooltip="Find more content tagged 'mysql'"><span>mysql</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_4"><a href="http://forum.codecall.net/tags/forums/string/" data-tooltip="Find more content tagged 'string'"><span>string</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_6"><a href="http://forum.codecall.net/tags/blog/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_6"><a href="http://forum.codecall.net/tags/forums/java/" data-tooltip="Find more content tagged 'java'"><span>java</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_6"><a href="http://forum.codecall.net/tags/blog/php/" data-tooltip="Find more content tagged 'php'"><span>php</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_6"><a href="http://forum.codecall.net/tags/blog/html/" data-tooltip="Find more content tagged 'html'"><span>html</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_6"><a href="http://forum.codecall.net/tags/forums/timer/" data-tooltip="Find more content tagged 'timer'"><span>timer</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_6"><a href="http://forum.codecall.net/tags/forums/loop/" data-tooltip="Find more content tagged 'loop'"><span>loop</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_7"><a href="http://forum.codecall.net/tags/blog/C%23/" data-tooltip="Find more content tagged 'C#'"><span>C#</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_7"><a href="http://forum.codecall.net/tags/forums/ajax/" data-tooltip="Find more content tagged 'ajax'"><span>ajax</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/jquery/" data-tooltip="Find more content tagged 'jquery'"><span>jquery</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/form/" data-tooltip="Find more content tagged 'form'"><span>form</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/blog/vb.net/" data-tooltip="Find more content tagged 'vb.net'"><span>vb.net</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/blog/assembly/" data-tooltip="Find more content tagged 'assembly'"><span>assembly</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/linked%2Blist/" data-tooltip="Find more content tagged 'linked list'"><span>linked list</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/xml/" data-tooltip="Find more content tagged 'xml'"><span>xml</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/blog/android/" data-tooltip="Find more content tagged 'android'"><span>android</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/css/" data-tooltip="Find more content tagged 'css'"><span>css</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/login/" data-tooltip="Find more content tagged 'login'"><span>login</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/encryption/" data-tooltip="Find more content tagged 'encryption'"><span>encryption</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/blog/programming/" data-tooltip="Find more content tagged 'programming'"><span>programming</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/setup/" data-tooltip="Find more content tagged 'setup'"><span>setup</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/blog/javascript/" data-tooltip="Find more content tagged 'javascript'"><span>javascript</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/calculator/" data-tooltip="Find more content tagged 'calculator'"><span>calculator</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/c/" data-tooltip="Find more content tagged 'c'"><span>c</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/combobox/" data-tooltip="Find more content tagged 'combobox'"><span>combobox</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/binary/" data-tooltip="Find more content tagged 'binary'"><span>binary</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/pseudocode/" data-tooltip="Find more content tagged 'pseudocode'"><span>pseudocode</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/hello%2Bworld/" data-tooltip="Find more content tagged 'hello world'"><span>hello world</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/innerHTML/" data-tooltip="Find more content tagged 'innerHTML'"><span>innerHTML</span></a></span></li>
+		
+
+			<li><span class="ipsTagWeight_8"><a href="http://forum.codecall.net/tags/forums/grid/" data-tooltip="Find more content tagged 'grid'"><span>grid</span></a></span></li>
+		
+		</ul>
+	</div>
+</div><div class="nexusad" align="center"><!-- BuySellAds Zone Code -->
+<div id="bsap_1285484" class="bsap_1285484 bsap"><a href="http://stats.buysellads.com/click.go?z=1285484&amp;b=3941389&amp;g=&amp;s=&amp;sw=1280&amp;sh=1024&amp;br=firefox,20,linux&amp;r=0.7433833512476793&amp;link=http://www.appdynamics.com/freetrial?utm_source=buysellads&amp;utm_medium=display&amp;utm_campaign=q3%20test%20flight&amp;utm_content=300x250-looking_glass-ss-eng.gif&amp;utm_term=300x250_middle_right%7Ccodecall" onmouseover="window.status = 'http://www.appdynamics.com/freetrial?utm_source=buysellads&amp;utm_medium=display&amp;utm_campaign=q3%20test%20flight&amp;utm_content=300x250-looking_glass-ss-eng.gif&amp;utm_term=300x250_middle_right|codecall'; return true;" onmouseout="window.status=''; return true;" class="ad1 odd" title="The end-to-end Application Monitoring Solution for Java, .NET, PHP" id="bsa_3941389" target="_blank"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/180101-1374264377.gif" alt="The end-to-end Application Monitoring Solution for Java, .NET, PHP" width="300" height="250"></a><a href="http://buysellads.com/buy/detail/176242/zone/1285484?utm_source=site_176242&amp;utm_medium=website&amp;utm_campaign=adhere&amp;utm_content=zone_1285484" title="Advertise Here" class="adhere ad2 even" target="_blank">Advertise Here</a></div>
+<!-- End BuySellAds Zone Code --></div></div>
+<a href="#" id="toggle_sidebar" style="display:none;"></a>
+	</div>
+	</div>
+	<div class="ipsLayout_content">
+		
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+	ipb.topic.inSection    = 'topicview';
+	ipb.topic.topic_id     = 64933;
+	ipb.topic.forum_id     = 161;
+	ipb.topic.redirectPost = 1;
+	ipb.topic.start_id     = 0;
+	ipb.topic.page_id      = 0;
+	ipb.topic.topPid       = 0;
+	ipb.topic.counts       = { postTotal: 3,
+							  curStart:  ipb.topic.start_id,
+							  perPage:   12 };
+	//Search Setup
+	ipb.vars['search_type']			= 'forum';
+	ipb.vars['search_type_id']		= 161;
+	ipb.vars['search_type_2']		= 'topic';
+	ipb.vars['search_type_id_2']	= 64933;
+	
+	
+	// Delete stuff set up
+	ipb.topic.deleteUrls['hardDelete'] = new Template( ipb.vars['base_url'] + "app=forums&module=moderate&section=moderate&do=04&f=161&t=64933&page=&auth_key=880ea6a14ea49e853634fbdc5015a024&p=#{pid}" );
+	ipb.topic.deleteUrls['softDelete'] = new Template( ipb.vars['base_url'] + "app=forums&module=moderate&section=moderate&do=postchoice&tact=sdelete&t=64933&f=161&auth_key=880ea6a14ea49e853634fbdc5015a024&selectedpids[#{pid}]=#{pid}&pid=#{pid}" );
+	
+	
+	ipb.topic.modPerms	  = [];
+	
+	
+	ipb.templates['post_moderation'] = new Template("<div id='comment_moderate_box' class='ipsFloatingAction' style='display: none'><span class='desc'>With <span id='comment_count'>#{count}</span> checked posts: </span><select id='tactInPopup' class='input_select'><option value='approve'>Approve</option><option value='delete'>Hide</option><option value='sundelete'>Unhide</option><option value='deletedo'>Delete</option><option value='merge'>Merge</option><option value='split'>Split</option><option value='move'>Move</option></select>&nbsp;&nbsp;<input type='button' class='input_submit' id='submitModAction' value='Go' /></div>");
+	
+//]]>
+</script>
+
+
+
+
+
+	<a href="http://forum.codecall.net/user/29619-fkl/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-29619.jpg" alt="Photo" class="ipsUserPhoto ipsUserPhoto_medium">
+
+	</a>
+
+<div itemscope="" itemtype="http://schema.org/Article" class="ipsBox_withphoto">
+	<span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating" class="rating ipsType_smaller">
+			
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/star_off.png" alt="-" class="rate_img">
+			
+			
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/star_off.png" alt="-" class="rate_img">
+			
+			
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/star_off.png" alt="-" class="rate_img">
+			
+			
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/star_off.png" alt="-" class="rate_img">
+			
+			
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/star_off.png" alt="-" class="rate_img">
+			
+			
+			<span id="rating_text">
+				
+			</span>
+			
+		</span>
+	<div style="float:left;padding:9px 5px 0 0;"><a href="http://forum.codecall.net/tags/forums/c%2B%2B/" class="ipsBadge ipsBadge_lightgrey" data-tooltip="Find more content tagged 'c++'">c++</a></div><h1 itemprop="name" class="ipsType_pagetitle">Threads in Linux using c/c++ - Part 1</h1>
+	<div class="desc lighter blend_links">
+		 Started by <span itemprop="creator"><a id="anonymous_element_15" hovercard-ref="member" hovercard-id="29619" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/29619-fkl/" title=""><span itemprop="name">fkl</span></a></span>, <span itemprop="dateCreated" datetime="2011-07-24">Jul 24 2011 12:43 PM</span>
+	</div>
+	
+		<a class="ipsTag" href="http://forum.codecall.net/tags/forums/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a> <a class="ipsTag" href="http://forum.codecall.net/tags/forums/form/" data-tooltip="Find more content tagged 'form'"><span>form</span></a>
+		<br>
+	
+	<meta itemprop="interactionCount" content="UserComments:3">
+</div>
+
+
+
+<br>
+<div class="topic_controls">
+	
+	
+
+
+	<ul class="topic_buttons">
+			<li class="disabled"><span>Please log in to reply</span></li>
+			
+			
+		</ul>
+</div>
+
+<div class="maintitle clear clearfix">
+	<span class="ipsType_small">
+		2 replies to this topic
+	</span>
+	
+</div>
+
+<div class="topic hfeed clear clearfix">
+	
+	
+
+	<div class="ipsBox">
+		<div class="ipsBox_container" id="ips_Posts">
+			
+				<!--post:605732-->
+
+<div class="post_block hentry clear clearfix  " id="post_id_605732">
+		<a id="entry605732"></a>
+		
+	
+		
+		<div class="post_wrap">
+			
+				<h3 class="row2">
+			
+				<span class="post_id right ipsType_small desc blend_links">
+					
+						<a itemprop="replyToUrl" data-entry-pid="605732" href="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/#entry605732" rel="bookmark" title="Threads in Linux using c/c++ - Part 1: post #1">
+					
+					#1
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_share.png" class="small" title="Threads in Linux using c/c++ - Part 1: post #1">
+					</a>
+				</span>
+				
+				
+					<span itemprop="creator name" class="author vcard"><a id="anonymous_element_16" hovercard-ref="member" hovercard-id="29619" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/29619-fkl/" title=""><span itemprop="name">fkl</span></a></span>
+				
+			
+				
+			</h3>
+			<div class="author_info">
+				<div itemscope="" itemtype="http://schema.org/Person" class="user_details">
+	<span class="hide" itemprop="name">fkl</span>
+	<ul class="basic_info">
+		
+			<p class="desc member_title">CC Devotee</p>
+		
+		<li class="avatar">
+				
+				<a itemprop="url" href="http://forum.codecall.net/user/29619-fkl/" title="View Profile: fkl" class="ipsUserPhotoLink">
+				
+				
+					<img itemprop="image" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-29619.jpg" class="ipsUserPhoto ipsUserPhoto_large">
+				
+				
+				</a>
+				
+			</li>
+		<li class="group_title">
+			<span style="color:#fc6d32;font-weight: bold;">Senior Member</span>
+		</li>
+		<li class="group_icon">
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip">
+			
+			</li>
+		
+		<li class="post_count desc lighter">
+			415 posts
+		</li>
+		
+		
+	</ul>
+	
+	
+		<ul class="custom_fields">
+			
+				
+					
+				
+
+					
+				
+
+					
+				
+			
+		</ul>
+	
+	
+</div>
+			</div>
+			<div class="post_body">
+				<p class="posted_info desc lighter ipsType_small">
+					Posted <abbr class="published" itemprop="commentTime" title="2011-07-24T20:43:15+00:00">24 July 2011 - 12:43 PM</abbr>
+					
+				</p>
+				
+				<div itemprop="commentText" class="post entry-content ">
+					<!--cached-Tue, 07 Jan 2014 04:30:15 +0000--><strong class="bbc"><span class="bbc_underline">How to create and use Threads in C/C++ (POSIX threads) – Part 1<br></span></strong><br><br>This
+ is going to be a starting tutorial on how to use threads. It will only 
+assume basics of c/c++ i.e. you know how to write a function and use 
+variables, what is a basic pointer etc. you would be just fine.<br><br>The
+ first thing to know is, there is no threading header / library 
+available with the basic c/c++ compiler. So you need some extended one. 
+That means you cannot create threads like “include &lt;stdio.h&gt;” and 
+use printf(). You need to acquire a library first.<br><br>POSIX 
+(Portable operating system interface) is a standard for API on all 
+variants of Unix systems and contains a library called pthread. 
+Unfortunately, it doesn’t run directly (at least) on windows and to use 
+this code on windows you need something like<br><a href="http://openmp.org/wp/" class="bbc_url" title="External link" rel="nofollow external">OpenMP.org</a><br><br>Thread issues have been asked around on the forum such as <br><a href="http://forum.codecall.net/c-c/38532-posix-threads.html" class="bbc_url" title="">http://forum.codecal...ix-threads.html</a><br><br>The below code is written and tested on Fedora Linux and I will try to keep it as basic as possible.<br><br><strong class="bbc"><span class="bbc_underline">What are threads any way and why do we need them?<br></span></strong><br>Ah… But I guess I should clarify the exact meaning and need for creating and using threads. Everyone would know the name though.<br><br>Generally
+ when you write a program, there is a single path / flow of execution. 
+Your code starts from first line of main and keep proceeding line by 
+line towards the end of this function. But what if you have a need like 
+for e.g. to read from screen whenever the user types AND print a message
+ whenever it is received from network. If you simply try to accommodate 
+both of these tasks in a simple main either you have to code reading 
+from screen first or reading from network first. Even if these calls are
+ non-blocking (it means program does not hang as in “cin” until you 
+enter characters on the screen), still main would follow THE ORDER of 
+execution of your statement i.e. reading from screen first and then 
+latter reading from network. So your program will always be dependable 
+on the order and the true meaning of it cannot be achieved in a single 
+threaded main program.<br><br>A common solution is to create a new 
+thread other than main. One of these two handles ‘reading from network’ 
+where as the other ‘reads from console’.<br><br>A picture speaks for a thousand words. So here it goes.<br><br><a class="resized_img" rel="lightbox[605732]" id="ipb-attach-url-" href="http://uploads.codecall.net/monthly_07_2011/post-73979-13333828678775.jpg" title="threads1.jpg - Size: 31.5KB"><img itemprop="image" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/post-73979-13333828678775.jpg" class="bbc_img linked-image" alt="threads1.jpg"></a>
+
+<br><br><strong class="bbc"><span class="bbc_underline">Basic code details<br></span></strong>The
+ header file to include for threads is called “pthread.h”. This library 
+is usually available on any Linux system. So you don’t have to worry 
+about installing separately.<br><br><pre style="" class="prettyprint lang-auto linenums:0 prettyprinted"><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;iostream&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;pthread.h&gt;</span><span class="pln">
+
+</span><span class="kwd">using</span><span class="pln"> </span><span class="kwd">namespace</span><span class="pln"> std</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> thread_fun</span><span class="pun">(</span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> param</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+	cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Running thread"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+	</span><span class="kwd">return</span><span class="pln"> param</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">int</span><span class="pln"> main </span><span class="pun">()</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+	</span><span class="typ">pthread_t</span><span class="pln"> thread_id</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">int</span><span class="pln"> param</span><span class="pun">;</span><span class="pln">
+
+	cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"testing basic c++"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+        pthread_create</span><span class="pun">(&amp;</span><span class="pln">thread_id</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">,</span><span class="pln"> thread_fun</span><span class="pun">,</span><span class="pln"> </span><span class="pun">¶</span><span class="pln">m</span><span class="pun">);</span><span class="pln"> 
+	cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Running main after thread creation"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+	</span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre><br>First we need to create a 
+separate function which will be the starting point of thread i.e. it 
+will be the code that is executed as a separate thread. We have a 
+“thread_fun” here which takes a void * p as a parameter and return the 
+same. This is required by definition of the API. Why? Because when you 
+create a thread you most likely will need to pass some information to it
+ and return something useful from it whenever you are making any 
+practical application beyond just demo of how thread works. But 
+obviously you could ignore the parameters if they are not needed as I 
+have done in the code. The rationale of using a void pointer is that you
+ should be able to pass anything. Any number of elements can be packed 
+in a structure or an array and passed to thread where it can be 
+interpreted.<br><br>In main we create a variable of type pthread_t which
+ as it’s name indicates is a numeric value for a thread’s id. This will 
+be similar to an integer which upon successful creation of a thread will
+ contain the thread’s numeric id. Thread can be referred to using this 
+id and this value serves as the basic point of identification for a 
+thread.<br><br>Then is the call pthread_create, first parameter of which
+ the same thread id mentioned already. The second one is a structure 
+called thread_attr which can be used to create thread with specific 
+values or configurations. Most of the times we pass a null which means 
+create a thread with default values. You will see this utilized once you
+ start playing around a little bit more with threads.<br><br>The next 
+parameter is a function pointer to the function which is the starting 
+point of thread. We pass “thread_fun” here as mentioned above. Please 
+note that it will be a syntax error if thread fun’s signature 
+(parameters and return values) do not match the one mentioned in code.<br><br>The
+ last parameter can basically be the arguments passed to the thread. 
+Currently we haven’t used it and just passed an integer without actually
+ using it anywhere.<br><br>The return value of the thread function tells us if it was created successfully or there was any error.<br><br><strong class="bbc"><span class="bbc_underline">How to Build and Execute<br></span></strong><br>Assuming the source file’s name is thread.cpp, following is the command line<br># g++ thread.cpp –o thread –lpthread<br># ./thread<br><br>g++
+ is the compiler since I wrote c++ code. Gcc can be used too if written 
+code is ANSI c. –o tells the compiler to name the binary executable file
+ as “thread” which will be created in the current folder.<br>-lpthread 
+is basically telling the compiler to link the exe with pthread library. 
+Had we been using a header file such as “math.h” it would be –lm 
+(because math.h’s should form is only m). If this linker statement is 
+not added program would give linker error for not being able to locate 
+the header file “pthread.h” and all of it’s definitions.<br><br><strong class="bbc"><span class="bbc_underline">More functions to be used with Threads<br></span></strong><br>pthread_self(); <br>It
+ returns a pthread_t object which basically is the thread id. So if you 
+need current thread’s id inside the current thread, this function is 
+helpful.<br><br><br>pthread_equal();<br>Takes two threads as parameters and returns 0 if both of their thread id’s are equal.<br><br>pthread_join();<br>A
+ very very important function. It takes a thread id object and waits for
+ the completion of that thread. For e.g. in the program above, there is 
+no guarantee if main terminates first or the new thread. If you did some
+ work in main AFTER creating the thread, and then once you are done with
+ that work and you want to wait for the thread to complete before you 
+exit main, you would use this function.<br><br>pthread_exit();<br>Can be used by a thread to force itself to terminate. Remember calling exit() would terminate the whole program.<br><br>pthread_cancel();<br>One thread can instruct another thread to terminate under specific circumstances. It takes a thread id object as parameter.<br><br>I
+ will add some more code to above function in which we will pass some 
+value to thread, do some operation, return a value from thread, and wait
+ for thread termination in main where we read that value before exit.<br><br><pre style="" class="prettyprint lang-auto linenums:0 prettyprinted"><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;iostream&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;pthread.h&gt;</span><span class="pln">
+
+</span><span class="kwd">using</span><span class="pln"> </span><span class="kwd">namespace</span><span class="pln"> std</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> thread_fun</span><span class="pun">(</span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> param</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+	</span><span class="kwd">int</span><span class="pln"> value </span><span class="pun">=</span><span class="pln"> </span><span class="pun">*(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*)</span><span class="pln">param</span><span class="pun">;</span><span class="pln"> </span><span class="com">// Remember param is void pointer, so it needs to be casted into int BEFORE accessing value</span><span class="pln">
+                                   </span><span class="com">// Otherwise, there is no way for void pointer to know how many bytes to read when * is used.</span><span class="pln">
+
+	cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Param's value received in thread is: "</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> value  </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="pun">(*(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*)</span><span class="pln">param</span><span class="pun">)++;</span><span class="pln"> </span><span class="com">// increment param's value by 1</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> param</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">int</span><span class="pln"> main </span><span class="pun">()</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+	</span><span class="typ">pthread_t</span><span class="pln"> thread_id</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">int</span><span class="pln"> param </span><span class="pun">=</span><span class="pln"> </span><span class="lit">10</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> t_status_void_p</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> thrd_status_ptr</span><span class="pun">;</span><span class="pln">
+	</span><span class="kwd">int</span><span class="pln"> status</span><span class="pun">;</span><span class="pln">
+
+	cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"testing basic c++"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+
+	status </span><span class="pun">=</span><span class="pln"> pthread_create</span><span class="pun">(&amp;</span><span class="pln">thread_id</span><span class="pun">,</span><span class="pln"> NULL</span><span class="pun">,</span><span class="pln"> thread_fun</span><span class="pun">,</span><span class="pln"> </span><span class="pun">¶</span><span class="pln">m</span><span class="pun">);</span><span class="pln"> 
+
+	</span><span class="kwd">if</span><span class="pun">(</span><span class="pln">status </span><span class="pun">!=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+		</span><span class="kwd">return</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">;</span><span class="pln">
+
+        pthread_join</span><span class="pun">(</span><span class="pln">thread_id</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">t_status_void_p</span><span class="pun">);</span><span class="pln"> </span><span class="com">// note the status has to be a double pointer</span><span class="pln">
+
+        thrd_status_ptr </span><span class="pun">=</span><span class="pln">  </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> </span><span class="pun">*)</span><span class="pln">t_status_void_p</span><span class="pun">;</span><span class="pln">
+
+	cout </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="str">"Running main after thread's completion with value:"</span><span class="pln"> </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="pun">*</span><span class="pln">thrd_status_ptr  </span><span class="pun">&lt;&lt;</span><span class="pln"> endl</span><span class="pun">;</span><span class="pln">
+	</span><span class="kwd">return</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span></pre><br>I plan to extend more details and useful programs on 
+threads if there is enough interest indicated by readers. I also intend 
+to improve my previous TCP based concurrent server<br><a href="http://forum.codecall.net/c-tutorials/38944-concurrent-tcp-server-using-select-api-linux-c.html" class="bbc_url" title="">http://forum.codecal...pi-linux-c.html</a><br>into truly concurrent server using threads.
+					
+					<br>
+					<p class="edit">
+							<strong>Edited by fayyazlodhi, 26 July 2011 - 12:14 AM.</strong>
+							
+								<br>
+								<span class="reason">typos</span>
+							
+						</p>
+				</div>
+				
+				
+				<div class="rep_bar clearfix right" id="rep_post_605732">
+								<ul class="ipsList_inline">
+					
+					
+						
+							<li><span class="reputation positive rep_show" title="Reputation">
+						
+						
+							1
+							</span>
+						</li>
+				</ul>
+			</div>
+<script type="text/javascript">
+	ipb.global.registerReputation( 'rep_post_605732', { domLikeStripId: 'like_post_605732', app: 'forums', type: 'pid', typeid: '605732' }, parseInt('1') );
+</script>
+				
+								
+				
+					<div class="signature" data-memberid="29619">
+	
+	<!--signature-cached-Sun, 01 Dec 2013 05:11:17 +0000-->Today is the first day of the rest of my life
+</div>
+				
+				
+				
+			
+				<ul id="postControlsNormal_605732" class="post_controls clear clearfix">
+					<li class="top hide"><a href="#ipboard_body" class="top" title="Back to top">Back to top</a></li>
+					
+					
+					
+					
+					
+					
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+		
+		
+		<hr>
+		
+		
+			<div class="nexusad" align="center"><script async="" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/adsbygoogle.js"></script>
+<!-- codecall 728x90 top -->
+<ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-6325217157040947" data-ad-slot="9059532115"><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="728" frameborder="0" height="90" scrolling="no"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		
+<script type="text/javascript">
+var pid = parseInt(605732);
+if ( pid > ipb.topic.topPid ){
+	ipb.topic.topPid = pid;
+}
+
+	// Show multiquote for JS browsers
+	if ( $('multiq_605732') )
+	{
+		$('multiq_605732').show();
+	}
+	
+	if( $('toggle_post_605732') )
+	{
+		$('toggle_post_605732').show();
+	}
+	
+	// Add perm data
+	ipb.topic.deletePerms[605732] = { 'canDelete' : 0, 'canSoftDelete' : 0 };
+
+</script>
+			
+
+				<!--post:605827-->
+
+<div class="post_block hentry clear clearfix  " id="post_id_605827">
+		<a id="entry605827"></a>
+		
+	
+		
+		<div class="post_wrap">
+			
+				<h3 class="row2">
+			
+				<span class="post_id right ipsType_small desc blend_links">
+					
+						<a itemprop="replyToUrl" data-entry-pid="605827" href="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/#entry605827" rel="bookmark" title="Threads in Linux using c/c++ - Part 1: post #2">
+					
+					#2
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_share.png" class="small" title="Threads in Linux using c/c++ - Part 1: post #2">
+					</a>
+				</span>
+				
+				
+					<span itemprop="creator name" class="author vcard"><a id="anonymous_element_17" hovercard-ref="member" hovercard-id="24233" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/24233-guest/" title=""><span itemprop="name">Guest</span></a></span>
+				
+			
+				
+			</h3>
+			<div class="author_info">
+				<div itemscope="" itemtype="http://schema.org/Person" class="user_details">
+	<span class="hide" itemprop="name">Guest</span>
+	<ul class="basic_info">
+		
+			<p class="desc member_title">CC Devotee</p>
+		
+		<li class="avatar">
+				
+				<a itemprop="url" href="http://forum.codecall.net/user/24233-guest/" title="View Profile: Guest" class="ipsUserPhotoLink">
+				
+				
+					<img itemprop="image" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/cc1926658b0e6405a566a0dbc561de1f.jpeg" class="ipsUserPhoto ipsUserPhoto_large">
+				
+				
+				</a>
+				
+			</li>
+		<li class="group_title">
+			<span style="color:#0b5794;font-weight: bold;">Expert Member</span>
+		</li>
+		<li class="group_icon">
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip">
+			
+			</li>
+		
+		<li class="post_count desc lighter">
+			911 posts
+		</li>
+		
+		
+	</ul>
+	
+	
+		<ul class="custom_fields">
+			
+				
+					
+						<li>
+							<span class="ft">Location:</span><span class="fc">USA</span>
+						</li>
+					
+				
+
+					
+						<li>
+							<span class="ft">Programming Language:</span><span class="fc">C, Java, Python, Bash, Others</span>
+						</li>
+					
+				
+
+					
+						<li>
+							<span class="ft">Learning:</span><span class="fc">Assembly, Scheme</span>
+						</li>
+					
+				
+			
+		</ul>
+	
+	
+</div>
+			</div>
+			<div class="post_body">
+				<p class="posted_info desc lighter ipsType_small">
+					Posted <abbr class="published" itemprop="commentTime" title="2011-07-26T06:20:20+00:00">25 July 2011 - 10:20 PM</abbr>
+					
+				</p>
+				
+				<div itemprop="commentText" class="post entry-content ">
+					<!--cached-Tue, 07 Jan 2014 04:30:15 +0000-->Ooh, great tutorial! I just have a couple of nitpicky things I want to say.<br><p class="citation">fayyazlodhi said<span></span></p><blockquote class="ipsBlockquote built" data-author="fayyazlodhi"><p><span style="color: #333333">There
+ is a standard called POSIX (Portable operating system interface) which 
+is the standard and is available on almost every Unix / Linux computer.</span></p></blockquote>You
+ made a redundancy error, and another error by saying "the standard" (as
+ apposed to "a standard") the second time. Edit your post, cut a little 
+off and it looks perfect!<br><p class="citation">Quote<span></span></p><blockquote class="ipsBlockquote built"><p><span style="color: #333333">There is a standard called POSIX (Portable operating system interface) which is available on almost every Unix / Linux computer.</span></p></blockquote><span style="color: #333333"><br>Also,
+ I would rather you choose C instead of C++ for the examples. There 
+really is no right or wrong here, but I have a couple of good reasons.<ul class="bbcol decimal"><li>*nix
+ culture has sort of a de facto standard for using C as a compiled 
+language, especially for small(ish), command line projects.</li><li>You did not using any features of the C++ language that make it worth using.</li></ul>I
+ know it really doesn't matter, but I have a strong personal preference 
+for seeing pretty printfs instead of funky cout statements.<br><br>My commentary was sort of off-track, but nice tutorial anyway! I hope to see more like this. +rep</span>
+					
+					<br>
+					
+				</div>
+				
+				
+				<div class="rep_bar clearfix right" id="rep_post_605827">
+								<ul class="ipsList_inline">
+					
+					
+							<li><span class="reputation zero rep_show" title="Reputation">
+						
+						
+						
+							0
+							</span>
+						</li>
+				</ul>
+			</div>
+<script type="text/javascript">
+	ipb.global.registerReputation( 'rep_post_605827', { domLikeStripId: 'like_post_605827', app: 'forums', type: 'pid', typeid: '605827' }, parseInt('0') );
+</script>
+				
+								
+				
+					<div class="signature" data-memberid="24233">
+	
+	<!--signature-cached-Fri, 27 Sep 2013 03:09:16 +0000-->Root Beer == System Administrator's Beer<br>
+Download the new operating system programming kit! (some assembly required)
+</div>
+				
+				
+				
+			
+				<ul id="postControlsNormal_605827" class="post_controls clear clearfix">
+					<li class="top hide"><a href="#ipboard_body" class="top" title="Back to top">Back to top</a></li>
+					
+					
+					
+					
+					
+					
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+		
+		
+		<hr>
+		
+		
+<script type="text/javascript">
+var pid = parseInt(605827);
+if ( pid > ipb.topic.topPid ){
+	ipb.topic.topPid = pid;
+}
+
+	// Show multiquote for JS browsers
+	if ( $('multiq_605827') )
+	{
+		$('multiq_605827').show();
+	}
+	
+	if( $('toggle_post_605827') )
+	{
+		$('toggle_post_605827').show();
+	}
+	
+	// Add perm data
+	ipb.topic.deletePerms[605827] = { 'canDelete' : 0, 'canSoftDelete' : 0 };
+
+</script>
+			
+
+				<!--post:605832-->
+
+<div class="post_block hentry clear clearfix  " id="post_id_605832">
+		<a id="entry605832"></a>
+		
+	
+		
+		<div class="post_wrap">
+			
+				<h3 class="row2">
+			
+				<span class="post_id right ipsType_small desc blend_links">
+					
+						<a itemprop="replyToUrl" data-entry-pid="605832" href="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/#entry605832" rel="bookmark" title="Threads in Linux using c/c++ - Part 1: post #3">
+					
+					#3
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_share.png" class="small" title="Threads in Linux using c/c++ - Part 1: post #3">
+					</a>
+				</span>
+				
+				
+					<span itemprop="creator name" class="author vcard"><a id="anonymous_element_18" hovercard-ref="member" hovercard-id="29619" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/29619-fkl/" title=""><span itemprop="name">fkl</span></a></span>
+				
+			
+				
+			</h3>
+			<div class="author_info">
+				<div itemscope="" itemtype="http://schema.org/Person" class="user_details">
+	<span class="hide" itemprop="name">fkl</span>
+	<ul class="basic_info">
+		
+			<p class="desc member_title">CC Devotee</p>
+		
+		<li class="avatar">
+				
+				<a itemprop="url" href="http://forum.codecall.net/user/29619-fkl/" title="View Profile: fkl" class="ipsUserPhotoLink">
+				
+				
+					<img itemprop="image" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-29619.jpg" class="ipsUserPhoto ipsUserPhoto_large">
+				
+				
+				</a>
+				
+			</li>
+		<li class="group_title">
+			<span style="color:#fc6d32;font-weight: bold;">Senior Member</span>
+		</li>
+		<li class="group_icon">
+			
+				<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/bullet_black.png" alt="Pip">
+			
+			</li>
+		
+		<li class="post_count desc lighter">
+			415 posts
+		</li>
+		
+		
+	</ul>
+	
+	
+		<ul class="custom_fields">
+			
+				
+					
+				
+
+					
+				
+
+					
+				
+			
+		</ul>
+	
+	
+</div>
+			</div>
+			<div class="post_body">
+				<p class="posted_info desc lighter ipsType_small">
+					Posted <abbr class="published" itemprop="commentTime" title="2011-07-26T08:26:44+00:00">26 July 2011 - 12:26 AM</abbr>
+					
+				</p>
+				
+				<div itemprop="commentText" class="post entry-content ">
+					<!--cached-Tue, 07 Jan 2014 04:30:15 +0000-->Thanks for your valuable feedback Guest. I have fixed the typo in a (slightly) more useful manner.<br>
+<br>
+As far as preferred usage of c, I personally work in the embedded domain
+ when 99% code is c and there is a significant difference in my 
+knowledge and experience of c vs c++ (i know c way much better).<br>
+<br>
+I just opted for c++ because most of the student codes/queries i saw 
+made me feel that majority has been using c++. I saw more questions 
+regarding formatted output of cout compared to print / sprintf. So i 
+thought it might be more convenient to a higher percentage of audience.<br>
+<br>
+If this is not the case, i would be more than happy to write ANSI C. <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/smile.png" class="bbc_emoticon" alt=":)">
+					
+					<br>
+					
+				</div>
+				
+				
+				<div class="rep_bar clearfix right" id="rep_post_605832">
+								<ul class="ipsList_inline">
+					
+					
+							<li><span class="reputation zero rep_show" title="Reputation">
+						
+						
+						
+							0
+							</span>
+						</li>
+				</ul>
+			</div>
+<script type="text/javascript">
+	ipb.global.registerReputation( 'rep_post_605832', { domLikeStripId: 'like_post_605832', app: 'forums', type: 'pid', typeid: '605832' }, parseInt('0') );
+</script>
+				
+								
+				
+					<div class="signature" data-memberid="29619">
+	
+	<!--signature-cached-Sun, 01 Dec 2013 05:11:17 +0000-->Today is the first day of the rest of my life
+</div>
+				
+				
+				
+			
+				<ul id="postControlsNormal_605832" class="post_controls clear clearfix">
+					<li class="top hide"><a href="#ipboard_body" class="top" title="Back to top">Back to top</a></li>
+					
+					
+					
+					
+					
+					
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+		
+		
+		<hr>
+		
+		
+<script type="text/javascript">
+var pid = parseInt(605832);
+if ( pid > ipb.topic.topPid ){
+	ipb.topic.topPid = pid;
+}
+
+	// Show multiquote for JS browsers
+	if ( $('multiq_605832') )
+	{
+		$('multiq_605832').show();
+	}
+	
+	if( $('toggle_post_605832') )
+	{
+		$('toggle_post_605832').show();
+	}
+	
+	// Add perm data
+	ipb.topic.deletePerms[605832] = { 'canDelete' : 0, 'canSoftDelete' : 0 };
+
+</script>
+			
+		</div>
+	</div>
+
+<hr>
+<div class="topic_controls clear ipsPad_top_bottom_half">
+	
+	<div class="ipsPad_top_slimmer right">
+		
+		<a href="http://forum.codecall.net/forum/161-cc-tutorials/" class="ipsType_small desc">Back to C/C++ Tutorials</a>
+		
+	</div>
+</div>
+<br>
+<div id="recentTopicsWrapper" class="category_block block_wrap">
+<h3 class="maintitle">
+Similar Topics
+</h3>
+	<div class="ipsBox table_wrap">
+		<div class="ipsBox_container">
+			<table class="ipb_table topic_list hover_rows">
+				<tbody><tr class="header hide">
+					<th scope="col" class="col_f_icon">&nbsp;</th>
+					<th scope="col" class="col_f_topic">Topic</th>
+					<th scope="col" class="col_f_starter short">Started By</th>
+					<th scope="col" class="col_f_views stats">Stats</th>
+					<th scope="col" class="col_f_post">Last Post Info</th>
+				</tr>
+			</tbody></table>
+			<!-- BEGIN TOPICS -->
+			<ul id="recentTopics_table">
+				
+					<li>
+	<table class="ipb_table topic_list hover_rows">
+		<tbody><tr class="__topic  expandable" id="trow_75177" data-tid="75177" data-timestamp="1366473710">
+			<td class="col_f_icon altrow short">
+				
+
+
+
+			</td>
+
+			<td class="col_f_content ">
+				
+				<h4>
+	<span class="ipsBadge ipsBadge_green">Pinned</span>&nbsp;
+ <a id="tid-link-75177" href="http://forum.codecall.net/topic/75177-using-mark-as-solved-to-select-best-answer-for-your-threads/" title="- started  19 April 2013 - 10:18 AM" class="topic_title">Using "Mark as Solved" to Select Best Answer for Your Threads</a></h4>
+				<br>
+				<span class="desc lighter blend_links">
+										Started by <a id="anonymous_element_19" hovercard-ref="member" hovercard-id="27003" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/27003-roger/" title=""><span itemprop="name"><span style="color:#5e7900;font-weight: bold;">Roger</span></span></a>, 19 Apr 2013
+					In:
+					
+						<a href="http://forum.codecall.net/forum/216-general-forums/">General Forums</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/154-codecall-community/">Codecall Community</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/151-codecall-news/">Codecall News</a>&nbsp;
+					
+					
+						&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/best/" data-tooltip="Find more content tagged 'best'"><span>best</span></a>, <a href="http://forum.codecall.net/tags/forums/answer/" data-tooltip="Find more content tagged 'answer'"><span>answer</span></a>, <a href="http://forum.codecall.net/tags/forums/solved/" data-tooltip="Find more content tagged 'solved'"><span>solved</span></a>
+					
+				</span>
+				
+			</td>
+			<td class="col_f_preview __topic_preview">
+				
+					<a href="http://forum.codecall.net/topic/75177-using-mark-as-solved-to-select-best-answer-for-your-threads/" class="expander closed" title="Preview this topic">&nbsp;</a>
+				
+			</td>
+			<td class="col_f_views desc blend_links">
+				<ul>
+					<li>
+						
+						
+						
+							<a href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=stats&amp;do=who&amp;t=75177" onclick="return ipb.forums.retrieveWhoPosted( 75177 );">1 reply</a>
+					</li>
+					<li class="views desc">356 views</li>
+				</ul>
+			</td>
+			<td class="col_f_post">
+				<a href="http://forum.codecall.net/user/29207-rakso/" class="ipsUserPhotoLink left">
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/7ebf5cc819762d454b06fadb4cd0ae12.png" class="ipsUserPhoto ipsUserPhoto_mini">
+				</a>
+				<ul class="last_post ipsType_small">
+									<li><a id="anonymous_element_20" hovercard-ref="member" hovercard-id="29207" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/29207-rakso/" title=""><span itemprop="name"><span style="color:#fc6d32;font-weight: bold;">Rakso</span></span></a></li>
+					<li>
+						<a href="http://forum.codecall.net/topic/75177-using-mark-as-solved-to-select-best-answer-for-your-threads/?view=getlastpost" title="Go to last post">20 Apr 2013</a>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody></table>
+</li>
+
+				
+
+					<li>
+	<table class="ipb_table topic_list hover_rows">
+		<tbody><tr class="__topic  expandable" id="trow_74474" data-tid="74474" data-timestamp="1361412328">
+			<td class="col_f_icon altrow short">
+				
+
+
+
+			</td>
+
+			<td class="col_f_content ">
+				
+				<h4> <a id="tid-link-74474" href="http://forum.codecall.net/topic/74474-a-problem-with-threads-same-code-is-ran-several-times/" title="- started  19 February 2013 - 05:37 PM" class="topic_title">A problem with threads? (same code is ran several times)</a></h4>
+				<br>
+				<span class="desc lighter blend_links">
+										Started by <a id="anonymous_element_21" hovercard-ref="member" hovercard-id="33985" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/33985-wholegrain/" title=""><span itemprop="name">wholegrain</span></a>, 19 Feb 2013
+					In:
+					
+						<a href="http://forum.codecall.net/forum/122-language-forums/">Language Forums</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/126-java/">Java</a>&nbsp;
+					
+					
+						&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/java/" data-tooltip="Find more content tagged 'java'"><span>java</span></a>, <a href="http://forum.codecall.net/tags/forums/inheritance/" data-tooltip="Find more content tagged 'inheritance'"><span>inheritance</span></a>, <a href="http://forum.codecall.net/tags/forums/threads/" data-tooltip="Find more content tagged 'threads'"><span>threads</span></a>, <a href="http://forum.codecall.net/tags/forums/debug/" data-tooltip="Find more content tagged 'debug'"><span>debug</span></a>
+					
+				</span>
+				
+			</td>
+			<td class="col_f_preview __topic_preview">
+				
+					<a href="http://forum.codecall.net/topic/74474-a-problem-with-threads-same-code-is-ran-several-times/" class="expander closed" title="Preview this topic">&nbsp;</a>
+				
+			</td>
+			<td class="col_f_views desc blend_links">
+				<ul>
+					<li>
+						
+						
+						
+							<a href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=stats&amp;do=who&amp;t=74474" onclick="return ipb.forums.retrieveWhoPosted( 74474 );">2 replies</a>
+					</li>
+					<li class="views desc">371 views</li>
+				</ul>
+			</td>
+			<td class="col_f_post">
+				<a href="http://forum.codecall.net/user/34680-blackrabbit/" class="ipsUserPhotoLink left">
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-34680.png" class="ipsUserPhoto ipsUserPhoto_mini">
+				</a>
+				<ul class="last_post ipsType_small">
+									<li><a id="anonymous_element_22" hovercard-ref="member" hovercard-id="34680" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/34680-blackrabbit/" title=""><span itemprop="name"><span style="color:#0b5794;font-weight: bold;">BlackRabbit</span></span></a></li>
+					<li>
+						<a href="http://forum.codecall.net/topic/74474-a-problem-with-threads-same-code-is-ran-several-times/?view=getlastpost" title="Go to last post">20 Feb 2013</a>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody></table>
+</li>
+
+				
+
+					<li>
+	<table class="ipb_table topic_list hover_rows">
+		<tbody><tr class="__topic  expandable" id="trow_70403" data-tid="70403" data-timestamp="1340172169">
+			<td class="col_f_icon altrow short">
+				
+
+
+
+			</td>
+
+			<td class="col_f_content ">
+				
+				<h4> <a id="tid-link-70403" href="http://forum.codecall.net/topic/70403-concept-of-threads-in-c-windows/" title="- started  19 June 2012 - 12:48 AM" class="topic_title">Concept Of Threads In C++ (Windows)</a></h4>
+				<br>
+				<span class="desc lighter blend_links">
+										Started by <a id="anonymous_element_23" hovercard-ref="member" hovercard-id="37887" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/37887-dwaynecmstr/" title=""><span itemprop="name">dwaynecmstr</span></a>, 19 Jun 2012
+					In:
+					
+						<a href="http://forum.codecall.net/forum/122-language-forums/">Language Forums</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/123-c-and-c/">C and C++</a>&nbsp;
+					
+					
+						&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/Threads/" data-tooltip="Find more content tagged 'Threads'"><span>Threads</span></a>, <a href="http://forum.codecall.net/tags/forums/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a>
+					
+				</span>
+				
+			</td>
+			<td class="col_f_preview __topic_preview">
+				
+					<a href="http://forum.codecall.net/topic/70403-concept-of-threads-in-c-windows/" class="expander closed" title="Preview this topic">&nbsp;</a>
+				
+			</td>
+			<td class="col_f_views desc blend_links">
+				<ul>
+					<li>
+						
+						
+						
+							<a href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=stats&amp;do=who&amp;t=70403" onclick="return ipb.forums.retrieveWhoPosted( 70403 );">2 replies</a>
+					</li>
+					<li class="views desc">966 views</li>
+				</ul>
+			</td>
+			<td class="col_f_post">
+				<a href="http://forum.codecall.net/user/37887-dwaynecmstr/" class="ipsUserPhotoLink left">
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/15223380465061062689218d7f4979e6.png" class="ipsUserPhoto ipsUserPhoto_mini">
+				</a>
+				<ul class="last_post ipsType_small">
+									<li><a id="anonymous_element_24" hovercard-ref="member" hovercard-id="37887" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/37887-dwaynecmstr/" title=""><span itemprop="name">dwaynecmstr</span></a></li>
+					<li>
+						<a href="http://forum.codecall.net/topic/70403-concept-of-threads-in-c-windows/?view=getlastpost" title="Go to last post">19 Jun 2012</a>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody></table>
+</li>
+
+				
+
+					<li>
+	<table class="ipb_table topic_list hover_rows">
+		<tbody><tr class="__topic  expandable" id="trow_68193" data-tid="68193" data-timestamp="1328821380">
+			<td class="col_f_icon altrow short">
+				
+
+	<span title="This topic is locked"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/t_locked.png" alt="This topic is locked"><br></span>
+
+
+
+			</td>
+
+			<td class="col_f_content ">
+				
+				<h4> <a id="tid-link-68193" href="http://forum.codecall.net/topic/68193-admin-help-threads-deleted-why/" title="- started  09 February 2012 - 12:34 PM" class="topic_title">ADMIN Help Threads Deleted, Why?</a></h4>
+				<br>
+				<span class="desc lighter blend_links">
+										Started by <a id="anonymous_element_25" hovercard-ref="member" hovercard-id="31780" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/31780-gman/" title=""><span itemprop="name"><span style="color:#028482;font-weight: bold;">Gman</span></span></a>, 09 Feb 2012
+					In:
+					
+						<a href="http://forum.codecall.net/forum/216-general-forums/">General Forums</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/154-codecall-community/">Codecall Community</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/164-forum-support/">Forum Support</a>&nbsp;
+					
+					
+				</span>
+				
+			</td>
+			<td class="col_f_preview __topic_preview">
+				
+					<a href="http://forum.codecall.net/topic/68193-admin-help-threads-deleted-why/" class="expander closed" title="Preview this topic">&nbsp;</a>
+				
+			</td>
+			<td class="col_f_views desc blend_links">
+				<ul>
+					<li>
+						
+						
+						
+							<a href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=stats&amp;do=who&amp;t=68193" onclick="return ipb.forums.retrieveWhoPosted( 68193 );">3 replies</a>
+					</li>
+					<li class="views desc">357 views</li>
+				</ul>
+			</td>
+			<td class="col_f_post">
+				<a href="http://forum.codecall.net/user/27003-roger/" class="ipsUserPhotoLink left">
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-27003.png" class="ipsUserPhoto ipsUserPhoto_mini">
+				</a>
+				<ul class="last_post ipsType_small">
+									<li><a id="anonymous_element_26" hovercard-ref="member" hovercard-id="27003" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/27003-roger/" title=""><span itemprop="name"><span style="color:#5e7900;font-weight: bold;">Roger</span></span></a></li>
+					<li>
+						<a href="http://forum.codecall.net/topic/68193-admin-help-threads-deleted-why/?view=getlastpost" title="Go to last post">09 Feb 2012</a>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody></table>
+</li>
+
+				
+
+					<li>
+	<table class="ipb_table topic_list hover_rows">
+		<tbody><tr class="__topic  expandable" id="trow_67226" data-tid="67226" data-timestamp="1323601175">
+			<td class="col_f_icon altrow short">
+				
+
+
+
+			</td>
+
+			<td class="col_f_content ">
+				
+				<h4> <a id="tid-link-67226" href="http://forum.codecall.net/topic/67226-how-do-i-use-threads-to-perform-a-function-as-long-as-there-is-elements-in-an-arrayli/" title="- started  11 December 2011 - 01:47 AM" class="topic_title">How do I use Threads to perform a function as long as there is elements in an ArrayLi</a></h4>
+				<br>
+				<span class="desc lighter blend_links">
+										Started by <a id="anonymous_element_27" hovercard-ref="member" hovercard-id="29425" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/29425-null/" title=""><span itemprop="name"><span style="color:#028482;font-weight: bold;">null</span></span></a>, 11 Dec 2011
+					In:
+					
+						<a href="http://forum.codecall.net/forum/122-language-forums/">Language Forums</a>&nbsp;→
+					
+
+						<a href="http://forum.codecall.net/forum/126-java/">Java</a>&nbsp;
+					
+					
+						&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/array/" data-tooltip="Find more content tagged 'array'"><span>array</span></a>, <a href="http://forum.codecall.net/tags/forums/element/" data-tooltip="Find more content tagged 'element'"><span>element</span></a>
+					
+				</span>
+				
+			</td>
+			<td class="col_f_preview __topic_preview">
+				
+					<a href="http://forum.codecall.net/topic/67226-how-do-i-use-threads-to-perform-a-function-as-long-as-there-is-elements-in-an-arrayli/" class="expander closed" title="Preview this topic">&nbsp;</a>
+				
+			</td>
+			<td class="col_f_views desc blend_links">
+				<ul>
+					<li>
+						
+						
+						
+							<a href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=stats&amp;do=who&amp;t=67226" onclick="return ipb.forums.retrieveWhoPosted( 67226 );">1 reply</a>
+					</li>
+					<li class="views desc">517 views</li>
+				</ul>
+			</td>
+			<td class="col_f_post">
+				<a href="http://forum.codecall.net/user/23048-wim-dc/" class="ipsUserPhotoLink left">
+					<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-23048.png" class="ipsUserPhoto ipsUserPhoto_mini">
+				</a>
+				<ul class="last_post ipsType_small">
+									<li><a id="anonymous_element_28" hovercard-ref="member" hovercard-id="23048" data-ipb="noparse" class="url fn name   ___hover___member _hoversetup" href="http://forum.codecall.net/user/23048-wim-dc/" title=""><span itemprop="name"><span style="color:#0b5794;font-weight: bold;">wim DC</span></span></a></li>
+					<li>
+						<a href="http://forum.codecall.net/topic/67226-how-do-i-use-threads-to-perform-a-function-as-long-as-there-is-elements-in-an-arrayli/?view=getlastpost" title="Go to last post">11 Dec 2011</a>
+					</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody></table>
+</li>
+
+				
+			</ul>
+		</div>
+	</div>
+</div>
+<br>
+<!-- Close topic -->
+</div>
+<!-- BOTTOM BUTTONS -->
+
+	<br>
+	<div class="clear clearfix left">
+		
+
+	<ul class="topic_share left shareButtons ipsList_inline">
+	
+		<li><a href="http://forum.codecall.net/index.php?sharelink=twitter;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via Twitter" class="_slink" id="slink_twitter"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/twitter_002.png"></a></li>
+	
+
+		
+				<li class="fbLike"><div fb-xfbml-state="parsed" class="fb-like fb_edge_widget_with_comment fb_iframe_widget" data-href="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-action="like"><span style="height: 21px; width: 150px;"><iframe src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/like.xhtml" class="fb_ltr" title="Like this content on Facebook." style="border: medium none; overflow: hidden; height: 21px; width: 150px;" name="f34ff65bc004a08" id="f221cb3e201b7fe" scrolling="no"></iframe></span></div><div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/xd_arbiter.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/xd_arbiter.xhtml" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/ping.xhtml" style="display: none;" allowtransparency="true" name="f687b610d54242" frameborder="0" scrolling="no"></iframe></div></div></div></li>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=129848137088659";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+			
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=reddit;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via Reddit" class="_slink" id="slink_reddit"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/reddit.png"></a></li>
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=stumble;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via StumbleUpon" class="_slink" id="slink_stumble"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/stumble.png"></a></li>
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=digg;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via Digg" class="_slink" id="slink_digg"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/digg.png"></a></li>
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=delicious;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via Del.icio.us" class="_slink" id="slink_delicious"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/delicious.png"></a></li>
+	
+
+		
+				<script gapi_processed="true" type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/plusone.js">
+	
+		{lang: 'en-GB'}
+	
+</script>
+<li><div class="googlePlusOne"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 24px; height: 15px;"><iframe title="+1" data-gapiattached="true" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/fastbutton.html" name="I0_1389171987430" id="I0_1389171987430" vspace="0" tabindex="0" style="position: static; top: 0px; width: 24px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 15px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div></div></li>
+			
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=email;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via Email" class="_slink" id="slink_email"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/email.png"></a></li>
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=print;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Print" class="_slink" id="slink_print"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/print.png"></a></li>
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=download;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Download" class="_slink" id="slink_download"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/download.png"></a></li>
+	
+
+		<li><a href="http://forum.codecall.net/index.php?sharelink=blogthis;aHR0cDovL2ZvcnVtLmNvZGVjYWxsLm5ldC90b3BpYy82NDkzMy10aHJlYWRzLWluLWxpbnV4LXVzaW5nLWNjLXBhcnQtMS8,;VGhyZWFkcyBpbiBMaW51eCB1c2luZyBjL2MrKyAtIFBhcnQgMQ,," rel="nofollow" target="_blank" title="Share this link via Blog This" class="_slink" id="slink_blogthis"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/blogthis.png"></a></li>
+	
+	</ul>
+	<script type="text/javascript">
+		ipb.sharelinks.url   = "http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/";
+		ipb.sharelinks.title = "Threads in Linux using c/c++ - Part 1";
+		ipb.sharelinks.bname = "Codecall";
+	</script>
+
+	</div>
+	<br>
+
+<!-- SAME TAGGED -->
+
+	<br>
+	<div class="ipsBox">
+		<h3 class="maintitle">Also tagged with one or more of these keywords: c++, form</h3>
+		<div class="ipsBox_container">
+			<table class="ipb_table topic_list">
+			
+				<tbody><tr class="__topic unread expandable" id="trow_77161" data-tid="77161">
+	<td class="col_f_icon altrow short">
+		
+
+
+<a href="http://forum.codecall.net/topic/77161-how-do-i-compute-the-element-in-the-array/?view=getnewpost" title="Go to first unread post">
+	
+		<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/t_unread.png" alt="New Replies"><br>
+	
+	</a>
+	</td>
+	<td class="col_f_content ">
+		
+		
+		
+		
+		
+		
+			
+				<a href="http://forum.codecall.net/forum/122-language-forums/" class="ipsText_small desc">Language Forums</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+
+				<a href="http://forum.codecall.net/forum/123-c-and-c/" class="ipsText_small desc">C and C++</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+		
+		
+		<h4>
+			<a itemprop="url" id="tid-link-77161" href="http://forum.codecall.net/topic/77161-how-do-i-compute-the-element-in-the-array/" title="How do i compute the Element in the Array - started  06 January 2014 - 02:32 AM" class="topic_title">
+				<span itemprop="name">How do i compute the Element in the Array</span>
+			</a>
+		</h4>
+		<br>
+		<span class="desc lighter blend_links">
+			Started by <a id="anonymous_element_29" hovercard-ref="member" hovercard-id="28205" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/28205-atoivan/" title=""><span itemprop="name">atoivan</span></a>, <span itemprop="dateCreated">06 Jan 2014</span>
+			
+				&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a>
+			
+		</span>
+		
+	</td>
+	
+	<td class="col_f_preview __topic_preview">
+		<a href="http://forum.codecall.net/topic/77161-how-do-i-compute-the-element-in-the-array/" class="expander closed" title="Preview this topic">&nbsp;</a>
+	</td>
+	
+	<td class="col_f_views desc blend_links">
+		<ul>
+			<li>
+				
+					3 replies
+					<meta itemprop="interactionCount" content="UserComments:3">
+			</li>
+			<li class="views desc">116 views</li>
+		</ul>
+	</td>
+	<td class="col_f_post">
+		
+	<a href="http://forum.codecall.net/user/17218-wingedpanther/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-17218.gif" alt="How do i compute the Element in the Array - last post by WingedPanther" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+		<ul class="last_post ipsType_small">
+			<li><a id="anonymous_element_30" hovercard-ref="member" hovercard-id="17218" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/17218-wingedpanther/" title=""><span itemprop="name">WingedPanther</span></a></li>
+			<li>
+				<a href="http://forum.codecall.net/topic/77161-how-do-i-compute-the-element-in-the-array/?view=getlastpost" title="Go to last post: How do i compute the Element in the Array">
+					
+						Yesterday, 06:16 AM
+					
+				</a>
+			</li>
+		</ul>
+	</td>
+	
+</tr>
+
+			
+
+				<tr class="__topic unread expandable" id="trow_77160" data-tid="77160">
+	<td class="col_f_icon altrow short">
+		
+
+
+<a href="http://forum.codecall.net/topic/77160-for-sends-info-to-database-when-page-is-updated-or-loaded/?view=getnewpost" title="Go to first unread post">
+	
+		<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/t_unread.png" alt="New Replies"><br>
+	
+	</a>
+	</td>
+	<td class="col_f_content ">
+		
+		
+		
+		
+		
+		
+			
+				<a href="http://forum.codecall.net/forum/122-language-forums/" class="ipsText_small desc">Language Forums</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+
+				<a href="http://forum.codecall.net/forum/130-php/" class="ipsText_small desc">PHP</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+		
+		
+		<h4>
+			<a itemprop="url" id="tid-link-77160" href="http://forum.codecall.net/topic/77160-for-sends-info-to-database-when-page-is-updated-or-loaded/" title="For sends info to database when page is updated or loaded! - started  06 January 2014 - 02:16 AM" class="topic_title">
+				<span itemprop="name">For sends info to database when page is updated or loaded!</span>
+			</a>
+		</h4>
+		<br>
+		<span class="desc lighter blend_links">
+			Started by <a id="anonymous_element_31" hovercard-ref="member" hovercard-id="53397" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53397-gertk/" title=""><span itemprop="name">GertK</span></a>, <span itemprop="dateCreated">06 Jan 2014</span>
+			
+				&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/php/" data-tooltip="Find more content tagged 'php'"><span>php</span></a>, <a href="http://forum.codecall.net/tags/forums/database/" data-tooltip="Find more content tagged 'database'"><span>database</span></a>, <a href="http://forum.codecall.net/tags/forums/form/" data-tooltip="Find more content tagged 'form'"><span>form</span></a>
+			
+		</span>
+		
+	</td>
+	
+	<td class="col_f_preview __topic_preview">
+		<a href="http://forum.codecall.net/topic/77160-for-sends-info-to-database-when-page-is-updated-or-loaded/" class="expander closed" title="Preview this topic">&nbsp;</a>
+	</td>
+	
+	<td class="col_f_views desc blend_links">
+		<ul>
+			<li>
+				
+					4 replies
+					<meta itemprop="interactionCount" content="UserComments:4">
+			</li>
+			<li class="views desc">132 views</li>
+		</ul>
+	</td>
+	<td class="col_f_post">
+		
+	<a href="http://forum.codecall.net/user/53397-gertk/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/fde77d779b3f962b249d5104ef6cb2e7.png" alt="For sends info to database when page is updated or loaded! - last post by GertK" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+		<ul class="last_post ipsType_small">
+			<li><a id="anonymous_element_32" hovercard-ref="member" hovercard-id="53397" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53397-gertk/" title=""><span itemprop="name">GertK</span></a></li>
+			<li>
+				<a href="http://forum.codecall.net/topic/77160-for-sends-info-to-database-when-page-is-updated-or-loaded/?view=getlastpost" title="Go to last post: For sends info to database when page is updated or loaded!">
+					
+						Yesterday, 12:19 AM
+					
+				</a>
+			</li>
+		</ul>
+	</td>
+	
+</tr>
+
+			
+
+				<tr class="__topic unread expandable" id="trow_77148" data-tid="77148">
+	<td class="col_f_icon altrow short">
+		
+
+
+<a href="http://forum.codecall.net/topic/77148-what-language-should-i-start-with/?view=getnewpost" title="Go to first unread post">
+	
+		<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/t_unread.png" alt="New Replies"><br>
+	
+	</a>
+	</td>
+	<td class="col_f_content ">
+		
+		
+		
+		
+		
+		
+			
+				<a href="http://forum.codecall.net/forum/216-general-forums/" class="ipsText_small desc">General Forums</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+
+				<a href="http://forum.codecall.net/forum/141-general-programming/" class="ipsText_small desc">General Programming</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+		
+		
+		<h4>
+			<a itemprop="url" id="tid-link-77148" href="http://forum.codecall.net/topic/77148-what-language-should-i-start-with/" title="What language should I start with? - started  03 January 2014 - 07:47 PM" class="topic_title">
+				<span itemprop="name">What language should I start with?</span>
+			</a>
+		</h4>
+		<br>
+		<span class="desc lighter blend_links">
+			Started by <a id="anonymous_element_33" hovercard-ref="member" hovercard-id="53611" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53611-umerika/" title=""><span itemprop="name">umerika</span></a>, <span itemprop="dateCreated">03 Jan 2014</span>
+			
+				&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/beginner/" data-tooltip="Find more content tagged 'beginner'"><span>beginner</span></a>, <a href="http://forum.codecall.net/tags/forums/programming/" data-tooltip="Find more content tagged 'programming'"><span>programming</span></a>, <a href="http://forum.codecall.net/tags/forums/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a>, <a href="http://forum.codecall.net/tags/forums/java/" data-tooltip="Find more content tagged 'java'"><span>java</span></a> <span title="" id="anonymous_element_39" hovercard-ref="tagsPopUp" hovercard-id="7760c8fcd2fe1ad8ccf7628ebd26180e" class="clickable ___hover___tagsPopUp _hoversetup">and 2 more...</span>
+			
+		</span>
+		
+	</td>
+	
+	<td class="col_f_preview __topic_preview">
+		<a href="http://forum.codecall.net/topic/77148-what-language-should-i-start-with/" class="expander closed" title="Preview this topic">&nbsp;</a>
+	</td>
+	
+	<td class="col_f_views desc blend_links">
+		<ul>
+			<li>
+				
+						<span class="ipsBadge ipsBadge_orange">Hot</span>&nbsp;
+					
+					9 replies
+					<meta itemprop="interactionCount" content="UserComments:9">
+			</li>
+			<li class="views desc">259 views</li>
+		</ul>
+	</td>
+	<td class="col_f_post">
+		
+	<a href="http://forum.codecall.net/user/31584-lespauled/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-thumb-31584.gif" alt="What language should I start with? - last post by lespauled" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+		<ul class="last_post ipsType_small">
+			<li><a id="anonymous_element_34" hovercard-ref="member" hovercard-id="31584" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/31584-lespauled/" title=""><span itemprop="name">lespauled</span></a></li>
+			<li>
+				<a href="http://forum.codecall.net/topic/77148-what-language-should-i-start-with/?view=getlastpost" title="Go to last post: What language should I start with?">
+					
+						06 Jan 2014
+					
+				</a>
+			</li>
+		</ul>
+	</td>
+	
+</tr>
+
+			
+
+				<tr class="__topic unread expandable" id="trow_77054" data-tid="77054">
+	<td class="col_f_icon altrow short">
+		
+
+
+<a href="http://forum.codecall.net/topic/77054-automating-monthly-small-business-task-vba-vc-excel-access-quickbooks-etc/?view=getnewpost" title="Go to first unread post">
+	
+		<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/t_unread.png" alt="New Replies"><br>
+	
+	</a>
+	</td>
+	<td class="col_f_content ">
+		
+		
+		
+		
+		
+		
+			
+				<a href="http://forum.codecall.net/forum/216-general-forums/" class="ipsText_small desc">General Forums</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+
+				<a href="http://forum.codecall.net/forum/141-general-programming/" class="ipsText_small desc">General Programming</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+		
+		
+		<h4>
+			<a itemprop="url" id="tid-link-77054" href="http://forum.codecall.net/topic/77054-automating-monthly-small-business-task-vba-vc-excel-access-quickbooks-etc/" title="Automating Monthly Small Business Task (VBA, VC++, Excel, Access, Quickbooks, etc) - started  05 December 2013 - 08:53 PM" class="topic_title">
+				<span itemprop="name">Automating Monthly Small Business Task (VBA, VC++, Excel, Access, Quickbooks, etc)</span>
+			</a>
+		</h4>
+		<br>
+		<span class="desc lighter blend_links">
+			Started by <a id="anonymous_element_35" hovercard-ref="member" hovercard-id="53551" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53551-leptomaniac/" title=""><span itemprop="name">Leptomaniac</span></a>, <span itemprop="dateCreated">05 Dec 2013</span>
+			
+				&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/c/" data-tooltip="Find more content tagged 'c'"><span>c</span></a>, <a href="http://forum.codecall.net/tags/forums/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a>, <a href="http://forum.codecall.net/tags/forums/vba/" data-tooltip="Find more content tagged 'vba'"><span>vba</span></a> <span title="" id="anonymous_element_40" hovercard-ref="tagsPopUp" hovercard-id="2889b1a9856589d9e9315d4be330c605" class="clickable ___hover___tagsPopUp _hoversetup">and 3 more...</span>
+			
+		</span>
+		
+			<ul class="mini_pagination">
+			
+					
+						<li><a href="http://forum.codecall.net/topic/77054-automating-monthly-small-business-task-vba-vc-excel-access-quickbooks-etc/page-1" title="Automating Monthly Small Business Task (VBA, VC++, Excel, Access, Quickbooks, etc) - page 1">1</a></li>
+					
+			
+
+					
+						<li><a href="http://forum.codecall.net/topic/77054-automating-monthly-small-business-task-vba-vc-excel-access-quickbooks-etc/page-2" title="Automating Monthly Small Business Task (VBA, VC++, Excel, Access, Quickbooks, etc) - page 2">2</a></li>
+					
+			
+			</ul>
+		
+	</td>
+	
+	<td class="col_f_preview __topic_preview">
+		<a href="http://forum.codecall.net/topic/77054-automating-monthly-small-business-task-vba-vc-excel-access-quickbooks-etc/" class="expander closed" title="Preview this topic">&nbsp;</a>
+	</td>
+	
+	<td class="col_f_views desc blend_links">
+		<ul>
+			<li>
+				
+						<span class="ipsBadge ipsBadge_orange">Hot</span>&nbsp;
+					
+					13 replies
+					<meta itemprop="interactionCount" content="UserComments:13">
+			</li>
+			<li class="views desc">464 views</li>
+		</ul>
+	</td>
+	<td class="col_f_post">
+		
+	<a href="http://forum.codecall.net/user/53551-leptomaniac/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/default_large.png" alt="Automating Monthly Small Business Task (VBA, VC++, Excel, Access, Quickbooks, etc) - last post by Leptomaniac" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+		<ul class="last_post ipsType_small">
+			<li><a id="anonymous_element_36" hovercard-ref="member" hovercard-id="53551" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53551-leptomaniac/" title=""><span itemprop="name">Leptomaniac</span></a></li>
+			<li>
+				<a href="http://forum.codecall.net/topic/77054-automating-monthly-small-business-task-vba-vc-excel-access-quickbooks-etc/?view=getlastpost" title="Go to last post: Automating Monthly Small Business Task (VBA, VC++, Excel, Access, Quickbooks, etc)">
+					
+						12 Dec 2013
+					
+				</a>
+			</li>
+		</ul>
+	</td>
+	
+</tr>
+
+			
+
+				<tr class="__topic  expandable" id="trow_77046" data-tid="77046">
+	<td class="col_f_icon altrow short">
+		
+
+
+
+	</td>
+	<td class="col_f_content ">
+		
+		
+		
+		
+		
+		
+			
+				<a href="http://forum.codecall.net/forum/122-language-forums/" class="ipsText_small desc">Language Forums</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+
+				<a href="http://forum.codecall.net/forum/123-c-and-c/" class="ipsText_small desc">C and C++</a> <span class="ipsText_small desc">→</span>&nbsp;
+			
+		
+		
+		<h4>
+			<a itemprop="url" id="tid-link-77046" href="http://forum.codecall.net/topic/77046-playing-audio/" title="Playing Audio - started  04 December 2013 - 05:11 PM" class="topic_title">
+				<span itemprop="name">Playing Audio</span>
+			</a>
+		</h4>
+		<br>
+		<span class="desc lighter blend_links">
+			Started by <a id="anonymous_element_37" hovercard-ref="member" hovercard-id="53410" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/53410-joshuaa0525/" title=""><span itemprop="name">joshuaa0525</span></a>, <span itemprop="dateCreated">04 Dec 2013</span>
+			
+				&nbsp; <img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/icon_tag.png"> <a href="http://forum.codecall.net/tags/forums/c%2B%2B/" data-tooltip="Find more content tagged 'c++'"><span>c++</span></a>, <a href="http://forum.codecall.net/tags/forums/audio/" data-tooltip="Find more content tagged 'audio'"><span>audio</span></a>, <a href="http://forum.codecall.net/tags/forums/aif/" data-tooltip="Find more content tagged 'aif'"><span>aif</span></a>, <a href="http://forum.codecall.net/tags/forums/hangman/" data-tooltip="Find more content tagged 'hangman'"><span>hangman</span></a>
+			
+		</span>
+		
+	</td>
+	
+	<td class="col_f_preview __topic_preview">
+		<a href="http://forum.codecall.net/topic/77046-playing-audio/" class="expander closed" title="Preview this topic">&nbsp;</a>
+	</td>
+	
+	<td class="col_f_views desc blend_links">
+		<ul>
+			<li>
+				
+					3 replies
+					<meta itemprop="interactionCount" content="UserComments:3">
+			</li>
+			<li class="views desc">236 views</li>
+		</ul>
+	</td>
+	<td class="col_f_post">
+		
+	<a href="http://forum.codecall.net/user/50704-kjgino/" class="ipsUserPhotoLink left">
+
+<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/photo-50704.jpg" alt="Playing Audio - last post by KJGino" class="ipsUserPhoto ipsUserPhoto_mini">
+
+	</a>
+
+		<ul class="last_post ipsType_small">
+			<li><a id="anonymous_element_38" hovercard-ref="member" hovercard-id="50704" data-ipb="noparse" class="url fn name  ___hover___member _hoversetup" href="http://forum.codecall.net/user/50704-kjgino/" title=""><span itemprop="name">KJGino</span></a></li>
+			<li>
+				<a href="http://forum.codecall.net/topic/77046-playing-audio/?view=getlastpost" title="Go to last post: Playing Audio">
+					
+						05 Dec 2013
+					
+				</a>
+			</li>
+		</ul>
+	</td>
+	
+</tr>
+
+			
+			</tbody></table>
+		</div>
+	</div>
+
+<!-- ACTIVE USERS -->
+
+
+
+	<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/prettify.js"></script>
+	<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/lang-sql.js"></script>
+	<!-- By default we load generic code, php, css, sql and xml/html; load others here if desired -->
+	<script type="text/javascript">
+	//<![CDATA[
+		Event.observe( window, 'load', function(e){ prettyPrint() });
+	//]]>
+	</script>
+<div id="multiQuoteInsert" style="display: none;" class="ipsFloatingAction">
+	<span class="ipsButton no_width" id="mqbutton">Reply to quoted posts</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="multiQuoteClear" class="ipsType_smaller desc" title="Clear the posts you have selected with MultiQuote">Clear</a> &nbsp;&nbsp;&nbsp;
+</div>
+<form id="modform" method="post" action="http://forum.codecall.net/index.php?">
+	<input name="app" value="forums" type="hidden">
+	<input name="module" value="moderate" type="hidden">
+	<input name="section" value="moderate" type="hidden">
+	<input name="do" value="postchoice" type="hidden">
+	<input name="f" value="161" type="hidden">
+	<input name="t" value="64933" type="hidden">
+	<input name="auth_key" value="880ea6a14ea49e853634fbdc5015a024" type="hidden">
+	<input name="st" value="" type="hidden">
+	<input name="page" value="" type="hidden">
+	<input value="" name="selectedpidsJS" id="selectedpidsJS" type="hidden">
+	<input name="tact" id="tact" value="" type="hidden">
+</form>
+	</div>
+</div>
+				
+					<div class="ipsAd"><div class="nexusad" align="center"><!-- BuySellAds Zone Code -->
+<div id="bsap_1285543" class="bsap_1285543 bsap"><a href="http://stats.buysellads.com/click.go?z=1285543&amp;b=3941377&amp;g=&amp;s=&amp;sw=1280&amp;sh=1024&amp;br=firefox,20,linux&amp;r=0.6208045695072071&amp;link=http://www.appdynamics.com/freetrial?utm_source=buysellads&amp;utm_medium=display&amp;utm_campaign=q3%20test%20flight&amp;utm_content=728x90-looking_glass-ss-eng.gif&amp;utm_term=728x90_bottom_center%7Ccodecall" onmouseover="window.status = 'http://www.appdynamics.com/freetrial?utm_source=buysellads&amp;utm_medium=display&amp;utm_campaign=q3%20test%20flight&amp;utm_content=728x90-looking_glass-ss-eng.gif&amp;utm_term=728x90_bottom_center|codecall'; return true;" onmouseout="window.status=''; return true;" class="ad1 odd" title="The end-to-end Application Monitoring Solution for Java, .NET, PHP" id="bsa_3941377" target="_blank"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/180100-1374264344.gif" alt="The end-to-end Application Monitoring Solution for Java, .NET, PHP" width="728" height="90"></a></div>
+<!-- End BuySellAds Zone Code --></div></div>
+				
+				<ol class="breadcrumb bottom ipsList_inline left clearfix clear">
+											<li><a href="http://forum.codecall.net/">Codecall</a></li>
+							
+						
+							<li><span class="nav_sep">→</span> <a href="http://forum.codecall.net/forum/218-tutorial-forums/" title="Return to Tutorial Forums"><span>Tutorial Forums</span></a></li>
+							
+						
+
+							<li><span class="nav_sep">→</span> <a href="http://forum.codecall.net/forum/161-cc-tutorials/" title="Return to C/C++ Tutorials"><span>C/C++ Tutorials</span></a></li>
+							
+						
+
+					
+					<li class="right ipsType_smaller">
+						<a rel="nofollow" href="http://forum.codecall.net/privacypolicy/">Privacy Policy</a>
+					</li>
+					
+					<li class="right ipsType_smaller">
+							<a href="http://forum.codecall.net/index.php?app=forums&amp;module=extras&amp;section=boardrules" title="Guidelines">Guidelines</a> · 
+						</li>
+				</ol>
+			</div>
+			<!-- ::: FOOTER (Change skin, language, mark as read, etc) ::: -->
+			<div id="footer_utilities" class="main_width clearfix clear">
+				<a rel="nofollow" href="#top" id="backtotop" title="Go to top"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/top.png" alt=""></a>
+				<ul class="ipsList_inline left">
+					<li>
+						<img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/feed.png" alt="RSS Feed" id="rss_feed" class="clickable"><ul style="position: absolute; display: none; z-index: 9999;" id="rss_menu" class="ipbmenu_content"><li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/blog/" title="Codecall Blogs RSS feed">Codecall Blogs RSS feed</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/forums/1-codecall-rss/" title="Codecall RSS">Codecall RSS</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/1c21-java/" title="Articles: Java">Articles: Java</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/1c22-c/" title="Articles: C#">Articles: C#</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/1c23-cc/" title="Articles: C/C++">Articles: C/C++</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/1c24-php/" title="Articles: PHP">Articles: PHP</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/1c18-others/" title="Articles: Others">Articles: Others</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/1c20-product-reviews/" title="Articles: Product Reviews">Articles: Product Reviews</a></li>
+<li style="z-index: 10000;"><a style="z-index: 10000;" href="http://forum.codecall.net/rss/ccs/4c19-codecall-youtube-videos/" title="Media Demo: CODECALL YouTube Videos">Media Demo: CODECALL YouTube Videos</a></li></ul>
+					</li>
+					
+							
+								<li>
+									<a rel="nofollow" id="new_skin" href="#" title="Change Theme">Change Theme</a>
+									<ul id="new_skin_menucontent" class="ipbmenu_content with_checks" style="display: none; position: absolute; z-index: 9999;">
+										
+											<li style="z-index: 10000;">
+												<a style="z-index: 10000;" href="#" data-clicklaunch="changeSkin" data-skinid="27">Codecall Unlimited</a>
+											</li>
+										
+
+											<li style="z-index: 10000;">
+												<a style="z-index: 10000;" href="#" data-clicklaunch="changeSkin" data-skinid="1">IP.Board</a>
+											</li>
+										
+
+											<li style="z-index: 10000;">
+												<a style="z-index: 10000;" href="#" data-clicklaunch="changeSkin" data-skinid="2">IP.Board Mobile</a>
+											</li>
+										
+
+											<li style="z-index: 10000;" class="selected">
+												<a style="z-index: 10000;" href="#" data-clicklaunch="changeSkin" data-skinid="31">Codecall 2013</a>
+											</li>
+										
+									</ul>
+								</li>
+							
+					
+					
+						<li>
+							<a rel="nofollow" id="mark_all_read" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=all&amp;k=880ea6a14ea49e853634fbdc5015a024" title="Mark all as read">Mark Community Read</a>
+							<ul id="mark_all_read_menucontent" class="ipbmenu_content" style="display: none; position: absolute; z-index: 9999;">
+								
+									<li style="z-index: 10000;">
+										
+									</li>
+								
+
+									<li style="z-index: 10000;">
+										<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=app&amp;markApp=blog&amp;k=880ea6a14ea49e853634fbdc5015a024">Blogs</a>
+									</li>
+								
+
+									<li style="z-index: 10000;">
+										<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=app&amp;markApp=gallery&amp;k=880ea6a14ea49e853634fbdc5015a024">Gallery</a>
+									</li>
+								
+
+									<li style="z-index: 10000;">
+										<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=app&amp;markApp=forums&amp;k=880ea6a14ea49e853634fbdc5015a024">Forums</a>
+									</li>
+								
+
+									<li style="z-index: 10000;">
+										<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=app&amp;markApp=members&amp;k=880ea6a14ea49e853634fbdc5015a024">Members</a>
+									</li>
+								
+
+									<li style="z-index: 10000;">
+										<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=app&amp;markApp=ccs&amp;k=880ea6a14ea49e853634fbdc5015a024">Pages</a>
+									</li>
+								
+
+									<li style="z-index: 10000;">
+										<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=app&amp;markApp=nexus&amp;k=880ea6a14ea49e853634fbdc5015a024">Store</a>
+									</li>
+								
+								<li style="z-index: 10000;">
+									<a style="z-index: 10000;" href="http://forum.codecall.net/index.php?app=forums&amp;module=forums&amp;section=markasread&amp;marktype=all&amp;k=880ea6a14ea49e853634fbdc5015a024"><strong style="z-index: 10000;">Mark all as read</strong></a>
+								</li>
+							</ul>
+						</li>
+					<li><a href="http://forum.codecall.net/index.php?s=9e074fa2a14da35f772f8b6ef3001690&amp;app=nexus&amp;module=support&amp;section=new">Contact Us</a></li>
+					<li>
+						<a href="http://forum.codecall.net/index.php?app=core&amp;module=help" title="View help" rel="help" accesskey="6">Help</a>
+					</li>
+				</ul>
+				<!-- Copyright Information -->
+        				  <p id="copyright">
+        				  	<a href="http://www.invisionpower.com/apps/board/" title="Community Forum Software by Invision Power Services">Community Forum Software by IP.Board</a></p>
+		<!-- / Copyright -->
+			</div>
+			
+			
+			
+				<script type="text/javascript" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/lightbox.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+	// Lightbox Configuration
+	LightboxOptions = Object.extend({
+	    fileLoadingImage:        'http://img.codecall.net/public/style_images/master/lightbox/loading.gif',
+	    fileBottomNavCloseImage: 'http://img.codecall.net/public/style_images/master/lightbox/closelabel.gif',
+	    overlayOpacity: 0.8,   // controls transparency of shadow overlay
+	    animate: true,         // toggles resizing animations
+	    resizeSpeed: 10,        // controls the speed of the image resizing animations (1=slowest and 10=fastest)
+	    borderSize: 10,         //if you adjust the padding in the CSS, you will need to update this variable
+		// When grouping images this is used to write: Image # of #.
+		// Change it for non-english localization
+		labelImage: "Image",
+		labelOf: "of"
+	}, window.LightboxOptions || {});
+/* Watch for a lightbox image and set up our downloadbutton watcher */
+document.observe('click', (function(event){
+    var target = event.findElement('a[rel*="lightbox"]') || event.findElement('area[rel*="lightbox"]') || event.findElement('span[rel*="lightbox"]');
+    if (target) {
+        event.stop();
+        gbl_addDownloadButton();
+    }
+}).bind(this));
+var _to    = '';
+var _last  = '';
+function gbl_addDownloadButton()
+{
+	if ( typeof( ipsLightbox.lightboxImage ) != 'undefined' && ipsLightbox.lightboxImage.src )
+	{
+		if ( _last != ipsLightbox.lightboxImage.src )
+		{
+			if ( ! $('gbl_d') )
+			{
+				$('bottomNav').insert( { top: "<div id='gbl_d' style='text-align:right;padding-bottom:4px;'></div>" } );
+			}
+			
+			$('gbl_d').update( "<a href='"+ ipsLightbox.lightboxImage.src + "' target='_blank'><img src='http://img.codecall.net/public/style_images/master/lightbox/download-icon.png' /></a>" );
+			
+			_last = ipsLightbox.lightboxImage.src;
+		}
+	}
+	
+	/* Check for init and then keep checking for new image */
+	_to = setTimeout( "gbl_addDownloadButton()", 1000 );
+}
+//]]>
+</script>
+			
+			<div id="inline_login_form" style="display:none">
+		<form action="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=login&amp;do=process" method="post" id="login">
+				<input name="auth_key" value="880ea6a14ea49e853634fbdc5015a024" type="hidden">
+				<input name="referer" value="http://forum.codecall.net/topic/64933-threads-in-linux-using-cc-part-1/" type="hidden">
+				<h3>Sign In</h3>
+				<div class="ipsBox_notice">
+						<ul class="ipsList_inline">
+							
+								<li><a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=login&amp;serviceClick=facebook" class="ipsButton_secondary"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/facebook.png" alt="Facebook"> &nbsp; Use Facebook</a></li>
+							
+							
+								<li><a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=login&amp;serviceClick=twitter" class="ipsButton_secondary"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/twitter.png" alt="Twitter"> &nbsp; Use Twitter</a></li>
+							
+							
+							
+						</ul>
+					</div>
+				<br>
+				<div class="ipsForm ipsForm_horizontal">
+					<fieldset>
+						<ul>
+							<li class="ipsField">
+								<div class="ipsField_content">
+									Need an account? <a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=register" title="Register now!">Register now!</a>
+								</div>
+							</li>
+							<li class="ipsField ipsField_primary">
+								<label for="ips_username" class="ipsField_title">Username</label>
+								<div class="ipsField_content">
+									<input id="ips_username" class="input_text" name="ips_username" size="30" tabindex="0" type="text">
+								</div>
+							</li>
+							<li class="ipsField ipsField_primary">
+								<label for="ips_password" class="ipsField_title">Forum Password</label>
+								<div class="ipsField_content">
+									<input id="ips_password" class="input_text" name="ips_password" size="30" tabindex="0" type="password"><br>
+									<a href="http://forum.codecall.net/index.php?app=core&amp;module=global&amp;section=lostpass" title="Retrieve password">I've forgotten my password</a>
+								</div>
+							</li>
+							<li class="ipsField ipsField_checkbox">
+								<input id="inline_remember" checked="checked" name="rememberMe" value="1" class="input_check" tabindex="0" type="checkbox">
+								<div class="ipsField_content">
+									<label for="inline_remember">
+										<strong>Remember me</strong><br>
+										<span class="desc lighter">This is not recommended for shared computers</span>
+									</label>
+								</div>
+							</li>
+							
+							
+							<li class="ipsPad_top ipsForm_center desc ipsType_smaller">
+								<a rel="nofollow" href="http://forum.codecall.net/privacypolicy/">Privacy Policy</a>
+							</li>
+							
+						</ul>
+					</fieldset>
+					
+					<div class="ipsForm_submit ipsForm_center">
+						<input class="ipsButton" value="Sign In" tabindex="0" type="submit">
+					</div>
+				</div>
+			</form>
+	</div>
+		</div>
+		
+		
+		<script type="text/javascript">
+			if( $('primary_nav') ){	ipb.global.activateMainMenu(); }
+		</script>
+			
+<div style="display: none;" id="overlay"></div><div style="display: none;" id="lightbox"><div style="width: 250px; height: 250px;" id="outerImageContainer"><div id="imageContainer"><img id="lightboxImage"><div id="hoverNav"><a id="prevLink" href="#"></a><a id="nextLink" href="#"></a></div><div id="loading"><a id="loadingLink" href="#"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/loading.gif"></a></div></div></div><div id="imageDataContainer"><div id="imageData"><div id="imageDetails"><span id="caption"></span><span id="numberDisplay"></span></div><div id="bottomNav"><a id="bottomNavClose" href="#"><img src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/closelabel.gif"></a></div></div></div></div><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="%5Bc++%5D%20Threads%20in%20Linux%20using%20c_c++%20-%20Part%201%20-%20C_C++%20Tutorials%20-%20Codecall_files/postmessageRelay.html" id="oauth2relay511724068" name="oauth2relay511724068"></iframe></body></html>

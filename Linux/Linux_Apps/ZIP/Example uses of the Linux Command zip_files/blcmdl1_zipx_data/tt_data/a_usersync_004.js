@@ -1,0 +1,1 @@
+ANX_async_load({"url":"http://d.turn.com/r/du/id/L2NzaWQvMS9tcGlkLzMwNDA4MzY5/mpuid/1416470041628487226", "c":3, "tagtype":"img"});

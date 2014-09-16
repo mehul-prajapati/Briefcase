@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2007 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Contents</title>
+
+<style type="text/css">
+/*******************************************************************************
+ * Copyright (c) 2006 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+ 
+ BODY {
+	font: icon;
+	margin-top:2px;
+	margin-left:5px;
+	padding:0;
+	border:0;
+	
+}
+
+#root {
+	margin-top:0px;
+	margin-left:0px;
+}
+
+DIV.root {
+    font-weight:bold;
+}
+
+DIV.visible, DIV.unopened { 
+	border-width:0; 
+	margin-left:1.5em; 
+	font-weight:normal;
+}
+
+DIV.group { 
+	border-width:0; 
+	margin-left:0; 
+}
+  
+DIV.hidden {
+	display:none; 
+}
+
+DIV.visible, DIV.root {  
+    margin-top:1px; 
+}
+
+SPAN.item{
+    white-space: nowrap;
+}
+
+IMG {
+	border:0px;
+	margin:0px;
+	padding:0px;
+	margin-right:4px;
+}
+
+IMG.expander, IMG.h {
+    margin-top:4px;
+    margin-bottom:2px;
+}
+
+A {
+	text-decoration:none; 
+	color:WindowText;
+	padding-right:2px;
+	/* this works in ie5.5, but not in ie5.0  */
+	white-space: nowrap;
+}
+
+A:hover{
+	text-decoration:underline; 
+}
+
+A.active{ 
+	color:HighlightText;
+	background:Highlight;
+	width:100%;
+}
+
+A.active:hover{
+	text-decoration:underline; 
+}
+
+A.nolink {
+	text-decoration:none; 
+}
+
+A.nolink:link, A.nolink:visited {
+	color:WindowText;
+}
+
+A.nolink:hover {
+	text-decoration:none; 
+}
+
+.h {
+	visibility:hidden;
+}
+
+ 
+
+</style>  
+    
+<!-- base href="http://developer.bada.com/help_2.0/advanced/tocView.jsp?view=toc&topic=/com.osp.cppappprogramming.help/html/dev_guide/base/mutex_and_semaphore.htm" -->
+<script language="JavaScript" src="tocView_data/helptree.js"></script>
+<script language="JavaScript" src="tocView_data/helptreechildren.js"></script>
+<script language="JavaScript" src="tocView_data/xmlajax.js"></script>
+<script language="JavaScript" src="tocView_data/utils.js"></script>
+<script language="JavaScript" src="tocView_data/tocTree.js"></script>
+
+<script language="JavaScript">
+
+// Preload images
+var imagesDirectory = "images";
+minus = new Image();
+minus.src = imagesDirectory + "/minus.gif";
+plus = new Image();
+plus.src = imagesDirectory + "/plus.gif";
+toc_open_img = new Image();
+toc_open_img.src = imagesDirectory + "/toc_open.gif";
+toc_closed_img = new Image();
+toc_closed_img.src = imagesDirectory + "/toc_closed.gif";
+folder_img = new Image();
+folder_img.src = imagesDirectory + "/container_obj.gif";
+folder_topic = new Image();
+folder_topic.src = imagesDirectory + "/container_topic.gif";
+topic_img = new Image();
+topic_img.src = imagesDirectory + "/topic.gif";
+
+var altTopic = "topic";
+var altContainer = "container";
+var altContainerTopic = "container\u0020topic";
+var altBookClosed = "Book\u0020closed";
+var altBookOpen = "Book\u0020open";
+var altPlus = "Expand\u0020topics";
+var altMinus = "Collapse\u0020topics";
+var loadingMessage = "Loading\u002E\u002E\u002E\u0020please\u0020wait";
+var cookiesRequired = "This\u0020feature\u0020requires\u0020cookies\u0020to\u0020be\u0020enabled\u0020in\u0020your\u0020browser\u002E";
+
+var isIE = navigator.userAgent.indexOf('MSIE') != -1;
+
+var tocTitle = "";
+var tocId = "";
+	
+function onloadHandler()
+{
+    setRootAccessibility();
+	loadChildren(null);
+	
+	// Set prefix for AJAX calls by removing advanced/tocView.jsp from location
+	var locationHref = window.location.href;
+    var slashAdvanced = locationHref.lastIndexOf('/advanced');
+    if(slashAdvanced > 0) {
+	    setAjaxPrefix(locationHref.substr(0, slashAdvanced));
+	}
+
+	var tocTopic = "\u002E\u002E\u002Ftopic\u002Fcom\u002Eosp\u002Ecppappprogramming\u002Ehelp\u002Fhtml\u002Fcover\u005Fpage\u002Ehtm";
+	var topicSelected=false;
+	// select specified topic, or else the book
+	var topic = "\u002E\u002E\u002Ftopic\u002Fcom\u002Eosp\u002Ecppappprogramming\u002Ehelp\u002Fhtml\u002Fdev\u005Fguide\u002Fbase\u002Fmutex\u005Fand\u005Fsemaphore\u002Ehtm";
+	if (topic != "about:blank" && topic != tocTopic) {
+		if (topic.indexOf(window.location.protocol) != 0 && topic.length > 2) {
+			// remove the .. from topic
+			topic = topic.substring(2);
+			// remove advanced/tocView.jsp from path to obtain contextPath
+			var contextPath = window.location.pathname;
+			var slash = contextPath.lastIndexOf('/');
+			if(slash > 0) {
+				slash = contextPath.lastIndexOf('/', slash-1);
+				if(slash >= 0) {
+					contextPath = contextPath.substr(0, slash);
+					topic = window.location.protocol + "//" +window.location.host + contextPath + topic;
+				}
+			}			
+		}
+		topicSelected = selectTopic(topic);
+	} 
+
+}
+
+function onunloadHandler() {
+
+}
+</script>
+
+</head>
+<body dir="ltr" onload="onloadHandler()" onunload="onunloadHandler()">
+  <div role="wairole:application" class="group" id="wai_application">
+    <div expanded="true" role="wairole:tree" class="root" id="tree_root">
+    <div class="root"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Getting Started with bada" href="http://developer.bada.com/help_2.0/topic/com.osp.documentation.help/html/cover_page.htm"><img alt="Book closed" src="tocView_data/toc_closed.gif">Getting Started with bada</a></span><div class="unopened"></div></div><div class="root"><span class="item"><img alt="Collapse topics" src="tocView_data/minus.gif" class="expander"><a expanded="true" role="wairole:treeitem" title="bada C++ App Programming" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/cover_page.htm"><img alt="Book open" src="tocView_data/toc_open.gif">bada C++ App Programming</a></span><div role="wairole:group" class="group"><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Basics of bada C++ Programming" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/basics_bada_programming/basics_bada_programming.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Basics of bada C++ Programming</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Collapse topics" src="tocView_data/minus.gif" class="expander"><a expanded="true" role="wairole:treeitem" title="Developer Guide" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/dev_guide.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Developer Guide</a></span><div role="wairole:group" class="group"><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Ads: Publishing Advertisements" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/ads/ads_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Ads: Publishing Advertisements</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="App: Controlling Your Application" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/app/app_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">App: Controlling Your Application</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Collapse topics" src="tocView_data/minus.gif" class="expander"><a expanded="true" role="wairole:treeitem" title="Base: Basic Types, Execution Environment, and Utilities" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/base_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Base: Basic Types, Execution Environment, and Utilities</a></span><div role="wairole:group" class="group"><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a role="wairole:treeitem" title="Buffer" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/buffer.htm"><img alt="topic" src="tocView_data/topic.gif">Buffer</a></span></div><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a role="wairole:treeitem" title="DateTime and TimeSpan" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/datetime_timespan.htm"><img alt="topic" src="tocView_data/topic.gif">DateTime and TimeSpan</a></span></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="String" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/string.htm"><img alt="container topic" src="tocView_data/container_topic.gif">String</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Collection" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/collection_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Collection</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Collapse topics" src="tocView_data/minus.gif" class="expander"><a expanded="true" role="wairole:treeitem" title="Runtime" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/runtime_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Runtime</a></span><div role="wairole:group" class="group"><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a role="wairole:treeitem" title="Timer" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/timer.htm"><img alt="topic" src="tocView_data/topic.gif">Timer</a></span></div><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a class="active" role="wairole:treeitem" title="Mutex and Semaphore" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/mutex_and_semaphore.htm"><img alt="topic" src="tocView_data/topic.gif">Mutex and Semaphore</a></span></div><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a role="wairole:treeitem" title="Monitor" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/monitor.htm"><img alt="topic" src="tocView_data/topic.gif">Monitor</a></span></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Thread" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/thread.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Thread</a></span><div class="unopened"></div></div></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Utility" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/utility_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Utility</a></span><div class="unopened"></div></div></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Commerce: Making a Deal on Samsung Apps" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/commerce/commerce_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Commerce: Making a Deal on Samsung Apps</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Content: Managing Content" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/content/content_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Content: Managing Content</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Graphics: Rendering Primitives and Using OpenGL®" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/graphics/graphics_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Graphics: Rendering Primitives and Using OpenGL®</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Io: Input, Output, and Data Handling" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/io/io_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Io: Input, Output, and Data Handling</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Locales: Internationalization and Localization" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/locales/locales_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Locales: Internationalization and Localization</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Locations: Using Location Information and Services" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/locations/locations_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Locations: Using Location Information and Services</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Media: Handling Images, Audio, Video, Camera, and OpenAL" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/media/media_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Media: Handling Images, Audio, Video, Camera, and OpenAL</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Messaging: SMS, MMS, Email, and Push" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/messaging/messaging.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Messaging: SMS, MMS, Email, and Push</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Net: Managing Network Connections and Communication" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/net/net_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Net: Managing Network Connections and Communication</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Security: Handling Certificates and Cryptographic Primitives" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/security/security_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Security: Handling Certificates and Cryptographic Primitives</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Social: Managing Social Networks" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/social/social_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Social: Managing Social Networks</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="System: Getting System Information and Using Alarms" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/system/system_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">System: Getting System Information and Using Alarms</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a role="wairole:treeitem" title="Telephony: Handling Phone Call, SIM Card, and Network Information" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/telephony/telephony.htm"><img alt="topic" src="tocView_data/topic.gif">Telephony: Handling Phone Call, SIM Card, and Network Information</a></span></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Text: Encoding and Decoding Characters" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/text/text.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Text: Encoding and Decoding Characters</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="UI: Creating the Application UI Using UI Controls" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/ui/ui_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">UI: Creating the Application UI Using UI Controls</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Uix: Having Fun with UI Extension" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/uix/uix_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Uix: Having Fun with UI Extension</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Web: Managing Web Pages and Web Content" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/web/web_browsers_and_web_content.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Web: Managing Web Pages and Web Content</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Xml: Handling XML Documents" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/xml/xml_namespace.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Xml: Handling XML Documents</a></span><div class="unopened"></div></div></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="Tutorials" href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/tutorials/tutorials_cover.htm"><img alt="container topic" src="tocView_data/container_topic.gif">Tutorials</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="API Reference" href="http://developer.bada.com/help_2.0/topic/com.osp.cppapireference.help/index.html"><img alt="container topic" src="tocView_data/container_topic.gif">API Reference</a></span><div class="unopened"></div></div><div class="visible"><span class="item"><img alt="" src="tocView_data/plus.gif" class="h"><a role="wairole:treeitem" title="Sample Applications" href="http://developer.bada.com/help_2.0/topic/com.osp.sampledocumentation.help/html/sample_files_cpp.htm"><img alt="topic" src="tocView_data/topic.gif">Sample Applications</a></span></div></div></div><div class="root"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="bada Flash App Programming" href="http://developer.bada.com/help_2.0/topic/com.osp.flashappprogramming.help/html/cover_page.htm"><img alt="Book closed" src="tocView_data/toc_closed.gif">bada Flash App Programming</a></span><div class="unopened"></div></div><div class="root"><span class="item"><img alt="Expand topics" src="tocView_data/plus.gif" class="expander"><a expanded="false" role="wairole:treeitem" title="bada Web App Programming" href="http://developer.bada.com/help_2.0/topic/com.osp.webappprogramming.help/html/cover_page.htm"><img alt="Book closed" src="tocView_data/toc_closed.gif">bada Web App Programming</a></span><div class="unopened"></div></div></div>
+  </div>
+
+
+</body></html>

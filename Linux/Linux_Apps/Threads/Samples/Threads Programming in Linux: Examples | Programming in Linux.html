@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="en">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en"><!--<![endif]--><!--
+	generated 159 seconds ago
+	generated in 0.433 seconds
+	served from batcache in 0.002 seconds
+	expires in 141 seconds
+--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Threads Programming in Linux: Examples | Programming in Linux</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="stylesheet" type="text/css" media="all" href="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/style.css">
+<link rel="pingback" href="http://linuxprograms.wordpress.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://s2.wp.com/wp-content/themes/pub/twentyeleven/js/html5.js?m=1354160568g" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="Programming in Linux » Feed" href="http://linuxprograms.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Programming in Linux » Comments Feed" href="http://linuxprograms.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Programming in Linux » Threads Programming in Linux:&nbsp;Examples Comments Feed" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/feed/">
+<script type="text/javascript" async="" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/quant.js"></script><script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/wl" async="" type="text/javascript"></script><script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<style type="text/css">
+	/*body div.jp-relatedposts { border-color:#dddddd; }
+	body div.jp-relatedposts .jp-relatedposts-headline em { background:#ffffff }
+	body div.jp-relatedposts, body div.jp-relatedposts .jp-relatedposts-post a { color:#333333 }*/
+	body div.jp-relatedposts .jp-relatedposts-headline em:before { border-color:#333333; }
+</style><link rel="stylesheet" id="all-css-0" href="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a_003.js"></script>
+<link rel="stylesheet" id="all-css-0" href="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/style_002.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://linuxprograms.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://linuxprograms.wordpress.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Linux Kernel Support for Threads (Light Weight&nbsp;Processes)" href="http://linuxprograms.wordpress.com/2007/12/19/linux-kernel-support-for-threads-light-weight-processe/">
+<link rel="next" title="Implementation of a Linux&nbsp;Shell" href="http://linuxprograms.wordpress.com/2008/01/05/implementation-of-a-linux-shell/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/">
+<link rel="shortlink" href="http://wp.me/pcXt5-1D">
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Flinuxprograms.wordpress.com%2F2007%2F12%2F29%2Fthreads-programming-in-linux-examples%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Flinuxprograms.wordpress.com%2F2007%2F12%2F29%2Fthreads-programming-in-linux-examples%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Threads Programming in Linux: Examples">
+<meta property="og:url" content="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/">
+<meta property="og:description" content="One of the important purpose of threads is to achieve concurrency. There may be many independent tasks in a program which can be done in parallel without the influence of the other. One of the firs...">
+<meta property="og:site_name" content="Programming in Linux">
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1355642671g">
+<link rel="openid.server" href="http://linuxprograms.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://linuxprograms.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://linuxprograms.wordpress.com/osd.xml" title="Programming in Linux">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="Programming in Linux"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Show me the code"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://linuxprograms.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="Threads Programming in Linux:&nbsp;Examples | Programming in Linux on WordPress.com">
+<meta name="description" content="One of the important purpose of threads is to achieve concurrency. There may be many independent tasks in a program which can be done in parallel without the influence of the other. One of the first step in using threads is to first recognize the fact whether the program needs threads or not, otherwise the…">
+
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/google_ads.js"></script>
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script><script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/bid"></script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post_adsafe"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 3088535, pt: 'permalink', wa: 0, as: 1, domain: 'linuxprograms.wordpress.com', url: 'http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/', gid: '', };
+</script>
+<style id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/ga.js" async="" type="text/javascript"></script>
+<script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/osd.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/services.css"><script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a_003.html" async="" type="text/javascript"></script></head>
+
+<body class="single single-post postid-101 single-format-standard mp6 single-author singular two-column right-sidebar highlander-enabled highlander-light">
+<div id="page" class="hfeed">
+	<header id="branding" role="banner">
+			<hgroup>
+				<h1 id="site-title"><span><a sl-processed="1" href="http://linuxprograms.wordpress.com/" title="Programming in Linux" rel="home">Programming in Linux</a></span></h1>
+				<h2 id="site-description">Show me the code</h2>
+			</hgroup>
+
+						<a sl-processed="1" href="http://linuxprograms.wordpress.com/">
+									<img src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/lanterns.jpg" alt="" width="1000" height="288">
+							</a>
+			
+								<form method="get" id="searchform" action="http://linuxprograms.wordpress.com/">
+		<label for="s" class="assistive-text">Search</label>
+		<input class="field" name="s" id="s" placeholder="Search" type="text">
+		<input class="submit" name="submit" id="searchsubmit" value="Search" type="submit">
+	</form>
+			
+			<nav id="access" role="navigation">
+				<h3 class="assistive-text">Main menu</h3>
+								<div class="skip-link"><a sl-processed="1" class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+				<div class="skip-link"><a sl-processed="1" class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+								<div class="menu"><ul><li><a sl-processed="1" href="http://linuxprograms.wordpress.com/">Home</a></li><li class="page_item page-item-131"><a sl-processed="1" href="http://linuxprograms.wordpress.com/about/">About</a></li><li class="page_item page-item-61630"><a sl-processed="1" href="http://linuxprograms.wordpress.com/contact/">Contact</a></li><li class="page_item page-item-61662"><a sl-processed="1" href="http://linuxprograms.wordpress.com/license/">License</a></li></ul></div>
+			</nav><!-- #access -->
+	</header><!-- #branding -->
+
+
+	<div id="main">
+
+		<div id="primary">
+			<div id="content" role="main">
+
+				
+					<nav id="nav-single">
+						<h3 class="assistive-text">Post navigation</h3>
+						<span class="nav-previous"><a sl-processed="1" href="http://linuxprograms.wordpress.com/2007/12/19/linux-kernel-support-for-threads-light-weight-processe/" rel="prev"><span class="meta-nav">←</span> Previous</a></span>
+						<span class="nav-next"><a sl-processed="1" href="http://linuxprograms.wordpress.com/2008/01/05/implementation-of-a-linux-shell/" rel="next">Next <span class="meta-nav">→</span></a></span>
+					</nav><!-- #nav-single -->
+
+					
+<article id="post-101" class="post-101 post type-post status-publish format-standard hentry category-posix category-posix-threads category-threads tag-posix-threads tag-pthread">
+	<header class="entry-header">
+		<h1 class="entry-title">Threads Programming in Linux:&nbsp;Examples</h1>
+
+				<div class="entry-meta">
+						<span class="sep">Posted on </span><a sl-processed="1" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/" title="8:05 am" rel="bookmark"><time class="entry-date" datetime="2007-12-29T08:05:00+00:00">December 29, 2007</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a sl-processed="1" class="url fn n" href="http://linuxprograms.wordpress.com/author/multilingualjourney/" title="View all posts by multilingualjourney" rel="author">multilingualjourney</a></span></span>		</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>One of the important purpose of threads is to achieve concurrency. 
+There may be many independent tasks in a program which can be done in 
+parallel without the influence of the other. One of the first step in 
+using threads is to first recognize the fact whether the program needs 
+threads or not, otherwise the very purpose of threads becomes futile. 
+For example if you are designing a program which involves reading a file
+ and display it, you may utilize two or more threads, one to read the 
+file, the second to update the display and other threads to monitor the 
+user inputs in the form of keyboard interrupts or mouse movements. There
+ can be cases when threads are dependent on each other like in case of 
+our above example, if the concerned application is an editor so a 
+character key pressed should be soon informed to the other thread which 
+updates <span class="blsp-spelling-corrected">display</span> so that it may open the menu corresponding to that key shortcut or do some other appropriate action.</p>
+<p><span style="font-weight:bold;">Example 1:</span><br>
+Two threads displaying two strings “Hello” and “How are you?” independent of each other.</p>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;stdlib.h&gt;
+
+void * thread1()
+{
+        while(1){
+                printf("Hello!!\n");
+        }
+}
+
+void * thread2()
+{
+        while(1){
+                printf("How are you?\n");
+        }
+}
+
+int main()
+{
+        int status;
+        pthread_t tid1,tid2;
+
+        pthread_create(&amp;tid1,NULL,thread1,NULL);
+        pthread_create(&amp;tid2,NULL,thread2,NULL);
+        pthread_join(tid1,NULL);
+        pthread_join(tid2,NULL);
+        return 0;
+}</pre>
+<p>Now compile this program (Note the -l option is to load the pthread library)</p>
+<pre><span style="font-weight:bold;">$gcc thread.c -lpthread </span></pre>
+<p>On running, you can see many interleaved “Hello!!” and “How are you?” messages</p>
+<p><span style="font-weight:bold;">Example 2</span><br>
+This example involves a reader and a writer thread. The reader thread 
+reads a string from the user and writer thread displays it. This program
+ uses semaphore so as to achieve synchronization</p>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+#include &lt;stdlib.h&gt; 
+
+char n[1024];
+sem_t len;
+
+void * read1()
+{
+        while(1){
+                printf("Enter a string");
+                scanf("%s",n);
+                sem_post(&amp;len);
+        }
+}
+
+void * write1()
+{
+        while(1){
+                sem_wait(&amp;len);
+                printf("The string entered is :");
+                printf("==== %s\n",n);
+        }
+
+}
+
+int main()
+{
+        int status;
+        pthread_t tr, tw;
+
+        pthread_create(&amp;tr,NULL,read1,NULL);
+        pthread_create(&amp;tw,NULL,write1,NULL);
+
+        pthread_join(tr,NULL);
+        pthread_join(tw,NULL);
+        return 0;
+}</pre>
+<p>On running, in most cases we may be able to achieve a serial read and
+ write( Thread1reads a string and Thread2 displays the same string). But
+ suppose we insert a sleep function() in write1 like</p>
+<pre>void * write1()
+{
+         while(1){
+                 sleep(5);
+                 sem_wait(&amp;len);
+                 printf("The string entered is :");
+                 printf("==== %s\n",n);
+         }
+}</pre>
+<p>The thread 1 may read one more string and thread2 displays the last read string. That is no serial read and write is achieved.</p>
+<p>So we may need to use the condition variables to achieve serial read and write.</p>
+<p><span style="font-weight:bold;">Example 3</span><br>
+This example involves a reader and a writer thread. The reader thread 
+reads a string from the user and writer thread displays it. This program
+ uses condition variables to achieve synchronization and achieve <span class="blsp-spelling-error">serial programming</span>.</p>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define TRUE 1
+#define FALSE 0
+
+char n[1024];
+pthread_mutex_t lock= PTHREAD_MUTEX_INITIALIZER;
+int string_read=FALSE;
+
+pthread_cond_t cond;
+
+void * read1()
+{
+        while(1){
+                while(string_read);
+                pthread_mutex_lock(&amp;lock);
+                printf("Enter a string: ");
+                scanf("%s",n);
+                string_read=TRUE;
+                pthread_mutex_unlock(&amp;lock);
+                pthread_cond_signal(&amp;cond);
+        }
+}
+
+void * write1()
+{
+        while(1){
+                pthread_mutex_lock(&amp;lock);
+                while(!string_read)
+                        pthread_cond_wait(&amp;cond,&amp;lock);
+                        printf("The string entered is %s\n",n);
+
+                        string_read=FALSE;
+                        pthread_mutex_unlock(&amp;lock);
+        }
+}
+int main()
+{
+        int status;
+        pthread_t tr, tw;
+
+        pthread_create(&amp;tr,NULL,read1,NULL);
+        pthread_create(&amp;tw,NULL,write1,NULL);
+
+        pthread_join(tr,NULL);
+        pthread_join(tw,NULL);
+        return 0;
+}</pre>
+<p>The output is serial read and write.</p>
+<p>In the beginning, I started the discussion that threads are used to 
+achieve concurrency. But the above examples can be easily done by simple
+ <span class="blsp-spelling-error">scanf</span> and <span class="blsp-spelling-error">printf</span> i.e.,<br>
+<span class="blsp-spelling-error">scanf</span>(“%s”,n);<br>
+<span class="blsp-spelling-error">printf</span>(“%s”,n);</p>
+<p>But these examples were given to demonstrate the semaphores and 
+condition variables. Example 3 can be further modified to design a 
+reader/writer application. Example string_read boolean variable can be 
+converted to a string_count variable.</p>
+<p>&nbsp;</p>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a sl-processed="1" style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Twenty Eleven";
+		var wpcom_adclk_slot = "wpcom_below_post_adsafe";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "linuxprograms.wordpress.com");
+GA_googleAddAttr("BlogId", "3088535");
+GA_googleAddAttr("PageURL", "http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/");
+GA_googleAddAttr("AdSafe", "1");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "books");
+GA_googleAddAttr("Tag", "posix");
+GA_googleAddAttr("Tag", "posix-threads");
+GA_googleAddAttr("Tag", "threads");
+GA_googleAddAttr("Tag", "posix-threads");
+GA_googleAddAttr("Tag", "pthread");
+GA_googleAddAttr("Partner", "AOL");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_border", "dddddd");
+GA_googleAddAttr("theme_text", "333333");
+GA_googleAddAttr("theme_link", "1bafe0");
+GA_googleAddAttr("theme_url", "1bafe0");
+GA_googleAddAdSensePageAttr("google_page_url", "http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/");
+GA_googleFillSlot("wpcom_below_post_adsafe");
+}
+</script><script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/ads"></script><div id="google_ads_div_wpcom_below_post_adsafe_ad_wrapper">
+<div id="google_ads_div_wpcom_below_post_adsafe_ad_container" style="display:inline-block;"><div style="display: block; height: 250px; width: 100%; opacity: 1;" id="grv-personalization-16"><iframe style="width: 100%; height: 250px; opacity: 1; overflow: hidden;" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/w2.html" frameborder="0" scrolling="no"></iframe></div>
+<script type="text/javascript">
+  //<![CDATA[
+ function _grc(k){return(document.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2]}
+    (function(){
+    window.gravityInsightsParams = {
+      'type': 'content',
+      'site_guid': '361837bc83c4c2cba7b350dff56a564f',
+      'user_guid': _grc('grvinsights'),
+      'sourceUrl': 'linuxprograms.wordpress.com',
+    };
+    var b,c,d,e,f,g,h,i;f=(b=!0===gravityInsightsParams.useGravityUserGuid?1:0,e=b?"":gravityInsightsParams.user_guid||(null!=(g=/grvinsights=([^;]+)/.exec(document.cookie))?g[1]:void 0)||"",c=(null!=(h=window.jQuery)?null!=(i=h.fn)?i.jquery:void 0:void 0)||"","http://rma-api.gravity.com/v1/api/intelligence/wl?jq="+c+"&sg="+gravityInsightsParams.site_guid+"&ug="+e+"&ugug="+b+"&pl=16&id=grv-personalization-16&type=iframe");
+    window.grvMakeScript=function(j){var a;a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=j;return a};d=document.getElementsByTagName("script")[0];f&&d.parentNode.insertBefore(window.grvMakeScript(f),d);})();
+  //]]>
+</script>
+
+</div>
+</div>
+
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-stumbleupon"><a sl-processed="1" rel="nofollow" class="share-stumbleupon sd-button share-icon" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/?share=stumbleupon&amp;nb=1" title="Click to share on StumbleUpon"><span>StumbleUpon</span></a></li><li class="share-digg"><a sl-processed="1" rel="nofollow" class="share-digg sd-button share-icon" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/?share=digg&amp;nb=1" title="Click to Digg this post"><span>Digg</span></a></li><li class="share-reddit"><a sl-processed="1" rel="nofollow" class="share-reddit sd-button share-icon" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/?share=reddit&amp;nb=1" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-3088535-101-52cd143fb198f" data-src="//widgets.wp.com/likes/#blog_id=3088535&amp;post_id=101&amp;origin=linuxprograms.wordpress.com&amp;obj_id=3088535-101-52cd143fb198f" data-name="like-post-frame-3088535-101-52cd143fb198f"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe style="display: inline;" class="post-likes-widget jetpack-likes-widget" name="like-post-frame-3088535-101-52cd143fb198f" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a.html" width="100%" frameborder="0" height="55px"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div style="display: block;" id="jp-relatedposts" class="jp-relatedposts">
+	<p class="jp-relatedposts-headline"><em>Related</em></p>
+<p class="jp-relatedposts-post jp-relatedposts-post0" data-post-format="false"><strong><a sl-processed="1" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/?relatedposts_to=31&amp;relatedposts_order=0" title="Data Processing
+
+One way to look at the Computer is as " a="" machine="" that="" performs="" data="" processing."="" when="" you="" look="" at="" the="" computer="" from="" this="" point="" of="" view,="" need="" to="" every="" device="" associated="" with="" perspective.="" before="" delving="" deep="" into="" topic="" processing,="" let's="" first="" understand="" what="" is="" meant&hellip;"="" rel="nofollow">Data Processing</a></strong><br><span>In "Data Processing"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-format="false"><strong><a sl-processed="1" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/?relatedposts_to=34&amp;relatedposts_order=1" title="Separating out the source and the configuration files
+
+One of the first steps before delving deep into the coding is to make a clear distinction between the source and the configuration files. Every software must give enough options to its users to configure the software behavior. A user may wish to change the interface color, rearrange certain options and reposition certain elements. Sometimes…" rel="nofollow">Separating out the source and the configuration files</a></strong><br><span>In "Configuration"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-format="false"><strong><a sl-processed="1" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/?relatedposts_to=61686&amp;relatedposts_order=2" title="C:Working with command line arguments
+
+Almost all of the commands in Linux/Unix have options. An option for a commmand is a mechanism by which you provide additional parameters to the command to change its behavior. Take for example, the command ls is used to list the files in a directory. But to obtain a detailed listing of the files, the…" rel="nofollow">C:Working with command line arguments</a></strong><br><span>In "C"</span></p></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was posted in <a sl-processed="1" href="http://linuxprograms.wordpress.com/category/posix/" title="View all posts in POSIX" rel="category tag">POSIX</a>, <a sl-processed="1" href="http://linuxprograms.wordpress.com/category/posix-threads/" title="View all posts in POSIX Threads" rel="category tag">POSIX Threads</a>, <a sl-processed="1" href="http://linuxprograms.wordpress.com/category/threads/" title="View all posts in Threads" rel="category tag">Threads</a> and tagged <a sl-processed="1" href="http://linuxprograms.wordpress.com/tag/posix-threads/" rel="tag">POSIX Threads</a>, <a sl-processed="1" href="http://linuxprograms.wordpress.com/tag/pthread/" rel="tag">pthread</a> by <a sl-processed="1" href="http://linuxprograms.wordpress.com/author/multilingualjourney/">multilingualjourney</a>. Bookmark the <a sl-processed="1" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/" title="Permalink to Threads Programming in Linux:&nbsp;Examples" rel="bookmark">permalink</a>.		
+			</footer><!-- .entry-meta -->
+</article><!-- #post-101 -->
+
+						<div id="comments">
+	
+	
+	
+									<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a sl-processed="1" rel="nofollow" id="cancel-comment-reply-link" href="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://linuxprograms.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input id="highlander_comment_nonce" name="highlander_comment_nonce" value="8a15ade60f" type="hidden"><input name="_wp_http_referer" value="/2007/12/29/threads-programming-in-linux-examples/" type="hidden">
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea aria-hidden="true" tabindex="-1" style="height: 43px; resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; width: 614px; line-height: 22.75px; text-decoration: none; letter-spacing: 0px;" placeholder="Enter your comment here..." title="Enter your comment here..."></textarea><textarea style="height: 43px; resize: none; overflow-y: hidden;" placeholder="Enter your comment here..." id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a sl-processed="1" href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a_002.html" allowtransparency="true" seamless="seamless" width="24" frameborder="0" height="24" scrolling="no"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a sl-processed="1" href="https://gravatar.com/site/signup/" target="_blank">				<img src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Google+ photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" type="hidden">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'googleplus'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a sl-processed="1" href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div style="display: none;" id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p style="display: none;" class="form-submit">
+							<input name="submit" id="comment-submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="101" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						
+<input name="genseq" value="1389171775" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="c8e9e5e3ac" type="hidden"></p><script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/form.js"></script>
+<p style="display: none;"><input id="ak_js" name="ak_js" value="1389171985535" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+
+				
+			</div><!-- #content -->
+		</div><!-- #primary -->
+
+
+	</div><!-- #main -->
+
+	<footer id="colophon" role="contentinfo">
+
+			
+
+			<div id="site-generator">
+				<a sl-processed="1" href="http://theme.wordpress.com/themes/twentyeleven/" title="Learn more about this theme">The Twenty Eleven Theme</a>. <span class="sep"> | </span>				<a sl-processed="1" href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+			</div>
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":"language.en,type.wpcom,posttag.posix-threads,posttag.pthread,as"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=language.en%2Ctype.wpcom%2Cposttag.posix-threads%2Cposttag.pthread%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/linuxprograms.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/linuxprograms.wordpress.com\/wp-login.php?action=logout&_wpnonce=4035755804","homeURL":"http:\/\/linuxprograms.wordpress.com\/","postID":"101","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a.js"></script>
+
+	<div style="bottom: -272px;" id="bit" class="loggedout-follow-normal">
+		<a sl-processed="1" class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Programming in Linux”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 57 other followers</p>
+			<p><input name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;' id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="3088535" type="hidden">
+			<input name="source" value="http://linuxprograms.wordpress.com/2007/12/29/threads-programming-in-linux-examples/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="24c3ae7451" type="hidden"><input name="_wp_http_referer" value="/2007/12/29/threads-programming-in-linux-examples/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a sl-processed="1" href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "linuxprograms.wordpress.com";
+	</script>
+	<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/725X1342.js"></script>		<iframe src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/master.html" id="likes-master" name="likes-master" style="display:none;" scrolling="no"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/a_002.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'3088535','v':'wpcom','tz':'0','user_id':'0','post':'101','subd':'linuxprograms'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRdEd6dTIuSnFPfDlzSW9+LTRWSFVIQltmX1V6ZThkVmRURDJjU3dIeHJhRSwtWi92MThFbUJWRGxuW2d3SmFiR2ExZy9tamQzJjNCJlF3WUQ/W25hZW5WdEguVTUmU1N5fCslYU92S2QucXYsQiZhaGxNdDF1TnVrY1NtVSw0Xz9zZGhWfDdZMF18YT1NM1pfL2Q5bjgxVy01OEl1bXdWLDE4PU00fnNhQTY9SmomMFcvTXJXaGdBa3JWM0l1Vk5+Y35dLkk9LWRNbTd0SjRwQytOQV9qS09oNHFqND1PVS9xZl10TkQ4S0kzOUQxZC1WLQ=='});
+addLoadEvent(function(){linktracker_init('3088535',101);});
+	</script><img id="wpstats" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/g_002.gif" alt=""><img id="wpstats2" src="Threads%20Programming%20in%20Linux:%20Examples%20%7C%20Programming%20in%20Linux_files/g.gif" alt="" style="display:none">
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_9238410031452"></iframe></body></html>

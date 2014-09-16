@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Imagetoolbar" content="no">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<link href="http://static.bada.com/en_US/developer/apis/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="help_data/3rd_common.css">
+
+<title>bada Documentation - bada Developers</title>
+<meta name="description" content="Get developer guides from bada Library, API Reference, UI Guide and more.">
+<meta name="keywords" content="bada Documentation, API Reference, Application UI Guide, Developer Guide, Creating Flash Applications, Developing Applications for Different Device Models, Device-dependent Features, Tutorials">
+</head>
+<body id="wideWarp"><div style="display: none; position: absolute; top: -15px; left: 257px; z-index: 99999; width: 300px; background: none no-repeat scroll 0px 100% rgb(255, 255, 255); padding: 0px; margin: -2px 0px 0px -3px; border-width: medium 0px 0px; border-style: none solid solid; border-color: -moz-use-text-color rgb(208, 208, 208) rgb(208, 208, 208); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none;"><div style="border: 1px solid rgb(208, 208, 208); padding: 0px 0px 0px 8px; overflow: auto; line-height: 18px; height: 110px; white-space: nowrap; display: none;"></div></div>
+
+<script src="help_data/ga.js" async="" type="text/javascript"></script><script language="javascript" type="text/javascript" src="help_data/jquery.js" charset="utf-8"></script>
+
+<script language="javascript" type="text/javascript" src="help_data/3rd_navi.js"></script><script type="text/javascript" src="help_data/popup.js"></script><script type="text/javascript" src="help_data/etc.js"></script><script type="text/javascript" src="help_data/3rd_application.js"></script>
+
+<script language="javascript" type="text/javascript" src="help_data/prototype.js"></script>
+<script language="javascript" type="text/javascript" src="help_data/swfobject.js"></script>
+<script language="javascript" type="text/javascript" src="help_data/validator.js"></script>
+<script language="javascript" type="text/javascript" src="help_data/DPUtils.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript" src="help_data/ui.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript" src="help_data/ajaxUtils.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript" src="help_data/search.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript" src="help_data/wlo.js"></script>
+<script type="text/javascript">
+    var $j = jQuery.noConflict();
+</script>
+
+<script type="text/javascript">
+    var lo = "en_US";
+    var staticURL = "http://static.bada.com/en_US";
+</script>
+<script type="text/javascript">
+var site = "" + location.href;
+if(site.indexOf("ospos.net") > -1 || site.indexOf("ospserver.net") > -1) {
+    site = site.replace("developer.ospos.net", "developer.bada.com");
+    site = site.replace("developer.ospserver.net", "developer.bada.com");
+    location.href = site;
+}
+
+function localeUrl(lo){
+	site = site.replace('http://developer.bada.com','');
+	if (lo == "en_US")
+		site = site.replace('menu=KC','menu=MC');
+	else
+		site = site.replace('menu=MC','menu=KC');
+
+	var form = document.unique;
+    form.lo.value = lo;
+    form.returnURL.value = site;
+	form.submit();
+}
+</script>
+<form name="unique" method="post" action="/locale.do">
+<input name="lo" value="" type="hidden">
+<input name="returnURL" value="" type="hidden">
+</form>
+<script language="javascript" type="text/javascript" src="help_data/badaDocument.js"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+	function goTopSearchFrame(){
+	    if ( $("topSearch").value==null || $("topSearch").value.blank() != "" || $("topSearch").value.empty()!="" || $("topSearch").value=="Search for" ){
+	        $("topSearch").value = "Search for";
+	        return;
+	    }else{
+	        top.location.href = "http://developer.bada.com/search/searchIndexList.do?menu=MC01120100&searchValue="+$("topSearch").value;  //dp쪽 검색 페이지쪽으로
+        }
+	}
+	
+	function searchEnterKeyPressFrame(e){
+	    var key = window.ActiveXObject ? window.event.keyCode : e.which;
+	        switch (key) {
+	            case 13:
+	                 this.goTopSearchFrame();
+	            break;
+	        }
+	}	
+//]]>
+</script>
+<div id="Wrapper">
+	<p class="hide"><a href="#Container">Go to Content</a></p>	
+	<hr>	
+	<div id="Head">
+		<div id="Top">			
+			<p class="Logo"><a href="http://developer.bada.com/apis/index.do" target="_top"><img src="help_data/logo.jpg" alt="bada Developer"></a></p>			
+			<fieldset id="siteSearch">
+				<legend>Search</legend>				
+					<p class="search_set">
+						<input class="searchTxt" name="topSearch" id="topSearch" onkeypress="searchEnterKeyPressFrame(event);" type="text">
+						<input class="searchBtn" onclick="javascript:goTopSearchFrame();" type="submit">
+					</p>
+			</fieldset>			
+			<div class="signIn">
+				<div class="signInAlign">
+					<ul class="innerSign">
+					
+	                    
+	                        <li><a href="http://developer.bada.com/member/loginForm.do" target="_top">Sign in</a></li>
+	                        <li><a href="http://developer.bada.com/register" target="_top">Sign up</a></li>
+	                    
+	                    
+	                
+	                
+		                <li><a href="#" class="active">English</a></li><li class="last"><a href="javascript:localeUrl('ko_KR');">한국어</a></li>
+	                
+					</ul>
+				</div>
+			</div>
+		</div>		
+		<div id="Menu" class="Menu mcDS">
+			<div class="inset">
+				<div class="major">
+					<ul>
+						
+                        <li class="m1"><a href="http://developer.bada.com/library" target="_top"><span>Library</span></a></li><li class="m2"><a href="http://developer.bada.com/devtools" target="_top"><span>Dev Tools</span></a><div class="sub"><ul><li class=""><a href="http://developer.bada.com/devtools/sdk" target="_top"><span>SDK Download</span></a></li><li class=""><a href="http://developer.bada.com/devtools/samsungservices" target="_top"><span>Samsung Services</span></a></li><li class=""><a href="http://developer.bada.com/devtools/bada-Web-UI-Framework" target="_top"><span>Web UI Framework</span></a></li><li class=""><a href="http://developer.bada.com/devtools/archives" target="_top"><span>Archives</span></a></li></ul></div></li><li class="m3"><a href="http://developer.bada.com/badaforum/category/list.do?categoryId=21&amp;menu=MC01050000" target="_top"><span>Forums</span></a><div class="sub"><ul><li class=""><a href="http://developer.bada.com/badaforum/category/list.do?categoryId=21&amp;menu=MC01050900" target="_top"><span>English Forum</span></a></li><li class=""><a href="http://developer.bada.com/badaforum/category/list.do?categoryId=22&amp;menu=MC01051200" target="_top"><span>Korean Forum</span></a></li><li class=""><a href="http://developer.bada.com/badaforum/category/list.do?categoryId=23&amp;menu=MC01051300" target="_top"><span>Chinese Forum</span></a></li><li class=""><a href="http://developer.bada.com/badaforum/category/list.do?categoryId=67&amp;menu=MC01051700" target="_top"><span>Russian Forum</span></a></li><li class=""><a href="http://developer.bada.com/badaforum/board/thread/list.do?boardName=tools&amp;menu=MC01051600" target="_top"><span> Tools &amp; Libraries</span></a></li><li class=""><a href="http://developer.bada.com/badaforum/category/list.do?categoryId=63&amp;menu=MC01051400" target="_top"><span>Archives</span></a></li></ul></div></li><li class="m4"><a href="http://developer.bada.com/support" target="_top"><span>Support</span></a><div class="sub"><ul><li class=""><a href="http://developer.bada.com/support" target="_top"><span>Beginning with bada</span></a></li><li class=""><a href="http://developer.bada.com/support/faq" target="_top"><span>FAQ</span></a></li><li class=""><a href="http://developer.bada.com/support/bug" target="_top"><span>Bug Reporting</span></a></li></ul></div></li><li class="m5"><a href="http://developer.bada.com/documentation/docsList.do?searchCategoryID=C000000008&amp;menu=MC01160000" target="_top"><span>Events</span></a><div class="sub"><ul><li class=""><a href="http://developer.bada.com/documentation/docsList.do?searchCategoryID=C000000008&amp;menu=MC01163500" target="_top"><span>News &amp; Events</span></a></li><li class=""><a href="http://developer.bada.com/apis/event/powerAppRaceAnnouncingWinners.do?menu=MC01164400" target="_top"><span>bada 2.0 Power App Race</span></a></li><li class=""><a href="http://developer.bada.com/apis/docs/commonpage.do?menu=MC01160100" target="_top"><span>bada Developer Day</span></a></li><li class=""><a href="http://developer.bada.com/challenge/index.do?menu=MC01160200" target="_top"><span>bada Developer Challenge</span></a></li></ul></div></li>
+                        
+					</ul>
+				</div>
+				<div class="aside">
+					<ul>
+						
+                    	<li class="m1"><a href="http://developer.bada.com/apis/myapp/applicationList.do?menu=MC01020000" target="_top"><span>My Applications</span></a><div class="sub"><ul><li><a href="http://developer.bada.com/apis/myapp/applicationList.do?menu=MC01020100" target="_top"><span>Application Manager</span></a></li><li><a href="http://developer.bada.com/apis/myapp/setUpYourComponent.do?menu=MC01020300" target="_top"><span>Component Setup</span></a></li><li><a href="http://developer.bada.com/apis/myapp/testKit.do?menu=MC01020800" target="_top"><span>Test Kit</span></a></li></ul></div></li>
+                    	    
+                    </ul>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<hr>
+
+    
+<!--footer-->
+
+
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script><script src="help_data/ga.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-15055292-1");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+
+    
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-15055292-3']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>    
+    
+
+  </div>
+<!--footer-->
+	
+<!-- Layer Popup -->
+
+
+<div class="LayerPop" id="LayerPopup_Feedback" style="width:420px; display:none;">
+    <p class="btnClose"><a href="#" class="helpClose"><img src="help_data/btn_close.gif" alt="Close"></a></p>
+    <div class="fg">
+		<div class="cont">
+			<h1 class="feedTit">Feedback</h1>
+			<p>
+				The fields indicated with an asterisk(*) are required to complete the transaction. Other fields are optional.<br>
+				<span class="accentB">Please, tell us your opinion.</span>
+			</p>
+		</div>		
+		<div class="btm">
+		<div class="errorMsg" id="alertWarning" style="display:none;"></div>	
+		<form id="feedbackForm" name="feedbackForm" action="/library/help.do;jsessionid=xpMTSTLNVJ43Q5jGQHcrwBqK6DN1GhPjvcl35thkJjLkTd4LT53K!311046063?frameCode=srch" method="post">
+			<div class="format">
+				<label for="ratingCode">Rating <span class="txtPt">*</span></label>
+				<select id="ratingCode" name="ratingCode" style="width:163px;">
+					<option selected="selected" value="">Choose a rating</option>
+					
+						<option value="FB0101">★ ★ ★ ★ ★Excellent</option>	
+					
+						<option value="FB0102">★ ★ ★ ★ ☆Good</option>	
+					
+						<option value="FB0103">★ ★ ★ ☆ ☆Average</option>	
+					
+						<option value="FB0104">★ ★ ☆ ☆ ☆ Bad</option>	
+					
+						<option value="FB0105">★ ☆ ☆ ☆ ☆terrible</option>	
+						
+				</select>
+			</div>
+			<div class="format">
+				<label for="categoryCode">Category</label>
+				<select id="categoryCode" name="categoryCode" style="width:163px;">
+					<option selected="selected" value="">Select one</option>
+					
+						<option value="FB0201">Contents</option>	
+					
+						<option value="FB0202">Page Error</option>	
+					
+						<option value="FB0203">Others</option>	
+					
+				</select>
+			</div>
+			<div class="format">
+				<label for="commentDescription">Comment <span class="txtPt">*</span></label>
+				<textarea id="commentDescription" name="commentDescription" class="iTxtArea" style="width:276px; height:89px;" cols="50" rows="5"></textarea>				
+			</div>
+			<div class="format">
+				<label for="urlText2">URL</label>
+				<input id="urlText2" name="urlText" class="iTxt" value="http://developer.bada.com/do" style="width:268px;" readonly="readonly" maxlength="250" type="text">
+			</div>
+			<div class="format">
+				<label for="emailText">E-mail</label>
+				<input id="emailText" name="emailText" class="iTxt" style="width:268px;" maxlength="50" type="text">
+			</div>
+			<div class="format">
+				<label for="writeName">Name</label>
+				<input id="writeName" name="writeName" class="iTxt" style="width:268px;" maxlength="50" type="text">
+			</div>
+			<div class="popBtnWrap"> 
+				<p class="right"><span class="btnType6"><input value="Submit " onclick="addFeedback();" type="button"></span></p>
+			</div>
+		</form>	
+		</div>
+    </div>    
+</div>
+
+<div class="shadow" id="feedback_shadow_layer"></div>
+<script type="text/javascript">
+//<![CDATA[
+    var xmlHttp;
+    function addFeedback(){
+		if(window.ActiveXObject){ // IE5.0, IE6.0
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}else if(window.XMLHttpRequest){ //IE7.0, FireFox, Safari, Opera
+			xmlHttp = new XMLHttpRequest();
+		}
+    	
+    	var form = $('feedbackForm');
+        var validator = new FormValidator(form);
+
+        validator.checkSelected("ratingCode", 1, "Please choose a rating    ", true);
+        validator.checkSelected("categoryCode", 1, "Please select a category", true);        
+        validator.checkRequired("commentDescription", "Please input your comment", true);
+        validator.checkMaxLengthByte("commentDescription","5000", "Comment must be at maximum 5000 byte.", true);
+        if (form.emailText.value != ""){
+	        validator.checkRequired("emailText", "Please enter your email", true);
+	        validator.checkMaxLengthByte("emailText","50", "E-mail must be at maximum 50 byte.", true);
+	        validator.checkEmail("emailText", "Please enter a valid Email Address\n\n ex ) exmple@samsung.com", true);
+        }
+        if (form.writeName.value != ""){
+            validator.checkRequired("writeName", "Please enter your name", true);
+            validator.checkMaxLengthByte("writeName","50", "Name must be at maximum 50 byte.", true);
+        }
+        if(validator.validate()){
+            xmlHttp.open("POST", "/library/feedbackWrite.do", true); 
+            xmlHttp.onreadystatechange = function() {
+				if (xmlHttp.readyState == 4) {
+					if (xmlHttp.status == 200) {
+						try{
+							var xml = xmlHttp.responseXML;
+							var res = xml.getElementsByTagName("result");
+							var result = res.item(0).firstChild.nodeValue;		                    
+							if (result == "true"){
+								trueAlert();
+							}else{
+								falseAlert(xml.getElementsByTagName("errorMsg").item(0).firstChild.nodeValue);																	
+							}
+		                }catch(e){alert(e);}
+					}					
+				}
+			}
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            xmlHttp.send(formData2QueryString(form));            
+        }
+    }
+    
+    function formData2QueryString(docForm) {
+     	  var submitContent = '';
+     	  var formElem;
+     	  var lastElemName = '';
+
+     	  for (i = 0; i < docForm.elements.length; i++) {
+     	    formElem = docForm.elements[i];
+     	    switch (formElem.type) {
+  			// Text fields, hidden form elements
+  			case 'text':
+  			case 'hidden':
+  			case 'password':
+  			case 'textarea':
+     	    	  	submitContent += formElem.name + '=' + escape(formElem.value) + '&'
+  			  	break;    	
+  			case 'select-one':
+  				submitContent += formElem.name + '=' + escape(formElem.value) + '&'
+  				break;
+     	    // Radio buttons
+  			case 'radio':
+  				if (formElem.checked) {
+     	          		submitContent += formElem.name + '=' + escape(formElem.value) + '&'
+     	        	}
+     	        	break;
+     	    // Checkboxes
+     	    case 'checkbox':
+  				if (formElem.checked) {
+     	          		// Continuing multiple, same-name checkboxes
+  					if (formElem.name == lastElemName) {
+     	            		// Strip of end ampersand if there is one
+  						if (submitContent.lastIndexOf('&') == submitContent.length-1) {
+  							submitContent = submitContent.substr(0, submitContent.length - 1);
+  						}
+  						// Append value as comma-delimited string
+  						submitContent += ',' + escape(formElem.value);
+     	          		} else {
+     	            		submitContent += formElem.name + '=' + escape(formElem.value);
+     	          		}
+  					submitContent += '&';
+  					lastElemName = formElem.name;
+     	        	}
+     	        	break;
+  			}
+  		}
+     	  	// Remove trailing separator
+     	  	submitContent = submitContent.substr(0, submitContent.length - 1);
+     	  	return submitContent;
+  	}
+    
+    function trueAlert(){
+        alert("Thank you. Your feedback has been successfully submitted.      ");
+        $('LayerPopup_Feedback').style.display ="";
+        $('feedback_shadow_layer').style.display ="";
+        feedbackFormReset();
+    }
+    
+    function falseAlert(msg){
+        var appWar = $('alertWarning');
+        appWar.style.display ="block";
+        appWar.innerHTML = msg;
+    }
+
+    function feedbackFormReset(){
+    	var form = $('feedbackForm');
+    	form.reset(); 
+    }
+    
+    function urlTextInfo1(){
+    	var form = $('feedbackForm');
+    	form.urlText.value=document.location.href;
+    	$('LayerPopup_Feedback').style.display ="block";
+        $('feedback_shadow_layer').style.display ="block";
+    }
+    
+    //Release Notes
+    function urlTextInfo2(){
+    	var form = $('feedbackForm');
+    	$('LayerPopup_Feedback').style.display ="block";
+        $('feedback_shadow_layer').style.display ="block";
+        try{
+    		form.urlText.value=document.getElementById("contentsFrame").contentWindow.window.frames["mainFrame"].window.frames["basefrm"].document.location.href;
+        }catch(e){}    	
+    }
+    //help
+    function urlTextInfo3(){
+    	var form = $('feedbackForm');
+    	$('LayerPopup_Feedback').style.display ="block";
+        $('feedback_shadow_layer').style.display ="block";
+        try{
+    		form.urlText.value=document.getElementById("contentsFrame").contentWindow.window.frames["HelpFrame"].window.frames["ContentFrame"].window.frames["ContentViewFrame"].document.location.href;
+        }catch(e){}	    	
+    }
+
+    //Device-dependent Features
+    function urlTextInfo4(){
+        var form = $('feedbackForm');
+        $('LayerPopup_Feedback').style.display ="block";
+        $('feedback_shadow_layer').style.display ="block";
+        try{
+            form.urlText.value=document.getElementById("contentsFrame").contentWindow.window.frames["mainFrame"].document.location.href;
+        }catch(e){}     
+    }
+//]]>
+</script>
+<!-- //Layer Popup -->	
+
+
+</body></html>

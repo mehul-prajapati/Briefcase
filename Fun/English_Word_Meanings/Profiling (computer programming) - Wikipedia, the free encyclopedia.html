@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js ve-not-available" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Profiling (computer programming) - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="generator" content="MediaWiki 1.23wmf14">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Profiling_%28computer_programming%29">
+<link rel="stylesheet" href="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.css">
+<style>
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */
+.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #AAA;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:491ee552778d7da2edfaacae0417e09b */
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//bits.wikimedia.org/static-1.23wmf14/resources/jquery.tipsy/images/tipsy.png?2014-02-13T17:46:40Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a698aa5d67345d60aabc59a329d04328 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/Wikidata/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2014-02-13T17:51:40Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/Wikidata/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2014-02-13T17:51:40Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9a80ed18cd60e13a378ef524a8f1d587 */
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf14/resources/mediawiki.action/images/green-checkmark.png?2014-02-13T17:46:40Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:835b467bd250310b6e90d133c28a7a61 */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-02-13T17:50:00Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-02-13T17:50:00Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-02-13T17:50:00Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-02-13T17:50:00Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:f5d4c58e1b6cf163822d8d14275c99c2 */
+#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAMAAAAVMLmlAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAALpQTFRF////W1tbgICAWVlZgICAUVFRgICAWVlZhYWFUlJShYWFVFRUgYGBVVVVgYGBVVVVgICAVFRUVVVVVlZWgYGBgICAVFRUgYGBVFRUgICAgYGBVVVVVVVVgYGBVlZWgYGBVFRUgICAVFRUgICAVVVVgICAVlZWgICAVFRUgICAVVVVgICAVFRUgICAVlZWgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICA9Fa9bgAAADx0Uk5TAA4OFBQWFhcXGRlJSUtLWlpbXV9fYGFhZGRlZmlpa2twcIiIioqPj5GRn5+goKGh6+vv7/Dw+fn8/P7+YuRUVgAAAOlJREFUGBmNwcdWAgEURMFLFCUaAcWAEhQYHBRmCN3//1u+BYcVC6s4p2U3OLrrVxN7Xn7uELoH5w65Dx1g6JNnoLazfz++VnZehkZir4pQ3NjzBg5TwtgBhzFh6kDr294UobiykxZc7ezVdLyx8yrw6pM+8GjnDjsf7gj3/WpiJ7Vhl6OW3eC/mlKdo5teZSHNSoM24XqvTCHTvg0MdDIASpn08/6ZSlkJ6jMpLUBhLc3qKEwIIwUURoSJAs2ltC5AIZUWTbjcSulktJayCvCikx7wJG0VttrfEp5eLpfS4uLtgaOmVOeMP8BAM9RClMO9AAAAAElFTkSuQmCC) no-repeat right top;background:transparent url(//bits.wikimedia.org/static-1.23wmf13/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2014-02-06T15:18:20Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTRweCIgaGVpZ2h0PSIzMnB4Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTMuNTgyLDYuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTEuMzU5LTEuMzZjLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1QzkuNDMsMi44MzMsOC45MDgsMi42MTUsOC4zNjksMi40ODJWMS40MThDOC4zNjksMS4xODcsOC4xODIsMSw3Ljk1LDFINi4wMzJDNS44MDEsMSw1LjYxNCwxLjE4Nyw1LjYxNCwxLjQxOHYxLjA2M0M1LjA3MywyLjYxNiw0LjU1MiwyLjgzMyw0LjA2MiwzLjEyN2wtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQyOS0wLjE2NC0wLjU5MywwbC0xLjM2LDEuMzZjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMC43NSwwLjc1QzEuODE3LDUuNTY4LDEuNjE1LDYuMDk1LDEuNDgyLDYuNjMxSDAuNDE4QzAuMTg3LDYuNjMxLDAsNi44MTgsMCw3LjA1djEuOTE4YzAsMC4yMzEsMC4xODcsMC40MTgsMC40MTgsMC40MThoMS4wNDZjMC4xMzQsMC41NDIsMC4zNTEsMS4wNjIsMC42NDUsMS41NTFsLTAuNzUsMC43NWMtMC4xNjQsMC4xNjQtMC4xNjQsMC40MjksMCwwLjU5M2wxLjM2LDEuMzZjMC4xNjQsMC4xNjQsMC40MjksMC4xNjQsMC41OTMsMGwwLjc1LTAuNzVjMC40OTEsMC4yOTYsMS4wMSwwLjQ5MywxLjU1MSwwLjYyN3YxLjA2M0M1LjYxNCwxNC44MTMsNS44MDEsMTUsNi4wMzIsMTVINy45NWMwLjIzMSwwLDAuNDE5LTAuMTg3LDAuNDE5LTAuNDE4di0xLjA2M2MwLjU0Mi0wLjEzNCwxLjA2MS0wLjMzMywxLjU1MS0wLjYyN2wwLjc1LDAuNzVjMC4xNjQsMC4xNjQsMC40MywwLjE2NCwwLjU5NCwwbDEuMzU5LTEuMzZjMC4xNjQtMC4xNjQsMC4xNjQtMC40MjksMC0wLjU5M2wtMC43NS0wLjc1YzAuMjk1LTAuNDg5LDAuNTEtMS4wMTMsMC42NDUtMS41NTFoMS4wNjRDMTMuODEyLDkuMzg2LDE0LDkuMTk5LDE0LDguOTY4VjcuMDVDMTQsNi44MTgsMTMuODEyLDYuNjMyLDEzLjU4Miw2LjYzMnogTTcsMTAuNjQ0QzUuNTM5LDEwLjY0NCw0LjM1NSw5LjQ2LDQuMzU1LDhTNS41MzksNS4zNTYsNyw1LjM1NlM5LjY0NSw2LjU0LDkuNjQ1LDhTOC40NjEsMTAuNjQ0LDcsMTAuNjQ0eiIvPjxwYXRoIGZpbGw9IiM1NTU1NTUiIGQ9Ik0xMy41ODIsMjIuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDMsMC0wLjU5NGwtMS4zNTktMS4zNTljLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1Yy0wLjQ5LTAuMjk0LTEuMDEyLTAuNTEyLTEuNTUxLTAuNjQ1di0xLjA2NEM4LjM2OSwxNy4xODgsOC4xODIsMTcsNy45NSwxN0g2LjAzMmMtMC4yMzEsMC0wLjQxOSwwLjE4OC0wLjQxOSwwLjQxOHYxLjA2MmMtMC41NCwwLjEzNi0xLjA2MiwwLjM1My0xLjU1MSwwLjY0NmwtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQzLTAuMTY0LTAuNTk0LDBsLTEuMzU5LDEuMzU5Yy0wLjE2NCwwLjE2NC0wLjE2NCwwLjQzLDAsMC41OTRsMC43NSwwLjc1Yy0wLjI5MywwLjQ4OC0wLjQ5NCwxLjAxNS0wLjYyNywxLjU1MUgwLjQxOEMwLjE4OCwyMi42MzEsMCwyMi44MTgsMCwyMy4wNXYxLjkxOGMwLDAuMjMxLDAuMTg4LDAuNDE4LDAuNDE4LDAuNDE4aDEuMDQ2YzAuMTM0LDAuNTQyLDAuMzUxLDEuMDYyLDAuNjQ2LDEuNTUybC0wLjc1LDAuNzVjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMS4zNTksMS4zNmMwLjE2NCwwLjE2NCwwLjQzLDAuMTY0LDAuNTk0LDBsMC43NS0wLjc1YzAuNDksMC4yOTUsMS4wMSwwLjQ5MiwxLjU1MSwwLjYyN3YxLjA2MmMwLDAuMjMyLDAuMTg4LDAuNDIsMC40MTksMC40Mkg3Ljk1YzAuMjMxLDAsMC40MTktMC4xODgsMC40MTktMC40MThWMjkuNTJjMC41NDItMC4xMzUsMS4wNjEtMC4zMzQsMS41NTEtMC42MjdsMC43NSwwLjc1YzAuMTY0LDAuMTY0LDAuNDMsMC4xNjQsMC41OTQsMGwxLjM1OS0xLjM2YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTAuNzUtMC43NWMwLjI5NS0wLjQ4OSwwLjUxLTEuMDE0LDAuNjQ1LTEuNTUxaDEuMDY0QzEzLjgxMiwyNS4zODYsMTQsMjUuMTk5LDE0LDI0Ljk2OFYyMy4wNUMxNCwyMi44MTgsMTMuODEyLDIyLjYzMiwxMy41ODIsMjIuNjMyeiBNNywyNi42NDVjLTEuNDYxLDAtMi42NDUtMS4xODQtMi42NDUtMi42NDVTNS41MzksMjEuMzU1LDcsMjEuMzU1UzkuNjQ1LDIyLjUzOSw5LjY0NSwyNFM4LjQ2MSwyNi42NDUsNywyNi42NDV6Ii8+PC9zdmc+);background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf13/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-06T15:18:20Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTRweCIgaGVpZ2h0PSIzMnB4Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTMuNTgyLDYuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTEuMzU5LTEuMzZjLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1QzkuNDMsMi44MzMsOC45MDgsMi42MTUsOC4zNjksMi40ODJWMS40MThDOC4zNjksMS4xODcsOC4xODIsMSw3Ljk1LDFINi4wMzJDNS44MDEsMSw1LjYxNCwxLjE4Nyw1LjYxNCwxLjQxOHYxLjA2M0M1LjA3MywyLjYxNiw0LjU1MiwyLjgzMyw0LjA2MiwzLjEyN2wtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQyOS0wLjE2NC0wLjU5MywwbC0xLjM2LDEuMzZjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMC43NSwwLjc1QzEuODE3LDUuNTY4LDEuNjE1LDYuMDk1LDEuNDgyLDYuNjMxSDAuNDE4QzAuMTg3LDYuNjMxLDAsNi44MTgsMCw3LjA1djEuOTE4YzAsMC4yMzEsMC4xODcsMC40MTgsMC40MTgsMC40MThoMS4wNDZjMC4xMzQsMC41NDIsMC4zNTEsMS4wNjIsMC42NDUsMS41NTFsLTAuNzUsMC43NWMtMC4xNjQsMC4xNjQtMC4xNjQsMC40MjksMCwwLjU5M2wxLjM2LDEuMzZjMC4xNjQsMC4xNjQsMC40MjksMC4xNjQsMC41OTMsMGwwLjc1LTAuNzVjMC40OTEsMC4yOTYsMS4wMSwwLjQ5MywxLjU1MSwwLjYyN3YxLjA2M0M1LjYxNCwxNC44MTMsNS44MDEsMTUsNi4wMzIsMTVINy45NWMwLjIzMSwwLDAuNDE5LTAuMTg3LDAuNDE5LTAuNDE4di0xLjA2M2MwLjU0Mi0wLjEzNCwxLjA2MS0wLjMzMywxLjU1MS0wLjYyN2wwLjc1LDAuNzVjMC4xNjQsMC4xNjQsMC40MywwLjE2NCwwLjU5NCwwbDEuMzU5LTEuMzZjMC4xNjQtMC4xNjQsMC4xNjQtMC40MjksMC0wLjU5M2wtMC43NS0wLjc1YzAuMjk1LTAuNDg5LDAuNTEtMS4wMTMsMC42NDUtMS41NTFoMS4wNjRDMTMuODEyLDkuMzg2LDE0LDkuMTk5LDE0LDguOTY4VjcuMDVDMTQsNi44MTgsMTMuODEyLDYuNjMyLDEzLjU4Miw2LjYzMnogTTcsMTAuNjQ0QzUuNTM5LDEwLjY0NCw0LjM1NSw5LjQ2LDQuMzU1LDhTNS41MzksNS4zNTYsNyw1LjM1NlM5LjY0NSw2LjU0LDkuNjQ1LDhTOC40NjEsMTAuNjQ0LDcsMTAuNjQ0eiIvPjxwYXRoIGZpbGw9IiM1NTU1NTUiIGQ9Ik0xMy41ODIsMjIuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDMsMC0wLjU5NGwtMS4zNTktMS4zNTljLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1Yy0wLjQ5LTAuMjk0LTEuMDEyLTAuNTEyLTEuNTUxLTAuNjQ1di0xLjA2NEM4LjM2OSwxNy4xODgsOC4xODIsMTcsNy45NSwxN0g2LjAzMmMtMC4yMzEsMC0wLjQxOSwwLjE4OC0wLjQxOSwwLjQxOHYxLjA2MmMtMC41NCwwLjEzNi0xLjA2MiwwLjM1My0xLjU1MSwwLjY0NmwtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQzLTAuMTY0LTAuNTk0LDBsLTEuMzU5LDEuMzU5Yy0wLjE2NCwwLjE2NC0wLjE2NCwwLjQzLDAsMC41OTRsMC43NSwwLjc1Yy0wLjI5MywwLjQ4OC0wLjQ5NCwxLjAxNS0wLjYyNywxLjU1MUgwLjQxOEMwLjE4OCwyMi42MzEsMCwyMi44MTgsMCwyMy4wNXYxLjkxOGMwLDAuMjMxLDAuMTg4LDAuNDE4LDAuNDE4LDAuNDE4aDEuMDQ2YzAuMTM0LDAuNTQyLDAuMzUxLDEuMDYyLDAuNjQ2LDEuNTUybC0wLjc1LDAuNzVjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMS4zNTksMS4zNmMwLjE2NCwwLjE2NCwwLjQzLDAuMTY0LDAuNTk0LDBsMC43NS0wLjc1YzAuNDksMC4yOTUsMS4wMSwwLjQ5MiwxLjU1MSwwLjYyN3YxLjA2MmMwLDAuMjMyLDAuMTg4LDAuNDIsMC40MTksMC40Mkg3Ljk1YzAuMjMxLDAsMC40MTktMC4xODgsMC40MTktMC40MThWMjkuNTJjMC41NDItMC4xMzUsMS4wNjEtMC4zMzQsMS41NTEtMC42MjdsMC43NSwwLjc1YzAuMTY0LDAuMTY0LDAuNDMsMC4xNjQsMC41OTQsMGwxLjM1OS0xLjM2YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTAuNzUtMC43NWMwLjI5NS0wLjQ4OSwwLjUxLTEuMDE0LDAuNjQ1LTEuNTUxaDEuMDY0QzEzLjgxMiwyNS4zODYsMTQsMjUuMTk5LDE0LDI0Ljk2OFYyMy4wNUMxNCwyMi44MTgsMTMuODEyLDIyLjYzMiwxMy41ODIsMjIuNjMyeiBNNywyNi42NDVjLTEuNDYxLDAtMi42NDUtMS4xODQtMi42NDUtMi42NDVTNS41MzksMjEuMzU1LDcsMjEuMzU1UzkuNjQ1LDIyLjUzOSw5LjY0NSwyNFM4LjQ2MSwyNi42NDUsNywyNi42NDV6Ii8+PC9zdmc+);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf13/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-06T15:18:20Z)!ie;height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9cdd463f9977c972fa48a118e39b2c8f */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.php"></script><script src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_003.php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Profiling_(computer_programming)","wgTitle":"Profiling (computer programming)","wgCurRevisionId":593972181,"wgRevisionId":593972181,"wgArticleId":2310080,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles needing additional references from January 2009","All articles needing additional references","All articles with unsourced statements","Articles with unsourced statements from February 2014","Articles with unsourced statements from August 2012","Software optimization","Profilers"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Profiling_(computer_programming)","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf14/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr","svgMaxSize":2048},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us","en","fr","ja","zh-cn","zh-tw"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":2310080,"title":"Profiling (computer programming)","namespace":0,"categories":["All articles needing additional references","All articles with unsourced statements","Articles needing additional references from January 2009","Articles with unsourced statements from August 2012","Articles with unsourced statements from February 2014","Profilers","Software optimization"],"permissionLevel":false},"wgWikibaseItemId":"Q1138496"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,
+"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,
+"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"echo-subscriptions-web-flow-discussion":true,"echo-subscriptions-email-flow-discussion":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":
+false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:5e4ad49afa9f26a7ed4e93dac6d2e189 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","ext.uls.init","ext.uls.interface","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<script src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf14/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Profiling_computer_programming skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div class="cn-ToUAmendment" id="centralNotice"><style type="text/css">
+
+#centralNotice.collapsed #ChangeToU2014_v1 {
+ display: none;
+}
+
+#ChangeToU2014_v1 {
+ position: relative;
+ overflow: hidden;
+ background: url(//upload.wikimedia.org/wikipedia/commons/0/0d/Gray-gradient1.png) bottom repeat-x;
+ margin-bottom: 0.5em !important;
+ margin-top: 0.5em !important;
+ background-color:#FFFFFF;
+ border: solid 1px #aaaaaa; 
+ height:66px;
+}
+
+#ChangeToU2014_v1 a.cn-full-banner-click {
+ display:block;
+ height:100%;
+ width:100%;
+ cursor: pointer;
+}
+
+
+#ChangeToU2014_v1-logo {
+ position: absolute;
+ top: 8px;
+ left: 15px;
+ background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/50px-Wikimedia_logo_text_RGB.svg.png);
+ height: 50px;
+ width: 50px;
+ background-repeat: no-repeat;
+}
+
+#ChangeToU2014_v1 #black-text {
+ font-size: 1.1em;
+ color: black;
+ padding: 0.5em 40px 0.4em 60px;
+ line-height: 1.3em;
+ text-align: center;
+ font-weight:bold;
+}
+
+
+#ChangeToU2014_v1 div#cn-toggle-box {
+ position: absolute;
+ z-index: 98;
+ top: 2px;
+ right: 6px;
+}
+
+#ChangeToU2014_v1 div#cn-translation-link {
+ position:absolute;
+ z-index:50;
+ bottom: -4px;
+ right: 6px;
+ font-size: 0.7em;
+}
+
+#ChangeToU2014_v1 #calltoaction {
+ padding-top: 5px;
+ color: #0645ad;
+}
+
+#cn-translation-link a:link, 
+#cn-translation-link a:visited, 
+#cn-translation-link a:hover { 
+ color: black; 
+} 
+
+</style>
+
+<div id="ChangeToU2014_v1">
+
+  <a class="cn-full-banner-click" href="http://meta.wikimedia.org/wiki/Terms_of_use/Paid_contributions_amendment" title="">
+<div id="ChangeToU2014_v1-logo"></div>
+    <div id="black-text">
+   Amending our Terms of Use: <br> Please comment on a proposed amendment regarding undisclosed paid editing.
+     </div>
+  </a>
+<div id="cn-translation-link">
+<a href="http://meta.wikimedia.org/w/index.php?title=Special:Translate&amp;group=Centralnotice-tgroup-ChangeToU2014_v1&amp;filter=" class="black-text2">
+			[ Help with translations! ]
+		</a>
+</div>
+ <div id="cn-toggle-box">
+  <a href="#" title="Close" onclick="mw.centralNotice.hideBanner();return false;"><img src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/CloseWindow19x19.png" alt="close" border="0"></a>  
+ </div>
+</div></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Profiling (computer programming)</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><table class="metadata plainlinks ambox ambox-content ambox-Refimprove" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/File:Question_book-new.svg" class="image"><img alt="" src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/50px-Question_book-new.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/75px-Question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/100px-Question_book-new.svg.png 2x" width="50" height="39"></a></div>
+</td>
+<td class="mbox-text"><span class="mbox-text-span">This article <b>needs additional citations for <a href="http://en.wikipedia.org/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">verification</a></b>. <span class="hide-when-compact">Please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/Help:Introduction_to_referencing/1" title="Help:Introduction to referencing/1">adding citations to reliable sources</a>. Unsourced material may be challenged and removed.</span> <small><i>(January 2009)</i></small></span></td>
+</tr>
+</tbody></table>
+<p>In <a href="http://en.wikipedia.org/wiki/Software_engineering" title="Software engineering">software engineering</a>, <b>profiling</b> ("program profiling", "software profiling") is a form of <a href="http://en.wikipedia.org/wiki/Dynamic_program_analysis" title="Dynamic program analysis">dynamic program analysis</a> that measures, for example, the space (memory) or time <a href="http://en.wikipedia.org/wiki/Computational_complexity_theory" title="Computational complexity theory">complexity of a program</a>, the <a href="http://en.wikipedia.org/wiki/Instruction_set_simulator" title="Instruction set simulator">usage of particular instructions</a>, or frequency and duration of function calls. The most common use of profiling information is to aid program <a href="http://en.wikipedia.org/wiki/Optimization_%28computer_science%29" title="Optimization (computer science)" class="mw-redirect">optimization</a>.</p>
+<p>Profiling is achieved by instrumenting either the program <a href="http://en.wikipedia.org/wiki/Source_code" title="Source code">source code</a> or its binary executable form using a tool called a <i>profiler</i> (or <i>code profiler</i>).
+ A number of different techniques may be used by profilers, such as 
+event-based, statistical, instrumented, and simulation methods.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Gathering_program_events"><span class="tocnumber">1</span> <span class="toctext">Gathering program events</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Use_of_profilers"><span class="tocnumber">2</span> <span class="toctext">Use of profilers</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#History"><span class="tocnumber">3</span> <span class="toctext">History</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Profiler_types_based_on_output"><span class="tocnumber">4</span> <span class="toctext">Profiler types based on output</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Flat_profiler"><span class="tocnumber">4.1</span> <span class="toctext">Flat profiler</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Call-graph_profiler"><span class="tocnumber">4.2</span> <span class="toctext">Call-graph profiler</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Input-sensitive_profiler"><span class="tocnumber">4.3</span> <span class="toctext">Input-sensitive profiler</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Data_granularity_in_profiler_types"><span class="tocnumber">5</span> <span class="toctext">Data granularity in profiler types</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Event-based_profilers"><span class="tocnumber">5.1</span> <span class="toctext">Event-based profilers</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Statistical_profilers"><span class="tocnumber">5.2</span> <span class="toctext">Statistical profilers</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Instrumentation"><span class="tocnumber">5.3</span> <span class="toctext">Instrumentation</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Interpreter_instrumentation"><span class="tocnumber">5.4</span> <span class="toctext">Interpreter instrumentation</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Hypervisor.2FSimulator"><span class="tocnumber">5.5</span> <span class="toctext">Hypervisor/Simulator</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#External_links"><span class="tocnumber">8</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Gathering_program_events">Gathering program events</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=1" title="Edit section: Gathering program events">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Profilers use a wide variety of techniques to collect data, including <a href="http://en.wikipedia.org/wiki/Hardware_interrupt" title="Hardware interrupt" class="mw-redirect">hardware interrupts</a>, <a href="http://en.wikipedia.org/wiki/Instrumentation_%28computer_programming%29" title="Instrumentation (computer programming)">code instrumentation</a>, <a href="http://en.wikipedia.org/wiki/Instruction_set_simulator" title="Instruction set simulator">instruction set simulation</a>, operating system <a href="http://en.wikipedia.org/wiki/Hooking" title="Hooking">hooks</a>, and <a href="http://en.wikipedia.org/wiki/Hardware_performance_counter" title="Hardware performance counter">performance counters</a>. Profilers are used in the <a href="http://en.wikipedia.org/wiki/Performance_engineering" title="Performance engineering">performance engineering</a> process.</p>
+<h2><span class="mw-headline" id="Use_of_profilers">Use of profilers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=2" title="Edit section: Use of profilers">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:CodeAnalyst3.png" class="image"><img alt="" src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/220px-CodeAnalyst3.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/0/08/CodeAnalyst3.png/330px-CodeAnalyst3.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/0/08/CodeAnalyst3.png/440px-CodeAnalyst3.png 2x" width="220" height="114"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:CodeAnalyst3.png" class="internal" title="Enlarge"><img src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" width="15" height="11"></a></div>
+Graphical output of the <a href="http://en.wikipedia.org/wiki/CodeAnalyst" title="CodeAnalyst">CodeAnalyst</a> profiler.</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:SunPerfAnalyzer.png" class="image"><img alt="" src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/220px-SunPerfAnalyzer.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/ad/SunPerfAnalyzer.png/330px-SunPerfAnalyzer.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/ad/SunPerfAnalyzer.png/440px-SunPerfAnalyzer.png 2x" width="220" height="147"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:SunPerfAnalyzer.png" class="internal" title="Enlarge"><img src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" width="15" height="11"></a></div>
+Graphical output of the <a href="http://en.wikipedia.org/wiki/Oracle_Solaris_Studio" title="Oracle Solaris Studio">Oracle Solaris Studio</a> Performance Analyzer.</div>
+</div>
+</div>
+<blockquote>
+<p>"Program analysis tools are extremely important for understanding 
+program behavior. Computer architects need such tools to evaluate how 
+well programs will perform on new <a href="http://en.wikipedia.org/wiki/Computer_architecture" title="Computer architecture">architectures</a>. Software writers need tools to analyze their programs and identify critical sections of code. <a href="http://en.wikipedia.org/wiki/Compiler" title="Compiler">Compiler</a> writers often use such tools to find out how well their <a href="http://en.wikipedia.org/wiki/Instruction_scheduling" title="Instruction scheduling">instruction scheduling</a> or <a href="http://en.wikipedia.org/wiki/Branch_prediction" title="Branch prediction" class="mw-redirect">branch prediction</a> algorithm is performing..." <i>-- (ATOM, <a href="http://en.wikipedia.org/wiki/Conference_on_Programming_Language_Design_and_Implementation" title="Conference on Programming Language Design and Implementation" class="mw-redirect">PLDI</a>, '94)</i></p>
+</blockquote>
+<p>The output of a profiler may be:</p>
+<ul>
+<li>A statistical <i>summary</i> of the events observed (a <b>profile</b>)</li>
+</ul>
+<dl>
+<dd>Summary profile information is often shown annotated against the 
+source code statements where the events occur, so the size of 
+measurement data is linear to the code size of the program.</dd>
+</dl>
+<pre><code>/* ------------ source------------------------- count */             
+0001             IF X = "A"                     0055
+0002                THEN DO                       
+0003                  ADD 1 to XCOUNT           0032
+0004                ELSE
+0005             IF X = "B"                     0055
+</code>
+</pre>
+<ul>
+<li>A stream of recorded events (a <b>trace</b>)</li>
+</ul>
+<dl>
+<dd>For sequential programs, a summary profile is usually sufficient, 
+but performance problems in parallel programs (waiting for messages or 
+synchronization issues) often depend on the time relationship of events,
+ thus requiring a full trace to get an understanding of what is 
+happening.</dd>
+<dd>The size of a (full) trace is linear to the program's <a href="http://en.wikipedia.org/wiki/Instruction_path_length" title="Instruction path length">instruction path length</a>,
+ making it somewhat impractical. A trace may therefore be initiated at 
+one point in a program and terminated at another point to limit the 
+output.</dd>
+</dl>
+<ul>
+<li>An ongoing interaction with the <a href="http://en.wikipedia.org/wiki/Hypervisor" title="Hypervisor">hypervisor</a> (continuous or periodic monitoring via on-screen display for instance)</li>
+</ul>
+<dl>
+<dd>This provides the opportunity to switch a trace on or off at any 
+desired point during execution in addition to viewing on-going metrics 
+about the (still executing) program. It also provides the opportunity to
+ suspend asynchronous processes at critical points to examine 
+interactions with other parallel processes in more detail.</dd>
+</dl>
+<h2><span class="mw-headline" id="History">History</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=3" title="Edit section: History">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Performance-analysis tools existed on <a href="http://en.wikipedia.org/wiki/IBM/360" title="IBM/360" class="mw-redirect">IBM/360</a> and <a href="http://en.wikipedia.org/wiki/IBM/370" title="IBM/370" class="mw-redirect">IBM/370</a> platforms from the early 1970s, usually based on timer interrupts which recorded the <a href="http://en.wikipedia.org/wiki/Program_status_word" title="Program status word">Program status word</a> (PSW) at set timer-intervals to detect "hot spots" in executing code.<sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (February 2014)">citation needed</span></a></i>]</sup> This was an early example of <a href="http://en.wikipedia.org/wiki/Sampling_%28statistics%29" title="Sampling (statistics)">sampling</a> (see below). In early 1974 <a href="http://en.wikipedia.org/wiki/Instruction_Set_Simulator" title="Instruction Set Simulator" class="mw-redirect">instruction-set simulators</a> permitted full trace and other performance-monitoring features.<sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (February 2014)">citation needed</span></a></i>]</sup></p>
+<p>Profiler-driven program analysis on Unix dates back to at least 1979,<sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (February 2014)">citation needed</span></a></i>]</sup> when Unix systems included a basic tool, <code>prof</code>, which listed each function and how much of program execution time it used. In 1982 <code>gprof</code> extended the concept to a complete <a href="http://en.wikipedia.org/wiki/Call_graph" title="Call graph">call graph</a> analysis.<sup id="cite_ref-gprof_1-0" class="reference"><a href="#cite_note-gprof-1"><span>[</span>1<span>]</span></a></sup></p>
+<p>In 1994, Amitabh Srivastava and Alan Eustace of <a href="http://en.wikipedia.org/wiki/Digital_Equipment_Corporation" title="Digital Equipment Corporation">Digital Equipment Corporation</a> published a paper describing ATOM<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>2<span>]</span></a></sup> (Analysis Tools with OM). The ATOM platform converts a program into its own profiler: at <a href="http://en.wikipedia.org/wiki/Compile_time" title="Compile time">compile time</a>,
+ it inserts code into the program to be analyzed. That inserted code 
+outputs analysis data. This technique - modifying a program to analyze 
+itself - is known as "<a href="http://en.wikipedia.org/wiki/Instrumentation_%28computer_programming%29" title="Instrumentation (computer programming)">instrumentation</a>".</p>
+<p>In 2004 both the <code>gprof</code> and ATOM papers appeared on the list of the 50 most influential <a href="http://en.wikipedia.org/wiki/Conference_on_Programming_Language_Design_and_Implementation" title="Conference on Programming Language Design and Implementation" class="mw-redirect">PLDI</a> papers for the 20-year period ending in 1999.<sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>3<span>]</span></a></sup></p>
+<h2><span class="mw-headline" id="Profiler_types_based_on_output">Profiler types based on output</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=4" title="Edit section: Profiler types based on output">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Flat_profiler">Flat profiler</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=5" title="Edit section: Flat profiler">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Flat profilers compute the average call times, from the calls, and do
+ not break down the call times based on the callee or the context.</p>
+<h3><span class="mw-headline" id="Call-graph_profiler">Call-graph profiler</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=6" title="Edit section: Call-graph profiler">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p><a href="http://en.wikipedia.org/wiki/Call_graph" title="Call graph">Call graph</a> profilers<sup id="cite_ref-gprof_1-1" class="reference"><a href="#cite_note-gprof-1"><span>[</span>1<span>]</span></a></sup>
+ show the call times, and frequencies of the functions, and also the 
+call-chains involved based on the callee. In some tools full context is 
+not preserved.</p>
+<h3><span class="mw-headline" id="Input-sensitive_profiler">Input-sensitive profiler</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=7" title="Edit section: Input-sensitive profiler">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Input-sensitive profilers<sup id="cite_ref-aprof_4-0" class="reference"><a href="#cite_note-aprof-4"><span>[</span>4<span>]</span></a></sup><sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>5<span>]</span></a></sup><sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span>[</span>6<span>]</span></a></sup>
+ add a further dimension to flat or call-graph profilers by relating 
+performance measures to features of the input workloads, such as input 
+size or input values. They generate charts that characterize how an 
+application's performance scales as a function of its input.</p>
+<h2><span class="mw-headline" id="Data_granularity_in_profiler_types">Data granularity in profiler types</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=8" title="Edit section: Data granularity in profiler types">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Profilers, which are also programs themselves, analyze target 
+programs by collecting information on their execution. Based on their 
+data granularity, on how profilers collect information, they are 
+classified into event based or statistical profilers. Since profilers 
+interrupt program execution to collect information, they have a finite 
+resolution in the time measurements, which should be taken with a grain 
+of salt.</p>
+<h3><span class="mw-headline" id="Event-based_profilers">Event-based profilers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=9" title="Edit section: Event-based profilers">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The programming languages listed here have event-based profilers:</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Java_%28programming_language%29" title="Java (programming language)">Java</a>: the <a href="http://en.wikipedia.org/wiki/Java_Virtual_Machine_Tools_Interface" title="Java Virtual Machine Tools Interface">JVMTI</a>
+ (JVM Tools Interface) API, formerly JVMPI (JVM Profiling Interface), 
+provides hooks to profilers, for trapping events like calls, class-load,
+ unload, thread enter leave.</li>
+<li><a href="http://en.wikipedia.org/wiki/.NET_Framework" title=".NET Framework">.NET</a>: Can attach a profiling agent as a <i>COM</i> server to the <i>CLR</i> using Profiling <i>API</i>. Like Java, the runtime then provides various callbacks into the agent, for trapping events like method <a href="http://en.wikipedia.org/wiki/Interpreter" title="Interpreter" class="mw-redirect">JIT</a>
+ / enter / leave, object creation, etc. Particularly powerful in that 
+the profiling agent can rewrite the target application's bytecode in 
+arbitrary ways.</li>
+<li><a href="http://en.wikipedia.org/wiki/Python_%28programming_language%29" title="Python (programming language)">Python</a>:
+ Python profiling includes the profile module, hotshot (which is 
+call-graph based), and using the 'sys.setprofile' function to trap 
+events like c_{call,return,exception}, python_{call,return,exception}.</li>
+<li><a href="http://en.wikipedia.org/wiki/Ruby_%28programming_language%29" title="Ruby (programming language)">Ruby</a>:
+ Ruby also uses a similar interface to Python for profiling. 
+Flat-profiler in profile.rb, module, and ruby-prof a C-extension are 
+present.</li>
+</ul>
+<h3><span class="mw-headline" id="Statistical_profilers">Statistical profilers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=10" title="Edit section: Statistical profilers">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Some profilers operate by <a href="http://en.wikipedia.org/wiki/Sampling_%28statistics%29" title="Sampling (statistics)">sampling</a>. A sampling profiler probes the target program's <a href="http://en.wikipedia.org/wiki/Program_counter" title="Program counter">program counter</a> at regular intervals using <a href="http://en.wikipedia.org/wiki/Operating_system" title="Operating system">operating system</a> <a href="http://en.wikipedia.org/wiki/Interrupt" title="Interrupt">interrupts</a>.
+ Sampling profiles are typically less numerically accurate and specific,
+ but allow the target program to run at near full speed.</p>
+<p>The resulting data are not exact, but a statistical approximation. 
+"The actual amount of error is usually more than one sampling period. In
+ fact, if a value is n times the sampling period, the expected error in 
+it is the square-root of n sampling periods." <sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span>[</span>7<span>]</span></a></sup></p>
+<p>In practice, sampling profilers can often provide a more accurate 
+picture of the target program's execution than other approaches, as they
+ are not as intrusive to the target program, and thus don't have as many
+ side effects (such as on memory caches or instruction decoding 
+pipelines). Also since they don't affect the execution speed as much, 
+they can detect issues that would otherwise be hidden. They are also 
+relatively immune to over-evaluating the cost of small, frequently 
+called routines or 'tight' loops. They can show the relative amount of 
+time spent in user mode versus interruptible kernel mode such as <a href="http://en.wikipedia.org/wiki/System_call" title="System call">system call</a> processing.</p>
+<p>Still, kernel code to handle the interrupts entails a minor loss of 
+CPU cycles, diverted cache usage, and is unable to distinguish the 
+various tasks occurring in uninterruptible kernel code 
+(microsecond-range activity).</p>
+<p>Dedicated hardware can go beyond this: some recent MIPS processors JTAG interface have a PCSAMPLE register, which samples the <a href="http://en.wikipedia.org/wiki/Program_counter" title="Program counter">program counter</a> in a truly undetectable manner.</p>
+<p>Some of the most commonly used statistical profilers are <a href="http://en.wikipedia.org/wiki/AMD" title="AMD" class="mw-redirect">AMD</a> <a href="http://en.wikipedia.org/wiki/CodeAnalyst" title="CodeAnalyst">CodeAnalyst</a>, <a href="http://en.wikipedia.org/wiki/Apple_Inc." title="Apple Inc.">Apple Inc.</a> <a href="http://en.wikipedia.org/wiki/Apple_Developer_Tools#Shark" title="Apple Developer Tools">Shark</a> (OSX), <a href="http://en.wikipedia.org/wiki/Oprofile" title="Oprofile" class="mw-redirect">oprofile</a> (Linux)<sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (August 2012)">citation needed</span></a></i>]</sup>, <a href="http://en.wikipedia.org/wiki/Intel" title="Intel">Intel</a> <a href="http://en.wikipedia.org/wiki/VTune" title="VTune">VTune</a> and Parallel Amplifier (part of <a href="http://en.wikipedia.org/wiki/Intel_Parallel_Studio" title="Intel Parallel Studio">Intel Parallel Studio</a>).</p>
+<h3><span class="mw-headline" id="Instrumentation">Instrumentation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=11" title="Edit section: Instrumentation">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>This technique effectively adds instructions to the target program to collect the required information. Note that <a href="http://en.wikipedia.org/wiki/Instrumenting" title="Instrumenting" class="mw-redirect">instrumenting</a> a program can cause performance changes, and may in some cases lead to inaccurate results and/or <a href="http://en.wikipedia.org/wiki/Heisenbug" title="Heisenbug">heisenbugs</a>.
+ The effect will depend on what information is being collected, and on 
+the level of detail required. For example, adding code to count every 
+procedure/routine call will probably have less effect than counting how 
+many times each statement is obeyed. A few computers have special 
+hardware to collecting information; in this case the impact on the 
+program is minimal.</p>
+<p>Instrumentation is key to determining the level of control and amount
+ of time resolution available to the profilers. The following lists a 
+few popular tools (as of 2012) representative of each category.</p>
+<ul>
+<li><b>Manual</b>: Performed by the programmer, e.g. by adding 
+instructions to explicitly calculate runtimes, simply count events or 
+calls to measurement <a href="http://en.wikipedia.org/wiki/API" title="API" class="mw-redirect">APIs</a> such as the <a href="http://en.wikipedia.org/wiki/Application_Response_Measurement" title="Application Response Measurement">Application Response Measurement</a> standard.</li>
+<li><b>Automatic source level</b>: instrumentation added to the source code by an automatic tool according to an instrumentation policy. Example: <a href="http://en.wikipedia.org/wiki/Parasoft" title="Parasoft">Parasoft</a> <a href="http://en.wikipedia.org/wiki/Insure%2B%2B" title="Insure++">Insure++</a></li>
+<li><b>Intermediate language</b>: instrumentation added to <a href="http://en.wikipedia.org/wiki/Assembly_language" title="Assembly language">assembly</a> or decompiled <a href="http://en.wikipedia.org/wiki/Bytecode" title="Bytecode">bytecodes</a>
+ giving support for multiple higher-level source languages and avoiding 
+(non-symbolic) binary offset re-writing issues, for example <a href="http://en.wikipedia.org/wiki/OpenPAT" title="OpenPAT">OpenPAT</a>.</li>
+<li><b>Compiler assisted</b>: <i>gprof</i>, <i>Quantify</i> use this approach. Example: <i>gcc -pg ...</i> for gprof, and <i>quantify g++ ...</i>, for Quantify</li>
+<li><b>Binary translation</b>: The tool adds instrumentation to a compiled <a href="http://en.wikipedia.org/wiki/Executable" title="Executable">executable</a>, for example in ATOM.</li>
+<li><b>Runtime instrumentation</b>: Directly before execution the code is instrumented. The program run is fully supervised and controlled by the tool. Examples: <a href="http://en.wikipedia.org/wiki/Pin_%28Computer_Program%29" title="Pin (Computer Program)" class="mw-redirect">Pin</a>, <a href="http://en.wikipedia.org/wiki/Valgrind" title="Valgrind">Valgrind</a>, <a href="http://en.wikipedia.org/wiki/DynamoRIO" title="DynamoRIO">DynamoRIO</a>.</li>
+<li><b>Runtime injection</b>: More lightweight than runtime instrumentation. Code is modified at runtime to have jumps to helper functions. Example: <a href="http://en.wikipedia.org/wiki/DynInst" title="DynInst">DynInst</a></li>
+</ul>
+<h3><span class="mw-headline" id="Interpreter_instrumentation">Interpreter instrumentation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=12" title="Edit section: Interpreter instrumentation">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li><b>Interpreter debug</b> options can enable the collection of performance metrics as the interpreter encounters each target statement. A <a href="http://en.wikipedia.org/wiki/Bytecode" title="Bytecode">bytecode</a>, <a href="http://en.wikipedia.org/wiki/Control_table" title="Control table">control table</a> or <a href="http://en.wikipedia.org/wiki/Just-in-time_compilation" title="Just-in-time compilation">JIT</a>
+ interpreters are three examples that usually have complete control over
+ execution of the target code, thus enabling extremely comprehensive 
+data collection opportunities.</li>
+</ul>
+<h3><span class="mw-headline" id="Hypervisor.2FSimulator">Hypervisor/Simulator</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=13" title="Edit section: Hypervisor/Simulator">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li><b>Hypervisor</b>: Data are collected by running the (usually) unmodified program under a <a href="http://en.wikipedia.org/wiki/Hypervisor" title="Hypervisor">hypervisor</a>. Example: <a href="http://en.wikipedia.org/wiki/SIMMON" title="SIMMON">SIMMON</a></li>
+<li><b>Simulator</b> and <b>Hypervisor</b>: Data collected interactively and selectively by running the unmodified program under an <a href="http://en.wikipedia.org/wiki/Instruction_Set_Simulator" title="Instruction Set Simulator" class="mw-redirect">Instruction Set Simulator</a>. Examples: <a href="http://en.wikipedia.org/wiki/SIMON_%28Batch_Interactive_test/debug%29" title="SIMON (Batch Interactive test/debug)">SIMON</a> and <a href="http://en.wikipedia.org/wiki/IBM_OLIVER_%28CICS_interactive_test/debug%29" title="IBM OLIVER (CICS interactive test/debug)">OLIVER</a>.</li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=14" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="noprint tright portal" style="border:solid #aaa 1px;margin:0.5em 0 0.5em 1em;">
+<table style="background:#f9f9f9;font-size:85%;line-height:110%;max-width:175px;">
+<tbody><tr valign="middle">
+<td style="text-align:center;"><a href="http://en.wikipedia.org/wiki/File:Green_bug_and_broom.svg" class="image"><img alt="Portal icon" src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/32px-Green_bug_and_broom.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/8/83/Green_bug_and_broom.svg/48px-Green_bug_and_broom.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/83/Green_bug_and_broom.svg/64px-Green_bug_and_broom.svg.png 2x" width="32" height="28"></a></td>
+<td style="padding:0 0.2em;vertical-align:middle;font-style:italic;font-weight:bold;"><a href="http://en.wikipedia.org/wiki/Portal:Software_Testing" title="Portal:Software Testing">Software Testing portal</a></td>
+</tr>
+</tbody></table>
+</div>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Algorithmic_efficiency" title="Algorithmic efficiency">Algorithmic efficiency</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Static_code_analysis" title="Static code analysis" class="mw-redirect">Static code analysis</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Benchmark_%28computing%29" title="Benchmark (computing)">Benchmark</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_performance_analysis_tools" title="List of performance analysis tools">List of performance analysis tools</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Performance_engineering" title="Performance engineering">Performance engineering</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Performance_prediction" title="Performance prediction">Performance prediction</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Performance_Application_Programming_Interface" title="Performance Application Programming Interface">PAPI</a> is a portable interface (in the form of a library) to hardware performance counters on modern microprocessors.</li>
+<li><a href="http://en.wikipedia.org/wiki/Performance_tuning" title="Performance tuning">Performance tuning</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Worst-case_execution_time" title="Worst-case execution time">Worst-case execution time</a> (WCET)</li>
+<li><a href="http://en.wikipedia.org/wiki/Java_performance" title="Java performance">Java performance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Software_archaeology" title="Software archaeology">Software archaeology</a></li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=15" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-gprof-1"><span class="mw-cite-backlink">^ <a href="#cite_ref-gprof_1-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-gprof_1-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">S.L. Graham, P.B. Kessler, and M.K. McKusick, <a rel="nofollow" class="external text" href="http://docs.freebsd.org/44doc/psd/18.gprof/paper.pdf"><i>gprof: a Call Graph Execution Profiler</i></a>, Proceedings of the SIGPLAN '82 Symposium on Compiler Construction, SIGPLAN Notices, Vol. 17, No 6, pp. 120-126; <a href="http://dx.doi.org/10.1145/800230.806987" class="extiw" title="doi:10.1145/800230.806987">doi:10.1145/800230.806987</a></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">A. Srivastava and A. Eustace, <a rel="nofollow" class="external text" href="http://www.ece.cmu.edu/%7Eece548/tools/atom/man/wrl_94_2.pdf"><i>ATOM: A system for building customized program analysis tools</i></a>,
+ Proceedings of the ACM SIGPLAN Conference on Programming language 
+design and implementation (PLDI '94), pp. 196-205, 1994; ACM SIGPLAN 
+Notices - Best of PLDI 1979-1999 Homepage archive, Vol. 39, No. 4, pp. 
+528-539; <a href="http://dx.doi.org/10.1145/989393.989446" class="extiw" title="doi:10.1145/989393.989446">doi:10.1145/989393.989446</a></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-3"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.cs.utexas.edu/users/mckinley/20-years.html">20 Years of PLDI (1979–1999): A Selection, Kathryn S. McKinley, Editor</a></span></li>
+<li id="cite_note-aprof-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-aprof_4-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">E. Coppa, C. Demetrescu, and I. Finocchi, <a rel="nofollow" class="external text" href="http://aprof.googlecode.com/files/pldi055-coppa.pdf"><i>Input-Sensitive Profiling</i></a>,
+ Proceedings of the 33rd ACM SIGPLAN Conference on Programming Language 
+Design and Implementation (PLDI 2012), ACM SIGPLAN Notices, Vol. 47, No.
+ 6, pp. 89-98, 2012; <a href="http://dx.doi.org/10.1145/2254064.2254076" class="extiw" title="doi:10.1145/2254064.2254076">doi:10.1145/2254064.2254076</a></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">D. Zaparanuks and M. Hauswirth, <i>Algorithmic Profiling</i>,
+ Proceedings of the 33rd ACM SIGPLAN Conference on Programming Language 
+Design and Implementation (PLDI 2012), ACM SIGPLAN Notices, Vol. 47, No.
+ 6, pp. 67-76, 2012; <a href="http://dx.doi.org/10.1145/2254064.2254074" class="extiw" title="doi:10.1145/2254064.2254074">doi:10.1145/2254064.2254074</a></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">T. Kustner, J. Weidendorfer, and T. Weinzierl, <i>Argument Controlled Profiling</i>,
+ Proceedings of Euro-Par 2009 – Parallel Processing Workshops, Lecture 
+Notes in Computer Science, Vol. 6043, pp. 177-184, 2010; <a href="http://dx.doi.org/10.1007/978-3-642-14122-5_22" class="extiw" title="doi:10.1007/978-3-642-14122-5 22">doi:10.1007/978-3-642-14122-5_22</a></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external text" href="http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html#SEC12">Statistical Inaccuracy of <tt>gprof</tt> Output</a></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit&amp;section=16" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li>Article "<a rel="nofollow" class="external text" href="http://www.ibm.com/developerworks/rational/library/05/1004_gupta/">Need for speed — Eliminating performance bottlenecks</a>" on doing execution time analysis of Java applications using <a href="http://en.wikipedia.org/wiki/IBM_Rational_Application_Developer" title="IBM Rational Application Developer">IBM Rational Application Developer</a>.</li>
+<li><a rel="nofollow" class="external text" href="http://software.intel.com/sites/products/documentation/hpc/vtune/windows/jit_profiling.pdf">Profiling Runtime Generated and Interpreted Code using the VTune Performance Analyzer</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1202
+CPU time usage: 0.448 seconds
+Real time usage: 0.495 seconds
+Preprocessor visited node count: 871/1000000
+Preprocessor generated node count: 2370/1500000
+Post‐expand include size: 12091/2048000 bytes
+Template argument size: 2142/2048000 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 4/500
+Lua time usage: 0.069s
+Lua memory usage: 1.43 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:2310080-0!*!0!!en!4!* and timestamp 20140205002120
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;oldid=593972181">http://en.wikipedia.org/w/index.php?title=Profiling_(computer_programming)&amp;oldid=593972181</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Software_optimization" title="Category:Software optimization">Software optimization</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Profilers" title="Category:Profilers">Profilers</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Articles_needing_additional_references_from_January_2009" title="Category:Articles needing additional references from January 2009">Articles needing additional references from January 2009</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_needing_additional_references" title="Category:All articles needing additional references">All articles needing additional references</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_February_2014" title="Category:Articles with unsourced statements from February 2014">Articles with unsourced statements from February 2014</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_August_2012" title="Category:Articles with unsourced statements from August 2012">Articles with unsourced statements from August 2012</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Profiling+%28computer+programming%29&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Profiling+%28computer+programming%29" title="You're encouraged to log in; however, it's not mandatory. [alt-shift-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Profiling_%28computer_programming%29" title="View the content page [alt-shift-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Profiling_%28computer_programming%29" title="Discussion about the content page [alt-shift-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Profiling_%28computer_programming%29">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=edit" title="You can edit this page. 
+Please review your changes before saving. [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+					<div id="simpleSearch">
+					<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Wikipedia [alt-shift-f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if one exists" id="searchButton" class="searchButton" type="submit">		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div class="collapsible-nav" id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+			<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="Visit the Wikimedia Shop">Wikimedia Shop</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 tabindex="2" id="p-interaction-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-interaction-list" aria-haspopup="true" href="#">Interaction</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 tabindex="3" id="p-tb-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-tb-list" aria-haspopup="true" href="#">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Profiling_%28computer_programming%29" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Profiling_%28computer_programming%29" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;oldid=593972181" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q1138496" title="Link to connected data repository item [alt-shift-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Profiling_%28computer_programming%29&amp;id=593972181" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 tabindex="4" id="p-coll-print_export-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-coll-print_export-list" aria-haspopup="true" href="#">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Profiling+%28computer+programming%29">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Profiling+%28computer+programming%29&amp;oldid=593972181&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Profiling_%28computer_programming%29&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span original-title="Language settings" aria-haspopup="true" role="button" tabindex="0" class="uls-settings-trigger"></span>
+	<h3 tabindex="5" id="p-lang-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-lang-list" aria-haspopup="true" href="#">Languages</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Profilov%C3%A1n%C3%AD" title="Profilování – Czech" hreflang="cs" lang="cs">Čeština</a></li>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/Profiler_%28Programmierung%29" title="Profiler (Programmierung) – German" hreflang="de" lang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/An%C3%A1lisis_de_rendimiento_de_software" title="Análisis de rendimiento de software – Spanish" hreflang="es" lang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Profilage_de_code" title="Profilage de code – French" hreflang="fr" lang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%ED%8C%8C%EC%9D%BC%EB%A7%81_%28%EC%BB%B4%ED%93%A8%ED%84%B0_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D%29" title="프로파일링 (컴퓨터 프로그래밍) – Korean" hreflang="ko" lang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Profiler" title="Profiler – Dutch" hreflang="nl" lang="nl">Nederlands</a></li>
+			<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E6%80%A7%E8%83%BD%E8%A7%A3%E6%9E%90" title="性能解析 – Japanese" hreflang="ja" lang="ja">日本語</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Profilowanie" title="Profilowanie – Polish" hreflang="pl" lang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Gprof" title="Gprof – Portuguese" hreflang="pt" lang="pt">Português</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%28%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%29" title="Профилирование (информатика) – Russian" hreflang="ru" lang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/Profilointi_%28Ohjelmointi%29" title="Profilointi (Ohjelmointi) – Finnish" hreflang="fi" lang="fi">Suomi</a></li>
+			<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%84%D1%96%D0%BB%D1%8E%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F_%28%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D1%83%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F%29" title="Профілювання (програмування) – Ukrainian" hreflang="uk" lang="uk">Українська</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90" title="性能分析 – Chinese" hreflang="zh" lang="zh">中文</a></li>
+			
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q1138496#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 5 February 2014 at 00:21.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Profiling_%28computer_programming%29" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaShopLink.core","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","ext.uls.interlanguage","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="Profiling%20%28computer%20programming%29%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.php"></script><div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div>
+<!-- Served by mw1181 in 0.188 secs. -->
+	
+
+</body></html>

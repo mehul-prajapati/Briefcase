@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js ve-not-available" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>cron - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="generator" content="MediaWiki 1.23wmf15">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Cron">
+<link rel="stylesheet" href="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.css">
+<style>
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */
+.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #C9C9C9;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:22d1681fa868b4ff4fbcb1ec1e58a9ea */
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//bits.wikimedia.org/static-1.23wmf15/resources/jquery.tipsy/images/tipsy.png?2014-02-20T16:50:00Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:4c0ad2434bc128d18de6fc4d2de65914 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf15/extensions/Wikidata/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2014-02-20T16:55:00Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf15/extensions/Wikidata/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2014-02-20T16:55:00Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0b8b2e867bea7b28608af9b44926050e */
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf15/resources/mediawiki.action/images/green-checkmark.png?2014-02-20T16:50:00Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:5434ecb18caf9027a04b9a419dea9a94 */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf15/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-02-20T16:53:20Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf15/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-02-20T16:53:20Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf15/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-02-20T16:53:20Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf15/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-02-20T16:53:20Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:f69093366ac935d48348cf3c8e372581 */
+#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAMAAAAVMLmlAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAALpQTFRF////W1tbgICAWVlZgICAUVFRgICAWVlZhYWFUlJShYWFVFRUgYGBVVVVgYGBVVVVgICAVFRUVVVVVlZWgYGBgICAVFRUgYGBVFRUgICAgYGBVVVVVVVVgYGBVlZWgYGBVFRUgICAVFRUgICAVVVVgICAVlZWgICAVFRUgICAVVVVgICAVFRUgICAVlZWgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICA9Fa9bgAAADx0Uk5TAA4OFBQWFhcXGRlJSUtLWlpbXV9fYGFhZGRlZmlpa2twcIiIioqPj5GRn5+goKGh6+vv7/Dw+fn8/P7+YuRUVgAAAOlJREFUGBmNwcdWAgEURMFLFCUaAcWAEhQYHBRmCN3//1u+BYcVC6s4p2U3OLrrVxN7Xn7uELoH5w65Dx1g6JNnoLazfz++VnZehkZir4pQ3NjzBg5TwtgBhzFh6kDr294UobiykxZc7ezVdLyx8yrw6pM+8GjnDjsf7gj3/WpiJ7Vhl6OW3eC/mlKdo5teZSHNSoM24XqvTCHTvg0MdDIASpn08/6ZSlkJ6jMpLUBhLc3qKEwIIwUURoSJAs2ltC5AIZUWTbjcSulktJayCvCikx7wJG0VttrfEp5eLpfS4uLtgaOmVOeMP8BAM9RClMO9AAAAAElFTkSuQmCC) no-repeat right top;background:transparent url(//bits.wikimedia.org/static-1.23wmf15/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2014-02-20T16:55:00Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNCIgaGVpZ2h0PSIzMiI+PGRlZnM+PHBhdGggZD0iTTEzLjU4MiA2LjYzMmgtMS4wNjRjLS4xMzMtLjUzOC0uMzU0LTEuMDY1LS42NDUtMS41NTJsLjc1LS43NWMuMTY0LS4xNjQuMTY0LS40MjkgMC0uNTkzbC0xLjM1OS0xLjM2Yy0uMTY0LS4xNjQtLjQzLS4xNjQtLjU5NCAwbC0uNzUuNzVjLS40OS0uMjk0LTEuMDEyLS41MTItMS41NTEtLjY0NXYtMS4wNjRjMC0uMjMxLS4xODctLjQxOC0uNDE5LS40MThoLTEuOTE4Yy0uMjMxIDAtLjQxOC4xODctLjQxOC40MTh2MS4wNjNjLS41NDEuMTM1LTEuMDYyLjM1Mi0xLjU1Mi42NDZsLS43NS0uNzVjLS4xNjQtLjE2NC0uNDI5LS4xNjQtLjU5MyAwbC0xLjM2IDEuMzZjLS4xNjQuMTY0LS4xNjQuNDI5IDAgLjU5M2wuNzUuNzVjLS4yOTIuNDg4LS40OTQgMS4wMTUtLjYyNyAxLjU1MWgtMS4wNjRjLS4yMzEgMC0uNDE4LjE4Ny0uNDE4LjQxOXYxLjkxOGMwIC4yMzEuMTg3LjQxOC40MTguNDE4aDEuMDQ2Yy4xMzQuNTQyLjM1MSAxLjA2Mi42NDUgMS41NTFsLS43NS43NWMtLjE2NC4xNjQtLjE2NC40MjkgMCAuNTkzbDEuMzYgMS4zNmMuMTY0LjE2NC40MjkuMTY0LjU5MyAwbC43NS0uNzVjLjQ5MS4yOTYgMS4wMS40OTMgMS41NTEuNjI3djEuMDYzYy4wMDEuMjMzLjE4OC40Mi40MTkuNDJoMS45MThjLjIzMSAwIC40MTktLjE4Ny40MTktLjQxOHYtMS4wNjNjLjU0Mi0uMTM0IDEuMDYxLS4zMzMgMS41NTEtLjYyN2wuNzUuNzVjLjE2NC4xNjQuNDMuMTY0LjU5NCAwbDEuMzU5LTEuMzZjLjE2NC0uMTY0LjE2NC0uNDI5IDAtLjU5M2wtLjc1LS43NWMuMjk1LS40ODkuNTEtMS4wMTMuNjQ1LTEuNTUxaDEuMDY0Yy4yMy0uMDAyLjQxOC0uMTg5LjQxOC0uNDJ2LTEuOTE4YzAtLjIzMi0uMTg4LS40MTgtLjQxOC0uNDE4em0tNi41ODIgNC4wMTJjLTEuNDYxIDAtMi42NDUtMS4xODQtMi42NDUtMi42NDRzMS4xODQtMi42NDQgMi42NDUtMi42NDQgMi42NDUgMS4xODQgMi42NDUgMi42NDQtMS4xODQgMi42NDQtMi42NDUgMi42NDR6IiBpZD0iYSIvPjwvZGVmcz48dXNlIHhsaW5rOmhyZWY9IiNhIiBmaWxsPSIjODA4MDgwIi8+PHVzZSB4bGluazpocmVmPSIjYSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxNikiIGZpbGw9IiM1NTUiLz48L3N2Zz4=);background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf15/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-20T16:55:00Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxNCIgaGVpZ2h0PSIzMiI+PGRlZnM+PHBhdGggZD0iTTEzLjU4MiA2LjYzMmgtMS4wNjRjLS4xMzMtLjUzOC0uMzU0LTEuMDY1LS42NDUtMS41NTJsLjc1LS43NWMuMTY0LS4xNjQuMTY0LS40MjkgMC0uNTkzbC0xLjM1OS0xLjM2Yy0uMTY0LS4xNjQtLjQzLS4xNjQtLjU5NCAwbC0uNzUuNzVjLS40OS0uMjk0LTEuMDEyLS41MTItMS41NTEtLjY0NXYtMS4wNjRjMC0uMjMxLS4xODctLjQxOC0uNDE5LS40MThoLTEuOTE4Yy0uMjMxIDAtLjQxOC4xODctLjQxOC40MTh2MS4wNjNjLS41NDEuMTM1LTEuMDYyLjM1Mi0xLjU1Mi42NDZsLS43NS0uNzVjLS4xNjQtLjE2NC0uNDI5LS4xNjQtLjU5MyAwbC0xLjM2IDEuMzZjLS4xNjQuMTY0LS4xNjQuNDI5IDAgLjU5M2wuNzUuNzVjLS4yOTIuNDg4LS40OTQgMS4wMTUtLjYyNyAxLjU1MWgtMS4wNjRjLS4yMzEgMC0uNDE4LjE4Ny0uNDE4LjQxOXYxLjkxOGMwIC4yMzEuMTg3LjQxOC40MTguNDE4aDEuMDQ2Yy4xMzQuNTQyLjM1MSAxLjA2Mi42NDUgMS41NTFsLS43NS43NWMtLjE2NC4xNjQtLjE2NC40MjkgMCAuNTkzbDEuMzYgMS4zNmMuMTY0LjE2NC40MjkuMTY0LjU5MyAwbC43NS0uNzVjLjQ5MS4yOTYgMS4wMS40OTMgMS41NTEuNjI3djEuMDYzYy4wMDEuMjMzLjE4OC40Mi40MTkuNDJoMS45MThjLjIzMSAwIC40MTktLjE4Ny40MTktLjQxOHYtMS4wNjNjLjU0Mi0uMTM0IDEuMDYxLS4zMzMgMS41NTEtLjYyN2wuNzUuNzVjLjE2NC4xNjQuNDMuMTY0LjU5NCAwbDEuMzU5LTEuMzZjLjE2NC0uMTY0LjE2NC0uNDI5IDAtLjU5M2wtLjc1LS43NWMuMjk1LS40ODkuNTEtMS4wMTMuNjQ1LTEuNTUxaDEuMDY0Yy4yMy0uMDAyLjQxOC0uMTg5LjQxOC0uNDJ2LTEuOTE4YzAtLjIzMi0uMTg4LS40MTgtLjQxOC0uNDE4em0tNi41ODIgNC4wMTJjLTEuNDYxIDAtMi42NDUtMS4xODQtMi42NDUtMi42NDRzMS4xODQtMi42NDQgMi42NDUtMi42NDQgMi42NDUgMS4xODQgMi42NDUgMi42NDQtMS4xODQgMi42NDQtMi42NDUgMi42NDR6IiBpZD0iYSIvPjwvZGVmcz48dXNlIHhsaW5rOmhyZWY9IiNhIiBmaWxsPSIjODA4MDgwIi8+PHVzZSB4bGluazpocmVmPSIjYSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxNikiIGZpbGw9IiM1NTUiLz48L3N2Zz4=);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf15/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-20T16:55:00Z)!ie;height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:b2e67584e2228f57a20bd65b248df072 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_003.php"></script><script src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Cron","wgTitle":"Cron","wgCurRevisionId":596165920,"wgRevisionId":596165920,"wgArticleId":476767,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles needing additional references from November 2011","All articles needing additional references","Standard Unix programs","Unix SUS2008 utilities","Unix process and task management-related software","Wikipedia articles with ASCII art"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Cron","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf15/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr","svgMaxSize":2048},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgFlowTermsOfUseEdit":"By saving changes, you agree to our \u003Ca class=\"external text\" href=\"//wikimediafoundation.org/wiki/Terms_of_use\"\u003ETerms of Use\u003C/a\u003E and agree to irrevocably release your text under the \u003Ca rel=\"nofollow\" class=\"external text\" href=\"//creativecommons.org/licenses/by-sa/3.0\"\u003ECC BY-SA 3.0 License\u003C/a\u003E and \u003Ca class=\"external text\" href=\"//en.wikipedia.org/wiki/Wikipedia:Text_of_the_GNU_Free_Documentation_License\"\u003EGFDL\u003C/a\u003E","wgULSAcceptLanguageList":["en-us"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":476767,"title":"Cron","namespace":0,"categories":["All articles needing additional references","Articles needing additional references from November 2011","Standard Unix programs","Unix SUS2008 utilities","Unix process and task management-related software","Wikipedia articles with ASCII art"],"permissionLevel":false},"wgWikibaseItemId":"Q300864"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,
+"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":
+true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"echo-subscriptions-web-flow-discussion":true,"echo-subscriptions-email-flow-discussion":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false
+,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:b12ab6cae4d52363f0a0bc1d4e1abcbe */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","ext.uls.init","ext.uls.interface","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script><script src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/checkLoggedIn" async=""></script>
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style><script src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf15/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Cron skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div class="cn-ToUAmendment" id="centralNotice"><style type="text/css">
+
+#centralNotice.collapsed #ChangeToU2014_v1_anononly {
+ display: none;
+}
+
+#ChangeToU2014_v1_anononly {
+ position: relative;
+ overflow: hidden;
+ background: url(//upload.wikimedia.org/wikipedia/commons/0/0d/Gray-gradient1.png) bottom repeat-x;
+ margin-bottom: 0.5em !important;
+ margin-top: 0.5em !important;
+ background-color:#FFFFFF;
+ border: solid 1px #aaaaaa; 
+ height:66px;
+}
+
+#ChangeToU2014_v1_anononly a.cn-full-banner-click {
+ display:block;
+ height:100%;
+ width:100%;
+ cursor: pointer;
+}
+
+
+#ChangeToU2014_v1_anononly-logo {
+ position: absolute;
+ top: 8px;
+ left: 15px;
+ background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/50px-Wikimedia_logo_text_RGB.svg.png);
+ height: 50px;
+ width: 50px;
+ background-repeat: no-repeat;
+}
+
+#ChangeToU2014_v1_anononly #black-text {
+ font-size: 1.1em;
+ color: black;
+ padding: 0.5em 40px 0.4em 60px;
+ line-height: 1.3em;
+ text-align: center;
+ font-weight:bold;
+}
+
+
+#ChangeToU2014_v1_anononly div#cn-toggle-box {
+ position: absolute;
+ z-index: 98;
+ top: 2px;
+ right: 6px;
+}
+
+#ChangeToU2014_v1_anononly div#cn-translation-link {
+ position:absolute;
+ z-index:50;
+ bottom: 0px;
+ right: 6px;
+ font-size: 0.7em;
+}
+
+#ChangeToU2014_v1_anononly #calltoaction {
+ padding-top: 5px;
+ color: #0645ad;
+}
+
+#cn-translation-link a:link, 
+#cn-translation-link a:visited, 
+#cn-translation-link a:hover { 
+ color: black; 
+} 
+
+</style>
+
+<div id="ChangeToU2014_v1_anononly">
+
+  <a class="cn-full-banner-click" href="http://meta.wikimedia.org/wiki/Terms_of_use/Paid_contributions_amendment" title="">
+<div id="ChangeToU2014_v1_anononly-logo"></div>
+    <div id="black-text">
+   Amending our Terms of Use: <br> Please comment on a proposed amendment regarding undisclosed paid editing.
+     </div>
+  </a>
+ <div id="cn-toggle-box">
+  <a href="#" title="Close" onclick="mw.centralNotice.hideBanner();return false;"><img src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/CloseWindow19x19.png" alt="close" border="0"></a>  
+ </div>
+</div></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">cron</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><div class="dablink">For other uses, see <a href="http://en.wikipedia.org/wiki/Cron_%28disambiguation%29" title="Cron (disambiguation)">Cron (disambiguation)</a>.</div>
+<table class="metadata plainlinks ambox ambox-content ambox-Refimprove" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width:52px;"><a href="http://en.wikipedia.org/wiki/File:Question_book-new.svg" class="image"><img alt="" src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/50px-Question_book-new.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/75px-Question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/100px-Question_book-new.svg.png 2x" width="50" height="39"></a></div>
+</td>
+<td class="mbox-text"><span class="mbox-text-span">This article <b>needs additional citations for <a href="http://en.wikipedia.org/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">verification</a></b>. <span class="hide-when-compact">Please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit">improve this article</a> by <a href="http://en.wikipedia.org/wiki/Help:Introduction_to_referencing/1" title="Help:Introduction to referencing/1">adding citations to reliable sources</a>. Unsourced material may be challenged and removed.</span> <small><i>(November 2011)</i></small></span></td>
+</tr>
+</tbody></table>
+<p>The software utility <b>cron</b> is a time-based <a href="http://en.wikipedia.org/wiki/Job_scheduler" title="Job scheduler">job scheduler</a> in <a href="http://en.wikipedia.org/wiki/Unix-like" title="Unix-like">Unix-like</a> computer <a href="http://en.wikipedia.org/wiki/Operating_system" title="Operating system">operating systems</a>. People who set up and maintain software environments use cron to schedule jobs (commands or <a href="http://en.wikipedia.org/wiki/Shell_script" title="Shell script">shell scripts</a>)
+ to run periodically at fixed times, dates, or intervals. It typically 
+automates system maintenance or administration—though its 
+general-purpose nature makes it useful for things like connecting to the
+ <a href="http://en.wikipedia.org/wiki/Internet" title="Internet">Internet</a> and downloading <a href="http://en.wikipedia.org/wiki/Email" title="Email">email</a> at regular intervals.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>1<span>]</span></a></sup> The name <i>cron</i> comes from the Greek word for time, χρόνος <a href="http://en.wikipedia.org/wiki/Chronos" title="Chronos">chronos</a>.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Examples"><span class="tocnumber">1.1</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Predefined_scheduling_definitions"><span class="tocnumber">1.2</span> <span class="toctext">Predefined scheduling definitions</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#cron_permissions"><span class="tocnumber">1.3</span> <span class="toctext">cron permissions</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Timezone_handling"><span class="tocnumber">1.4</span> <span class="toctext">Timezone handling</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#History"><span class="tocnumber">2</span> <span class="toctext">History</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Early_versions"><span class="tocnumber">2.1</span> <span class="toctext">Early versions</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Multi-user_capability"><span class="tocnumber">2.2</span> <span class="toctext">Multi-user capability</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Modern_versions"><span class="tocnumber">2.3</span> <span class="toctext">Modern versions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#CRON_expression"><span class="tocnumber">3</span> <span class="toctext">CRON expression</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Format"><span class="tocnumber">3.1</span> <span class="toctext">Format</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Special_characters"><span class="tocnumber">3.2</span> <span class="toctext">Special characters</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Overview">Overview</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=1" title="Edit section: Overview">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Cron is driven by a <i>crontab</i> (cron table) file, a configuration file that specifies <a href="http://en.wikipedia.org/wiki/Unix_shell" title="Unix shell">shell</a>
+ commands to run periodically on a given schedule. The crontab files are
+ stored where the lists of jobs and other instructions to the cron <a href="http://en.wikipedia.org/wiki/Daemon_%28computer_software%29" title="Daemon (computer software)" class="mw-redirect">daemon</a> are kept. Users can have their own individual crontab files and often there is a system wide crontab file (usually in <code>/etc</code> or a subdirectory of <code>/etc</code>) that only system administrators can edit.</p>
+<p>Each line of a crontab file represents a job, and is composed of a 
+CRON expression, followed by a shell command to execute. Some cron 
+implementations, such as in the popular <a href="http://en.wikipedia.org/wiki/Berkeley_Software_Distribution" title="Berkeley Software Distribution">4th BSD edition</a> written by <a href="http://en.wikipedia.org/wiki/Paul_Vixie" title="Paul Vixie">Paul Vixie</a>
+ and included in many Linux distributions, add a sixth field: an account
+ username that runs the specified job (subject to user existence and 
+permissions). This is allowed only in the system crontabs—not in others,
+ which are each assigned to a single user to configure. The sixth field 
+is alternatively sometimes used for <i>year</i> instead of an account username—the nncron daemon for Windows does this.</p>
+<p>While normally the job is executed when the time/date specification 
+fields all match the current time and date, there is one exception: if 
+both "day of month" and "day of week" are restricted (not "*"), then 
+either the "day of month" field (3) or the "day of week" field (5) must 
+match the current day.</p>
+<h3><span class="mw-headline" id="Examples">Examples</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=2" title="Edit section: Examples">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The following specifies that the Apache error log clears at one 
+minute past midnight (00:01) of every day of the month, of every day of 
+the week, assuming that the default shell for the cron user is <a href="http://en.wikipedia.org/wiki/Bourne_shell" title="Bourne shell">Bourne shell</a> compliant:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="bash source-bash">
+<pre class="de1"><span class="nu0">1</span> <span class="nu0">0</span> <span class="sy0">*</span> <span class="sy0">*</span> <span class="sy0">*</span>  <span class="kw3">printf</span> <span class="sy0">&gt;</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>apache<span class="sy0">/</span>error_log
+</pre></div>
+</div>
+<p>The following line makes the user program <code xml:lang="bash" lang="bash">test.pl</code>—ostensibly a <a href="http://en.wikipedia.org/wiki/Perl" title="Perl">Perl</a> script—run every two hours, at midnight, 2am, 4am, 6am, 8am, and so on:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="bash source-bash">
+<pre class="de1"><span class="nu0">0</span> <span class="sy0">*/</span><span class="nu0">2</span> <span class="sy0">*</span> <span class="sy0">*</span> <span class="sy0">*</span>  <span class="sy0">/</span>home<span class="sy0">/</span>username<span class="sy0">/</span>test.pl
+</pre></div>
+</div>
+<p>Another example showing how to run a shell program called export_dump.sh at 0th minute of 20th hour, every day.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="bash source-bash">
+<pre class="de1">00 <span class="nu0">20</span> <span class="sy0">*</span> <span class="sy0">*</span> <span class="sy0">*</span> <span class="sy0">/</span>home<span class="sy0">/</span>oracle<span class="sy0">/</span>scripts<span class="sy0">/</span>export_dump.sh
+</pre></div>
+</div>
+<h3><span class="mw-headline" id="Predefined_scheduling_definitions">Predefined scheduling definitions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=3" title="Edit section: Predefined scheduling definitions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Several special predefined values can substitute in the cron 
+expression. Note that in some uses of the cron format there is also a 
+seconds field at the beginning of the pattern (e.g. Quartz).</p>
+<table class="wikitable">
+<tbody><tr>
+<th>Entry</th>
+<th>Description</th>
+<th>Equivalent to</th>
+</tr>
+<tr>
+<td><code>@yearly (or @annually)</code></td>
+<td>Run once a year at midnight in the morning of January 1</td>
+<td><code>0 0 1 1 *</code></td>
+</tr>
+<tr>
+<td><code>@monthly</code></td>
+<td>Run once a month at midnight in the morning of the first day of the month</td>
+<td><code>0 0 1 * *</code></td>
+</tr>
+<tr>
+<td><code>@weekly</code></td>
+<td>Run once a week at midnight in the morning of Sunday</td>
+<td><code>0 0 * * 0</code></td>
+</tr>
+<tr>
+<td><code>@daily</code></td>
+<td>Run once a day at midnight</td>
+<td><code>0 0 * * *</code></td>
+</tr>
+<tr>
+<td><code>@hourly</code></td>
+<td>Run once an hour at the beginning of the hour</td>
+<td><code>0 * * * *</code></td>
+</tr>
+<tr>
+<td><code>@reboot</code></td>
+<td>Run at startup</td>
+<td><code>@reboot</code></td>
+</tr>
+</tbody></table>
+<pre># * * * * *  command to execute
+# ┬ ┬ ┬ ┬ ┬
+# │ │ │ │ │
+# │ │ │ │ │
+# │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday, the same as 0)
+# │ │ │ └────────── month (1 - 12)
+# │ │ └─────────────── day of month (1 - 31)
+# │ └──────────────────── hour (0 - 23)
+# └───────────────────────── min (0 - 59)
+</pre>
+<p><code>@reboot</code> configures a job to run once when the daemon is 
+started. Since cron is typically never restarted, this typically 
+corresponds to the machine being booted. This behavior is enforced in 
+some variations of cron, such as that provided in <a href="http://en.wikipedia.org/wiki/Debian" title="Debian">Debian</a>,<sup id="cite_ref-debiancron_2-0" class="reference"><a href="#cite_note-debiancron-2"><span>[</span>2<span>]</span></a></sup> so that simply restarting the daemon does not re-run <code>@reboot</code> jobs.</p>
+<p><code>@reboot</code> can be useful if there is a need to start up a 
+server or daemon under a particular user, and the user does not have 
+access to configure <a href="http://en.wikipedia.org/wiki/Init" title="Init">init</a> to start the program.</p>
+<h3><span class="mw-headline" id="cron_permissions">cron permissions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=4" title="Edit section: cron permissions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The following two files play an important role:</p>
+<ul>
+<li><b>/etc/cron.allow</b> - If this file exists, it must contain your username for you to use cron jobs.</li>
+<li><b>/etc/cron.deny</b> - If the cron.allow file does not exist but 
+the /etc/cron.deny file does exist then, to use cron jobs, you must not 
+be listed in the /etc/cron.deny file.</li>
+</ul>
+<p>Note that if neither of these files exist then, depending on 
+site-dependent configuration parameters, either only the super user can 
+use cron jobs, or all users can use cron jobs.</p>
+<h3><span class="mw-headline" id="Timezone_handling">Timezone handling</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=5" title="Edit section: Timezone handling">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Most cron implementations simply interpret crontab entries in the 
+system time zone setting that the cron daemon runs under. This can be a 
+source of dispute if a large multiuser machine has users in several time
+ zones, especially if the system default timezone includes the 
+potentially confusing <a href="http://en.wikipedia.org/wiki/DST" title="DST" class="mw-redirect">DST</a>.
+ Thus, a cron implementation may as a special-case any 
+"CRON_TZ=&lt;timezone&gt;" environment variable setting lines in user 
+crontabs, interpreting subsequent crontab entries relative to that 
+timezone.<sup id="cite_ref-man_5_crontab_3-0" class="reference"><a href="#cite_note-man_5_crontab-3"><span>[</span>3<span>]</span></a></sup></p>
+<h2><span class="mw-headline" id="History">History</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=6" title="Edit section: History">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Early_versions">Early versions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=7" title="Edit section: Early versions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The cron in <a href="http://en.wikipedia.org/wiki/Version_7_Unix" title="Version 7 Unix">Version 7 Unix</a>, written by <a href="http://en.wikipedia.org/wiki/Brian_Kernighan" title="Brian Kernighan">Brian Kernighan</a>, was a system service (later called <a href="http://en.wikipedia.org/wiki/Daemon_%28computer_software%29" title="Daemon (computer software)" class="mw-redirect">daemons</a>) invoked from <code>/etc/inittab</code> when the operating system entered multi-user mode. Its algorithm was straightforward:</p>
+<ol>
+<li>Read <code>/usr/etc/crontab</code></li>
+<li>Determine if any commands must run at the current date and time, and if so, run them as the <a href="http://en.wikipedia.org/wiki/Superuser" title="Superuser">superuser</a>, root.</li>
+<li>Sleep for one minute</li>
+<li>Repeat from step 1.</li>
+</ol>
+<p>This version of cron was basic and robust but it also consumed 
+resources whether it found any work to do or not. In an experiment at 
+Purdue University in the late 1970s to extend cron's service to all 100 
+users on a time-shared <a href="http://en.wikipedia.org/wiki/VAX" title="VAX">VAX</a>, it was found to place too much load on the system.</p>
+<h3><span class="mw-headline" id="Multi-user_capability">Multi-user capability</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=8" title="Edit section: Multi-user capability">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The next version of cron, with the release of <a href="http://en.wikipedia.org/wiki/Unix_System_V" title="Unix System V" class="mw-redirect">Unix System V</a>,
+ was created to extend the capabilities of cron to all users of a Unix 
+system, not just the superuser. Though this may seem trivial today with 
+most Unix and Unix-like systems having powerful processors and small 
+numbers of users, at the time it required a new approach on a one <a href="http://en.wikipedia.org/wiki/Instructions_per_second" title="Instructions per second">MIPS</a> system having roughly 100 user accounts.</p>
+<p>In the August, 1977 issue of the <a href="http://en.wikipedia.org/wiki/Communications_of_the_ACM" title="Communications of the ACM">Communications of the ACM</a>,
+ W. R. Franta and Kurt Maly published an article entitled "An efficient 
+data structure for the simulation event set" describing an event queue 
+data structure for discrete event-driven simulation systems that 
+demonstrated "performance superior to that of commonly used simple 
+linked list algorithms," good behavior given non-uniform time 
+distributions, and worst case <a href="http://en.wikipedia.org/wiki/Computational_complexity" title="Computational complexity" class="mw-redirect">complexity</a> <img class="tex" alt="O\left(\sqrt{n}\right)" src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/126f3877a4bfba2c17a3be00b8f730f1.png">, "n" being the number of events in the queue.</p>
+<p>A graduate student, Robert Brown, reviewing this article, recognized the parallel between cron and <a href="http://en.wikipedia.org/wiki/Discrete_event_simulation" title="Discrete event simulation">discrete event simulators</a>,
+ and created an implementation of the Franta-Maly event list manager 
+(ELM) for experimentation. Discrete event simulators run in <i>virtual time</i>,
+ peeling events off the event queue as quickly as possible and advancing
+ their notion of "now" to the scheduled time of the next event. Running 
+the event simulator in "real time" instead of virtual time created a 
+version of cron that spent most of its time sleeping, waiting for the 
+scheduled time to execute the task at the head of the event list.</p>
+<p>The following school year brought new students into the graduate 
+program, including Keith Williamson, who joined the systems staff in the
+ Computer Science department. As a "warm up task" Brown asked him to 
+flesh out the prototype cron into a production service, and this 
+multi-user cron went into use at Purdue in late 1979. This version of 
+cron wholly replaced the <code>/etc/cron</code> that was in use on the computer science department's VAX 11/780 running 32/V.</p>
+<p>The algorithm used by this cron is as follows:</p>
+<ol>
+<li>On start-up, look for a file named <code>.crontab</code> in the home directories of all account holders.</li>
+<li>For each crontab file found, determine the next time in the future that each command must run.</li>
+<li>Place those commands on the Franta-Maly event list with their corresponding time and their "five field" time specifier.</li>
+<li>Enter main loop:
+<ol>
+<li>Examine the task entry at the head of the queue, compute how far in the future it must run.</li>
+<li>Sleep for that period of time.</li>
+<li>On awakening and after verifying the correct time, execute the task 
+at the head of the queue (in background) with the privileges of the user
+ who created it.</li>
+<li>Determine the next time in the future to run this command and place it back on the event list at that time value.</li>
+</ol>
+</li>
+</ol>
+<p>Additionally, the daemon responds to <a href="http://en.wikipedia.org/wiki/SIGHUP" title="SIGHUP" class="mw-redirect">SIGHUP</a>
+ signals to rescan modified crontab files and schedules special "wake up
+ events" on the hour and half hour to look for modified crontab files. 
+Much detail is omitted here concerning the inaccuracies of computer 
+time-of-day tracking, Unix alarm scheduling, explicit time-of-day 
+changes, and process management, all of which account for the majority 
+of the lines of code in this cron. This cron also captured the output of
+ <i>stdout</i> and <i>stderr</i> and e-mailed any output to the crontab owner.</p>
+<p>The resources consumed by this cron scale only with the amount of 
+work it is given and do not inherently increase over time with the 
+exception of periodically checking for changes.</p>
+<p>Williamson completed his studies and departed the University with a 
+Masters of Science in Computer Science and joined AT&amp;T Bell Labs in 
+Murray Hill, New Jersey, and took this cron with him. At Bell Labs, he 
+and others incorporated the Unix <code>at</code> command into cron, 
+moved the crontab files out of users' home directories (which were not 
+host-specific) and into a common host-specific spool directory, and of 
+necessity added the <code>crontab</code> command to allow users to copy their crontabs to that spool directory.</p>
+<p>This version of cron later appeared largely unchanged in <a href="http://en.wikipedia.org/wiki/Unix_System_V" title="Unix System V" class="mw-redirect">Unix System V</a> and in BSD and their derivatives, the <a href="http://en.wikipedia.org/wiki/Solaris_Operating_System" title="Solaris Operating System" class="mw-redirect">Solaris Operating System</a> from <a href="http://en.wikipedia.org/wiki/Sun_Microsystems" title="Sun Microsystems">Sun Microsystems</a>, <a href="http://en.wikipedia.org/wiki/IRIX" title="IRIX">IRIX</a> from <a href="http://en.wikipedia.org/wiki/Silicon_Graphics" title="Silicon Graphics">Silicon Graphics</a>, <a href="http://en.wikipedia.org/wiki/HP-UX" title="HP-UX">HP-UX</a> from <a href="http://en.wikipedia.org/wiki/Hewlett-Packard" title="Hewlett-Packard">Hewlett-Packard</a>, and <a href="http://en.wikipedia.org/wiki/IBM_AIX_%28operating_system%29" title="IBM AIX (operating system)" class="mw-redirect">IBM AIX</a>.
+ Technically, the original license for these implementations should be 
+with the Purdue Research Foundation who funded the work, but this took 
+place at a time when little concern was given to such matters.</p>
+<h3><span class="mw-headline" id="Modern_versions">Modern versions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=9" title="Edit section: Modern versions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>With the advent of the <a href="http://en.wikipedia.org/wiki/GNU_Project" title="GNU Project">GNU Project</a> and <a href="http://en.wikipedia.org/wiki/Linux" title="Linux">Linux</a>, new crons appeared. The most prevalent of these is the Vixie cron, originally coded by <a href="http://en.wikipedia.org/wiki/Paul_Vixie" title="Paul Vixie">Paul Vixie</a> in 1987. Version 3 of <b>Vixie cron</b> was released in late 1993. Version 4.1 was renamed to <b><a href="http://en.wikipedia.org/wiki/Internet_Systems_Consortium" title="Internet Systems Consortium">ISC</a> Cron</b> and was released in January 2004. Version 3, with some minor bugfixes, is used in most distributions of Linux and BSDs.</p>
+<p>In 2007, Red Hat forked vixie-cron 4.1 to the cronie project and included anacron 2.3 in 2009.</p>
+<p>Other popular implementations include <a href="http://en.wikipedia.org/wiki/Anacron" title="Anacron">anacron</a>, dcron, and <a href="http://en.wikipedia.org/wiki/Fcron" title="Fcron">fcron</a>. However, anacron is not an independent cron program. Another cron job must call it. dcron was made by <a href="http://en.wikipedia.org/wiki/DragonFly_BSD" title="DragonFly BSD">DragonFly BSD</a> founder <a href="http://en.wikipedia.org/wiki/Matthew_Dillon_%28computer_scientist%29" title="Matthew Dillon (computer scientist)" class="mw-redirect">Matt Dillon</a>, and its maintainership was taken over by Jim Pryor in 2010.<sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span>[</span>4<span>]</span></a></sup></p>
+<p>A <a href="http://en.wikipedia.org/wiki/Webcron" title="Webcron">webcron solution</a> schedules recurring tasks to run on a regular basis wherever cron implementations are not available in a <a href="http://en.wikipedia.org/wiki/Web_hosting_service" title="Web hosting service">web hosting</a> environment.</p>
+<h2><span class="mw-headline" id="CRON_expression">CRON expression</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=10" title="Edit section: CRON expression">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>A CRON expression is a string comprising five or six fields separated by white space<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>5<span>]</span></a></sup> that represents a set of times, normally as a schedule to execute some routine.</p>
+<h3><span class="mw-headline" id="Format">Format</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=11" title="Edit section: Format">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<table class="wikitable">
+<tbody><tr>
+<th>Field name</th>
+<th>Mandatory?</th>
+<th>Allowed values</th>
+<th>Allowed special characters</th>
+<th>Remarks</th>
+</tr>
+<tr>
+<td>Minutes</td>
+<td>Yes</td>
+<td>0-59</td>
+<td><code>* / , -</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Hours</td>
+<td>Yes</td>
+<td>0-23</td>
+<td><code>* / , -</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Day of month</td>
+<td>Yes</td>
+<td>1-31</td>
+<td><code>* / , -&nbsp;? L W</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Month</td>
+<td>Yes</td>
+<td>1-12 or JAN-DEC</td>
+<td><code>* / , -</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Day of week</td>
+<td>Yes</td>
+<td>0-6 or SUN-SAT</td>
+<td><code>* / , -&nbsp;? L #</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Year</td>
+<td>No</td>
+<td>1970–2099</td>
+<td><code>* / , -</code></td>
+<td>This field is not supported in standard/default implementations.</td>
+</tr>
+</tbody></table>
+<p>In some uses of the CRON format there is also a <i>seconds</i> field at the beginning of the pattern. In that case, the CRON expression is a string comprising 6 or 7 fields.<sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span>[</span>6<span>]</span></a></sup></p>
+<h3><span class="mw-headline" id="Special_characters">Special characters</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=12" title="Edit section: Special characters">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Support for each special character depends on specific distributions and versions of cron</p>
+<dl>
+<dt>Asterisk ( * )</dt>
+<dd>The asterisk indicates that the cron expression matches for all 
+values of the field. E.g., using an asterisk in the 4th field (month) 
+indicates every month.</dd>
+</dl>
+<dl>
+<dt>Slash ( / )</dt>
+<dd>Slashes describe increments of ranges. For example 3-59/15 in the 
+1st field (minutes) indicate the third minute of the hour and every 15 
+minutes thereafter. The form "*/..." is equivalent to the form 
+"first-last/...", that is, an increment over the largest possible range 
+of the field.</dd>
+</dl>
+<dl>
+<dt>Percent (&nbsp;% )</dt>
+<dd>Percent-signs (%) in the command, unless escaped with backslash (\),
+ are changed into newline characters, and all data after the 
+first&nbsp;% are sent to the command as standard input.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span>[</span>7<span>]</span></a></sup></dd>
+</dl>
+<dl>
+<dt>Comma ( , )</dt>
+<dd>Commas are used to separate items of a list. For example, using 
+"MON,WED,FRI" in the 5th field (day of week) means Mondays, Wednesdays 
+and Fridays.</dd>
+</dl>
+<dl>
+<dt>Hyphen ( - )</dt>
+<dd>Hyphens define ranges. For example, 2000-2010 indicates every year between 2000 and 2010 AD, inclusive.</dd>
+</dl>
+<dl>
+<dt>L</dt>
+<dd>'L' stands for "last". When used in the day-of-week field, it allows
+ you to specify constructs such as "the last Friday" ("5L") of a given 
+month. In the day-of-month field, it specifies the last day of the 
+month.</dd>
+</dl>
+<p>Note: L is a non-standard character and exists only in some cron implementations (Quartz java scheduler)</p>
+<dl>
+<dt>W</dt>
+<dd>The 'W' character is allowed for the day-of-month field. This 
+character is used to specify the weekday (Monday-Friday) nearest the 
+given day. As an example, if you were to specify "15W" as the value for 
+the day-of-month field, the meaning is: "the nearest weekday to the 15th
+ of the month." So, if the 15th is a Saturday, the trigger fires on 
+Friday the 14th. If the 15th is a Sunday, the trigger fires on Monday 
+the 16th. If the 15th is a Tuesday, then it fires on Tuesday the 15th. 
+However if you specify "1W" as the value for day-of-month, and the 1st 
+is a Saturday, the trigger fires on Monday the 3rd, as it does not 
+'jump' over the boundary of a month's days. The 'W' character can be 
+specified only when the day-of-month is a single day, not a range or 
+list of days.</dd>
+</dl>
+<p>Note: W is a non-standard character and exists only in some cron implementations (Quartz java scheduler)</p>
+<dl>
+<dt>Hash ( # )</dt>
+<dd>'#' is allowed for the day-of-week field, and must be followed by a 
+number between one and five. It allows you to specify constructs such as
+ "the second Friday" of a given month.<sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span>[</span>8<span>]</span></a></sup></dd>
+</dl>
+<dl>
+<dt>Question mark (&nbsp;? )</dt>
+<dd>Note: Question mark is a non-standard character and exists only in 
+some cron implementations. It is used instead of '*' for leaving either 
+day-of-month or day-of-week blank.</dd>
+</dl>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=13" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/At_%28Unix%29" title="At (Unix)">at (Unix)</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Launchd" title="Launchd">Launchd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/List_of_Unix_utilities" title="List of Unix utilities">List of Unix utilities</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Scheduling_%28computing%29" title="Scheduling (computing)">Scheduling (computing)</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Systemd" title="Systemd">systemd</a> – Incorporates crond</li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=14" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist columns references-column-width" style="-moz-column-width: 30em; -webkit-column-width: 30em; column-width: 30em; list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://www.unixgeeks.org/security/newbie/unix/cron-1.html">"Newbie Introduction to cron"</a>. Unixgeeks.org<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=Newbie+Introduction+to+cron&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.unixgeeks.org%2Fsecurity%2Fnewbie%2Funix%2Fcron-1.html&amp;rft.pub=Unixgeeks.org&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-debiancron-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-debiancron_2-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=77563#30">"Bugs.debian.org"</a>. Bugs.debian.org<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=Bugs.debian.org&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fbugs.debian.org%2Fcgi-bin%2Fbugreport.cgi%3Fbug%3D77563%2330&amp;rft.pub=Bugs.debian.org&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-man_5_crontab-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-man_5_crontab_3-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://linux.die.net/man/5/crontab">"crontab(5): tables for driving cron - Linux man page"</a>. Linux.die.net<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=crontab%285%29%3A+tables+for+driving+cron+-+Linux+man+page&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Flinux.die.net%2Fman%2F5%2Fcrontab&amp;rft.pub=Linux.die.net&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="https://mailman.archlinux.org/pipermail/arch-general/2010-January/009981.html">"[arch-general] [arch-dev-public] Cron"</a>. Mailman.archlinux.org. 2010-01-05<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=%5Barch-general%26%2393%3B+%5Barch-dev-public%26%2393%3B+Cron&amp;rft.date=2010-01-05&amp;rft.genre=book&amp;rft_id=https%3A%2F%2Fmailman.archlinux.org%2Fpipermail%2Farch-general%2F2010-January%2F009981.html&amp;rft.pub=Mailman.archlinux.org&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://help.ubuntu.com/community/CronHowto">"Ubuntu Cron Howto"</a>. Help.ubuntu.com. 2013-05-04<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=Ubuntu+Cron+Howto&amp;rft.date=2013-05-04&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fhelp.ubuntu.com%2Fcommunity%2FCronHowto&amp;rft.pub=Help.ubuntu.com&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger">"CronTrigger Tutorial"</a>. <i>Quartz Scheduler Website</i><span class="reference-accessdate">. Retrieved 24 October 2011</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.atitle=CronTrigger+Tutorial&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.quartz-scheduler.org%2Fdocumentation%2Fquartz-1.x%2Ftutorials%2Fcrontrigger&amp;rft.jtitle=Quartz+Scheduler+Website&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-7"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://www.gnu.org/software/mcron/manual/html_node/Crontab-file.html">"mcron crontab reference"</a>. Gnu.org<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=mcron+crontab+reference&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fwww.gnu.org%2Fsoftware%2Fmcron%2Fmanual%2Fhtml_node%2FCrontab-file.html&amp;rft.pub=Gnu.org&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-8"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm">"Oracle® Role Manager Integration Guide"</a>. Docs.oracle.com<span class="reference-accessdate">. Retrieved 2013-11-06</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ACron&amp;rft.btitle=Oracle%C2%AE+Role+Manager+Integration+Guide&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fdocs.oracle.com%2Fcd%2FE12058_01%2Fdoc%2Fdoc.1014%2Fe12030%2Fcron_expressions.htm&amp;rft.pub=Docs.oracle.com&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit&amp;section=15" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><span class="plainlinksneverexpand"><code><a rel="nofollow" class="external text" href="http://www.opengroup.org/onlinepubs/9699919799/utilities/crontab.html">crontab</a></code></span>:&nbsp;schedule periodic background work&nbsp;–&nbsp;Commands &amp; Utilities Reference, <a href="http://en.wikipedia.org/wiki/Single_Unix_Specification" title="Single Unix Specification" class="mw-redirect">The Single UNIX® Specification</a>, Issue 7 from <a href="http://en.wikipedia.org/wiki/The_Open_Group" title="The Open Group">The Open Group</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.gnu.org/software/mcron/">GNU cron</a> (mcron)</li>
+<li><a rel="nofollow" class="external text" href="ftp://ftp.isc.org/isc/cron/cron_4.1.shar">ISC Cron 4.1</a></li>
+<li><a rel="nofollow" class="external text" href="https://fedorahosted.org/cronie/">cronie</a></li>
+<li><a rel="nofollow" class="external text" href="http://portal.acm.org/citation.cfm?id=359763.359801&amp;coll=ACM&amp;dl=ACM&amp;CFID=63647367&amp;CFTOKEN=55814330">ACM Digital library – Franta, Maly, "An efficient data structure for the simulation event set"</a> (requires ACM pubs subscription)</li>
+<li><a rel="nofollow" class="external text" href="http://linuxmoz.com/crontab-syntax-tutorial/">Crontab syntax tutorial</a> - Crontab syntax explained</li>
+<li><a rel="nofollow" class="external text" href="http://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/">UNIX / Linux cron tutorial</a> - a quick tutorial for UNIX like operating systems with sample shell scripts.</li>
+<li><a rel="nofollow" class="external text" href="http://www.markus-gattol.name/ws/time.html#cron">All about Cron on one page</a> - a page covering Cron, starting with theory and ending with many practical examples about its usage.</li>
+<li><a rel="nofollow" class="external text" href="http://www.jimpryor.net/linux/dcron.html">Dillon's cron</a> (dcron)</li>
+<li><a rel="nofollow" class="external text" href="http://crontranslator.appspot.com/">Cron Expression translator</a> - Small site that tries to convert a cron tab expression to English</li>
+<li><a rel="nofollow" class="external text" href="http://www.dataphyx.com/cronsandbox">CronSandbox - Cron simulator, try out crontab timing values in a sandbox.</a> - Put in the cron time/date values and get back a list of future run-times.</li>
+<li><a rel="nofollow" class="external text" href="http://www.easycron.com/generator/cronjob">Crontab syntax generator</a> - Choose date/time, enter command, output path and Email address (for receiving notification) to generate a Crontab syntax.</li>
+</ul>
+<table class="navbox" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<td style="padding:2px;">
+<table id="collapsibleTable0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton0">hide</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/Template:Unix_commands" title="Template:Unix commands"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li>
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/Template_talk:Unix_commands" title="Template talk:Unix commands"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li>
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=Template:Unix_commands&amp;action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li>
+</ul>
+</div>
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/Unix" title="Unix">Unix</a> <a href="http://en.wikipedia.org/wiki/Command-line_interface" title="Command-line interface">command-line interface</a> programs and <a href="http://en.wikipedia.org/wiki/Shell_builtin" title="Shell builtin">shell builtins</a></div>
+</th>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">File system</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Cat_%28Unix%29" title="Cat (Unix)">cat</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cd_%28command%29" title="Cd (command)">cd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Chmod" title="Chmod">chmod</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Chown" title="Chown">chown</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Chgrp" title="Chgrp">chgrp</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cksum" title="Cksum">cksum</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cmp_%28Unix%29" title="Cmp (Unix)">cmp</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cp_%28Unix%29" title="Cp (Unix)">cp</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dd_%28Unix%29" title="Dd (Unix)">dd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Du_%28Unix%29" title="Du (Unix)">du</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Df_%28Unix%29" title="Df (Unix)">df</a></li>
+<li><a href="http://en.wikipedia.org/wiki/File_%28command%29" title="File (command)">file</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Fsck" title="Fsck">fsck</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Fuser_%28Unix%29" title="Fuser (Unix)">fuser</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ln_%28Unix%29" title="Ln (Unix)">ln</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ls" title="Ls">ls</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mkdir" title="Mkdir">mkdir</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mount_%28Unix%29" title="Mount (Unix)">mount</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mv" title="Mv">mv</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Pax_%28Unix%29" title="Pax (Unix)">pax</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Pwd" title="Pwd">pwd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Rm_%28Unix%29" title="Rm (Unix)">rm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Rmdir" title="Rmdir">rmdir</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Size_%28Unix%29" title="Size (Unix)">size</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Split_%28Unix%29" title="Split (Unix)">split</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tee_%28command%29" title="Tee (command)">tee</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Touch_%28Unix%29" title="Touch (Unix)">touch</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Type_%28Unix%29" title="Type (Unix)">type</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Umask" title="Umask">umask</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Processes</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/At_%28Unix%29" title="At (Unix)">at</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bg_%28Unix%29" title="Bg (Unix)">bg</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Chroot" title="Chroot">chroot</a></li>
+<li><strong class="selflink">cron</strong></li>
+<li><a href="http://en.wikipedia.org/wiki/Fg_%28Unix%29" title="Fg (Unix)">fg</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Kill_%28command%29" title="Kill (command)">kill</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Killall" title="Killall">killall</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Nice_%28Unix%29" title="Nice (Unix)">nice</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Pgrep" title="Pgrep">pgrep</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Pidof" title="Pidof">pidof</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Pkill" title="Pkill">pkill</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ps_%28Unix%29" title="Ps (Unix)">ps</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Pstree" title="Pstree">pstree</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Time_%28Unix%29" title="Time (Unix)">time</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Top_%28software%29" title="Top (software)">top</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">User environment</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Clear_%28Unix%29" title="Clear (Unix)">clear</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Env" title="Env">env</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Exit_%28command%29" title="Exit (command)">exit</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Finger_protocol" title="Finger protocol">finger</a></li>
+<li><a href="http://en.wikipedia.org/wiki/History_%28Unix%29" title="History (Unix)">history</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Id_%28Unix%29" title="Id (Unix)">id</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Logname" title="Logname">logname</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mesg" title="Mesg">mesg</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Passwd" title="Passwd">passwd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Su_%28Unix%29" title="Su (Unix)">su</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sudo" title="Sudo">sudo</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Uptime#Linux" title="Uptime">uptime</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Talk_%28software%29" title="Talk (software)">talk</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tput" title="Tput">tput</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Uname" title="Uname">uname</a></li>
+<li><a href="http://en.wikipedia.org/wiki/W_%28Unix%29" title="W (Unix)">w</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Wall_%28Unix%29" title="Wall (Unix)">wall</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Who_%28Unix%29" title="Who (Unix)">who</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Whoami" title="Whoami">whoami</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Write_%28Unix%29" title="Write (Unix)">write</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Text processing</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/AWK" title="AWK">awk</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Banner_%28Unix%29" title="Banner (Unix)">banner</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Basename" title="Basename">basename</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Comm" title="Comm">comm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Csplit" title="Csplit">csplit</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cut_%28Unix%29" title="Cut (Unix)">cut</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Diff" title="Diff">diff</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dirname" title="Dirname">dirname</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ed_%28text_editor%29" title="Ed (text editor)">ed</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ex_%28text_editor%29" title="Ex (text editor)">ex</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Fmt" title="Fmt">fmt</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Fold_%28Unix%29" title="Fold (Unix)">fold</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Head_%28Unix%29" title="Head (Unix)">head</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Iconv" title="Iconv">iconv</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Join_%28Unix%29" title="Join (Unix)">join</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Less_%28Unix%29" title="Less (Unix)">less</a></li>
+<li><a href="http://en.wikipedia.org/wiki/More_%28command%29" title="More (command)">more</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Paste_%28Unix%29" title="Paste (Unix)">paste</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sed" title="Sed">sed</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sort_%28Unix%29" title="Sort (Unix)">sort</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Spell_%28Unix%29" title="Spell (Unix)">spell</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Strings_%28Unix%29" title="Strings (Unix)">strings</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tail_%28Unix%29" title="Tail (Unix)">tail</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Tr_%28Unix%29" title="Tr (Unix)">tr</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Uniq" title="Uniq">uniq</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Vi" title="Vi">vi</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Wc_%28Unix%29" title="Wc (Unix)">wc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Xargs" title="Xargs">xargs</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Shell_builtin" title="Shell builtin">Shell builtins</a></th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Alias_%28command%29" title="Alias (command)">alias</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Echo_%28command%29" title="Echo (command)">echo</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Expr" title="Expr">expr</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Printf_format_string" title="Printf format string">printf</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sleep_%28Unix%29" title="Sleep (Unix)">sleep</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Test_%28Unix%29" title="Test (Unix)">test</a></li>
+<li><a href="http://en.wikipedia.org/wiki/True_and_false_%28commands%29" title="True and false (commands)">true and false</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Unset" title="Unset">unset</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Wait_%28command%29" title="Wait (command)">wait</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Yes_%28Unix%29" title="Yes (Unix)">yes</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Network_utility" title="Network utility">Networking</a></th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Dig_%28command%29" title="Dig (command)">dig</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Host_%28Unix%29" title="Host (Unix)">host</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ifconfig" title="Ifconfig">ifconfig</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Inetd" title="Inetd">inetd</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Netcat" title="Netcat">netcat</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Netstat" title="Netstat">netstat</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Nslookup" title="Nslookup">nslookup</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Ping_%28networking_utility%29" title="Ping (networking utility)">ping</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Rdate" title="Rdate">rdate</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Rlogin" title="Rlogin">rlogin</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Route_%28command%29" title="Route (command)">route</a></li>
+<li><a href="http://en.wikipedia.org/wiki/OpenSSH" title="OpenSSH">ssh</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Traceroute" title="Traceroute">traceroute</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Searching</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Find" title="Find">find</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Grep" title="Grep">grep</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Locate_%28Unix%29" title="Locate (Unix)">locate</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Whatis" title="Whatis">whatis</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Whereis" title="Whereis">whereis</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Documentation</th>
+<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Apropos_%28Unix%29" title="Apropos (Unix)">apropos</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Help_%28command%29" title="Help (command)">help</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Man_page" title="Man page">man</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Miscellaneous</th>
+<td class="navbox-list navbox-odd hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Bc_%28programming_language%29" title="Bc (programming language)">bc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dc_%28computer_program%29" title="Dc (computer program)">dc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cal_%28Unix%29" title="Cal (Unix)">cal</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Date_%28Unix%29" title="Date (Unix)">date</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Lp_%28Unix%29" title="Lp (Unix)">lp</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Lpr" title="Lpr">lpr</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<td class="navbox-abovebelow" colspan="2">
+<div><i><a href="http://en.wikipedia.org/wiki/List_of_Unix_utilities" title="List of Unix utilities">List of Unix utilities</a></i></div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1028
+CPU time usage: 0.624 seconds
+Real time usage: 0.733 seconds
+Preprocessor visited node count: 794/1000000
+Preprocessor generated node count: 3887/1500000
+Post‐expand include size: 33494/2048000 bytes
+Template argument size: 643/2048000 bytes
+Highest expansion depth: 10/40
+Expensive parser function count: 4/500
+Lua time usage: 0.060/10.000 seconds
+Lua memory usage: 2.4 MB/50 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:476767-0!*!0!!en!4!*!math=0 and timestamp 20140228002143
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=596165920">http://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=596165920</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Standard_Unix_programs" title="Category:Standard Unix programs">Standard Unix programs</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Unix_SUS2008_utilities" title="Category:Unix SUS2008 utilities">Unix SUS2008 utilities</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Unix_process_and_task_management-related_software" title="Category:Unix process and task management-related software">Unix process and task management-related software</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Articles_needing_additional_references_from_November_2011" title="Category:Articles needing additional references from November 2011">Articles needing additional references from November 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_needing_additional_references" title="Category:All articles needing additional references">All articles needing additional references</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Wikipedia_articles_with_ASCII_art" title="Category:Wikipedia articles with ASCII art">Wikipedia articles with ASCII art</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Cron&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Cron" title="You're encouraged to log in; however, it's not mandatory. [alt-shift-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Cron" title="View the content page [alt-shift-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Cron" title="Discussion about the content page [alt-shift-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Cron">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=edit" title="You can edit this page. 
+Please review your changes before saving. [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+					<div id="simpleSearch">
+					<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Wikipedia [alt-shift-f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if one exists" id="searchButton" class="searchButton" type="submit">		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div class="collapsible-nav" id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+			<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="Visit the Wikimedia Shop">Wikimedia Shop</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 tabindex="2" id="p-interaction-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-interaction-list" aria-haspopup="true" href="#">Interaction</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 tabindex="3" id="p-tb-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-tb-list" aria-haspopup="true" href="#">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Cron" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Cron" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;oldid=596165920" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q300864" title="Link to connected data repository item [alt-shift-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Cron&amp;id=596165920" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 tabindex="4" id="p-coll-print_export-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-coll-print_export-list" aria-haspopup="true" href="#">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Cron">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Cron&amp;oldid=596165920&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Cron&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span original-title="Language settings" aria-haspopup="true" role="button" tabindex="0" class="uls-settings-trigger"></span>
+	<h3 tabindex="5" id="p-lang-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-lang-list" aria-haspopup="true" href="#">Languages</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%D9%83%D8%B1%D9%88%D9%86_%28%D9%8A%D9%88%D9%86%D9%83%D8%B3%29" title="كرون (يونكس) – Arabic" hreflang="ar" lang="ar">العربية</a></li>
+			<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Cron" title="Cron – Czech" hreflang="cs" lang="cs">Čeština</a></li>
+			<li class="interlanguage-link interwiki-da"><a href="http://da.wikipedia.org/wiki/Cron" title="Cron – Danish" hreflang="da" lang="da">Dansk</a></li>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/Cron" title="Cron – German" hreflang="de" lang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/Cron_%28Unix%29" title="Cron (Unix) – Spanish" hreflang="es" lang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%DA%A9%D8%B1%D9%88%D9%86_%D8%AC%D8%A7%D8%A8" title="کرون جاب – Persian" hreflang="fa" lang="fa">فارسی</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Cron" title="Cron – French" hreflang="fr" lang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-hu"><a href="http://hu.wikipedia.org/wiki/Cron" title="Cron – Hungarian" hreflang="hu" lang="hu">Magyar</a></li>
+			<li class="interlanguage-link interwiki-mk"><a href="http://mk.wikipedia.org/wiki/Cron" title="Cron – Macedonian" hreflang="mk" lang="mk">Македонски</a></li>
+			<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Cronjob" title="Cronjob – Dutch" hreflang="nl" lang="nl">Nederlands</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Cron" title="Cron – Polish" hreflang="pl" lang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-ro"><a href="http://ro.wikipedia.org/wiki/Cron" title="Cron – Romanian" hreflang="ro" lang="ro">Română</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/Cron" title="Cron – Russian" hreflang="ru" lang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/Cron" title="Cron – Finnish" hreflang="fi" lang="fi">Suomi</a></li>
+			<li class="interlanguage-link interwiki-sv"><a href="http://sv.wikipedia.org/wiki/Cron" title="Cron – Swedish" hreflang="sv" lang="sv">Svenska</a></li>
+			<li class="interlanguage-link interwiki-th"><a href="http://th.wikipedia.org/wiki/%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%99" title="ครอน – Thai" hreflang="th" lang="th">ไทย</a></li>
+			<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/Cron" title="Cron – Ukrainian" hreflang="uk" lang="uk">Українська</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/Cron" title="Cron – Chinese" hreflang="zh" lang="zh">中文</a></li>
+			
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q300864#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 19 February 2014 at 11:06.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Cron" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaShopLink.core","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","ext.uls.interlanguage","skins.vector.collapsibleNav"],null,true);
+}</script><div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div>
+<script src="cron%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.php"></script>
+<!-- Served by mw1028 in 0.984 secs. -->
+	
+
+</body></html>

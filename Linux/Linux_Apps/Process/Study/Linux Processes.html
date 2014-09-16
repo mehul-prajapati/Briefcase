@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Linux Processes</title>
+<meta name="description" content="Linux Processes">
+<meta name="keywords" content="tlk-html">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<link rel="STYLESHEET" href="Linux%20Processes_files/tlk-html.css">
+</head>
+<body lang="EN">
+ <a name="tex2html1400" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node46.html"><img alt="next" src="Linux%20Processes_files/next_motif.gif" width="37" height="24" align="BOTTOM"></a> <a name="tex2html1398" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html"><img alt="up" src="Linux%20Processes_files/up_motif.gif" width="26" height="24" align="BOTTOM"></a> <a name="tex2html1392" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html"><img alt="previous" src="Linux%20Processes_files/previous_motif.gif" width="63" height="24" align="BOTTOM"></a> <a name="tex2html1402" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node5.html"><img alt="contents" src="Linux%20Processes_files/contents_motif.gif" width="65" height="24" align="BOTTOM"></a>  <br>
+<b> Next:</b> <a name="tex2html1401" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node46.html">Identifiers</a>
+<b>Up:</b> <a name="tex2html1399" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html">Processes</a>
+<b> Previous:</b> <a name="tex2html1393" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html">Processes</a>
+<br> <p>
+</p><h1><a name="SECTION00710000000000000000">Linux Processes</a></h1>
+<p>
+<a name="2369">&nbsp;</a>
+So that Linux can manage the processes in  the system, each process is represented by a 
+<tt>task_struct</tt><a name="2476">&nbsp;</a> <a name="2371">&nbsp;</a> data structure
+(task and process are terms which Linux uses interchangeably).
+The <tt>task</tt><a name="2478">&nbsp;</a> vector is an array of pointers to every <tt>task_struct</tt><a name="2480">&nbsp;</a> data
+structure in the system.
+</p><p>
+This means that the maximum number of processes in the system is limited by the
+size of the <tt>task</tt><a name="2488">&nbsp;</a> vector; by default it has 512 entries.
+As processes are created, a new <tt>task_struct</tt><a name="2490">&nbsp;</a> is allocated from system memory
+and added into the <tt>task</tt><a name="2492">&nbsp;</a> vector.
+To make it easy to find, the current, running, process is pointed to by the <tt>current</tt><a name="2494">&nbsp;</a> pointer.
+</p><p>
+As well as the normal type of process, Linux supports real time processes.
+These processes have to react very quickly to external events (hence the term ``real
+time'') and they are treated differently than normal user processes by the scheduler.
+Although the <tt>task_struct</tt><a name="2496">&nbsp;</a> data structure is quite large and complex, but its fields
+can be divided into a number of functional areas:
+</p><dl><dt><strong>State</strong>
+</dt><dd> As a process executes it changes <em>state</em> according to its circumstances.
+		Linux processes have the following states:
+		<a name="tex2html107" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/footnode.html#2473"><img alt="gif" src="Linux%20Processes_files/foot_motif.gif" align="BOTTOM"></a>
+		<dl><dt><strong>Running</strong>
+</dt><dd> The process is either running (it is the current process in the
+			system) or it is ready to run (it is waiting to be assigned to one of
+			the system's CPUs).
+		</dd><dt><strong>Waiting</strong>
+</dt><dd> The process is waiting for an event or for a resource.  Linux
+			differentiates between two types of waiting process; <em>interruptible</em>
+			and <em>uninterruptible</em>.   Interruptible waiting processes can be
+			interrupted by signals whereas uninterruptible waiting processes are waiting
+			directly on hardware conditions and cannot be interrupted under any
+			circumstances.
+		</dd><dt><strong>Stopped</strong>
+</dt><dd> The process has been stopped, usually by receiving a signal.  A process
+			that is being debugged can be in a stopped state.
+		</dd><dt><strong>Zombie</strong>
+</dt><dd> This is a halted process which, for some reason, still has a 
+			<tt>task_struct</tt><a name="2500">&nbsp;</a> data structure in the <tt>task</tt><a name="2502">&nbsp;</a> vector.  It is what it
+			sounds like, a dead process.
+<p>
+ </p></dd></dl>
+<p>
+	</p></dd><dt><strong>Scheduling Information</strong>
+</dt><dd> The scheduler needs this information in order	
+	to fairly decide which process in the system most deserves to run,
+<p>
+	</p></dd><dt><strong>Identifiers</strong>
+</dt><dd> Every process in the system has a process identifier.  
+	The process identifier is not an index into the
+	<tt>task</tt><a name="2504">&nbsp;</a> vector, it is simply a number.  Each process also has 
+	User and group identifiers, these are used to control this processes access to the files and 
+	devices in the system,
+<p>
+	</p></dd><dt><strong>Inter-Process Communication</strong>
+</dt><dd> Linux supports the classic Unix IPC mechanisms of 
+	signals, pipes and semaphores and also the System V IPC mechanisms of shared memory,
+	semaphores and message queues.
+<p>
+	</p></dd><dt><strong>Links</strong>
+</dt><dd> In a Linux system no process is independent of any other process.
+	Every process in the system, except the initial process has a parent process.
+	New processes are not created, they are copied, or rather <em>cloned</em> from previous processes.
+	Every <tt>task_struct</tt><a name="2506">&nbsp;</a> representing a process keeps pointers to its parent process
+	and to its siblings (those processes with the same parent process) as well as to its own child
+	processes.
+	You can see the family relationship between the running processes in a Linux system
+	using the <i>pstree</i><a name="2508">&nbsp;</a> command:
+	<pre>init(1)-+-crond(98)
+        |-emacs(387)
+        |-gpm(146)
+        |-inetd(110)
+        |-kerneld(18)
+        |-kflushd(2)
+        |-klogd(87)
+        |-kswapd(3)
+        |-login(160)---bash(192)---emacs(225)
+        |-lpd(121)
+        |-mingetty(161)
+        |-mingetty(162)
+        |-mingetty(163)
+        |-mingetty(164)
+        |-login(403)---bash(404)---pstree(594)
+        |-sendmail(134)
+        |-syslogd(78)
+        `-update(166)</pre>
+	Additionally all of the processes in the system are held in a doubly linked list
+	whose root is the <tt>init</tt> processes <tt>task_struct</tt><a name="2510">&nbsp;</a> data structure.
+	This list allows the Linux kernel to look at every process in the system.
+	It needs to do this to provide support for commands such as <i>ps</i><a name="2512">&nbsp;</a> or <i>kill</i><a name="2514">&nbsp;</a>.
+<p>
+	</p></dd><dt><strong>Times and Timers</strong>
+</dt><dd> The kernel keeps track of a processes creation time as well as the
+	CPU time that it consumes during its lifetime.  Each clock tick, the 
+	kernel updates the amount of time in <tt>jiffies</tt><a name="2516">&nbsp;</a> that the current process
+	has spent in system and in user mode.
+	Linux also supports process specific <em>interval</em> timers, processes can use system 
+	calls to set up timers to send signals to themselves when the timers expire.
+	These timers can be single-shot or periodic timers.
+<p>
+	</p></dd><dt><strong>File system</strong>
+</dt><dd> Processes can open and close files as they wish and the 
+	processes <tt>task_struct</tt><a name="2518">&nbsp;</a>
+	contains pointers to descriptors for each open file as well as pointers to two
+	VFS inodes.
+	The first is to the root of the process (its home directory) and the second is to its 
+	current or <em>pwd</em> directory.  <em>pwd</em> is derived from the Unix command <i>pwd</i><a name="2520">&nbsp;</a>, 
+	<em>print working directory</em>.	
+	These two VFS inodes have their <tt>count</tt><a name="2522">&nbsp;</a> fields incremented to show that
+	one or more processes are referencing them.   This is why you cannot delete
+	the directory that a process has as its <em>pwd</em> directory set to, or for that
+	matter one of its sub-directories.
+<p>
+	</p></dd><dt><strong>Virtual memory</strong>
+</dt><dd> Most processes have some virtual memory (kernel threads and
+	daemons do not) and the Linux kernel must track how that virtual memory is 
+	mapped onto the system's physical memory.
+<p>
+	</p></dd><dt><strong>Processor Specific Context</strong>
+</dt><dd> A process could be thought of as the sum total of the 
+	system's current state.
+	Whenever a process is running it is using the processor's registers, stacks and
+	so on.
+	This is the processes context and, when a process is suspended, all of that 
+	CPU specific context must be saved in the <tt>task_struct</tt><a name="2524">&nbsp;</a> for the process.
+	When a process is restarted by the scheduler its context is restored from here.
+<p>
+ </p></dd></dl><hr><a name="tex2html1400" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node46.html"><img alt="next" src="Linux%20Processes_files/next_motif.gif" width="37" height="24" align="BOTTOM"></a> <a name="tex2html1398" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html"><img alt="up" src="Linux%20Processes_files/up_motif.gif" width="26" height="24" align="BOTTOM"></a> <a name="tex2html1392" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html"><img alt="previous" src="Linux%20Processes_files/previous_motif.gif" width="63" height="24" align="BOTTOM"></a> <a name="tex2html1402" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node5.html"><img alt="contents" src="Linux%20Processes_files/contents_motif.gif" width="65" height="24" align="BOTTOM"></a>  <br>
+<b> Next:</b> <a name="tex2html1401" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node46.html">Identifiers</a>
+<b>Up:</b> <a name="tex2html1399" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html">Processes</a>
+<b> Previous:</b> <a name="tex2html1393" href="http://www.science.unitn.it/%7Efiorella/guidelinux/tlk/node44.html">Processes</a>
+<p></p><address>
+<i>David A. Rusling<br>
+david.rusling@reo.mts.dec.com</i>
+</address>
+
+
+</body></html>

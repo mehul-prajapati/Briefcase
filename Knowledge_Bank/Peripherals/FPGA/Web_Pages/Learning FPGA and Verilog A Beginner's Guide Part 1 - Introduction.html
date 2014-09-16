@@ -1,0 +1,666 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="js" xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Learning FPGA and Verilog A Beginner's Guide Part 1 - Introduction</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="http://numato.com/sites/default/files/acquia_prosper_favicon.png" type="image/x-icon">
+  <link type="text/css" rel="stylesheet" media="all" href="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/css_27d6d7daf987d3bf5916b7d144df834d.css">
+  <link type="text/css" rel="stylesheet" media="all" href="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/grid16-fluid.css">
+  <!--[if IE 8]>
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/fusion/fusion_core/css/ie8-fixes.css?3" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/acquia_prosper/css/ie8-fixes.css?3" />
+  <![endif]-->
+  <!--[if IE 7]>
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/fusion/fusion_core/css/ie7-fixes.css?3" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/acquia_prosper/css/ie7-fixes.css?3" />
+  <![endif]-->
+  <!--[if lte IE 6]>
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/fusion/fusion_core/css/ie6-fixes.css?3"/>
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/acquia_prosper/css/ie6-fixes.css?3"/>
+  <![endif]-->
+    <script src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/ga.js" async="" type="text/javascript"></script><script src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/all.js" id="facebook-jssdk"></script><script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/jquery_003.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/drupal.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/googleanalytics.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/lightbox.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/uc_roles.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/jquery_002.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/views_slideshow_002.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/views_slideshow.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/extlink.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/jquery.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/hoverIntent.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/supposition.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/supersubs.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/superfish.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/script.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/jquery_005.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/acquia-prosper-script.js"></script>
+<script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/jquery_004.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "googleanalytics": { "trackOutgoing": 1, "trackMailto": 1, "trackDownload": 1, "trackDownloadExtensions": "7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip" }, "lightbox2": { "rtl": 0, "file_path": "/(\\w\\w/)sites/default/files", "default_image": "/sites/all/modules/lightbox2/images/brokenimage.jpg", "border_size": 10, "font_color": "000", "box_color": "fff", "top_position": "", "overlay_opacity": "0.8", "overlay_color": "000", "disable_close_click": true, "resize_sequence": 0, "resize_speed": 400, "fade_in_speed": 400, "slide_down_speed": 600, "use_alt_layout": false, "disable_resize": false, "disable_zoom": false, "force_show_nav": false, "show_caption": true, "loop_items": false, "node_link_text": "View Image Details", "node_link_target": false, "image_count": "Image !current of !total", "video_count": "Video !current of !total", "page_count": "Page !current of !total", "lite_press_x_close": "press \x3ca href=\"#\" onclick=\"hideLightbox(); return FALSE;\"\x3e\x3ckbd\x3ex\x3c/kbd\x3e\x3c/a\x3e to close", "download_link_text": "", "enable_login": false, "enable_contact": false, "keys_close": "c x 27", "keys_previous": "p 37", "keys_next": "n 39", "keys_zoom": "z", "keys_play_pause": "32", "display_image_size": "original", "image_node_sizes": "()", "trigger_lightbox_classes": "", "trigger_lightbox_group_classes": "", "trigger_slideshow_classes": "", "trigger_lightframe_classes": "", "trigger_lightframe_group_classes": "", "custom_class_handler": 0, "custom_trigger_classes": "", "disable_for_gallery_lists": true, "disable_for_acidfree_gallery_lists": true, "enable_acidfree_videos": true, "slideshow_interval": 5000, "slideshow_automatic_start": true, "slideshow_automatic_exit": true, "show_play_pause": true, "pause_on_next_click": false, "pause_on_previous_click": true, "loop_slides": false, "iframe_width": 600, "iframe_height": 400, "iframe_border": 1, "enable_video": false }, "extlink": { "extTarget": "_blank", "extClass": "ext", "extSubdomains": 1, "extExclude": "", "extInclude": "", "extAlert": 0, "extAlertText": "This link will take you to an external web site. We are not responsible for their content.", "mailtoClass": "mailto" } });
+//--><!]]>
+</script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+window.google_analytics_uacct = "UA-16636907-1";
+//--><!]]>
+</script>
+  
+  <link href="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/css.css" rel="stylesheet" type="text/css">
+  
+  <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+
+<body id="pid-learning-fpga-and-verilog-a-beginners-guide-part-1-introduction" class="not-front not-logged-in page-node node-type-tutorial no-sidebars full-node layout-first-main-last sidebars-split font-size-12 grid-type-fluid grid-width-16 fluid-100 lightbox-processed">
+
+
+
+<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/LEdxGgtB9cN.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" scrolling="no" frameborder="0"></iframe><iframe src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/LEdxGgtB9cN_002.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" scrolling="no" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> 
+
+
+  <div id="page" class="page">
+    <div id="page-inner" class="page-inner">
+      <div id="skip">
+        <a href="#main-content-area">Skip to Main Content Area</a>
+      </div>
+
+      <!-- header-top row: width = grid_width -->
+            <div id="header-top-wrapper" class="header-top-wrapper full-width">
+        <div id="header-top" class=" header-top row grid16-16">
+          <div id="header-top-inner" class="header-top-inner inner clearfix">
+                        <div id="secondary-menu" class="secondary-menu block">
+<div id="secondary-menu-inner" class="secondary-menu-inner inner clearfix">
+<ul class="links"><li class="menu-226 first"><a href="http://numato.com/new-products" title="">Home</a></li>
+<li class="menu-227"><a href="http://numato.com/catalog" title="Products">Products</a></li>
+<li class="menu-2175"><a href="https://numato.com/tutorials/" title="">Tutorials</a></li>
+<li class="menu-2059"><a target="_blank" class="ext" href="http://numato.cc/" title="">Blog</a></li>
+<li class="menu-2363"><a href="https://numato.com/forum" title="">Forum</a></li>
+<li class="menu-229"><a href="http://numato.com/shipping" title="Shipping">Shipping</a></li>
+<li class="menu-579"><a href="http://numato.com/TermsOfUse" title="">Terms‌ of Use</a></li>
+<li class="menu-228"><a href="http://numato.com/PrivacyPolicy" title="Privacy‌ Policy">Privacy‌ Policy</a></li>
+<li class="menu-1739"><a href="http://numato.com/distrib" title="Distributors">Distributors</a></li>
+<li class="menu-1812"><a href="http://numato.com/academic-discount-pricing" title="Academic Discount Pricing">Academic / Open Source</a></li>
+<li class="menu-231 last"><a href="http://numato.com/contactus" title="Contact‌ Us">Contact‌ Us</a></li>
+</ul></div><!-- /secondary-menu-inner -->
+</div><!-- /secondary-menu -->
+                                  </div><!-- /header-top-inner -->
+        </div><!-- /header-top -->
+      </div><!-- /header-top-wrapper -->
+      
+      <!-- header-group row: width = grid_width -->
+      <div id="header-group-wrapper" class="header-group-wrapper full-width">
+        <div id="header-group" class="header-group row grid16-16">
+          <div id="header-group-inner" class="header-group-inner inner clearfix">
+                        <div id="header-site-info" class="header-site-info block">
+              <div id="header-site-info-inner" class="header-site-info-inner inner clearfix">
+                                <div id="logo">
+                  <a href="http://numato.com/" title="Home"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/sitelogo.png" alt="Home"></a>
+                </div>
+                                                <div id="site-name-slogan" class="site-name-slogan">
+                                    <span id="site-name"><a href="http://numato.com/" title="Home"></a></span>
+                                                    </div>
+                              </div><!-- /header-site-info-inner -->
+            </div><!-- /header-site-info -->
+                                  </div><!-- /header-group-inner -->
+        </div><!-- /header-group -->
+      </div><!-- /header-group-wrapper -->
+
+     
+
+      <!-- preface-top row: width = grid_width -->
+      
+      <!-- main row: width = grid_width -->
+      <div id="main-wrapper" class="main-wrapper full-width">
+        <div id="main" class="main row grid16-16">
+          <div id="main-inner" class="main-inner inner clearfix">
+            <div id="sidebar-first" class="sidebar-first row nested grid16-3">
+<div id="sidebar-first-inner" class="sidebar-first-inner inner clearfix">
+
+<div id="block-uc_catalog-0" class="block block-uc_catalog odd first prosper-gray-rounded-plain prosper-rounded-title grid16-16">
+  <div class="inner clearfix">
+            <h2 style="border: medium none;" class="title block-title"><div style="position: relative; margin: -10px -10px 5px;" class="jquery-corner"><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 2px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 1px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div></div>Products</h2>
+        <div class="content clearfix">
+      <ul class="catalog menu"><li class="leaf"><a href="http://numato.com/academic-offers">Academic Offers (3)</a></li>
+<li class="leaf"><a href="http://numato.com/arduino-shields">Arduino &amp; Shields (8)</a></li>
+<li class="leaf"><a href="http://numato.com/bluetooth">Bluetooth (3)</a></li>
+<li class="leaf"><a href="http://numato.com/new-products-0">New Products (31)</a></li>
+<li class="leaf"><a href="http://numato.com/gpio-modules">GPIO Modules (4)</a></li>
+<li class="leaf"><a href="http://numato.com/relay-modules">Relay Modules (19)</a></li>
+<li class="leaf"><a href="http://numato.com/breakout-boards">Breakout Boards (23)</a></li>
+<li class="leaf"><a href="http://numato.com/cables-accessories">Cables &amp; Accessories (5)</a></li>
+<li class="leaf"><a href="http://numato.com/components">Components (10)</a></li>
+<li class="leaf"><a href="http://numato.com/connectors">Connectors (7)</a></li>
+<li class="leaf"><a href="http://numato.com/development-boards">Development Boards (6)</a></li>
+<li class="leaf"><a href="http://numato.com/fpga-cpld">FPGA &amp; CPLD (3)</a></li>
+<li class="leaf"><a href="http://numato.com/kits-diy">Kits &amp; DIY (1)</a></li>
+<li class="leaf"><a href="http://numato.com/power-supply">Power Supply (8)</a></li>
+<li class="leaf"><a href="http://numato.com/sensors">Sensors (3)</a></li>
+<li class="leaf"><a href="http://numato.com/smd-dip-adapters">SMD-DIP Adapters (7)</a></li>
+<li class="leaf"><a href="http://numato.com/wireless">Wireless (2)</a></li>
+</ul>    </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+
+<div id="block-views-LatestProduct-block_1" class="block block-views even  last fusion-center-content grid16-16">
+  <div class="inner clearfix">
+            <h2 class="title block-title">Popular</h2>
+        <div class="content clearfix">
+      <div class="view view-LatestProduct view-id-LatestProduct view-display-id-block_1 view-dom-id-1">
+    
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field-field-image-cache-fid">
+                <div class="field-content"><a href="http://numato.com/32-channel-usb-gpio-module" class="imagecache imagecache-Smallproduct imagecache-linked imagecache-Smallproduct_linked"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/gpio32_1.jpg" alt="" title="" class="imagecache imagecache-Smallproduct" width="90" height="90"></a></div>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://numato.com/32-channel-usb-gpio-module">32 Channel USB GPIO Module</a></span>
+  </div>
+  
+  <div class="views-field-sell-price">
+                <span class="field-content"><span class="uc-price-product uc-price-sell_price uc-price">$44.95</span></span>
+  </div>
+  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field-field-image-cache-fid">
+                <div class="field-content"><a href="http://numato.com/saturn-spartan-6-fpga-development-board-with-ddr-sdram" class="imagecache imagecache-Smallproduct imagecache-linked imagecache-Smallproduct_linked"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/saturn_spartan6_fpga_board_1.jpg" alt="" title="" class="imagecache imagecache-Smallproduct" width="90" height="90"></a></div>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://numato.com/saturn-spartan-6-fpga-development-board-with-ddr-sdram">Saturn - Spartan 6 FPGA Development Board with DDR SDRAM</a></span>
+  </div>
+  
+  <div class="views-field-sell-price">
+                <span class="field-content"><span class="uc-price-product uc-price-sell_price uc-price">$79.95</span></span>
+  </div>
+  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field-field-image-cache-fid">
+                <div class="field-content"><a href="http://numato.com/digital-and-analog-io-expander-shield" class="imagecache imagecache-Smallproduct imagecache-linked imagecache-Smallproduct_linked"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/ioexpander_1.jpg" alt="" title="" class="imagecache imagecache-Smallproduct" width="90" height="90"></a></div>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://numato.com/digital-and-analog-io-expander-shield">Digital and Analog IO Expander Shield</a></span>
+  </div>
+  
+  <div class="views-field-sell-price">
+                <span class="field-content"><span class="uc-price-product uc-price-sell_price uc-price">$19.95</span></span>
+  </div>
+  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field-field-image-cache-fid">
+                <div class="field-content"><a href="http://numato.com/pic32-mx-development-board-pic32mx795f512h" class="imagecache imagecache-Smallproduct imagecache-linked imagecache-Smallproduct_linked"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/pic32mxdevboard1.jpg" alt="" title="" class="imagecache imagecache-Smallproduct" width="90" height="90"></a></div>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://numato.com/pic32-mx-development-board-pic32mx795f512h">PIC32 MX Development Board - PIC32MX795F512H</a></span>
+  </div>
+  
+  <div class="views-field-sell-price">
+                <span class="field-content"><span class="uc-price-product uc-price-sell_price uc-price">$34.95</span></span>
+  </div>
+  </div>
+  <div class="views-row views-row-5 views-row-odd views-row-last">
+      
+  <div class="views-field-field-image-cache-fid">
+                <div class="field-content"><a href="http://numato.com/1-channel-usb-powered-relay-module" class="imagecache imagecache-Smallproduct imagecache-linked imagecache-Smallproduct_linked"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/usbpowrelay1_1.jpg" alt="" title="" class="imagecache imagecache-Smallproduct" width="90" height="90"></a></div>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://numato.com/1-channel-usb-powered-relay-module">1 Channel USB Powered Relay Module</a></span>
+  </div>
+  
+  <div class="views-field-sell-price">
+                <span class="field-content"><span class="uc-price-product uc-price-sell_price uc-price">$19.95</span></span>
+  </div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>     </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+</div><!-- /sidebar-first-inner -->
+</div><!-- /sidebar-first -->
+
+            <!-- main group: width = grid_width - sidebar_first_width -->
+            <div id="main-group" class="main-group row nested grid16-13">
+              <div id="main-group-inner" class="main-group-inner inner">
+                
+                <div id="main-content" class="main-content row nested">
+                  <div id="main-content-inner" class="main-content-inner inner">
+                    <!-- content group: width = grid_width - (sidebar_first_width + sidebar_last_width) -->
+                    <div id="content-group" class="content-group row nested " style="width:76.92%">
+                      <div id="content-group-inner" class="content-group-inner inner">
+                        <div id="breadcrumbs" class="breadcrumbs block">
+<div id="breadcrumbs-inner" class="breadcrumbs-inner inner clearfix">
+<div class="breadcrumb"><a href="http://numato.com/">Home</a></div></div><!-- /breadcrumbs-inner -->
+</div><!-- /breadcrumbs -->
+
+                        
+                        <div id="content-region" class="content-region row nested">
+                          <div id="content-region-inner" class="content-region-inner inner">
+                            <a name="main-content-area" id="main-content-area"></a>
+                                                        <div id="content-inner" class="content-inner block">
+                              <div id="content-inner-inner" class="content-inner-inner inner">
+                                                                <h2 class="title">Learning FPGA and Verilog A Beginner's Guide Part 1 - Introduction</h2>
+                                                                                                <div id="content-content" class="content-content">
+                                  
+<div id="node-72" class="node odd full-node node-type-tutorial">
+  <div class="inner">
+  
+      
+      
+    
+    <div class="content clearfix">
+            <span class="print-link"><span class="print_html"><a href="http://numato.com/print/learning-fpga-and-verilog-a-beginners-guide-part-1-introduction" title="Display a printer-friendly version of this page." class="print-page" onclick="window.open(this.href); return false" rel="nofollow"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/print_icon.gif" alt="Printer-friendly version" title="Printer-friendly version" class="print-icon" width="16" height="16"></a></span><span class="print_mail"><a href="http://numato.com/printmail/72" title="Send this page by email." class="print-mail" rel="nofollow"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/mail_icon.gif" alt="Send to friend" title="Send to friend" class="print-icon" width="16" height="16"></a></span><span class="print_pdf"><a href="http://numato.com/printpdf/72" title="Display a PDF version of this page." class="print-pdf" rel="nofollow"><img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/pdf_icon.gif" alt="PDF version" title="PDF version" class="print-icon" width="16" height="16"></a></span></span><h4>
+	<strong>Introduction</strong></h4>
+<h4>
+	Learning electronics can be a bit challenging sometimes, but it is real
+ fun if you have a little patience to read, understand and experiment. 
+FPGAs need not be any different. Let us give it a try and see how fast 
+and easily we can learn. To get the best out of this tutorial series, I 
+strongly recommend to download the tools listed at the end of this 
+document and try doing every step as you read along.</h4>
+<h4>
+	Some time back, I wanted to learn about programming FPGAs. I started 
+googling only to&nbsp;find that there is no tutorial on the web (at 
+least I couldn't find any, maybe it is time to refine my googling 
+skills!) that can get you started with learning an HDL and take you all 
+the way through design, simulation and implementation. There are many 
+tutorials online that will help you learn HDLs, some tutorials tell you 
+how to do simulation, some may tell you about implementation, but no 
+single tutorial that guides you step by step from basics to 
+implementation.</h4>
+<h4>
+	I write this tutorial in the hope that it may help our readers to learn
+ Verilog (The HDL I chose to learn first because of its syntax 
+similarity to C), simulate your code and implement it on real hardware. 
+This tutorial expects you to have basic knowledge in Digital 
+Electronics, Familiarity with some programming language (preferably C). 
+This tutorial is not meant be an in-depth study about Verilog or FPGAs 
+or anything, but just a guide to walk you through different basic things
+ you need to know to design a simple digital circuit in Verilog, 
+simulate it and implement it on hardware.</h4>
+<h4>
+	We will be using Xilinx ISE for&nbsp;simulation and&nbsp;synthesis. The final design will be programmed to an <a href="http://numato.com/elbert-spartan-3a-fpga-development-board" target="_blank">Elbert -&nbsp;</a><a href="http://numato.com/elbert-spartan-3a-fpga-development-board" target="_blank">Spartan 3A FPGA Development Board</a>&nbsp; (below picture) to make sure our code works on real hardware as well.&nbsp;</h4>
+<h4>
+	&nbsp;</h4>
+<p class="rtecenter"><img alt="" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/elbert03.jpg" style="width: 600px; height: 310px; "></p>
+<h4>
+	<strong>What is FPGA ?</strong></h4>
+<h4>
+	FPGA stands for "Field Programmable Gate Array". As you may guess, FPGA
+ essentially is a huge array of gates which can be programmed and 
+reconfigured anytime anywhere. "Huge array of gates" is an 
+oversimplified description of FPGA. FPGA is indeed much more complex 
+than simple array of gates. But the point is, there are many gates 
+inside the FPGA which can be arbitrarily connected together to make a 
+circuit of your choice. FPGAs are manufactured by companies like Xilinx,
+ Altera, Actel etc.. . FPGAs are fundamentally similar to CPLDs but 
+CPLDs are very small in size and capability compared to FPGA.&nbsp;</h4>
+<p>&nbsp;</p>
+<h4>
+	<strong>What is Verilog?</strong></h4>
+<h4>
+	Verilog is a Hardware Description Language (HDL) which can be used to 
+describe digital circuits in a textual manner. We need to write our 
+program for FPGA using an HDL like Verilog (as if you write 
+microcontroller programs in C and Assembly). Before HDLs were popular, 
+engineers used to design everything with schematics. Schematics are 
+wonderfully easy for small designs, but are painfully unmanageable for a
+ large design (think about Intel engineers drawing schematics for 
+Pentium, which has millions of gates! it is unacceptably complex). If 
+you have some electronics background, your initial tendency will be to 
+use schematics to realize your design instead of learning a new language
+ (This happened to me, honestly). But learning Verilog is easier than 
+drawing 10 pages of schematic, especially if you have some programming 
+background. VHDL is also another popular HDL used in the industry 
+extensively. Verilog and VHDL share more or less same market popularity,
+ but I chose Verilog since it is easy to learn and it's syntactical 
+similarity to C language. Once you are comfortable with Verilog, it 
+should be easy learn VHDL as well. Want to read more about Verilog? 
+Check out this wiki page (<a target="_blank" class="ext" href="http://en.wikipedia.org/wiki/Verilog" title="http://en.wikipedia.org/wiki/Verilog">http://en.wikipedia.org/wiki/Verilog</a><span class="ext"></span>) or check this tutorial (<a target="_blank" class="ext" href="http://www.asic-world.com/verilog/index.html" title="http://www.asic-world.com/verilog/index.html">http://www.asic-world.com/verilog/index.html</a><span class="ext"></span>).</h4>
+<h4>
+	&nbsp;</h4>
+<h4>
+	<strong>What tools do we need?</strong></h4>
+<h4>
+	1. A good text editor (I use <a target="_blank" class="ext" href="http://sourceforge.net/projects/notepad-plus/">Notepad++</a><span class="ext"></span> )</h4>
+<h4>
+	2. Xilinx ISE Webpack (Download at&nbsp;<a target="_blank" class="ext" href="http://www.xilinx.com/support/download/index.htm">Xilinx</a><span class="ext"></span>&nbsp;for free. Registration required).</h4>
+<h4>
+	3. A good FPGA development board (<a href="http://numato.com/elbert-spartan-3a-fpga-development-board" target="_blank">Elbert - Spartan 3A FPGA Development Board</a>&nbsp;is used in the examples here )</h4>
+<h4>
+	4. <a href="http://numato.com/productdoc/elbert/ElbertConfigV1.zip">Elbert Configuration downloader software</a>&nbsp;(Required only if&nbsp;<a href="http://numato.com/elbert-spartan-3a-fpga-development-board"><span style="font-size: 15px;">Elbert - Spartan 3A FPGA Development Board</span></a> is used)</h4>
+<h4>
+	&nbsp;</h4>
+<h4>
+	<a href="https://numato.com/learning-fpga-and-verilog-a-beginners-guide-part-2-modules">Read Part2 of this tutorial here.</a></h4>
+    </div>
+  
+        <div class="terms">
+      <ul class="links inline"><li class="taxonomy_term_25 first last"><a href="http://numato.com/category/tutorials/learning-fpga-and-verilog-a-beginners-guide" rel="tag" title="">Learning FPGA and Verilog A Beginner's Guide</a></li>
+</ul>    </div>
+        
+        <div class="links">
+      <ul class="links inline"><li class="comment_forbidden first last"><span><a href="http://numato.com/user/login?destination=comment%2Freply%2F72%23comment-form">Login</a> or <a href="http://numato.com/user/register?destination=comment%2Freply%2F72%23comment-form">register</a> to post comments</span></li>
+</ul>    </div>
+      </div><!-- /inner -->
+
+  </div><!-- /node-72 -->
+
+<div id="comments" class="comments block ">
+  <h2 class="comments-header">
+    Comments  </h2>
+  <a id="comment-249"></a>
+
+<div class="comment-wrapper">
+  <div class="comment odd comment-by-anon clear-block ">
+
+        
+                <div class="submitted">
+        Submitted by Jose Xavier (not verified) on Sat, 06/08/2013 - 08:31.      </div>
+      
+      <div class="content">
+        <div class="comment-top-left"></div><!-- /comment-top-left -->
+        <div class="content-inner">
+          <h4 class="title"><b><a href="http://numato.com/learning-fpga-and-verilog-a-beginners-guide-part-1-introduction#comment-249" class="active">ubuntu</a></b></h4>
+          <h4><p>hi,<br>
+the xilinx app works in ubuntu?</p>
+</h4>
+                              <div class="links">
+            <ul class="links"><li class="comment_forbidden first last"><span><a href="http://numato.com/user/login?destination=comment%2Freply%2F72%23comment-form">Login</a> or <a href="http://numato.com/user/register?destination=comment%2Freply%2F72%23comment-form">register</a> to post comments</span></li>
+</ul>          </div>
+                  </div><!-- /content-inner -->
+      </div><!-- /content -->
+
+      </div><!-- /comment -->
+</div><!-- /comment-wrapper --><div class="indented"><a id="comment-250"></a>
+
+<div class="comment-wrapper">
+  <div class="comment even comment-by-anon clear-block ">
+
+        
+                <div class="submitted">
+        Submitted by Jose Xavier (not verified) on Sat, 06/08/2013 - 08:33.      </div>
+      
+      <div class="content">
+        <div class="comment-top-left"></div><!-- /comment-top-left -->
+        <div class="content-inner">
+          <h4 class="title"><b><a href="http://numato.com/learning-fpga-and-verilog-a-beginners-guide-part-1-introduction#comment-250" class="active">just saw it works :)</a></b></h4>
+          <h4><p>just saw it works :)</p>
+</h4>
+                              <div class="links">
+            <ul class="links"><li class="comment_forbidden first last"><span><a href="http://numato.com/user/login?destination=comment%2Freply%2F72%23comment-form">Login</a> or <a href="http://numato.com/user/register?destination=comment%2Freply%2F72%23comment-form">register</a> to post comments</span></li>
+</ul>          </div>
+                  </div><!-- /content-inner -->
+      </div><!-- /content -->
+
+      </div><!-- /comment -->
+</div><!-- /comment-wrapper --></div></div>
+<!-- /comments -->
+                                                                  </div><!-- /content-content -->
+                                                              </div><!-- /content-inner-inner -->
+                            </div><!-- /content-inner -->
+                          </div><!-- /content-region-inner -->
+                        </div><!-- /content-region -->
+
+                                              </div><!-- /content-group-inner -->
+                    </div><!-- /content-group -->
+
+                    <div id="sidebar-last" class="sidebar-last row nested " style="width:23.08%">
+<div id="sidebar-last-inner" class="sidebar-last-inner inner clearfix">
+
+<div id="block-uc_cart-0" class="block block-uc_cart odd first grid16-15 fusion-center equal-heights prosper-shoppingcart-dark">
+  <div class="inner clearfix">
+            <h2 class="title block-title"><a href="http://numato.com/cart"><span class="cart-block-icon-empty" title="View your shopping cart."></span></a><span class="cart-block-title-bar">Shopping cart</span></h2>
+        <div style="height: 18px; overflow: visible;" class="content clearfix">
+      <a href="http://numato.com/cart">View</a> your shopping cart.    </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+
+<div id="block-block-3" class="block block-block even  prosper-menu-list grid16-16">
+  <div class="inner clearfix">
+            <h2 style="border: medium none;" class="title block-title"><div style="position: relative; margin: 0px -10px -5px;" class="jquery-corner"><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 2px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 1px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div></div>Links</h2>
+        <div class="content clearfix">
+      <ul>
+	<li droid="" font-family:="">
+		<a href="http://numato.com/?q=node/11" style="background:none;font-size:12pt">Home</a></li>
+	<li>
+		<a href="http://numato.com/?q=node/11" style="background:none;font-size:12pt">Specials</a></li>
+	<li>
+		<a href="http://numato.com/?q=catalog" style="background:none;font-size:12pt">All Products</a></li>
+	<li>
+		<a href="http://numato.com/?q=user" style="background:none;font-size:12pt">My Account</a></li>
+	<li>
+		<a href="http://numato.com/?q=logout" style="background:none;font-size:12pt">Logout</a></li>
+	<li>
+		<a href="http://numato.com/?q=user/register" style="background:none;font-size:12pt">Register</a></li>
+	<li>
+		<a href="http://numato.com/TermsOfUse" style="background:none;font-size:12pt">Terms Of Use</a></li>
+	<li>
+		<a href="http://numato.com/shipping" style="background:none;font-size:12pt">Shipping</a></li>
+	<li>
+		<a href="http://numato.com/?q=node/4" style="background:none;font-size:12pt">Privacy Policy</a></li>
+	</ul>
+    </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+
+<div id="block-user-0" class="block block-user odd  fusion-center-content prosper-gray-rounded-plain prosper-rounded-title grid16-16">
+  <div class="inner clearfix">
+            <h2 style="border: medium none;" class="title block-title"><div style="position: relative; margin: -10px -10px 5px;" class="jquery-corner"><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 2px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 1px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div></div>User login</h2>
+        <div class="content clearfix">
+      <form action="https://numato.com/learning-fpga-and-verilog-a-beginners-guide-part-1-introduction" accept-charset="UTF-8" method="post" id="user-login-form">
+<div><div class="form-item" id="edit-name-wrapper">
+ <label for="edit-name">Username: <span class="form-required" title="This field is required.">*</span></label>
+ <input maxlength="60" name="name" id="edit-name" size="15" class="form-text required" type="text">
+</div>
+<div class="form-item" id="edit-pass-wrapper">
+ <label for="edit-pass">Password: <span class="form-required" title="This field is required.">*</span></label>
+ <input name="pass" id="edit-pass" maxlength="60" size="15" class="form-text required" type="password">
+</div>
+<input name="op" id="edit-submit" value="Log in" class="form-submit" type="submit">
+<div class="item-list"><ul><li class="first"><a href="http://numato.com/user/register" title="Create a new user account.">Create new account</a></li>
+<li class="last"><a href="http://numato.com/user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input name="form_build_id" id="form-pIiLmz3SyRY__wMRXHgLLTMUAkgILIFyfenTNo3stZ4" value="form-pIiLmz3SyRY__wMRXHgLLTMUAkgILIFyfenTNo3stZ4" type="hidden">
+<input name="form_id" id="edit-user-login-block" value="user_login_block" type="hidden">
+
+</div></form>
+    </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+
+<div id="block-block-4" class="block block-block even  fusion-center fusion-center-content prosper-gray-rounded-plain prosper-rounded-title grid16-16">
+  <div class="inner clearfix">
+            <h2 style="border: medium none;" class="title block-title"><div style="position: relative; margin: -10px -10px 5px;" class="jquery-corner"><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 2px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 1px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div></div>Follow Us</h2>
+        <div class="content clearfix">
+      <div style="text-align:center">
+ <a target="_blank" href="http://www.facebook.com/pages/Numato-Lab/526818180671157"><br>
+  <img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/like_us_on_facebook.png" width="205"><br>
+ </a>
+</div>
+    </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+
+<div id="block-block-5" class="block block-block odd  last fusion-center fusion-center-content prosper-gray-rounded-plain prosper-rounded-title grid16-16">
+  <div class="inner clearfix">
+            <h2 style="border: medium none;" class="title block-title"><div style="position: relative; margin: -10px -10px 5px;" class="jquery-corner"><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 2px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px 1px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div><div style="overflow: hidden; height: 1px; min-height: 1px; font-size: 1px; background-color: transparent; border-style: none solid; border-color: rgb(255, 255, 255); border-width: 0px;"></div></div>Powered By</h2>
+        <div class="content clearfix">
+      <div style="text-align:center">
+	<img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/seal.gif"></div>
+<div style="text-align:center"></div>
+<div style="text-align:center"></div>
+<div style="text-align:center">
+	<img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/fedex.jpg" width="100"></div>
+<div style="text-align:center"></div>
+<div style="text-align:center">
+	<img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/ups.jpg"></div>
+<div style="text-align:center">
+	<img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/verification_seal.gif"></div>
+<div style="text-align:center">
+	<img src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/2checkout.png"></div>
+    </div>
+  </div><!-- /block-inner -->
+</div><!-- /block -->
+</div><!-- /sidebar-last-inner -->
+</div><!-- /sidebar-last -->
+                  </div><!-- /main-content-inner -->
+                </div><!-- /main-content -->
+
+                              </div><!-- /main-group-inner -->
+            </div><!-- /main-group -->
+          </div><!-- /main-inner -->
+        </div><!-- /main -->
+      </div><!-- /main-wrapper -->
+
+      <!-- postscript-bottom row: width = grid_width -->
+      
+      <!-- footer row: width = grid_width -->
+      
+      <!-- footer-message row: width = grid_width -->
+     
+      <!-- primary-menu row: width = grid_width -->
+      <div id="header-primary-menu-wrapper" class="header-primary-menu-wrapper full-width">
+        <div id="header-primary-menu" class="header-primary-menu row grid16-16">
+          <div id="header-primary-menu-inner" class="header-primary-menu-inner inner clearfix">
+                      </div><!-- /header-primary-menu-inner -->
+        </div><!-- /header-primary-menu -->
+      </div><!-- /header-primary-menu-wrapper -->
+     
+     <div id="footer-message-wrapper" class="footer-message-wrapper full-width">
+        <div id="footer-message" class="footer-message row grid16-16">
+          <div id="footer-message-inner" class="footer-message-inner inner clearfix">
+                        <div id="primary-menu" class="primary-menu block">
+<div id="primary-menu-inner" class="primary-menu-inner inner clearfix">
+<ul class="menu sf-menu sf-js-enabled"><li class="leaf first"><a href="http://numato.com/TermsOfUse" title="Terms‌ and‌ conditions">Terms‌ of Use</a></li>
+<li class="leaf"><a href="http://numato.com/shipping" title="">Shipping</a></li>
+<li class="leaf"><a target="_blank" class="ext" href="http://numato.cc/category/tags/numato-kicad-lib" title="">KiCad Library</a></li>
+<li class="leaf"><a href="http://numato.com/forum" title="">Forum</a></li>
+<li class="leaf last"><a href="http://numato.com/sample-code-library" title="">Sample Code Library</a></li>
+</ul></div><!-- /primary-menu-inner -->
+</div><!-- /primary-menu -->
+          </div><!-- /footer-message-inner -->
+        </div><!-- /footer-message -->
+      </div>   
+      <!-- /footer-message-wrapper -->
+
+    </div><!-- /page-inner -->
+  </div><!-- /page -->
+  <script type="text/javascript">
+<!--//--><![CDATA[//><!--
+var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-16636907-1"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();
+//--><!]]>
+</script>
+  <script type="text/javascript" src="Learning%20FPGA%20and%20Verilog%20A%20Beginner%27s%20Guide%20Part%201%20-%20Introduction_files/pinit.html"></script>
+
+
+<div id="lightbox2-overlay" style="display: none;"></div>      <div id="lightbox" style="display: none;" class="lightbox2-orig-layout">        <div style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" id="outerImageContainer"><div id="modalContainer" style="display: none; padding: 10px;"></div><div id="frameContainer" style="display: none; padding: 10px;"></div><div id="imageContainer" style="display: none; padding: 10px;"><img id="lightboxImage" alt=""><div id="hoverNav"><a style="padding-top: 10px;" id="prevLink" title="Previous" href="#"></a><a style="padding-top: 10px;" id="nextLink" title="Next" href="#"></a></div></div><div id="loading"><a href="#" id="loadingLink"></a></div></div>        <div style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" id="imageDataContainer" class="clearfix">          <div id="imageData"><div id="imageDetails"><span id="caption"></span><span id="numberDisplay"></span></div><div id="bottomNav"><div id="frameHoverNav"><a style="padding-top: 10px;" id="framePrevLink" title="Previous" href="#"></a><a style="padding-top: 10px;" id="frameNextLink" title="Next" href="#"></a></div><a style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" id="bottomNavClose" title="Close" href="#"></a><a id="bottomNavZoom" href="#"></a><a id="bottomNavZoomOut" href="#"></a><a id="lightshowPause" title="Pause Slideshow" href="#" style="display: none;"></a><a id="lightshowPlay" title="Play Slideshow" href="#" style="display: none;"></a></div></div>        </div>      </div></body></html>

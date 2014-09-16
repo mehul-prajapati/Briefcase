@@ -1,0 +1,23 @@
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>pci_iomap</title><meta name="generator" content="DocBook XSL Stylesheets V1.75.2"><link rel="home" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/index.html" title="Bus-Independent Device Accesses"><link rel="up" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/ch05.html" title="Chapter&nbsp;5.&nbsp;Public Functions Provided"><link rel="prev" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/re01.html" title="/var/tmp/sdc/orig/linux-2.6.31.14//arch/x86/include/asm/io_32.h"></head><body><div class="navheader"><table summary="Navigation header" width="100%"><tbody><tr><th colspan="3" align="center"><span>pci_iomap</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/re01.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;5.&nbsp;Public Functions Provided</th><td width="20%" align="right">&nbsp;</td></tr></tbody></table><hr></div><div class="refentry" title="pci_iomap"><a id="API-pci-iomap"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>pci_iomap — 
+  create a virtual mapping cookie for a PCI BAR
+ </p></div><div class="refsynopsisdiv" title="Synopsis"><h2>Synopsis</h2><div class="funcsynopsis"><table summary="Function synopsis" class="funcprototype-table" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><code class="funcdef">void __iomem * <b class="fsfunc">pci_iomap </b>(</code></td><td>struct pci_dev * <var class="pdparam">dev</var>, </td></tr><tr><td>&nbsp;</td><td>int <var class="pdparam">bar</var>, </td></tr><tr><td>&nbsp;</td><td>unsigned long <var class="pdparam">maxlen</var><code>)</code>;</td></tr></tbody></table><div class="funcprototype-spacer">&nbsp;</div></div></div><div class="refsect1" title="Arguments"><a id="id319175"></a><h2>Arguments</h2><div class="variablelist"><dl><dt><span class="term"><em class="parameter"><code>dev</code></em></span></dt><dd><p>
+     PCI device that owns the BAR
+    </p></dd><dt><span class="term"><em class="parameter"><code>bar</code></em></span></dt><dd><p>
+     BAR number
+    </p></dd><dt><span class="term"><em class="parameter"><code>maxlen</code></em></span></dt><dd><p>
+     length of the memory to map
+    </p></dd></dl></div></div><div class="refsect1" title="Description"><a id="id319232"></a><h2>Description</h2><p>
+   Using this function you will get a __iomem address to your device BAR.
+   You can access it using ioread*() and iowrite*(). These functions hide
+   the details if this is a MMIO or PIO address space and will just do what
+   you expect from them in the correct way.
+   </p><p>
+
+   <em class="parameter"><code>maxlen</code></em> specifies the maximum length to map. If you want to get access to
+   the complete BAR without checking for its length first, pass <code class="constant">0</code> here.
+</p></div></div><div class="navfooter"><hr><table summary="Navigation footer" width="100%"><tbody><tr><td width="40%" align="left"><a accesskey="p" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/re01.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/ch05.html">Up</a></td><td width="40%" align="right">&nbsp;</td></tr><tr><td valign="top" width="40%" align="left">
+   /var/tmp/sdc/orig/linux-2.6.31.14//arch/x86/include/asm/io_32.h
+  &nbsp;</td><td width="20%" align="center"><a accesskey="h" href="http://www.cs.albany.edu/%7Esdc/CSI500/linux-2.6.31.14/Documentation/DocBook/deviceiobook/index.html">Home</a></td><td valign="top" width="40%" align="right">&nbsp;</td></tr></tbody></table></div>
+</body></html>

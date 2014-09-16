@@ -1,0 +1,1030 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="INDEX, FOLLOW">
+
+	<title>Socket programming in linux with c++ </title>
+
+	<link href="Socket%20programming%20in%20linux%20with%20c++_files/sections.css" rel="stylesheet" type="text/css">
+	<link href="Socket%20programming%20in%20linux%20with%20c++_files/rate.css" rel="stylesheet" type="text/css">
+	<link href="Socket%20programming%20in%20linux%20with%20c++_files/contact.css" rel="stylesheet" type="text/css">
+	<link href="Socket%20programming%20in%20linux%20with%20c++_files/tags.css" rel="stylesheet" type="text/css">
+	<link href="Socket%20programming%20in%20linux%20with%20c++_files/sh_style.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="http://codebase.eu/favicon.ico" type="image/x-icon">
+	
+	<script src="Socket%20programming%20in%20linux%20with%20c++_files/analytics.js" async=""></script><script type="text/javascript" src="Socket%20programming%20in%20linux%20with%20c++_files/jquery.js"></script>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-46310759-1', 'codebase.eu');
+	  ga('send', 'pageview');
+
+	</script>
+
+<style type="text/css">.recaptchatable td img{display:block}.recaptchatable .recaptcha_r1_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') 0 -63px no-repeat;width:318px;height:9px}.recaptchatable .recaptcha_r2_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -18px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r2_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -27px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r3_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') 0 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r3_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -18px -57px no-repeat;width:300px;height:6px}.recaptchatable .recaptcha_r3_c3{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -9px 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r4_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px 0 no-repeat;width:171px;height:49px}.recaptchatable .recaptcha_r4_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -36px 0 no-repeat;width:7px;height:57px}.recaptchatable .recaptcha_r4_c4{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -214px 0 no-repeat;width:97px;height:57px}.recaptchatable .recaptcha_r7_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px -49px no-repeat;width:171px;height:8px}.recaptchatable .recaptcha_r8_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px -49px no-repeat;width:25px;height:8px}.recaptchatable .recaptcha_image_cell center img{height:57px}.recaptchatable .recaptcha_image_cell center{height:57px}.recaptchatable .recaptcha_image_cell{background-color:white;height:57px}#recaptcha_area,#recaptcha_table{width:318px!important}.recaptchatable,#recaptcha_area tr,#recaptcha_area td,#recaptcha_area th{margin:0!important;border:0!important;padding:0!important;border-collapse:collapse!important;vertical-align:middle!important}.recaptchatable *{margin:0;padding:0;border:0;font-family:helvetica,sans-serif;font-size:8pt;color:black;position:static;top:auto;left:auto;right:auto;bottom:auto}.recaptchatable #recaptcha_image{margin:auto}.recaptchatable img{border:0!important;margin:0!important;padding:0!important}.recaptchatable a,.recaptchatable a:hover{cursor:pointer;outline:none;border:0!important;padding:0!important;text-decoration:none;color:blue;background:none!important;font-weight:normal}.recaptcha_input_area{position:relative!important;width:153px!important;height:45px!important;margin-left:7px!important;margin-right:7px!important;background:none!important}.recaptchatable label.recaptcha_input_area_text{margin:0!important;padding:0!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;background:none!important;height:auto!important;width:auto!important}.recaptcha_theme_red label.recaptcha_input_area_text,.recaptcha_theme_white label.recaptcha_input_area_text{color:black!important}.recaptcha_theme_blackglass label.recaptcha_input_area_text{color:white!important}.recaptchatable #recaptcha_response_field{width:153px!important;position:relative!important;bottom:7px!important;padding:0!important;margin:15px 0 0 0!important;font-size:10pt}.recaptcha_theme_blackglass #recaptcha_response_field,.recaptcha_theme_white #recaptcha_response_field{border:1px solid gray}.recaptcha_theme_red #recaptcha_response_field{border:1px solid #cca940}.recaptcha_audio_cant_hear_link{font-size:7pt;color:black}.recaptchatable{line-height:1px!important}#recaptcha_instructions_error{color:red!important}.recaptcha_only_if_privacy{float:right;text-align:right}
+
+.recaptcha_is_showing_audio .recaptcha_only_if_image,.recaptcha_isnot_showing_audio .recaptcha_only_if_audio,.recaptcha_had_incorrect_sol .recaptcha_only_if_no_incorrect_sol,.recaptcha_nothad_incorrect_sol .recaptcha_only_if_incorrect_sol{display:none !important}</style></head>
+
+<body>
+
+  <div id="main">
+
+	<div id="top">
+	
+		<h1><a href="http://codebase.eu/">CODEBASE.EU</a>
+
+ </h1>
+		<h2>tutorials</h2>
+	
+		<div id="rate">
+		
+
+<script type="text/javascript">
+
+function rateshow(data)
+{
+
+
+
+if (data==1)
+{
+	$('#ratings').hide('fast');
+	$('#cannotrate').show('fast');
+}
+if (data==2)
+{
+	$('#ratings').hide('fast');
+	$('#alreadyrate').show('fast');
+}
+
+if (data==3)
+{
+		
+	$('#ratings').hide('fast');
+	$('#thxyou').show('fast');
+}
+
+
+
+}
+
+
+
+function dorate($rating)
+{
+//<![CDATA[
+$.get("/mods/rater/func_add.php?page=/tutorial/linux-socket-programming-c/index.php" + "&rating=" + $rating, function(data){
+//]]>
+rateshow(data);
+
+});
+
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+<p id="thxyou" style="display:none">
+Thank you.
+</p>
+
+<p id="cannotrate" style="display:none">
+You cannot rate this page.
+</p>
+
+<p id="alreadyrate" style="display:none">
+You already rated this page.
+</p>
+
+<div id="ratings">
+	page rating :
+	
+	<ul class="star-rating small-star">
+	<li class="current-rating" style="width:90%;"> </li>
+	<li><a href="#" onclick="dorate(1)" title="vote 1 star" class="one-star">1</a></li>
+	<li><a href="#" onclick="dorate(2)" title="vote 2 stars" class="two-stars">2</a></li>
+	<li><a href="#" onclick="dorate(3)" title="vote 3 stars" class="three-stars">3</a></li>
+	<li><a href="#" onclick="dorate(4)" title="vote 4 stars" class="four-stars">4</a></li>
+	<li><a href="#" onclick="dorate(5)" title="vote 5 stars" class="five-stars">5</a></li>
+	</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+            
+		
+		<div id="titel">
+		Linux C++ socket programming		</div>
+				
+
+	</div>
+	
+	<div id="menu">
+				
+		<ul>
+<li><a href="http://codebase.eu/?id=code">Code</a></li>
+<li><a href="http://codebase.eu/?id=howto">Tutorials</a></li>
+<li><a href="http://codebase.eu/?id=mail">Contact</a></li>
+</ul>
+
+<script async="" src="Socket%20programming%20in%20linux%20with%20c++_files/adsbygoogle.js"></script>
+<!-- menu_links -->
+<ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-2444800854328752" data-ad-slot="5456153823"><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="600" scrolling="no"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+		
+	</div>
+	
+	<div id="maincontent"> 
+
+		<div id="datum">
+			<br> Last modified Thursday, 29th August, 2013 		</div>
+		
+		
+<script type="text/javascript" src="Socket%20programming%20in%20linux%20with%20c++_files/sh_main.js"></script>
+
+<script type="text/javascript">
+window.onload = function(){  
+sh_highlightDocument('http://codebase.eu/mods/lang/', '.js');
+}  
+</script>
+This tutorial will show you how to send and receive data over a TCP/IP (ipv4 or ipv6) network using Linux and C++.
+<h3> Contents </h3>
+
+<a href="#before_you_read"><strong> 1. Before you read this tutorial.</strong> </a><br>
+<a href="#what_is_a_socket"><strong> 2. What is a (internet)socket?</strong></a><br>
+<a href="#before_we_create"><strong> 3. Before we create a socket. </strong> </a><br>
+<a href="#connecting_to_server"><strong> 4. Connecting to a server. </strong> </a><br>
+<a href="#creating_a_server"><strong> 5. Creating your own server. </strong> </a><br>
+
+<!--################################################################################################################ -->
+<div id="before_you_read">
+
+<h3>I. Before you read this tutorial.</h3>
+
+This tutorial focuses on socket programming using C++, Linux and the <a href="http://en.wikipedia.org/wiki/Berkeley_sockets"> Berkely sockets API </a>.
+ This library is originally written for C, but in this tutorial I will 
+use C++ where possible. If you prefer pure C++ you can take a look at 
+the <a href="http://www.boost.org/">BOOST.asio (cross platform)</a> 
+library (which is in fact, on linux systems, a C++ wrapper for the C 
+Berkeley sockets API). If you don't know much about TCP/IP networking I 
+would advise you to read a little about that subject first, because I 
+will not explain it here. I've tried to keep this tutorial short and 
+simple. For more information you could read the MAN pages of the system 
+calls and functions we use in this tutorial. When you've read this 
+tutorial you should be able to create a client and a server. For 
+compiling I used the GCC.
+<br>
+	
+</div> 
+<!--################################################################################################################ -->
+<div id="what_is_a_socket">
+<h3>II. What is a (internet)socket?</h3>
+
+An internet socket is a begin or endpoint in a tcp/ip network 
+connection. You can see an internet socket as the entrance or exit of a 
+tunnel. A socket translates all incoming data in to "human readable 
+text" or translates all outgoing data into networks packets.
+<br>
+<br>
+The purpose of sockets is simplifying the network code of your c++ 
+application. All the user has to do is create a socket and connect it. 
+Once your socket is connected the socket takes care of the networking 
+part, and all you have to worry about now is sending data to, or 
+receiving data from, the socket.
+<br>
+<br>
+<img src="Socket%20programming%20in%20linux%20with%20c++_files/sockets_drawing.jpg" alt="sockets drawing">
+<br>
+<br>
+A socket can be a server or a client. Before a socket can be connected 
+to another socket and "create a tunnel" you have to specify what type of
+ socket it will be and where it should connect to. 
+<br>
+<br>
+<strong>How to communicate with a socket? </strong> 
+<br>
+<br>
+When you have created a socket, and it is connected to another 
+(remote)socket, communication with the sockets is easy. Communicating 
+with a socket is done using unix file descriptors (file handlers) and 
+its associated functions like <code>write()</code> and <code>read()</code> (for internet sockets <code>send()</code> and <code>recv()</code>
+ are preferred). If you never worked with files in Linux in that way, 
+don't worry. You just need to remember that when you create a socket it 
+returns a socket descriptor. This socket descriptor is just an integer. 
+You can see it as the "name" of, or reference to the socket. You will 
+need this socket descriptor if you want to interact with the socket. For
+ example the system calls <code>send()</code> and <code>recv()</code> require a socket descriptor so they know what socket to talk with.
+<br>
+<br>
+<img src="Socket%20programming%20in%20linux%20with%20c++_files/socket_flow.jpg" alt="Socket flow">
+<br>
+
+</div>
+<!--################################################################################################################ -->	
+<div id="before_we_create">
+
+<h3>III. Before we create a socket.</h3>
+	
+Before we start creating a socket, we should know what we want to do 
+with it (will it be a client or a server?). In this tutorial I have 
+decided we are going to build a tcp/ip client that connects to 
+google.com and retrieve's it's homepage. Therefore we need to provide 
+our socket with the address (google.com), the address type (ipv4), the 
+port (webservers usually run on port 80) and the connection type 
+(tcp/ip).
+<br>
+<br>
+For this purpose, some time ago, some people invented a couple of data 
+structures. The programmer had to fill these data structures with the 
+appropriate data so the sockets could work with it. Unfortunately these 
+structs are a bit complicated and putting data into them isn't as easy 
+as you would expect.
+<br>
+<br>
+After a while some smart people came along and invented a new function called <code>getaddrinfo()</code>. This function deals with all the complicated structs. It also uses a new struct called called <code>addrinfo</code>. Lucky for us this function and the struct <code>addrinfo</code> are all we need to create and connect a socket.<br>
+
+There is one other cool thing to report about this function: It's IP 
+agnostic. This means you don't have to specify whether you want to 
+connect to a IPv4 or IPv6 host (unlike the older structs).
+<br>
+This does NOT mean the other structs are useless. The other structs are 
+still used and can be very useful if you want to do more (complicated) 
+things with your socket code.
+<br>
+<br>
+<a onclick="$('#struct').show()" style="cursor: pointer;"><strong> Show the struct addrinfo &gt;&gt;&gt;.</strong> </a>
+<br>
+<br>
+<div id="struct" style="display:none;">
+
+<pre class="sh_cpp sh_sourceCode"><span class="sh_keyword">struct</span><span class="sh_normal"> </span><span class="sh_classname">addrinfo</span> <span class="sh_cbracket">{</span>
+    <span class="sh_type">int</span>              ai_flags<span class="sh_symbol">;</span>     <span class="sh_comment">// This  field  specifies additional options.</span>
+    <span class="sh_type">int</span>              ai_family<span class="sh_symbol">;</span>    <span class="sh_comment">// IPv4, IPv6 or IP agnostic.</span>
+    <span class="sh_type">int</span>              ai_socktype<span class="sh_symbol">;</span>  <span class="sh_comment">// TCP or UDP.</span>
+    <span class="sh_type">int</span>              ai_protocol<span class="sh_symbol">;</span>  <span class="sh_comment">// The protocol for the returned socket addresses.</span>
+    <span class="sh_usertype">size_t</span><span class="sh_normal">           </span>ai_addrlen<span class="sh_symbol">;</span>   <span class="sh_comment">// Size of ai_addr in bytes</span>
+    <span class="sh_keyword">struct</span><span class="sh_normal"> </span><span class="sh_classname">sockaddr</span> <span class="sh_symbol">*</span>ai_addr<span class="sh_symbol">;</span>      <span class="sh_comment">// Containing the IP address and port.</span>
+    <span class="sh_type">char</span>            <span class="sh_symbol">*</span>ai_canonname<span class="sh_symbol">;</span> <span class="sh_comment">// The Canonical hostname.</span>
+
+    <span class="sh_keyword">struct</span><span class="sh_normal"> </span><span class="sh_classname">addrinfo</span> <span class="sh_symbol">*</span>ai_next<span class="sh_symbol">;</span>      <span class="sh_comment">// linked list, next address.</span>
+<span class="sh_cbracket">}</span><span class="sh_symbol">;</span>
+</pre>
+
+</div>
+To keep things simple just remember that we need <code>getaddrinfo()</code> to fill the struct <code>addrinfo</code> with data we need for creating and connecting our socket.
+<br>
+<br>
+But... there is one thing you need to remember. Sometimes a host (node) 
+translates to multiple IP addresses. Go to your terminal and type <code>host google.com</code>. You will see that google.com has multiple IP addresses. Some hosts have both an IPv4 and an IPv6 adress. For this reason <code>getaddrinfo()</code> will not just fill one <code>addrinfo</code>
+ struct, it will create a struct for every address address found. These 
+structs will be put unto a linked list, so you can browse through them 
+easily.
+<br>
+<br>
+Don't worry if that sounded complicated. In our example we don't bother 
+with the other IP addresses found, we just use the first struct (and 
+this should usually do the trick).
+<br>
+<br>
+The function prototype looks like this :
+<br>
+<br>
+<strong>
+<code>
+int getaddrinfo(const char *node, const char *service,
+<br>
+const struct addrinfo *host_info, struct addrinfo **res);
+</code>
+</strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+
+<strong>node</strong> : The host you want to connect to. This can be a hostname or IP address. 
+<br>
+<strong>service</strong> : This is the port number you want to connect to. Usually an integer, but can also be a known service name like 'http'.
+<br>
+<strong>host_info</strong> : Points to the <code>addrinfo</code> struct to fill.
+<br>
+<strong>res</strong> : Points to the linked list of filled <code>addrinfo</code> structs.
+<br>
+<strong>return value</strong> : The function returns 0 if all succeeded or a non-zerro error code in case of an error.
+<br>
+
+<br>
+<br>
+In our code we want to connect to "google.com" at port 80. Therefore our <code>getaddrinfo()</code> call looks like this:
+<br>	
+<pre class="sh_cpp sh_sourceCode">
+<code><span style="color: #000000">
+&nbsp;
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;iostream&gt;</span>
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;cstring&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;Needed&nbsp;for&nbsp;memset</span>
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;sys/socket.h&gt;</span>&nbsp;<span class="sh_comment">//&nbsp;Needed&nbsp;for&nbsp;the&nbsp;socket&nbsp;functions</span>
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;netdb.h&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;Needed&nbsp;for&nbsp;the&nbsp;socket&nbsp;functions</span>
+
+<span class="sh_type">int</span>&nbsp;<span class="sh_function">main</span><span class="sh_symbol">()</span>
+<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;status<span class="sh_symbol">;</span>
+&nbsp;&nbsp;<span class="sh_keyword">struct</span>&nbsp;<span class="sh_usertype">addrinfo</span><span class="sh_normal">&nbsp;</span>host_info<span class="sh_symbol">;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;The&nbsp;struct&nbsp;that&nbsp;getaddrinfo()&nbsp;fills&nbsp;up&nbsp;with&nbsp;data.</span>
+&nbsp;&nbsp;<span class="sh_keyword">struct</span>&nbsp;<span class="sh_usertype">addrinfo</span><span class="sh_normal">&nbsp;</span><span class="sh_symbol">*</span>host_info_list<span class="sh_symbol">;</span>&nbsp;<span class="sh_comment">//&nbsp;Pointer&nbsp;to&nbsp;the&nbsp;to&nbsp;the&nbsp;linked&nbsp;list&nbsp;of&nbsp;host_info's.</span>
+
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;The&nbsp;MAN&nbsp;page&nbsp;of&nbsp;getaddrinfo()&nbsp;states&nbsp;"All&nbsp;&nbsp;the&nbsp;other&nbsp;fields&nbsp;in&nbsp;the&nbsp;structure&nbsp;pointed</span>
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;to&nbsp;by&nbsp;hints&nbsp;must&nbsp;contain&nbsp;either&nbsp;0&nbsp;or&nbsp;a&nbsp;null&nbsp;pointer,&nbsp;as&nbsp;appropriate."&nbsp;When&nbsp;a&nbsp;struct&nbsp;</span>
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;is&nbsp;created&nbsp;in&nbsp;C++,&nbsp;it&nbsp;will&nbsp;be&nbsp;given&nbsp;a&nbsp;block&nbsp;of&nbsp;memory.&nbsp;This&nbsp;memory&nbsp;is&nbsp;not&nbsp;necessary</span>
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;empty.&nbsp;Therefor&nbsp;we&nbsp;use&nbsp;the&nbsp;memset&nbsp;function&nbsp;to&nbsp;make&nbsp;sure&nbsp;all&nbsp;fields&nbsp;are&nbsp;NULL.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+&nbsp;&nbsp;<span class="sh_function">memset</span><span class="sh_symbol">(&amp;</span>host_info<span class="sh_symbol">,</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">,</span>&nbsp;<span class="sh_keyword">sizeof</span>&nbsp;host_info<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Setting&nbsp;up&nbsp;the&nbsp;structs..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;host_info<span class="sh_symbol">.</span>ai_family&nbsp;<span class="sh_symbol">=</span>&nbsp;AF_UNSPEC<span class="sh_symbol">;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;IP&nbsp;version&nbsp;not&nbsp;specified.&nbsp;Can&nbsp;be&nbsp;both.</span>
+&nbsp;&nbsp;host_info<span class="sh_symbol">.</span>ai_socktype&nbsp;<span class="sh_symbol">=</span>&nbsp;SOCK_STREAM<span class="sh_symbol">;</span>&nbsp;<span class="sh_comment">//&nbsp;Use&nbsp;SOCK_STREAM&nbsp;for&nbsp;TCP&nbsp;or&nbsp;SOCK_DGRAM&nbsp;for&nbsp;UDP.</span>
+
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;Now&nbsp;fill&nbsp;up&nbsp;the&nbsp;linked&nbsp;list&nbsp;of&nbsp;host_info&nbsp;structs&nbsp;with&nbsp;google's&nbsp;address&nbsp;information.</span>
+&nbsp;&nbsp;status&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">getaddrinfo</span><span class="sh_symbol">(</span><span class="sh_string">"www.google.com"</span><span class="sh_symbol">,</span>&nbsp;<span class="sh_string">"80"</span><span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>host_info<span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>host_info_list<span class="sh_symbol">);</span>
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;getaddrinfo&nbsp;returns&nbsp;0&nbsp;on&nbsp;succes,&nbsp;or&nbsp;some&nbsp;other&nbsp;value&nbsp;when&nbsp;an&nbsp;error&nbsp;occured.</span>
+&nbsp;&nbsp;<span class="sh_comment">//&nbsp;(translated&nbsp;into&nbsp;human&nbsp;readable&nbsp;text&nbsp;by&nbsp;the&nbsp;gai_gai_strerror&nbsp;function).</span>
+&nbsp;&nbsp;<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>status&nbsp;<span class="sh_symbol">!=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">)</span>&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"getaddrinfo&nbsp;error"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_function">gai_strerror</span><span class="sh_symbol">(</span>status<span class="sh_symbol">)</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="sh_cbracket">}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>
+</code>
+</pre>
+	
+After using <code>getaddrinfo()</code> probably a lot of structs where 
+filled with interesting information. To keep it simple we will not try 
+to get it out of there. All we are going to do is get the nessesary 
+information out of the first struct <code>host_info</code> (the first address we found with <code>getaddrinfo()</code>) in the linked list of structs.
+<br>
+<br>
+Enough of this,now let's do some connecting!
+<br>
+
+</div>
+<!--################################################################################################################ -->
+<div id="connecting_to_server">
+
+<h3>IV. Connecting to a server.</h3>
+
+Now we are ready to create a socket. To create a socket we use the  <code> socket() </code> system call :
+<br>
+<br>
+<strong><code>int socket(int domain, int type, int protocol);</code></strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+<strong> domain </strong> : The domain argument specifies a 
+communication domain. In our case this value is AF_INET or AF_INET6 (the
+ internet using ip4 or ip6)
+<br>
+<strong> type </strong> : The type of socket. In our case it is SOCK_STREAM (tcp)
+<br>
+<strong> protocol </strong> : The protocol to be used with the socket-type. In our case the right protocol is automatically choosen.
+<br>
+<strong>return value</strong> : The socket system call returns a socket descriptor. If the socket call fails, it returns -1. 
+<br>
+<br>  
+If you want to translate this error number into a error description string <code><span style="color: #000000">
+#include&nbsp;&lt;errno.h&gt;</span>
+</code> and use the <code>strerror(errno)</code> function. The same is true for all the error numbers in the system calls below.
+<br>
+<br>
+Our socket call :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Creating&nbsp;a&nbsp;socket..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+<span class="sh_type">int</span>&nbsp;socketfd&nbsp;<span class="sh_symbol">;</span>&nbsp;<span class="sh_comment">//&nbsp;The&nbsp;socket&nbsp;descripter</span>
+socketfd&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">socket</span><span class="sh_symbol">(</span>host_info_list<span class="sh_symbol">-&gt;</span>ai_family<span class="sh_symbol">,</span>&nbsp;host_info_list<span class="sh_symbol">-&gt;</span>ai_socktype<span class="sh_symbol">,</span>&nbsp;
+host_info_list<span class="sh_symbol">-&gt;</span>ai_protocol<span class="sh_symbol">);</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>socketfd&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_symbol">-</span><span class="sh_number">1</span><span class="sh_symbol">)</span>&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"socket&nbsp;error&nbsp;"</span>&nbsp;<span class="sh_symbol">;</span>
+</span>
+</code></pre>
+As you can see above, we use the values stored in the first struct <code>host_info</code> of the linked list <code> getaddrinfo() </code> we created.
+Note: there might be more addresses in the linked list but we just keep it simple and use the first one.
+<br>
+<br>
+We are now ready to connect to google.com. For that we use the <code>connect()</code> system call:
+<br>
+<br>
+<strong><code>int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</code></strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+<strong> sockfd </strong> : the socket descriptor the <code>socket()</code> call returns.
+<br>
+<strong> addr </strong> : The address we need to connect to. In our case stored in <code>'host_info_list-&gt;ai_addr'</code>.
+<br>
+<strong> addrlen </strong> : The addrlen  argument  specifies the size of addr. In our case stored in <code>'host_info_list-&gt;ai_addrlen'</code>.
+<br>
+<strong>return value</strong> : If  the connection succeeds, zero is returned. On error, -1 is returned, and errno is set appropriately.
+<br>
+<br>  
+Resulting in our connection call looking like this : 
+<br>
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Connect()ing..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+status&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">connect</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;host_info_list<span class="sh_symbol">-&gt;</span>ai_addr<span class="sh_symbol">,</span>&nbsp;host_info_list<span class="sh_symbol">-&gt;</span>ai_addrlen<span class="sh_symbol">);</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>status&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_symbol">-</span><span class="sh_number">1</span><span class="sh_symbol">)</span>&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"connect&nbsp;error"</span>&nbsp;<span class="sh_symbol">;</span>
+</span>
+</code></pre>
+<br>
+If we didn't get an error by now we should be connected to google.com at
+ port 80. The next thing we would like to do is send and receive some 
+data! 
+<br>
+<br>
+<strong> Sending and recieving data. </strong>
+<br>
+<br>
+For sending an recieving data we use the <code> send() </code> and  <code>recv()</code> system calls. 
+
+The <code> send()</code> call :
+<br>
+<br>
+<strong><code>ssize_t send(int sockfd, const void *buf, size_t len, int flags);</code></strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+<strong> sockfd </strong> :  The socket descriptor the <code>socket()</code> call returns.
+<br>
+<strong> buf </strong> : The message we want to send. 
+<br>
+<strong> len </strong> : The lenght of this message. Equals strlen(buf).
+<br>
+<strong> flags </strong> : Without this parameter, this call would be the same as the <code>write()</code> call. This parameter gives you some extra options. Read the <code>send()</code> MAN page for more information.
+<br>
+<strong>return value</strong> :    On success, this call returns  the  
+number  of  characters  sent.   On error, -1 is returned, and errno is 
+set appropriately. If you want to know if your message was send, this 
+value should be the same as <code>strlen(buf)</code>
+
+<br>
+<br>  
+
+In our case we want to get the homepage of google.com, so we will 
+pretent to be a browser (in fact, we are, just a very simple one), so we
+ comply to the HTTP protocol and request the homepage. We add the 
+following code :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"send()ing&nbsp;message..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+<span class="sh_type">char</span>&nbsp;<span class="sh_symbol">*</span>msg&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_string">"GET&nbsp;/&nbsp;HTTP/1.1</span><span class="sh_specialchar">\n</span><span class="sh_string">host:&nbsp;www.google.com</span><span class="sh_specialchar">\n\n</span><span class="sh_string">"</span><span class="sh_symbol">;</span>
+<span class="sh_type">int</span>&nbsp;len<span class="sh_symbol">;</span>
+<span class="sh_usertype">ssize_t</span><span class="sh_normal">&nbsp;</span>bytes_sent<span class="sh_symbol">;</span>
+len&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">strlen</span><span class="sh_symbol">(</span>msg<span class="sh_symbol">);</span>
+bytes_sent&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">send</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;msg<span class="sh_symbol">,</span>&nbsp;len<span class="sh_symbol">,</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">);</span>
+</span>
+</code></pre>
+<br>
+The last system call we have to use here is <code> recv()</code>. If the
+ other socket (in this case google's server) sends data back to us, our 
+socket will store this in a buffer. This buffer can be read using the <code> recv()</code> call.
+<br>
+<br>
+The recv() system call :
+<br>
+<br>
+<strong><code> ssize_t recv(int sockfd, void *buf, size_t len, int flags); </code></strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+<strong> sockfd </strong> :  The socket descriptor the <code>socket()</code> call returns.
+<br>
+<strong> buf </strong> : The variable we want to store the data in (input buffer).
+<br>
+<strong> len </strong> : The amout of data it will read from the input buffer.
+<br>
+<strong> flags </strong> : Read the <code>recv()</code> MAN page for more information.
+<br>
+<strong>return value</strong> :  This calls returns  the  number  of 
+bytes received, or -1 if an error occurred. The return value will be 0 
+when the peer has performed an orderly shutdown.
+<br>
+If  no messages are available at the socket, the <code>recv()</code> 
+call halts execution of your code and waits for a message to arrive. 
+This behaviour is called "blocking". By default a socket is in blocking 
+mode. A socket can also be in "non-blocking" mode so it will just 
+continue your code if there is no data in the buffer.
+<br>
+<br>
+One of the last pieces of code we need is:
+<br>
+<br>
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Waiting&nbsp;to&nbsp;recieve&nbsp;data..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+<span class="sh_usertype">ssize_t</span><span class="sh_normal">&nbsp;</span>bytes_recieved<span class="sh_symbol">;</span>
+<span class="sh_type">char</span>&nbsp;incoming_data_buffer<span class="sh_symbol">[</span><span class="sh_number">1000</span><span class="sh_symbol">];</span>
+bytes_recieved&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">recv</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;incoming_data_buffer<span class="sh_symbol">,</span><span class="sh_number">1000</span><span class="sh_symbol">,</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">);</span>
+<span class="sh_comment">//&nbsp;If&nbsp;no&nbsp;data&nbsp;arrives,&nbsp;the&nbsp;program&nbsp;will&nbsp;just&nbsp;wait&nbsp;here&nbsp;until&nbsp;some&nbsp;data&nbsp;arrives.</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>bytes_recieved&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">)</span>&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"host&nbsp;shut&nbsp;down."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl&nbsp;<span class="sh_symbol">;</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>bytes_recieved&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_symbol">-</span><span class="sh_number">1</span><span class="sh_symbol">)</span>std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"recieve&nbsp;error!"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl&nbsp;<span class="sh_symbol">;</span>
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;bytes_recieved&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"&nbsp;bytes&nbsp;recieved&nbsp;:"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl&nbsp;<span class="sh_symbol">;</span>
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;incoming_data_buffer&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+</span>
+</code></pre>
+<br>
+<code>recv()</code> does NOT know when google is done sending data, so 
+we just have to create our own method. This example only reads the first
+ 1000 bytes bytes send by google. When we want to read the rest, we 
+could make a loop. The problem with this solution would be that at some 
+point there is no more data in the buffer, and <code>recv()</code> keeps waiting for ever. The solution : Non-blocking sockets or multithreading.
+<br>
+<br>
+<strong> Other system calls you should know about. </strong>
+<br>
+<br>
+A function asociated with <code>getaddrinfo()</code> is <code>freeaddrinfo()</code>. You should use this function if you no longer need the linked list of <code>addrinfo</code>
+ structs. This function frees the memory used by the linked list. When 
+you're done using your socket, you can close it using the <code> close()</code> system call. 
+
+Finally we add to our code :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Receiving&nbsp;complete.&nbsp;Closing&nbsp;socket..."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+<span class="sh_function">freeaddrinfo</span><span class="sh_symbol">(</span>host_info_list<span class="sh_symbol">);</span>
+<span class="sh_function">close</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">);</span>
+</span>
+</code></pre>
+<br>
+<br>
+<strong>Download code</strong>
+<br>
+<br>
+The result is a program that connects to google and downloads (the first
+ 1000 bytes of) the google homepage. You can download it <a href="http://codebase.eu/tutorial/linux-socket-programming-c/code/tcpclient.cpp"><strong> HERE </strong></a> . <br>
+Compile it on linux with gcc : <kbd> g++ tcpclient.cpp -o client </kbd>
+<br>
+
+</div>
+
+<!--################################################################################################################ -->
+
+<div id="creating_a_server">
+<h3>V. Creating your own server.</h3>
+
+Creating a server is almost similar as creating a client. The difference is that we replace the <code>connect()</code> call by 3 other calls : <code>bind()</code>, <code>listen()</code> and <code>accept()</code>.
+<br>
+<br>
+The <code>getaddrinfo()</code> function also needs different parameters, because now we want our socket to be a server on our own host using our own port.
+<br>
+What we do is simply change "google.com" to NULL (NULL will 
+automatically use your localhost) and "80" to 5555 (the port number we 
+want to listen on).
+<br>
+In addition we add one extra line to specify that we want to accept connections on any of the addresses of the local host.
+<br>
+Note: Unless you are running your code as root, do NOT use a port number
+ lower then 1024, because port numbers lower then 1024 are usually 
+reserved for your OS.
+<br>
+<br>
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+host_info<span class="sh_symbol">.</span>ai_flags&nbsp;<span class="sh_symbol">=</span>&nbsp;AI_PASSIVE<span class="sh_symbol">;</span>&nbsp;
+status&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">getaddrinfo</span><span class="sh_symbol">(</span>NULL<span class="sh_symbol">,</span>&nbsp;<span class="sh_string">"5555"</span><span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>host_info<span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>host_info_list<span class="sh_symbol">);</span>
+</span>
+</code></pre>
+<br>
+Now we create a socket just like we did in our client code...
+<br>
+<br>
+Instead of <code>connect()</code> we use <code>bind()</code> to bind the
+ socket to the local port we specified. We use this call so Linux will 
+know that is has to forward an incoming packet on the specified port to 
+your program's socket descriptor.
+<br>
+<br>
+The bind() call :
+<br>
+<br>
+<strong><code>  int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen); </code></strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+<strong> sockfd </strong> :  The socket descriptor the <code>socket()</code> call returns.
+<br>
+<strong> addr </strong> : The address we want to listen on (localhost).
+<br>
+<strong> addrlen </strong> : The lenght of this address.
+<br>
+<strong> Return value : </strong>Like all the other calls it also 
+returns an integer. If it's '0' the call succeeded, if it's -1, we got 
+an error that  will be stored in <code>errno</code> as usual.
+<br>
+Our <code>bind()</code> call ends up looking like this :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Binding&nbsp;socket..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+<span class="sh_comment">//&nbsp;we&nbsp;make&nbsp;use&nbsp;of&nbsp;the&nbsp;setsockopt()&nbsp;function&nbsp;to&nbsp;make&nbsp;sure&nbsp;the&nbsp;port&nbsp;is&nbsp;not&nbsp;in&nbsp;use.</span>
+<span class="sh_comment">//&nbsp;by&nbsp;a&nbsp;previous&nbsp;execution&nbsp;of&nbsp;our&nbsp;code.&nbsp;(see&nbsp;man&nbsp;page&nbsp;for&nbsp;more&nbsp;information)</span>
+<span class="sh_type">int</span>&nbsp;yes&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">1</span><span class="sh_symbol">;</span>
+status&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">setsockopt</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;SOL_SOCKET<span class="sh_symbol">,</span>&nbsp;SO_REUSEADDR<span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>yes<span class="sh_symbol">,</span>&nbsp;<span class="sh_keyword">sizeof</span><span class="sh_symbol">(</span><span class="sh_type">int</span><span class="sh_symbol">));</span>
+status&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">bind</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;host_info_list<span class="sh_symbol">-&gt;</span>ai_addr<span class="sh_symbol">,</span>&nbsp;host_info_list<span class="sh_symbol">-&gt;</span>ai_addrlen<span class="sh_symbol">);</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>status&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_symbol">-</span><span class="sh_number">1</span><span class="sh_symbol">)</span>&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"bind&nbsp;error"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl&nbsp;<span class="sh_symbol">;</span></span>
+</code></pre>
+<br>
+<br>
+The bind call doesn't make your server listen for incoming connections yet. Why not? Because we can also use the <code>bind()</code>
+ call in our client code. Say for example we wanted our client program 
+to use localport 9999 , we would place a bind call before the <code>connect()</code> call. If you leave it out, your OS will choose any available port.
+<br>
+<br>
+What next?
+<br><br>
+What we need to do next is tell Linux we are actually listening for 
+incoming connections on that port. We do this using the listen() call:
+<br>
+<br>
+The <code>listen()</code> call:
+<br>
+<br>
+<strong><code> int listen(int sockfd, int backlog);  </code></strong>
+<br>
+<br>
+The parameters:
+<br>
+<br>
+<strong> sockfd </strong> :  The socket descriptor the <code>socket()</code> call returns.
+<br>
+<strong> backlog </strong> : Our server can only handle 1 client at a 
+time. What if more clients want to connect to your server at the same 
+time? With backlog you can specify how many connections will be put in 
+que. For example, if you set it to 5, and 7 connections to your server 
+are made, 1 will fail, 1 will connect and the other 5 will be put "on 
+hold". 
+<br>
+<strong> Return value </strong> : As usual it returns -1 on error and 0 on success.
+<br>
+<br>
+Our listen call  :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Listen()ing&nbsp;for&nbsp;connections..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+status&nbsp;<span class="sh_symbol">=</span>&nbsp;&nbsp;<span class="sh_function">listen</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;<span class="sh_number">5</span><span class="sh_symbol">);</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>status&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_symbol">-</span><span class="sh_number">1</span><span class="sh_symbol">)</span>&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"listen&nbsp;error"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl&nbsp;<span class="sh_symbol">;</span></span>
+</code></pre>
+<br>
+Now some client decides to connect to your server, what do we do?
+<br>
+We <code>accept()</code> the client. But this call does something special. It returns a new socket descriptor. Why?
+<br>
+Because we are a server and we want to serve as many people as possible, right?
+<br>
+Therefore <code>accept()</code> creates a new socket for each client 
+that connects. This way we can talk to to our client on a "private" 
+socket and keep our old socket listening for new visitors.
+<br>
+<br>
+The accept() call :
+<br>
+<br>
+
+<strong><code>new_fd = accept(sockfd, (struct sockaddr *)&amp;their_addr, &amp;addr_size);</code></strong>
+
+<br>
+<br>
+Parameters :
+<br>
+<br>
+<strong> sockfd </strong> :  The socket descriptor the <code>socket()</code> call returns.
+<br>
+<strong> their_addr  </strong> : their_addr will usually be a pointer to
+ a local struct sockaddr_storage. This is where the information about 
+the incoming connection will be stored (Like the client's IP address and
+ port).
+<br>
+<strong> addr_size  </strong> : addr_size is the size of the their_addr struct.
+<br>
+<br>
+<strong> return value  </strong> : A brand new socket descriptor on success! Or -1 on error.
+<br>
+<br>
+our accept call :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Listen()ing&nbsp;for&nbsp;connections..."</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl<span class="sh_symbol">;</span>
+status&nbsp;<span class="sh_symbol">=</span>&nbsp;&nbsp;<span class="sh_function">listen</span><span class="sh_symbol">(</span>socketfd<span class="sh_symbol">,</span>&nbsp;<span class="sh_number">5</span><span class="sh_symbol">);</span>
+<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>status&nbsp;<span class="sh_symbol">==</span>&nbsp;<span class="sh_symbol">-</span><span class="sh_number">1</span><span class="sh_symbol">)</span>&nbsp;&nbsp;std<span class="sh_symbol">::</span>cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"listen&nbsp;error"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;std<span class="sh_symbol">::</span>endl&nbsp;<span class="sh_symbol">;</span></span>
+</code></pre>
+<br>
+<br>
+At this time the connection should be established and we are ready to 
+talk using our new socket descriptor. Like in the client, we do this 
+with the <code>send()</code> and <code>recv()</code> calls. But <strong> DO NOT FORGET </strong> to use the new socket descriptor in the <code>send()</code> and <code>recv()</code> calls returned by <code>accept()</code>!
+
+<br>
+<br>
+Finally we use the <code>freeaddrinfo()</code> and <code>close()</code> functions because we like clean and proper code.
+<br>
+<br>
+<strong>Download </strong>
+<br>
+<br>
+Download the complete server example <a href="http://codebase.eu/tutorial/linux-socket-programming-c/code/tcpserver.cpp"><strong> HERE </strong></a> .
+<br>
+<strong>Testing :</strong>
+To test your server you can just telnet into it (telnet 127.0.0.1 5555) 
+or just use the client we created before (just change "google.com" to 
+"127.0.0.1" and "80" to "5555").
+<br>
+<br>
+<strong>What about serving multiple clients at the same time like webservers do? </strong>
+<br>
+<br>
+You can. However this is a little bit more complicated. There are 
+multiple methods for this, one of the most popular ones is  
+multithreading.
+You can read about multithreading in my<a href="http://codebase.eu/tutorial/posix-threads-c/"> Multithreading tutorial</a>, or you can take a look at my <a href="http://codebase.eu/source/code-cplusplus/multithreaded-socket-server/">Multithreaded chess/chat server </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		<div id="comments"> 
+		<h3>Comments</h3><br><hr><br><strong>sandman</strong> [ Tuesday 31st of December 2013 07:59:31 AM ]<br><pre class="output"><code><span style="color: #000000">
+Great</span>
+</code></pre><br><br><hr><br><strong>samansabuhi</strong> [ Friday 27th of December 2013 09:32:04 PM ]<br><pre class="output"><code><span style="color: #000000">
+thank\'s&nbsp;a&nbsp;lot.&nbsp;your&nbsp;code&nbsp;is&nbsp;perfect.
+<br>but&nbsp;in&nbsp;IV.&nbsp;Connecting&nbsp;to&nbsp;a&nbsp;server&nbsp;code&nbsp;you&nbsp;most&nbsp;include&nbsp;&lt;unistd.h&gt;&nbsp;becausse&nbsp;close()&nbsp;function&nbsp;at&nbsp;last&nbsp;part&nbsp;of&nbsp;the&nbsp;code&nbsp;didn\'t&nbsp;work.
+<br>I&nbsp;had&nbsp;to&nbsp;do&nbsp;my&nbsp;assignment&nbsp;and&nbsp;your&nbsp;code&nbsp;help&nbsp;me&nbsp;a&nbsp;lot.
+<br>
+<br>I&nbsp;have&nbsp;this&nbsp;warning
+<br>warning:&nbsp;deprecated&nbsp;conversion&nbsp;from&nbsp;string&nbsp;constant&nbsp;to&nbsp;‘char*’&nbsp;[-Wwrite-strings]
+<br>
+<br>and&nbsp;change&nbsp;
+<br>char&nbsp;*msg&nbsp;=&nbsp;\"GET&nbsp;/&nbsp;HTTP/1.1\\nhost:&nbsp;www.google.com\\n\\n\";
+<br>to
+<br>string&nbsp;msg&nbsp;=&nbsp;\"GET&nbsp;/&nbsp;HTTP/1.1\\nhost:&nbsp;www.google.com\\n\\n\";
+<br>
+<br>then&nbsp;use&nbsp;.c_str()&nbsp;function&nbsp;to&nbsp;convert&nbsp;them&nbsp;to&nbsp;char&nbsp;*
+<br>
+<br>thank\'s&nbsp;again.</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Tuesday 24th of December 2013 02:39:21 PM ]<br><pre class="output"><code><span style="color: #000000">
+Your&nbsp;message...</span>
+</code></pre><br><br><hr><br><strong>pallavi</strong> [ Monday 23rd of December 2013 12:01:51 PM ]<br><pre class="output"><code><span style="color: #000000">
+i&nbsp;didnt&nbsp;get&nbsp;it&nbsp;:P</span>
+</code></pre><br><br><hr><br><strong>MircooV</strong> [ Saturday 7th of December 2013 10:55:04 PM ]<br><pre class="output"><code><span style="color: #000000">
+I&nbsp;noticed&nbsp;that&nbsp;it\'s&nbsp;hard&nbsp;to&nbsp;find&nbsp;your&nbsp;blog&nbsp;in&nbsp;google,&nbsp;i&nbsp;found&nbsp;it&nbsp;on&nbsp;24th&nbsp;spot,&nbsp;you&nbsp;should&nbsp;get&nbsp;some&nbsp;quality&nbsp;backlinks&nbsp;to&nbsp;rank&nbsp;it&nbsp;in&nbsp;google&nbsp;and&nbsp;increase&nbsp;traffic.&nbsp;I&nbsp;had&nbsp;the&nbsp;same&nbsp;problem&nbsp;with&nbsp;my&nbsp;blog,&nbsp;your&nbsp;should&nbsp;search&nbsp;in&nbsp;google&nbsp;for&nbsp;-&nbsp;insane&nbsp;google&nbsp;ranking&nbsp;boost&nbsp;-&nbsp;it&nbsp;helped&nbsp;me&nbsp;a&nbsp;lot</span>
+</code></pre><br><br><hr><br><strong>GP</strong> [ Friday 6th of December 2013 02:35:54 AM ]<br><pre class="output"><code><span style="color: #000000">
+Thanks</span>
+</code></pre><br><br><hr><br><strong>georges</strong> [ Thursday 21st of November 2013 04:52:42 PM ]<br><pre class="output"><code><span style="color: #000000">
+great!&nbsp;thanks!
+<br>
+<br>just&nbsp;have&nbsp;to&nbsp;\"#include&nbsp;&lt;unistd.h&gt;\"&nbsp;for&nbsp;\"close(socketfd)\"</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Wednesday 20th of November 2013 08:28:46 PM ]<br><pre class="output"><code><span style="color: #000000">
+Nice&nbsp;tutorial&nbsp;understood&nbsp;well&nbsp;</span>
+</code></pre><br><br><hr><br><strong>habesh</strong> [ Monday 18th of November 2013 04:01:25 PM ]<br><pre class="output"><code><span style="color: #000000">
+nice&nbsp;tutorial&nbsp;thanks,</span>
+</code></pre><br><br><hr><br><strong>pap</strong> [ Tuesday 12th of November 2013 01:46:38 PM ]<br><pre class="output"><code><span style="color: #000000">
+test
+<br></span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Sunday 10th of November 2013 12:25:40 PM ]<br><pre class="output"><code><span style="color: #000000">
+Your&nbsp;message...</span>
+</code></pre><br><br><hr><br><strong>Aaron</strong> [ Sunday 10th of November 2013 10:12:03 AM ]<br><pre class="output"><code><span style="color: #000000">
+You&nbsp;have&nbsp;not&nbsp;even&nbsp;defined&nbsp;the&nbsp;below&nbsp;structure&nbsp;in&nbsp;program,&nbsp;how&nbsp;does&nbsp;getaddrinfo&nbsp;comes&nbsp;to&nbsp;know&nbsp;that&nbsp;I&nbsp;have&nbsp;to&nbsp;fill&nbsp;these&nbsp;data&nbsp;like&nbsp;ai_flags,&nbsp;ai_family?:
+<br>struct&nbsp;addrinfo&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ai_flags;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;This&nbsp;&nbsp;field&nbsp;&nbsp;specifies&nbsp;additional&nbsp;options.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ai_family;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;IPv4,&nbsp;IPv6&nbsp;or&nbsp;IP&nbsp;agnostic.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ai_socktype;&nbsp;&nbsp;//&nbsp;TCP&nbsp;or&nbsp;UDP.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ai_protocol;&nbsp;&nbsp;//&nbsp;The&nbsp;protocol&nbsp;for&nbsp;the&nbsp;returned&nbsp;socket&nbsp;addresses.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;size_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ai_addrlen;&nbsp;&nbsp;&nbsp;//&nbsp;Size&nbsp;of&nbsp;ai_addr&nbsp;in&nbsp;bytes
+<br>&nbsp;&nbsp;&nbsp;&nbsp;struct&nbsp;sockaddr&nbsp;*ai_addr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Containing&nbsp;the&nbsp;IP&nbsp;address&nbsp;and&nbsp;port.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*ai_canonname;&nbsp;//&nbsp;The&nbsp;Canonical&nbsp;hostname.
+<br>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;struct&nbsp;addrinfo&nbsp;*ai_next;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;linked&nbsp;list,&nbsp;next&nbsp;address.
+<br>};</span>
+</code></pre><br><br><hr><br><strong>Nono</strong> [ Saturday 9th of November 2013 01:10:06 PM ]<br><pre class="output"><code><span style="color: #000000">
+Excellent&nbsp;!</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Friday 20th of September 2013 08:46:14 AM ]<br><pre class="output"><code><span style="color: #000000">
+Your&nbsp;message...</span>
+</code></pre><br><br><hr><br><strong>asha</strong> [ Wednesday 11th of September 2013 06:00:38 AM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you&nbsp;author!!&nbsp;Good&nbsp;tutorial..</span>
+</code></pre><br><br><hr><br><strong>ktsiesao</strong> [ Tuesday 10th of September 2013 11:48:08 AM ]<br><pre class="output"><code><span style="color: #000000">
+製品の色、肌ケアの靴は最新の&nbsp;LV&nbsp;の労働者は心配に対処するように設計されている自然な手段デザインによってその期間を意識した設計で従事している物事のほんの一握りだけでなくインテリア&nbsp;・&nbsp;ファッション靴の彼らの選択の安心を優先するように見える人に加えてオンワード群衆これらの企業は、各&nbsp;LV&nbsp;概念の背後にある紙の心の最低は長い時間を持続させる芸術の靴を設計最高のデザイナー服このは、サーチャー欲望の運のベストを生成することをあなたに参加する各&nbsp;1&nbsp;つの収集であなたの服装をほめるあなたのすべての部分を常に見つけることができますこの方法ブランドを導入、完璧な最新をしみ出させるまたは人々&nbsp;を取る許可&nbsp;LV&nbsp;セット品質の靴を取得するリアルタイム外観を着用するかどうかを定義する検索なし、訴訟一目人�</span>
+</code></pre><br><br><hr><br><strong>sanket</strong> [ Tuesday 27th of August 2013 11:22:40 PM ]<br><pre class="output"><code><span style="color: #000000">
+just&nbsp;complete&nbsp;fucking&nbsp;awesome!
+<br>(i\'m&nbsp;noob!&nbsp;:)&nbsp;)</span>
+</code></pre><br><br><hr><br><strong>Anon</strong> [ Wednesday 21st of August 2013 03:03:49 PM ]<br><pre class="output"><code><span style="color: #000000">
+Great&nbsp;tutorial.</span>
+</code></pre><br><br><hr><br><strong>nallanaharish</strong> [ Thursday 8th of August 2013 07:04:57 AM ]<br><pre class="output"><code><span style="color: #000000">
+not&nbsp;that&nbsp;much&nbsp;good</span>
+</code></pre><br><br><hr><br><strong>Andrew</strong> [ Tuesday 6th of August 2013 11:00:52 PM ]<br><pre class="output"><code><span style="color: #000000">
+Its&nbsp;amazing......&nbsp;i&nbsp;try&nbsp;understand&nbsp;socket&nbsp;using&nbsp;several&nbsp;days.&nbsp;With&nbsp;this&nbsp;tutorial,&nbsp;i&nbsp;make&nbsp;it&nbsp;for&nbsp;20&nbsp;minutes&nbsp;)&nbsp;Thank&nbsp;Author&nbsp;!!!</span>
+</code></pre><br><br><hr><br><strong>rocksean30</strong> [ Monday 5th of August 2013 06:54:20 AM ]<br><pre class="output"><code><span style="color: #000000">
+To&nbsp;compile&nbsp;on&nbsp;solaris
+<br>tcpclient.cpp
+<br>&nbsp;g++&nbsp;tcpclient.cpp&nbsp;-o&nbsp;tcpclient&nbsp;-lnsl&nbsp;-lsocket&nbsp;-lresolv
+<br>
+<br>tcpserver.cpp
+<br>&nbsp;&nbsp;g++&nbsp;tcpserver.cpp&nbsp;-o&nbsp;tcpserver&nbsp;-lnsl&nbsp;-lsocket&nbsp;-lresolv</span>
+</code></pre><br><br><hr><br><strong>omaycotte</strong> [ Thursday 1st of August 2013 04:17:47 AM ]<br><pre class="output"><code><span style="color: #000000">
+The&nbsp;simplest&nbsp;&amp;&nbsp;cleanest&nbsp;tutorial&nbsp;on&nbsp;sockets&nbsp;I&nbsp;ever&nbsp;seen.&nbsp;Nice&nbsp;job</span>
+</code></pre><br><br><hr><br><strong>nafiseb</strong> [ Thursday 25th of July 2013 05:27:34 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thanks&nbsp;so&nbsp;much!&nbsp;It&nbsp;was&nbsp;such&nbsp;a&nbsp;nice&nbsp;tutorial&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>ABC</strong> [ Wednesday 17th of July 2013 12:10:34 PM ]<br><pre class="output"><code><span style="color: #000000">
+nice&nbsp;tutorial</span>
+</code></pre><br><br><hr><br><strong>KrishnaKumar</strong> [ Sunday 30th of June 2013 02:57:22 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you.&nbsp;I&nbsp;could&nbsp;make&nbsp;it&nbsp;work&nbsp;on&nbsp;my&nbsp;Raspberry&nbsp;pi.</span>
+</code></pre><br><br><hr><br><strong>Harsha</strong> [ Monday 24th of June 2013 05:56:04 AM ]<br><pre class="output"><code><span style="color: #000000">
+Hi&nbsp;guys&nbsp;I&nbsp;followed&nbsp;the&nbsp;above&nbsp;code&nbsp;and&nbsp;i&nbsp;built&nbsp;server&nbsp;and&nbsp;client,but&nbsp;iam&nbsp;getting&nbsp;connection&nbsp;failed&nbsp;error.could&nbsp;you&nbsp;please&nbsp;help&nbsp;me&nbsp;in&nbsp;this&nbsp;issue&nbsp;and&nbsp;also&nbsp;tell&nbsp;me&nbsp;prcedure&nbsp;to&nbsp;run&nbsp;the&nbsp;program.Thank&nbsp;you</span>
+</code></pre><br><br><hr><br><strong>Raj</strong> [ Wednesday 19th of June 2013 02:15:41 PM ]<br><pre class="output"><code><span style="color: #000000">
+This&nbsp;is&nbsp;a&nbsp;very&nbsp;good&nbsp;tutorial.&nbsp;Thanks&nbsp;for&nbsp;your&nbsp;wonderful&nbsp;presentation..&nbsp;</span>
+</code></pre><br><br><hr><br><strong>KrishnaKumar</strong> [ Sunday 16th of June 2013 11:11:40 AM ]<br><pre class="output"><code><span style="color: #000000">
+A&nbsp;nicely&nbsp;presented&nbsp;easy&nbsp;to&nbsp;understand&nbsp;tutorial.</span>
+</code></pre><br><br><hr><br><strong>luis</strong> [ Monday 13th of May 2013 09:54:42 PM ]<br><pre class="output"><code><span style="color: #000000">
+thank&nbsp;you
+<br></span>
+</code></pre><br><br><hr><br><strong>BishalNepali</strong> [ Monday 6th of May 2013 06:46:59 PM ]<br><pre class="output"><code><span style="color: #000000">
+After&nbsp;I&nbsp;nearly&nbsp;gave&nbsp;up&nbsp;trying&nbsp;to&nbsp;learn&nbsp;sockets&nbsp;I&nbsp;ended&nbsp;up&nbsp;to&nbsp;this&nbsp;post.
+<br>&nbsp;You&nbsp;really&nbsp;know&nbsp;how&nbsp;to&nbsp;teach.&nbsp;Thanks&nbsp;Dude.&nbsp;BTW,&nbsp;Wheres&nbsp;the&nbsp;donation&nbsp;Button?</span>
+</code></pre><br><br><hr><br><strong>Anish</strong> [ Monday 29th of April 2013 08:09:37 PM ]<br><pre class="output"><code><span style="color: #000000">
+I&nbsp;connected&nbsp;two&nbsp;Laps&nbsp;using&nbsp;a&nbsp;LAN&nbsp;Cable&nbsp;.&nbsp;I&nbsp;am&nbsp;able&nbsp;to&nbsp;Ping&nbsp;them&nbsp;both.&nbsp;But&nbsp;am&nbsp;not&nbsp;able&nbsp;to&nbsp;send&nbsp;or&nbsp;receive&nbsp;data&nbsp;using&nbsp;this&nbsp;program.&nbsp;The&nbsp;Server&nbsp;Code&nbsp;stops&nbsp;itself&nbsp;showing&nbsp;a&nbsp;bind&nbsp;error&nbsp;and&nbsp;the&nbsp;client&nbsp;stops&nbsp;itself&nbsp;after&nbsp;the&nbsp;call&nbsp;of&nbsp;the&nbsp;send&nbsp;function.&nbsp;Anybody&nbsp;can&nbsp;help&nbsp;me&nbsp;out.&nbsp;
+<br>
+<br>P.S&nbsp;:&nbsp;I&nbsp;am&nbsp;just&nbsp;a&nbsp;beginner&nbsp;in&nbsp;networking.&nbsp;A&nbsp;college&nbsp;student.</span>
+</code></pre><br><br><hr><br><strong>Dhivya</strong> [ Thursday 25th of April 2013 07:35:05 AM ]<br><pre class="output"><code><span style="color: #000000">
+Informative&nbsp;!!!</span>
+</code></pre><br><br><hr><br><strong>Wilson</strong> [ Wednesday 20th of March 2013 11:22:17 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you&nbsp;so&nbsp;much...&nbsp;you&nbsp;should&nbsp;add&nbsp;a&nbsp;donation&nbsp;button&nbsp;because&nbsp;I&nbsp;would&nbsp;have&nbsp;donated&nbsp;to&nbsp;you!&nbsp;
+<br>People&nbsp;like&nbsp;you&nbsp;make&nbsp;the&nbsp;internetz&nbsp;a&nbsp;nice&nbsp;place!</span>
+</code></pre><br><br><hr><br><strong>pratik</strong> [ Saturday 9th of March 2013 02:44:08 PM ]<br><pre class="output"><code><span style="color: #000000">
+thank&nbsp;you.&nbsp;</span>
+</code></pre><br><br><hr><br><strong>bravo2zero</strong> [ Sunday 24th of February 2013 05:42:36 AM ]<br><pre class="output"><code><span style="color: #000000">
+Nice&nbsp;tutorial&nbsp;/&nbsp;Its&nbsp;about&nbsp;time&nbsp;some&nbsp;one&nbsp;put&nbsp;together&nbsp;something&nbsp;this&nbsp;nice&nbsp;.How&nbsp;ever&nbsp;i&nbsp;think&nbsp;it&nbsp;would&nbsp;be&nbsp;nice&nbsp;to&nbsp;add&nbsp;packet&nbsp;creation&nbsp;and&nbsp;data&nbsp;loading&nbsp;just&nbsp;to&nbsp;complete&nbsp;the&nbsp;socket&nbsp;guide&nbsp;.</span>
+</code></pre><br><br><hr><br><strong>Digin</strong> [ Friday 18th of January 2013 11:23:51 AM ]<br><pre class="output"><code><span style="color: #000000">
+see&nbsp;this&nbsp;link&nbsp;for&nbsp;a&nbsp;sample&nbsp;code
+<br>http://godlytalias.blogspot.in/2013/01/socket-programming-in-c-with-multiple.html</span>
+</code></pre><br><br><hr><br><strong>gurug</strong> [ Friday 14th of December 2012 09:00:15 PM ]<br><pre class="output"><code><span style="color: #000000">
+good&nbsp;one</span>
+</code></pre><br><br><hr><br><strong>SK</strong> [ Thursday 6th of December 2012 05:51:40 PM ]<br><pre class="output"><code><span style="color: #000000">
+I&nbsp;want&nbsp;receive&nbsp;stream&nbsp;of&nbsp;data&nbsp;from&nbsp;memory&nbsp;using&nbsp;internet&nbsp;socket&nbsp;on&nbsp;TCP&nbsp;server.
+<br>
+<br>Data&nbsp;size&nbsp;is&nbsp;100&nbsp;MBytes,&nbsp;is&nbsp;it&nbsp;possible&nbsp;to&nbsp;get&nbsp;chunk&nbsp;of&nbsp;data&nbsp;in&nbsp;1&nbsp;MBytes?
+<br>
+<br>Help&nbsp;!</span>
+</code></pre><br><br><hr><br><strong>Pankaj</strong> [ Thursday 22nd of November 2012 10:33:24 AM ]<br><pre class="output"><code><span style="color: #000000">
+getting&nbsp;error&nbsp;\"Connection&nbsp;refused\"&nbsp;on
+<br>status&nbsp;=&nbsp;connect(socketfd,&nbsp;host_info_list-&gt;ai_addr,&nbsp;host_info_list-&gt;ai_addrlen)
+<br>
+<br>Please&nbsp;reply&nbsp;at&nbsp;pankajworld@yahoo.com</span>
+</code></pre><br><br><hr><br><strong>JG</strong> [ Saturday 27th of October 2012 02:11:06 PM ]<br><pre class="output"><code><span style="color: #000000">
+Great&nbsp;tutorial!&nbsp;Thank&nbsp;you,&nbsp;well&nbsp;explained&nbsp;and&nbsp;easy&nbsp;to&nbsp;understand&nbsp;for&nbsp;beginners!</span>
+</code></pre><br><br><hr><br><strong>vabbz</strong> [ Wednesday 12th of September 2012 08:38:35 AM ]<br><pre class="output"><code><span style="color: #000000">
+thank&nbsp;u&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>simon</strong> [ Thursday 12th of July 2012 11:02:00 AM ]<br><pre class="output"><code><span style="color: #000000">
+Well-balanced&nbsp;and&nbsp;complete&nbsp;tutorial.
+<br>It&nbsp;helps,&nbsp;thank&nbsp;you.</span>
+</code></pre><br><br><hr><br><strong>kino</strong> [ Sunday 1st of April 2012 03:18:09 AM ]<br><pre class="output"><code><span style="color: #000000">
+making&nbsp;the&nbsp;big&nbsp;switch&nbsp;from&nbsp;windoze&nbsp;to&nbsp;Debian&nbsp;Linux....with&nbsp;your&nbsp;tut.&nbsp;got&nbsp;the&nbsp;sockets&nbsp;working....Thanks</span>
+</code></pre><br><br><hr><br><strong>arnold</strong> [ Wednesday 20th of July 2011 10:09:07 PM ]<br><pre class="output"><code><span style="color: #000000">
+good&nbsp;tutorial.&nbsp;thank&nbsp;you.</span>
+</code></pre><br>  
+
+<!--
+##################################################################
+#####  		Display the comment form	            ######
+##################################################################
+!-->
+
+<div id="commentformsection">
+
+<form id="commentform" method="post" onsubmit="return checkform (this);" action="index.php#comments">
+	<fieldset>
+		<br>
+		<input name="name" maxlength="20" onfocus="this.value=''; this.onfocus=null;" value="Your name" type="text"><br>
+		<textarea name="message" cols="50" rows="15" onfocus="this.value=''; this.onfocus=null;">Your message...</textarea><br>
+				
+		<input name="addcomment" class="groovybutton" value="TRUE" type="hidden">
+	
+<script type="text/javascript" src="Socket%20programming%20in%20linux%20with%20c++_files/challenge"></script><script type="text/javascript" src="Socket%20programming%20in%20linux%20with%20c++_files/recaptcha.js"></script><div class=" recaptcha_nothad_incorrect_sol recaptcha_isnot_showing_audio" id="recaptcha_widget_div" style=""><div id="recaptcha_area"><table id="recaptcha_table" class="recaptchatable recaptcha_theme_red"> <tbody><tr> <td colspan="6" class="recaptcha_r1_c1"></td> </tr> <tr> <td class="recaptcha_r2_c1"></td> <td colspan="4" class="recaptcha_image_cell"><div style="width: 300px; height: 57px;" id="recaptcha_image"><img style="display:block;" alt="reCAPTCHA challenge image" src="Socket%20programming%20in%20linux%20with%20c++_files/image.jpeg" width="300" height="57"></div></td> <td class="recaptcha_r2_c2"></td> </tr> <tr> <td rowspan="6" class="recaptcha_r3_c1"></td> <td colspan="4" class="recaptcha_r3_c2"></td> <td rowspan="6" class="recaptcha_r3_c3"></td> </tr> <tr> <td rowspan="3" class="recaptcha_r4_c1" height="49"> <div class="recaptcha_input_area"> <span style="display: none;" id="recaptcha_challenge_field_holder"><input name="recaptcha_challenge_field" id="recaptcha_challenge_field" value="03AHJ_VusSBf5k4WuMZmxwulX76o0Fc3ma5fYm08nz8ZQBVc_4mBv0ur9ErgwAL84mMuFhlpyNf39Dq8magkSr_rz8Br261nlUtiVQHALta0LEpWVRWovTkJePK7PeoNSxSuaOqcW22_-KALkYLXi6wTf3AQxjSa0KnJzYd57U3k_4MHhtptwsEEM" type="hidden"></span><input autocomplete="off" name="recaptcha_response_field" id="recaptcha_response_field" autocorrect="off" autocapitalize="off" placeholder="Type the text" type="text"> <span id="recaptcha_privacy" class="recaptcha_only_if_privacy"><a target="_blank" href="http://www.google.com/intl/en/policies/">Privacy &amp; Terms</a></span> </div> </td> <td rowspan="4" class="recaptcha_r4_c2"></td> <td><a title="Get a new challenge" id="recaptcha_reload_btn"><img alt="Get a new challenge" src="Socket%20programming%20in%20linux%20with%20c++_files/refresh.gif" id="recaptcha_reload" width="25" height="17"></a></td> <td rowspan="4" class="recaptcha_r4_c4"></td> </tr> <tr> <td><a title="Get an audio challenge" id="recaptcha_switch_audio_btn" class="recaptcha_only_if_image"><img src="Socket%20programming%20in%20linux%20with%20c++_files/audio.gif" id="recaptcha_switch_audio" alt="Get an audio challenge" width="25" height="16"></a><a title="Get a visual challenge" id="recaptcha_switch_img_btn" class="recaptcha_only_if_audio"><img src="Socket%20programming%20in%20linux%20with%20c++_files/text.gif" id="recaptcha_switch_img" alt="Get a visual challenge" width="25" height="16"></a></td> </tr> <tr> <td><a title="Help" id="recaptcha_whatsthis_btn"><img alt="Help" src="Socket%20programming%20in%20linux%20with%20c++_files/help.gif" id="recaptcha_whatsthis" width="25" height="16"></a></td> </tr> <tr> <td class="recaptcha_r7_c1"></td> <td class="recaptcha_r8_c1"></td> </tr> </tbody></table> </div></div>
+
+	<noscript>
+  		<iframe src="http://www.google.com/recaptcha/api/noscript?k=6LeXJeASAAAAAJU0YCD887cXx9hxAG-H_I-BA50H" height="300" width="500" frameborder="0"></iframe><br/>
+  		<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+  		<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+	</noscript>	
+
+		<input name="Submit" class="groovybutton" value="send" type="submit">
+
+	</fieldset>
+</form>
+
+</div>
+
+
+
+
+
+
+
+		</div>
+	</div> 
+	
+
+		
+	
+
+
+
+	
+	<div id="footer">
+		
+
+
+	<a href="http://codebase.eu/show/sitemap/">SITEMAP</a>   -
+  
+
+   	© 2014 CODEBASE.EU       -
+	
+	
+	<a href="http://validator.w3.org/check?uri=referer">
+		<img src="Socket%20programming%20in%20linux%20with%20c++_files/validxhtml.gif" alt="validate">      
+		</a>
+
+	
+    	<a href="http://jigsaw.w3.org/css-validator/check/referer">
+        <img src="Socket%20programming%20in%20linux%20with%20c++_files/validcss.gif" alt="Valide CSS!">
+    	</a>
+	
+
+
+	
+
+
+	</div>
+
+  </div><!--/main-->
+
+
+
+
+
+</body></html>

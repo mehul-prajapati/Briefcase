@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="index,nofollow">
+
+<title>How to Create a Network Share Via Samba Via CLI (Command-line 
+interface/Linux Terminal) - Uncomplicated, Simple and Brief Way! - 
+Community Help Wiki</title>
+<script type="text/javascript" src="How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface_Linux%20Terminal%29%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way%21%20-%20Community%20Help%20Wiki_files/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface_Linux%20Terminal%29%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way%21%20-%20Community%20Help%20Wiki_files/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface_Linux%20Terminal%29%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way%21%20-%20Community%20Help%20Wiki_files/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface_Linux%20Terminal%29%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way%21%20-%20Community%20Help%20Wiki_files/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface_Linux%20Terminal%29%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way%21%20-%20Community%20Help%20Wiki_files/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static192/light/css/msie.css">
+<![endif]-->
+
+
+
+
+
+<link rel="Start" href="https://help.ubuntu.com/community/CommunityHelpWiki">
+<link rel="Alternate" title="Wiki Markup" href="https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface/Linux%20Terminal%29%20-%20Uncomplicated%2C%20Simple%20and%20Brief%20Way%21?action=raw">
+<link rel="Alternate" media="print" title="Print View" href="https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface/Linux%20Terminal%29%20-%20Uncomplicated%2C%20Simple%20and%20Brief%20Way%21?action=print">
+<link rel="Search" href="https://help.ubuntu.com/community/FindPage">
+<link rel="Index" href="https://help.ubuntu.com/community/TitleIndex">
+<link rel="Glossary" href="https://help.ubuntu.com/community/WordIndex">
+<link rel="Help" href="https://help.ubuntu.com/community/HelpOnFormatting">
+</head>
+
+<body dir="ltr" lang="en">
+
+
+    <div id="leftbanner">
+    </div>
+    <div id="rightbanner">
+    </div>
+    <div id="container">
+        <div id="container-inner">
+	    <div id="mothership">
+		<ul>
+	            <li><a href="http://www.ubuntu.com/partners">Partners</a> </li>
+        	    <li><a href="http://www.ubuntu.com/support">Support</a></li>
+        	    <li><a href="http://www.ubuntu.com/community">Community</a></li>
+        	    <li><a href="http://www.ubuntu.com/">Ubuntu.com</a></li>
+	        </ul>
+	    </div>
+            <div id="header">
+                <h1 id="ubuntu-header"><a href="https://help.ubuntu.com/">Ubuntu Documentation</a></h1>
+                <ul id="main-menu">
+                    <li><a href="https://help.ubuntu.com/">Official Documentation</a></li>
+                    <li><a class="main-menu-item current" href="https://help.ubuntu.com/community">Community Help Wiki</a></li>
+                </ul>
+            </div>
+            <div id="menu-search">
+                <div id="subheader"> 
+                    <div class="subheader-menu"> 
+                        <div id="second-nav">
+<ul id="username"><li><a href="https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface/Linux%20Terminal%29%20-%20Uncomplicated%2C%20Simple%20and%20Brief%20Way%21?action=login&amp;login=1" id="login" rel="nofollow">Login to edit</a></li></ul>
+ </div> 
+    <div id="user-info"> 
+    </div>
+ 
+
+                            
+                        </div> 
+                    </div> 
+
+
+                    <div id="search-box">
+
+<noscript>
+ <form action="http://www.google.com/cse" id="cse-search-box">
+   <div>
+     <input type="hidden" name="cx" value="004599128559784038176:vj_p0xo-nng" />
+     <input type="hidden" name="ie" value="UTF-8" />
+     <input type="text" name="q" size="21" />
+     <input type="submit" name="sa" value="Search" />
+   </div>
+ </form>
+</noscript>
+
+<script>
+ document.write('<form action="https://help.ubuntu.com/search.html" id="cse-search-box">');
+ document.write('  <div>');
+ document.write('    <input type="hidden" name="cof" value="FORID:9" />');
+ document.write('    <input type="hidden" name="cx" value="004599128559784038176:vj_p0xo-nng" />');
+ document.write('    <input type="hidden" name="ie" value="UTF-8" />');
+ document.write('    <input type="text" name="q" size="21" />');
+ document.write('    <input type="submit" name="sa" value="Search" />');
+ document.write('  </div>');
+ document.write('</form>');
+</script><form action="https://help.ubuntu.com/search.html" id="cse-search-box">  <div>    <input name="cof" value="FORID:9" type="hidden">    <input name="cx" value="004599128559784038176:vj_p0xo-nng" type="hidden">    <input name="ie" value="UTF-8" type="hidden">    <input name="q" size="21" type="text">    <input name="sa" value="Search" type="submit">  </div></form>
+
+
+                    </div>
+                </div>
+                <div id="title"><h1>
+<span id="pagelocation"><span class="pagepath"><a class="nonexistent" href="https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface">How to Create a Network Share Via Samba Via CLI (Command-line interface</a></span><span class="sep">/</span><a class="backlink" href="https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20%28Command-line%20interface/Linux%20Terminal%29%20-%20Uncomplicated%2C%20Simple%20and%20Brief%20Way%21?action=fullsearch&amp;value=linkto%3A%22How+to+Create+a+Network+Share+Via+Samba+Via+CLI+%28Command-line+interface%2FLinux+Terminal%29+-+Uncomplicated%2C+Simple+and+Brief+Way%21%22&amp;context=180" rel="nofollow" title="Click to do a full-text search for this title">Linux Terminal) - Uncomplicated, Simple and Brief Way!</a></span>
+</h1>
+                </div>
+            <div id="cwt-nav3">
+
+ <hr class="clear">
+            </div>
+                <div id="cwt-content" class="clearfix content-area">
+
+<div id="page" dir="ltr" lang="en">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+</p><h1 id="About_This_Guide">About This Guide</h1>
+<span class="anchor" id="line-2"></span><div><table style="float:right;  font-size: 0.9em;  width:40%;  background:#F1F1ED;  margin: 0 0 1em 1em;"><tbody><tr>  <td style="padding:0.5em;"><p class="line891"><br>
+</p><div class="table-of-contents"><p class="table-of-contents-heading">Contents</p><ol><li>
+<a href="#About_This_Guide">About This Guide</a></li><li>
+<a href="#Procedures">Procedures</a></li><li>
+<a href="#Source">Source</a></li></ol></div></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line874">In
+ this text, I teach how to create a network share via Samba using the 
+CLI (Command-line interface/Linux Terminal) in an uncomplicated, simple 
+and brief way targeting Windows users. <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span></p><p class="line867">
+</p><h1 id="Procedures">Procedures</h1>
+<span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line874">All commands must be done as root (precede each command with 'sudo' or use 'sudo su'). <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span></p><ul><li>Install Samba <span class="anchor" id="line-11"></span><ul><li style="list-style-type:none"><p class="line891"><strong><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span></strong></p><pre><strong><span class="anchor" id="line-1"></span>sudo apt-get update
+<span class="anchor" id="line-2"></span>sudo apt-get install samba</strong></pre><p class="line891"><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span></p></li></ul></li><li class="gap">Set a password for your user in Samba <span class="anchor" id="line-17"></span><ul><li style="list-style-type:none"><p class="line891"><strong><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span></strong></p><pre><strong><span class="anchor" id="line-1-1"></span>sudo smbpasswd -a &lt;user_name&gt;</strong></pre><p class="line891"><span class="anchor" id="line-20"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><pre><span class="anchor" id="line-1-2"></span>Note: Samba uses a separate set of passwords than the standard Linux system accounts (stored in /etc/samba/smbpasswd), so you'll need to create a Samba password for yourself. This tutorial implies that you will use your own user and it does not cover situations involving other users passwords, groups, etc...</pre><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><pre><span class="anchor" id="line-1-3"></span>Tip1: Use the password for your own user to facilitate.</pre><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><pre><span class="anchor" id="line-1-4"></span>Tip2: Remember that your user must have permission to write and edit the folder you want to share.
+<span class="anchor" id="line-2-1"></span>Eg.:
+<span class="anchor" id="line-3"></span>sudo chown &lt;user_name&gt; /var/opt/blah/blahblah
+<span class="anchor" id="line-4"></span>sudo chown :&lt;user_name&gt; /var/opt/blah/blahblah</pre><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span></li></ul></li></ul></li><li class="gap">Create a directory to be shared <span class="anchor" id="line-35"></span><p class="line891"><strong><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></strong></p><pre><strong><span class="anchor" id="line-1-5"></span>mkdir /home/&lt;user_name&gt;/&lt;folder_name&gt;</strong></pre><p class="line891"><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span></p></li><li class="gap">Make a safe backup copy of the original smb.conf file to your home folder, in case you make an error <span class="anchor" id="line-40"></span><p class="line891"><strong><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span></strong></p><pre><strong><span class="anchor" id="line-1-6"></span>sudo cp /etc/samba/smb.conf ~</strong></pre><p class="line891"><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span></p></li><li class="gap">Edit the file "/etc/samba/smb.conf" <span class="anchor" id="line-45"></span><p class="line891"><strong><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span></strong></p><pre><strong><span class="anchor" id="line-1-7"></span>sudo nano /etc/samba/smb.conf</strong></pre><p class="line891"><span class="anchor" id="line-48"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-8"></span>Once "smb.conf" has loaded, add this to the very end of the file:
+<span class="anchor" id="line-2-2"></span>
+<span class="anchor" id="line-3-1"></span>[&lt;folder_name&gt;]
+<span class="anchor" id="line-4-1"></span>path = /home/&lt;user_name&gt;/&lt;folder_name&gt;
+<span class="anchor" id="line-5"></span>available = yes
+<span class="anchor" id="line-6"></span>valid users = &lt;user_name&gt;
+<span class="anchor" id="line-7"></span>read only = no
+<span class="anchor" id="line-8"></span>browseable = yes
+<span class="anchor" id="line-9"></span>public = yes
+<span class="anchor" id="line-10"></span>writable = yes</pre><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><pre><span class="anchor" id="line-1-9"></span>Tip: There Should be in the spaces between the lines, and note que also there should be a single space both before and after each of the equal signs.</pre>      <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span></li></ul></li><li class="gap">Restart the samba: <span class="anchor" id="line-65"></span><p class="line891"><strong><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span></strong></p><pre><strong><span class="anchor" id="line-1-10"></span>sudo restart smbd</strong></pre><p class="line891"><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span></p></li><li class="gap">Once Samba has restarted, use this command to check your smb.conf for any syntax errors <span class="anchor" id="line-70"></span><p class="line891"><strong><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span></strong></p><pre><strong><span class="anchor" id="line-1-11"></span>testparm</strong></pre><p class="line891">      <span class="anchor" id="line-73"></span></p></li><li>To access your network share <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line862">To
+ access your network share use your username (&lt;user_name&gt;) and 
+password through the path 
+"smb://&lt;HOST_IP_OR_NAME&gt;/&lt;folder_name&gt;/" (Linux users) or 
+"\\&lt;HOST_IP_OR_NAME&gt;\&lt;folder_name&gt;\" (Windows users). Note 
+that "&lt;folder_name&gt;" value is passed in "[&lt;folder_name&gt;]", 
+in other words, the share name you entered in "/etc/samba/smb.conf". <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><pre><span class="anchor" id="line-1-12"></span>Note: The default user group of samba is "WORKGROUP".</pre><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span></li></ul></li></ul><p class="line867">
+</p><h1 id="Source">Source</h1>
+<span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><ul><li><p class="line891"><a class="http" href="http://www.hardcode.nl/archives_147/article_548-samba-quick-setup-on-ubuntu-1004.htm">http://www.hardcode.nl/archives_147/article_548-samba-quick-setup-on-ubuntu-1004.htm</a> <span class="anchor" id="line-84"></span></p></li></ul><span class="anchor" id="bottom"></span></div><div id="pagebottom"></div>
+</div>
+
+
+            </div>
+<p id="pageinfo" class="info" dir="ltr" lang="en">How to Create a 
+Network Share Via Samba Via CLI (Command-line interface/Linux Terminal) -
+ Uncomplicated, Simple and Brief Way!  (last edited 2014-01-21 20:37:56 
+by <span title="amotzg @ 77.127.60.90[77.127.60.90]"><a class="interwiki" href="https://launchpad.net/%7Eamotzg" title="amotzg @ 77.127.60.90[77.127.60.90]">amotzg</a></span>)</p>
+
+</div>
+            
+            <div id="footer">
+		<p>
+		The material on this wiki is available under a free license, see <a href="https://help.ubuntu.com/community/License">Copyright / License</a> for details<br><b>You</b> can contribute to this wiki, see 
+		<a href="https://help.ubuntu.com/community/WikiGuide">Wiki Guide</a> for details
+		</p>
+            </div>
+
+        </div>
+
+
+</body></html>

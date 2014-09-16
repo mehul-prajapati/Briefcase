@@ -1,0 +1,1054 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Contents</title>
+<style type="text/css">
+/*******************************************************************************
+ * Copyright (c) 2000, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
+BODY {
+	background-color: white;
+	font: 9pt Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin:0;
+	padding:0;
+	border:0;
+}
+
+UL { 
+	border-width:0; 
+	margin-left:20px; 
+}
+
+#root {
+	margin-top:5px;
+	margin-left:5px;
+}
+  
+UL.expanded {
+	display:block; 
+}
+
+UL.collapsed { 
+	display: none;
+}
+
+LI { 
+	margin-top:3px; 
+	list-style-image:none;
+	list-style-type:none;
+		white-space: nowrap;
+}
+
+IMG {
+	border:0px;
+	margin:0px;
+	padding:0px;
+	margin-right:4px;
+}
+
+
+A {
+	text-decoration:none; 
+	color:WindowText;
+	padding-right:2px;
+	/* this works in ie5.5, but not in ie5.0  */
+	white-space: nowrap;
+}
+
+A:hover{
+	text-decoration:underline; 
+}
+
+A.active{ 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+}
+
+A.active:hover{
+	text-decoration:underline; 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+}
+
+
+UL { 
+	margin-left:-20px;
+} 
+#root{ 
+	margin-left:-35px; 
+	margin-top:5px;
+} 
+ 
+
+
+.h {
+	visibility:hidden;
+}
+ 
+</style>  
+    
+<!-- base href="http://infocenter.arm.com/help/advanced/tocView.jsp?view=toc&topic=/com.arm.doc.ddi0190b/I32251.html" -->
+<script language="JavaScript" type="text/javascript">
+
+// Preload images
+minus = new Image();
+minus.src = "images"+"/minus.gif";
+plus = new Image();
+plus.src = "images"+"/plus.gif";
+toc_open_img = new Image();
+toc_open_img.src = "images"+"/toc_open.gif";
+toc_closed_img = new Image();
+toc_closed_img.src = "images"+"/toc_closed.gif";
+folder_img = new Image();
+folder_img.src = "images"+"/container_obj.gif";
+topic_img = new Image();
+topic_img.src = "images"+"/topic.gif";
+altTopicClosed = "Topic\u0020closed";
+altTopicOpen = "Topic\u0020open";
+</script>
+
+<script language="JavaScript" type="text/javascript" src="tocView_data/toc.js"></script>
+<script language="JavaScript" type="text/javascript"> 
+ 
+/**
+ * Loads the specified table of contents
+ */		
+function loadTOC(tocHref)
+{
+	// navigate to this toc, if not already loaded
+	if (window.location.href.indexOf("tocView.jsp?toc="+tocHref) != -1)
+		return;
+	window.location.replace("tocView.jsp?toc="+tocHref);
+}
+
+var tocTitle = "";
+var tocId = "";
+	
+function onloadHandler()
+{
+
+	tocTitle = 'CoreLink\u0020controllers\u0020and\u0020peripherals';
+	var tocTopic = "\u002E\u002E\u002Ftopic\u002Fcom\u002Earm\u002Edoc\u002Eset\u002Eprimecell\u002Findex\u002Ehtml";
+	
+	// set title on the content toolbar
+	parent.parent.parent.setContentToolbarTitle(tocTitle);
+		
+	var topicSelected=false;
+	// select specified topic, or else the book
+	var topic = "\u002E\u002E\u002Ftopic\u002Fcom\u002Earm\u002Edoc\u002Eddi\u0030\u0031\u0039\u0030b\u002FI\u0033\u0032\u0032\u0035\u0031\u002Ehtml";
+	if (topic != "about:blank" && topic != tocTopic) {
+		if (topic.indexOf(window.location.protocol) != 0 && topic.length > 2) {
+			// remove the .. from topic
+			topic = topic.substring(2);
+			// remove advanced/tocView.jsp from path to obtain contextPath
+			var contextPath = window.location.pathname;
+			var slash = contextPath.lastIndexOf('/');
+			if(slash > 0) {
+				slash = contextPath.lastIndexOf('/', slash-1);
+				if(slash >= 0) {
+					contextPath = contextPath.substr(0, slash);
+					topic = window.location.protocol + "//" +window.location.host + contextPath + topic;
+				}
+			}			
+		}
+		topicSelected = selectTopic(topic);
+	} else {
+		topicSelected = selectTopicById(tocId);
+	}
+
+	if(!topicSelected){
+		if(parent.parent.activityFiltering){
+			askShowAll();
+		}
+	}
+
+
+	focusHandler("e");
+}
+
+var askShowAllDialog;
+var w = 470;
+var h = 270;
+
+function askShowAll(){
+
+	var l = top.screenX + (top.innerWidth - w) / 2;
+	var t = top.screenY + (top.innerHeight - h) / 2;
+
+	// move the dialog just a bit higher than the middle
+	if (t-50 > 0) t = t-50;
+	
+	window.location="javascript://needModal";
+	askShowAllDialog = window.open("askShowAll.jsp", "askShowAllDialog", "resizeable=no,height="+h+",width="+w+",left="+l+",top="+t );
+	askShowAllDialog.focus(); 
+}
+
+function yesShowAll(){
+	window.parent.parent.showAll();
+}
+
+function closeAskShowAllDialog(){
+	try {
+		if (askShowAllDialog){
+			askShowAllDialog.close();
+		}
+	}
+	catch(e) {}
+}
+
+function onunloadHandler() {
+	closeAskShowAllDialog();
+
+}
+
+</script>
+</head>
+
+
+<body dir="ltr" onload="onloadHandler()" onunload="onunloadHandler()">
+	<ul dir="ltr" class="expanded" id="root">
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b0" name="/com.arm.doc.home/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.home/index.html" onclick='loadTOC("/com.arm.doc.home/toc.xml")'>About this site</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b1" name="/com.arm.doc.using/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.using/index.html" onclick='loadTOC("/com.arm.doc.using/toc.xml")'>Site FAQs</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b2" name="/com.arm.doc.feedback/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.feedback/index.html" onclick='loadTOC("/com.arm.doc.feedback/toc.xml")'>Giving feedback</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b3" name="/com.arm.doc.aeg0014e/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.aeg0014e/index.html" onclick='loadTOC("/com.arm.doc.aeg0014e/toc.xml")'>ARM Glossary</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b4" name="/com.arm.doc.faqs/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.faqs/index.html" onclick='loadTOC("/com.arm.doc.faqs/toc.xml")'>ARM Technical Support Knowledge Articles</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b5" name="/com.arm.doc.set.architecture/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.architecture/index.html" onclick='loadTOC("/com.arm.doc.set.architecture/toc.xml")'>ARM architecture</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b6" name="/com.arm.doc.set.swdev/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.swdev/index.html" onclick='loadTOC("/com.arm.doc.set.swdev/toc.xml")'>ARM Software development tools</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b7" name="/com.arm.doc.set.keil/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.keil/index.html" onclick='loadTOC("/com.arm.doc.set.keil/toc.xml")'>Keil embedded development tools</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b8" name="/com.arm.doc.set.boards/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.boards/index.html" onclick='loadTOC("/com.arm.doc.set.boards/toc.xml")'>Development boards</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b9" name="/com.arm.doc.set.devlib/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.devlib/index.html" onclick='loadTOC("/com.arm.doc.set.devlib/toc.xml")'>Developer Guides and Articles</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b10" name="/com.arm.doc.set.appnotes/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.appnotes/index.html" onclick='loadTOC("/com.arm.doc.set.appnotes/toc.xml")'>Application Notes and Tutorials</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b11" name="/com.arm.doc.set.research/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.research/index.html" onclick='loadTOC("/com.arm.doc.set.research/toc.xml")'>Research Papers</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b12" name="/com.arm.doc.set.cortexa/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.cortexa/index.html" onclick='loadTOC("/com.arm.doc.set.cortexa/toc.xml")'>Cortex-A series processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b13" name="/com.arm.doc.set.cortexr/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.cortexr/index.html" onclick='loadTOC("/com.arm.doc.set.cortexr/toc.xml")'>Cortex-R series processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b14" name="/com.arm.doc.set.cortexm/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.cortexm/index.html" onclick='loadTOC("/com.arm.doc.set.cortexm/toc.xml")'>Cortex-M series processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b15" name="/com.arm.doc.set.arm11/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.arm11/index.html" onclick='loadTOC("/com.arm.doc.set.arm11/toc.xml")'>ARM11 processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b16" name="/com.arm.doc.set.arm9/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.arm9/index.html" onclick='loadTOC("/com.arm.doc.set.arm9/toc.xml")'>ARM9 processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b17" name="/com.arm.doc.set.arm7/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.arm7/index.html" onclick='loadTOC("/com.arm.doc.set.arm7/toc.xml")'>ARM7 processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b18" name="/com.arm.doc.set.amba/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.amba/index.html" onclick='loadTOC("/com.arm.doc.set.amba/toc.xml")'>AMBA</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_open.gif" alt="Book open"><a id="b19" name="opened" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.primecell/index.html" onclick="">CoreLink controllers and peripherals</a>
+</li><li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">CoreLink interconnect</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">NIC-400 Network Interconnect</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p2</a><ul class="collapsed" id="0_0_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="0_0_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="0_0_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html#pl301"><img src="tocView_data/container_obj.gif" alt="">NIC-301 Network Interconnect</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p3</a><ul class="collapsed" id="0_1_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p2</a><ul class="collapsed" id="0_1_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p1</a><ul class="collapsed" id="0_1_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p0</a><ul class="collapsed" id="0_1_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p2</a><ul class="collapsed" id="0_1_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html#pl301r1p1"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p1</a><ul class="collapsed" id="0_1_5">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html#pl301r1p0"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p0</a><ul class="collapsed" id="0_1_6">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">CCI-400 Cache Coherent Interconnect</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p3</a><ul class="collapsed" id="0_2_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p2</a><ul class="collapsed" id="0_2_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p1</a><ul class="collapsed" id="0_2_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p0</a><ul class="collapsed" id="0_2_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p4</a><ul class="collapsed" id="0_2_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p3</a><ul class="collapsed" id="0_2_5">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p2</a><ul class="collapsed" id="0_2_6">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="0_2_7">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">QoS-400 Network Interconnect Advanced Quality of Service</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p2</a><ul class="collapsed" id="0_3_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="0_3_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="0_3_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">QoS-301 Network Interconnect Advanced Quality of Service</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0451b/index.html"><img src="tocView_data/container_obj.gif" alt="">CoreLink QoS-301 Network Interconnect Advanced Quality of Service Technical Reference Manual</a><ul class="collapsed" id="0_4_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">QVN-400 Network Interconnect Advanced Quality of Service</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p2</a><ul class="collapsed" id="0_5_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="0_5_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="0_5_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html#pl320"><img src="tocView_data/container_obj.gif" alt="">PL320 - Inter-Processor Communications Module</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0306b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Inter-Processor Communications Module (PL320) Technical Reference Manual</a><ul class="collapsed" id="0_6_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html#pl300"><img src="tocView_data/container_obj.gif" alt="">PL300 - AXI Configurable Interconnect</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0354b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell AXI Configurable Interconnect (PL300) Technical Reference Manual</a><ul class="collapsed" id="0_7_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">TLX-400 Network Interconnect Thin Links</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p2</a><ul class="collapsed" id="0_8_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="0_8_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.interconnect/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="0_8_2">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Memory controllers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">DMC-520 Dynamic Memory Controllers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="1_0_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">DMC-400 Dynamic Memory Controllers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p2</a><ul class="collapsed" id="1_1_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p1</a><ul class="collapsed" id="1_1_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p0</a><ul class="collapsed" id="1_1_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="1_1_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="1_1_4">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl34x"><img src="tocView_data/container_obj.gif" alt="">DMC-34x Dynamic Memory Controllers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">DMC-340 Revision: r4p0</a><ul class="collapsed" id="1_2_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl340r3p0"><img src="tocView_data/container_obj.gif" alt="">PL340 Revision: r3p0</a><ul class="collapsed" id="1_2_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl340r2p0"><img src="tocView_data/container_obj.gif" alt="">PL340 Revision: r2p0</a><ul class="collapsed" id="1_2_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">DMC-341 Revision: r1p1</a><ul class="collapsed" id="1_2_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl341r1p0"><img src="tocView_data/container_obj.gif" alt="">PL341 Revision: r1p0</a><ul class="collapsed" id="1_2_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl341r0p1"><img src="tocView_data/container_obj.gif" alt="">PL341 Revision: r0p1</a><ul class="collapsed" id="1_2_5">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl341r0p0"><img src="tocView_data/container_obj.gif" alt="">PL341 Revision: r0p0</a><ul class="collapsed" id="1_2_6">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">DMC-342 Revision: r0p0</a><ul class="collapsed" id="1_2_7">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl35x"><img src="tocView_data/container_obj.gif" alt="">PL35x - Static Memory Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl35xr2p1"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p1</a><ul class="collapsed" id="1_3_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl35xr2p0"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p0</a><ul class="collapsed" id="1_3_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl24x"><img src="tocView_data/container_obj.gif" alt="">PL24x - AHB Memory Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0389b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell AHB Memory Controller (PL241) Technical Reference Manual</a><ul class="collapsed" id="1_4_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0390b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell AHB SDR and NAND Memory Controller (PL242) Technical Reference Manual</a><ul class="collapsed" id="1_4_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0391b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell AHB SDR and SRAM/NOR Memory Controller (PL243) Technical Reference Manual</a><ul class="collapsed" id="1_4_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0392b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell AHB Memory Controller (PL244) Technical Reference Manual</a><ul class="collapsed" id="1_4_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0393b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell AHB DDR and SRAM/NOR Memory Controller (PL245) Technical Reference Manual</a><ul class="collapsed" id="1_4_4">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl17x"><img src="tocView_data/container_obj.gif" alt="">PL17x - Memory Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0159d/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell SDRAM Controller (PL170) Technical Reference Manual</a><ul class="collapsed" id="1_5_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0215e/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell MultiPort Memory Controller (PL172) Technical Reference Manual</a><ul class="collapsed" id="1_5_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0230d/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell MultiPort Memory Controller (PL175) Technical Reference Manual</a><ul class="collapsed" id="1_5_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0269a/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell MultiPort Memory Controller (PL176) Technical Reference Manual</a><ul class="collapsed" id="1_5_3">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html#pl09x"><img src="tocView_data/container_obj.gif" alt="">PL09x - Static Memory Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0236h/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Synchronous Static Memory Controller (PL093) Technical Reference Manual</a><ul class="collapsed" id="1_6_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0203f/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Static Memory Controller (PL092) Technical Reference Manual</a><ul class="collapsed" id="1_6_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.memory/index.html"><img src="tocView_data/container_obj.gif" alt="">SMC-35x Static Memory Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0380h/index.html"><img src="tocView_data/container_obj.gif" alt="">CoreLink SMC-35x AXI Static Memory Controller Series Technical Reference Manual</a><ul class="collapsed" id="1_7_0">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">System controllers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">MMU-500 System Memory Management Unit</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p0</a><ul class="collapsed" id="2_0_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_0_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">MMU-401 System Memory Management Unit</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_1_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">MMU-400 System Memory Management Unit</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_2_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl310"><img src="tocView_data/container_obj.gif" alt="">L2C-310 Level 2 Cache Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r3p3</a><ul class="collapsed" id="2_3_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r3p2</a><ul class="collapsed" id="2_3_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r3p1</a><ul class="collapsed" id="2_3_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r3p0</a><ul class="collapsed" id="2_3_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r2p0</a><ul class="collapsed" id="2_3_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl310r1p0"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p0</a><ul class="collapsed" id="2_3_5">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl310r0p0"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_3_6">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#l210"><img src="tocView_data/container_obj.gif" alt="">L2C-210 Level 2 Cache Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0284g/index.html"><img src="tocView_data/container_obj.gif" alt="">L210 Cache Controller Technical Reference Manual</a><ul class="collapsed" id="2_4_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0302c/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM L210 MBIST Controller Technical Reference Manual</a><ul class="collapsed" id="2_4_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#220"><img src="tocView_data/container_obj.gif" alt="">L2C-220 Level 2 Cache Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0329l/index.html"><img src="tocView_data/container_obj.gif" alt="">L220 Cache Controller Technical Reference Manual</a><ul class="collapsed" id="2_5_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0330f/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM L220 MBIST Controller Technical Reference Manual</a><ul class="collapsed" id="2_5_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl330"><img src="tocView_data/container_obj.gif" alt="">DMA-330 DMA Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p2</a><ul class="collapsed" id="2_6_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p1</a><ul class="collapsed" id="2_6_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r1p0</a><ul class="collapsed" id="2_6_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_6_3">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">GIC-400 Generic Interrupt Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="2_7_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_7_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl390"><img src="tocView_data/container_obj.gif" alt="">PL390 - Generic Interrupt Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0416b/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Generic Interrupt Controller (PL390) Technical Reference Manual</a><ul class="collapsed" id="2_8_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl23x"><img src="tocView_data/container_obj.gif" alt="">PL23x - PrimeCell µDMA Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0417a/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell µDMA Controller (PL230) Technical Reference Manual</a><ul class="collapsed" id="2_9_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl19x"><img src="tocView_data/container_obj.gif" alt="">PL19x - Vectored Interrupt Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0181e/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Vectored Interrupt Controller (PL190) Technical Reference Manual</a><ul class="collapsed" id="2_10_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0273a/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell Vectored Interrupt Controller (PL192) Technical Reference Manual</a><ul class="collapsed" id="2_10_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl11x"><img src="tocView_data/container_obj.gif" alt="">PL11x - Color LCD Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0161e/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Color LCD Controller (PL110) Technical Reference Manual</a><ul class="collapsed" id="2_11_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0293c/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Color LCD Controller (PL111) Technical Reference Manual</a><ul class="collapsed" id="2_11_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#pl08x"><img src="tocView_data/container_obj.gif" alt="">PL08x - DMA Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0196g/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell DMA Controller (PL080) Technical Reference Manual</a><ul class="collapsed" id="2_12_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0218e/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Single Master DMA Controller (PL081) Technical Reference Manual</a><ul class="collapsed" id="2_12_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">TZC-400 TrustZone Address Space Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0504b/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM CoreLink TZC-400 TrustZone Address Space Controller Technical Reference Manual</a><ul class="collapsed" id="2_13_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">TZC-380 TrustZone Address Space Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p1</a><ul class="collapsed" id="2_14_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#tzc380r0p0"><img src="tocView_data/container_obj.gif" alt="">Revision: r0p0</a><ul class="collapsed" id="2_14_1">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#bp141"><img src="tocView_data/container_obj.gif" alt="">BP141 - TrustZone Memory Adapter</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dto0017a/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Infrastructure AMBA 3 AXI TrustZone Memory Adapter (BP141) Technical Overview</a><ul class="collapsed" id="2_15_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.system/index.html#bp147"><img src="tocView_data/container_obj.gif" alt="">BP147 - TrustZone Protection Controller</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dto0015a/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell Infrastructure AMBA 3 TrustZone Protection Controller (BP147) Technical Overview</a><ul class="collapsed" id="2_16_0">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html"><img src="tocView_data/container_obj.gif" alt="">CoreLink peripherals</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl01x"><img src="tocView_data/container_obj.gif" alt="">PL01x - UART</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl010"><img src="tocView_data/container_obj.gif" alt="">PL010</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0139b/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell UART (PL010) Technical Reference Manual</a><ul class="collapsed" id="3_0_0_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl011p5"><img src="tocView_data/container_obj.gif" alt="">PL011 Revision: r1p5</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0183g/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell UART (PL011) Technical Reference Manual</a><ul class="collapsed" id="3_0_1_0">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl011p4"><img src="tocView_data/container_obj.gif" alt="">PL011 Revision: r1p4</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0183f/index.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell UART (PL011) Technical Reference Manual</a><ul class="collapsed" id="3_0_2_0">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl02x"><img src="tocView_data/container_obj.gif" alt="">PL02x - Synchronous Serial Port</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell Synchronous Serial Port (PL022) Technical Reference Manual</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/pr01.html"><img src="tocView_data/container_obj.gif" alt="">Preface</a><ul class="collapsed" id="3_1_0_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/Cacgabbf.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed" id="3_1_0_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/Cjajfaec.html"><img src="tocView_data/container_obj.gif" alt="">Functional Overview</a><ul class="collapsed" id="3_1_0_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/Chdfbhef.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model</a><ul class="collapsed" id="3_1_0_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/Cihejecf.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model for Test</a><ul class="collapsed" id="3_1_0_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/Babgchfg.html"><img src="tocView_data/container_obj.gif" alt="">Signal Descriptions</a><ul class="collapsed" id="3_1_0_5">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0194g/CIHDIDDJ.html"><img src="tocView_data/topic.gif" alt="">Revisions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl03x"><img src="tocView_data/container_obj.gif" alt="">PL03x - Real Time Clock</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell Real Time Clock (PL031) Technical Reference Manual</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/pr01.html"><img src="tocView_data/container_obj.gif" alt="">Preface</a><ul class="collapsed" id="3_2_0_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/BGEGGIHC.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed" id="3_2_0_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/CCHDGHJE.html"><img src="tocView_data/container_obj.gif" alt="">Functional Overview</a><ul class="collapsed" id="3_2_0_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/CJAIAEFI.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model</a><ul class="collapsed" id="3_2_0_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/BABIDJEG.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model for Test</a><ul class="collapsed" id="3_2_0_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0224b/CBBBCEEE.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell Real Time Clock (PL031) Signal Descriptions</a><ul class="collapsed" id="3_2_0_5">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl05x"><img src="tocView_data/container_obj.gif" alt="">PL050 - PS2 Keyboard/Mouse Interface</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell PS2 Keyboard/Mouse Interface (PL050) Technical Reference Manual</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/pr01.html"><img src="tocView_data/container_obj.gif" alt="">Preface</a><ul class="collapsed" id="3_3_0_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/CJAGAEJA.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed" id="3_3_0_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/BABECDDJ.html"><img src="tocView_data/container_obj.gif" alt="">Functional Overview</a><ul class="collapsed" id="3_3_0_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/CHDJJBAH.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model</a><ul class="collapsed" id="3_3_0_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/CHDGJJFJ.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model for Test</a><ul class="collapsed" id="3_3_0_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0143c/CHDGFECF.html"><img src="tocView_data/container_obj.gif" alt="">Signal Descriptions</a><ul class="collapsed" id="3_3_0_5">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl06x"><img src="tocView_data/container_obj.gif" alt="">PL06x - General Purpose Input/Output</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell General Purpose Input/Output (PL060) Technical Reference Manual</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/pr01.html"><img src="tocView_data/container_obj.gif" alt="">Preface</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i999681.html"><img src="tocView_data/container_obj.gif" alt="">About this document</a><ul class="collapsed" id="3_4_0_0_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i999686.html"><img src="tocView_data/container_obj.gif" alt="">Further reading</a><ul class="collapsed" id="3_4_0_0_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i999696.html"><img src="tocView_data/container_obj.gif" alt="">Feedback</a><ul class="collapsed" id="3_4_0_0_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CACBDGGH.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CACIEDFB.html"><img src="tocView_data/container_obj.gif" alt="">About the ARM PrimeCell General Purpose Input/Output (PL060)</a><ul class="collapsed" id="3_4_0_1_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1005525.html"><img src="tocView_data/topic.gif" alt="">AMBA compatibility</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CJACCDDA.html"><img src="tocView_data/container_obj.gif" alt="">Functional Overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CJADAFCG.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell General Purpose Input/Output (PL060) overview</a><ul class="collapsed" id="3_4_0_2_0">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1005273.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell GPIO functional description</a><ul class="collapsed" id="3_4_0_2_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1005277.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell GPIO operation</a><ul class="collapsed" id="3_4_0_2_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CHDEEICD.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1009847.html"><img src="tocView_data/topic.gif" alt="">About the programmer’s model</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1009322.html"><img src="tocView_data/topic.gif" alt="">Summary of PrimeCell GPIO registers</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1005653.html"><img src="tocView_data/container_obj.gif" alt="">Register descriptions</a><ul class="collapsed" id="3_4_0_3_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CIHHGFJJ.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model for Test</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CIHHJACH.html"><img src="tocView_data/topic.gif" alt="">PrimeCell General Purpose Input/Output test harness overview</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1000011.html"><img src="tocView_data/topic.gif" alt="">Scan testing</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CIHJIBDE.html"><img src="tocView_data/container_obj.gif" alt="">Test registers</a><ul class="collapsed" id="3_4_0_4_2">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/CHDJGHIB.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell General Purpose Input/Output (PL060) Signal Descriptions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1000008.html"><img src="tocView_data/topic.gif" alt="">AMBA APB signals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/apas02.html"><img src="tocView_data/topic.gif" alt="">On-chip signals</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0142b/i1000009.html"><img src="tocView_data/topic.gif" alt="">Signals to pads</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM PrimeCell General Purpose Input/Output (PL061) Technical Reference Manual</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/pr01.html"><img src="tocView_data/container_obj.gif" alt="">Preface</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1006319.html"><img src="tocView_data/container_obj.gif" alt="">About this document</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/pr01s01s01.html"><img src="tocView_data/topic.gif" alt="">Intended audience</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/pr01s01s02.html"><img src="tocView_data/topic.gif" alt="">Using this manual</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1006328.html"><img src="tocView_data/topic.gif" alt="">Typographical conventions</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/pr01s01s04.html"><img src="tocView_data/topic.gif" alt="">Timing diagram conventions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1006344.html"><img src="tocView_data/container_obj.gif" alt="">Further reading</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1006347.html"><img src="tocView_data/topic.gif" alt="">ARM publications</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1006352.html"><img src="tocView_data/container_obj.gif" alt="">Feedback</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1006362.html"><img src="tocView_data/topic.gif" alt="">Feedback on the ARM PrimeCell GPIO (PL061)</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/pr01s03s02.html"><img src="tocView_data/topic.gif" alt="">Feedback on this document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Babjgibj.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1002697.html"><img src="tocView_data/container_obj.gif" alt="">About the ARM PrimeCell GPIO (PL061)</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1003171.html"><img src="tocView_data/topic.gif" alt="">Features of the PrimeCell GPIO</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Cjafefhc.html"><img src="tocView_data/container_obj.gif" alt="">Functional Overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I30238.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell GPIO overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I5108.html"><img src="tocView_data/topic.gif" alt="">Data direction register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJAEBGDH.html"><img src="tocView_data/topic.gif" alt="">Data register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJAEIEJE.html"><img src="tocView_data/topic.gif" alt="">Interrupt control registers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJABEGJC.html"><img src="tocView_data/topic.gif" alt="">Mode control select register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJABABAF.html"><img src="tocView_data/topic.gif" alt="">Identification registers</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I5112.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell GPIO functional description</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I35944.html"><img src="tocView_data/topic.gif" alt="">AMBA APB interface</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I36173.html"><img src="tocView_data/topic.gif" alt="">Interrupt detection logic</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I36190.html"><img src="tocView_data/topic.gif" alt="">Mode control</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I31065.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell GPIO operation</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I19301.html"><img src="tocView_data/topic.gif" alt="">Interface reset</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJAIGGDH.html"><img src="tocView_data/container_obj.gif" alt="">Interface configuration</a><ul class="collapsed" id="3_4_1_2_2_1">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I19309.html"><img src="tocView_data/container_obj.gif" alt="">Operation of the input/output lines</a><ul class="collapsed" id="3_4_1_2_2_2">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJAGBJIC.html"><img src="tocView_data/container_obj.gif" alt="">Interrupt operation</a><ul class="collapsed" id="3_4_1_2_2_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/CJAGABDG.html"><img src="tocView_data/container_obj.gif" alt="">Mode control</a><ul class="collapsed" id="3_4_1_2_2_4">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Cihgbhea.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I35282.html"><img src="tocView_data/topic.gif" alt="">About the programmer’s model</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I18381.html"><img src="tocView_data/topic.gif" alt="">Summary of PrimeCell GPIO registers</a></li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I18702.html"><img src="tocView_data/container_obj.gif" alt="">Register descriptions</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I52696.html"><img src="tocView_data/topic.gif" alt="">Data register, GPIODATA</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a class="active" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I32251.html"><img src="tocView_data/topic.gif" alt="">Data direction register, GPIODIR</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I28167.html"><img src="tocView_data/topic.gif" alt="">Interrupt sense register, GPIOIS</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I52166.html"><img src="tocView_data/topic.gif" alt="">Interrupt both-edges register, GPIOIBE</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I32801.html"><img src="tocView_data/topic.gif" alt="">Interrupt event register, GPIOIEV</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I49493.html"><img src="tocView_data/topic.gif" alt="">Interrupt mask register, GPIOIE</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I49860.html"><img src="tocView_data/topic.gif" alt="">Raw interrupt status register, GPIORIS</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I36092.html"><img src="tocView_data/topic.gif" alt="">Masked interrupt status register, GPIOMIS</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I34647.html"><img src="tocView_data/topic.gif" alt="">Interrupt clear register, GPIOIC</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54603.html"><img src="tocView_data/topic.gif" alt="">Mode control select register, GPIOAFSEL</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54627.html"><img src="tocView_data/container_obj.gif" alt="">Peripheral identification registers, GPIOPeriphID0-3</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54627.html#Babbjiag"><img src="tocView_data/topic.gif" alt="">GPIOPeriphID0 register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54627.html#Babhfebb"><img src="tocView_data/topic.gif" alt="">GPIOPeriphID1 register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54627.html#Babegfdg"><img src="tocView_data/topic.gif" alt="">GPIOPeriphID2 register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54627.html#Babhbbae"><img src="tocView_data/topic.gif" alt="">GPIOPeriphID3 register</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54776.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell identification registers, GPIOPCellID0-3</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54776.html#Babibgha"><img src="tocView_data/topic.gif" alt="">GPIOPCellID0 register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54776.html#Babefgda"><img src="tocView_data/topic.gif" alt="">GPIOPCellID1 register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54776.html#Babiebbg"><img src="tocView_data/topic.gif" alt="">GPIOPCellID2 register</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I54776.html#Babggfif"><img src="tocView_data/topic.gif" alt="">GPIOPCellID3 register</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Chdccbce.html"><img src="tocView_data/container_obj.gif" alt="">Programmer’s Model for Test</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1020412.html"><img src="tocView_data/topic.gif" alt="">PrimeCell GPIO test harness overview</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1020677.html"><img src="tocView_data/topic.gif" alt="">Scan testing</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1027993.html"><img src="tocView_data/container_obj.gif" alt="">Integration test registers</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Bhaifbhe.html"><img src="tocView_data/topic.gif" alt="">Integration test control register, GPIOITCR</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/BHAEDHIG.html"><img src="tocView_data/topic.gif" alt="">Integration test input read/set register, GPIOITIP1</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/BHAFEDFF.html"><img src="tocView_data/topic.gif" alt="">Integration test input read/set register, GPIOITIP2</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/BHAEBHGF.html"><img src="tocView_data/topic.gif" alt="">Integration test output set register, GPIOITOP1</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/BHAIEEFF.html"><img src="tocView_data/topic.gif" alt="">Integration test output read register, GPIOITOP2</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Bhaggace.html"><img src="tocView_data/topic.gif" alt="">Integration test output read/set register, GPIOITOP3</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1024171.html"><img src="tocView_data/container_obj.gif" alt="">Integration testing of block inputs</a><ul class="collapsed" id="3_4_1_4_3">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1024970.html"><img src="tocView_data/container_obj.gif" alt="">Integration testing of block outputs</a><ul class="collapsed" id="3_4_1_4_4">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I1024273.html"><img src="tocView_data/topic.gif" alt="">Integration test summary</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Cdegihac.html"><img src="tocView_data/container_obj.gif" alt="">Signal Descriptions</a><ul class="collapsed" id="3_4_1_5">
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl13x"><img src="tocView_data/container_obj.gif" alt="">PL13x - Smart Card Interface</a><ul class="collapsed" id="3_5">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl16x"><img src="tocView_data/container_obj.gif" alt="">PL16x - DC-DC Converter Interface</a><ul class="collapsed" id="3_6">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html"><img src="tocView_data/container_obj.gif" alt="">PL18x - Multimedia Card Interface</a><ul class="collapsed" id="3_7">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#pl22x"><img src="tocView_data/container_obj.gif" alt="">PL220 - External Bus Interface</a><ul class="collapsed" id="3_8">
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.subset.primecell.peripherals/index.html#ptb"><img src="tocView_data/container_obj.gif" alt="">Peripheral Test Block</a><ul class="collapsed" id="3_9">
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.set.primecell/index.html"><img src="tocView_data/container_obj.gif" alt="">Other</a><ul class="collapsed" id="4">
+</ul>
+</li>
+
+			<script language="JavaScript" type="text/javascript">tocId="b"+19</script>
+
+			
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b20" name="/com.arm.doc.set.coresight/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.coresight/index.html" onclick='loadTOC("/com.arm.doc.set.coresight/toc.xml")'>CoreSight on-chip trace and debug</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b21" name="/com.arm.doc.set.graphics/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.graphics/index.html" onclick='loadTOC("/com.arm.doc.set.graphics/toc.xml")'>Mali graphics processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b22" name="/com.arm.doc.set.models/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.models/index.html" onclick='loadTOC("/com.arm.doc.set.models/toc.xml")'>Modeling and ESL</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b23" name="/com.arm.doc.set.pipd/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.pipd/index.html" onclick='loadTOC("/com.arm.doc.set.pipd/toc.xml")'>ARM Physical IP</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b24" name="/com.arm.doc.set.software/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.software/index.html" onclick='loadTOC("/com.arm.doc.set.software/toc.xml")'>Legacy products</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b25" name="/com.arm.doc.set.userassist/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.userassist/index.html" onclick='loadTOC("/com.arm.doc.set.userassist/toc.xml")'>Programmers Advice Notices</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b26" name="/com.arm.doc.set.errata/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.errata/index.html" onclick='loadTOC("/com.arm.doc.set.errata/toc.xml")'>Engineering Errata</a>
+
+		</li>	
+		
+	</ul>
+   <iframe name="dynLoadFrame" title="Layout frame: dynLoadFrame" style="visibility:hidden" tabindex="-1" scrolling="no" width="0" frameborder="no" height="0">
+    </iframe>
+
+
+
+</body></html>

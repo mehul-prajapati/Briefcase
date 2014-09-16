@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":0,"url":"http:\/\/www.embedded.com\/design\/mcus-processors-and-socs\/4008796\/Fundamentals-of-Booting-for-Embedded-Processors\/"});

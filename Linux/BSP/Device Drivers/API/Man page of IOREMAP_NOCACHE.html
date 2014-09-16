@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Man page of IOREMAP_NOCACHE</title>
+</head><body>
+<h1>IOREMAP_NOCACHE</h1>
+Section:  (9)<br>Updated: 15 March 2004<br><a href="#index">Index</a>
+<a href="http://mirror.linux.org.au/linux-mandocs/2.6.4-cset-20040312_2111/index.html">Return to Main Contents</a><hr>
+
+<p>
+<a name="lbAB">&nbsp;</a>
+</p><h2>NAME</h2>
+
+ioremap_nocache - map bus memory into CPU space
+<a name="lbAC">&nbsp;</a>
+<h2>SYNOPSIS</h2>
+
+<p>
+<b>
+</b></p><p><b>
+void * ioremap_nocache  (unsigned long </b><i>phys_addr</i><b>, unsigned long </b><i>size</i><b>);
+</b>
+<a name="lbAD">&nbsp;</a>
+</p><h2>ARGUMENTS</h2>
+
+<dl compact="compact">
+<dt><b></b><i>phys_addr</i><b></b></dt><dd>
+-- undescribed --
+</dd><dt><b></b><i>size</i><b></b></dt><dd>
+size of the resource to map
+</dd></dl>
+<a name="lbAE">&nbsp;</a>
+<h2>DESCRIPTION</h2>
+
+<p>
+
+ioremap_nocache performs a platform specific sequence of operations to
+make bus memory CPU accessible via the readb/readw/readl/writeb/
+writew/writel functions and the other mmio helpers. The returned
+address is not guaranteed to be usable directly as a virtual
+address. 
+</p><p>
+
+This version of ioremap ensures that the memory is marked uncachable
+on the CPU as well as honouring existing caching rules from things like
+the PCI bus. Note that there are other caches and buffers on many 
+busses. In particular driver authors should read up on PCI writes
+</p><p>
+
+It's useful if some control registers are in such an area and
+<a name="lbAF">&nbsp;</a>
+</p><h2>WRITE COMBINING OR READ CACHING IS NOT DESIRABLE</h2>
+
+<p>
+
+</p><p>
+
+Must be freed with iounmap.
+<a name="lbAG">&nbsp;</a>
+</p><h2>ABOUT THIS DOCUMENT</h2>
+
+<p>
+
+This documentation was generated with kernel version 2.6.4.
+</p><p>
+
+</p><hr>
+<a name="index">&nbsp;</a><h2>Index</h2>
+<dl>
+<dt><a href="#lbAB">NAME</a></dt><dd>
+</dd><dt><a href="#lbAC">SYNOPSIS</a></dt><dd>
+</dd><dt><a href="#lbAD">ARGUMENTS</a></dt><dd>
+</dd><dt><a href="#lbAE">DESCRIPTION</a></dt><dd>
+</dd><dt><a href="#lbAF">WRITE COMBINING OR READ CACHING IS NOT DESIRABLE</a></dt><dd>
+</dd><dt><a href="#lbAG">ABOUT THIS DOCUMENT</a></dt><dd>
+</dd></dl>
+<hr>
+This document was created by
+<a href="http://mirror.linux.org.au/linux-mandocs/2.6.4-cset-20040312_2111/index.html">man2html</a>,
+using the manual pages.<br>
+Time: 01:59:29 GMT, March 15, 2004
+
+
+</body></html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Usb Device Drivers</title>
+<meta name="language" content="english">
+<link href="Usb%20Device%20Drivers_files/en.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<p><i>Reprinted with permission of Linux Magazine</i></p>
+
+<h1>Usb Device Drivers</h1>
+				<p align="right">by Alessandro Rubini</p>
+
+
+<p>Even though Unix traditionally considers a device as either a "Char
+Device" or a "Block Device" (as outlined by the ``c'' or ``b'' in
+their <i>/dev</i> entry points), new classes of device are being
+introduced as technology advances. One of such classes is that of
+``USB devices''.
+
+</p><p>An USB device is still, at its lowest levels, a ``Char Device'' or
+a ``Block Device'' (this only if it is a mass-storage device), but the
+programming interface offered to device driver writers has been simplified
+and ``factorized'' in order to take advantage of the common hardware
+features offered by those devices and to offer arbitration of the bus
+and coordination in its use by the various drivers.
+
+<!-- Will the next article expand on this topic, by showing real code,
+or will Alan come back and do the column? If I'll do it, a paragraph
+stating that this is just the first part would fit here -->
+
+</p><p>This discussion is based on version 2.3.99-pre3 of the Linux
+kernel, the one current at time of writing. I expect little of no
+differences between this version and the 2.4 kernel that sits in front
+of you as you read.  I chose to compile the USB subsystem as modules
+and discuss the role of individual modules as the modularized form
+helps understanding the overall design, as compared to a kernel with
+the whole USB subsystem linked in.
+
+
+</p><h3>A quick tour of the hardware</h3>
+<!-- ============================ -->
+
+<p>While the ``USB'' acronym means ``Universal Serial Bus'', its
+physical structure is not a bus. The physical layout is rather a tree,
+where each transmission link can only connect two nodes: one of them
+is called the "upstream" node and the other is called the "downstream"
+node. To make the distinction clearer and avoiding endless cabling
+problems like those we experience daily with serial interfaces, the
+USB specification requires different connectors at the upstream and
+the downstream end of the cables. What you see lurking from the back
+of your computer is not ``the USB connector'' but rather ``the
+upstream USB connector'', also called type ``A''.
+
+</p><p>Each non-leaf node in the tree is an USB hub. The host controller
+(the hardware installed in the computer set) implements an USB hub, as
+this is the only way to spit out several communication channels
+towards USB devices. To preserve the tree structure, it is not
+possible for a device to have two upstream connections -- while there
+exist USB devices that can interconnect two computers by connecting to
+two different USB busses, those devices are conceptually two separate USB
+peripherals, each connected to its own bus.  Figure 1 and Figure 2
+depict two typical USB environments and their physical structure
+represented as a tree.
+
+<!-- figure 1: a PC with USB kbd and mouse, and associated USB tree -->
+
+</p><hr>
+<p><img src="Usb%20Device%20Drivers_files/figure1.png" border="2">
+<br><b>Figure 1:</b> a PC with USB kbd and mouse, and associated USB tree.
+</p><p>The image is available as PostScript <a href="http://www.linux.it/%7Erubini/docs/usb/figure1.ps">here</a>
+</p><hr>
+
+<!-- figure 2: a "text-book" overly-complex USB tree with hubs etc -->
+
+<p><img src="Usb%20Device%20Drivers_files/figure2.png" border="2">
+<br><b>Figure 2:</b> overly-complex USB tree with hubs etc
+</p><p>The image is available as PostScript <a href="http://www.linux.it/%7Erubini/docs/usb/figure2.ps">here</a>
+</p><hr>
+
+<p>As far as the host controller is concerned, all the implementations
+currently fall under one of two classes: ``Open Host Controller
+Interface'' (OHCI) and ``Universal Host Controller Interface''
+(UHCI). In Linux you can thus choose between two device drivers for
+your USB subsystem: <i>usb-ohci.o</i> and <i>usb-uhci.o</i>; whatever
+hardware you have, the module <i>usbcore.o</i> is required in order to
+load the hardware driver.
+<!-- I used "must be loaded in advance", but if you run "modprobe"
+instead of "insmod" it will he automatically loaded. I don't think
+if this form is the right one -->
+
+</p><p>When a device is plugged in the bus, it identifies itself as one of
+several classes of peripherals; in order to use the device you'll need
+to load a driver that reclaims ownership of that device and handles
+the associated communication protocol.
+
+</p><p>The USB protocol allows for a variety of device types and bandwidth
+usage.  To keep the discussion simple, I'll only stick to simple input
+devices, like mice and keyboards. Those devices don't need a sustained
+data rate or strict timing, so are the easiest to discuss as well as
+the most renown to the general public.
+
+</p><h3>The various modules and their interrelations</h3>
+<!-- ============================================ -->
+
+<p>When you compile the USB Linux subsystem as modules, you'll end up
+with several kernel modules.  While the internal communication among
+them is somehow complex, the dependencies of the modules are quite
+straightforward, as depicted in table 1 and figure 3. 
+
+</p><hr>
+<b>Table 1 lists the main entry points exported and used by each module</b>
+
+<code>
+
+
+</code><table width="100%" border="">
+<tbody><tr>
+    <th>module</th>
+    <th colspan="2">symbols exported by the module</th>
+    <th>symbols used at load and run time</th>
+</tr>
+<tr></tr>
+
+<tr>
+<td rowspan="4">usbcore.o</td>
+  <td>usb_register();</td><td>usb_deregister();</td><td>register_chrdev();</td>
+</tr>
+
+<tr><td>usb_connect();</td><td>usb_disconnect();</td><td>register_filesystem();</td></tr>
+
+<tr><td>usb_alloc_bus();</td><td>usb_free_bus();</td><td>kernel_thread();</td></tr>
+
+<tr><td>usb_alloc_dev();</td><td>usb_free_dev();</td><td>&nbsp;</td></tr>
+<tr></tr>
+
+<tr>
+<td rowspan="4">usb=ohci.o</td>
+      <td>&nbsp;</td><td>&nbsp;</td><td>pci_find_class();</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td><td>request_irq();</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td><td>usb_alloc_bus();</td></tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td><td>usb_alloc_dev();</td></tr>
+<tr></tr>
+
+<tr>
+<td rowspan="3">input.o</td>
+     <td>input_register_device();</td><td>input_unregister_device();</td><td>&nbsp;</td></tr>
+  <tr><td>input_open_device();</td><td>input_close_device();</td><td>&nbsp;</td></tr>
+  <tr><td>input_event();</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr></tr>
+
+<tr><td>keybdev.o</td><td>&nbsp;</td><td>&nbsp;</td><td>input_register_handler();</td></tr>
+<tr></tr>
+
+<tr><td>mousedev.o</td><td>&nbsp;</td><td>&nbsp;</td><td>input_register_handler();</td></tr>
+<tr></tr>
+
+<tr>
+<td rowspan="4">usbmouse.o</td>
+    <td>&nbsp;</td><td>&nbsp;</td><td>usb_register();</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>usb_submit_urb()</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>input_register_device();</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>input_event();</td></tr>
+ <tr></tr>
+
+<tr>
+<td rowspan="4">usbkbd.o</td>
+    <td>&nbsp;</td><td>&nbsp;</td><td>usb_register();</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>usb_submit_urb()</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>input_register_device();</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td><td>input_event();</td></tr>
+<tr></tr>
+
+
+</tbody></table>
+ 
+<hr>
+
+<p>As shown, the <i>usbcore</i> module offers all the software
+infrastructure needed for hardware handling while <i>input</i> offers a
+generic input management framework; all other modules stack
+on those two, registering as either producers or consumers of information.
+
+</p><p>As far as hardware is concerned, the host controller device driver
+(<i>ohci</i> or <i>uhci</i>) registers its functionality within
+<i>usbcore</i>'s data structures, and the same do the device-specific
+drivers (for example, <i>usbmouse</i> and <i>usbkbd</i>); their role
+is however different, as the host controller produces information
+(collected from the wire) while the other drivers consume information
+(by decoding the data and pushing it to its final destination).
+
+</p><p>Input management operates in a similar way: hardware drivers
+(<i>usbmouse</i> and <i>usbkbd</i>) produce data and the generic input
+handlers (<i>mousedev</i> and <i>keybdev</i>) consume data.  Both kinds
+of modules stack on <i>input.o</i>, registering their own entry points.
+
+</p><p>The question still unanswered is how can a module push information
+to another module by <i>only</i> registering a callback.  If you are
+confident with generic kernel drivers, you'll remember that things are
+usually set up the other way round: the consumer module registers its
+callback to be invoked whenever there is new data to consume. The USB
+driver is laid out differently because it is designed as a
+message-passing environment, instead of being a data-flow system like
+most of the Linux kernel. The key data structure, the ``message'', is
+called ``URB'', short for ``USB Request Block''.
+
+</p><h3>How URBs keep it all together</h3>
+<!-- ============================= -->
+
+<p>When a USB hardware driver is loaded, it calls
+<code>usb_alloc_bus()</code> to register its own
+<code>usb_operations</code> data structure with <i>usbcore.o</i> (the
+data structure is defined in <code>&lt;linux/usb.h&gt;</code> like
+every other header material relevant to this article).  The operations
+thus registered include <code>submit_urb</code> and
+<code>unlink_urb</code>, so the software layer can commit data
+transfer to the hardware driver.
+
+</p><p>With the software layer and the hardware drivers in place, a
+specific peripheral driver (like <i>usbmouse.o</i>) can register its
+own <code>usb_driver</code> data structure by calling
+<code>usb_register()</code>. The data structure includes pointers to a
+<code>probe</code> and a <code>disconnect</code> function. The former
+is called by the USB framework whenever a new device is detected and
+the latter whenever the device is unplugged from the bus.
+
+</p><p>When the probe succeeds (i.e., the new USB device can be handled by
+this device driver), the function submits its URB structure to the USB
+engine (by calling <code>usb_submit_urb()</code>), including in the
+URB a pointer to its ``completion handler'', a callback that will be
+invoked at the end of each hardware transaction.
+
+</p><p>Within <code>usb_submit_urb</code>, the URB is passed back to the
+host controller interface, so that the hardware driver can fill the
+URB buffers with relevant information and call the proper completion
+handler when a data transfer happens.
+
+<!-- maybe just drop this paragraph? Look very out of context -->
+</p><p>As of 2.3.99-pre3, the module usage count is behaving in a peculiar
+way. Even though the USB device driver (such as <i>usbmouse.o</i>) is
+notified when the peripheral device is connected to the bus, its usage
+count is never incremented, and you could remove the device driver
+module whenever you want. <!-- FIXME: does the linux-usb list report
+this as a bug or a feature? -->
+
+</p><p>While this description referred to mice and keyboards, the same
+design rules apply to other USB peripheral devices. The difference is
+mainly in how hardware handles the individual transactions: not every
+device works like keyboards and mice, a digital camera for example
+needs to push a sustained data rate into the bus.  The USB
+specification describes a few different transaction types, and all of
+them are handled by the USB Linux subsystem using URBs.
+
+</p><h3>Input handling</h3>
+<!-- ============== -->
+
+<p>Although the issue is not directly related to USB hardware, I think
+it's interesting to see how USB input devices, like keyboards and
+mice, are designed as part of a more generic input mechanism,
+implemented in the source file <code>drivers/usb/input.c</code>.
+
+</p><p>As already outlined (and shown in table 1), the USB modules for
+keyboards and mice stack on the <i>input</i> module as ``producers''
+of data, while more generic modules (<i>mousedev</i> and
+<i>keybdev</i>) stack on <i>input</i> as consumers of data.
+
+</p><hr>
+<p><img src="Usb%20Device%20Drivers_files/figure3.png" border="2">
+<br><b>Figure 3:</b> Dependencies among USB modules
+</p><p>The image is available as PostScript <a href="http://www.linux.it/%7Erubini/docs/usb/figure3.ps">here</a>
+</p><hr>
+
+<p>Whenever an USB input driver's completion handler is invoked, it
+pushes the data just received to the input management engine, by
+calling <code>input_event()</code>.
+
+</p><p>A ``consumer'' module registers its own callbacks within
+<i>input.o</i>, by calling <i>input_register_handler()</i> at load
+time. The <code>input_handler</code> data structure includes pointers
+to three callbacks: <code>connect</code>, <code>disconnect</code> and
+<code>event</code>, all that's needed for proper device management.
+What actually consumes input data is the <code>event</code> handler.
+
+</p><p>The role of <code>input_event()</code>, as called by the completion
+function of the peripheral USB driver, is that of distributing the
+input data to all the registered handlers. Each handler will just
+ignore data it is not interested in. Thus, if you didn't load
+<i>keybdev.o</i>, your USB keyboard will be ignored by the system,
+even though you loaded the <i>usbkbd</i> module and key-presses are
+correctly decoded and passed to the input engine.
+
+</p><p>The input handling machinery is very interesting, in my opinion, as
+it allows insertion of custom kernel modules in the event chain, both
+as producers and consumers of input events. A new event producer could
+push keyboard or mouse events down the system's chain even though it
+is not physically a keyboard, while a new event consumer can associate
+special actions (any action) to input events. That's a flexible tool
+for people who play with non-standard devices or need to implement
+non-standard behaviors in their kernels.
+
+</p><hr>
+<h3>Resources</h3>
+
+<ul>
+<li><p><a href="http://www.usb.org/">http://www.usb.org</a>
+carries the USB speciification and other interesing information about USB,
+including general software issues </p>
+
+</li><li><p>On a Linux system with kernel sources installed the directory 
+<a href="file:///usr/src/linux/Documentation/usb">/usr/src/linux/Documentation/usb</a>
+documents device-specific questions. The file "URB.txt" is particularly
+interesting as it thoroughly describes the URB data structure </p>
+
+</li><li><p><a href="http://linuxusbguide.sourceforge.net/">http://LinuxUSBGuide.sourceforge.net</a>
+the "linux-USB howto". A lot of information on setting up and using USB under Linux. </p>
+</li></ul>
+
+<hr>
+
+<blockquote><i>Verbatim copying and distribution of this entire article is permitted in any medium, provided this notice is preserved</i></blockquote>
+
+<hr>
+
+<i>Alessandro is an independent consultant based in Italy.  Even
+though he claims to be a programmer, his activity consists mostly in
+advocating libre software and documenting what real programmers do.
+He runs the GNU operating system on his computers, and can thus be
+reached as </i><code>rubini@gnu.org</code>.
+
+
+
+
+
+
+</body></html>
+<!--  LocalWords:  factorized dev Alessandro Rubini Usb usbmouse usbkbd URB -->
+<!--  LocalWords:  mousedev callback usbcore ohci uhci URBs linux urb -->
+<!--  LocalWords:  usb keybdev -->

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><script src="help_data/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="mutex_and_semaphore_data/jquery-1.js"></script><script type="text/javascript" src="mutex_and_semaphore_data/jquery.js"></script><script>$(document).ready(function(){$("pre.js").snippet("javascript",{style:"ide-eclipse",transparent:true,showNum:false});});</script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="mutex_and_semaphore_data/styles.css" rel="StyleSheet" type="text/css">
+  <title>Mutex and Semaphore</title>
+
+<script type="text/javascript" src="mutex_and_semaphore_data/synchWithToc.js"></script>
+
+<link rel="stylesheet" href="mutex_and_semaphore_data/breadcrumbs.css" charset="ISO-8859-1" type="text/css">
+<script type="text/javascript" src="mutex_and_semaphore_data/livehelp.js"> </script>
+<script type="text/javascript">if( self == top ){ window.location.replace( "../../../../../index.jsp?topic=/com.osp.cppappprogramming.help/html/dev_guide/base/mutex_and_semaphore.htm");}</script>
+<script type="text/javascript">
+<!--
+if (parent.ContentToolbarFrame && parent.ContentToolbarFrame.setButtonState) parent.ContentToolbarFrame.setButtonState("toggle_highlight","hidden");
+-->
+</script>
+
+</head>
+
+<body>
+<div class="help_breadcrumbs"><a href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/cover_page.htm">bada C++ App Programming</a> &gt; <a href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/dev_guide.htm">Developer Guide</a> &gt; <a href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/base_namespace.htm">Base: Basic Types, Execution Environment, and Utilities</a> &gt; <a href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/runtime_namespace.htm">Runtime</a></div>
+
+
+<!--<div id="banner">
+bada</div>-->
+
+<h1>Mutex and Semaphore</h1>
+
+<p>Mutual exclusion (<a href="http://developer.bada.com/help_2.0/topic/com.osp.cppapireference.help/classOsp_1_1Base_1_1Runtime_1_1Mutex.html">Osp::Base::Runtime::Mutex</a>) instances allow
+multiple threads to access a shared resource one at a time in a thread safe
+manner. A <span style="font-family: Courier New,Courier,monospace">Mutex</span>
+ locks an object for exclusive access by a thread. The threads that
+want to access a <span style="font-family: Courier New,Courier,monospace">Mutex</span>-locked object
+are queued until the <span style="font-family: Courier New,Courier,monospace">Mutex</span> is released.</p>
+
+<p><a href="http://developer.bada.com/help_2.0/topic/com.osp.cppapireference.help/classOsp_1_1Base_1_1Runtime_1_1Semaphore.html">Osp::Base::Runtime::Semaphore</a>s
+allow a limited number of threads to access a resource, and keep track 
+of how
+many threads are accessing that resource. For example, if N printers are
+ attached to one printer server, then the printer server can serve N 
+printing tasks simultaneously.</p>
+
+<p><span style="font-family: Courier New,Courier,monospace">Mutex</span> and <span style="font-family: Courier New,Courier,monospace">Semaphore</span> resources are acquired and released using the <span style="font-family: Courier New,Courier,monospace">Acquire()</span> and <span style="font-family: Courier New,Courier,monospace">Release()</span> methods. The following code snippet demonstrates the implementation of these methods.</p>
+
+<div class="snippet-container" style="undefined;"><div class="sh_ide-eclipse snippet-wrap"><div class="snippet-menu sh_sourceCode" style="display: none;"><pre><a style="display: none;" class="snippet-copy sh_url" href="#">copy</a><a class="snippet-text sh_url" href="#">text</a><a class="snippet-window sh_url" href="#">pop-up</a></pre></div><pre style="background-color: transparent; box-shadow: none;" class="js sh_javascript snippet-formatted sh_sourceCode"><ul class="snippet-no-num"><li class="sh_li_for_codes"><span class="sh_comment">// Acquire and release a mutex</span></li><li class="sh_li_for_codes">Mutex<span class="sh_symbol">*</span> pMutex <span class="sh_symbol">=</span> <span class="sh_keyword">new</span> Mutex<span class="sh_symbol">;</span></li><li class="sh_li_for_codes">pMutex<span class="sh_symbol">-&gt;</span><span class="sh_function">Create</span><span class="sh_symbol">();</span> </li><li class="sh_li_for_codes">pMutex<span class="sh_symbol">-&gt;</span><span class="sh_function">Acquire</span><span class="sh_symbol">();</span></li><li class="sh_li_for_codes"><span class="sh_comment">// Use shared resource</span></li><li class="sh_li_for_codes">pMutex<span class="sh_symbol">-&gt;</span><span class="sh_function">Release</span><span class="sh_symbol">();</span></li><li class="sh_li_for_codes"><span style="display:none;">&nbsp;</span></li><li class="sh_li_for_codes"><span class="sh_comment">// Acquire and release a semaphore</span></li><li class="sh_li_for_codes">Semaphore<span class="sh_symbol">*</span> pSemaphore <span class="sh_symbol">=</span> <span class="sh_keyword">new</span> Semaphore<span class="sh_symbol">;</span></li><li class="sh_li_for_codes">pSemaphore<span class="sh_symbol">-&gt;</span><span class="sh_function">Create</span><span class="sh_symbol">();</span> </li><li class="sh_li_for_codes">pSemaphore<span class="sh_symbol">-&gt;</span><span class="sh_function">Acquire</span><span class="sh_symbol">();</span></li><li class="sh_li_for_codes"><span class="sh_comment">// Use shared resource</span></li><li class="sh_li_for_codes">pSemaphore<span class="sh_symbol">-&gt;</span><span class="sh_function">Release</span><span class="sh_symbol">();</span></li></ul></pre><pre class="snippet-textonly sh_sourceCode" style="display: none; background-color: transparent; box-shadow: none;">// Acquire and release a mutex
+Mutex* pMutex = new Mutex;
+pMutex-&gt;Create(); 
+pMutex-&gt;Acquire();
+// Use shared resource
+pMutex-&gt;Release();
+
+// Acquire and release a semaphore
+Semaphore* pSemaphore = new Semaphore;
+pSemaphore-&gt;Create(); 
+pSemaphore-&gt;Acquire();
+// Use shared resource
+pSemaphore-&gt;Release();
+</pre></div></div>
+
+
+
+<h2>Where to Go Next</h2>
+<ul>
+  <li><a href="http://developer.bada.com/help_2.0/topic/com.osp.cppappprogramming.help/html/dev_guide/base/runtime_namespace.htm">Runtime Guide</a></li>
+  </ul>
+
+<div id="footer">
+	<font size="1">Copyright © 2011 Samsung Electronics Co., Ltd. All rights reserved.</font>
+</div>
+<!--start-->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-15055292-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!--end-->
+
+
+
+
+</body></html>

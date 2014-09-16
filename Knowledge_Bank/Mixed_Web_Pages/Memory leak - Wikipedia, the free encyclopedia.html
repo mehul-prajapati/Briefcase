@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-js ve-not-available" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Memory leak - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="generator" content="MediaWiki 1.23wmf14">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit">
+<link rel="apple-touch-icon" href="http://bits.wikimedia.org/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Memory_leak">
+<link rel="stylesheet" href="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.css">
+<style>
+@-webkit-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-webkit-transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0)}}@-moz-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-moz-transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0)}}@-o-keyframes centralAuthPPersonalAnimation{0%{opacity:0;-o-transform:translateY(-20px)}100%{opacity:1;-o-transform:translateY(0)}}@keyframes centralAuthPPersonalAnimation{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}.centralAuthPPersonalAnimation{-webkit-animation-duration:1s;-moz-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-name:centralAuthPPersonalAnimation;-moz-animation-name:centralAuthPPersonalAnimation;-o-animation-name:centralAuthPPersonalAnimation;animation-name:centralAuthPPersonalAnimation}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0dcacc990dd02e7db9669ab3090b80f1 */
+.mw-editsection{white-space:nowrap;padding-right:0.25em; unicode-bidi:-moz-isolate;unicode-bidi:-webkit-isolate;unicode-bidi:isolate}.mw-editsection-divider{color:#555} .mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-left:-0.25em;margin-right:0.25em;color:#555} .mw-content-rtl .mw-editsection-expanded .mw-editsection-bracket:first-of-type,.mw-content-ltr .mw-editsection-expanded .mw-editsection-bracket:not(:first-of-type){margin-right:-0.25em;margin-left:0.25em;color:#555}.ve-tabmessage-appendix{font-size:0.7em;vertical-align:top;line-height:1.43em;padding-left:0.5em; background-image:none !important;display:inline !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:10d5f32d441941e72673fc73cdfe14a9 */
+.uls-menu a{cursor:pointer}.uls-menu.callout .caret-before{border-top:20px solid transparent;border-right:20px solid #AAA;border-bottom:20px solid transparent;display:inline-block;left:-21px;top:30px;position:absolute}.uls-menu.callout .caret-after{border-top:20px solid transparent;border-right:20px solid #FCFCFC;border-bottom:20px solid transparent;display:inline-block;left:-20px;top:30px;position:absolute}.uls-ui-languages button{width:23%;text-overflow:ellipsis;margin-right:4%}button.uls-more-languages{width:auto}.settings-title{font-size:11pt}.settings-text{color:#555555;font-size:9pt}div.display-settings-block:hover .settings-text{color:#252525}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:491ee552778d7da2edfaacae0417e09b */
+.tipsy{padding:5px;position:absolute;z-index:100000;cursor:default}.tipsy-inner{padding:5px 8px 4px 8px; background-color:#ffffff;border:solid 1px #a7d7f9;color:black;max-width:15em;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px; }.tipsy-arrow{position:absolute;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALAgMAAADUwp+1AAAACVBMVEX5+fmn1/n///9s6BFKAAAAAXRSTlMAQObYZgAAACpJREFUCB1jZBD4wMiQMoeRcUU4I9uSaYxSE54xZjn8AtMgPkgcJA9UBwAeDw1Qrb3pVAAAAABJRU5ErkJggg==) no-repeat top left;background:url(//bits.wikimedia.org/static-1.23wmf14/resources/jquery.tipsy/images/tipsy.png?2014-02-13T17:46:40Z) no-repeat top left!ie;width:11px;height:6px} .tipsy-n .tipsy-arrow{top:0px;left:50%;margin-left:-5px} .tipsy-nw .tipsy-arrow{top:1px;left:10px} .tipsy-ne .tipsy-arrow{top:1px;right:10px} .tipsy-s .tipsy-arrow{bottom:0px;left:50%;margin-left:-5px;background-position:bottom left} .tipsy-sw .tipsy-arrow{bottom:0px;left:10px;background-position:bottom left} .tipsy-se .tipsy-arrow{bottom:0px;right:10px;background-position:bottom left} .tipsy-e .tipsy-arrow{top:50%;margin-top:-5px;right:1px;width:5px;height:11px;background-position:top right} .tipsy-w .tipsy-arrow{top:50%;margin-top:-5px;left:0px;width:6px;height:11px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:a698aa5d67345d60aabc59a329d04328 */
+.wbc-editpage{list-style:none none;text-align:right;padding-right:.5em !important}.wbc-editpage > a{padding-left:11px;background:no-repeat left center}.wbc-editpage > a:link,.wbc-editpage > a:visited{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEUZAAD///95eXmqqqrY2NjEIQ0cAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGIAASUFENNJCUiqmADZTM5OqExFFZAKRSG4YgBjcwODynSgDwAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/Wikidata/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil.png?2014-02-13T17:51:40Z)!ie;color:#797979 !important}.wbc-editpage > a:hover{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAAD1BMVEWBAADY2Nj///8GRa0zZrtW2AECAAAAAXRSTlMAQObYZgAAACdJREFUCNdjYGBgYGYAAWMDEFPYGEgaOgLZzCLCqEwjQ5AKI2W4YgBg5QOTQPzBuAAAAABJRU5ErkJggg==);background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/Wikidata/extensions/Wikibase/client/resources/images/WBC-Asset-Pencil-Hover.png?2014-02-13T17:51:40Z)!ie;color:#0645AD !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9a80ed18cd60e13a378ef524a8f1d587 */
+@media print{#centralNotice{display:none}}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ddb0c98a055632ae8e349c9cf48ac703 */</style><style>
+.cite-accessibility-label{position:absolute !important; top:-99999px;clip:rect(1px 1px 1px 1px); clip:rect(1px,1px,1px,1px);padding:0 !important;border:0 !important;height:1px !important;width:1px !important;overflow:hidden}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6989008023386f50501783f5c5ff5345 */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(//bits.wikimedia.org/static-1.23wmf14/resources/mediawiki.action/images/green-checkmark.png?2014-02-13T17:46:40Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:835b467bd250310b6e90d133c28a7a61 */
+.mw-collapsible-toggle{float:right;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none} caption .mw-collapsible-toggle{float:none} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:6c1d24e90626cec584f0869483f983e7 */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.wp-teahouse-question-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}#wp-th-question-ask{float:right}.wp-teahouse-ask a.external{background-image:none !important}.wp-teahouse-respond-form{position:absolute;margin-left:auto;margin-right:auto;background-color:#f4f3f0;border:1px solid #a7d7f9;padding:1em}.wp-th-respond{float:right}.wp-teahouse-respond a.external{background-image:none !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:ba4e3603af357b5172e85672664d39a8 */
+.referencetooltip{position:absolute;list-style:none;list-style-image:none;opacity:0;font-size:10px;margin:0;z-index:5;padding:0}.referencetooltip li{border:#080086 2px solid;max-width:260px;padding:10px 8px 13px 8px;margin:0px;background-color:#F7F7F7;box-shadow:2px 4px 2px rgba(0,0,0,0.3);-moz-box-shadow:2px 4px 2px rgba(0,0,0,0.3);-webkit-box-shadow:2px 4px 2px rgba(0,0,0,0.3)}.referencetooltip li+li{margin-left:7px;margin-top:-2px;border:0;padding:0;height:3px;width:0px;background-color:transparent;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;border-top:12px #080086 solid;border-right:7px transparent solid;border-left:7px transparent solid}.referencetooltip>li+li::after{content:'';border-top:8px #F7F7F7 solid;border-right:5px transparent solid;border-left:5px transparent solid;margin-top:-12px;margin-left:-5px;z-index:1;height:0px;width:0px;display:block}.client-js body .referencetooltip li li{border:none;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;height:auto;width:auto;margin:auto;padding:0;position:static}.RTflipped{padding-top:13px}.referencetooltip.RTflipped li+li{position:absolute;top:2px;border-top:0;border-bottom:12px #080086 solid}.referencetooltip.RTflipped li+li::after{border-top:0;border-bottom:8px #F7F7F7 solid;position:absolute;margin-top:7px}.RTsettings{float:right;height:16px;width:16px;cursor:pointer;background-image:url(//upload.wikimedia.org/wikipedia/commons/e/ed/Cog.png);margin-top:-9px;margin-right:-7px;-webkit-transition:opacity 0.15s;-moz-transition:opacity 0.15s;-o-transition:opacity 0.15s;-ms-transition:opacity 0.15s;transition:opacity 0.15s;opacity:0.6;filter:alpha(opacity=60)}.RTsettings:hover{opacity:1;filter:alpha(opacity=100)}.RTTarget{border:#080086 2px solid}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3c614aa75cecefe56b27b5e3c9197b7e */
+div#editpage-specialchars{display:block;margin-top:.5em;border:1px solid #c0c0c0;padding:.3em}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:29386c84f9c8f19dfb410df7e5be154b */
+#container{position:relative;min-height:100%}#container,video{width:100%;height:100%}#playerContainer{overflow:hidden;position:relative;height:100%;background:#000}#videoHolder{position:relative;overflow:hidden}.fullscreen #playerContainer{position:absolute !important;width:100% !important;height:100%! important;z-index:9999;min-height:100%;top:0;left:0;margin:0}.mwEmbedPlayer{width:100%;height:100%;overflow:hidden;position:absolute;top:0;left:0}.modal_editor{ left:10px;top:10px;right:10px;bottom:10px;position:fixed;z-index:100}.displayHTML a:visited{color:white}.loadingSpinner{width:32px;height:32px;display:block;padding:0px;background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/loading_ani.gif?2014-02-13T17:50:00Z)}.mw-imported-resource{border:thin solid black}.kaltura-icon{background-image:url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/kaltura_logo_sm_transparent.png?2014-02-13T17:50:00Z) !important;background-repeat:no-repeat;display:block;height:12px;width:12px;margin-top:2px !important;margin-left:3px !important}.mw-fullscreen-overlay{background:rgb(0,0,0) none repeat scroll 0% 0%;position:fixed;top:0pt;left:0pt;width:100%;height:100%;-moz-background-clip:border;-moz-background-origin:padding;-moz-background-inline-policy:continuous} .play-btn-large{width:70px;height:53px;background :url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button.png?2014-02-13T17:50:00Z);position :absolute;cursor :pointer;border :none !important;z-index :1}.play-btn-large:hover{background :url(//bits.wikimedia.org/static-1.23wmf14/extensions/MwEmbedSupport/MwEmbedModules/MwEmbedSupport/skins/common/images/player_big_play_button_hover.png?2014-02-13T17:50:00Z)}.carouselContainer{position :absolute;width :100%;z-index :2}.carouselVideoTitle{position :absolute;top :0px;left :0px;width :100%;background :rgba(0,0,0,0.8);color :white;font-size :small;font-weight :bold;z-index :2}.carouselVideoTitleText{display :block;padding :10px 10px 10px 20px}.carouselTitleDuration{position :absolute;top :0px;right :0px;padding :2px;background-color :#5A5A5A;color :#D9D9D9;font-size :smaller;z-index :2}.carouselImgTitle{position :absolute;width :100%;text-align :center;color :white;font-size :small;background :rgba(0,0,0,0.4)}.carouselImgDuration{position :absolute;top :2px;left :2px;background :rgba( 0,0,0,0.7 );color :white;padding :1px 6px;font-size :small}.carouselPrevButton,.carouselNextButton{display :block;position :absolute;bottom:23px}.carouselPrevButton{left :5px}.carouselNextButton{right:6px}.alert-container{-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background-image:linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-o-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-moz-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-ms-linear-gradient(bottom,rgb(215,215,215) 4%,rgb(230,230,230) 55%,rgb(255,255,255) 100%);background-image:-webkit-gradient(linear,left bottom,left top,color-stop(0.04,rgb(215,215,215)),color-stop(0.55,rgb(230,230,230)),color-stop(1,rgb(255,255,255)));margin:auto;position:absolute;top:0;left:0;right:0;bottom:0;max-width:80%;max-height:30%}.alert-title{background-color :#E6E6E6;padding :5px;border-bottom :1px solid #D1D1D1;font-weight :normal !important;font-size:14px !important;-webkit-border-top-left-radius:3px;-moz-border-radius-topleft:3px;border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topright:3px;border-top-right-radius:3px }.alert-message{padding :5px;font-weight :normal !important;text-align:center;font-size:14px !important}.alert-buttons-container{text-align:center;padding-bottom:5px}.alert-button{background-color:#474747;color:white;-webkit-border-radius:.5em;-moz-border-radius:.5em;border-radius:.5em;padding:2px 10px;background-image:linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-o-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-moz-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-ms-linear-gradient(bottom,rgb(25,25,25) 4%,rgb(47,47,47) 55%,rgb(71,71,71) 68%);background-image:-webkit-gradient( linear,left bottom,left top,color-stop(0.04,rgb(25,25,25)),color-stop(0.55,rgb(47,47,47)),color-stop(0.68,rgb(71,71,71)) )}.alert-text{color :black !important}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:f5d4c58e1b6cf163822d8d14275c99c2 */
+#p-lang .uls-settings-trigger{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAgCAMAAAAVMLmlAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAALpQTFRF////W1tbgICAWVlZgICAUVFRgICAWVlZhYWFUlJShYWFVFRUgYGBVVVVgYGBVVVVgICAVFRUVVVVVlZWgYGBgICAVFRUgYGBVFRUgICAgYGBVVVVVVVVgYGBVlZWgYGBVFRUgICAVFRUgICAVVVVgICAVlZWgICAVFRUgICAVVVVgICAVFRUgICAVlZWgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICAVVVVgICA9Fa9bgAAADx0Uk5TAA4OFBQWFhcXGRlJSUtLWlpbXV9fYGFhZGRlZmlpa2twcIiIioqPj5GRn5+goKGh6+vv7/Dw+fn8/P7+YuRUVgAAAOlJREFUGBmNwcdWAgEURMFLFCUaAcWAEhQYHBRmCN3//1u+BYcVC6s4p2U3OLrrVxN7Xn7uELoH5w65Dx1g6JNnoLazfz++VnZehkZir4pQ3NjzBg5TwtgBhzFh6kDr294UobiykxZc7ezVdLyx8yrw6pM+8GjnDjsf7gj3/WpiJ7Vhl6OW3eC/mlKdo5teZSHNSoM24XqvTCHTvg0MdDIASpn08/6ZSlkJ6jMpLUBhLc3qKEwIIwUURoSJAs2ltC5AIZUWTbjcSulktJayCvCikx7wJG0VttrfEp5eLpfS4uLtgaOmVOeMP8BAM9RClMO9AAAAAElFTkSuQmCC) no-repeat right top;background:transparent url(//bits.wikimedia.org/static-1.23wmf13/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.png?2014-02-06T15:18:20Z) no-repeat right top!ie;background-image:-webkit-linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTRweCIgaGVpZ2h0PSIzMnB4Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTMuNTgyLDYuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTEuMzU5LTEuMzZjLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1QzkuNDMsMi44MzMsOC45MDgsMi42MTUsOC4zNjksMi40ODJWMS40MThDOC4zNjksMS4xODcsOC4xODIsMSw3Ljk1LDFINi4wMzJDNS44MDEsMSw1LjYxNCwxLjE4Nyw1LjYxNCwxLjQxOHYxLjA2M0M1LjA3MywyLjYxNiw0LjU1MiwyLjgzMyw0LjA2MiwzLjEyN2wtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQyOS0wLjE2NC0wLjU5MywwbC0xLjM2LDEuMzZjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMC43NSwwLjc1QzEuODE3LDUuNTY4LDEuNjE1LDYuMDk1LDEuNDgyLDYuNjMxSDAuNDE4QzAuMTg3LDYuNjMxLDAsNi44MTgsMCw3LjA1djEuOTE4YzAsMC4yMzEsMC4xODcsMC40MTgsMC40MTgsMC40MThoMS4wNDZjMC4xMzQsMC41NDIsMC4zNTEsMS4wNjIsMC42NDUsMS41NTFsLTAuNzUsMC43NWMtMC4xNjQsMC4xNjQtMC4xNjQsMC40MjksMCwwLjU5M2wxLjM2LDEuMzZjMC4xNjQsMC4xNjQsMC40MjksMC4xNjQsMC41OTMsMGwwLjc1LTAuNzVjMC40OTEsMC4yOTYsMS4wMSwwLjQ5MywxLjU1MSwwLjYyN3YxLjA2M0M1LjYxNCwxNC44MTMsNS44MDEsMTUsNi4wMzIsMTVINy45NWMwLjIzMSwwLDAuNDE5LTAuMTg3LDAuNDE5LTAuNDE4di0xLjA2M2MwLjU0Mi0wLjEzNCwxLjA2MS0wLjMzMywxLjU1MS0wLjYyN2wwLjc1LDAuNzVjMC4xNjQsMC4xNjQsMC40MywwLjE2NCwwLjU5NCwwbDEuMzU5LTEuMzZjMC4xNjQtMC4xNjQsMC4xNjQtMC40MjksMC0wLjU5M2wtMC43NS0wLjc1YzAuMjk1LTAuNDg5LDAuNTEtMS4wMTMsMC42NDUtMS41NTFoMS4wNjRDMTMuODEyLDkuMzg2LDE0LDkuMTk5LDE0LDguOTY4VjcuMDVDMTQsNi44MTgsMTMuODEyLDYuNjMyLDEzLjU4Miw2LjYzMnogTTcsMTAuNjQ0QzUuNTM5LDEwLjY0NCw0LjM1NSw5LjQ2LDQuMzU1LDhTNS41MzksNS4zNTYsNyw1LjM1NlM5LjY0NSw2LjU0LDkuNjQ1LDhTOC40NjEsMTAuNjQ0LDcsMTAuNjQ0eiIvPjxwYXRoIGZpbGw9IiM1NTU1NTUiIGQ9Ik0xMy41ODIsMjIuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDMsMC0wLjU5NGwtMS4zNTktMS4zNTljLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1Yy0wLjQ5LTAuMjk0LTEuMDEyLTAuNTEyLTEuNTUxLTAuNjQ1di0xLjA2NEM4LjM2OSwxNy4xODgsOC4xODIsMTcsNy45NSwxN0g2LjAzMmMtMC4yMzEsMC0wLjQxOSwwLjE4OC0wLjQxOSwwLjQxOHYxLjA2MmMtMC41NCwwLjEzNi0xLjA2MiwwLjM1My0xLjU1MSwwLjY0NmwtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQzLTAuMTY0LTAuNTk0LDBsLTEuMzU5LDEuMzU5Yy0wLjE2NCwwLjE2NC0wLjE2NCwwLjQzLDAsMC41OTRsMC43NSwwLjc1Yy0wLjI5MywwLjQ4OC0wLjQ5NCwxLjAxNS0wLjYyNywxLjU1MUgwLjQxOEMwLjE4OCwyMi42MzEsMCwyMi44MTgsMCwyMy4wNXYxLjkxOGMwLDAuMjMxLDAuMTg4LDAuNDE4LDAuNDE4LDAuNDE4aDEuMDQ2YzAuMTM0LDAuNTQyLDAuMzUxLDEuMDYyLDAuNjQ2LDEuNTUybC0wLjc1LDAuNzVjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMS4zNTksMS4zNmMwLjE2NCwwLjE2NCwwLjQzLDAuMTY0LDAuNTk0LDBsMC43NS0wLjc1YzAuNDksMC4yOTUsMS4wMSwwLjQ5MiwxLjU1MSwwLjYyN3YxLjA2MmMwLDAuMjMyLDAuMTg4LDAuNDIsMC40MTksMC40Mkg3Ljk1YzAuMjMxLDAsMC40MTktMC4xODgsMC40MTktMC40MThWMjkuNTJjMC41NDItMC4xMzUsMS4wNjEtMC4zMzQsMS41NTEtMC42MjdsMC43NSwwLjc1YzAuMTY0LDAuMTY0LDAuNDMsMC4xNjQsMC41OTQsMGwxLjM1OS0xLjM2YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTAuNzUtMC43NWMwLjI5NS0wLjQ4OSwwLjUxLTEuMDE0LDAuNjQ1LTEuNTUxaDEuMDY0QzEzLjgxMiwyNS4zODYsMTQsMjUuMTk5LDE0LDI0Ljk2OFYyMy4wNUMxNCwyMi44MTgsMTMuODEyLDIyLjYzMiwxMy41ODIsMjIuNjMyeiBNNywyNi42NDVjLTEuNDYxLDAtMi42NDUtMS4xODQtMi42NDUtMi42NDVTNS41MzksMjEuMzU1LDcsMjEuMzU1UzkuNjQ1LDIyLjUzOSw5LjY0NSwyNFM4LjQ2MSwyNi42NDUsNywyNi42NDV6Ii8+PC9zdmc+);background-image:-webkit-linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf13/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-06T15:18:20Z)!ie;background-image:linear-gradient(transparent,transparent),url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTRweCIgaGVpZ2h0PSIzMnB4Ij48cGF0aCBmaWxsPSIjODA4MDgwIiBkPSJNMTMuNTgyLDYuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTEuMzU5LTEuMzZjLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1QzkuNDMsMi44MzMsOC45MDgsMi42MTUsOC4zNjksMi40ODJWMS40MThDOC4zNjksMS4xODcsOC4xODIsMSw3Ljk1LDFINi4wMzJDNS44MDEsMSw1LjYxNCwxLjE4Nyw1LjYxNCwxLjQxOHYxLjA2M0M1LjA3MywyLjYxNiw0LjU1MiwyLjgzMyw0LjA2MiwzLjEyN2wtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQyOS0wLjE2NC0wLjU5MywwbC0xLjM2LDEuMzZjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMC43NSwwLjc1QzEuODE3LDUuNTY4LDEuNjE1LDYuMDk1LDEuNDgyLDYuNjMxSDAuNDE4QzAuMTg3LDYuNjMxLDAsNi44MTgsMCw3LjA1djEuOTE4YzAsMC4yMzEsMC4xODcsMC40MTgsMC40MTgsMC40MThoMS4wNDZjMC4xMzQsMC41NDIsMC4zNTEsMS4wNjIsMC42NDUsMS41NTFsLTAuNzUsMC43NWMtMC4xNjQsMC4xNjQtMC4xNjQsMC40MjksMCwwLjU5M2wxLjM2LDEuMzZjMC4xNjQsMC4xNjQsMC40MjksMC4xNjQsMC41OTMsMGwwLjc1LTAuNzVjMC40OTEsMC4yOTYsMS4wMSwwLjQ5MywxLjU1MSwwLjYyN3YxLjA2M0M1LjYxNCwxNC44MTMsNS44MDEsMTUsNi4wMzIsMTVINy45NWMwLjIzMSwwLDAuNDE5LTAuMTg3LDAuNDE5LTAuNDE4di0xLjA2M2MwLjU0Mi0wLjEzNCwxLjA2MS0wLjMzMywxLjU1MS0wLjYyN2wwLjc1LDAuNzVjMC4xNjQsMC4xNjQsMC40MywwLjE2NCwwLjU5NCwwbDEuMzU5LTEuMzZjMC4xNjQtMC4xNjQsMC4xNjQtMC40MjksMC0wLjU5M2wtMC43NS0wLjc1YzAuMjk1LTAuNDg5LDAuNTEtMS4wMTMsMC42NDUtMS41NTFoMS4wNjRDMTMuODEyLDkuMzg2LDE0LDkuMTk5LDE0LDguOTY4VjcuMDVDMTQsNi44MTgsMTMuODEyLDYuNjMyLDEzLjU4Miw2LjYzMnogTTcsMTAuNjQ0QzUuNTM5LDEwLjY0NCw0LjM1NSw5LjQ2LDQuMzU1LDhTNS41MzksNS4zNTYsNyw1LjM1NlM5LjY0NSw2LjU0LDkuNjQ1LDhTOC40NjEsMTAuNjQ0LDcsMTAuNjQ0eiIvPjxwYXRoIGZpbGw9IiM1NTU1NTUiIGQ9Ik0xMy41ODIsMjIuNjMyaC0xLjA2NGMtMC4xMzMtMC41MzgtMC4zNTQtMS4wNjUtMC42NDUtMS41NTJsMC43NS0wLjc1YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDMsMC0wLjU5NGwtMS4zNTktMS4zNTljLTAuMTY0LTAuMTY0LTAuNDMtMC4xNjQtMC41OTQsMGwtMC43NSwwLjc1Yy0wLjQ5LTAuMjk0LTEuMDEyLTAuNTEyLTEuNTUxLTAuNjQ1di0xLjA2NEM4LjM2OSwxNy4xODgsOC4xODIsMTcsNy45NSwxN0g2LjAzMmMtMC4yMzEsMC0wLjQxOSwwLjE4OC0wLjQxOSwwLjQxOHYxLjA2MmMtMC41NCwwLjEzNi0xLjA2MiwwLjM1My0xLjU1MSwwLjY0NmwtMC43NS0wLjc1Yy0wLjE2NC0wLjE2NC0wLjQzLTAuMTY0LTAuNTk0LDBsLTEuMzU5LDEuMzU5Yy0wLjE2NCwwLjE2NC0wLjE2NCwwLjQzLDAsMC41OTRsMC43NSwwLjc1Yy0wLjI5MywwLjQ4OC0wLjQ5NCwxLjAxNS0wLjYyNywxLjU1MUgwLjQxOEMwLjE4OCwyMi42MzEsMCwyMi44MTgsMCwyMy4wNXYxLjkxOGMwLDAuMjMxLDAuMTg4LDAuNDE4LDAuNDE4LDAuNDE4aDEuMDQ2YzAuMTM0LDAuNTQyLDAuMzUxLDEuMDYyLDAuNjQ2LDEuNTUybC0wLjc1LDAuNzVjLTAuMTY0LDAuMTY0LTAuMTY0LDAuNDI5LDAsMC41OTNsMS4zNTksMS4zNmMwLjE2NCwwLjE2NCwwLjQzLDAuMTY0LDAuNTk0LDBsMC43NS0wLjc1YzAuNDksMC4yOTUsMS4wMSwwLjQ5MiwxLjU1MSwwLjYyN3YxLjA2MmMwLDAuMjMyLDAuMTg4LDAuNDIsMC40MTksMC40Mkg3Ljk1YzAuMjMxLDAsMC40MTktMC4xODgsMC40MTktMC40MThWMjkuNTJjMC41NDItMC4xMzUsMS4wNjEtMC4zMzQsMS41NTEtMC42MjdsMC43NSwwLjc1YzAuMTY0LDAuMTY0LDAuNDMsMC4xNjQsMC41OTQsMGwxLjM1OS0xLjM2YzAuMTY0LTAuMTY0LDAuMTY0LTAuNDI5LDAtMC41OTNsLTAuNzUtMC43NWMwLjI5NS0wLjQ4OSwwLjUxLTEuMDE0LDAuNjQ1LTEuNTUxaDEuMDY0QzEzLjgxMiwyNS4zODYsMTQsMjUuMTk5LDE0LDI0Ljk2OFYyMy4wNUMxNCwyMi44MTgsMTMuODEyLDIyLjYzMiwxMy41ODIsMjIuNjMyeiBNNywyNi42NDVjLTEuNDYxLDAtMi42NDUtMS4xODQtMi42NDUtMi42NDVTNS41MzksMjEuMzU1LDcsMjEuMzU1UzkuNjQ1LDIyLjUzOSw5LjY0NSwyNFM4LjQ2MSwyNi42NDUsNywyNi42NDV6Ii8+PC9zdmc+);background-image:linear-gradient(transparent,transparent),url(//bits.wikimedia.org/static-1.23wmf13/extensions/UniversalLanguageSelector/resources/css/../images/cog-sprite.svg?2014-02-06T15:18:20Z)!ie;height:16px;width:14px;float:right;cursor:pointer}.skin-vector #p-lang .uls-settings-trigger{ margin-top:3px}#p-lang .uls-settings-trigger:hover{background-position:right -16px}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:9cdd463f9977c972fa48a118e39b2c8f */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.css">
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:3904d24a08aa08f6a68dc338f9be277e */</style>
+
+<script src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_003.php"></script><script src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.php"></script><style title="spinjs"></style>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Memory_leak","wgTitle":"Memory leak","wgCurRevisionId":586492535,"wgRevisionId":586492535,"wgArticleId":19609,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["All articles with unsourced statements","Articles with unsourced statements from July 2011","Articles lacking in-text citations from September 2007","All articles lacking in-text citations","Software bugs","Articles with example pseudocode","Software anomalies"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Memory_leak","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgBetaFeaturesFeatures":[],"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.23wmf14/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr","svgMaxSize":2048},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us","en"],"wgULSCurrentAutonym":"English","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":19609,"title":"Memory leak","namespace":0,"categories":["All articles lacking in-text citations","All articles with unsourced statements","Articles lacking in-text citations from September 2007","Articles with example pseudocode","Articles with unsourced statements from July 2011","Software anomalies","Software bugs"],"permissionLevel":false},"wgWikibaseItemId":"Q751740"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"showhiddencats":false,"shownumberswatching":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,
+"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-enable-mwmath":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-subscriptions-web-education-program":true,"echo-subscriptions-email-education-program":false,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,
+"echo-subscriptions-web-edit-user-talk":true,"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"echo-subscriptions-web-flow-discussion":true,"echo-subscriptions-email-flow-discussion":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":
+false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs118":false,"searchNs119":false,"searchNs446":false,"searchNs447":false,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:5e4ad49afa9f26a7ed4e93dac6d2e189 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","ext.uls.init","ext.uls.interface","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-c {line-height: normal;}
+.source-c li, .source-c pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for c
+ * CSS class: source-c, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.c.source-c .de1, .c.source-c .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.c.source-c  {font-family:monospace;}
+.c.source-c .imp {font-weight: bold; color: red;}
+.c.source-c li, .c.source-c .li1 {font-weight: normal; vertical-align:top;}
+.c.source-c .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.c.source-c .li2 {font-weight: bold; vertical-align:top;}
+.c.source-c .kw1 {color: #b1b100;}
+.c.source-c .kw2 {color: #000000; font-weight: bold;}
+.c.source-c .kw3 {color: #000066;}
+.c.source-c .kw4 {color: #993333;}
+.c.source-c .co1 {color: #666666; font-style: italic;}
+.c.source-c .co2 {color: #339933;}
+.c.source-c .coMULTI {color: #808080; font-style: italic;}
+.c.source-c .es0 {color: #000099; font-weight: bold;}
+.c.source-c .es1 {color: #000099; font-weight: bold;}
+.c.source-c .es2 {color: #660099; font-weight: bold;}
+.c.source-c .es3 {color: #660099; font-weight: bold;}
+.c.source-c .es4 {color: #660099; font-weight: bold;}
+.c.source-c .es5 {color: #006699; font-weight: bold;}
+.c.source-c .br0 {color: #009900;}
+.c.source-c .sy0 {color: #339933;}
+.c.source-c .st0 {color: #ff0000;}
+.c.source-c .nu0 {color: #0000dd;}
+.c.source-c .nu6 {color: #208080;}
+.c.source-c .nu8 {color: #208080;}
+.c.source-c .nu12 {color: #208080;}
+.c.source-c .nu16 {color:#800080;}
+.c.source-c .nu17 {color:#800080;}
+.c.source-c .nu18 {color:#800080;}
+.c.source-c .nu19 {color:#800080;}
+.c.source-c .me1 {color: #202020;}
+.c.source-c .me2 {color: #202020;}
+.c.source-c .ln-xtra, .c.source-c li.ln-xtra, .c.source-c div.ln-xtra {background-color: #ffc;}
+.c.source-c span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-vb {line-height: normal;}
+.source-vb li, .source-vb pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for vb
+ * CSS class: source-vb, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.vb.source-vb .de1, .vb.source-vb .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.vb.source-vb  {font-family:monospace;}
+.vb.source-vb .imp {font-weight: bold; color: red;}
+.vb.source-vb li, .vb.source-vb .li1 {font-weight: normal; vertical-align:top;}
+.vb.source-vb .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.vb.source-vb .li2 {font-weight: bold; vertical-align:top;}
+.vb.source-vb .kw1 {color: #F660AB; font-weight: bold;}
+.vb.source-vb .kw2 {color: #E56717; font-weight: bold;}
+.vb.source-vb .kw3 {color: #8D38C9; font-weight: bold;}
+.vb.source-vb .kw4 {color: #151B8D; font-weight: bold;}
+.vb.source-vb .kw5 {color: #00C2FF; font-weight: bold;}
+.vb.source-vb .kw6 {color: #3EA99F; font-weight: bold;}
+.vb.source-vb .co1 {color: #008000;}
+.vb.source-vb .es0 {color: #800000; font-weight: bold;}
+.vb.source-vb .st0 {color: #800000;}
+.vb.source-vb .ln-xtra, .vb.source-vb li.ln-xtra, .vb.source-vb div.ln-xtra {background-color: #ffc;}
+.vb.source-vb span.xtra { display:block; }
+
+/*]]>*/
+</style><script src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/geoiplookup"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.23wmf14/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Memory_leak skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div class="cn-ToUAmendment" id="centralNotice"><style type="text/css">
+
+#centralNotice.collapsed #ChangeToU2014_v1 {
+ display: none;
+}
+
+#ChangeToU2014_v1 {
+ position: relative;
+ overflow: hidden;
+ background: url(//upload.wikimedia.org/wikipedia/commons/0/0d/Gray-gradient1.png) bottom repeat-x;
+ margin-bottom: 0.5em !important;
+ margin-top: 0.5em !important;
+ background-color:#FFFFFF;
+ border: solid 1px #aaaaaa; 
+ height:66px;
+}
+
+#ChangeToU2014_v1 a.cn-full-banner-click {
+ display:block;
+ height:100%;
+ width:100%;
+ cursor: pointer;
+}
+
+
+#ChangeToU2014_v1-logo {
+ position: absolute;
+ top: 8px;
+ left: 15px;
+ background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Wikimedia_logo_text_RGB.svg/50px-Wikimedia_logo_text_RGB.svg.png);
+ height: 50px;
+ width: 50px;
+ background-repeat: no-repeat;
+}
+
+#ChangeToU2014_v1 #black-text {
+ font-size: 1.1em;
+ color: black;
+ padding: 0.5em 40px 0.4em 60px;
+ line-height: 1.3em;
+ text-align: center;
+ font-weight:bold;
+}
+
+
+#ChangeToU2014_v1 div#cn-toggle-box {
+ position: absolute;
+ z-index: 98;
+ top: 2px;
+ right: 6px;
+}
+
+#ChangeToU2014_v1 div#cn-translation-link {
+ position:absolute;
+ z-index:50;
+ bottom: -4px;
+ right: 6px;
+ font-size: 0.7em;
+}
+
+#ChangeToU2014_v1 #calltoaction {
+ padding-top: 5px;
+ color: #0645ad;
+}
+
+#cn-translation-link a:link, 
+#cn-translation-link a:visited, 
+#cn-translation-link a:hover { 
+ color: black; 
+} 
+
+</style>
+
+<div id="ChangeToU2014_v1">
+
+  <a class="cn-full-banner-click" href="http://meta.wikimedia.org/wiki/Terms_of_use/Paid_contributions_amendment" title="">
+<div id="ChangeToU2014_v1-logo"></div>
+    <div id="black-text">
+   Amending our Terms of Use: <br> Please comment on a proposed amendment regarding undisclosed paid editing.
+     </div>
+  </a>
+<div id="cn-translation-link">
+<a href="http://meta.wikimedia.org/w/index.php?title=Special:Translate&amp;group=Centralnotice-tgroup-ChangeToU2014_v1&amp;filter=" class="black-text2">
+			[ Help with translations! ]
+		</a>
+</div>
+ <div id="cn-toggle-box">
+  <a href="#" title="Close" onclick="mw.centralNotice.hideBanner();return false;"><img src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/CloseWindow19x19.png" alt="close" border="0"></a>  
+ </div>
+</div></div><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Memory leak</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p>In <a href="http://en.wikipedia.org/wiki/Computer_science" title="Computer science">computer science</a>, a <b>memory leak</b> occurs when a <a href="http://en.wikipedia.org/wiki/Computer_program" title="Computer program">computer program</a> incorrectly manages <a href="http://en.wikipedia.org/wiki/Memory_allocation" title="Memory allocation" class="mw-redirect">memory allocations</a>.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>1<span>]</span></a></sup> In <a href="http://en.wikipedia.org/wiki/Object-oriented_programming" title="Object-oriented programming">object-oriented programming</a>, a memory leak may happen when an <a href="http://en.wikipedia.org/wiki/Object_%28computer_science%29" title="Object (computer science)">object</a> is stored in memory but cannot be accessed by the running code.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>2<span>]</span></a></sup>
+ A memory leak has symptoms similar to a number of other problems (see 
+below) and generally can only be diagnosed by a programmer with access 
+to the program.</p>
+<p>Because they can exhaust available system memory as an application 
+runs, memory leaks are often the cause of or a contributing factor to <a href="http://en.wikipedia.org/wiki/Software_aging" title="Software aging">software aging</a>.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Consequences"><span class="tocnumber">1</span> <span class="toctext">Consequences</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#An_example_of_memory_leak"><span class="tocnumber">1.1</span> <span class="toctext">An example of memory leak</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Programming_issues"><span class="tocnumber">2</span> <span class="toctext">Programming issues</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#RAII"><span class="tocnumber">3</span> <span class="toctext">RAII</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Reference_counting_and_cyclic_references"><span class="tocnumber">4</span> <span class="toctext">Reference counting and cyclic references</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Effects"><span class="tocnumber">5</span> <span class="toctext">Effects</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Other_memory_consumers"><span class="tocnumber">6</span> <span class="toctext">Other memory consumers</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#A_simple_example_in_C"><span class="tocnumber">7</span> <span class="toctext">A simple example in C</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#References"><span class="tocnumber">9</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#External_links"><span class="tocnumber">10</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Consequences">Consequences</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=1" title="Edit section: Consequences">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>A memory leak can diminish the performance of the computer by 
+reducing the amount of available memory. Eventually, in the worst case, 
+too much of the available memory may become allocated and all or part of
+ the system or device stops working correctly, the application fails, or
+ the system slows down unacceptably due to <a href="http://en.wikipedia.org/wiki/Thrashing_%28computer_science%29" title="Thrashing (computer science)">thrashing</a>.</p>
+<p>Memory leaks may not be serious or even detectable by normal means. 
+In modern operating systems, normal memory used by an application is 
+released when the application terminates. This means that a memory leak 
+in a program that only runs for a short time may not be noticed and is 
+rarely serious.</p>
+<p>Much more serious leaks include those:</p>
+<ul>
+<li>where the program runs for an extended time and consumes additional 
+memory over time, such as background tasks on servers, but especially in
+ <a href="http://en.wikipedia.org/wiki/Embedded_system" title="Embedded system">embedded devices</a> which may be left running for many years</li>
+<li>where new memory is allocated frequently for one-time tasks, such as
+ when rendering the frames of a computer game or animated video</li>
+<li>where the program can request memory — such as <a href="http://en.wikipedia.org/wiki/Shared_memory" title="Shared memory">shared memory</a> — that is not released, even when the program terminates</li>
+<li>where memory is very limited, such as in an <a href="http://en.wikipedia.org/wiki/Embedded_system" title="Embedded system">embedded system</a> or portable device</li>
+<li>where the leak occurs within the operating system or <a href="http://en.wikipedia.org/wiki/Memory_manager" title="Memory manager">memory manager</a></li>
+<li>when a system <a href="http://en.wikipedia.org/wiki/Device_driver" title="Device driver">device driver</a> causes the leak</li>
+<li>running on an operating system that does not automatically release 
+memory on program termination. Often on such machines if memory is lost,
+ it can only be reclaimed by a <a href="http://en.wikipedia.org/wiki/Reboot" title="Reboot">reboot</a>, an example of such a system being <a href="http://en.wikipedia.org/wiki/AmigaOS" title="AmigaOS">AmigaOS</a>.<sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (July 2011)">citation needed</span></a></i>]</sup></li>
+</ul>
+<h3><span class="mw-headline" id="An_example_of_memory_leak">An example of memory leak</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=2" title="Edit section: An example of memory leak">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The following example, written in <a href="http://en.wikipedia.org/wiki/Pseudocode" title="Pseudocode">pseudocode</a>,
+ is intended to show how a memory leak can come about, and its effects, 
+without needing any programming knowledge. The program in this case is 
+part of some very simple software designed to control an <a href="http://en.wikipedia.org/wiki/Elevator" title="Elevator">elevator</a>. This part of the program is run whenever anyone inside the elevator presses the button for a floor.</p>
+<pre>When a button is pressed:
+  Get some memory, which will be used to remember the floor number
+  Put the floor number into the memory
+  Are we already on the target floor?
+    If so, we have nothing to do: finished
+    Otherwise:
+      Wait until the lift is idle
+      Go to the required floor
+      Release the memory we used to remember the floor number
+</pre>
+<p>The memory leak would occur if the floor number requested is the same
+ floor that the lift is on; the condition for releasing the memory would
+ be skipped. Each time this case occurs, more memory is leaked.</p>
+<p>Cases like this wouldn't usually have any immediate effects. People 
+do not often press the button for the floor they are already on, and in 
+any case, the lift might have enough spare memory that this could happen
+ hundreds or thousands of times. However, the lift will eventually run 
+out of memory. This could take months or years, so it might not be 
+discovered despite thorough testing.</p>
+<p>The consequences would be unpleasant; at the very least, the lift 
+would stop responding to requests to move to another floor. If other 
+parts of the program need memory (a part assigned to open and close the 
+door, for example), then someone may be trapped inside, since the 
+software cannot open the door.</p>
+<p>The memory leak lasts until the system is reset. For example: if the 
+lift's power were turned off the program would stop running. When power 
+was turned on again, the program would restart and all the memory would 
+be available again, but the slow process of memory leak would restart 
+together with the program, eventually prejudicing the correct running of
+ the system.</p>
+<h2><span class="mw-headline" id="Programming_issues">Programming issues</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=3" title="Edit section: Programming issues">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Memory leaks are a common error in programming, especially when using <a href="http://en.wikipedia.org/wiki/Programming_language" title="Programming language">languages</a> that have no built in automatic <a href="http://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" title="Garbage collection (computer science)">garbage collection</a>, such as <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29" title="C (programming language)">C</a> and <a href="http://en.wikipedia.org/wiki/C%2B%2B" title="C++">C++</a>. Typically, a memory leak occurs because <a href="http://en.wikipedia.org/wiki/Dynamic_memory_allocation" title="Dynamic memory allocation" class="mw-redirect">dynamically allocated</a> memory has become <a href="http://en.wikipedia.org/wiki/Unreachable_memory" title="Unreachable memory">unreachable</a>. The prevalence of memory leak <a href="http://en.wikipedia.org/wiki/Software_bug" title="Software bug">bugs</a> has led to the development of a number of <a href="http://en.wikipedia.org/wiki/Debugging" title="Debugging">debugging</a> <a href="http://en.wikipedia.org/wiki/Programming_tool" title="Programming tool">tools</a> to detect unreachable memory. <i><a href="http://en.wikipedia.org/wiki/IBM_Rational_Purify" title="IBM Rational Purify">IBM Rational Purify</a></i>, <i><a href="http://en.wikipedia.org/wiki/BoundsChecker" title="BoundsChecker">BoundsChecker</a></i>, <i><a href="http://en.wikipedia.org/wiki/Valgrind" title="Valgrind">Valgrind</a></i>, <i><a href="http://en.wikipedia.org/wiki/Parasoft" title="Parasoft">Parasoft</a> <a href="http://en.wikipedia.org/wiki/Insure%2B%2B" title="Insure++">Insure++</a></i>, <i><a href="http://en.wikipedia.org/wiki/DynamoRIO#Dr._Memory" title="DynamoRIO">Dr. Memory</a></i> and <i><a href="http://en.wikipedia.org/wiki/Memwatch" title="Memwatch">memwatch</a></i> are some of the more popular <a href="http://en.wikipedia.org/wiki/Memory_debugger" title="Memory debugger">memory debuggers</a>
+ for C and C++ programs. "Conservative" garbage collection capabilities 
+can be added to any programming language that lacks it as a built-in 
+feature, and libraries for doing this are available for C and C++ 
+programs. A conservative collector finds and reclaims most, but not all,
+ unreachable memory.</p>
+<p>Although the <a href="http://en.wikipedia.org/wiki/Memory_manager" title="Memory manager">memory manager</a>
+ can recover unreachable memory, it cannot free memory that is still 
+reachable and therefore potentially still useful. Modern memory managers
+ therefore provide techniques for programmers to semantically mark 
+memory with varying levels of usefulness, which correspond to varying 
+levels of <i>reachability</i>. The memory manager does not free an 
+object that is strongly reachable. An object is strongly reachable if it
+ is reachable either directly by a <a href="http://en.wikipedia.org/wiki/Strong_reference" title="Strong reference">strong reference</a> or indirectly by a chain of strong references. (A <i>strong reference</i> is a reference that, unlike a <a href="http://en.wikipedia.org/wiki/Weak_reference" title="Weak reference">weak reference</a>,
+ prevents an object from being garbage collected.) To prevent this, the 
+developer is responsible for cleaning up references after use, typically
+ by setting the reference to <a href="http://en.wikipedia.org/wiki/Null_pointer" title="Null pointer" class="mw-redirect">null</a> once it is no longer needed and, if necessary, by deregistering any <a href="http://en.wikipedia.org/wiki/Event_listener" title="Event listener" class="mw-redirect">event listeners</a> that maintain strong references to the object.</p>
+<p>In general, automatic memory management is more robust and convenient
+ for developers, as they don't need to implement freeing routines or 
+worry about the sequence in which cleanup is performed or be concerned 
+about whether or not an object is still referenced. It is easier for a 
+programmer to know when a reference is no longer needed than to know 
+when an object is no longer referenced. However, automatic memory 
+management can impose a performance overhead, and it does not eliminate 
+all of the programming errors that cause memory leaks.</p>
+<h2><span class="mw-headline" id="RAII">RAII</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=4" title="Edit section: RAII">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="rellink relarticle mainarticle">Main article: <a href="http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization" title="Resource Acquisition Is Initialization">Resource Acquisition Is Initialization</a></div>
+<p><b>RAII</b>, short for <a href="http://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization" title="Resource Acquisition Is Initialization">Resource Acquisition Is Initialization</a>, is an approach to the problem commonly taken in <a href="http://en.wikipedia.org/wiki/C%2B%2B" title="C++">C++</a>, <a href="http://en.wikipedia.org/wiki/D_programming_language" title="D programming language" class="mw-redirect">D</a>, and <a href="http://en.wikipedia.org/wiki/Ada_%28programming_language%29" title="Ada (programming language)">Ada</a>.
+ It involves associating scoped objects with the acquired resources, and
+ automatically releasing the resources once the objects are out of 
+scope. Unlike garbage collection, RAII has the advantage of knowing when
+ objects exist and when they do not. Compare the following C and C++ 
+examples:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="c source-c">
+<pre class="de1"><span class="coMULTI">/* C version */</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+ 
+<span class="kw4">void</span> f<span class="br0">(</span><span class="kw4">int</span> n<span class="br0">)</span>
+<span class="br0">{</span>
+  <span class="kw4">int</span><span class="sy0">*</span> array <span class="sy0">=</span> <span class="kw3">calloc</span><span class="br0">(</span>n<span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">(</span><span class="kw4">int</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+  do_some_work<span class="br0">(</span>array<span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw3">free</span><span class="br0">(</span>array<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="cpp source-cpp">
+<pre class="de1"><span class="co1">// C++ version</span>
+<span class="co2">#include &lt;vector&gt;</span>
+ 
+<span class="kw4">void</span> f<span class="br0">(</span><span class="kw4">int</span> n<span class="br0">)</span>
+<span class="br0">{</span>
+  std<span class="sy4">::</span><span class="me2">vector</span><span class="sy1">&lt;</span><span class="kw4">int</span><span class="sy1">&gt;</span> array <span class="br0">(</span>n<span class="br0">)</span><span class="sy4">;</span>
+  do_some_work<span class="br0">(</span>array<span class="br0">)</span><span class="sy4">;</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>The C version, as implemented in the example, requires explicit deallocation; the array is <a href="http://en.wikipedia.org/wiki/Dynamic_memory_allocation" title="Dynamic memory allocation" class="mw-redirect">dynamically allocated</a> (from the heap in most C implementations), and continues to exist until explicitly freed.</p>
+<p>The C++ version requires no explicit deallocation; it will always occur automatically as soon as the object <code>array</code> goes out of scope, including if an exception is thrown. This avoids some of the overhead of <a href="http://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" title="Garbage collection (computer science)">garbage collection</a> schemes. And because object destructors can free resources other than memory, RAII helps to prevent the <a href="http://en.wikipedia.org/wiki/Handle_leak" title="Handle leak">leaking of input and output resources accessed through a handle</a>,
+ which mark-and-sweep garbage collection does not handle gracefully. 
+These include open files, open windows, user notifications, objects in a
+ graphics drawing library, thread synchronisation primitives such as 
+critical sections, network connections, and connections to the <a href="http://en.wikipedia.org/wiki/Windows_Registry" title="Windows Registry">Windows Registry</a> or another database.</p>
+<p>However, using RAII correctly is not always easy and has its own 
+pitfalls. For instance, if one is not careful, it is possible to create <a href="http://en.wikipedia.org/wiki/Dangling_pointer" title="Dangling pointer">dangling pointers</a> (or references) by returning data by reference, only to have that data be deleted when its containing object goes out of scope.</p>
+<p><a href="http://en.wikipedia.org/wiki/D_%28programming_language%29" title="D (programming language)">D</a>
+ uses a combination of RAII and garbage collection, employing automatic 
+destruction when it is clear that an object cannot be accessed outside 
+its original scope, and garbage collection otherwise.</p>
+<h2><span class="mw-headline" id="Reference_counting_and_cyclic_references">Reference counting and cyclic references</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=5" title="Edit section: Reference counting and cyclic references">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>More modern <a href="http://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" title="Garbage collection (computer science)">garbage collection</a>
+ schemes are often based on a notion of reachability - if you don't have
+ a usable reference to the memory in question, it can be collected. 
+Other garbage collection schemes can be based on <a href="http://en.wikipedia.org/wiki/Reference_counting" title="Reference counting">reference counting</a>,
+ where an object is responsible for keeping track of how many references
+ are pointing to it. If the number goes down to zero, the object is 
+expected to release itself and allow its memory to be reclaimed. The 
+flaw with this model is that it doesn't cope with cyclic references, and
+ this is why nowadays most programmers are prepared to accept the burden
+ of the more costly mark and sweep type of systems.</p>
+<p>The following <a href="http://en.wikipedia.org/wiki/Visual_Basic" title="Visual Basic">Visual Basic</a> code illustrates the canonical reference-counting memory leak:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="vb source-vb">
+<pre class="de1"><span class="kw4">Dim</span> A, B
+<span class="kw4">Set</span> A = <span class="kw2">CreateObject</span>(<span class="st0">"Some.Thing"</span>)
+<span class="kw4">Set</span> B = <span class="kw2">CreateObject</span>(<span class="st0">"Some.Thing"</span>)
+<span class="co1">' At this point, the two objects each have one reference,
+</span>
+<span class="kw4">Set</span> A.member = B
+<span class="kw4">Set</span> B.member = A
+<span class="co1">' Now they each have two references.
+</span>
+<span class="kw4">Set</span> A = <span class="kw5">Nothing</span>   <span class="co1">' You could still get out of it...
+</span>
+<span class="kw4">Set</span> B = <span class="kw5">Nothing</span>   <span class="co1">' And now you've got a memory leak!
+</span>
+<span class="kw3">End</span>
+</pre></div>
+</div>
+<p>In practice, this trivial example would be spotted straight away and 
+fixed. In most real examples, the cycle of references spans more than 
+two objects, and is more difficult to detect.</p>
+<p>A well-known example of this kind of leak came to prominence with the rise of <a href="http://en.wikipedia.org/wiki/AJAX" title="AJAX" class="mw-redirect">AJAX</a> programming techniques in <a href="http://en.wikipedia.org/wiki/Web_browser" title="Web browser">web browsers</a> in the <a href="http://en.wikipedia.org/wiki/Lapsed_listener_problem" title="Lapsed listener problem">lapsed listener problem</a>. <a href="http://en.wikipedia.org/wiki/JavaScript" title="JavaScript">JavaScript</a> code which associated a <a href="http://en.wikipedia.org/wiki/Document_Object_Model" title="Document Object Model">DOM</a>
+ element with an event handler, and failed to remove the reference 
+before exiting, would leak memory (AJAX web pages keep a given DOM alive
+ for a lot longer than traditional web pages, so this leak was much more
+ apparent).</p>
+<h2><span class="mw-headline" id="Effects">Effects</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=6" title="Edit section: Effects">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>If a program has a memory leak and its memory usage is steadily 
+increasing, there will not usually be an immediate symptom. Every 
+physical system has a finite amount of memory, and if the memory leak is
+ not contained (for example, by restarting the leaking program) it will 
+sooner or later start to cause problems.</p>
+<p>Most modern consumer desktop <a href="http://en.wikipedia.org/wiki/Operating_systems" title="Operating systems" class="mw-redirect">operating systems</a> have both <a href="http://en.wikipedia.org/wiki/Main_memory" title="Main memory" class="mw-redirect">main memory</a> which is physically housed in RAM microchips, and <a href="http://en.wikipedia.org/wiki/Secondary_storage" title="Secondary storage" class="mw-redirect">secondary storage</a> such as a <a href="http://en.wikipedia.org/wiki/Hard_drive" title="Hard drive" class="mw-redirect">hard drive</a>. Memory allocation is dynamic - each process gets as much memory as it requests. Active <a href="http://en.wikipedia.org/wiki/Paging" title="Paging">pages</a>
+ are transferred into main memory for fast access; inactive pages are 
+pushed out to secondary storage to make room, as needed. When a single 
+process starts consuming a large amount of memory, it usually occupies 
+more and more of main memory, pushing other programs out to secondary 
+storage - usually significantly slowing performance of the system. Even 
+if the leaking program is terminated, it may take some time for other 
+programs to swap back into main memory, and for performance to return to
+ normal.</p>
+<p>When all the memory on a system is exhausted (whether there is 
+virtual memory or only main memory, such as on an embedded system) any 
+attempt to allocate more memory will fail. This usually causes the 
+program attempting to allocate the memory to terminate itself, or to 
+generate a <a href="http://en.wikipedia.org/wiki/Segmentation_fault" title="Segmentation fault">segmentation fault</a>.
+ Some programs are designed to recover from this situation (possibly by 
+falling back on pre-reserved memory). The first program to experience 
+the out-of-memory may or may not be the program that has the memory 
+leak.</p>
+<p>Some <a href="http://en.wikipedia.org/wiki/Computer_multitasking" title="Computer multitasking">multi-tasking</a>
+ operating systems have special mechanisms to deal with an out-of-memory
+ condition, such as killing processes at random (which may affect 
+"innocent" processes), or killing the largest process in memory (which 
+presumably is the one causing the problem). Some operating systems have a
+ per-process memory limit, to prevent any one program from hogging all 
+of the memory on the system. The disadvantage to this arrangement is 
+that the operating system sometimes must be re-configured to allow 
+proper operation of programs that legitimately require large amounts of 
+memory, such as those dealing with graphics, video, or scientific 
+calculations.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:Sample_sawtooth.jpg" class="image"><img alt="" src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/220px-Sample_sawtooth.jpg" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/en/thumb/4/4d/Sample_sawtooth.jpg/330px-Sample_sawtooth.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/4/4d/Sample_sawtooth.jpg/440px-Sample_sawtooth.jpg 2x" width="220" height="147"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Sample_sawtooth.jpg" class="internal" title="Enlarge"><img src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" width="15" height="11"></a></div>
+The "sawtooth" pattern of memory utilization: the sudden drop in used memory is a candidate symptom for a memory leak.</div>
+</div>
+</div>
+<p>If the memory leak is in the <a href="http://en.wikipedia.org/wiki/Kernel_%28computer_science%29" title="Kernel (computer science)" class="mw-redirect">kernel</a>,
+ the operating system itself will likely fail. Computers without 
+sophisticated memory management, such as embedded systems, may also 
+completely fail from a persistent memory leak.</p>
+<p>Publicly accessible systems such as <a href="http://en.wikipedia.org/wiki/Web_server" title="Web server">web servers</a> or <a href="http://en.wikipedia.org/wiki/Router_%28computing%29" title="Router (computing)">routers</a> are prone to <a href="http://en.wikipedia.org/wiki/Denial-of-service_attack" title="Denial-of-service attack">denial-of-service attacks</a> if an attacker discovers a sequence of operations which can trigger a leak. Such a sequence is known as an <a href="http://en.wikipedia.org/wiki/Exploit_%28computer_security%29" title="Exploit (computer security)">exploit</a>.</p>
+<p>A "sawtooth" pattern of memory utilization may be an indicator of a 
+memory leak if the vertical drops coincide with reboots or application 
+restarts. Care should be taken though because <a href="http://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" title="Garbage collection (computer science)">garbage collection</a> points could also cause such a pattern and would show a healthy usage of the heap.</p>
+<h2><span class="mw-headline" id="Other_memory_consumers">Other memory consumers</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=7" title="Edit section: Other memory consumers">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Note that constantly increasing memory usage is not necessarily 
+evidence of a memory leak. Some applications will store ever increasing 
+amounts of information in memory (e.g. as a <a href="http://en.wikipedia.org/wiki/Cache_%28computing%29" title="Cache (computing)">cache</a>).
+ If the cache can grow so large as to cause problems, this may be a 
+programming or design error, but is not a memory leak as the information
+ remains nominally in use. In other cases, programs may require an 
+unreasonably large amount of memory because the programmer has assumed 
+memory is always sufficient for a particular task; for example, a 
+graphics file processor might start by reading the entire contents of an
+ image file and storing it all into memory, something that is not viable
+ where a very large image exceeds available memory.</p>
+<p>To put it another way, a memory leak arises from a particular kind of
+ programming error, and without access to the program code, someone 
+seeing symptoms can only guess that there <i>might</i> be a memory leak.
+ It would be better to use terms such as "constantly increasing memory 
+use" where no such inside knowledge exists.</p>
+<h2><span class="mw-headline" id="A_simple_example_in_C">A simple example in C</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=8" title="Edit section: A simple example in C">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The following <a href="http://en.wikipedia.org/wiki/C_%28programming_language%29" title="C (programming language)">C</a>
+ function deliberately leaks memory by losing the pointer to the 
+allocated memory. The leak can be said to occur as soon as the pointer 
+'a' goes out of scope, i.e. when function_which_allocates() returns 
+without freeing 'a'.</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr">
+<div class="c source-c">
+<pre class="de1"><span class="co2">#include &lt;stdlib.h&gt;</span>
+ 
+<span class="kw4">void</span> function_which_allocates<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span> <span class="br0">{</span>
+    <span class="coMULTI">/* allocate an array of 45 floats */</span>
+    <span class="kw4">float</span> <span class="sy0">*</span> a <span class="sy0">=</span> <span class="kw3">malloc</span><span class="br0">(</span><span class="kw4">sizeof</span><span class="br0">(</span><span class="kw4">float</span><span class="br0">)</span> <span class="sy0">*</span> <span class="nu0">45</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+    <span class="coMULTI">/* additional code making use of 'a' */</span>
+ 
+    <span class="coMULTI">/* return to main, having forgotten to free the memory we malloc'd */</span>
+<span class="br0">}</span>
+ 
+<span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span> <span class="br0">{</span>
+    function_which_allocates<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+    <span class="coMULTI">/* the pointer 'a' no longer exists, and therefore cannot be freed,
+     but the memory is still allocated. a leak has occurred. */</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=9" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Buffer_overflow" title="Buffer overflow">Buffer overflow</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Memory_management" title="Memory management">Memory management</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Memory_debugger" title="Memory debugger">Memory debugger</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Nmon" title="Nmon">nmon</a> (short for Nigel's Monitor) is a popular system monitor tool for the AIX and Linux operating systems.</li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=10" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<table class="metadata plainlinks ambox ambox-style ambox-More_footnotes" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width:52px;"><img alt="" src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/40px-Text_document_with_red_question_mark.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Text_document_with_red_question_mark.svg/60px-Text_document_with_red_question_mark.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Text_document_with_red_question_mark.svg/80px-Text_document_with_red_question_mark.svg.png 2x" width="40" height="40"></div>
+</td>
+<td class="mbox-text"><span class="mbox-text-span">This article includes a <a href="http://en.wikipedia.org/wiki/Wikipedia:Citing_sources" title="Wikipedia:Citing sources">list of references</a>, but <b>its sources remain unclear because it has insufficient <a href="http://en.wikipedia.org/wiki/Wikipedia:Citing_sources#Inline_citations" title="Wikipedia:Citing sources">inline citations</a></b>. <span class="hide-when-compact">Please help to <a href="http://en.wikipedia.org/wiki/Wikipedia:WikiProject_Fact_and_Reference_Check" title="Wikipedia:WikiProject Fact and Reference Check">improve</a> this article by <a href="http://en.wikipedia.org/wiki/Wikipedia:When_to_cite" title="Wikipedia:When to cite">introducing</a> more precise citations.</span> <small><i>(September 2007)</i></small></span></td>
+</tr>
+</tbody></table>
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web">Crockford, Douglas. <a rel="nofollow" class="external text" href="http://javascript.crockford.com/memory/leak.html">"JScript Memory Leaks"</a><span class="reference-accessdate">. Retrieved 6 November 2012</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMemory+leak&amp;rft.au=Crockford%2C+Douglas&amp;rft.aufirst=Douglas&amp;rft.aulast=Crockford&amp;rft.btitle=JScript+Memory+Leaks&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fjavascript.crockford.com%2Fmemory%2Fleak.html&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><span class="citation web"><a rel="nofollow" class="external text" href="http://stackoverflow.com/questions/6470651/creating-a-memory-leak-with-java">"Creating a memory leak with Java"</a>. Stack Overflow<span class="reference-accessdate">. Retrieved 2013-06-14</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AMemory+leak&amp;rft.btitle=Creating+a+memory+leak+with+Java&amp;rft.genre=book&amp;rft_id=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F6470651%2Fcreating-a-memory-leak-with-java&amp;rft.pub=Stack+Overflow&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+</ol>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit&amp;section=11" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://vld.codeplex.com/">Visual Leak Detector</a> for Visual Studio</li>
+<li><a rel="nofollow" class="external text" href="http://msdn2.microsoft.com/en-us/library/Aa293901%28VS.60%29.aspx">Detecting a Memory Leak</a> (Using MFC Debugging Support)</li>
+<li>Article Detecting <a rel="nofollow" class="external text" href="http://www.ibm.com/developerworks/rational/library/06/0822_satish-giridhar/">C/C++ Memory Leaks using IBM Rational Purify</a></li>
+<li>Article Detecting <a rel="nofollow" class="external text" href="http://www.ibm.com/developerworks/rational/library/05/0816_GuptaPalanki/">Java Memory Leaks using IBM Rational Application Developer</a>, and in WebSphere Application Server <a rel="nofollow" class="external text" href="http://www.ibm.com/developerworks/websphere/library/techarticles/0606_poddar/0606_poddar.html">part 1</a>, <a rel="nofollow" class="external text" href="http://www.ibm.com/developerworks/websphere/library/techarticles/0608_poddar/0608_poddar.html">part 2</a></li>
+<li>Article "<a rel="nofollow" class="external text" href="http://linuxjournal.com/article.php?sid=6556">Memory Leak Detection in C++</a>" by Cal Erickson</li>
+<li>Article "<a rel="nofollow" class="external text" href="http://linuxjournal.com/article.php?sid=6059">Memory Leak Detection in Embedded Systems</a>" by Cal Erickson</li>
+<li><a rel="nofollow" class="external text" href="http://jb2works.com/memoryleak/index.html">Why doesn't my application release the memory?</a> (Java FAQ)</li>
+<li>Article "<a rel="nofollow" class="external text" href="http://developer.kde.org/documentation/other/memoryleaks.html">Fixing Memory Leaks in KDE</a>" by <a href="http://en.wikipedia.org/wiki/Harri_Porten" title="Harri Porten">Harri Porten</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.rt-embedded.com/blog/archives/memory-leaks/">Resolving memory leaks</a>, an article from the Real-Time embedded blog.</li>
+<li>Article "<a rel="nofollow" class="external text" href="http://olex.openlogic.com/wazi/2009/how-to-fix-memory-leaks-in-java/">how to fix memory leaks in java</a>" How to Fix Memory Leaks in Java by Veljko Krunic</li>
+</ul>
+<table class="navbox" style="border-spacing:0;" cellspacing="0">
+<tbody><tr>
+<td style="padding:2px;">
+<table id="collapsibleTable0" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing:0;background:transparent;color:inherit;" cellspacing="0">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton0">hide</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="http://en.wikipedia.org/wiki/Template:Memory_management_navbox" title="Template:Memory management navbox"><span title="View this template" style=";;background:none transparent;border:none;;">v</span></a></li>
+<li class="nv-talk"><a href="http://en.wikipedia.org/wiki/Template_talk:Memory_management_navbox" title="Template talk:Memory management navbox"><span title="Discuss this template" style=";;background:none transparent;border:none;;">t</span></a></li>
+<li class="nv-edit"><a class="external text" href="http://en.wikipedia.org/w/index.php?title=Template:Memory_management_navbox&amp;action=edit"><span title="Edit this template" style=";;background:none transparent;border:none;;">e</span></a></li>
+</ul>
+</div>
+<div style="font-size:110%;"><a href="http://en.wikipedia.org/wiki/Memory_management" title="Memory management">Memory management</a></div>
+</th>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Manual_memory_management" title="Manual memory management">Manual memory management</a></th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Static_memory_allocation" title="Static memory allocation">Static memory allocation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/C_dynamic_memory_allocation" title="C dynamic memory allocation">C dynamic memory allocation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/New_%28C%2B%2B%29" title="New (C++)">new (C++)</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Delete_%28C%2B%2B%29" title="Delete (C++)">delete (C++)</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Virtual_memory" title="Virtual memory">Virtual memory</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Demand_paging" title="Demand paging">Demand paging</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Page_table" title="Page table">Page table</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Paging" title="Paging">Paging</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Hardware</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Memory_management_unit" title="Memory management unit">Memory management unit</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Translation_lookaside_buffer" title="Translation lookaside buffer">Translation lookaside buffer</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Garbage_collection_%28computer_science%29" title="Garbage collection (computer science)">Garbage collection</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Boehm_garbage_collector" title="Boehm garbage collector">Boehm garbage collector</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Finalizer" title="Finalizer">Finalizer</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Garbage_%28computer_science%29" title="Garbage (computer science)">Garbage</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Mark-compact_algorithm" title="Mark-compact algorithm">Mark-compact algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Reference_counting" title="Reference counting">Reference counting</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Strong_reference" title="Strong reference">Strong reference</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Weak_reference" title="Weak reference">Weak reference</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Memory_segmentation" title="Memory segmentation">Memory segmentation</a></th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Protected_mode" title="Protected mode">Protected mode</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Real_mode" title="Real mode">Real mode</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Virtual_8086_mode" title="Virtual 8086 mode">Virtual 8086 mode</a></li>
+<li><a href="http://en.wikipedia.org/wiki/X86_memory_segmentation" title="X86 memory segmentation">x86 memory segmentation</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group"><a href="http://en.wikipedia.org/wiki/Memory_safety" title="Memory safety">Memory safety</a></th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Buffer_overflow" title="Buffer overflow">Buffer overflow</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dangling_pointer" title="Dangling pointer">Dangling pointer</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Stack_overflow" title="Stack overflow">Stack overflow</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Issues</th>
+<td class="navbox-list navbox-even" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Fragmentation_%28computing%29" title="Fragmentation (computing)">Fragmentation</a></li>
+<li><strong class="selflink">Memory leak</strong></li>
+<li><a href="http://en.wikipedia.org/wiki/Unreachable_memory" title="Unreachable memory">Unreachable memory</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height:2px;">
+<td></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group">Other</th>
+<td class="navbox-list navbox-odd" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px;">
+<div style="padding:0em 0.25em;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Automatic_variable" title="Automatic variable">Automatic variable</a></li>
+<li><a href="http://en.wikipedia.org/wiki/International_Symposium_on_Memory_Management" title="International Symposium on Memory Management">International Symposium on Memory Management</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Region-based_memory_management" title="Region-based memory management">Region-based memory management</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+
+
+<!-- 
+NewPP limit report
+Parsed by mw1066
+CPU time usage: 0.552 seconds
+Real time usage: 0.635 seconds
+Preprocessor visited node count: 521/1000000
+Preprocessor generated node count: 2700/1500000
+Post‐expand include size: 20132/2048000 bytes
+Template argument size: 768/2048000 bytes
+Highest expansion depth: 11/40
+Expensive parser function count: 5/500
+Lua time usage: 0.068/10.000 seconds
+Lua memory usage: 1.38 MB/50 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:19609-0!*!0!!en!4!* and timestamp 20140223055924
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;oldid=586492535">http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;oldid=586492535</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Software_bugs" title="Category:Software bugs">Software bugs</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Software_anomalies" title="Category:Software anomalies">Software anomalies</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_July_2011" title="Category:Articles with unsourced statements from July 2011">Articles with unsourced statements from July 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_lacking_in-text_citations_from_September_2007" title="Category:Articles lacking in-text citations from September 2007">Articles lacking in-text citations from September 2007</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_lacking_in-text_citations" title="Category:All articles lacking in-text citations">All articles lacking in-text citations</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_example_pseudocode" title="Category:Articles with example pseudocode">Articles with example pseudocode</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Memory+leak&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Memory+leak" title="You're encouraged to log in; however, it's not mandatory. [alt-shift-o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Memory_leak" title="View the content page [alt-shift-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Memory_leak" title="Discussion about the content page [alt-shift-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Memory_leak">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=edit" title="You can edit this page. 
+Please review your changes before saving. [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+					<div id="simpleSearch">
+					<input autocomplete="off" tabindex="1" name="search" placeholder="Search" title="Search Wikipedia [alt-shift-f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if one exists" id="searchButton" class="searchButton" type="submit">		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div class="collapsible-nav" id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal first persistent" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+			<li id="n-shoplink"><a href="http://shop.wikimedia.org/" title="Visit the Wikimedia Shop">Wikimedia Shop</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 tabindex="2" id="p-interaction-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-interaction-list" aria-haspopup="true" href="#">Interaction</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-interaction-list">
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 tabindex="3" id="p-tb-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-tb-list" aria-haspopup="true" href="#">Tools</a></h3>
+	<div class="body">
+		<ul id="p-tb-list">
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Memory_leak" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Memory_leak" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;oldid=586492535" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q751740" title="Link to connected data repository item [alt-shift-g]" accesskey="g">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Memory_leak&amp;id=586492535" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal collapsed" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 tabindex="4" id="p-coll-print_export-label"><a aria-expanded="false" aria-pressed="false" role="button" aria-controls="p-coll-print_export-list" aria-haspopup="true" href="#">Print/export</a></h3>
+	<div class="body">
+		<ul id="p-coll-print_export-list">
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Memory+leak">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Memory+leak&amp;oldid=586492535&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Memory_leak&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal expanded" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span original-title="Language settings" aria-haspopup="true" role="button" tabindex="0" class="uls-settings-trigger"></span>
+	<h3 tabindex="5" id="p-lang-label"><a aria-expanded="true" aria-pressed="true" role="button" aria-controls="p-lang-list" aria-haspopup="true" href="#">Languages</a></h3>
+	<div style="display: block;" class="body">
+		<ul id="p-lang-list">
+			<li class="interlanguage-link interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%D8%AA%D8%B3%D8%B1%D8%A8_%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9" title="تسرب الذاكرة – Arabic" hreflang="ar" lang="ar">العربية</a></li>
+			<li class="interlanguage-link interwiki-cs"><a href="http://cs.wikipedia.org/wiki/%C3%9Anik_pam%C4%9Bti" title="Únik paměti – Czech" hreflang="cs" lang="cs">Čeština</a></li>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.wikipedia.org/wiki/Speicherleck" title="Speicherleck – German" hreflang="de" lang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.wikipedia.org/wiki/Fuga_de_memoria" title="Fuga de memoria – Spanish" hreflang="es" lang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%DA%A9%D9%85%D8%A8%D9%88%D8%AF_%D8%AD%D8%A7%D9%81%D8%B8%D9%87" title="کمبود حافظه – Persian" hreflang="fa" lang="fa">فارسی</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Fuite_de_m%C3%A9moire" title="Fuite de mémoire – French" hreflang="fr" lang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EB%A6%AC_%EB%88%84%EC%88%98" title="메모리 누수 – Korean" hreflang="ko" lang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-id"><a href="http://id.wikipedia.org/wiki/Kebocoran_Memori" title="Kebocoran Memori – Indonesian" hreflang="id" lang="id">Bahasa Indonesia</a></li>
+			<li class="interlanguage-link interwiki-it"><a href="http://it.wikipedia.org/wiki/Memory_leak" title="Memory leak – Italian" hreflang="it" lang="it">Italiano</a></li>
+			<li class="interlanguage-link interwiki-he"><a href="http://he.wikipedia.org/wiki/%D7%93%D7%9C%D7%99%D7%A4%D7%AA_%D7%96%D7%99%D7%9B%D7%A8%D7%95%D7%9F" title="דליפת זיכרון – Hebrew" hreflang="he" lang="he">עברית</a></li>
+			<li class="interlanguage-link interwiki-lt"><a href="http://lt.wikipedia.org/wiki/Atminties_nutek%C4%97jimas" title="Atminties nutekėjimas – Lithuanian" hreflang="lt" lang="lt">Lietuvių</a></li>
+			<li class="interlanguage-link interwiki-ms"><a href="http://ms.wikipedia.org/wiki/Bocor_ingatan" title="Bocor ingatan – Malay" hreflang="ms" lang="ms">Bahasa Melayu</a></li>
+			<li class="interlanguage-link interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Geheugenlek" title="Geheugenlek – Dutch" hreflang="nl" lang="nl">Nederlands</a></li>
+			<li class="interlanguage-link interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%AF" title="メモリリーク – Japanese" hreflang="ja" lang="ja">日本語</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Wyciek_pami%C4%99ci" title="Wyciek pamięci – Polish" hreflang="pl" lang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Vazamento_de_mem%C3%B3ria" title="Vazamento de memória – Portuguese" hreflang="pt" lang="pt">Português</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%A3%D1%82%D0%B5%D1%87%D0%BA%D0%B0_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8" title="Утечка памяти – Russian" hreflang="ru" lang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-simple"><a href="http://simple.wikipedia.org/wiki/Memory_leak" title="Memory leak – Simple English" hreflang="simple" lang="simple">Simple English</a></li>
+			<li class="interlanguage-link interwiki-sk"><a href="http://sk.wikipedia.org/wiki/Memory_leak" title="Memory leak – Slovak" hreflang="sk" lang="sk">Slovenčina</a></li>
+			<li class="interlanguage-link interwiki-fi"><a href="http://fi.wikipedia.org/wiki/Muistivuoto" title="Muistivuoto – Finnish" hreflang="fi" lang="fi">Suomi</a></li>
+			<li class="interlanguage-link interwiki-tr"><a href="http://tr.wikipedia.org/wiki/Bellek_s%C4%B1z%C4%B1nt%C4%B1s%C4%B1" title="Bellek sızıntısı – Turkish" hreflang="tr" lang="tr">Türkçe</a></li>
+			<li class="interlanguage-link interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%92%D0%B8%D1%82%D1%96%D0%BA_%D0%BF%D0%B0%D0%BC%27%D1%8F%D1%82%D1%96" title="Витік пам'яті – Ukrainian" hreflang="uk" lang="uk">Українська</a></li>
+			<li class="interlanguage-link interwiki-zh-yue"><a href="http://zh-yue.wikipedia.org/wiki/%E6%BC%8F%E8%A8%98%E6%86%B6" title="漏記憶 – Cantonese" hreflang="zh-yue" lang="zh-yue">粵語</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F" title="内存泄漏 – Chinese" hreflang="zh" lang="zh">中文</a></li>
+			
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q751740#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 17 December 2013 at 14:13.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Memory_leak" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.cite","mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.articleFeedbackv5.startup","ext.wikimediaShopLink.core","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","ext.uls.interlanguage","skins.vector.collapsibleNav"],null,true);
+}</script><div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div>
+<script src="Memory%20leak%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.php"></script>
+<!-- Served by mw1032 in 0.275 secs. -->
+	
+
+</body></html>

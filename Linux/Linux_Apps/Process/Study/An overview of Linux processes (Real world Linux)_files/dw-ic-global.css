@@ -1,0 +1,577 @@
+/* developerWorks IBM Connections CSS - owners: Janet Willis and Debra Hayley, last updated 7/20/12 - ddh */
+
+
+/* IC GENERAL STYLES ACCROSS APPS START =================================== */
+
+.lotusui30 .lotusTitleBar2 .lotusInner {
+    border-bottom: 0px dotted #CCCCCC !important;
+    padding: 10px 0 4px;
+}/* BUG: Remove dotted underline for those apps that call a different class name to ensure consistency accross apps -- ddh */
+.lotusui30_layout .lotusMain .lotusContent {
+    padding: 30px !important;
+}/* BUG: To adjust padding for middle column accross all apps -- ddh */
+.dw-ic-strong{
+	font-weight:bold;
+}
+.lotusui30 .lotusForm tr.lotusFormFieldRowAlt td, .lotusui30 .lotusForm td.lotusFormFieldRowAlt {
+    padding-bottom: 20px;
+}
+.lotusui30 .lotusDialog .lotusHeading {
+    color: #FFFFFF;
+    display: block;
+    font-size: 1.1em !important;
+    margin-right: 0;
+    letter-spacing:.050em;
+    font-weight: normal !important;
+}
+
+/* BOOKMARKS: To fix font issues for lightboxes -- ddh */
+	.dijitDialog {
+	z-index: 1250 !important;
+}
+#notifyEmails_dropdown {
+z-index: 99999 !important;
+}
+#importDialog div, #dogear_alert_dialog div, #sendNotificationsDialog div, #exportDialog div, #manageTagDialog div, #dogear_alert_dialog div, #brokenUrlDialog div, #lotusAlertDialog div {
+	font-size: 1.0em !important;
+}
+
+/* WIKIS: General style fixes */
+.lotusResizable {
+    cursor: w-resize;
+    float: left;
+    height: 100px;
+    margin-left: -5px !important;
+    width: 6px;
+}/* WIKIS: To center column alignment issues -- Defect 13522 */
+#lconn_wikis_widget_MembershipOptions_0_userTextbox_dropdown {
+z-index: 999999 !important;
+}/* WIKIS - Type ahead feature as part of adding members to WIKIS remains hidden behind "Add members" lightbox. -- Defect 13737 */
+div.dijitPopup {
+z-index: 999999 !important;
+}
+
+#lconn_share_widget_MemberInput_0_people_dropdown {
+z-index: 999999 !important;
+}/* FILES - Type-ahead feature on Share files appears behind the lightbox. -- Defect 13645 */
+
+/* IC GENERAL STYLES ACCROSS APPS END =================================== */
+
+
+/* dW IC BACKGROUND STYLES BEGIN =================================== */
+/* dW IC background styles  */
+.lotusui30_body .lotusMain {
+    background-color: #ffffff;
+}
+	
+/* dW IC tooltip background styles  */
+.lotusui30 .lotusVCardHover {
+    background: url("/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/lotusSprite-8bit.png?etag=Xle76ms") no-repeat scroll 5px -2622px, -moz-linear-gradient(rgba(253, 245, 21, 0.95), rgba(255, 255, 102, 0.95)) repeat scroll 0 0 transparent !important;
+    border-color: #cccccc !important;
+    border-radius: 0 0 0 0;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    font-size: 0.9em;
+    padding: 6px 10px 6px 25px;
+	color: #222222 !important;
+	background-color: #fefa8a !important;
+	background: url("/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/lotusSprite-8bit.png?etag=Xle76ms") no-repeat scroll 5px -2622px, -webkit-gradient(linear, left top, left bottom, from(#fefa8a), to(#fefa8a));
+}/* per design: Color change for hover status (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/vcardhover.jpg) -- ddh */
+
+/* dW IC welcome box background styles */
+.lotusui30 .lotusWelcomeBox {
+    background-color: #38667d !important;
+    background-image: -moz-linear-gradient(center top, #38667d 0%, #4883a0 100%) !important;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    margin-left: 0;
+    padding: 25px;
+    filter:
+    progid:DXImageTransform.Microsoft.gradient(startColorStr='#38667d',EndColorStr='#4883a0') !important;
+    -ms-filter:
+    "progid:DXImageTransform.Microsoft.gradient(startColorStr='#38667d',EndColorStr='#4883a0')" !important;
+    background: -webkit-gradient(linear, left top, left bottom, from(#38667d), to(#4883a0));
+    background: -o-linear-gradient(top, #38667d, #4883a0) !important;
+}/* per design: Background color change (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/bookmarks-main.jpg) -- ddh */
+
+/* dW IC lotus menu background styles  */
+.lotusui30 .lotusMenu li a:hover, .lotusui30 .lotusMenu li a:focus, .lotusui30 .lotusMenu li a:active, .lotusui30 .lotusMenu .lotusMenuHeader .lotusHeading a:hover, .lotusui30 .lotusMenu .lotusMenuHeader .lotusHeading a:focus, .lotusui30 .lotusMenu .lotusMenuHeader .lotusHeading a:active {
+    background-color: #fffadc !important;
+}
+.lotusui30 .lotusActionMenu a:hover, .lotusui30 .lotusActionMenu a:focus, .lotusui30 .lotusActionMenu a:active{
+    background-color:#fffadc !important;
+}
+.dijitMenuItemHover td,  .dijitMenuItemSelected td {
+    background-color: #fffadc;
+}
+div.lconnLeftSide a.lotusSelected,  div.lconnLeftSide a.lotusSelected span {
+    background-color: #fffadc;
+}
+/* per design: Color change for hover status (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/advancedsearch-main-dropdown.jpg) -- ddh */
+
+/* dW IC lotus table hover background styles  */
+.lotusui30 .lotusBoard .lotusStream .lotusPostHover, .lotusui30 .lotusBoard .lotusStream .lotusPostSelected {
+    background-color: #fffadc !important;
+}/* per design: Color change for hover status (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/home-discover.jpg) -- ddh */
+
+/* dW IC lotus tip boxes background styles  */
+#lotusInfoBox {
+    background: -moz-linear-gradient(center top , #ffffff 0%, #fffadc 40%) repeat scroll 0 0 transparent !important;
+    border-color: #ffe14f !important;
+	background: -ms-linear-gradient(top, #ffffff, #fffadc);
+    filter:
+    progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#fffadc');
+    -ms-filter:
+    "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#fffadc')";
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#fffadc));
+    background: -o-linear-gradient(top, #ffffff, #fffadc);
+}
+
+.lotusColLeft .lotusInfoBox {
+    background: -moz-linear-gradient(center top , #fff 0%, #fffadc 40%) repeat scroll 0 0 transparent !important;
+    border-color: #ffe14f !important;
+	background: -ms-linear-gradient(top, #ffffff, #fffadc);
+    filter:
+    progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#fffadc');
+    -ms-filter:
+    "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#fffadc')";
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#fffadc));
+    background: -o-linear-gradient(top, #ffffff, #fffadc);
+}
+.lotusui30 .lotusInfoBox h4 {
+    font-size: 1.0em;
+}/* BUG: This fix is needed for IE 7/8 -- ddh */
+
+
+/* dW IC Menu hover background styles  */
+tr.dijitMenuItemHover {
+    background-color: #ffe14f !important;
+}
+.dijitMenuItemHover {
+	background-color: #fffadc !important;
+}
+.lotusui30 .lotusMenu h3 a:hover, .lotusui30 .lotusMenu h3 a:focus {
+background-color: #fffadc !important;
+}/* per design: Color change for hover status (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/advancedsearch-main-dropdown.jpg) -- ddh */
+
+/* dW IC banner background styles  */
+.lotusui30 .lotusBanner {
+    background: none repeat scroll 0 0 #ffffff;
+    border-bottom: 0px solid #ffffff;
+    padding: 0 0 0px;
+    position: relative;
+	min-width: 1030px !important;
+}/* BUG: To remove blue background from masthead area -- ddh */
+
+
+/* dW IC BACKGROUND STYLES END =================================== */
+
+
+
+/* dW IC TAB STYLES BEGIN ===================================  */
+
+/* dW IC main tabs in center panel */
+.lotusLayout {
+    border: 0px solid #ECECEC !important;
+}
+#lotusTitleBar, .lotusTitleBar {
+padding-top:10px;
+}
+*+html  #lotusTitleBar, .lotusTitleBar {
+padding-top:0px !important;
+}
+/* BUG: Add extra padding between main tabs and masthead (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/blogs-main.jpg)-- ddh */
+
+.lotusui30 .lotusTitleBar .lotusTabs {
+ background:none !important;
+    font-size: 1.2em;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+ .lotusTabs li a {
+    border-color: #DFDFDF #DFDFDF #DFDFDF #D2D2D2 !important;
+}
+.lotusui30 .lotusTitleBar .lotusTabs li {
+    margin: 0 5px 0 0;
+	
+}
+.lotusTabs li a {
+background-color:#d2d2d2;
+}
+.lotusTabs li a:hover,.lotusTabs li a:focus{
+    border-color: #000000 #DFDFDF #DFDFDF #D2D2D2;
+    color: #000000;
+background-color: #DDDDDD;
+-moz-transition: background-color 0.3s ease 0s;
+}
+.lotusui30 .lotusTitleBar .lotusTabs li.lotusSelected a, .lotusui30 .lotusTitleBar .lotusTabs li.lotusSelected a:hover, .lotusui30 .lotusTitleBar .lotusTabs li.lotusSelected a:focus, .lotusui30 .lotusTitleBar .lotusTabs li.lotusSelected a:active {
+    border-color: #D2D2D2 #D2D2D2 #FFFFFF !important;
+	background-color: #FFFFFF !important;
+}
+.lotusTabContainer .lotusTabs li a {
+background-color:#FFFFFF !important;
+}/* per design: Change in tab background color and font size (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/blogs-main.jpg) -- ddh */
+
+.lotusui30 .lotusTitleBar .lotusTabs li a {
+    padding: 11px 20px !important;/* per design: Change in tab background color and font size (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/blogs-main.jpg) -- ddh */
+}
+
+/* dW IC TAB STYLES END ===================================  */
+
+
+
+/* dW IC HEADER STYLES BEGIN ===================================  */
+/* dW IC h2 header styles */
+.lotusui30 div.lotusTitleBar2 h2.lotusHeading {
+    font-size: 1.5em;
+}/* per design: Remove icon in heading in all apps (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/home-discover.jpg) -- ddh */
+
+.lotusui30 .lotusTitleBar h2 a:hover{
+   text-decoration:none !important;
+}/* per design: Ensure consistency across app titles (same size font, #222222, not hyperlinked, correct vertical alignment) -- ddh */
+
+.iconsComponentsBlue24 {
+    background-image: url("/developerworks/community/connections/resources/web/com.ibm.lconn.core.styles.oneui3/images/Icons/ComponentsBlue/iconsComponentsBlue24-8bit.png?etag=Xle76ms");
+    background-repeat: no-repeat;
+    display: none;
+}/* per design: Remove icon in heading in all apps (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/home-discover.jpg) -- ddh */
+
+.lotusui30 .lotusTitleBar2 {border-bottom:1px solid #d2d2d2 !important;
+background:#f8f8f8;
+background:-moz-linear-gradient(top, #f8f8f8 0%, #f8f8f8 92%, #eaeaea 100%) !important;
+background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-
+stop(92%,#f8f8f8), color-stop(100%,#eaeaea)) !important;
+background:linear-gradient(top, #f8f8f8 0%, #f8f8f8 92%, #eaeaea 100%) !important;}/* per design: Modify app title to be consistent with other apps (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/home-discover.jpg) -- ddh */
+
+/* dW IC HEADER STYLES END ===================================  */
+
+
+
+/* dW IC MY HOME APPLICATION STYLES START ===================================  */
+/* dW IC widget menu background styles */
+.lotusui30 .lotusPalette .lotusPaletteNav .lotusMenu li.lotusSelected, .lotusui30 .lotusPalette .lotusPaletteNav .lotusMenu li.lotusSelected a {
+    background: none repeat scroll 0 0 #DD731C !important;
+}/* per design: Change color of selection in customize pane to orange. (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/home-mypage-customize.jpg) -- ddh */
+
+/* dW IC MY HOME APPLICATION STYLES END ===================================  */
+
+
+
+/* dW IC ADVANCED SEARCH APPLICATION STYLES BEGIN ===================================  */
+/* dW IC highlight styles */
+a.lconnSearchHighlight {
+    background-color: #fff3a9 !important;
+}
+.lconnSearchResults .lconnSearchHighlight b, .lconnSearchResults a.lconnSearchHighlight, .lconnSearchResults h4 a b {
+    background-color: #fff3a9 !important;
+}/* per design: Change the advanced search results highlight color to light yellow (http://dwmaster.rtp.raleigh.ibm.com/graphicdesign/ami/ic4/advancedsearch-results.jpg) -- ddh */
+
+/* dW IC ADVANCED SEARCH APPLICATION STYLES END ===================================  */
+
+/* dW IC MASTHEAD/FOOTER STYLES BEGIN ===================================  */
+/* To fix z-index values to display social toolbar for IE -- ddh */
+.lotusBanner {
+z-index: 1000;
+}
+#dw-masthead-top {
+z-index:1000;
+}
+
+
+/* To fix font alignment issue in search box -- ddh */
+.lotusui30 .lotusSearch .lotusText, .lotusui30 .lotusSearch .lotusScope  {
+   *margin: 0 0px !important; /* IE 7 */
+    margin: 0 0px\0/ !important; /* IE 8-9 */
+}
+
+/* To fix styles for email lightbox in social toolbar -- ddh */
+.dijitDialogPaneContent {
+    background-color: #FFFFFF !important;
+}
+.dijitDialogPaneContent {
+    font-size: 0.8em !important;
+}
+.dijitDialogPaneContent .ibm-main {
+    padding: 20px !important;
+}
+div#ibm-overlay-top .ibm-buttons-row p {
+    padding-bottom: 0px !important;
+    padding-left: 20px !important;
+}
+div.emailDialog {
+    background: none repeat scroll 0 0 transparent;
+    border: 8px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 0 20px #333333 !important;
+    overflow: visible;
+}
+
+.lotusui30dojo .dijitDialog .emailDialog {
+    border: 0 none;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.4);
+}
+div.emailDialog {
+    border: 3px solid rgba(2, 2, 2, 0.4);
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    outline: medium none;
+    overflow: visible;
+}
+.dijitDialog .emailDialog {
+    z-index: 1250 !important;
+}
+.dijitDialog .emailDialog {
+    width: auto;
+}
+.emailDialog {
+    display: block;
+    overflow: auto;
+}
+*+html div.emailDialog {
+    background: #fff !important;
+	border: 8px solid !important;
+	border-color: #aaaaaa !important;
+	width: 450px !important;
+}
+.lotusui30dojo .emailDialog .dijitDialogTitleBar {
+    background: -moz-linear-gradient(center top , #FFFFFF 0%, #FFFFFF 100%) repeat scroll 0 0 transparent;
+    padding: 10px 20px;
+	 display: block;
+    background: #fff !important;
+}
+div.ibm-title {
+	margin-top:-20px;
+}
+div.emailDialog .dijitDialogCloseIcon {
+    background: url("//1.www.s81c.com/i/v17/overlay/overlay-close.png") no-repeat scroll 0 0 transparent;
+    height: 42px;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    width: 42px;
+	cursor: pointer;
+	z-index:99999
+}
+div.emailDialog .dijitDialogCloseIcon-hover {
+    background-position: 0 -42px !important;
+}
+*+html div.emailDialog .dijitDialogCloseIcon {
+	right: -22px;
+	top: -25px;
+}
+*+html div#ibm-overlay-top .ibm-buttons-row p {
+    padding-bottom: 12px !important;
+}
+
+form.ibm-column-form  a.ibm-error-link {
+    background: transparent url("//1.www.s81c.com/i/v17/icons/ibm_sprite_status_sm_OFF.png") no-repeat scroll 0 0 !important; 
+	background-position: 0px -201px !important;
+	text-indent:-9999px;
+	margin-right:5px;
+}
+#etpForm a.ibm-error-link:hover{
+	background:url("//1.www.s81c.com/i/v17/icons/sprites-form.gif") no-repeat scroll 0 -126px transparent}
+
+form.ibm-column-form p {
+    clear: both !important;
+    display: inline-block !important;
+    width: 100% !important;
+}
+div#ibm-overlay-top p {
+    background-color: #FFFFFF;
+    clear: left !important;
+}
+#ibm-com .dijitDialogUnderlay {
+    background: none repeat scroll 0 0 #000000;
+    opacity: 0.6;
+}
+div#ibm-overlay-top form.ibm-column-form label {
+    display: block !important;
+    float: left !important;
+    width: 120px;
+}
+div#ibm-overlay-top form label {
+    padding-bottom: 0.2em;
+}
+form.ibm-column-form label {
+    margin-top: 3px;
+	line-height: 14px;
+}
+#etpForm a.ibm-error-link {
+    left: -30px;
+    position: relative !important;
+    top: -25px;
+}
+
+
+/* FOOTER: To fix font and positioning issues for icons -- ddh */
+
+.lotusui30 .lotusFooter {
+    padding: 0 !important;
+}
+.lotusui30 .lotusBanner .ibm-access {
+    margin-left: -3000px !important;
+    position: absolute !important;
+    width: 500px;
+} /* To hide content for accessibility purposes (i.e. screen readers) -- ddh */
+
+/* global background color for dw recommends posts */
+div.dwrecommends {
+	background-color:#ffffcc !important;
+	}
+	
+/* global background startup screen for IC4 apps -- ddh */ 
+html, body {
+    background: url("//www.ibm.com/i/c.gif") no-repeat scroll 50% 200px #ffffff; !important;
+}
+
+/* Defect #14845: BLOGS - Missing grid/table & borders around sections within the AUTHOR page. -- ddh */
+table.rollertable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.lotusui30 .lotusMeta {
+    color: #222222;
+    font-size: 0.9em;
+}
+
+table.rollertable th, table.rollertable th {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #F4F5F6;
+	border: 1px solid #DBDBDB;
+    border-color: #DBDBDB #DBDBDB -moz-use-text-color !important;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 1px 0;
+    padding: 3px;
+    text-align: left;
+}
+table.rollertable td, table.rollertable tbody td {
+    border: 1px solid #DBDBDB;
+}
+table.rollertable tbody td {
+    padding: 3px;
+}
+table.rollertable td, table.rollertable tbody td {
+    vertical-align: top;
+}
+
+#memberAddDialog {
+    background-color: white;
+    border: 1px solid gray;
+    height: auto;
+    padding: 0 10px 10px;
+    width: 35em;
+}
+#memberAddDialog form, #publicMemberAddDialog form {
+    margin: 0;
+    padding: 0;
+}
+.AddMembers .field {
+    padding: 5px;
+}
+.AddMembers .memberList {
+    visibility: hidden;
+}
+.AddMembers .memberList {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: white;
+    border-color: #9A9A9A #9A9A9A -moz-use-text-color;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 1px medium;
+}
+.member {
+    border: 1px solid #9A9A9A  !important;
+}
+.AddMembers .memberList {
+	border-color: #9A9A9A #9A9A9A -moz-use-text-color;
+	border-style: solid solid none;
+    border-width: 0px 0px medium !important;
+}
+
+.AddMembers .typeAhead {
+    width: 310px;
+}
+.AddMembers .typeAhead {
+    border: 1px solid #9A9A9A;
+    font-size: 1.1em;
+}
+.field .fieldAdd {
+   background: url("/developerworks/community/blogs/roller-ui/images/add_icon.gif") no-repeat scroll center center transparent !important;
+    border: medium none;
+    height: 16px;
+    vertical-align: top;
+    width: 16px;
+}
+.field .fieldAddText {
+    border: medium none;
+    display: none;
+    height: 16px;
+    width: 16px;
+}
+.dijit_a11y .field .fieldAddText {
+    border: medium none;
+    cursor: pointer;
+    display: inline;
+    height: 16px;
+    width: 16px;
+}
+.dijit_a11y .field .fieldDel {
+    border: medium none;
+    display: none;
+}
+.field .fieldDelText {
+    border: medium none;
+    display: none;
+    height: 16px;
+    width: 16px;
+}
+.dijit_a11y .field .fieldDelText {
+    border: medium none;
+    cursor: pointer;
+    display: inline;
+    height: 16px;
+    width: 16px;
+}
+#memberAddDialog .submitArea, #publicMemberAddDialog .submitArea {
+    margin-top: 5px;
+}
+h1 {
+    clear: both;
+    font-size: 2em;
+    line-height: 1em;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.AddMembers .memberList .member {
+    padding: 3px;
+}
+.AddMembers .memberList .member {
+    border-bottom: 0px solid #9A9A9A;
+}
+.AddMembers .memberList .member .type {
+    color: #AFAFAF;
+    font-style: italic;
+}
+.AddMembers .memberList .member .fieldDel {
+}
+.AddMembers .memberList .member .fieldDel {
+}
+.field .fieldDel {
+    background: url("/developerworks/community/blogs/roller-ui/images/remove_icon.gif") no-repeat scroll center center transparent !important;
+    border: medium none;
+    height: 16px;
+    width: 16px;
+}
+.lotusFormField button.fieldAdd {
+   background: url("/developerworks/community/blogs/roller-ui/images/add_icon.gif") no-repeat scroll center center transparent !important;
+    border: medium none;
+    height: 16px !important;
+    vertical-align: top;
+    width: 16px !important;
+}

@@ -1,0 +1,1 @@
+(function(){stButtons.processCB({"google":40,"clicks_total":45,"fbunlike":1,"facebook":5,"fblike":1,"total":47,"shares":{"fbunlike":1,"all":2,"fblike":1},"url":"http:\/\/linoxide.com\/how-tos\/signal-handling-linux-signal-function\/","ourl":"http:\/\/linoxide.com\/how-tos\/signal-handling-linux-signal-function\/#sthash.D4MY84bl"})})();

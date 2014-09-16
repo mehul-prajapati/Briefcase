@@ -1,0 +1,2 @@
+mw.loader.implement("jquery.byteLength",function(){jQuery.byteLength=function(str){return str.replace(/[\u0080-\u07FF\uD800-\uDFFF]/g,'**').replace(/[\u0800-\uD7FF\uE000-\uFFFF]/g,'***').length;};;},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:a44a55ffd459e22d102c23c25243cc4e */

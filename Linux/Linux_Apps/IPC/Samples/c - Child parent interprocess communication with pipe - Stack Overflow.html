@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>c - Child parent interprocess communication with pipe - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6">
+    <meta name="og:title" content="Child parent interprocess communication with pipe">
+    <meta name="og:description" content="I am trying to understand in the communication between the parent and child. Disclaimer: The following is the sample code provided by my professor in class to understand interprocess communication....">
+    <meta name="og:url" content="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe">
+    <link rel="canonical" href="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe">
+
+    
+    
+    <script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/beacon.js" async=""></script><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/ga.js" async="" type="text/javascript"></script><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/quant.js" async="" type="text/javascript"></script><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/ados_002.js" async="" type="text/javascript"></script><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/ados.js" async="" type="text/javascript"></script><script type="text/javascript" src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/jquery.js"></script>
+    <script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/stub.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/all.css">
+    
+    <script type="text/javascript">
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:5,shownCommentCount:5,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:12439924});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '12439924');
+            
+                    });
+    </script>
+
+
+    <script type="text/javascript">
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1389171664,"styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true,"ab":{"welcome_email":{"v":"c","g":2},"anonymoushero":{"v":"bias","g":1}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"e0bbd4760e83","js/moderator.en.js":"f24049d774be","js/full-anon.en.js":"9bf9b6f2f031","js/full.en.js":"09da0746004a","js/wmd.en.js":"849f408083f3","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"d1d834ef85d2","js/help.en.js":"d3cc74d8a93a","js/tageditor.en.js":"6d51a5f8d7f3","js/tageditornew.en.js":"111b781cf314","js/inline-tag-editing.en.js":"f951bd09dc69","js/revisions.en.js":"33fd38144303","js/review.en.js":"038b38e68e1a","js/tagsuggestions.en.js":"e4e7b952fcc7","js/post-validation.en.js":"c275fe37d674","js/explore-qlist.en.js":"73825bd006fc","js/events.en.js":"6f8a95d5c039"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+        
+    </script>
+    
+        <script type="text/javascript">
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/adFeedback.js" type="text/javascript"></script><link href="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/adFeedback.css" rel="stylesheet"><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/full-anon.js" type="text/javascript" async=""></script><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/post-validation.js" type="text/javascript" async=""></script><script src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/prettify-full.js" type="text/javascript" async=""></script><link rel="stylesheet" type="text/css" href="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/sidebar.css"></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">Explore our sites</a></h3>
+    </div>
+    <div class="modal-content">
+        <ul class="current-site">
+                <li>
+                        <a href="http://stackoverflow.com/" class="current-site-link site-link js-site-link js-gps-track" data-gps-track="site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+    <div class="related-links js-related-links">
+            <a href="http://chat.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+                </li>
+                <li class="related-site">
+                        <a href="http://meta.stackoverflow.com/" class="site-link js-site-link js-gps-track" data-gps-track="site.switch({ target_site:4, item_type:3 });site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                    
+                </li>
+                            <li class="related-site">
+                    <a class="site-link js-site-link" href="http://careers.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Careers 2.0
+                    </a>
+                </li>
+        </ul>
+        
+
+
+        
+            <div class="child-content"></div>
+
+    </div>
+</div>        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 114 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                        <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f12439924%2fchild-parent-interprocess-communication-with-pipe" class="login-link">sign up</a>    
+                        <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f12439924%2fchild-parent-interprocess-communication-with-pipe" class="login-link">log in</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                        <a href="http://stackoverflow.com/help">help</a>
+                            <a href="http://careers.stackoverflow.com/">careers 2.0</a>
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () {
+        //topbar.init();
+        StackExchange.topbar.init();
+    });
+</script>    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://stackoverflow.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://stackoverflow.com/about" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a question and answer site for 
+professional and enthusiast programmers. It's 100% free, no registration
+ required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe" class="question-hyperlink">Child parent interprocess communication with pipe [closed]</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="12439924" id="question">
+    
+    <script type="text/javascript">
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk276645233",4).setZone(43) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk276645233"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjg0NywiY2giOjExNzgsImNyIjoxMDc2OSwiZGkiOiI2ZjkzMGM5ZjVhODc0NzIyODU1ZjY2Yjg4N2YxY2VmMSIsImRtIjoxLCJmYyI6MTY4ODYsImZsIjoyNDQ0LCJrdyI6ImMsZm9yayxzeXN0ZW0tY2FsbHMsaW50ZXItcHJvY2Vzcy1jb21tdW5pY2F0IiwibnciOjIyLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTUmdmVkPTBDRWdRRmpBRSZ1cmw9aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xMjQzOTkyNC9jaGlsZC1wYXJlbnQtaW50ZXJwcm9jZXNzLWNvbW11bmljYXRpb24td2l0aC1waXBlJmVpPXhCUE5VdjNLRzhLNHJnZlZ4WUNBQ2cmdXNnPUFGUWpDTkVGbmx6aHA2NGRUa3pkcENQWl9TcV96N2cwancmYnZtPWJ2LjU5MDI2NDI4LGQuYm1rJmNhZD1yamEiLCJydiI6MCwicHIiOjE1NjgsInN0Ijo4Mjc3LCJ6biI6NDMsInRzIjoxMzg5MTcxNTYxNTY4LCJ1ciI6Imh0dHA6Ly9jYXJlZXJzLnN0YWNrb3ZlcmZsb3cuY29tL2pvYnMvdGVsZWNvbW11dGUifQ&amp;s=QIaVi__vJvmWwStxgafqCOKrh2c" rel="nofollow" target="_blank" title=""><img src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/d893babe671c41118c1fece177e0a21a.jpg" title="" alt="" width="728" height="90" border="0"></a><img src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/i.gif" width="0px" height="0px" border="0"><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12439924" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">-2</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b></b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I am trying to understand in the communication between the 
+parent and child. Disclaimer: The following is the sample code provided 
+by my professor in class to understand interprocess communication. My 
+main weakness is in file descriptors. I understand that pipe(int 
+array[2]) makes array[0]=fd for std in and array[1] as std out. But how 
+is this communication between those two? I am fairly new to CS. Thanks!</p>
+
+<pre style="" class="lang-c prettyprint prettyprinted"><code><span class="com">/*
+ * This program demonstrates the use of pipes for interprocess communication.
+ * The parent process creates a pipe using the "pipe" system call. It then
+ * creates a child process and passes the child a file descriptor for one side
+ * of the pipe. It then writes a name to its side of the pipe and waits for the
+ * child to print a message incorporating the name.
+ *
+ * Before you attempt to run this program, be sure you've compiled the program
+ * named "hw3b.c" and have the executable in a file named "hw3b".
+ */</span><span class="pln">
+
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;stdlib.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;strings.h&gt;</span><span class="pln">
+</span><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;stdio.h&gt;</span><span class="pln">
+
+</span><span class="com">/*
+ * The name of the file we plan to run.  It's here in a define so that we can
+ * change it easily
+ */</span><span class="pln">
+</span><span class="com">#define</span><span class="pln"> CHILDPROCNAME </span><span class="str">"hw3b"</span><span class="pln">
+
+</span><span class="com">/*
+ * The behavior of main() is specified by the previous comment
+ */</span><span class="pln">
+
+</span><span class="typ">int</span><span class="pln"> main</span><span class="pun">(</span><span class="kwd">char</span><span class="pun">*</span><span class="pln"> argv</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// store the ids of the two file descriptors that serve as the pipe</span><span class="pln">
+    </span><span class="typ">int</span><span class="pln"> mypipe</span><span class="pun">[</span><span class="lit">2</span><span class="pun">];</span><span class="pln">
+
+    </span><span class="com">// make the pipe</span><span class="pln">
+    pipe</span><span class="pun">(</span><span class="pln">mypipe</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="com">// child code:</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">fork</span><span class="pun">()</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// execv requires us to create a full invocation, consisting of the</span><span class="pln">
+        </span><span class="com">// string name of the program to run, a string for each command-line</span><span class="pln">
+        </span><span class="com">// argument, and then a null string.  We store all that in this array of</span><span class="pln">
+        </span><span class="com">// strings</span><span class="pln">
+        </span><span class="kwd">char</span><span class="pun">*</span><span class="pln"> myargv</span><span class="pun">[</span><span class="lit">3</span><span class="pun">];</span><span class="pln">
+
+        </span><span class="com">// we use this to turn an int into a string</span><span class="pln">
+        </span><span class="kwd">char</span><span class="pln"> buf</span><span class="pun">[</span><span class="lit">50</span><span class="pun">];</span><span class="pln">
+
+        </span><span class="com">//  set up the name of the program to run</span><span class="pln">
+        myargv</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> calloc</span><span class="pun">(</span><span class="pln">strlen</span><span class="pun">(</span><span class="pln">CHILDPROCNAME</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="kwd">char</span><span class="pun">));</span><span class="pln">
+        strcpy</span><span class="pun">(</span><span class="pln">myargv</span><span class="pun">[</span><span class="lit">0</span><span class="pun">],</span><span class="pln"> CHILDPROCNAME</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com">// write one of the pipe's fds to the second parameter</span><span class="pln">
+        sprintf</span><span class="pun">(</span><span class="pln">buf</span><span class="pun">,</span><span class="pln"> </span><span class="str">"%d"</span><span class="pun">,</span><span class="pln"> mypipe</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]);</span><span class="pln">
+        myargv</span><span class="pun">[</span><span class="lit">1</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> calloc</span><span class="pun">(</span><span class="pln">strlen</span><span class="pun">(</span><span class="pln">buf</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">sizeof</span><span class="pun">(</span><span class="kwd">char</span><span class="pun">));</span><span class="pln">
+        strcpy</span><span class="pun">(</span><span class="pln">myargv</span><span class="pun">[</span><span class="lit">1</span><span class="pun">],</span><span class="pln"> buf</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com">// third param is null</span><span class="pln">
+        myargv</span><span class="pun">[</span><span class="lit">2</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="com">// switch to child process</span><span class="pln">
+        execv</span><span class="pun">(</span><span class="pln">CHILDPROCNAME</span><span class="pun">,</span><span class="pln"> myargv</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com">// NB: this should use fprintf and write to stderr</span><span class="pln">
+        printf</span><span class="pun">(</span><span class="str">"Uh oh, execv didn't work!\n"</span><span class="pun">);</span><span class="pln">
+
+       </span><span class="com">// crash on failure</span><span class="pln">
+       exit</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="com">// parent code</span><span class="pln">
+    </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+       </span><span class="com">// status variable for storing the result of waitpid</span><span class="pln">
+       </span><span class="typ">int</span><span class="pln"> status</span><span class="pun">;</span><span class="pln">
+
+       </span><span class="com">// Send a string across the pipe to the child process</span><span class="pln">
+       write</span><span class="pun">(</span><span class="pln">mypipe</span><span class="pun">[</span><span class="lit">1</span><span class="pun">],</span><span class="pln"> </span><span class="str">"Kerry"</span><span class="pun">,</span><span class="pln"> strlen</span><span class="pun">(</span><span class="str">"Kerry"</span><span class="pun">));</span><span class="pln">
+
+       </span><span class="com">// wait for the child process to finish</span><span class="pln">
+       waitpid</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">status</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+
+       </span><span class="com">// NB: we should use status!</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="com">// close our half of the pipe</span><span class="pln">
+    close</span><span class="pun">(</span><span class="pln">mypipe</span><span class="pun">[</span><span class="lit">1</span><span class="pun">]);</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag js-gps-track" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/fork" class="post-tag js-gps-track" title="show questions tagged 'fork'" rel="tag">fork</a> <a href="http://stackoverflow.com/questions/tagged/system-calls" class="post-tag js-gps-track" title="show questions tagged 'system-calls'" rel="tag">system-calls</a> <a href="http://stackoverflow.com/questions/tagged/inter-process-communicat" class="post-tag js-gps-track" title="show questions tagged 'inter-process-communicat'" rel="tag">inter-process-communicat</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/12439924" title="short permalink to this question" class="short-link" id="link-post-12439924">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/12439924/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/12439924/revisions" title="show all edits to this post">edited <span title="2012-09-16 07:29:35Z" class="relativetime">Sep 16 '12 at 7:29</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/648658/jens"><div><img src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/75ee864ee3bef78f2a144398789fed25.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/648658/jens">Jens</a><br>
+        <span class="reputation-score" title="reputation score 13905" dir="ltr">13.9k</span><span title="4 gold badges"><span class="badge1"></span><span class="badgecount">4</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="53 bronze badges"><span class="badge3"></span><span class="badgecount">53</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2012-09-15 18:22:30Z" class="relativetime">Sep 15 '12 at 18:22</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1280043/jasminetea"><div><img src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/6aec064107145d9f41082c5780bed1c3.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1280043/jasminetea">jasminetea</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">43</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="9 bronze badges"><span class="badge3"></span><span class="badgecount">9</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12439924" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-16727042" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                                <span title="number of 'useful comment' votes received" class="cool">3</span>   
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">You need to add the rest of the code.  <code>childproc</code> isn't even used, and it is defined to be a string.  <code>main</code> isn't implemented and isn't even a valid forward declaration without a semi-colon after it..  Please post <code>p1.c</code></span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/1053/ed-s" title="63239 reputation" class="comment-user">Ed S.</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment16727042_12439924"><span title="2012-09-15 18:25:36Z" class="relativetime-clean">Sep 15 '12 at 18:25</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-16727045" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Where's the rest of the <code>main</code>?...</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/335858/dasblinkenlight" title="210244 reputation" class="comment-user">dasblinkenlight</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment16727045_12439924"><span title="2012-09-15 18:25:51Z" class="relativetime-clean">Sep 15 '12 at 18:25</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-16727055" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">IN the main are if preparing for the arguments for childprocess to call execv and then calling it</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/1280043/jasminetea" title="43 reputation" class="comment-user owner">jasminetea</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment16727055_12439924"><span title="2012-09-15 18:26:38Z" class="relativetime-clean">Sep 15 '12 at 18:26</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-16727220" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Apparently your prof wants you to write a 
+program to create two processes that communicate via a pipe. Please give
+ us some more (plenty!) of context to help you.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/648658/jens" title="13905 reputation" class="comment-user">Jens</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment16727220_12439924"><span title="2012-09-15 18:41:04Z" class="relativetime-clean">Sep 15 '12 at 18:41</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-16731659" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">I just added. please do not vote down anymore T__T. I am life-banned now.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/1280043/jasminetea" title="43 reputation" class="comment-user owner">jasminetea</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment16731659_12439924"><span title="2012-09-16 00:45:11Z" class="relativetime-clean">Sep 16 '12 at 0:45</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12439924" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+<div class="question-status">
+        <h2>                    <b>closed</b> as not a real question by <a href="http://stackoverflow.com/users/50776/casperone">casperOne</a><span class="mod-flair" title="moderator">♦</span> <span title="2012-09-18 13:27:38Z" class="relativetime">Sep 18 '12 at 13:27</span>
+</h2>
+        <p>It's difficult to tell what is being asked here. This question is ambiguous, vague, incomplete, overly broad, or rhetorical and 
+cannot be reasonably answered in its current form. For help clarifying this question so that it can be reopened, 
+<a href="http://stackoverflow.com/help/reopen-questions">visit the help center</a>.<span class="close-status-suffix">If this question can be reworded to fit the rules in the <a href="http://stackoverflow.com/help/closed-questions">help center</a>, please <a href="http://stackoverflow.com/posts/12439924/edit">edit the question</a>.</span></p>
+    </div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								1 Answer
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="12439954"></a>
+<div id="answer-12439954" class="answer accepted-answer" data-answerid="12439954">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12439954" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">1</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>It simply replaces <code>childproc</code> in your program with <code>p1</code>. He might have meant that it depends on the value i.e <code>p1</code>.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/12439954" title="short permalink to this answer" class="short-link" id="link-post-12439954">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/12439954/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-09-15 18:26:30Z" class="relativetime">Sep 15 '12 at 18:26</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1275169/blue-moon"><div><img src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/4c6dbda4e65af6d2ceaabdfad538b319.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1275169/blue-moon">Blue Moon</a><br>
+        <span class="reputation-score" title="reputation score 23130" dir="ltr">23.1k</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="16 silver badges"><span class="badge2"></span><span class="badgecount">16</span></span><span title="48 bronze badges"><span class="badge3"></span><span class="badgecount">48</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12439954" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12439954" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+				
+
+
+						<h2 class="bottom-notice">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/c" class="post-tag" title="show questions tagged 'c'" rel="tag">c</a> <a href="http://stackoverflow.com/questions/tagged/fork" class="post-tag" title="show questions tagged 'fork'" rel="tag">fork</a> <a href="http://stackoverflow.com/questions/tagged/system-calls" class="post-tag" title="show questions tagged 'system-calls'" rel="tag">system-calls</a> <a href="http://stackoverflow.com/questions/tagged/inter-process-communicat" class="post-tag" title="show questions tagged 'inter-process-communicat'" rel="tag">inter-process-communicat</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+							<div class="module question-stats">
+					<p class="label-key">tagged</p>
+					<div class="tagged"><a href="http://stackoverflow.com/questions/tagged/c" class="post-tag js-gps-track" title="show questions tagged 'c'" rel="tag">c</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">122580</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/fork" class="post-tag js-gps-track" title="" rel="tag">fork</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">2085</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/system-calls" class="post-tag js-gps-track" title="" rel="tag">system-calls</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">664</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/inter-process-communicat" class="post-tag js-gps-track" title="" rel="tag">inter-process-communicat</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">135</span></span><br>
+</div>
+					<table id="qinfo">
+						<tbody><tr>
+							<td>
+								<p class="label-key">asked</p>
+							</td>
+							<td style="padding-left: 10px">
+								<p class="label-key" title="2012-09-15 18:22:30Z"><b>1 year ago</b></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="label-key">viewed</p>
+							</td>
+
+							<td style="padding-left: 10px">
+								<p class="label-key">
+									<b>794 times</b>
+								</p>
+							</td>
+						</tr>
+							<tr>
+								<td>
+									<p class="label-key">active</p>
+								</td>
+								<td style="padding-left: 10px">
+									<p class="label-key"><b><a href="http://stackoverflow.com/questions/12439924/child-parent-interprocess-communication-with-pipe?lastactivity" class="lastactivity-link" title="2012-09-16 07:29:35Z">1 year ago</a></b></p>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+						
+			<script type="text/javascript">
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1036592623",17).setZone(45) ; });                    
+            </script>
+              
+    <div id="hireme"> <a href="http://careers.stackoverflow.com/jobs?a=288" class="top" target="_blank"></a> <ul class="jobs"> <li> <a href="http://careers.stackoverflow.com/jobs/43724/it-administrator-m-w-in-teilzeit-f%C3%BCr-fairtrade-transfair-e-v-fairtrade?a=RkeYqgW4" target="_blank" title="IT Administrator (m/w) in Teilzeit für Fairtrade Deutschland at TransFair e.V. (Fairtrade Deutschland). Click to learn more."> IT Administrator (m/w) in Teilzeit für Fairtrade Deutschland<br> <span class="company">TransFair e.V. (Fairtrade…</span> <span class="location">Cologne, Germany</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/45224/web-product-developer-practo-technologies-pvt-ltd?a=T9E1Czwk" target="_blank" title="Web Product Developer at Practo Technologies Pvt. Click to learn more."> Web Product Developer<br> <span class="company">Practo Technologies Pvt</span> <span class="location">Bangalore, India / relocation</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/45706/ux-ui-designer-in-finanzchef24-gmbh?a=TK4xBo0U" target="_blank" title="UX / UI Designer/in at Finanzchef24 GmbH. Click to learn more."> UX / UI Designer/in<br> <span class="company">Finanzchef24 GmbH</span> <span class="location">München, Deutschland</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/46265/full-stack-developer-for-a-cloud-based-product-eutech-cybernetic?a=Uqmo8H5u" target="_blank" title="Full-Stack Developer for a Cloud-based Product at Eutech Cybernetic. Click to learn more."> Full-Stack Developer for a Cloud-based Product<br> <span class="company">Eutech Cybernetic</span> <span class="location">Chennai, India</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/32969/ruby-developer-idyllic-software?a=EcYL4bPG" target="_blank" title="Ruby Developer at Idyllic Software. Click to learn more."> Ruby Developer<br> <span class="company">Idyllic Software</span> <span class="location">Pune, India</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/45871/django-python-developer-lukkien-bv?a=TWy5mP7y" target="_blank" title="Django/ Python developer at Lukkien BV. Click to learn more."> Django/ Python developer<br> <span class="company">Lukkien BV</span> <span class="location">Ede, Netherlands</span> </a> </li> </ul> <img alt="" class="impression" src="c%20-%20Child%20parent%20interprocess%20communication%20with%20pipe%20-%20Stack%20Overflow_files/T9E1Czwk-RkeYqgW4-TK4xBo0U-Uqmo8H5u-EcYL4bPG-TWy5mP7y-288.gif" style="display:none"></div>
+			  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6877697?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/6877697/communicating-between-two-child-processes-with-pipes?rq=1" class="question-hyperlink">communicating between two child processes with pipes</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/8018976?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/8018976/parent-child-process-communication-through-pipes?rq=1" class="question-hyperlink">parent-child process communication through pipes</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/9318125?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/9318125/two-way-parent-child-communication-using-2-pipes-in-c-on-linux?rq=1" class="question-hyperlink">Two-Way Parent Child Communication Using 2 Pipes in C on Linux</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/15524894?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/15524894/communication-between-two-pipes?rq=1" class="question-hyperlink">communication between two pipes</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/15905496?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/15905496/communication-between-processes-with-pipes?rq=1" class="question-hyperlink">Communication between processes with pipes</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/16152815?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/16152815/pipe-communicating-between-the-child-and-the-parent-using-2-pipes?rq=1" class="question-hyperlink">Pipe communicating between the child and the parent using 2 pipes</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/17908861?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/17908861/how-to-communicate-with-two-c-sharp-processes-with-named-pipes-for-network-inter?rq=1" class="question-hyperlink">How to Communicate with two c# processes with Named Pipes for Network Interprocess</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/18840239?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/18840239/c-two-way-pipes-between-parent-and-child?rq=1" class="question-hyperlink">C two-way pipes between parent and child</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/19191030?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/19191030/pipe-fork-and-exec-two-way-communication-between-parent-and-child-process?rq=1" class="question-hyperlink">Pipe, Fork, and Exec - Two Way Communication Between Parent and Child Process</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/20549910?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/20549910/bi-directional-inter-process-communication-using-two-pipes?rq=1" class="question-hyperlink">Bi-directional inter-process communication using two pipes</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/698312/if-32-bit-machines-can-only-handle-numbers-up-to-232-why-can-i-write-100000000" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    If 32-bit machines can only handle numbers up to 
+2^32, why can I write 1000000000000 (trillion) without my machine 
+crashing?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/630339/pedagogy-how-to-cure-students-of-the-law-of-universal-linearity" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Pedagogy: How to cure students of the "law of universal linearity"?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/630881/olympiad-question-i-cant-answer" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Olympiad question I can't answer
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/17005/produce-the-number-2014-without-any-numbers-in-your-source-code" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Produce the number 2014 without any numbers in your source code
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/629740/how-would-you-explain-to-a-9th-grader-the-negative-exponent-rule" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How would you explain to a 9th grader the negative exponent rule?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-serverfault" title="Server Fault"></div><a href="http://serverfault.com/questions/565743/how-can-i-block-hacking-attempts-targeting-phpmyadmin" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:2 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I block hacking attempts targeting phpMyAdmin?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/20945049/is-a-java-string-really-immutable" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is a Java String really immutable?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/698244/ip-address-that-is-the-equivalent-of-dev-null" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    IP address that is the equivalent of /dev/null
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-photo" title="Photography Stack Exchange"></div><a href="http://photo.stackexchange.com/questions/46671/is-there-any-practical-difference-between-saving-at-300ppi-or-72ppi" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:61 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there any practical difference between saving at 300ppi or 72ppi?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/144961/what-does-the-height-of-inhumanity-mean-in-the-context" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does "the height of inhumanity" mean in the context?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/38746/conways-game-of-life-in-javascript" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Conway's Game of Life in JavaScript
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/15457/how-should-i-deal-with-discouragement-looking-at-others-success" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How should I deal with discouragement looking at others success?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/401920/what-does-or-double-angle-brackets-mean" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does &gt;&gt; or double Angle brackets mean?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/718/how-can-i-get-more-details-about-information-in-a-notam" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I get more details about information in a NOTAM?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/630966/why-study-metric-spaces" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why study metric spaces?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/152952/drawing-this-diagram-in-tikz" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Drawing this diagram in Tikz
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/144888/an-idiom-meaning-sticking-fingers-in-your-ears-does-not-change-the-fact" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    An idiom meaning "sticking fingers in your ears does not change the fact"
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-gamedev" title="Game Development Stack Exchange"></div><a href="http://gamedev.stackexchange.com/questions/68522/what-does-a-matrix-represent" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:53 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does a matrix represent?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/108100/why-are-tar-archive-formats-switching-to-xz-compression-to-replace-bzip2-and-wha" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are tar archive formats switching to xz compression to replace bzip2 and what about gzip?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/697926/in-modern-webbrowsers-is-there-any-point-in-putting-www-infront-of-a-url-that-us" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    In modern webbrowsers is there any point in putting www infront of a url that uses it?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/92747/how-can-a-proton-be-converted-to-a-neutron-via-positron-emission-and-yet-gain-ma" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can a proton be converted to a neutron via positron emission and yet gain mass?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/16226/i-need-a-program-where-the-user-inputs-an-array-of-doubles-and-the-program-outpu" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    I need a program where the user inputs an array of doubles and the program outputs the array sorted
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/630742/whats-the-explanation-for-why-n21-is-never-divisible-by-3" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What's the explanation for why n^2+1 is never divisible by 3?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/152962/how-to-create-the-name-space-for-a-kids-math-worksheet-and-other-issues" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to create the name space for a kid's math worksheet? and other issues?
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="#" class="show-more js-show-more js-gps-track" data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+        <script>
+            StackExchange.ready(function () {
+                var $div = $('#hot-network-questions'),
+                    $more = $div.find('.js-show-more'),
+                    $hidden = $div.find('.js-hidden');
+
+                $more.click(function () {
+                    $hidden.show();
+                    $more.remove();
+                    return false;
+                });
+
+            
+                var mHeight = $('#mainbar').height(),
+                    sHeight = $('#sidebar').height() + 550;
+
+                if (mHeight > sHeight) {
+                    $hidden.each(function() {
+                        sHeight += $(this).show().height();
+                        return mHeight > sHeight;
+                    });
+
+                    if ($hidden.filter(':hidden').length == 0) {
+                        $more.remove();
+                    }
+                }
+            
+            
+            });
+        </script>
+</div>
+		</div>
+		<script type="text/javascript">
+StackExchange.ready(function(){$.get('/posts/12439924/ivc/d95c');});
+</script>
+<noscript>
+    <div><img src="/posts/12439924/ivc/d95c" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-c</div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/about">about</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                        <a href="http://stackoverflow.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MjAsImNtIjo5NTQsImNoIjoxMTc4LCJjciI6Mjc3NiwiZG0iOjQsImZjIjoyODYyLCJmbCI6Mjc1MSwibnciOjIyLCJydiI6MCwicHIiOjExNSwic3QiOjAsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2Fib3V0L2NvbnRhY3QiLCJyZSI6MX0&amp;s=hRods5B22XvRBwWIwtIMekcyNF8">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Answers</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackoverflow.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Overflow</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc-wiki</a> 
+ with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="footer-flair">
+                <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="cc-wiki-link"></a>
+            </div>
+            <div id="svnrev">
+                rev 2014.1.8.1283
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script type="text/javascript">var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script type="text/javascript">
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('c,fork,system-calls,inter-process-communicat');; ados_load(); });         
+</script>
+
+    <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);
+        _gaq.push(['_setCustomVar', 1, 'tags', '|c|fork|system-calls|inter-process-communicat|']); 
+_gaq.push(['_trackPageview']);
+    var _qevents = _qevents || [];
+    var _comscore = _comscore || [];
+    (function () {
+        var ssl='https:'==document.location.protocol,
+            s=document.getElementsByTagName('script')[0],
+            ga=document.createElement('script');
+        ga.type='text/javascript';
+        ga.async=true;
+        ga.src=(ssl?'https://ssl':'http://www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(ga,s);
+        var sc=document.createElement('script');
+        sc.type='text/javascript';
+        sc.async=true;
+        sc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+        s.parentNode.insertBefore(sc, s);
+        
+        var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+        el.parentNode.insertBefore(s, el);
+        
+    })();
+    _comscore.push({ c1: "2", c2: "17440561" });
+    _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>
+            
+
+</body></html>

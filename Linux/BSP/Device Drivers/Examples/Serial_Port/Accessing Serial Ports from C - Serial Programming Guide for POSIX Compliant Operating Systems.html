@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<html version="2.0"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- WEBMAGIC VERSION NUMBER="2.0.1" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<link href="Accessing%20Serial%20Ports%20from%20C%20-%20Serial%20Programming%20Guide%20for%20POSIX%20Compliant%20Operating%20Systems_files/projects.css" rel="stylesheet" type="text/css">
+<title>Accessing Serial Ports from C - Serial Programming Guide for POSIX Compliant Operating Systems</title>
+</head>
+<body background="Accessing%20Serial%20Ports%20from%20C%20-%20Serial%20Programming%20Guide%20for%20POSIX%20Compliant%20Operating%20Systems_files/paper.html">
+<h1>Accessing Serial Ports from C</h1>
+<p>This chapter discusses how to open, read from, write to, and close a serial
+port from C. A working knowledge of C and UNIX is helpful but not necessary.</p>
+<p><a href="http://ulisse.elettra.trieste.it/services/doc/serial/rs232.html">Previous Chapter - Basics of Serial Communication<br>
+ </a><a href="http://ulisse.elettra.trieste.it/services/doc/serial/config.html">Next Chapter - Configuring the Serial Port</a></p>
+<h2><a name="FILES">Serial Port Files</a></h2>
+<p>In UNIX, all resources can be accessed as files. Each serial port on a UNIX
+system has one or more <i>device files</i> (files in the <i>/dev</i> directory) associated with it:</p>
+<center><p align="CENTER"><a href="http://ulisse.elettra.trieste.it/services/doc/serial/figures.html#FILES" target="misc">UNIX Serial Device Files</a></p>
+</center><p>You'll notice that IRIX provides more than one device name for each serial
+port. This is done so that you can select additional default control lines
+as needed. The /dev/ttyd- devices only use the RXD (receive) and TXD (transmit)
+data lines. The /dev/ttym- devices add the DCD (carrier-detect) and DTR
+(terminal-ready) control lines that are necessary for reliable MODEM communications.
+The /dev/ttyf- devices add the RTS (request-to-send) and CTS (clear-to-send)
+control lines; this allows for hardware flow control, a method for controlling
+the amount of data that is sent or received. Once opened, you can enable
+or disable specific control line use.</p>
+<p>All of the other platforms default to the /dev/ttyd- or /dev/ttym- behavior
+and must be specifically programmed to enable things like DCD and CTS detection.</p>
+<h2><a name="OPEN">Opening a Serial Port</a></h2>
+<p>Since a serial port is a file, the <i>open(2)</i> function is used to access it. The one hitch with UNIX is that device files
+are usually not accessable by normal users. Workarounds include changing
+the access permissions to the file(s) in question, running your program
+as the super-user (root), or making your program set-userid so that it runs
+as the owner of the device file.</p>
+<p>For now we'll assume that the file is accessable by all users. The code
+to open serial port 1 on a Silicon Graphics® workstation running IRIX<font size="2">TM</font> is:</p>
+<pre> #include &lt;stdio.h&gt;   /* Standard input/output definitions */
+ #include &lt;string.h&gt;  /* String function definitions */
+ #include &lt;unistd.h&gt;  /* UNIX standard function definitions */
+ #include &lt;fcntl.h&gt;   /* File control definitions */
+ #include &lt;errno.h&gt;   /* Error number definitions */
+ #include &lt;termios.h&gt; /* POSIX terminal control definitions */
+
+ /*
+  * 'open_port()' - Open serial port 1.
+  *
+  * Returns the file descriptor on success or -1 on error.
+  */
+
+ int
+ open_port(void)
+ {
+   int fd; /* File descriptor for the port */
+
+
+   fd = open("/dev/ttym1", O_RDWR | O_NOCTTY | O_NDELAY);
+   if (fd == -1)
+   {
+    /*
+     * Could not open the port.
+     */
+
+     fprintf(stderr, "open_port: Unable to open /dev/ttym1 - %s\n",
+             strerror(errno));
+   }
+
+   return (fd);
+ }
+</pre>
+<p>Other systems would require the corresponding device file name, but otherwise
+the code is the same.</p>
+<h3><a name="OPTIONS">Port Open Options</a></h3>
+<p>You'll notice that when we opened the device file we used two other flags
+along with the read+write mode:</p>
+<pre>  fd = open("/dev/ttym1", O_RDWR | O_NOCTTY | O_NDELAY);
+</pre>
+<p>The <i>O_NOCTTY</i> flag tells UNIX that this program doesn't want to be the controlling entity
+for that port. If you don't specify this, the device file will be owned
+by you, and any input (such as keyboard abort signals and so forth) will
+affect your process. Programs like <i>getty(1M)</i> use this feature when starting the login process, but normally a user program
+does not want this behavior.</p>
+<p>The O_NDELAY flag tells UNIX that this program doesn't care what state the
+DCD signal line is at - whether the other end of the port is up and running.
+If you do not specify this flag, your process will be put to sleep until
+the DCD signal line is set to the <i>space</i> voltage.</p>
+<h2><a name="WRITE">Writing Data to the Port</a></h2>
+<p>Writing data to the port is easy - just use the <i>write(2)</i> system call to send data it:</p>
+<pre>  n = write(fd, "ATZ\r", 4);
+  if (n &lt; 0)
+    puts("write() of 4 bytes failed!");
+</pre>
+<p>The <i>write</i> function returns the number of bytes sent or -1 if an error occurred. Usually
+the only error you'll run into is <i>EIO</i> when a MODEM or data link drops the Data Carrier Detect (DCD) line. This
+condition will persist until you close the port.</p>
+<h2><a name="READ">Reading Data from the Port</a></h2>
+<p>Reading data from a port is a little trickier. When you operate the port
+in raw data mode, each <i>read(2)</i> system call will return however many characters are actually available
+in the serial input buffers. If no characters are available, the call will
+block (wait) until characters come in, an interval timer expires, or an
+error occurs. The <i>read</i> function can be made to return immediately by doing the following:</p>
+<pre>  fcntl(fd, F_SETFL, FNDELAY); 
+</pre>
+<p>The <i>NDELAY</i> option causes the <i>read</i><b> </b>function to return 0 if no characters are available on the port.</p>
+<h2><a name="CLOSE">Closing a Serial Port</a></h2>
+<p>To close the serial port, just use the <i>close</i> system call:</p>
+<pre>  close(fd);
+</pre>
+
+
+</body></html>

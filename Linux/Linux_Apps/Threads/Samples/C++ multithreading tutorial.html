@@ -1,0 +1,1119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="INDEX, FOLLOW">
+
+	<title>C++ multithreading tutorial </title>
+
+	<link href="C++%20multithreading%20tutorial_files/sections.css" rel="stylesheet" type="text/css">
+	<link href="C++%20multithreading%20tutorial_files/rate.css" rel="stylesheet" type="text/css">
+	<link href="C++%20multithreading%20tutorial_files/contact.css" rel="stylesheet" type="text/css">
+	<link href="C++%20multithreading%20tutorial_files/tags.css" rel="stylesheet" type="text/css">
+	<link href="C++%20multithreading%20tutorial_files/sh_style.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="http://codebase.eu/favicon.ico" type="image/x-icon">
+	
+	<script src="C++%20multithreading%20tutorial_files/analytics.js" async=""></script><script type="text/javascript" src="C++%20multithreading%20tutorial_files/jquery.js"></script>
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-46310759-1', 'codebase.eu');
+	  ga('send', 'pageview');
+
+	</script>
+
+<style type="text/css">.recaptchatable td img{display:block}.recaptchatable .recaptcha_r1_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') 0 -63px no-repeat;width:318px;height:9px}.recaptchatable .recaptcha_r2_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -18px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r2_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -27px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r3_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') 0 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r3_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -18px -57px no-repeat;width:300px;height:6px}.recaptchatable .recaptcha_r3_c3{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -9px 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r4_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px 0 no-repeat;width:171px;height:49px}.recaptchatable .recaptcha_r4_c2{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -36px 0 no-repeat;width:7px;height:57px}.recaptchatable .recaptcha_r4_c4{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -214px 0 no-repeat;width:97px;height:57px}.recaptchatable .recaptcha_r7_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px -49px no-repeat;width:171px;height:8px}.recaptchatable .recaptcha_r8_c1{background:url('http://www.google.com/recaptcha/api/img/red/sprite.png') -43px -49px no-repeat;width:25px;height:8px}.recaptchatable .recaptcha_image_cell center img{height:57px}.recaptchatable .recaptcha_image_cell center{height:57px}.recaptchatable .recaptcha_image_cell{background-color:white;height:57px}#recaptcha_area,#recaptcha_table{width:318px!important}.recaptchatable,#recaptcha_area tr,#recaptcha_area td,#recaptcha_area th{margin:0!important;border:0!important;padding:0!important;border-collapse:collapse!important;vertical-align:middle!important}.recaptchatable *{margin:0;padding:0;border:0;font-family:helvetica,sans-serif;font-size:8pt;color:black;position:static;top:auto;left:auto;right:auto;bottom:auto}.recaptchatable #recaptcha_image{margin:auto}.recaptchatable img{border:0!important;margin:0!important;padding:0!important}.recaptchatable a,.recaptchatable a:hover{cursor:pointer;outline:none;border:0!important;padding:0!important;text-decoration:none;color:blue;background:none!important;font-weight:normal}.recaptcha_input_area{position:relative!important;width:153px!important;height:45px!important;margin-left:7px!important;margin-right:7px!important;background:none!important}.recaptchatable label.recaptcha_input_area_text{margin:0!important;padding:0!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;background:none!important;height:auto!important;width:auto!important}.recaptcha_theme_red label.recaptcha_input_area_text,.recaptcha_theme_white label.recaptcha_input_area_text{color:black!important}.recaptcha_theme_blackglass label.recaptcha_input_area_text{color:white!important}.recaptchatable #recaptcha_response_field{width:153px!important;position:relative!important;bottom:7px!important;padding:0!important;margin:15px 0 0 0!important;font-size:10pt}.recaptcha_theme_blackglass #recaptcha_response_field,.recaptcha_theme_white #recaptcha_response_field{border:1px solid gray}.recaptcha_theme_red #recaptcha_response_field{border:1px solid #cca940}.recaptcha_audio_cant_hear_link{font-size:7pt;color:black}.recaptchatable{line-height:1px!important}#recaptcha_instructions_error{color:red!important}.recaptcha_only_if_privacy{float:right;text-align:right}
+
+.recaptcha_is_showing_audio .recaptcha_only_if_image,.recaptcha_isnot_showing_audio .recaptcha_only_if_audio,.recaptcha_had_incorrect_sol .recaptcha_only_if_no_incorrect_sol,.recaptcha_nothad_incorrect_sol .recaptcha_only_if_incorrect_sol{display:none !important}</style></head>
+
+<body>
+
+  <div id="main">
+
+	<div id="top">
+	
+		<h1><a href="http://codebase.eu/">CODEBASE.EU</a>
+
+ </h1>
+		<h2>tutorials</h2>
+	
+		<div id="rate">
+		
+
+<script type="text/javascript">
+
+function rateshow(data)
+{
+
+
+
+if (data==1)
+{
+	$('#ratings').hide('fast');
+	$('#cannotrate').show('fast');
+}
+if (data==2)
+{
+	$('#ratings').hide('fast');
+	$('#alreadyrate').show('fast');
+}
+
+if (data==3)
+{
+		
+	$('#ratings').hide('fast');
+	$('#thxyou').show('fast');
+}
+
+
+
+}
+
+
+
+function dorate($rating)
+{
+//<![CDATA[
+$.get("/mods/rater/func_add.php?page=/tutorial/posix-threads-c/index.php" + "&rating=" + $rating, function(data){
+//]]>
+rateshow(data);
+
+});
+
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+<p id="thxyou" style="display:none">
+Thank you.
+</p>
+
+<p id="cannotrate" style="display:none">
+You cannot rate this page.
+</p>
+
+<p id="alreadyrate" style="display:none">
+You already rated this page.
+</p>
+
+<div id="ratings">
+	page rating :
+	
+	<ul class="star-rating small-star">
+	<li class="current-rating" style="width:90%;"> </li>
+	<li><a href="#" onclick="dorate(1)" title="vote 1 star" class="one-star">1</a></li>
+	<li><a href="#" onclick="dorate(2)" title="vote 2 stars" class="two-stars">2</a></li>
+	<li><a href="#" onclick="dorate(3)" title="vote 3 stars" class="three-stars">3</a></li>
+	<li><a href="#" onclick="dorate(4)" title="vote 4 stars" class="four-stars">4</a></li>
+	<li><a href="#" onclick="dorate(5)" title="vote 5 stars" class="five-stars">5</a></li>
+	</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+            
+		
+		<div id="titel">
+		Creating multi-threaded C++ code		</div>
+				
+
+	</div>
+	
+	<div id="menu">
+				
+		<ul>
+<li><a href="http://codebase.eu/?id=code">Code</a></li>
+<li><a href="http://codebase.eu/?id=howto">Tutorials</a></li>
+<li><a href="http://codebase.eu/?id=mail">Contact</a></li>
+</ul>
+
+<script async="" src="C++%20multithreading%20tutorial_files/adsbygoogle.js"></script>
+<!-- menu_links -->
+<ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-2444800854328752" data-ad-slot="5456153823"><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="600" scrolling="no"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+		
+	</div>
+	
+	<div id="maincontent"> 
+
+		<div id="datum">
+			<br> Last modified Thursday, 01st September, 2011 		</div>
+		
+		<script type="text/JavaScript" src="C++%20multithreading%20tutorial_files/sh_main.js"></script>
+
+<script type="text/JavaScript">
+window.onload = function(){  
+sh_highlightDocument('http://codebase.eu/mods/lang/', '.js');
+}  
+</script>
+
+An introduction to parallel programming in C++ using POSIX threads.
+
+<h3> Contents </h3>
+
+<a href="#before_you_read"><strong> 1. Before you read this tutorial.</strong> </a><br>
+<a href="#introduction_threads"><strong> 2. An introduction to threads.</strong></a><br>
+<a href="#creating_threads"><strong> 3. Creating threads. </strong> </a><br>
+<a href="#joining_threads"><strong> 4. Joining threads. </strong> </a><br>
+<a href="#mutex"><strong> 5. Mutex variables. </strong> </a><br>
+<a href="#condition_variables"><strong> 6. Condition variables</strong> </a><br>
+<a href="#others"><strong> 7. Other useful functions.</strong> </a><br>
+
+<div id="before_you_read">
+
+<h3>1. Before you read this tutorial </h3>
+
+This tutorial will show you how to use multiple threads in your C++ program using the <a href="http://en.wikipedia.org/wiki/POSIX_Threads">POSIX threads</a>
+ (pthreads) API. This tutorial will cover just the basic concepts of 
+thread programming. The POSIX threads functions are designed for C, but 
+in this tutorial I will use C++ where possible. If you prefer a pure C++
+ library, you can take a look at <a href="http://www.boost.org/">BOOST.thread</a>
+ , which is a cross platform C++ library for working with threads. Code 
+written with BOOST.thread is portable to other platforms because 
+BOOST.thread uses the platform's native thread library (in case of Linux
+ it's a C++ wrapper around POSIX threads). C++0x also supports threading
+ but, at the time of writing this, GCC has only has experimental support
+ for threading. 
+</div>
+<!--################################################################################################################ -->
+<div id="introduction_threads">
+
+<h3>2. An introduction to threads</h3>
+
+With multithreading you are able to run multiple blocks of independent code (functions) parallel with your <code> main()</code>
+ function.
+Consider a thread a function running independent and simultaneous with 
+the rest of your code, and therefore not interfering with the the 
+execution order of your 'main' program. Initially, all C++ programs 
+contain a single, default thread. All other threads must be explicitly 
+created by the programmer.
+<br>
+<br>
+A 'normal' single threaded piece of code  :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;iostream&gt;</span>
+<span class="sh_keyword">extern</span>&nbsp;<span class="sh_string">"C"</span>
+&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>unistd<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;<span class="sh_cbracket">}</span>
+
+
+<span class="sh_keyword">using</span>&nbsp;<span class="sh_keyword">namespace</span>&nbsp;std<span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">();</span>
+<span class="sh_type">void</span>&nbsp;<span class="sh_function">function2</span><span class="sh_symbol">();</span>
+
+<span class="sh_type">int</span>&nbsp;<span class="sh_function">main</span><span class="sh_symbol">()</span>
+<span class="sh_cbracket">{</span>
+<span class="sh_function">function1</span><span class="sh_symbol">();</span>
+<span class="sh_function">function2</span><span class="sh_symbol">();</span>
+<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">()</span>
+<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"hello..."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">sleep</span><span class="sh_symbol">(</span><span class="sh_number">2</span><span class="sh_symbol">);</span>&nbsp;<span class="sh_comment">//&nbsp;fall&nbsp;asLeep&nbsp;here&nbsp;for&nbsp;2&nbsp;seconds...</span>
+
+<span class="sh_cbracket">}</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_function">function2</span><span class="sh_symbol">()</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"&nbsp;....world"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl&nbsp;<span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+</span>
+</code></pre>
+
+The code above is an example of a serial coded program. <code>main()</code> is executed and gives control to <code>function1()</code> - <code>function1()</code> gives control back to <code>main()</code> - <code>main()</code> gives control to <code>function2()</code> - <code>function2()</code> finally gives control back to <code>main()</code> again.
+<br>
+<br>
+The problem with this program, is that we have to wait 2 seconds before 
+"hello world" is displayed. We do not want that. We want to see "hello 
+world" ASAP, and no we're not going to remove <code>sleep(2);</code>.
+<br>
+<br>
+We are going to make this program multithreaded (keeping the code as simple as possible) :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+<span class="sh_keyword">extern</span>&nbsp;<span class="sh_string">"C"</span>
+&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>pthread<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>unistd<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;<span class="sh_cbracket">}</span>
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;iostream&gt;</span>
+
+
+<span class="sh_keyword">using</span>&nbsp;<span class="sh_keyword">namespace</span>&nbsp;std&nbsp;<span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span>&nbsp;&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;argument<span class="sh_symbol">);</span>
+<span class="sh_type">void</span>&nbsp;&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function2</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;argument<span class="sh_symbol">);</span>
+
+<span class="sh_type">int</span>&nbsp;<span class="sh_function">main</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_usertype">pthread_t</span><span class="sh_normal">&nbsp;</span>t1<span class="sh_symbol">,</span>&nbsp;t2&nbsp;<span class="sh_symbol">;</span>&nbsp;<span class="sh_comment">//&nbsp;declare&nbsp;2&nbsp;threads.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>t1<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;function1<span class="sh_symbol">,</span>NULL<span class="sh_symbol">);</span>&nbsp;<span class="sh_comment">//&nbsp;create&nbsp;a&nbsp;thread&nbsp;running&nbsp;function1</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>t2<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;function2<span class="sh_symbol">,</span>NULL<span class="sh_symbol">);</span>&nbsp;<span class="sh_comment">//&nbsp;create&nbsp;a&nbsp;thread&nbsp;running&nbsp;function2</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;Because&nbsp;all&nbsp;created&nbsp;threads&nbsp;are&nbsp;terminated&nbsp;when&nbsp;main()&nbsp;finishes,&nbsp;we&nbsp;have</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;to&nbsp;give&nbsp;the&nbsp;threads&nbsp;some&nbsp;time&nbsp;to&nbsp;finish.&nbsp;Unfortunately&nbsp;for&nbsp;function1,&nbsp;main()</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;will&nbsp;give&nbsp;only&nbsp;1&nbsp;second,&nbsp;but&nbsp;function1&nbsp;needs&nbsp;at&nbsp;least&nbsp;2&nbsp;seconds.&nbsp;So&nbsp;function1&nbsp;will</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;probably&nbsp;be&nbsp;terminated&nbsp;before&nbsp;it&nbsp;can&nbsp;finish.&nbsp;This&nbsp;is&nbsp;a&nbsp;BAD&nbsp;way&nbsp;to&nbsp;manage&nbsp;threads.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">sleep</span><span class="sh_symbol">(</span><span class="sh_number">1</span><span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;argument<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"&nbsp;hello&nbsp;"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">sleep</span><span class="sh_symbol">(</span><span class="sh_number">2</span><span class="sh_symbol">);</span>&nbsp;<span class="sh_comment">//&nbsp;fall&nbsp;alseep&nbsp;here&nbsp;for&nbsp;2&nbsp;seconds...</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function2</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;argument<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"&nbsp;world&nbsp;"</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+</span>
+</code></pre>
+
+When you execute the piece of code above, you should get "hello world" 
+imidiatly on your screen without the 2 seconds delay  in  <code>function1()</code>. After this you still have to wait 1 second (<code>sleep(1);</code>)
+ for the program to terminate itself and all threads it created. In the 
+code above we've archieved this by including the pthread libraby 
+(&lt;pthread.h&gt;) and using the <code>pthread_create()</code> fuction to create two extra threads for <code>function1()</code> and <code>function2()</code>. These threads run the instructions in <code>function1()</code> and <code>function2()</code> separately from each other and <code>main()</code>.
+ There is no certainty in what function will be executed first. Your OS 
+will decide when resources are available for your threads and execute 
+them on whatever CPU is least occupied. So do not be surprised when you 
+see "world hello" instead of "hello world".
+
+<br>
+<img src="C++%20multithreading%20tutorial_files/multithreading.png" alt="multi-threading shown in a picture">
+<br>
+
+Multithreading, like in the example code above, does not make much 
+sense. Nevertheless imagine a program has to wait for some I/O calls 
+without holding up the entire program,  do a big calculation on a 
+multi-core and speed it up by deviding it over the available cores, or 
+just to keep your program responsive while it's waiting for user input.
+<br>
+<br>
+<strong> Compiling </strong>
+<br>
+If you want to compile the above code you need to include the pthread library. In linux (using the GCC) use:<br>
+<code> g++ program.cpp -pthread</code>
+
+</div>
+
+<!--################################################################################################################ -->
+<div id="creating_threads">
+
+<h3>Creating a thread</h3>
+
+As you have seen in the example above, we've used <code> pthread_create() </code>
+ to create a thread.
+You can use this call any number of times and from anywhere in your code
+ (also inside an other thread). When a thread is created it will be send
+ to your OS, which then schedules it for execution. 
+
+<br>
+<br>
+The <code>pthread_create()</code> call :
+<br>
+
+<strong><code>int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+    void *(*start_routine)(void*), void *arg);</code></strong>
+<br>
+
+<strong>Parameters :</strong>
+<br>
+
+<strong> thread </strong> :  The unique identifier for the thread. This identifier has to be of type <code>pthread_t</code>.
+<br>
+
+<strong> attr </strong> : This is an object which you can create for the thread with specific attributes for the thread. Can be <code>NULL </code> if you want to use the default attributes. The attributes will not be handled in this tutorial.
+<br>
+
+<strong> start_routine  </strong> : The function that the thread has to execute. 
+<br>
+
+<strong> arg </strong> : The function argument. If you don't want to pass an argument, set it to <code>NULL </code>
+<br>
+
+<strong> returns : </strong> 0 on success, some error code on failure.
+<br>
+<br>
+Note that all parameters have to be passed as void pointers. Because the <kbd>start_routine</kbd> has to be of type 'void pointer', your functions will also have to be of this type.
+<br>
+<br>
+<strong>Terminating a thread</strong>
+<br>
+<br>
+When a thread is created it will automatically be terminated when <code>main()</code> ends. Obviously there could be a problem here. Your <code>main()</code>
+ could finish before the threads it created have finished (like in the 
+code we used), and therefore terminating all the threads it created 
+before they are completed. The solution is to use the <code>pthread_exit()</code> function at the end of your <code>main()</code> function. This will prevent termination of the program until all threads are terminated by themselves. However, <code>pthread_exit()</code>
+ can also can be used inside a thread to terminate itself (not executing
+ the code below this statement). You can, if you like, give it a return 
+value that can be read by <code>pthread_join()</code> (see "Joining threads" below).
+<br>
+<br>
+The <code>pthread_exit()</code>call:
+<br>
+<br>
+<strong><code>void pthread_exit(void *value_ptr);</code></strong>
+<br>
+<br>
+Parameters :
+<br>
+<br>
+<strong> value_ptr </strong> :  The exit status of the thread. This exit status can be used when the thread is joined (see "Joining threads") Can be set to <code>NULL</code> if you don't need to give it an exit status.
+<br>
+<br>
+
+With the new information above, we can improve our code by replacing <code>sleep(2)</code> in <code>main()</code> with <code>pthread_exit(NULL)</code>.
+ This would be a much better solution than giving the thread 2 seconds 
+to finish, because you never know for sure how long it will take for a 
+thread to finish.
+<br>
+<br>
+
+</div>
+<!--################################################################################################################ -->
+<div id="joining_threads">
+
+<h3>Joining threads</h3>
+
+
+Joining threads is a method of synchronizing treads. Thew <code>pthread_join()</code> halts execution of your code until the specified thread has been terminated. 
+
+The <code>pthread_join()</code> call :
+<br>
+<br>
+<strong><code>int pthread_join(pthread_t th, void **thread_return); </code></strong>
+<br>
+<br>
+Parameters :
+<br>
+<br>
+<strong> th </strong> :  The unique identifier for the thread (as specified by <code>pthread_t unique_identifier</code>).
+<br>
+<strong> thread_return </strong> :  A pointer to the value the thread returned. (as specified by <code>pthread_exit(return_value)</code>).
+<br>
+<br>
+Using our example we can now improve our code again :
+
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+
+&nbsp;<span class="sh_keyword">extern</span>&nbsp;<span class="sh_string">"C"</span>
+&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>pthread<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;<span class="sh_cbracket">}</span>
+
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;iostream&gt;</span>
+
+<span class="sh_keyword">using</span>&nbsp;<span class="sh_keyword">namespace</span>&nbsp;std&nbsp;<span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span><span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">(</span><span class="sh_type">void</span><span class="sh_symbol">*</span>&nbsp;arg<span class="sh_symbol">);</span>
+
+
+<span class="sh_type">int</span>&nbsp;<span class="sh_function">main</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_usertype">pthread_t</span><span class="sh_normal">&nbsp;&nbsp;</span>t1<span class="sh_symbol">,</span>t2&nbsp;<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_usertype">string</span><span class="sh_normal">&nbsp;</span>msg1&nbsp;<span class="sh_symbol">(</span><span class="sh_string">"hello"</span><span class="sh_symbol">)</span>&nbsp;&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_usertype">string</span><span class="sh_normal">&nbsp;</span>msg2&nbsp;<span class="sh_symbol">(</span><span class="sh_string">"world"</span><span class="sh_symbol">)</span>&nbsp;&nbsp;<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;create1&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>t1<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;function1<span class="sh_symbol">,</span><span class="sh_keyword">reinterpret_cast</span><span class="sh_symbol">&lt;</span><span class="sh_type">void</span><span class="sh_symbol">*&gt;(&amp;</span>msg1<span class="sh_symbol">));</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>create1&nbsp;<span class="sh_symbol">!=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">)</span>&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"error"</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;create2&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>t2<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;function1<span class="sh_symbol">,</span><span class="sh_keyword">reinterpret_cast</span><span class="sh_symbol">&lt;</span><span class="sh_type">void</span><span class="sh_symbol">*&gt;(&amp;</span>msg2<span class="sh_symbol">));</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>create2&nbsp;<span class="sh_symbol">!=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">)</span>&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"error"</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_join</span><span class="sh_symbol">(</span>t1<span class="sh_symbol">,</span>NULL<span class="sh_symbol">)</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_join</span><span class="sh_symbol">(</span>t2<span class="sh_symbol">,</span>NULL<span class="sh_symbol">)</span>&nbsp;<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+<span class="sh_type">void</span><span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">(</span><span class="sh_type">void</span><span class="sh_symbol">*</span>&nbsp;arg<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_symbol">*(</span><span class="sh_keyword">reinterpret_cast</span><span class="sh_symbol">&lt;</span>string<span class="sh_symbol">*&gt;(</span>arg<span class="sh_symbol">))</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+</span>
+</code></pre>
+
+In the above piece of code we also gave <code>pthread_create()</code> an argument for the strart routine, therefore reducing the need for having 2 functions doing the same job. Because <code>pthread_create()</code>
+ only accepts one argument for the thread function, we have to pass a 
+pointer to a struct if we want to pass multiple arguments. <strong> IMPORTANT </strong> In this case it would not be wise to use <code>pthread_exit</code>. The <code>pthread_exit</code> function terminates main() and waits for the two threads to finish. This means that the memory containing the strings <code>msg1</code> and <code>msg2</code> is free to be used by the two threads, and can (and they will) therefore overwrite the values <code>msg1</code> and <code>msg2</code>. The <code>pthread_join</code> function differs. It keeps <code> main() </code> alive and closes it only when the two threads are finished.
+
+An other example using <code>pthread_join()</code> :
+<br>
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+
+<span class="sh_keyword">extern</span>&nbsp;<span class="sh_string">"C"</span>
+&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>pthread<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>unistd<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;<span class="sh_cbracket">}</span>
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;iostream&gt;</span>
+
+<span class="sh_keyword">using</span>&nbsp;<span class="sh_keyword">namespace</span>&nbsp;std<span class="sh_symbol">;</span>
+
+<span class="sh_keyword">const</span>&nbsp;<span class="sh_type">int</span>&nbsp;NUMBER_OF_THREADS&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">5</span><span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">thread_talk</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;thread_nr<span class="sh_symbol">)</span>
+
+<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;a&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_symbol">*(</span><span class="sh_keyword">static_cast</span><span class="sh_symbol">&lt;</span><span class="sh_type">int</span><span class="sh_symbol">*&gt;(</span>thread_nr<span class="sh_symbol">));</span>
+&nbsp;&nbsp;<span class="sh_function">sleep</span><span class="sh_symbol">(</span>a<span class="sh_number">+1</span><span class="sh_symbol">);</span>
+&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Thread&nbsp;"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;&nbsp;a&nbsp;<span class="sh_symbol">&lt;&lt;</span><span class="sh_string">"&nbsp;has&nbsp;finished"</span>&nbsp;&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;<span class="sh_function">pthread_exit</span><span class="sh_symbol">(</span>NULL<span class="sh_symbol">);</span>
+&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+<span class="sh_type">int</span>&nbsp;<span class="sh_function">main</span><span class="sh_symbol">()</span>
+
+<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;<span class="sh_usertype">pthread_t</span><span class="sh_normal">&nbsp;</span>thread<span class="sh_symbol">[</span>NUMBER_OF_THREADS<span class="sh_symbol">];</span>
+
+&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Starting&nbsp;all&nbsp;threads..."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;temp_arg<span class="sh_symbol">[</span>NUMBER_OF_THREADS<span class="sh_symbol">]</span>&nbsp;<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;<span class="sh_keyword">for</span><span class="sh_symbol">(</span><span class="sh_type">int</span>&nbsp;current_t&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>&nbsp;current_t&nbsp;<span class="sh_symbol">&lt;</span>&nbsp;NUMBER_OF_THREADS<span class="sh_symbol">;</span>&nbsp;current_t<span class="sh_symbol">++)</span>
+&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;&nbsp;temp_arg<span class="sh_symbol">[</span>current_t<span class="sh_symbol">]</span>&nbsp;&nbsp;&nbsp;<span class="sh_symbol">=</span>&nbsp;current_t<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;result&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(&amp;</span>thread<span class="sh_symbol">[</span>current_t<span class="sh_symbol">],</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;thread_talk<span class="sh_symbol">,</span>&nbsp;<span class="sh_keyword">static_cast</span><span class="sh_symbol">&lt;</span><span class="sh_type">void</span><span class="sh_symbol">*&gt;(&amp;</span>temp_arg<span class="sh_symbol">[</span>current_t<span class="sh_symbol">]))</span>&nbsp;&nbsp;<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_keyword">if</span>&nbsp;<span class="sh_symbol">(</span>result&nbsp;<span class="sh_symbol">!=</span><span class="sh_number">0</span><span class="sh_symbol">)</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Error&nbsp;creating&nbsp;thread&nbsp;"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;current_t&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">".&nbsp;Return&nbsp;code:"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;result&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;&nbsp;endl<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+
+&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+
+
+<span class="sh_keyword">for</span><span class="sh_symbol">(</span><span class="sh_type">int</span>&nbsp;current_t&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>&nbsp;current_t&nbsp;<span class="sh_symbol">&lt;</span>&nbsp;NUMBER_OF_THREADS<span class="sh_symbol">;</span>&nbsp;current_t<span class="sh_symbol">++)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;<span class="sh_function">pthread_join</span><span class="sh_symbol">(</span>thread<span class="sh_symbol">[</span>current_t<span class="sh_symbol">],</span>&nbsp;NULL<span class="sh_symbol">);</span>
+<span class="sh_cbracket">}</span>
+
+cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"All&nbsp;threads&nbsp;completed."</span>&nbsp;<span class="sh_symbol">;</span>
+
+<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+</span>
+</code></pre>
+
+<strong>Important :</strong>
+<br>
+If you are creating threads in a loop, like in the example above, do not
+ forget to create new variables for the arguments you pass. It's a bad 
+idea to pass a reference to a variable that can change before the thread
+ has been created. An example of a wrong piece of code :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+<span class="sh_comment">//&nbsp;WRONG&nbsp;code...</span>
+<span class="sh_type">int</span>&nbsp;<span class="sh_function">main</span><span class="sh_symbol">()</span>
+
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;<span class="sh_usertype">pthread_t</span><span class="sh_normal">&nbsp;</span>thread<span class="sh_symbol">[</span>NUMBER_OF_THREADS<span class="sh_symbol">];</span>
+
+&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Starting&nbsp;all&nbsp;threads..."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;<span class="sh_keyword">for</span><span class="sh_symbol">(</span><span class="sh_type">int</span>&nbsp;current_t&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>&nbsp;current_t&nbsp;<span class="sh_symbol">&lt;</span>&nbsp;NUMBER_OF_THREADS<span class="sh_symbol">;</span>&nbsp;current_t<span class="sh_symbol">++)</span>
+&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_type">int</span>&nbsp;result&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(&amp;</span>thread<span class="sh_symbol">[</span>current_t<span class="sh_symbol">],</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;thread_talk<span class="sh_symbol">,</span>&nbsp;<span class="sh_keyword">static_cast</span><span class="sh_symbol">&lt;</span><span class="sh_type">void</span><span class="sh_symbol">*&gt;(&amp;</span>current_t<span class="sh_symbol">))</span>&nbsp;&nbsp;<span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+</span>
+</code></pre>
+<br>
+This code is wrong because while creating a thread, the argument used 
+for the thread (thread_t) can be changed by the for-loop while creating 
+the thread.
+</div>
+<!--################################################################################################################ -->
+<div id="mutex">
+
+<h3> Mutex variables </h3>
+
+Mutex (mutual exclusion) variables are used to prevent multiple threads 
+to access a (global) variable at the same time. When no mutexes are 
+used, it could happen that 2 threads access the same variable at the 
+same time. If we change the <code> thread_talk() </code> function used in the code above and add a global variable like this :
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+<span class="sh_type">int</span>&nbsp;some_value&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">10</span>&nbsp;<span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">thread_talk</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;thread_nr<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">for</span>&nbsp;<span class="sh_symbol">(</span><span class="sh_type">int</span>&nbsp;x&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">1</span>&nbsp;<span class="sh_symbol">;</span>&nbsp;x<span class="sh_symbol">&lt;</span>&nbsp;<span class="sh_number">500</span>&nbsp;<span class="sh_symbol">;</span>&nbsp;x<span class="sh_symbol">++)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value&nbsp;<span class="sh_symbol">=</span>&nbsp;some_value&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_number">10</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value<span class="sh_symbol">++;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value<span class="sh_symbol">--;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value&nbsp;<span class="sh_symbol">=</span>&nbsp;some_value&nbsp;<span class="sh_symbol">/</span>&nbsp;<span class="sh_number">10</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_exit</span><span class="sh_symbol">(</span>NULL<span class="sh_symbol">);</span>
+<span class="sh_cbracket">}</span>
+</span>
+</code> 
+</pre>
+we got a problem. 
+
+If you run this code, the result is unpredictable. You would expect <code>some_value</code>
+ to be 10 in the end. But you will find that it's not not always 10 in 
+the end. This happens because all the threads can work on the same 
+variable at the same time. For example, thread 1 multiplies <code>some_value</code> by 10 , adds 1, but suddenly thread 2 intervenes and multiplies <code>some_value</code> by 10. Thread 1 wasn't finished with <code>some_value</code> and still has to substract 1 and devide <code>some_value</code>
+ by 10. This results in a completely different end value than the case 
+where thread 2 decided to work with the variable earlier or later.
+<br>
+<br>
+What can we do to improve this code?
+<br>
+<br>
+We must make the <code>some_value</code> variable a mutex variable. This means only one thread can work with it at any given time. 
+<br>
+We do this by declaring a mutex variable: <code> pthread_mutex_t your_mutex_name = PTHREAD_MUTEX_INITIALIZER </code> 
+<br>
+After we have created the mutex variable we can lock or unlock it by using <code>pthread_mutex_lock(your_mutex_name)</code> and <code>pthread_mutex_unlock(your_mutex_name)</code>
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+
+<span class="sh_comment">//&nbsp;add&nbsp;a&nbsp;global&nbsp;,mutex&nbsp;variable</span>
+<span class="sh_usertype">pthread_mutex_t</span><span class="sh_normal">&nbsp;</span>mutex_for_some_value&nbsp;<span class="sh_symbol">=</span>&nbsp;PTHREAD_MUTEX_INITIALIZER<span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">thread_talk</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;arguments<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">for</span>&nbsp;<span class="sh_symbol">(</span><span class="sh_type">int</span>&nbsp;x&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">1</span>&nbsp;<span class="sh_symbol">;</span>&nbsp;x<span class="sh_symbol">&lt;</span>&nbsp;<span class="sh_number">500</span>&nbsp;<span class="sh_symbol">;</span>&nbsp;x<span class="sh_symbol">++)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;lock&nbsp;some_value&nbsp;here&nbsp;:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_mutex_lock</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>mutex_for_some_value&nbsp;<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value&nbsp;<span class="sh_symbol">=</span>&nbsp;some_value&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_number">10</span>&nbsp;<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value<span class="sh_symbol">++;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value<span class="sh_symbol">--;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;some_value&nbsp;<span class="sh_symbol">=</span>&nbsp;some_value&nbsp;<span class="sh_symbol">/</span>&nbsp;<span class="sh_number">10</span>&nbsp;<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;and&nbsp;unlock&nbsp;it&nbsp;for&nbsp;the&nbsp;next&nbsp;thread&nbsp;:</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_mutex_unlock</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>mutex_for_some_value&nbsp;<span class="sh_symbol">);</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_exit</span><span class="sh_symbol">(</span>NULL<span class="sh_symbol">);</span>
+<span class="sh_cbracket">}</span>
+</span>
+</code> </pre>
+
+Now we can be sure no, so called, <a href="http://en.wikipedia.org/wiki/Race_condition">"race condition"</a>
+  occurs because only one thread has access to the variable within the 
+'lock' block. Note that the 'cout' object we've used in our examples 
+actually isn't actually meant to be used with threads. I haven't run 
+into trouble using <code>cout</code> and threads yet, but if you want to be absolutely sure no problems will arise, you should use mutexes when working with <code>cout</code>
+</div>
+<!--################################################################################################################ -->
+<div id="condition_variables">
+
+<h3> Condition variables </h3>
+
+Besides using mutexes there is an other way of synchronizing between 
+threads: condition variables. Mutexes are controlling the access to 
+variables while condition variables control access to variables based on
+ the value of variables. For example a thread can wait until a certain 
+(condition) variable has reached a certain value and then do it's work.
+<br>
+<br>
+Why do we need a condition variable for this? Of course a thread can 
+just check the value of a 'normal' variable and act accordingly. The 
+problem is that the thread would have to constantly check whether the 
+value has changed in some sort of loop. A condition variable just puts 
+one thread on 'wait' and it will continue when it's get's a signal from 
+an other thread. A condition variable must be used together with a mutex
+ variable.
+<br>
+<br>
+
+An example using condition variables :
+
+<pre class="sh_cpp sh_sourceCode"><code><span style="color: #000000">
+<span class="sh_preproc">#include</span>&nbsp;<span class="sh_string">&lt;iostream&gt;</span>
+<span class="sh_keyword">extern</span>&nbsp;<span class="sh_string">"C"</span>
+&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;#include&nbsp;<span class="sh_symbol">&lt;</span>pthread<span class="sh_symbol">.</span>h<span class="sh_symbol">&gt;</span>
+&nbsp;<span class="sh_cbracket">}</span>
+
+<span class="sh_keyword">using</span>&nbsp;<span class="sh_keyword">namespace</span>&nbsp;std<span class="sh_symbol">;</span>
+
+<span class="sh_usertype">pthread_mutex_t</span><span class="sh_normal">&nbsp;</span>count_mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_symbol">=</span>&nbsp;PTHREAD_MUTEX_INITIALIZER<span class="sh_symbol">;</span>
+
+<span class="sh_usertype">pthread_cond_t</span><span class="sh_normal">&nbsp;&nbsp;</span>condition_var&nbsp;&nbsp;&nbsp;<span class="sh_symbol">=</span>&nbsp;PTHREAD_COND_INITIALIZER<span class="sh_symbol">;</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function1</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;arg<span class="sh_symbol">);</span>
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;<span class="sh_function">function2</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;arg<span class="sh_symbol">);</span>
+
+<span class="sh_type">int</span>&nbsp;&nbsp;count&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+
+<span class="sh_keyword">const</span>&nbsp;<span class="sh_type">int</span>&nbsp;COUNT_DONE&nbsp;&nbsp;<span class="sh_symbol">=</span>&nbsp;<span class="sh_number">10</span><span class="sh_symbol">;</span>
+
+<span class="sh_function">main</span><span class="sh_symbol">()</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_usertype">pthread_t</span><span class="sh_normal">&nbsp;</span>thread1<span class="sh_symbol">,</span>&nbsp;thread2<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>thread1<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>function1<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">);</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_create</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>thread2<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>function2<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_join</span><span class="sh_symbol">(</span>&nbsp;thread1<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">);</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_join</span><span class="sh_symbol">(</span>&nbsp;thread2<span class="sh_symbol">,</span>&nbsp;NULL<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"Final&nbsp;count:&nbsp;"</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;&nbsp;count&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl<span class="sh_symbol">;</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_keyword">return</span>&nbsp;<span class="sh_number">0</span><span class="sh_symbol">;</span>
+<span class="sh_cbracket">}</span>
+
+<span class="sh_comment">//&nbsp;Write&nbsp;numbers&nbsp;1-3&nbsp;and&nbsp;8-10&nbsp;as&nbsp;permitted&nbsp;by&nbsp;function2()</span>
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span><span class="sh_function">function1</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;arg<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;function1&nbsp;(thread1)&nbsp;likes&nbsp;to&nbsp;add&nbsp;1&nbsp;to&nbsp;count&nbsp;regardless&nbsp;of&nbsp;it's&nbsp;current&nbsp;value,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;but&nbsp;will&nbsp;only&nbsp;do&nbsp;it&nbsp;if&nbsp;function2&nbsp;is&nbsp;done&nbsp;working&nbsp;with&nbsp;count.</span>
+
+&nbsp;&nbsp;&nbsp;<span class="sh_keyword">for</span><span class="sh_symbol">(;;)</span>
+&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;Lock&nbsp;mutex&nbsp;and&nbsp;then&nbsp;wait&nbsp;for&nbsp;signal&nbsp;to&nbsp;relase&nbsp;mutex</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_mutex_lock</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>count_mutex&nbsp;<span class="sh_symbol">);</span>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;frunction1&nbsp;gives&nbsp;control&nbsp;over&nbsp;count&nbsp;to&nbsp;function2&nbsp;to&nbsp;see&nbsp;if&nbsp;function2&nbsp;wants&nbsp;to&nbsp;do&nbsp;anything</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;with&nbsp;count.&nbsp;It&nbsp;will&nbsp;unlock&nbsp;count&nbsp;until&nbsp;function2&nbsp;signals&nbsp;it's&nbsp;done&nbsp;working&nbsp;with&nbsp;count.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_cond_wait</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>condition_var<span class="sh_symbol">,</span>&nbsp;<span class="sh_symbol">&amp;</span>count_mutex&nbsp;<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;add&nbsp;this&nbsp;point&nbsp;function2&nbsp;has&nbsp;given&nbsp;back&nbsp;control&nbsp;of&nbsp;count&nbsp;to&nbsp;funciton1&nbsp;and</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;has&nbsp;either&nbsp;added&nbsp;1&nbsp;to&nbsp;count&nbsp;or&nbsp;gave&nbsp;back&nbsp;control&nbsp;to&nbsp;function1&nbsp;without&nbsp;changing&nbsp;count.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"function1&nbsp;looks&nbsp;at&nbsp;count&nbsp;("</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;count&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">")&nbsp;and&nbsp;just&nbsp;adds&nbsp;1&nbsp;to&nbsp;it."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count<span class="sh_symbol">++;</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_mutex_unlock</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>count_mutex&nbsp;<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">if</span><span class="sh_symbol">(</span>count&nbsp;<span class="sh_symbol">&gt;=</span>&nbsp;COUNT_DONE<span class="sh_symbol">)</span>&nbsp;<span class="sh_function">pthread_exit</span><span class="sh_symbol">(</span>NULL<span class="sh_symbol">);</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+<span class="sh_cbracket">}</span>
+
+
+
+<span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span><span class="sh_function">function2</span><span class="sh_symbol">(</span><span class="sh_type">void</span>&nbsp;<span class="sh_symbol">*</span>&nbsp;arg<span class="sh_symbol">)</span>
+<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;function&nbsp;2&nbsp;only&nbsp;likes&nbsp;to&nbsp;add&nbsp;1&nbsp;to&nbsp;odd&nbsp;numbers&nbsp;and&nbsp;will&nbsp;leave&nbsp;even&nbsp;numbers&nbsp;alone.</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">for</span><span class="sh_symbol">(;;)</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_mutex_lock</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>count_mutex&nbsp;<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">if</span><span class="sh_symbol">(</span>&nbsp;count&nbsp;<span class="sh_symbol">&amp;</span>&nbsp;<span class="sh_number">1</span>&nbsp;<span class="sh_symbol">)</span>&nbsp;<span class="sh_comment">//&nbsp;check&nbsp;if&nbsp;count&nbsp;is&nbsp;odd</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">"function2&nbsp;detected&nbsp;count&nbsp;("</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;count&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;<span class="sh_string">")&nbsp;is&nbsp;odd,&nbsp;so&nbsp;it&nbsp;adds&nbsp;1&nbsp;to&nbsp;it."</span>&nbsp;<span class="sh_symbol">&lt;&lt;</span>&nbsp;endl<span class="sh_symbol">;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count<span class="sh_symbol">++;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">else</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">{</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;function&nbsp;2&nbsp;detected&nbsp;the&nbsp;number&nbsp;is&nbsp;even,&nbsp;and&nbsp;will&nbsp;leave&nbsp;it&nbsp;alone&nbsp;and&nbsp;signal&nbsp;function1</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_comment">//&nbsp;it&nbsp;has&nbsp;control&nbsp;back&nbsp;over&nbsp;count.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_cond_signal</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>condition_var&nbsp;<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_function">pthread_mutex_unlock</span><span class="sh_symbol">(</span>&nbsp;<span class="sh_symbol">&amp;</span>count_mutex&nbsp;<span class="sh_symbol">);</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_keyword">if</span><span class="sh_symbol">(</span>count&nbsp;<span class="sh_symbol">&gt;=</span>&nbsp;COUNT_DONE<span class="sh_symbol">)</span><span class="sh_function">pthread_exit</span><span class="sh_symbol">(</span>NULL<span class="sh_symbol">);</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sh_cbracket">}</span>
+
+<span class="sh_cbracket">}</span>
+</span>
+</code> </pre>
+
+As you can see in the above code, we declare a condition variable first. (<code>pthread_cond_t  condition_var   = PTHREAD_COND_INITIALIZER;</code>)
+<br>
+<br>
+After this variable is declared, we use <code> pthread_cond_wait( &amp;condition_var, &amp;count_mutex );</code>
+ inside a mutex locked block of code to unlock a mutex variable so an 
+other thread can lock it and use the mutex variable. The thread will 
+pause and wait for a signal from the 'other' thread.
+<br>
+<br>
+If the other thread is done working with the mutex variable, it sends a signal (<code>pthread_cond_signal( &amp;condition_var );</code>) back to the waiting thread so the waiting thread can lock the mutex variable again and continue to work with it.
+<br>
+<br>
+
+</div>
+<!--################################################################################################################ -->
+<div id="others">
+
+<h3> Other useful functions </h3>
+
+<strong><code>pthread_detach(pthread_t thread)</code></strong> : By 
+default threads are created as 'joinable'. You can also create a thread 
+that is not joinable. You can do this by setting the <code> attr </code> attribute when creating the thread, or by using the <code>pthread_detach()</code> function.
+<br>
+If a thread is created it uses some system resources. To free these 
+system resources, when a thread ends, a thread needs to be joined or 
+detached. 
+<br>
+<br>
+<strong><code>pthread_self()</code></strong> : Every thread has a unique thread ID. You can get this thread ID like this : 
+<pre class="sh_cpp sh_sourceCode">cout <span class="sh_symbol">&lt;&lt;</span> <span class="sh_string">"my thread id is :"</span> <span class="sh_symbol">&lt;&lt;</span> <span class="sh_function">pthread_self</span><span class="sh_symbol">()</span> <span class="sh_symbol">;</span> </pre>
+<strong><code>pthread_mutex_trylock</code></strong> : This function checks to see if a mutex variable is locked.
+<br>
+<br>
+<strong><code>pthread_cond_broadcast</code></strong> : This function should be used instead of <code>pthread_cond_signal</code> if more than one thread is blocked by a condition variable.
+<br>
+<br>
+Remember there are many other functions in the POSIX thread API and you 
+should google them if you're going to do some serious thread 
+programming.
+<br>
+For an example where using multiple threads actually makes a big 
+difference in speed (if you're using a multi-core system) take a look at
+ my <a href="http://codebase.eu/source/code-cplusplus/multithreaded-password-cracker/">multithreaded password cracker </a> .
+
+</div>
+<!--################################################################################################################ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+		
+		<div id="comments"> 
+		<h3>Comments</h3><br><hr><br><strong>guri</strong> [ Thursday 2nd of January 2014 11:19:37 AM ]<br><pre class="output"><code><span style="color: #000000">
+good&nbsp;one&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Sunday 29th of December 2013 08:23:13 AM ]<br><pre class="output"><code><span style="color: #000000">
+how&nbsp;to&nbsp;achive&nbsp;multi&nbsp;threading??</span>
+</code></pre><br><br><hr><br><strong>Alussnini</strong> [ Wednesday 25th of December 2013 09:13:08 PM ]<br><pre class="output"><code><span style="color: #000000">
+&lt;p&gt;Un&nbsp;peintre&nbsp;а&nbsp;dйmarche&lt;strong&gt;&nbsp;comme&nbsp;que&nbsp;Jacques&nbsp;Coulais,&nbsp;dans&nbsp;une&nbsp;semblable&nbsp;logique&lt;/strong&gt;,&nbsp;dйclare&nbsp;ne&nbsp;concevoir&nbsp;la&nbsp;peinture&nbsp;que&nbsp;comme&nbsp;йvйnement,&nbsp;comme&nbsp;aven-&nbsp;ture&nbsp;immйdiate&nbsp;а&nbsp;gйrer&nbsp;dans&nbsp;un&nbsp;&nbsp;d’extrкme&nbsp;&nbsp;intime&nbsp;avec&nbsp;l’objet&nbsp;tableau.&nbsp;L’acte&nbsp;а&nbsp;peindre,&nbsp;sur&nbsp;le&nbsp;modиle&nbsp;de&nbsp;la&nbsp;mйditation&nbsp;zen,&nbsp;aura&nbsp;pour&nbsp;visйe&nbsp;l’accession&nbsp;а&nbsp;un&nbsp;йtat&nbsp;d’oubli&nbsp;total&nbsp;:&nbsp;“faire&nbsp;а&nbsp;&lt;em&gt;la&nbsp;peinture&nbsp;un&nbsp;йvйnemen&lt;/em&gt;t,&nbsp;relиve&nbsp;Jacques&nbsp;Coulais,&nbsp;c’est&nbsp;attester&nbsp;au&nbsp;moins&nbsp;deux&nbsp;choses&nbsp;:&nbsp;l’art,&nbsp;d’abord,&nbsp;est&nbsp;une&nbsp;action&nbsp;;&nbsp;ensuite,&nbsp;cette&nbsp;action&nbsp;n’est&nbsp;pas&nbsp;un&nbsp;geste&nbsp;stйrile,&nbsp;ou&nbsp;un&nbsp;acte&nbsp;а&nbsp;perdition&nbsp;(...&nbsp;).&nbsp;&lt;u&gt;L’acte&nbsp;а&nbsp;peindre&nbsp;a&nbsp;toujours&nbsp;pour&nbsp;recherche&nbsp;l’opportunitй&nbsp;que&nbsp;l’acte&nbsp;crйatif&nbsp;octroi&lt;/u&gt;e&nbsp;de&nbsp;refonder&nbsp;la&nbsp;vraie&nbsp;vie,&nbsp;d’aller&nbsp;en&nbsp;dehors&nbsp;d’elle,&nbsp;plus&nbsp;hors&nbsp;(...&nbsp;)&nbsp;Je&nbsp;considиre&nbsp;que&nbsp;la&nbsp;peinture&nbsp;est&nbsp;une&nbsp;opйration&nbsp;en&nbsp;rapport&nbsp;avec&nbsp;l’extase”.&nbsp;Conformйment&nbsp;au&nbsp;modиle&nbsp;forgй&nbsp;par&nbsp;Klee,&nbsp;&lt;u&gt;les&nbsp;њuvres&nbsp;de&nbsp;Coulais&nbsp;n’ont&nbsp;d’intйrкt&lt;/u&gt;&nbsp;que&nbsp;comme&nbsp;marche&nbsp;erratique&nbsp;mais&nbsp;graduйe&nbsp;а&nbsp;l\'ap</span>
+</code></pre><br><br><hr><br><strong>iceage</strong> [ Wednesday 11th of December 2013 11:43:13 PM ]<br><pre class="output"><code><span style="color: #000000">
+In&nbsp;your&nbsp;last&nbsp;example,&nbsp;in&nbsp;the&nbsp;2nd&nbsp;function&nbsp;you&nbsp;have&nbsp;a&nbsp;bug.&nbsp;
+<br>change&nbsp;
+<br>if(count&nbsp;&gt;=&nbsp;COUNT_DONE)pthread_exit(NULL);
+<br>to
+<br>if(count&nbsp;&gt;&nbsp;COUNT_DONE)pthread_exit(NULL);
+<br>it&nbsp;will&nbsp;allow&nbsp;1st&nbsp;thread&nbsp;to&nbsp;exit,&nbsp;otherwise&nbsp;it&nbsp;never&nbsp;leaves&nbsp;the&nbsp;wait&nbsp;state&nbsp;without&nbsp;signal&nbsp;from&nbsp;pthread_cond_signal(&nbsp;&amp;condition_var&nbsp;);&nbsp;and&nbsp;main()&nbsp;will&nbsp;hang.
+<br>
+<br>cheers
+<br>
+<br></span>
+</code></pre><br><br><hr><br><strong>MircooV</strong> [ Tuesday 10th of December 2013 08:12:11 PM ]<br><pre class="output"><code><span style="color: #000000">
+I&nbsp;noticed&nbsp;that&nbsp;it\'s&nbsp;hard&nbsp;to&nbsp;find&nbsp;your&nbsp;site&nbsp;in&nbsp;google,&nbsp;i&nbsp;found&nbsp;it&nbsp;on&nbsp;19th&nbsp;spot,&nbsp;you&nbsp;should&nbsp;get&nbsp;some&nbsp;quality&nbsp;backlinks&nbsp;to&nbsp;rank&nbsp;it&nbsp;in&nbsp;google&nbsp;and&nbsp;increase&nbsp;traffic.&nbsp;I&nbsp;had&nbsp;the&nbsp;same&nbsp;problem&nbsp;with&nbsp;my&nbsp;website,&nbsp;your&nbsp;should&nbsp;search&nbsp;in&nbsp;google&nbsp;for&nbsp;-&nbsp;insane&nbsp;google&nbsp;ranking&nbsp;boost&nbsp;-&nbsp;it&nbsp;helped&nbsp;me&nbsp;a&nbsp;lot</span>
+</code></pre><br><br><hr><br><strong>ruwan</strong> [ Friday 29th of November 2013 10:29:45 AM ]<br><pre class="output"><code><span style="color: #000000">
+great&nbsp;leason....</span>
+</code></pre><br><br><hr><br><strong>ashwin</strong> [ Tuesday 26th of November 2013 07:49:11 AM ]<br><pre class="output"><code><span style="color: #000000">
+This&nbsp;is&nbsp;really&nbsp;good&nbsp;for&nbsp;beginners&nbsp;to&nbsp;multithreading.
+<br>
+<br>If&nbsp;possible&nbsp;can&nbsp;you&nbsp;explain&nbsp;how&nbsp;to&nbsp;synchronize&nbsp;if&nbsp;multiple&nbsp;threads&nbsp;are&nbsp;waiting&nbsp;using&nbsp;pthread_cond_wait&nbsp;,&nbsp;and&nbsp;if&nbsp;some&nbsp;thread&nbsp;sends&nbsp;pthread_cont_broadcast...
+<br></span>
+</code></pre><br><br><hr><br><strong>ashwin</strong> [ Tuesday 26th of November 2013 07:48:20 AM ]<br><pre class="output"><code><span style="color: #000000">
+This&nbsp;is&nbsp;really&nbsp;good&nbsp;for&nbsp;beginners&nbsp;to&nbsp;multithreading.
+<br>
+<br>If&nbsp;possible&nbsp;can&nbsp;you&nbsp;explain&nbsp;how&nbsp;to&nbsp;synchronize&nbsp;if&nbsp;multiple&nbsp;threads&nbsp;are&nbsp;waiting&nbsp;using&nbsp;pthread_cond_wait&nbsp;,&nbsp;and&nbsp;if&nbsp;some&nbsp;thread&nbsp;sends&nbsp;pthread_cont_broadcast...
+<br>
+<br></span>
+</code></pre><br><br><hr><br><strong>ashwin</strong> [ Tuesday 26th of November 2013 07:46:05 AM ]<br><pre class="output"><code><span style="color: #000000">
+Really&nbsp;nice&nbsp;tutorial&nbsp;to&nbsp;start&nbsp;working&nbsp;on&nbsp;multithreading&nbsp;...&nbsp;
+<br>
+<br>If&nbsp;possible&nbsp;can&nbsp;you&nbsp;explain&nbsp;like&nbsp;how&nbsp;we&nbsp;need&nbsp;to&nbsp;synchronize&nbsp;if&nbsp;we&nbsp;have&nbsp;multiple&nbsp;threads&nbsp;are&nbsp;waiting&nbsp;using&nbsp;pthread_cond_wait&nbsp;,&nbsp;and&nbsp;some&nbsp;thread&nbsp;sent&nbsp;an&nbsp;pthread_cond_broadcast&nbsp;...&nbsp;</span>
+</code></pre><br><br><hr><br><strong>sag</strong> [ Thursday 21st of November 2013 01:33:51 PM ]<br><pre class="output"><code><span style="color: #000000">
+thanx&nbsp;for&nbsp;nice&nbsp;tutorial!keep&nbsp;it&nbsp;up....</span>
+</code></pre><br><br><hr><br><strong>ZohaibAnwar</strong> [ Saturday 16th of November 2013 09:41:11 PM ]<br><pre class="output"><code><span style="color: #000000">
+Best&nbsp;tutorial&nbsp;For&nbsp;a&nbsp;Virgin</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Monday 4th of November 2013 11:51:08 AM ]<br><pre class="output"><code><span style="color: #000000">
+nice&nbsp;tutorial</span>
+</code></pre><br><br><hr><br><strong>ThimpuPal</strong> [ Friday 25th of October 2013 05:54:35 AM ]<br><pre class="output"><code><span style="color: #000000">
+Really&nbsp;a&nbsp;great&nbsp;tutorial....easy&nbsp;to&nbsp;understand..so&nbsp;keep&nbsp;it&nbsp;on&nbsp;guys...Thanks.</span>
+</code></pre><br><br><hr><br><strong>Surabhi</strong> [ Friday 18th of October 2013 11:19:50 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you&nbsp;for&nbsp;the&nbsp;tutorial.
+<br>I&nbsp;had&nbsp;a&nbsp;question.&nbsp;What&nbsp;if&nbsp;I&nbsp;have&nbsp;multiple&nbsp;threads,&nbsp;more&nbsp;than&nbsp;two,&nbsp;and&nbsp;running&nbsp;the&nbsp;same&nbsp;function.&nbsp;How&nbsp;would&nbsp;I&nbsp;implement&nbsp;mutexes&nbsp;and&nbsp;condition&nbsp;variables&nbsp;then?&nbsp;
+<br>I&nbsp;want&nbsp;a&nbsp;thread&nbsp;to&nbsp;pause&nbsp;at&nbsp;a&nbsp;certain&nbsp;point&nbsp;in&nbsp;the&nbsp;program&nbsp;until&nbsp;the&nbsp;other&nbsp;threads&nbsp;reach&nbsp;the&nbsp;same&nbsp;point.&nbsp;Once&nbsp;that\'s&nbsp;done&nbsp;I&nbsp;want&nbsp;them&nbsp;to&nbsp;continue&nbsp;running.&nbsp;I&nbsp;need&nbsp;to&nbsp;pause&nbsp;it&nbsp;just&nbsp;that&nbsp;once.
+<br></span>
+</code></pre><br><br><hr><br><strong>Armando</strong> [ Thursday 17th of October 2013 05:29:10 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you&nbsp;so&nbsp;much&nbsp;for&nbsp;this&nbsp;tutorial,&nbsp;great&nbsp;information&nbsp;for&nbsp;a&nbsp;quickstart&nbsp;!</span>
+</code></pre><br><br><hr><br><strong>sk</strong> [ Tuesday 1st of October 2013 09:06:28 AM ]<br><pre class="output"><code><span style="color: #000000">
+nice&nbsp;tutorial</span>
+</code></pre><br><br><hr><br><strong>CDT</strong> [ Sunday 29th of September 2013 12:03:19 AM ]<br><pre class="output"><code><span style="color: #000000">
+Cheers&nbsp;mate!</span>
+</code></pre><br><br><hr><br><strong>yesi</strong> [ Saturday 28th of September 2013 05:51:45 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thanks!!</span>
+</code></pre><br><br><hr><br><strong>Sam</strong> [ Thursday 26th of September 2013 08:22:42 AM ]<br><pre class="output"><code><span style="color: #000000">
+Compiling&nbsp;
+<br>If&nbsp;you&nbsp;want&nbsp;to&nbsp;compile&nbsp;the&nbsp;above&nbsp;code&nbsp;you&nbsp;need&nbsp;to&nbsp;include&nbsp;the&nbsp;pthread&nbsp;library.&nbsp;In&nbsp;linux&nbsp;(using&nbsp;the&nbsp;GCC)&nbsp;use:
+<br>g++&nbsp;program.cpp&nbsp;-pthread&nbsp;
+<br></span>
+</code></pre><br><br><hr><br><strong>Sam</strong> [ Thursday 26th of September 2013 08:22:06 AM ]<br><pre class="output"><code><span style="color: #000000">
+Compiling&nbsp;
+<br>If&nbsp;you&nbsp;want&nbsp;to&nbsp;compile&nbsp;the&nbsp;above&nbsp;code&nbsp;you&nbsp;need&nbsp;to&nbsp;include&nbsp;the&nbsp;pthread&nbsp;library.&nbsp;In&nbsp;linux&nbsp;(using&nbsp;the&nbsp;GCC)&nbsp;use:
+<br>g++&nbsp;program.cpp&nbsp;-lpthread&nbsp;
+<br></span>
+</code></pre><br><br><hr><br><strong>TahirJameel</strong> [ Tuesday 24th of September 2013 11:31:35 AM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you&nbsp;for&nbsp;a&nbsp;very&nbsp;comprehensive&nbsp;tutorial&nbsp;of&nbsp;using&nbsp;multi-threads.&nbsp;The&nbsp;tutorial&nbsp;has&nbsp;used&nbsp;very&nbsp;simple&nbsp;example&nbsp;to&nbsp;well&nbsp;understand&nbsp;the&nbsp;concept.&nbsp;
+<br></span>
+</code></pre><br><br><hr><br><strong>Nguyen</strong> [ Monday 16th of September 2013 08:22:46 AM ]<br><pre class="output"><code><span style="color: #000000">
+Great.&nbsp;Thanks&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>hustcalm</strong> [ Wednesday 4th of September 2013 03:21:15 PM ]<br><pre class="output"><code><span style="color: #000000">
+nice&nbsp;tutorial&nbsp;with&nbsp;a&nbsp;tiny&nbsp;flaw.
+<br>The&nbsp;last&nbsp;code&nbsp;piece&nbsp;explaning&nbsp;conditional&nbsp;variables&nbsp;would&nbsp;not&nbsp;work&nbsp;correctly.
+<br>When&nbsp;function2&nbsp;adds&nbsp;count&nbsp;to&nbsp;10&nbsp;and&nbsp;exit,&nbsp;thread1&nbsp;will&nbsp;keep&nbsp;waiting&nbsp;forever.
+<br>
+<br>The&nbsp;solution&nbsp;is&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;function2,add
+<br>pthread_cond_signal(&amp;condition_var);
+<br>before
+<br>pthread_exit(NULL);
+<br></span>
+</code></pre><br><br><hr><br><strong>Shree</strong> [ Saturday 31st of August 2013 08:39:14 PM ]<br><pre class="output"><code><span style="color: #000000">
+Really&nbsp;a&nbsp;very&nbsp;good&nbsp;tutorial...&nbsp;Thanks&nbsp;a&nbsp;lot!!!</span>
+</code></pre><br><br><hr><br><strong>Stinualueta</strong> [ Friday 30th of August 2013 01:08:30 AM ]<br><pre class="output"><code><span style="color: #000000">
+Be&nbsp;patient&nbsp;and&nbsp;careful&nbsp;when&nbsp;a&nbsp;resource&nbsp;box&nbsp;are&nbsp;offered&nbsp;to&nbsp;treating&nbsp;head&nbsp;lice&nbsp;and&nbsp;ultimately&nbsp;killing&nbsp;all&nbsp;concerning&nbsp;them.&nbsp;Many&nbsp;it&nbsp;is&nbsp;certainly&nbsp;plausible&nbsp;get&nbsp;started&nbsp;everywhere&nbsp;over&nbsp;the&nbsp;going&nbsp;to&nbsp;be&nbsp;the&nbsp;the&nbsp;most&nbsp;appropriate&nbsp;one&nbsp;track&nbsp;and&nbsp;next&nbsp;fail&nbsp;to&nbsp;learn&nbsp;more&nbsp;about&nbsp;need&nbsp;to&nbsp;the&nbsp;satisfy&nbsp;around&nbsp;us&nbsp;do&nbsp;just&nbsp;fine&nbsp;and&nbsp;as&nbsp;a&nbsp;multi&nbsp;function&nbsp;have&nbsp;been&nbsp;seen&nbsp;a&nbsp;multi&nbsp;function&nbsp;re-infestation&nbsp;flares&nbsp;airborn&nbsp;But,on&nbsp;the&nbsp;basis&nbsp;of&nbsp;considering&nbsp;they&nbsp;are&nbsp;vigilant&nbsp;and&nbsp;after&nbsp;having&nbsp;been&nbsp;going&nbsp;to&nbsp;be&nbsp;the&nbsp;an&nbsp;excellent&nbsp;different&nbsp;techniques&nbsp;in&nbsp;other&nbsp;words&nbsp;you&nbsp;can&nbsp;eliminate&nbsp;all&nbsp;of&nbsp;these&nbsp;pests&nbsp;pre&nbsp;they&nbsp;rapidly&nbsp;propagate&nbsp;and&nbsp;must&nbsp;have&nbsp;a&nbsp;much&nbsp;in&nbsp;the&nbsp;way&nbsp;greater&nbsp;effort&nbsp;do&nbsp;you&nbsp;want&nbsp;to&nbsp;educate&nbsp;yourself&nbsp;regarding&nbsp;eliminate&nbsp;them.?Is&nbsp;your&nbsp;every&nbsp;single&nbsp;child&nbsp;every&nbsp;time&nbsp;scratching&nbsp;his&nbsp;head?&nbsp;Is&nbsp;his&nbsp;scalp&nbsp;brimmed&nbsp;over&nbsp;so&nbsp;that&nbsp;you&nbsp;have&nbsp;white&nbsp;flakes&nbsp;that&nbsp;won&nbsp;seem&nbsp;for&nbsp;more&nbsp;information&nbsp;on&nbsp;are&nbsp;offered&nbsp;of&nbsp;all&nbsp;Your&nbsp;to&nbsp;may&nbsp;possibly&nbsp;have&nbsp;head&nbsp;head&nbsp;lice&nbsp;Don&nbsp;worry;&nbsp;a&nbsp;resource&nbsp;box&nbsp;and&nbsp;for&nbsp;that&nbsp;reason&nbsp;common&nbsp;almost&nbsp;every&nbsp;man&nbsp;and&nbsp;woman&nbsp;gets&nbsp;as</span>
+</code></pre><br><br><hr><br><strong>Sagar</strong> [ Friday 16th of August 2013 08:14:12 AM ]<br><pre class="output"><code><span style="color: #000000">
+Good&nbsp;tutorial,&nbsp;I&nbsp;enjoyed&nbsp;it...&nbsp;Thanks.</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Friday 26th of July 2013 08:29:58 AM ]<br><pre class="output"><code><span style="color: #000000">
+thanks&nbsp;a&nbsp;lot&nbsp;for&nbsp;explaining&nbsp;thread&nbsp;concept&nbsp;&nbsp;you&nbsp;have&nbsp;shared&nbsp;.simple&nbsp;and&nbsp;clear&nbsp;</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Thursday 11th of July 2013 10:36:51 AM ]<br><pre class="output"><code><span style="color: #000000">
+Really,&nbsp;I&nbsp;should&nbsp;appreciate&nbsp;you&nbsp;for&nbsp;making&nbsp;such&nbsp;simple&nbsp;and&nbsp;well&nbsp;enough&nbsp;documents.&nbsp;Earlier&nbsp;I&nbsp;tried&nbsp;to&nbsp;understand&nbsp;the&nbsp;multithreading&nbsp;with&nbsp;other&nbsp;docs&nbsp;but&nbsp;could&nbsp;not.&nbsp;Just&nbsp;spending&nbsp;one&nbsp;day&nbsp;on&nbsp;this&nbsp;page,&nbsp;I&nbsp;am&nbsp;able&nbsp;to&nbsp;develope&nbsp;multithreading&nbsp;prgram.
+<br>
+<br>Once&nbsp;again&nbsp;thanks&nbsp;!!&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>AnilKumar</strong> [ Tuesday 25th of June 2013 02:03:35 PM ]<br><pre class="output"><code><span style="color: #000000">
+hai&nbsp;this&nbsp;is&nbsp;multithreading&nbsp;stuff</span>
+</code></pre><br><br><hr><br><strong>JohnCoughlin</strong> [ Monday 20th of May 2013 04:59:47 AM ]<br><pre class="output"><code><span style="color: #000000">
+wonderful&nbsp;explanation,&nbsp;in&nbsp;a&nbsp;sense,&nbsp;since&nbsp;it&nbsp;did&nbsp;not&nbsp;leave&nbsp;me&nbsp;wondering.</span>
+</code></pre><br><br><hr><br><strong>Manuel</strong> [ Friday 10th of May 2013 02:03:00 AM ]<br><pre class="output"><code><span style="color: #000000">
+I&nbsp;also&nbsp;added&nbsp;a&nbsp;signal&nbsp;at&nbsp;the&nbsp;end&nbsp;of&nbsp;function2,&nbsp;since&nbsp;function1&nbsp;would&nbsp;keep&nbsp;waiting&nbsp;for&nbsp;the&nbsp;signal.&nbsp;I&nbsp;also&nbsp;added&nbsp;some&nbsp;couts&nbsp;and&nbsp;I&nbsp;see&nbsp;strange&nbsp;behavior:
+<br>
+<br>function&nbsp;1&nbsp;has&nbsp;lock
+<br>function&nbsp;1&nbsp;waits&nbsp;for&nbsp;signal
+<br>function&nbsp;2&nbsp;has&nbsp;lock
+<br>function&nbsp;2&nbsp;sends&nbsp;signal
+<br>function&nbsp;2&nbsp;sent&nbsp;signal
+<br>function&nbsp;2&nbsp;releases&nbsp;lock
+<br>Value&nbsp;for&nbsp;count&nbsp;is:&nbsp;function&nbsp;1&nbsp;got&nbsp;signal
+<br>function1&nbsp;looks&nbsp;at&nbsp;count&nbsp;(0)&nbsp;and&nbsp;just&nbsp;adds&nbsp;1&nbsp;to&nbsp;it.
+<br>function&nbsp;1&nbsp;released&nbsp;lock
+<br>function&nbsp;1&nbsp;has&nbsp;lock
+<br>function&nbsp;1&nbsp;waits&nbsp;for&nbsp;signal
+<br>0
+<br>function&nbsp;2&nbsp;has&nbsp;lock
+<br>function2&nbsp;detected&nbsp;count&nbsp;(1)&nbsp;is&nbsp;odd,&nbsp;so&nbsp;it&nbsp;adds&nbsp;1&nbsp;to&nbsp;it.
+<br>function&nbsp;2&nbsp;releases&nbsp;lock
+<br>Value&nbsp;for&nbsp;count&nbsp;is:&nbsp;2
+<br>function&nbsp;2&nbsp;has&nbsp;lock
+<br>function&nbsp;2&nbsp;sends&nbsp;signal
+<br>function&nbsp;2&nbsp;sent&nbsp;signal
+<br>function&nbsp;2&nbsp;releases&nbsp;lock
+<br>Value&nbsp;for&nbsp;count&nbsp;is:&nbsp;2
+<br>function&nbsp;1&nbsp;got&nbsp;signal
+<br>function1&nbsp;looks&nbsp;at&nbsp;count&nbsp;(2)&nbsp;and&nbsp;just&nbsp;adds&nbsp;1&nbsp;to&nbsp;it.
+<br>function&nbsp;1&nbsp;released&nbsp;lock
+<br>function&nbsp;1&nbsp;has&nbsp;lock
+<br>function&nbsp;1&nbsp;waits&nbsp;for&nbsp;signal
+<br>function&nbsp;2&nbsp;has&nbsp;lock
+<br>function2&nbsp;detected&nbsp;count&nbsp;(3)&nbsp;is&nbsp;odd,&nbsp;so&nbsp;it&nbsp;adds&nbsp;1&nbsp;to&nbsp;it.
+<br>function&nbsp;2&nbsp;releases&nbsp;lock
+<br>Value&nbsp;for&nbsp;count&nbsp;is:&nbsp;4
+</span>
+</code></pre><br><br><hr><br><strong>Alex</strong> [ Tuesday 7th of May 2013 02:13:53 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thank&nbsp;you&nbsp;!
+<br>That\'s&nbsp;really&nbsp;good&nbsp;tutorial.&nbsp;Much&nbsp;appreciate&nbsp;your&nbsp;help.
+<br>@Yourname
+<br>Yeah,&nbsp;I\'ve&nbsp;noticed&nbsp;that&nbsp;too.&nbsp;I&nbsp;tried&nbsp;to&nbsp;repair&nbsp;it,&nbsp;here\'s&nbsp;my&nbsp;solution&nbsp;of&nbsp;this&nbsp;problem:
+<br>Instead&nbsp;of
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(&nbsp;count&nbsp;&gt;=&nbsp;COUNT_DONE&nbsp;)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pthread_exit(NULL);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>at&nbsp;the&nbsp;end&nbsp;of&nbsp;function&nbsp;2,&nbsp;write
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(&nbsp;count&nbsp;&gt;=&nbsp;COUNT_DONE&nbsp;)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pthread_cond_signal(&nbsp;&amp;condition_var&nbsp;);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pthread_exit(NULL);
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>That\'s&nbsp;not&nbsp;all.&nbsp;If&nbsp;you&nbsp;want&nbsp;to&nbsp;print&nbsp;the&nbsp;correct&nbsp;value&nbsp;of&nbsp;count&nbsp;variable,&nbsp;you&nbsp;must&nbsp;decrement&nbsp;it&nbsp;in&nbsp;main&nbsp;thread.
+<br>Et&nbsp;voila&nbsp;:)&nbsp;It&nbsp;works&nbsp;for&nbsp;me.</span>
+</code></pre><br><br><hr><br><strong>HemantVerma</strong> [ Saturday 4th of May 2013 11:55:12 AM ]<br><pre class="output"><code><span style="color: #000000">
+THE&nbsp;BEST&nbsp;MULTITHREADING&nbsp;TUTORIAL&nbsp;I&nbsp;HAVE&nbsp;GOT&nbsp;................&nbsp;In&nbsp;this&nbsp;topic,&nbsp;Wikipedia&nbsp;too&nbsp;SUCKS&nbsp;!!!!!</span>
+</code></pre><br><br><hr><br><strong>amithnagraj</strong> [ Thursday 18th of April 2013 08:54:45 PM ]<br><pre class="output"><code><span style="color: #000000">
+Superb&nbsp;tutorial..!!</span>
+</code></pre><br><br><hr><br><strong>imei</strong> [ Friday 5th of April 2013 12:35:17 PM ]<br><pre class="output"><code><span style="color: #000000">
+example&nbsp;where&nbsp;you&nbsp;create&nbsp;threads&nbsp;with&nbsp;array.
+<br>Q1:&nbsp;why&nbsp;sleep(a+1)&nbsp;takes&nbsp;the&nbsp;same&nbsp;time?&nbsp;shouldn\'t&nbsp;sleep&nbsp;increase&nbsp;with&nbsp;counter?
+<br>
+<br>1st&nbsp;example&nbsp;with&nbsp;mutex&nbsp;variable.
+<br>Q2:&nbsp;there&nbsp;is&nbsp;no&nbsp;cout&lt;&lt;some_value&nbsp;so&nbsp;i&nbsp;don\'t&nbsp;see&nbsp;when&nbsp;it&nbsp;changes.&nbsp;the&nbsp;example&nbsp;does&nbsp;not&nbsp;work&nbsp;with&nbsp;pthread_exit(NULL).&nbsp;why?&nbsp;&nbsp;remove&nbsp;it&nbsp;to&nbsp;see&nbsp;different&nbsp;values&nbsp;of&nbsp;same_value&nbsp;global</span>
+</code></pre><br><br><hr><br><strong>bn</strong> [ Friday 5th of April 2013 12:20:43 PM ]<br><pre class="output"><code><span style="color: #000000">
+i&nbsp;can\'t&nbsp;pass&nbsp;CAPTCHA&nbsp;code&nbsp;and&nbsp;all&nbsp;my&nbsp;post&nbsp;is&nbsp;gone:(&nbsp;i&nbsp;need&nbsp;to&nbsp;write&nbsp;it&nbsp;again.&nbsp;there&nbsp;is&nbsp;something&nbsp;wrong&nbsp;with&nbsp;it,&nbsp;at&nbsp;least&nbsp;in&nbsp;my&nbsp;browser.</span>
+</code></pre><br><br><hr><br><strong>Akhirul</strong> [ Tuesday 2nd of April 2013 02:42:34 PM ]<br><pre class="output"><code><span style="color: #000000">
+Thanks&nbsp;for&nbsp;your&nbsp;lucid&nbsp;explanation...!</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Tuesday 26th of March 2013 02:55:27 PM ]<br><pre class="output"><code><span style="color: #000000">
+In&nbsp;code&nbsp;example&nbsp;of&nbsp;condition&nbsp;variable&nbsp;the&nbsp;thread&nbsp;for&nbsp;function1&nbsp;doesn\'t&nbsp;terminate&nbsp;although&nbsp;program&nbsp;is&nbsp;correct&nbsp;what&nbsp;is&nbsp;happening&nbsp;there???</span>
+</code></pre><br><br><hr><br><strong>Din</strong> [ Thursday 21st of March 2013 11:32:05 AM ]<br><pre class="output"><code><span style="color: #000000">
+great&nbsp;work&nbsp;!!</span>
+</code></pre><br><br><hr><br><strong>amit</strong> [ Sunday 10th of March 2013 06:47:39 PM ]<br><pre class="output"><code><span style="color: #000000">
+Pretty&nbsp;neat&nbsp;mite&nbsp;!!</span>
+</code></pre><br><br><hr><br><strong>vas</strong> [ Wednesday 27th of February 2013 08:16:22 AM ]<br><pre class="output"><code><span style="color: #000000">
+Nicely&nbsp;written...simple&nbsp;way&nbsp;to&nbsp;understand.</span>
+</code></pre><br><br><hr><br><strong>ak</strong> [ Thursday 14th of February 2013 12:14:57 PM ]<br><pre class="output"><code><span style="color: #000000">
+well&nbsp;composed.&nbsp;easy&nbsp;to&nbsp;understand,&nbsp;wish&nbsp;u&nbsp;write&nbsp;more&nbsp;tutorials&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Tuesday 12th of February 2013 12:05:24 AM ]<br><pre class="output"><code><span style="color: #000000">
+you&nbsp;taught&nbsp;us&nbsp;this&nbsp;in&nbsp;simple&nbsp;word
+<br>that&nbsp;is&nbsp;the&nbsp;great&nbsp;thing&nbsp;about&nbsp;this&nbsp;note
+<br>since&nbsp;i&nbsp;m&nbsp;beginner&nbsp;so&nbsp;pls&nbsp;explain&nbsp;some&nbsp;
+<br>application&nbsp;of&nbsp;multithreading
+<br></span>
+</code></pre><br><br><hr><br><strong>amjad</strong> [ Thursday 17th of January 2013 01:25:21 PM ]<br><pre class="output"><code><span style="color: #000000">
+nicely&nbsp;composed...&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Thursday 17th of January 2013 01:24:27 PM ]<br><pre class="output"><code><span style="color: #000000">
+Nicely&nbsp;written...&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>MatHallamEames</strong> [ Thursday 10th of January 2013 12:38:03 AM ]<br><pre class="output"><code><span style="color: #000000">
+This&nbsp;is&nbsp;a&nbsp;beautifully&nbsp;written&nbsp;tutorial...
+<br>Much&nbsp;appreciate&nbsp;your&nbsp;effort&nbsp;and&nbsp;natural&nbsp;teaching&nbsp;skills
+<br>
+<br>Thank&nbsp;you</span>
+</code></pre><br><br><hr><br><strong>Yourname</strong> [ Monday 31st of December 2012 11:03:10 AM ]<br><pre class="output"><code><span style="color: #000000">
+Good&nbsp;tutorial...
+<br>Gives&nbsp;good&nbsp;idea&nbsp;about&nbsp;threads&nbsp;for&nbsp;beginners..
+<br>But&nbsp;i&nbsp;had&nbsp;a&nbsp;small&nbsp;doubt,
+<br>Second&nbsp;program&nbsp;started&nbsp;with&nbsp;threads&nbsp;is&nbsp;not&nbsp;properly&nbsp;executed(not&nbsp;executing&nbsp;the&nbsp;thread&nbsp;function)&nbsp;if&nbsp;i&nbsp;remove&nbsp;the&nbsp;sleep(1)&nbsp;in&nbsp;main().
+<br>why???
+<br>Thanks&nbsp;in&nbsp;advance..</span>
+</code></pre><br><br><hr><br><strong>santhoshkumaro</strong> [ Friday 28th of December 2012 08:08:51 PM ]<br><pre class="output"><code><span style="color: #000000">
+Great&nbsp;tutorial.&nbsp;Nice&nbsp;one.&nbsp;</span>
+</code></pre><br><br><hr><br><strong>Prasad</strong> [ Friday 14th of December 2012 04:50:30 PM ]<br><pre class="output"><code><span style="color: #000000">
+Simple&nbsp;and&nbsp;clear&nbsp;...</span>
+</code></pre><br><br><hr><br><strong>AnupKumar</strong> [ Tuesday 23rd of October 2012 09:23:00 AM ]<br><pre class="output"><code><span style="color: #000000">
+exactly&nbsp;brom&nbsp;basics&nbsp;to&nbsp;the&nbsp;end.&nbsp;thanks</span>
+</code></pre><br><br><hr><br><strong>anilkumar</strong> [ Monday 17th of September 2012 08:51:05 PM ]<br><pre class="output"><code><span style="color: #000000">
+Nice&nbsp;one&nbsp;dude..!!!
+<br>Worked&nbsp;right&nbsp;away..
+<br>Now&nbsp;I&nbsp;am&nbsp;experimenting&nbsp;with&nbsp;what&nbsp;base&nbsp;knowledge&nbsp;you&nbsp;have&nbsp;shared.
+<br>It&nbsp;looks&nbsp;nice&nbsp;to&nbsp;write&nbsp;multi&nbsp;threaded&nbsp;programs..
+<br>Thanks&nbsp;!!!
+<br>Hope&nbsp;you&nbsp;post&nbsp;more&nbsp;like&nbsp;this.&nbsp;:)</span>
+</code></pre><br><br><hr><br><strong>ab</strong> [ Wednesday 8th of August 2012 07:03:27 PM ]<br><pre class="output"><code><span style="color: #000000">
+good&nbsp;one</span>
+</code></pre><br>  
+
+<!--
+##################################################################
+#####  		Display the comment form	            ######
+##################################################################
+!-->
+
+<div id="commentformsection">
+
+<form id="commentform" method="post" onsubmit="return checkform (this);" action="index.php#comments">
+	<fieldset>
+		<br>
+		<input name="name" maxlength="20" onfocus="this.value=''; this.onfocus=null;" value="Your name" type="text"><br>
+		<textarea name="message" cols="50" rows="15" onfocus="this.value=''; this.onfocus=null;">Your message...</textarea><br>
+				
+		<input name="addcomment" class="groovybutton" value="TRUE" type="hidden">
+	
+<script type="text/javascript" src="C++%20multithreading%20tutorial_files/challenge"></script><script type="text/javascript" src="C++%20multithreading%20tutorial_files/recaptcha.js"></script><div class=" recaptcha_nothad_incorrect_sol recaptcha_isnot_showing_audio" id="recaptcha_widget_div" style=""><div id="recaptcha_area"><table id="recaptcha_table" class="recaptchatable recaptcha_theme_red"> <tbody><tr> <td colspan="6" class="recaptcha_r1_c1"></td> </tr> <tr> <td class="recaptcha_r2_c1"></td> <td colspan="4" class="recaptcha_image_cell"><div style="width: 300px; height: 57px;" id="recaptcha_image"><img style="display:block;" alt="reCAPTCHA challenge image" src="C++%20multithreading%20tutorial_files/image.jpeg" width="300" height="57"></div></td> <td class="recaptcha_r2_c2"></td> </tr> <tr> <td rowspan="6" class="recaptcha_r3_c1"></td> <td colspan="4" class="recaptcha_r3_c2"></td> <td rowspan="6" class="recaptcha_r3_c3"></td> </tr> <tr> <td rowspan="3" class="recaptcha_r4_c1" height="49"> <div class="recaptcha_input_area"> <span style="display: none;" id="recaptcha_challenge_field_holder"><input name="recaptcha_challenge_field" id="recaptcha_challenge_field" value="03AHJ_VuupsCNKfRXKh_PMr5P1xWHK10psZ_NMJXE2w5ZyxzKIJpCuzy7y1pEZuMCGV2xB8R1yyrUVY4Hm8xItaFFDeTSgankNAqU-4BJLvqi6NhjH-bEzrtyn_HuIhC3i5KP8IRUzgPXbFET4AdQt7DD98eb0p34XhPb_sJAJSWFmNSNIKwfyarY" type="hidden"></span><input autocomplete="off" name="recaptcha_response_field" id="recaptcha_response_field" autocorrect="off" autocapitalize="off" placeholder="Type the text" type="text"> <span id="recaptcha_privacy" class="recaptcha_only_if_privacy"><a target="_blank" href="http://www.google.com/intl/en/policies/">Privacy &amp; Terms</a></span> </div> </td> <td rowspan="4" class="recaptcha_r4_c2"></td> <td><a title="Get a new challenge" id="recaptcha_reload_btn"><img alt="Get a new challenge" src="C++%20multithreading%20tutorial_files/refresh.gif" id="recaptcha_reload" width="25" height="17"></a></td> <td rowspan="4" class="recaptcha_r4_c4"></td> </tr> <tr> <td><a title="Get an audio challenge" id="recaptcha_switch_audio_btn" class="recaptcha_only_if_image"><img src="C++%20multithreading%20tutorial_files/audio.gif" id="recaptcha_switch_audio" alt="Get an audio challenge" width="25" height="16"></a><a title="Get a visual challenge" id="recaptcha_switch_img_btn" class="recaptcha_only_if_audio"><img src="C++%20multithreading%20tutorial_files/text.gif" id="recaptcha_switch_img" alt="Get a visual challenge" width="25" height="16"></a></td> </tr> <tr> <td><a title="Help" id="recaptcha_whatsthis_btn"><img alt="Help" src="C++%20multithreading%20tutorial_files/help.gif" id="recaptcha_whatsthis" width="25" height="16"></a></td> </tr> <tr> <td class="recaptcha_r7_c1"></td> <td class="recaptcha_r8_c1"></td> </tr> </tbody></table> </div></div>
+
+	<noscript>
+  		<iframe src="http://www.google.com/recaptcha/api/noscript?k=6LeXJeASAAAAAJU0YCD887cXx9hxAG-H_I-BA50H" height="300" width="500" frameborder="0"></iframe><br/>
+  		<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+  		<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+	</noscript>	
+
+		<input name="Submit" class="groovybutton" value="send" type="submit">
+
+	</fieldset>
+</form>
+
+</div>
+
+
+
+
+
+
+
+		</div>
+	</div> 
+	
+
+		
+	
+
+
+
+	
+	<div id="footer">
+		
+
+
+	<a href="http://codebase.eu/show/sitemap/">SITEMAP</a>   -
+  
+
+   	© 2014 CODEBASE.EU       -
+	
+	
+	<a href="http://validator.w3.org/check?uri=referer">
+		<img src="C++%20multithreading%20tutorial_files/validxhtml.gif" alt="validate">      
+		</a>
+
+	
+    	<a href="http://jigsaw.w3.org/css-validator/check/referer">
+        <img src="C++%20multithreading%20tutorial_files/validcss.gif" alt="Valide CSS!">
+    	</a>
+	
+
+
+	
+
+
+	</div>
+
+  </div><!--/main-->
+
+
+
+
+
+</body></html>

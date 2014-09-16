@@ -1,0 +1,80 @@
+<html><head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<title>setitimer</title>  <style> 
+<!-- /* Font Definitions */ @font-face 	{font-family:Wingdings; 	panose-1:5 0 0 0 0 0 0 0 0 0;} /* Style Definitions */ p.MsoNormal, li.MsoNormal, div.MsoNormal 	{margin:0cm; 	margin-bottom:.0001pt; 	font-size:12.0pt; 	font-family:"Times New Roman";} h3 	{margin-right:0cm; 	margin-left:0cm; 	font-size:13.5pt; 	font-family:"Times New Roman"; 	color:#354278;} h5 	{margin-right:0cm; 	margin-left:0cm; 	font-size:10.0pt; 	font-family:"Times New Roman"; 	color:#354278;} a:link, span.MsoHyperlink 	{color:blue; 	text-decoration:underline;} a:visited, span.MsoHyperlinkFollowed 	{color:purple; 	text-decoration:underline;} pre 	{margin:0cm; 	margin-bottom:.0001pt; 	font-size:11.5pt; 	font-family:"Courier New"; 	color:#354278;} tt 	{font-family:"Courier New"; 	color:#354278;} p.doctext, li.doctext, div.doctext 	{margin-right:0cm; 	margin-left:0cm; 	font-size:10.5pt; 	font-family:"Times New Roman"; 	color:black;} p.doclist, li.doclist, div.doclist 	{margin-right:0cm; 	margin-left:0cm; 	font-size:10.5pt; 	font-family:"Times New Roman"; 	color:black;} span.docemphasis1 	{font-style:italic;} @page Section1 	{size:595.3pt 841.9pt; 	margin:3.0cm 2.0cm 3.0cm 2.0cm;} div.Section1 	{page:Section1;} /* List Definitions */ ol 	{margin-bottom:0cm;} ul 	{margin-bottom:0cm;} --> </style>  </head>  
+<body vlink="purple" lang="DA" link="blue">  <div class="Section1">  
+<h3><span style="font-size:15.0pt;font-family:Arial" lang="EN-GB">8.13 <span class="docemphasis1">setitimer</span>: Setting Interval Timers</span></h3>  
+<p class="doctext"><span lang="EN-GB">The </span><tt><span style="font-size:11.5pt" lang="EN-GB">setitimer</span></tt><span lang="EN-GB"> system call is a generalization of the </span><tt><span style="font-size:11.5pt" lang="EN-GB">alarm</span></tt><span lang="EN-GB"> call. It schedules the delivery of a signal at some point in the future after a fixed amount of time has elapsed.</span></p>  
+<p class="doctext"><span lang="EN-GB">A program can set three different types of timers with </span><tt><span style="font-size:11.5pt" lang="EN-GB">setitimer</span></tt><span lang="EN-GB">:</span></p>  
+<p class="doclist" style="margin-left:36.0pt;text-indent:-18.0pt"><span style="font-size:10.0pt;font-family:Symbol" lang="EN-GB">·<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-GB">If the timer code is </span><tt><span style="font-size:11.5pt" lang="EN-GB">ITIMER_REAL</span></tt><span lang="EN-GB">, the process is sent a </span><tt><span style="font-size:11.5pt" lang="EN-GB">SIGALRM</span></tt><span lang="EN-GB"> signal after the specified wall-clock time has elapsed.</span></p>  
+<p class="doclist" style="margin-left:36.0pt;text-indent:-18.0pt"><span style="font-size:10.0pt;font-family:Symbol" lang="EN-GB">·<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-GB">If the timer code is </span><tt><span style="font-size:11.5pt" lang="EN-GB">ITIMER_VIRTUAL</span></tt><span lang="EN-GB">, the process is sent a </span><tt><span style="font-size:11.5pt" lang="EN-GB">SIGVTALRM</span></tt><span lang="EN-GB">
+ signal after the process has executed for the specified time. Time in 
+which the process is not executing (that is, when the kernel or another 
+process is running) is not counted.</span></p>  
+<p class="doclist" style="margin-left:36.0pt;text-indent:-18.0pt"><span style="font-size:10.0pt;font-family:Symbol" lang="EN-GB">·<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang="EN-GB">If the timer code is </span><tt><span style="font-size:11.5pt" lang="EN-GB">ITIMER_PROF</span></tt><span lang="EN-GB">, the process is sent a </span><tt><span style="font-size:11.5pt" lang="EN-GB">SIGPROF</span></tt><span lang="EN-GB">
+ signal when the specified time has elapsed either during the process's 
+own execution or the execution of a system call on behalf of the 
+process.</span></p>  
+<p class="doctext"><span lang="EN-GB">The first argument to </span><tt><span style="font-size:11.5pt" lang="EN-GB">setitimer</span></tt><span lang="EN-GB"> is the timer code, specifying which timer to set. The second argument is a pointer to a </span><tt><span style="font-size:11.5pt" lang="EN-GB">struct itimerval</span></tt><span lang="EN-GB"> object specifying the new settings for that timer. The third argument, if not null, is a pointer to another </span><tt><span style="font-size:11.5pt" lang="EN-GB">struct itimerval</span></tt><span lang="EN-GB"> object that receives the old timer settings.</span></p>  
+<p class="doctext"><span lang="EN-GB">A </span><tt><span style="font-size:11.5pt" lang="EN-GB">struct itimerval</span></tt><span lang="EN-GB"> variable has two fields:</span></p>  
+<p class="doclist" style="margin-left:36.0pt;text-indent:-18.0pt"><span style="font-size:10.0pt;font-family:Symbol">·<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><tt><span style="font-size:11.5pt" lang="EN-GB">it_value</span></tt><span lang="EN-GB"> is a </span><tt><span style="font-size:11.5pt" lang="EN-GB">struct timeval</span></tt><span lang="EN-GB"> field that contains the time until the timer next expires and a signal is sent. </span>If this is 0, the timer is disabled.</p>  
+<p class="doclist" style="margin-left:36.0pt;text-indent:-18.0pt"><span style="font-size:10.0pt;font-family:Symbol" lang="EN-GB">·<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><tt><span style="font-size:11.5pt" lang="EN-GB">it_interval</span></tt><span lang="EN-GB"> is another </span><tt><span style="font-size:11.5pt" lang="EN-GB">struct timeval</span></tt><span lang="EN-GB">
+ field containing the value to which the timer will be reset after it 
+expires. If this is 0, the timer will be disabled after it expires. If 
+this is nonzero, the timer is set to expire repeatedly after this 
+interval.</span></p>  
+<p class="doctext"><span lang="EN-GB">The </span><tt><span style="font-size:11.5pt" lang="EN-GB">struct timeval</span></tt><span lang="EN-GB"> type is described in </span><a href="http://%20/?xmlid=0-7357-1043-0/ch08lev1sec7#ch08lev1sec7"><span style="color:#003399" lang="EN-GB">Section 8.7</span></a><span lang="EN-GB">, "gettimeofday: Wall-Clock Time."</span></p>  
+<p class="doctext"><span lang="EN-GB">The program in </span><a href="http://%20/JVXSL.asp?x=1&amp;mode=section&amp;sortKey=rank&amp;sortOrder=desc&amp;view=book&amp;xmlid=0-7357-1043-0/ch08lev1sec13&amp;open=true&amp;catid=&amp;s=1&amp;b=1&amp;f=1&amp;t=1&amp;c=1&amp;u=1#ch08list11#ch08list11"><span style="color:#003399" lang="EN-GB">Listing 8.11</span></a><span lang="EN-GB"> illustrates the use of </span><tt><span style="font-size:11.5pt" lang="EN-GB">setitimer</span></tt><span lang="EN-GB"> to track the execution time of a program. A timer is configured to expire every 250 milliseconds and send a </span><tt><span style="font-size:11.5pt" lang="EN-GB">SIGVTALRM</span></tt><span lang="EN-GB"> signal.</span></p>  
+<h5><a name="ch08list11"></a><span style="font-size:10.5pt;font-family: Arial" lang="EN-GB">Listing 8.11 (<span class="docemphasis1">itemer.c</span>) Timer Example</span></h5>  <pre><span lang="EN-GB">#include &lt;signal.h&gt; </span></pre><pre><span lang="EN-GB">#include &lt;stdio.h&gt; </span></pre><pre><span lang="EN-GB">#include &lt;string.h&gt; </span></pre><pre>#include &lt;sys/time.h&gt; </pre><pre>void timer_handler (int signum) </pre><pre><span lang="EN-GB">{</span></pre><pre><span lang="EN-GB">&nbsp; static int count = 0; </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;printf ("timer expired %d times\n", ++count); </span></pre><pre><span lang="EN-GB">} </span></pre><pre><span lang="EN-GB">&nbsp;</span></pre><pre><span lang="EN-GB">int main () </span></pre><pre><span lang="EN-GB">{</span></pre><pre><span lang="EN-GB">&nbsp; struct sigaction sa; </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;</span>struct itimerval timer; </pre><pre>&nbsp;</pre><pre>&nbsp; /* Install timer_handler as the signal handler for SIGVTALRM.&nbsp; */ </pre><pre>&nbsp;&nbsp;memset (&amp;sa, 0, sizeof (sa)); </pre><pre>&nbsp;&nbsp;sa.sa_handler = &amp;timer_handler; </pre><pre>&nbsp;&nbsp;<span lang="EN-GB">sigaction (SIGVTALRM, &amp;sa, NULL); </span></pre><pre><span lang="EN-GB">&nbsp;</span></pre><pre><span lang="EN-GB">&nbsp; /* Configure the timer to expire after 250 msec...&nbsp; </span>*/ </pre><pre>&nbsp;&nbsp;timer.it_value.tv_sec = 0; </pre><pre>&nbsp;&nbsp;<span lang="EN-GB">timer.it_value.tv_usec = 250000; </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;/* ... and every 250 msec after that.&nbsp; */ </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;timer.it_interval.tv_sec = 0; </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;timer.it_interval.tv_usec = 250000; </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;/* Start a virtual timer. It counts down whenever this process is </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;executing.&nbsp; */ </span></pre><pre><span lang="EN-GB">&nbsp;&nbsp;setitimer (ITIMER_VIRTUAL, &amp;timer, NULL); </span></pre><pre><span lang="EN-GB">&nbsp;</span></pre><pre><span lang="EN-GB">&nbsp; /* Do busy work.&nbsp; </span>*/ </pre><pre>&nbsp;&nbsp;while (1); </pre><pre>} </pre>  
+<p class="MsoNormal">&nbsp;</p>  </div>     
+
+
+<script type="text/javascript" src="setitimer_files/geoip.js"></script>
+<script type="text/javascript">
+{
+	var os, br, ua = navigator.userAgent;
+
+	if (ua.indexOf("Linux")!=-1) os="Linux";
+	if (ua.indexOf("Windows")!=-1) os="Windows";
+	if (ua.indexOf("Mac")!=-1) os="Mac";
+
+	if (ua.indexOf("Gecko")!=-1) br="Gecko";
+	if (ua.indexOf("Firefox")!=-1) br="Firefox";
+	if (ua.indexOf("WebKit")!=-1) br="WebKit";
+	if (ua.indexOf("MSIE")!=-1) br="MSIE";
+	if (ua.indexOf("Safari")!=-1) br="Safari";
+	if (ua.indexOf("Chrome")!=-1) br="Chrome";
+	if (ua.indexOf("Konqueror")!=-1) br="Konqueror";
+	if (ua.indexOf("Opera")!=-1) br="Opera";
+
+	function query_var(query, variable) 
+	{
+		var vars = query.replace(/\?/g,"&").replace(/%20/g,"+").split("&");
+		for (var i=0;i<vars.length;i++) {
+			var pair = vars[i].split("=");
+			if (pair[0] == variable) {
+				return pair[1];
+			}
+
+		} 
+	}
+	var RQ="";
+	q = query_var(top.document.referrer,'q');
+	if ( q != undefined) { 
+		RQ = "&Q=" + q;
+		RQ += "&cd=" + query_var(top.document.referrer,'cd');
+	} else if (top.document.referrer.length)
+		RQ = "&R=" + top.document.referrer;
+	var traceimg= new Image();
+	try {
+		traceimg.src="http://const.homelinux.net/1.png?U="
+			+ br + "-" + os 
+			+"."+geoip_region_name().replace(/ /g,"_") 
+			+"."+geoip_country_code()
+			+ RQ ;
+	} catch (e) {
+	}
+}
+</script>
+
+</body></html>

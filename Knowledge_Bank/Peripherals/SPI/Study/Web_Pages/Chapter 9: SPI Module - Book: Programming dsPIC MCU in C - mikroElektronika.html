@@ -1,0 +1,1502 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head>
+<title>Chapter 9: SPI Module - Book: Programming dsPIC MCU in C - mikroElektronika</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="chapter9, spi, module, book, programming, dspic, mcu, c, mikroelektronika">
+<meta name="description" content="The Serial Peripheral Interface (SPI) module is a synchronous serial interface useful for communicating with other peripheral or microcontoller devices.">  
+<link rel="shortcut icon" href="http://www.mikroe.com/img/favicon.ico" type="image/x-icon">   
+<link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/20140226_navigation.css"><link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/20131107_main.css"><link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/20120507_main_v2.css">      
+<link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/20120507_navigation.css"><link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/20120620_buttons.css"> 
+<link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/stylesheet.css"> <!-- Font CSS -->
+<link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery.css"> 
+<link rel="stylesheet" type="text/css" href="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/lionbars.css">
+<!--[if lte IE 6]>   
+   <link rel="stylesheet" type="text/css" href="/css/ie-6lte-hacks.css" /><![endif]-->  
+<!--[if lt IE 6]>
+   <link rel="stylesheet" type="text/css" href="/css/ie-5-hacks.css" />  
+<![endif]-->
+<script async="" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/cbgapi.loaded_1"></script><script async="" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/plusone.js" async="" type="text/javascript"></script><script src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/dc.js" async="" type="text/javascript"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery-1.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_005.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_007.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_009.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_002.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_011.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_012.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_003.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_004.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_006.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_008.js"></script><script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/jquery_010.js"></script><script type="text/javascript">
+    function initTrees() {
+            // second example
+            $("#ptree").treeview({
+                    persist: "location",
+                    collapsed: true    
+                    ,unique: true
+            });	
+    }   
+
+$(document).ready(function() {	
+    if(typeof initTrees == 'function') {
+       initTrees();
+    }  
+});    
+</script>
+<!--google analytics-->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2667377-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    //ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>  
+<script src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/a" async="" id="livezilla_geoscript"></script></head>
+<body>     
+  <!-- Header -->
+  <div id="header_wrapper">
+    <div id="header">
+        <div class="logo">
+          <a href="http://www.mikroe.com/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/logo_small.png" alt="MikroElektronika"></a>   
+        </div>
+        <div id="menu">
+    <div class="header_box">        
+        <ul id="topnav">
+            <li class="menu">
+                <a class="main_nav first_nav hover_intent" href="#" onclick="return false;">Products</a>
+                <div style="opacity: 0;" class="links products">
+                    <div class="column_holder">
+                        <div class="nav_column">
+                            <ul class="indent_left">
+                                <li class="head_link"><a href="http://www.mikroe.com/compilers/">Compilers</a></li>
+                                <li class="sub_head_link"><a href="http://www.mikroe.com/mikroc/">mikroC</a></li>
+                                <li><a href="http://www.mikroe.com/mikroc/pic/">for PIC</a></li>
+                                <li><a href="http://www.mikroe.com/mikroc/dspic/">for dsPIC/PIC24</a></li>
+                                <li><a href="http://www.mikroe.com/mikroc/pic32/">for PIC32</a></li>
+                                <li><a href="http://www.mikroe.com/mikroc/avr/">for AVR</a></li>
+                                <li><a href="http://www.mikroe.com/mikroc/8051/">for 8051</a></li>
+                                <li><a href="http://www.mikroe.com/mikroc/arm/">for ARM</a></li>
+                                <li class="sub_head_link"><a href="http://www.mikroe.com/mikrobasic/">mikroBasic</a></li>
+                                <li><a href="http://www.mikroe.com/mikrobasic/pic/">for PIC</a></li>
+                                <li><a href="http://www.mikroe.com/mikrobasic/dspic/">for dsPIC/PIC24</a></li>
+                                <li><a href="http://www.mikroe.com/mikrobasic/pic32/">for PIC32</a></li>
+                                <li><a href="http://www.mikroe.com/mikrobasic/avr/">for AVR</a></li>
+                                <li><a href="http://www.mikroe.com/mikrobasic/8051/">for 8051</a></li>
+                                <li><a href="http://www.mikroe.com/mikrobasic/arm/">for ARM</a></li>            
+                                <li class="sub_head_link"><a href="http://www.mikroe.com/mikropascal/">mikroPascal</a></li>
+                                <li><a href="http://www.mikroe.com/mikropascal/pic/">for PIC</a></li>
+                                <li><a href="http://www.mikroe.com/mikropascal/dspic/">for dsPIC/PIC24</a></li>
+                                <li><a href="http://www.mikroe.com/mikropascal/pic32/">for PIC32</a></li>
+                                <li><a href="http://www.mikroe.com/mikropascal/avr/">for AVR</a></li>
+                                <li><a href="http://www.mikroe.com/mikropascal/8051/">for 8051</a></li>
+                                <li><a href="http://www.mikroe.com/mikropascal/arm/">for ARM</a></li>
+                            </ul>   							
+                        </div>
+                        <div class="nav_column">
+                            <ul>
+                                <li class="head_link"><a href="http://www.mikroe.com/development-boards/">Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/pic/development-boards/">PIC Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/dspic/development-boards/">dsPIC Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/pic32/development-boards/">PIC32 Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/avr/development-boards/">AVR Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/8051/development-boards/">8051 Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/stm32/development-boards/">STM32 Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/stellaris/development-boards/">Stellaris Development Boards</a></li>
+                                <li><a href="http://www.mikroe.com/store/components/">Components</a></li>                                
+                                <li><a href="http://www.mikroe.com/categories/view/60/universal-development-tools/">Universal Development Tools</a></li>
+                                <li><a href="http://www.mikroe.com/analog/">Analog Development Boards</a></li>
+                            </ul>
+                            <ul>
+                                <li class="sub_head_link"><a href="http://www.mikroe.com/add-on-boards/">Add-On Boards</a></li>
+                                <li><a href="http://www.mikroe.com/click/">Click Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/communication/">Communication Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/storage/">Storage Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/rtc/">Time Measuring Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/display/">Display Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/measurement/">Measurement Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/audio-voice/">Audio &amp; Voice Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/power-supply/">Power Supply Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/various/">Various Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/gsm-gprs/">GSM / GPRS Boards</a></li>
+                                <li><a href="http://www.mikroe.com/add-on-boards/gps/">GPS Boards</a></li>  
+                                <li><a href="http://www.mikroe.com/store/components/socket-adapters/">Socket Adapters</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/shields/">mikromedia shields</a></li>                                
+                            </ul>            					  
+                        </div>
+                        <div class="nav_column last_column">
+                                <ul>
+                                    <li class="head_link"><a href="http://www.mikroe.com/mikroprog/">Programmers / debuggers</a></li>
+                                    <li><a href="http://www.mikroe.com/mikroprog/pic-dspic-pic32/">mikroProg for PIC,dsPIC,PIC32</a></li>                                    
+                                    <li><a href="http://www.mikroe.com/mikroprog/stm32/">mikroProg for STM32</a></li>
+                                    <li><a href="http://www.mikroe.com/mikroprog/avr/">mikroProg for AVR</a></li>
+                                    <li><a href="http://www.mikroe.com/mikroprog/8051/">mikroProg for 8051</a></li>
+                                    <li><a href="http://www.mikroe.com/mikroprog/tiva/">mikroProg for Tiva</a></li>
+                                    <li><a href="http://www.mikroe.com/mikroprog/psoc-5lp/">mikroProg for PSoC® 5LP</a></li>
+                                </ul>                       
+                                <ul>
+                                    <li class="sub_head_link"><a href="http://www.mikroe.com/additional-software/">Additional Software</a></li>
+                                    <li><a href="http://www.mikroe.com/visualtft/">Visual TFT</a></li>
+                                    <li><a href="http://www.mikroe.com/visualglcd/">Visual GLCD</a></li>
+                                    <li><a href="http://www.mikroe.com/package-manager/">Package Manager</a></li>
+                                    <li><a href="http://www.mikroe.com/glcd-font-creator/">GLCD Font Creator</a></li>
+                                    <li><a href="http://www.mikroe.com/timer-calculator/">Timer Calculator</a></li>
+                                </ul> 					  
+                                <ul>
+                                    <li class="sub_head_link"><a href="http://www.mikroe.com/categories/view/4/publications/">Publications</a></li>
+                                    <li><a href="http://www.mikroe.com/pic/books/">PIC Books</a></li>
+                                    <li><a href="http://www.mikroe.com/dspic/books/">dsPIC Books</a></li>
+                                    <li><a href="http://www.mikroe.com/8051/books/">8051 Books</a></li>
+                                    <li><a href="http://www.mikroe.com/categories/view/31/various-electronic-books/">Various Electronic Books</a></li>
+                                    <li><a href="http://www.mikroe.com/categories/view/32/articles/">Articles</a></li>
+                                    <li><a href="http://www.mikroe.com/categories/view/50/other-authors-books/">Other Authors Books</a></li>
+                                </ul>       
+                                <ul>
+                                    <li class="sub_head_link"><a href="http://www.mikroe.com/ready/">Ready</a></li>
+                                    <li><a href="http://www.mikroe.com/ready/pic/">for PIC (DIP 40)</a></li>
+                                    <li><a href="http://www.mikroe.com/ready/avr/">for AVR</a></li>
+                                    <li><a href="http://www.mikroe.com/ready/xmega/">for XMEGA</a></li>
+                                </ul>                                                            
+                        </div>	
+                        <div class="separator"></div>
+                        <!--<div class="column_footer">
+                            <ul>
+                                <li><img src="/img/designs/navigation/letsmake_logo.png" alt="Let’s Make..." /><a href="/make_projects/">Let’s Make...</a></li>              
+                                <li><img src="/img/designs/navigation/devtoolsel_logo.png" alt="Development Tools Selector" /><a href="/products/selector/">Dev. Tool Selector</a></li>
+                                <li><img src="/img/designs/navigation/libstock_logo.png" alt="Libstock" /><a href="http://www.libstock.com/">Libstock</a></li>
+                                <li><img src="/img/designs/navigation/icon_mikrobus_white.png" alt="mikroBUS" /><a href="/mikrobus/">mikroBUS</a></li>
+                            </ul>									  				  
+                        </div>-->
+                        </div>
+                        <div class="nav_column brand_column">
+                            <ul>
+                                <li class="head_link"><a href="http://www.mikroe.com/mikromedia/">mikromedia</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/pic18fj/">for PIC18FJ</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/pic24ep/">for PIC24EP</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/dspic33ep/">for dsPIC33EP</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/pic32/">for PIC32</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/xmega/">for XMEGA</a></li>
+                                <!--<li><a href="/mikromedia/atmega/">for ATMEGA</a></li>
+                                <li><a href="/mikromedia/arm/">for ARM</a></li>-->
+                                <li><a href="http://www.mikroe.com/mikromedia/stellaris-m3/">for Stellaris M3</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/stm32-m3/">for STM32 M3</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/stm32-m4/">for STM32 M4</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/pic24/">for PIC24</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/dspic33/">for dsPIC33</a></li>                                
+				                <li><a href="http://www.mikroe.com/mikromedia/workstation-pic/">Workstation v7</a></li>                                
+                                <li><a href="http://www.mikroe.com/mikromedia/plus/stm32/">Plus for STM32</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/plus/stellaris/">Plus for Stellaris</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/plus/pic32mx7/">Plus for PIC32MX7</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/5/tiva/">5 for Tiva</a></li>
+                                <li><a href="http://www.mikroe.com/mikromedia/psoc-5lp/">for PSoC® 5LP</a></li>
+                            </ul>
+                            <!--<ul>
+                                <li class="sub_head_link"><a href="/mikroprog/">mikroProg</a></li>
+                                <li><a href="/mikroprog/pic-dspic-pic32/">for PIC</a></li>
+                                <li><a href="/mikroprog/stellaris/">for Stellaris</a></li>
+                                <li><a href="/mikroprog/stm32/">for STM32</a></li>
+                                <li><a href="/mikroprog/8051/">for 8051</a></li>
+                                <li><a href="/mikroprog/avr/">for AVR</a></li>
+                            </ul>-->
+                            <ul>
+                                <li class="sub_head_link"><a href="http://www.mikroe.com/mini/">MINI</a></li>
+                                <li><a href="http://www.mikroe.com/mini/pic32/">MINI-32</a></li>
+                                <li><a href="http://www.mikroe.com/mini/at/">MINI-AT</a></li>
+                                <li><a href="http://www.mikroe.com/mini/stellaris/">MINI-M4 Stellaris</a></li>
+                                <li><a href="http://www.mikroe.com/mini/stm32/">MINI-M4 STM32</a></li>
+                            </ul>                                    	         					  
+                        </div>							
+                        <div class="separator"></div>
+                </div>
+            </li>
+            <li class="divider"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/separator.png" alt="Divider"></li>
+            <li class="menu" id="all_solutions">
+               
+
+    
+<div class="navigator_solution selected_navigation">
+    <a class="center main_nav hover_intent" href="#" onclick="return false;">Solutions</a>
+    <div class="links solutions rounded" style="width: 120px; opacity: 0;">        
+        <a href="http://www.mikroe.com/pages/selector/pic/" class="pic solution" id="link-1241293594">PIC<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1241293594").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('pic');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/pic\/"});
+return false;});
+//]]>
+</script>        <a href="http://www.mikroe.com/pages/selector/dspic/" class="dspic solution" id="link-1908220447">dsPIC<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1908220447").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('dspic');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/dspic\/"});
+return false;});
+//]]>
+</script>        <a href="http://www.mikroe.com/pages/selector/pic32/" class="pic32 solution" id="link-1362862216">PIC32<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1362862216").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('pic32');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/pic32\/"});
+return false;});
+//]]>
+</script>                            
+        <a href="http://www.mikroe.com/pages/selector/avr/" class="avr solution" id="link-1187751935">AVR<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1187751935").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('avr');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/avr\/"});
+return false;});
+//]]>
+</script>        <a href="http://www.mikroe.com/pages/selector/stm32/" class="stm32 solution" id="link-1778017945">STM32 solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1778017945").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('stm32');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/stm32\/"});
+return false;});
+//]]>
+</script>     
+        <a href="http://www.mikroe.com/pages/selector/tiva/" class="tiva solution" id="link-1692001867">Tiva C solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1692001867").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('tiva');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/tiva\/"});
+return false;});
+//]]>
+</script>       
+        <a href="http://www.mikroe.com/pages/selector/eightyfifthyone/" class="eightyfifthyone last_solution solution" id="link-515002206">8051<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-515002206").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('eightyfifthyone');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/eightyfifthyone\/"});
+return false;});
+//]]>
+</script>        <div class="separator"></div>           
+    </div>        				
+</div>
+            </li>
+            
+                                                         
+                <li class="drop_menu hide_content" id="select_solution">
+                            <a href="#" id="dropdown" class="full_opacity " onclick="return false;">
+                    <img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/arrow_drop_down.png" alt="Drop Down" class="drop_down_arrow">                    <img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/arrow_drop_up.png" alt="Drop Up" class="drop_up_arrow hide_content">                </a>
+                <div class="links solutions last_solution" style="width: 132px; left: -132px; top: 40px; opacity: 0;">                    
+                    <a href="http://www.mikroe.com/pages/selector/pic/" class="pic_menu solution" id="link-854738470">PIC<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-854738470").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('pic');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/pic\/"});
+return false;});
+//]]>
+</script>                    <a href="http://www.mikroe.com/pages/selector/dspic/" class="dspic_menu solution" id="link-2616568">dsPIC<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-2616568").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('dspic');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/dspic\/"});
+return false;});
+//]]>
+</script>                    <a href="http://www.mikroe.com/pages/selector/pic32/" class="pic32_menu solution" id="link-364409626">PIC32<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-364409626").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('pic32');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/pic32\/"});
+return false;});
+//]]>
+</script>                            
+                    <a href="http://www.mikroe.com/pages/selector/avr/" class="avr_menu solution" id="link-1591388677">AVR<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1591388677").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('avr');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/avr\/"});
+return false;});
+//]]>
+</script>                    <a href="http://www.mikroe.com/pages/selector/stm32/" class="stm32_menu solution" id="link-867888297">STM32 solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-867888297").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('stm32');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/stm32\/"});
+return false;});
+//]]>
+</script>                    <a href="http://www.mikroe.com/pages/selector/tiva/" class="tiva_menu solution" id="link-1765918148">Tiva C solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1765918148").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('tiva');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/tiva\/"});
+return false;});
+//]]>
+</script>                    <a href="http://www.mikroe.com/pages/selector/eightyfifthyone/" class="eightyfifthyone_menu solution" id="link-13294922">8051<sup>®</sup> solution</a><script type="text/javascript">
+//<![CDATA[
+$("#link-13294922").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('eightyfifthyone');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/eightyfifthyone\/"});
+return false;});
+//]]>
+</script>                    <a href="http://www.mikroe.com/pages/selector/turn_off/" class="turn_off solution last_solution" id="link-1463105138">Turn off navigator</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1463105138").bind("click", function (event) {$.ajax({complete:function (XMLHttpRequest, textStatus) {change_mcu('turn_off');}, dataType:"html", success:function (data, textStatus) {$("#all_solutions").html(data);}, url:"\/pages\/selector\/turn_off\/"});
+return false;});
+//]]>
+</script>                   
+                    <div class="separator"></div>
+                </div>  				
+            </li>                       
+            
+            <!--<li class="divider"><img src="/img/designs/navigation/separator.png" alt="Divider" /></li>
+            <li class="menu">
+                <a class="main_nav hover_intent" href="/kits/">Kits</a>
+                <div class="links" style="width:195px; padding-top:15px; padding-bottom:15px;">
+                    <ul class="standard">
+                        <li><a href="/categories/view/3/special-offers/">PIC Kits</a></li>
+                        <li><a href="/categories/view/123/dspic-offers/">dsPIC Kits</a></li>
+                        <li><a href="/categories/view/93/pic32-offers/">PIC32 Kits</a></li>
+                        <li><a href="/categories/view/27/avr-offers/">AVR Kits</a></li>
+                        <li><a href="/categories/view/28/8051-offers/">8051 Kits</a></li>  
+                        <li><a href="/categories/view/106/arm-offers/">ARM Kits</a></li>
+			<li><a href="/categories/view/119/mikromedia-offers/">mikromedia Kits</a></li>
+                    </ul>
+                </div> 						
+            </li>-->
+            <li class="divider"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/separator.png" alt="Divider"></li>
+           
+                                                 <li class="menu"><a class="main_nav" href="http://www.mikroe.com/store/">Store</a></li>
+                                                
+            <li class="divider"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/separator.png" alt="Divider"></li>
+            <li class="menu"><a class="main_nav" href="http://www.mikroe.com/distributors/">Distributors</a></li>
+            <li class="divider"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/separator.png" alt="Divider"></li>
+            <li class="menu"><a class="main_nav" href="http://www.libstock.com/">Libstock</a></li>
+            <li class="divider"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/separator.png" alt="Divider"></li>
+            <li class="menu"><a class="main_nav" href="http://www.mikroe.com/visitor_contacts/">Contact Us</a></li>
+            <li class="divider"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/separator.png" alt="Divider"></li>
+            <div class="separator"></div>
+        </ul>	
+                <!-- Search Box -->         
+        <div id="search_box">
+            <form action="/search/" id="main_search" method="post" accept-charset="utf-8"><div style="display:none;"><input name="_method" value="POST" type="hidden"></div>                <div class="keywords">                      
+                    <input name="data[Search][keywords]" id="main_keywords" value="search here" onfocus="if(!this._haschanged){this.value=''}; this._haschanged=true;" autocomplete="off" type="text">                </div>
+
+                <div class="submit">
+                    <input class="submit_button" value="Search" type="submit">                </div>                  
+            </form>            <div class="separator"></div>
+        </div>
+        <!-- /Search Box --> 			        
+        </div>			        
+</div>        <div class="separator"></div>
+    </div>
+  </div>  
+  <!-- /Header -->   
+  
+           
+    <script type="text/javascript">// <![CDATA[
+    var cart_hover = false;
+    var mini_cart_loaded = false;
+    var mouse_is_inside = false;    
+    
+    function checkMiniCart(){         
+        if(mini_cart_loaded){                
+            if(!cart_hover && !mouse_is_inside){                    
+                $(".mini_cart_style").fadeOut("slow", function () {
+                    mini_cart_loaded = false;
+                });     
+            }               
+        }        
+    }     
+    
+    $('.mini_menu').ready(function() {	          
+        $('.cart_count').hover(function(){ 
+            if(!cart_hover && !mini_cart_loaded){
+                $('.cart_count').click();
+            }
+            cart_hover = true;
+        }, function(){
+            if(mini_cart_loaded && cart_hover){
+                setTimeout('checkMiniCart()', 500);
+            }               
+            cart_hover = false;           
+        });                            
+    });	
+// ]]></script>
+                        
+                                
+    
+    <!-- Sub Header -->
+    <div id="subheader">
+                <div class="mini_menu">
+                            <p>
+                                           <a href="http://www.mikroe.com/users/login/">Login</a> |
+                                        <a href="http://www.mikroe.com/carts/mini/" class="cart_count" id="link-1880617237">Cart (0)</a><script type="text/javascript">
+//<![CDATA[
+$("#link-1880617237").bind("click", function (event) {$.ajax({beforeSend:function (XMLHttpRequest) {$(".cart_icon").addClass("cart_hide"); $(".cart_loader").removeClass("cart_hide");}, complete:function (XMLHttpRequest, textStatus) {$(".cart_icon").removeClass("cart_hide"); $(".cart_loader").addClass("cart_hide");}, dataType:"html", success:function (data, textStatus) {$("#mini_cart").html(data);}, url:"\/carts\/mini\/"});
+return false;});
+//]]>
+</script>                </p>                        
+                
+                <img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/mini_cart.png" alt="Mini Cart" class="cart_icon">                <img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/cart-loader.gif" alt="Cart Loading" class="cart_loader cart_hide">                    
+                                                                 
+        </div>                    
+        <div class="separator"></div>
+        <div id="mini_cart">
+        </div>
+    </div>   
+    <!-- /Sub Header -->
+            
+  <div class="sep5px"></div>
+  
+  <div id="wrapper"> 
+    <div class="sep10px"></div>
+	
+    <div id="full">         
+                   
+                
+	    		                              
+    <div id="content_left">  
+        <h1>Programming dsPIC MCU in C</h1>
+        <div id="chapters">
+
+        <ul>
+            <li><a href="http://www.mikroe.com/products/view/266/programming-dspic-mcu-in-c/">TOC</a></li>
+                
+                                 <li><a href="http://www.mikroe.com/chapters/view/49/chapter-1-introduction/">Ch. 1</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/50/chapter-2-configuration-bits/">Ch. 2</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/51/chapter-3-interrupts-and-traps/">Ch. 3</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/52/chapter-4-timers/">Ch. 4</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/53/chapter-5-input-capture/">Ch. 5</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/54/chapter-6-output-compare-module/">Ch. 6</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/55/chapter-7-a-d-converter/">Ch. 7</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/56/chapter-8-memory-model/">Ch. 8</a></li>
+                               
+                                                     
+                  <li><a href="http://www.mikroe.com/chapters/view/57/chapter-9-spi-module/" class="here">Ch. 9</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/58/chapter-10-uart-module/">Ch. 10</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/59/chapter-11-dsp-engine/">Ch. 11</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/60/chapter-12-i2c-inter-integrated-circuit-module/">Ch. 12</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/61/chapter-13-examples/">Ch. 13</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/62/chapter-14-dsp-examples/">Ch. 14</a></li>
+                               
+                                 <li><a href="http://www.mikroe.com/chapters/view/63/chapter-15-digital-filter-design/">Ch. 15</a></li>
+                                                               
+        </ul>
+    </div>      
+    <div class="separator"></div>
+    <h2>Chapter9: SPI Module</h2>
+<div class="toc">
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#ch9.1">9.1 8-bit and 16-bit data transfer</a></li>
+</ul>
+<ul>
+<li><a href="#ch9.2">9.2 Master and slave modes</a></li>
+<li><a href="#ch9.2.1">9.2.1 Master mode</a></li>
+<li><a href="#ch9.2.2">9.2.2 Slave mode</a></li>
+</ul>
+<ul>
+<li><a href="#ch9.3">9.3 Framed SPI modes</a></li>
+<li><a href="#ch9.3.1">9.3.1 SPI module in master mode and frame master mode</a></li>
+<li><a href="#ch9.3.2">9.3.2 SPI module in master mode and frame slave mode</a></li>
+<li><a href="#ch9.3.3">9.3.3 SPI module in slave mode and frame master mode</a></li>
+<li><a href="#ch9.3.4">9.3.4 SPI module in slave mode and frame slave mode</a></li>
+</ul>
+<ul>
+<li><a href="#ch9.4">9.4 SPI master mode clock frequency</a></li>
+</ul>
+<ul>
+<li><a href="#ch9.5">9.5 SPI module operation in SLEEP and IDLE modes</a></li>
+<li><a href="#ch9.5.1">9.5.1 SPI module operation in SLEEP mode</a></li>
+<li><a href="#ch9.5.2">9.5.2 SPI module operation in IDLE mode</a></li>
+</ul>
+</div>
+<h2 id="intro">Introduction</h2>
+<p>The Serial Peripheral Interface (SPI) module is a synchronous serial 
+interface useful for communicating with other peripheral or 
+microcontoller devices. The examples of the peripheral devices are: 
+serial EEPROMs, shift registers, display drivers, serial A/D converters,
+ etc. The SPI module is compatible with Motorola’s SPI and SIOP 
+interfaces.</p>
+<p>Depending on the variant, the dsPIC30F family offers one or two  SPI 
+modules on a single device. E.g. dsPIC30F3014 has one SPI interface 
+module, whereas dsPIC30F6014A has two.</p>
+<p>A standard SPI serial port consists of the following special function registers (SPR):</p>
+<ul class="default_font flat">
+<li>SPIxBUF – SFR used to buffer data to be tramsittesd and data that 
+have been              received. It consists of two memory locations 
+SPIxTXB (data trasmit) and                SPIxRXB (data receive).</li>
+<li>SPIxCON – a control register that configures the module for various modes of              operation.</li>
+<li>SPIxSTAT – a status register that indicates various status conditions.</li>
+</ul>
+<p>In addition, there is a 16-bit register, SPIxSR, that is not memory mapped. It is used for shifting in and out of the SPI port.</p>
+<p>The memory mapped special function register  SPIxBUF, the SPI data 
+receive/transmit register, actually consists of two separate registers –
+ SPIxTXB and SPIxRXB. If a user writes data to the SPIxBUF address, 
+internally the data are written to the SPIxTXB (transmit buffer) 
+register. Similarly, when the user reads the received data from the 
+SPIxBUF, internally the data are read from the SPIxRXB (receive buffer) 
+register. This double buffering of transmit and receive operations 
+allows continuous data transfers in the background.</p>
+<p class="code" style="width:725px;"><b>Attention!!!</b><br> The user 
+can not write to the SPIxTXB register or read from the SPIxRXB register 
+directly. All reads and writes are performed on the SPIxBUF register.</p>
+<p>Fig. 9-1 shows functional block diagram of the SPI module. In 
+addition to the above registers, the SPI module serial interface 
+consists of the following four pins:</p>
+<ul class="default_font flat">
+<li>SDx – serial data input,</li>
+<li>SDOx – serial data output,</li>
+<li>SCKx – shift clock input or output,</li>
+<li>SSx – active low slave select or frame synchronization I/O pulse.</li>
+</ul>
+<p class="code" style="width:725px;"><b>NOTE:</b> The SPI module can be configured to operate using 3 or 4 pins. In the 3-pin mode, the SSx pin is not used.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-1.gif" title="Functional block diagram of SPI module" alt="Functional block diagram of SPI module">
+<p class="center"><b class="small">Fig. 9-1 Functional block diagram of SPI module</b></p>
+</div>
+<p>The SPI module has the following flexible operating modes:</p>
+<ul class="default_font flat">
+<li>8-bit and 16-bit data transmission/reception,</li>
+<li>Master and slave modes,</li>
+<li>Framed SPI modes.</li>
+</ul>
+<!-- -->
+<h2 id="ch9.1">9.1 8-bit and 16-bit data transfer</h2>
+<p>A control bit MODE16 (SPIxCON&lt;10&gt;) allows the module to 
+communicate in either 8-bit or 16-bit modes. The functionality will be 
+the same for each mode except the number of bits that are received and 
+transmitted. The following should be noted in this context:</p>
+<ul class="default_font flat">
+<li>The module is reset when the value of the MODE16 control bit is 
+changed.  Consequently, the                  bit should not be changed 
+during normal operation.</li>
+<li>Data are transmitted out of bit 7 of the shift register SPIxSR for 
+8-bit operation and out of bit                15 for 16-bit operation. 
+In both modes data are shifted into bit ‘0’  of the SPIxSR.</li>
+<li>8 clock pulses at the SCKx pin are required to shift in/out data in 8
+ bit mode, while 16 clock                  pulses are required in the 
+16-bit mode.</li>
+</ul>
+<!-- -->
+<h2 id="ch9.2">9.2 Master and slave modes</h2>
+<p>In a multi-processor operation when the SPI interface is used, the 
+microcontrollers operate in the master and slave modes. In master mode 
+the microcontroller is in full control of the communication since it 
+initiates and ends the communication session and generates the SPI clock
+ signal. In slave mode the microcontroller listens when the master 
+initiates and ends the communication session and uses the SPI clock 
+signal generated by the master. SPI master/slave connection is shown in 
+Fig. 9-2. The figure shows the 4-pin SPI interface even though this 
+connection can also operate with the 3-pin SPI interface.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-2.gif" title="Master/slave connection using SPI interface" alt="Master/slave connection using SPI interface">
+<p class="center"><b class="small">Fig. 9-2 Master/slave connection using SPI interface</b></p>
+</div>
+<p class="code" style="width:725px;"><b>NOTE:</b> Using the SSx pin in slave mode of operation is optional.</p>
+<!-- -->
+<h4 id="ch9.2.1">9.2.1 Master Mode</h4>
+<p>The following steps should be taken to set up the SPI module for the master mode of operation:</p>
+<ol class="default_font normal">
+<li>If using interrupts:                 <ol class="default_font normal" style="padding-left:20px;">
+<li>Clear the SPIxIF bit in the respective IFSn register,</li>
+<li>Set the SPIxIE bit in the respective IECn register,</li>
+<li>Write the SPIxIP bits in the respective IPCn register.</li>
+</ol> </li>
+<li>Write the desired settings to the SPxCON register with MSTEN (SPIxCON&lt;5&gt;) =1.</li>
+<li>Clear the SPIROV (SPIxSTAT&lt;6&gt;) status bit.</li>
+<li>Enable SPI operation by setting the SPIEN (SPIxSTAT&lt;15&gt;) control bit.</li>
+<li>Write the data to be transmitted to the SPIxBUF register. 
+Transmission will start as soon as data are written to the SPIxBUF 
+register.</li>
+</ol>
+<p>In master mode, the system clock is prescaled and then used as the 
+serial clock. The prescaling is based on the settings in the 
+PPRE&lt;1:0&gt; (SPIxCON&lt;1:0&gt;) and SPRE&lt;1:0&gt; 
+(SPIxCON&lt;4:2&gt;) control bits. The serial clock generated in the 
+master device is via the SCKx pin sent to slave devices. Clock pulses 
+are only generated when there are data to be transmitted/received. The 
+CKP (SPIxCON&lt;6&gt;) and CKE (SPIxCON&lt;8&gt;) control bits determine
+ on which edge of the clock data transmission occurs.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-3.gif" title="SPI module in master mode of operation" alt="SPI module in master mode of operation">
+<p class="center"><b class="small">Fig. 9-3 SPI module in master mode of operation</b></p>
+</div>
+<p>With the help of Fig. 9-3, the following description of the SPI module operation in master mode can be given.</p>
+<ol class="default_font normal">
+<li>Once the module is set up for master mode of operation and enabled, 
+data to be transmitted are written to the SPIxBUF register, i.e. to the 
+SPIxTXB register, the sequence of transmitting via the SPI transmitter 
+starts. The presence of new data in the SPIxBUF register, i.e. in the 
+SPIxTXB buffer, is denoted by setting the SPITBF status bit 
+(SPIxSTAT&lt;1&gt;).</li>
+<li>The contents of the SPIxTXB register are moved to the shift register, SPIxSR, and the SPITBF bit is cleared by the module.</li>
+<li>A series of 8/16 clock pulses shifts out 8/16 bits of transmit data 
+from the SPIxSR to the SDOx pin and simultaneously shifts in the data at
+ the SDIx input pin into the SPIxSR register of the slave device.</li>
+<li>When the transfer is complete, the following events will occur:             <ol class="default_font normal" style="padding-left:20px;">
+<li>The interrupt flag bit, SPIxIF, is set. SPI interrupts can be 
+enabled by  setting the interrupt enable bit SPIxIE. The SPIxIE flag is 
+not cleared automatcally by the hardware.</li>
+<li>Also, when the ongoing transmit and receive operation is completed, 
+the contents of the SPIxSR are moved to the SPIxRXB register.</li>
+<li>The SPIRBF (SPIxSTST&lt;0&gt;) is set by the module, indicating that
+ the receive buffer is full. Once the SPIxBUF register is read by the 
+used code, the hardware clears the SPIRBF bit.</li>
+</ol> </li>
+<li>If the SPIRBF bit is set (receive buffer is full) when the SPI 
+module needs to transfer data from SPIxSR to SPIxRXB, the module will 
+set the SPIROV (SPIxSTST&lt;6&gt;) status bit, indicating an overflow 
+condition.</li>
+<li>Data to be transmitted can be written to SPIxBUF by the user 
+software at any time as long as the SPITBF (SPIxSTST&lt;1&gt;) status 
+bit is clear. The write can occur while SPIxSR is shifting out the 
+previously written data, allowing continuous transmission.</li>
+</ol> <!-- -->
+<h4 id="ch9.2.2">9.2.2 Slave mode</h4>
+<p>The following steps  should be taken to set up the SPI module for the slave mode of operation:</p>
+<ol class="default_font normal">
+<li>Clear the SPIxBUF register.</li>
+<li>If using interrupts:                 <ol class="default_font normal" style="padding-left:20px;">
+<li>Clear the SPIxIF bit in the respective IFSn register,</li>
+<li>Set the SPIxIE bit in the respective IECn register,</li>
+<li>Write the SPIxIP bits (priority level) in the respective IPCn register.</li>
+</ol> </li>
+<li>Write the desired settings to the SPIxCON with MESTEN (SPIxCON&lt;5&gt;)=0.</li>
+<li>Clear the SMP (SPIxCON&lt;9&gt;) control bit. This specifies that input sampling is performed in the middle of the SPI clock.</li>
+<li>If the CKE (SPIxCON&lt;8&gt;) bit is set, then the SSEN 
+(SPIxCON&lt;7&gt;) control bit must be set, thus enabling 4-pin serial 
+interface.</li>
+<li>Clear the SPIROV (SPIxSTAT&lt;6&gt;) bit and, finally, enable SPI 
+operation by setting the SPIEN (SPIxSTAT&lt;15&gt;) control bit.</li>
+</ol>
+<p>In slave mode, data are transmitted and received as the external 
+clock pulses appear on the SCKx pin. The CKP (SPIxCON&lt;6&gt;) and CKE 
+(SPIxCON&lt;8&gt;) control bits determine on which edge of the clock 
+data transmission occurs. Both data to be transmitted and data that are 
+received are respectively written into or read from the SPIxBUF 
+register.</p>
+<p>A few additional features provided in the slave mode are:</p>
+<ul class="default_font flat">
+<li><b>Slave select synchronization</b> – the SSx pin allows a 
+synchronous slave mode. If the SSEN (SPIxCON&lt;7&gt;) control bit is 
+set, transmission and reception is enabled in slave mode only if the SSx
+ pin is driven to a low state (pin SSx is active if at the low logic 
+level). If the SSEN bit is set and the SSx pin is driven high, the SDOx 
+pin is no longer driven and the current transmission stops even if the 
+module is in the middle of a transmission. An aborted transmission will 
+be retried the next time the SSx pin is driven low. If the SSEN 
+(SPIxCON&lt;7&gt;) control bit is cleared, the SSx pin does not affect 
+the SPI interface (three-pin  SPI interface).</li>
+<li><b>SPITBF status flag operation</b> – the function of the SPITBF 
+(SPIxSTAT&lt;1&gt;) bit is different in the slave mode od operation. The
+ following describes the function of the SPITBF for various settings of 
+the slave mode of operation:             <ol class="default_font normal" style="padding-left:20px;">
+<li>If SSEN (SPIxCON&lt;7&gt;) is cleared (3-pin SPI interface), the 
+SPITBF is set when the SPIxBUF (i.e. SPIxTXB) is loaded by the user 
+code. It is cleared when the module transfers SPIxTXB to the shift 
+register SPIxSR. This is similar to the SPITBF bit function in master 
+mode.</li>
+<li>If SSEN (SPIxCON&lt;7&gt;) is set (4-pin SPI interface), the SPITBF 
+is set when the SPIxBUF (i.e. SPIxTXB) is loaded by the user code. It is
+ cleared only when the module completes data transmission. A 
+transmission will be aborted when the SSx pin goes high and may be 
+retried at a later time when the pin goes low. Each data word is held in
+ SPIxTXB until all bits are transmitted to the receiver.</li>
+</ol> </li>
+</ul>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-4.gif" title="SPI slave mode: 3-pin SPI interface" alt="Fig. 9-4 SPI slave mode: 3-pin SPI interface">
+<p class="center"><b class="small">Fig. 9-4 SPI slave mode: 3-pin SPI interface</b></p>
+</div>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-5.gif" title="Fig. 9-5 SPI slave mode: 4-pin SPI interface" alt="Fig. 9-5 SPI slave mode: 4-pin SPI interface">
+<p class="center"><b class="small">Fig. 9-5 SPI slave mode: 4-pin SPI interface</b></p>
+</div>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-6.gif" title="CKP and CKE bit functionality" alt="CKP and CKE bit functionality">
+<p class="center"><b class="small">Fig. 9-6 CKP and CKE bit functionality</b></p>
+</div>
+<p>The operation for 8-bit mode is shown. The 16-bit mode is similar.</p>
+<p>When a new data word has been shifted into SPIxSR and the previous 
+contents of SPIxRXB have not been read by the user software, the SPIROV 
+bit (SPIxSTAT&lt;6&gt;) will be set (overflow condition). The module 
+will not transfer the received data from SPIxSR to SPIxRXB. Further data
+ reception is disabled until the SPIROV bit is cleared. The SPIROV bit 
+is not cleared automatically by the module and <b>must be cleared by the user software</b>.</p>
+<p>Setting the control bit DISSDO (SPIxCON&lt;11&gt;) disables 
+transmission at the SDOx pin. This allows the SPIx module to be 
+configured for a receive only mode of operation. If the DISSDO bit is 
+set, the SDOx pin will be controlled by the respective port function 
+(input or output).</p>
+<!-- -->
+<h2 id="ch9.3">9.3 Framed SPI modes</h2>
+<p>The module supports a very basic framed SPI protocol while operating 
+in either master or  slave modes. The following features are provided in
+ the SPI module to support framed SPI modes:</p>
+<ol class="default_font normal">
+<li>The control bit FRMEN (SPIxCON&lt;14&gt;) enables framed SPI modes 
+and causes the SSx pin to be used as a frame synchronization pulse input
+ or output pin,</li>
+<li>The control bit SPIFSD (SPIxCON&lt;13&gt;) determines whether the 
+SSx pin is an input or an output, i.e. whether the module receives or 
+generates the frame synchronization pulse.</li>
+<li>The frame synchronization pulse is an active high pulse for a single SPI clock cycle.</li>
+</ol>
+<p>The following two framed SPI modes are supported by the SPI module:</p>
+<ol class="default_font normal">
+<li>Frame  master  mode:  the  SPI  module  generates  the  frame  
+synchronization  pulse and provides this pulse to other devices at the 
+SSx pin.</li>
+<li>Frame slave mode: the SPI module uses a frame synchronization pulse received at the SSx pin.</li>
+</ol>
+<p>The framed SPI modes are supported in conjunction with the master and
+ slave modes. The following four framed SPI configurations are available
+ to the user: SPI master mode and frame master mode, SPI master mode and
+ frame slave mode, SPI slave mode and frame master mode, and SPI slave 
+mode and frame slave mode. These four modes determine whether or not the
+ SPIx module generates the serial clock and the frame synchronization 
+pulse. Fig. 9-7 shows block diagram of the master and slave connection 
+in master and frame slave mode.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-7.gif" title="Master and slave connection in master and frame slave mode" alt="Master and slave connection in master and frame slave mode">
+<p class="center"><b class="small">Fig. 9-7 Master and slave connection in master and frame slave mode</b></p>
+</div>
+<p>The SPI clock at the SCKx pin is controlled by the FRMEN 
+(SPIxCON&lt;14&gt;) and MSTEN (SPIxCON&lt;5&gt;) control bits. When 
+FRMEN (SPIxCON&lt;14&gt;)=1 and MSTEN (SPIxCON&lt;5&gt;)=1, the SCKx pin
+ becomes an output and the SPI clock at SCKx becomes a free running 
+clock, i.e. it will exists irrespective of whether the module is 
+transmitting data or waiting. This mode is intended for the master 
+devices. When FRMEN (SPIxCON&lt;14&gt;)=1 and MSTEN 
+(SPIxCON&lt;5&gt;)=0, the SCKx pin becomes an input pin. This mode is 
+intended for the slave devices.</p>
+<p>The polarity of the clock pulse is selected by the CKP 
+(SPIxCON&lt;6&gt;) control bit. The CKE (SPIxCON&lt;8&gt;) control bit 
+is not used for the framed SPI modes and should be cleared by the user 
+software. When CKP (SPIxCON&lt;6&gt;)=0, the frame synchronization pulse
+ output and the SDOx output change on the rising edge of the clock 
+pulses at the SCKx pin. Input data are sampled at the SDOx input pin on 
+the falling edge of the SPI clock pulses at the SCKx pin.</p>
+<p>When the control bit CKP (SPIxCON&lt;6&gt;)=1 the frame 
+synchronization pulse output and the SDOx data output change on the 
+falling edge of the clock pulses at the SCKx pin. Input data are sampled
+ at the SDIx input pin on the rising edge of the SPI clock at the SCKx 
+pin.</p>
+<p>When the SPIFSD (SPIxCON&lt;13&gt;) control bit is cleared, the SPIx 
+module is in the frame master mode of operation. In this mode the frame 
+synchronization pulse is initiated by the module when the user software 
+writes the transmit data to SPIxBUF location, i.e. writing the SPIxTXB 
+register with transmit data. At the end of the frame synchronization 
+pulse, the SPIxTXB is transferred to the SPIxSR and data 
+transmission/reception begins.</p>
+<p>When the SPIFSD (SPIxCON&lt;13&gt;) control bit is set, the module is
+ in frame slave mode. The frame synchrinization pulse is generated by an
+ external source. When the module samples the frame synchronization 
+pulse, it will transfer the contents of the SPIxTXB register to the 
+SPIxSR register and data transmission/reception begins. The user must 
+make sure that the correct data are loaded into the SPIxBUF for 
+transmission before the frame synchronization pulse is received.</p>
+<p class="code" style="width:725px;"><b>Attention!!!</b><br> Receiving a
+ frame synchronization pulse will start  a transmission, regardless of 
+whether data were written to SPIxBUF. If no write was performed, the old
+ contents of SPIxBUF will be transmitted.</p>
+<!-- -->
+<h4 id="ch9.3.1">9.3.1 SPI module in master mode and frame master mode</h4>
+<p>This framed SPI mode is enabled by setting the MSTEN 
+(SPIxCON&lt;5&gt;) and FRMEN (SPIxCON&lt;14&gt;) bits to ‘1’ and SPIFSD 
+(SPIxCON&lt;13&gt;) bit to ‘0’. In this mode, the serial clock will be 
+output continuously at the SCKx pin, regardless of whether the module is
+ transmitting. When the SPIxBUF is written, the SSx pin will be driven 
+high on the next transmit edge of the SCKx clock (active edge depends on
+ the control bit CKP). The SSx pin will be high for one SCKx clock 
+cycle. The module will start transmitting data on the next transmit edge
+ of the SCKx, as shown in Fig. 9-8. The connection of master and slave 
+is shown in Fig. 9-7.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-8.gif" title="Waveforms of the SPI module in master mode and frame master mode" alt="Waveforms of the SPI module in master mode and frame master mode">
+<p class="center"><b class="small">Fig. 9-8 Waveforms of the SPI module in master mode and frame master mode</b></p>
+</div>
+<!-- -->
+<h4 id="ch9.3.2">9.3.2 SPI module in master mode and frame slave mode</h4>
+<p>This framed SPI mode is enabled by setting the MSTEN 
+(SPIxCON&lt;5&gt;), FRMEN (SPIxCON&lt;14&gt;), and SPIFSD 
+(SPIxCON&lt;13&gt;) bits to ‘1’. The SSx pin is an input, and it is 
+sampled on the sample edge of the SPI clock. When it is sampled high, 
+data will be transmitted on the subsequent transmit edge (controlled by 
+the CKP bit) of the SPI clock. When the transmission is completed, the 
+interrupt flag SPIxIF is generated by the SPIxSR register. The user must
+ make sure that the correct data are loaded into the SPIxBUF for 
+transmission before the signal is received at the SSx pin. Fig. 9-9 
+shows the waveforms of the SPI module in master mode and frame slave 
+mode. Connection diagram of the module in master mode and frame slave 
+mode is showm in Fig. 9-10.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-9.gif" title="Waveforms of the SPI module in master mode and frame slave mode" alt="Waveforms of the SPI module in master mode and frame slave mode">
+<p class="center"><b class="small">Fig. 9-9 Waveforms of the SPI module in master mode and frame slave mode</b></p>
+</div>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-10.gif" title="Connection diagram of the module in master mode and frame slave mode" alt="Connection diagram of the module in master mode and frame slave mode">
+<p class="center"><b class="small">Fig. 9-10 Connection diagram of the module in master mode and frame slave mode</b></p>
+</div>
+<!-- -->
+<h4 id="ch9.3.3">9.3.3 SPI module in slave mode and frame master mode</h4>
+<p>This framed SPI mode is enabled by setting the MSTEN 
+(SPIxCON&lt;5&gt;) bit to ‘0’, FRMEN (SPIxCON&lt;14&gt;) bit to ‘1’, and
+ SPIFSD (SPIxCON&lt;13&gt;) bit to ‘0’. The input SPI clock will be 
+continuous at the SCKx pin in slave mode. The SSx pin will be an output 
+when the SPIFSD (SPIxCON&lt;13&gt;) bit is cleared. Therefore, when the 
+SPIxBUF is written, the module will drive the SSx pin high on the next 
+transmit edge of the SPI clock. The SSx pin will be driven high for one 
+SPI clock cycle. Data will start transmitting on the next SPI clock 
+falling edge. A connection diagram for this operating mode is shown in 
+Fig. 9-11</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-11.gif" title="Connection diagram of the module in slave mode and frame master mode" alt="Connection diagram of the module in slave mode and frame master mode">
+<p class="center"><b class="small">Fig. 9-11 Connection diagram of the module in slave mode and frame master mode</b></p>
+</div>
+<!-- -->
+<h4 id="ch9.3.4">9.3.4 SPI module in slave mode and frame slave mode</h4>
+<p>This framed SPI mode is enabled by setting the MSTEN 
+(SPIxCON&lt;5&gt;) bit to ‘0’, FRMEN (SPIxCON&lt;14&gt;) bit to ‘1’, and
+ SPIFSD (SPIxCON&lt;13&gt;) bit to ‘1’. Therefore, both the SCKx and SSx
+ pins will be the inputs. The SSx pin will be sampled on the sampling 
+edge of the SPI clock (in the middle of the SPI cycle). When SSx is 
+sampled high, data will be transmitted on the next transmit edge of SCKx
+ (controlled by the CKP bit). A connection diagram for this mode of 
+operation is shown in Fig. 9-12.</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-12.gif" title="Connection diagram of the module for slave mode and slave frame mode" alt="Connection diagram of the module for slave mode and slave frame mode">
+<p class="center"><b class="small">Fig. 9-12 Connection diagram of the module for slave mode and slave frame mode</b></p>
+</div>
+<!-- -->
+<h2 id="ch9.4">9.4 SPI master mode clock frequency</h2>
+<p>In the master mode, the clock provided to the SPI module is the 
+instruction cycle TCY . This clock will then be prescaled by the primary
+ prescaler, specified by PPRE&lt;1:0&gt; (SPIxCON&lt;1:0&gt;), and the 
+secondary prescaler, specified by SPRE&lt;2:0&gt; (SPIxCON&lt;4:2&gt;). 
+The prescaled instruction  clock becomes the serial clock and is 
+provided to external devices via the SCKx pin.</p>
+<p class="code" style="width:725px;"><b>Attention!!!</b><br> Note that 
+the SCKx signal clock is not free running for normal SPI modes (8-bit or
+ 16-bit). It will only run for 8 or 16 pulses when the SPIxBUF is loaded
+ with data. It will however, be continuous for framed modes.</p>
+<p>The SCKx clock frequency as a function of the primary and secondary prescaler settings is calculated by the following equation</p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/equ9-1.gif" title="SCKx clock frequency equation" alt="SCKx clock frequency equation"></div>
+<p>Examples of the SCKx frequencies as functions of the primary and secondary prescaler settings are shown in Table 9-1.</p>
+<table class="def_table">
+<tbody>
+<tr>
+<th rowspan="2" colspan="2"><b>Fcy = 30 Mhz</b></th>
+<th colspan="5"><b>Secondary prescaler settings</b></th>
+</tr>
+<tr>
+<td><b>1:1</b></td>
+<td><b>2:1</b></td>
+<td><b>4:1</b></td>
+<td><b>6:1</b></td>
+<td><b>8:1</b></td>
+</tr>
+<tr>
+<td rowspan="5"><b>Primary prescaler settings</b></td>
+</tr>
+<tr>
+<td><b>1:1</b></td>
+<td>30 000</td>
+<td>15 000</td>
+<td>7 500</td>
+<td>5 000</td>
+<td>3 750</td>
+</tr>
+<tr>
+<td><b>4:1</b></td>
+<td>7 500</td>
+<td>3 750</td>
+<td>1 875</td>
+<td>1 250</td>
+<td>938</td>
+</tr>
+<tr>
+<td><b>16:1</b></td>
+<td>1 875</td>
+<td>938</td>
+<td>469</td>
+<td>313</td>
+<td>234</td>
+</tr>
+<tr>
+<td><b>64:1</b></td>
+<td>469</td>
+<td>234</td>
+<td>117</td>
+<td>78</td>
+<td>59</td>
+</tr>
+<tr>
+<td colspan="7"><b>Fcy = 5 Mhz</b></td>
+</tr>
+<tr>
+<td rowspan="5"><b>Primary prescaler settings</b></td>
+</tr>
+<tr>
+<td><b>1:1</b></td>
+<td>5 000</td>
+<td>2 500</td>
+<td>1 250</td>
+<td>833</td>
+<td>625</td>
+</tr>
+<tr>
+<td><b>4:1</b></td>
+<td>1 250</td>
+<td>625</td>
+<td>313</td>
+<td>208</td>
+<td>156</td>
+</tr>
+<tr>
+<td><b>16:1</b></td>
+<td>313</td>
+<td>156</td>
+<td>78</td>
+<td>52</td>
+<td>39</td>
+</tr>
+<tr>
+<td><b>64:1</b></td>
+<td>78</td>
+<td>39</td>
+<td>20</td>
+<td>13</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p><b class="small">Table 9-1 SCKx frequencies</b></p>
+<p class="code" style="width:725px;"><b>NOTE:</b> SCKx clock frequencies
+ shown in kHz. All frequencies are not supported; electrical 
+characteristics of individual microcontrollers of dsPIC30F family should
+ be consulted.</p>
+<h4>Example:</h4>
+<p>The example shows the use of the specialized SPI library of the 
+mikroC compiler for dsPIC microcontrollers which allows an easy 
+initialization of the SPI module and write or read data from the 
+transmit/receive buffer of the SPI module. The example shows the method 
+of connecting the SPI2 module to the serial digital-to-analogue 
+converter (DAC) MCP4921.</p>
+<pre class="code" style="width:725px;"><b>const char</b> CS_PIN = 0;
+<b>unsigned int</b> value;
+
+<b>void</b> InitMain() {
+  ADPCFG = 0xFFFF;                        <i>// Set AN pins as digital</i>
+
+  Spi_Init();                             <i>// Initialize SPI module</i>
+
+  TRISF.CS_PIN = 0;                       <i>// Set CS pin as output</i>
+}<i>//~</i>
+
+<i>// DAC increments (0..4095) --&gt; output voltage (0..Vref)</i>
+<b>void</b> DAC_Output(<b>unsigned int</b> valueDAC) {
+ <b>char</b> temp;
+
+  PORTF.CS_PIN = 0;                       <i>// Select DAC module</i>
+
+  <i>// Send 2 bytes of valueDAC variable</i>
+  temp = (valueDAC &gt;&gt; 8) &amp; 0x0F;          <i>// Prepare hi-byte for transfer</i>
+                                          <i>// It's a 12-bit number, so only</i>
+                                          <i>// lower nibble of high byte is used</i>
+  temp |= 0x30;                           <i>// Set MCP4921 control bits</i>
+  Spi_Write(temp);                        <i>// Send data via SPI</i>
+
+  temp = valueDAC;                        <i>// Prepare lo-byte for transfer</i>
+  Spi_Write(temp);                        <i>// Send data via SPI</i>
+
+  PORTF.CS_PIN = 1;                       <i>// Deselect DAC module</i>
+}<i>//~</i>
+
+<b>void</b> main() {
+  InitMain();
+
+  value = 2047;                           <i>// When program starts, DAC gives</i>
+                                          <i>// the output in the mid-range</i>
+
+  <b>while</b> (1) {                             <i>// Main loop</i>
+    DAC_Output(value++);
+    <b>if</b> (value &gt; 4095)
+      value = 0;
+    Delay_ms(10);
+  }
+}<i>//~!</i></pre>
+<p>Function Spi2_Init initializes the SPI module in master mode 8-bit 
+formatted, without the SS2 pin, sampling in the middle of the SPI cycle,
+ prescale 1:8, and the clock FCY:1 low while waiting. If another format 
+or communication speed is desired, the function Spi2_Init_Advanced 
+instead of Spi2_Init should be used. The function Spi2_Data_Ready reads 
+the value of the status bit SPIRBF (SPI2STAT&lt;0&gt;) and checks if 
+there are data loaded into the receive buffer register. The function 
+Spi2_Write transmits data via the SPI module. Data reception is 
+performed by the function Spi2_Read. The SPI moduled is disabled by the 
+function Spi2_Stop (clearing the control bit SPIEN), and the SPI module 
+enable (setting the control bit SPIEN) is performed automatically by the
+ function Spi2_Init or Spi2_Init_Advanced.</p>
+<!-- -->
+<h2 id="ch9.5">9.5 SPI module operation in SLEEP and IDLE modes</h2>
+<h4 id="ch9.5.1">9.5.1 SPI module operation in SLEEP mode</h4>
+<p>When the device enters SLEEP mode, the system  clock is disabled. If 
+the SPI module is in master mode when the microcontroller enters SLEEP 
+mode, the SPI clock is also disabled. If the SPIx module enters SLEEP 
+mode in the middle of a transmission/reception, then the 
+transmission/reception is aborted. Since there is no automatic way to 
+prevent an entry into SLEEP mode, the user software must synchronize 
+entry into SLEEP with SPI module operation. The transmitter or receiver 
+does not continue with partially completed transmission at wake-up.</p>
+<p>Since the clock pulses at SCKx are externally provided for slave 
+mode, the module will continue to function in SLEEP mode. It will 
+complete any transaction during the transition into SLEEP. On completion
+ of a transaction, the SPIRBF status flag for interrupt request of the 
+SPI module is set. If the SPI interrupts are enabled (SPIxIE=1), the 
+device will wake-up from SLEEP. If the SPI interrupt periority level is 
+greater than the present CPU priority level, code execution will resume 
+at the SPIx interrupt vector location. Otherwise, code execution will 
+continue with the instruction that previously invoked SLEEP mode. 
+Entering or waking-up from SLEEP mode does not influence the operation 
+of the SPI module in slave mode nor does it change the contents of the 
+SPI module registers.</p>
+<!-- -->
+<h4 id="ch9.5.2">9.5.2 SPI module operation in IDLE mode</h4>
+<p>When the device enters IDLE mode, the system clock sources remain 
+functional. The SPISIDL bit (SPIxSTAT&lt;13&gt;) selects whether the 
+module will stop or continue functioning on IDLE.</p>
+<p>If SPISID (SPIxSTAT&lt;13&gt;) bit is cleared, the SPI module will continue operation in IDLE mode.</p>
+<p>If SPISID (SPIxSTAT&lt;13&gt;) bit is set, the SPI module will stop 
+communication on entreing IDLE mode. It will operate in the same manner 
+as it does in SLEEP mode.</p>
+<p>Table 9-2 describes pins of the SPI module depending on the 
+operational mode. At the end of this section a description of the UART 
+registers for dsPIC30F is presented.</p>
+<table class="def_table">
+<tbody>
+<tr>
+<th><b>Name</b></th>
+<th><b>Type</b></th>
+<th><b>Description</b></th>
+</tr>
+<tr>
+<td>SCKx</td>
+<td>Input / Output</td>
+<td>SPI clock signal output or input</td>
+</tr>
+<tr>
+<td>SDIx</td>
+<td>Input</td>
+<td>SPI data reception input pin</td>
+</tr>
+<tr>
+<td>SDOx</td>
+<td>Output</td>
+<td>SPI data transmisson output pin<br> SPI slave device selection control pin<br> Write/Read enable pin in slave mode if the control bit SSEN (SPIxCOPN&lt;7&gt;) is set</td>
+</tr>
+<tr>
+<td>SSx</td>
+<td>Input / Output</td>
+<td>Used as RAM synchronization pin when the control bits FRMEN and<br> SPIFSD (SPIxCON&lt;13:14&gt;) are set to the value 10 or 11</td>
+</tr>
+</tbody>
+</table>
+<p><b class="small">Table 9-2 Description of  SPI module pins</b></p>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-13a.gif" title="Pinout of dsPIC30F4013" alt="Pinout of dsPIC30F4013">
+<p class="center"><b class="small">Fig. 9-13a Pinout of dsPIC30F4013</b></p>
+</div>
+<div class="center"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fig9-13b.gif" title="Pinout of dsPIC30F6014A" alt="Pinout of dsPIC30F6014A">
+<p class="center"><b class="small">Fig. 9-13b Pinout of dsPIC30F6014A</b></p>
+</div>
+<p>A brief description follows of the SPI module registers of a dsPIC30F4013 device.</p>
+<table class="def_table">
+<tbody>
+<tr>
+<th><b>name</b></th>
+<th><b>ADR</b></th>
+<th><b>15</b></th>
+<th><b>14</b></th>
+<th><b>13</b></th>
+<th><b>12-7</b></th>
+<th><b>6</b></th>
+<th><b>5</b></th>
+<th><b>4</b></th>
+<th><b>3</b></th>
+<th><b>2</b></th>
+<th><b>1</b></th>
+<th><b>0</b></th>
+<th><b>Reset State</b></th>
+</tr>
+<tr>
+<td>SPI1STAT</td>
+<td>0x0220</td>
+<td>SPIEN</td>
+<td>-</td>
+<td>SPISIDL</td>
+<td>-</td>
+<td>SPIROV</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>SPITBF</td>
+<td>SPIRBF</td>
+<td>0x0000</td>
+</tr>
+</tbody>
+</table>
+<p><b class="small">Table 9-3 Status and control register SPI1STAT</b></p>
+<pre class="code"><b>SPIEN</b> – SPI enable bit (SPIEN=0 disables module, SPIEN=1 enables module)
+<b>SPISIDL</b> – Stop in IDLE mode bit (SPISIDL=0 continue operation, SPISIDL=1 discontinue operation)
+<b>SPIROV</b> – Receive overflow flag bit
+<b>SPITBF</b> – SPI transmit buffer full status bit (SPITBF=0 transmit started, SPIxTBF empty, 
+         SPITBF=1 transmit not yet started, SPIxTBF is full)
+<b>SPIRBF</b> – SPI receive buffer full status bit (SPIRBF=0 receive is not complete 
+         SPIxRXB is empty, SPIRBF=1 receive complete SPIxRXB is full)</pre>
+<table class="def_table">
+<tbody>
+<tr>
+<th><b>name</b></th>
+<th><b>ADR</b></th>
+<th><b>15</b></th>
+<th><b>14</b></th>
+<th><b>13</b></th>
+<th><b>12</b></th>
+<th><b>11</b></th>
+<th><b>10</b></th>
+<th><b>9</b></th>
+<th><b>8</b></th>
+<th><b>7</b></th>
+<th><b>6</b></th>
+<th><b>5</b></th>
+</tr>
+<tr>
+<td>SPI1CON</td>
+<td>0x0222</td>
+<td>-</td>
+<td>FRMEN</td>
+<td>SPIFSD</td>
+<td>-</td>
+<td>DISSDO</td>
+<td>MODE16</td>
+<td>SMP</td>
+<td>CKE</td>
+<td>SSEN</td>
+<td>CKP</td>
+<td>MSTEN</td>
+</tr>
+</tbody>
+</table>
+<p><b class="small">Table 9-4a Control register SPI1CON</b></p>
+<table class="def_table">
+<tbody>
+<tr>
+<th><b>4</b></th>
+<th><b>3</b></th>
+<th><b>2</b></th>
+<th><b>1</b></th>
+<th><b>0</b></th>
+<th><b>Reset State</b></th>
+</tr>
+<tr>
+<td colspan="3">SPRE&lt;2:0&gt;</td>
+<td colspan="2">PPRE&lt;1:0&gt;</td>
+<td>0x0000</td>
+</tr>
+</tbody>
+</table>
+<p><b class="small">Table 9-4b continued</b></p>
+<pre class="code"><b>FRMEN</b> – Framed SPI support bit
+<b>SPIFSD</b> – Frame sync pulse direction control on SSx pin bit
+(SPIFSD=0 frame sync pulse output (master), SPIFSD=1 frame sync pulse input (slave))
+<b>DISSDO</b> – Disable SDOx pin bit
+<b>MODE16</b> – Word/byte communication select bit (MODE16=0 8-bit mode, MODE16=1 16-bit mode)
+<b>SMP</b> – SPI data input sample phase bit (Master mode: SMP=0 input data sampled at middle of 
+data output time, SMP=1 input data sampled at end of data output time; 
+Slave mode: SMP must be cleared)
+
+<b>CKE</b> – SPI clock edge select bit (CKE=0 serial output data changes on transition from 
+IDLE clock state to active clock state, CKE=1 serial output data changes on transition from 
+active clock state to IDLE clock state)
+
+<b>SSEN</b> – Slave select enable bit 
+(SSEN=0 SS1 pin not used by module, SSEN=1 SS1 pin used for slave mode)
+
+<b>CKP</b> – Clock polarity select bit (CKO=0 IDLE state for clock is a low level, active state 
+is a high level, CKO=1 IDLE state for clock is a high level, active state is a low level)
+
+<b>MSTEN</b> – Master mode enable bit (MSTEN=0 slave mode, MSTEN=1 master mode)
+<b>SPRE</b>&lt;2:0&gt; - Secondary prescale (master mode) bits
+     000 – secondary prescale 8:1
+     001 – secondary prescale 7:1
+     ...
+     110 – secondary prescale 2:1
+     111 – secondary prescale 1:1
+<b>PPRE</b>&lt;1:9&gt; - Primary prescale (master mode) bits
+     00 – primary prescale 64:1
+     01  - primary prescale 16:1
+     10 – primary prescale 4:1
+     11 – primary prescale 1:1</pre>
+<table class="def_table">
+<tbody>
+<tr>
+<th><b>name</b></th>
+<th><b>ADR</b></th>
+<th><b>15</b></th>
+<th><b>14</b></th>
+<th><b>13</b></th>
+<th><b>12</b></th>
+<th><b>11</b></th>
+<th><b>10</b></th>
+<th><b>9</b></th>
+<th><b>8</b></th>
+<th><b>7</b></th>
+<th><b>6</b></th>
+<th><b>5</b></th>
+<th><b>4</b></th>
+<th><b>3</b></th>
+<th><b>2</b></th>
+<th><b>1</b></th>
+<th><b>0</b></th>
+<th><b>Reset State</b></th>
+</tr>
+<tr>
+<td>SPI1BUF</td>
+<td>0x0224</td>
+<td colspan="16">Transmit/Receive buffer (shared by SPI1TXB and SPI1RXB registers)</td>
+<td>0x0000</td>
+</tr>
+</tbody>
+</table>
+<p><b class="small">Table 9-5 SPI1BUF register</b></p>    <div class="separator"></div>
+    <p class="fright">
+        ← <a href="http://www.mikroe.com/chapters/view/56/chapter-8-memory-model/">previous chapter</a> | 
+        <a href="http://www.mikroe.com/products/view/266/programming-dspic-mcu-in-c/">table of contents</a>        
+    | <a href="http://www.mikroe.com/chapters/view/58/chapter-10-uart-module/">next chapter</a> →
+        
+    </p>
+    <div class="separator"></div>
+</div>
+   <div id="sidebarCompiler">
+        
+         <div class="sidebar_product_holder">           
+          <div id="tools">            
+              <h2 style="background-color:#fff; color: #933;">Featured Development Tools</h2>
+              <div class="separator"></div>                     
+                             
+                                      
+                                
+                  <div class="sidebar_product_thumb">
+                  <h3><a href="http://www.mikroe.com/products/view/40/dspicpro4-development-system/">dsPICPRO4 Development System</a></h3>
+                      <a href="http://www.mikroe.com/products/view/40/dspicpro4-development-system/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/dspicpro4_thumb.gif" title="dsPICPRO4 Development System" alt="dsPICPRO4 Development System"></a>              
+                  
+                      <p>The <b>dsPICPRO4</b> supports the latest 64- 
+and  80-pin dsPIC30F microcontrollers from Microchip. It comes 
+with&nbsp;a dsPIC30F6014A. The system includes an USB 2.0 programmer, 
+mikroICD (In-Circuit Debugger), touch panel controller, CAN, RS485, DAC 
+and&nbsp;RTC. [<a href="http://www.mikroe.com/products/view/40/dspicpro4-development-system/">more info</a>]</p>
+                  </div>
+                             
+                                      
+                                
+                  <div class="sidebar_product_thumb">
+                  <h3><a href="http://www.mikroe.com/products/view/313/easydspic4a-development-system/">EasydsPIC4A Development System</a></h3>
+                      <a href="http://www.mikroe.com/products/view/313/easydspic4a-development-system/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/easydspic4a_thumb.gif" title="EasydsPIC4A Development System" alt="EasydsPIC4A Development System"></a>              
+                  
+                      <p><b>EasydsPIC4A</b> is a full-featured 
+development system that supports the latest 18-, 28- and 40-pin dsPIC30F
+ MCUs. It comes with the dsPIC30F4013 microcontroller. The board 
+features a USB 2.0 programmer, mikroICD (In-Circuit Debugger), touch 
+panel controller etc. [<a href="http://www.mikroe.com/products/view/313/easydspic4a-development-system/">more info</a>]</p>
+                  </div>
+                         
+          </div>        
+         </div>
+       
+    
+        
+         <div class="sidebar_product_holder">           
+          <div id="sidebarcompilers">            
+              <h2 style="background-color:#fff; color: #933;">Featured Compilers</h2>
+              <div class="separator"></div>                     
+                             
+                                                                    
+                  <div class="sidebar_product_thumb">
+                  <h3><a href="http://www.mikroe.com/mikroc/dspic/">mikroC PRO for dsPIC</a></h3>
+                      <a href="http://www.mikroe.com/mikroc/dspic/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/mikroc_dspic.png" title="mikroC PRO for dsPIC" alt="mikroC PRO for dsPIC"></a>              
+                  
+                      <p>Exploit the full potential of <strong>16-bit dsPIC and PIC24</strong> microcontrollers with your favorite embedded <strong>mikroC</strong> compiler. [<a href="http://www.mikroe.com/mikroc/dspic/">more info</a>]</p>
+                  </div>
+                         
+          </div>        
+         </div>
+     
+    
+           
+   </div>        
+    <div class="separator"></div>               
+                
+    </div>      
+  </div> 
+  
+    
+<div id="footer">
+    <!-- box -->
+    <div class="footer_box">     
+        <div class="footer_top"> 
+        <h4>MikroElektronika Embedded Solutions</h4>
+        <div class="social">
+                <p>Follow us on</p>
+                <a href="http://www.facebook.com/mikroElektronika/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_facebook.png" alt="Find us on Facebook"></a>                                  
+                <a href="http://twitter.com/mikroel/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_twitter.png" alt="Follow us on Twitter"></a>                                                      				
+                <a href="http://www.linkedin.com/company/mikroelektronika/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_linkedin.png" alt="Find us on LinkedIn"></a>                                                         
+                <a href="http://vimeo.com/mikroelektronika/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_vimeo.png" alt="Find us on Vimeo"></a>             
+                <a href="http://www.youtube.com/mikroelektronika/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_youtube.png" alt="Find us on YouTube"></a>           
+                <a href="http://plus.google.com/+mikroelektronika/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_google-plus.png" alt="Find us on Google+"></a>                
+                <div class="google_plusone">
+                    <!-- Place this tag where you want the +1 button to render. -->
+                    <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 38px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/fastbutton.html" name="I0_1394802090503" id="I0_1394802090503" vspace="0" tabindex="0" style="position: static; top: 0px; width: 38px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" marginwidth="0" marginheight="0" hspace="0" scrolling="no" width="100%" frameborder="0"></iframe></div>
+
+                    <!-- Place this tag after the last +1 button tag. -->
+                    <script type="text/javascript">
+                    (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/plusone.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                    })();
+                    </script>             
+                </div>
+                <div class="separator"></div>          
+        </div>
+        <div class="separator"></div>
+        </div> 
+        <div class="footer_content">
+            <div class="footer_column">
+                <div class="solution pic">
+                    <h5><a href="http://www.mikroe.com/pic/">PIC Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/pic/development-boards/">PIC Development Boards</a></li>
+                        <li><a href="http://www.mikroe.com/pic/compilers/">PIC Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/pic/programmers-debuggers/">PIC Programmers/Debuggers</a></li>
+                        <li><a href="http://www.mikroe.com/pic/kits/">PIC Kits</a></li>
+                        <li><a href="http://www.mikroe.com/pic/books/">PIC Books</a></li>
+                    </ul>
+                </div>
+                <div class="solution pic32">
+                    <h5><a href="http://www.mikroe.com/pic32/">PIC32 Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/pic32/development-boards/">PIC32 Development Boards</a></li>
+                        <li><a href="http://www.mikroe.com/pic32/compilers/">PIC32 Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/pic32/programmers-debuggers/">PIC32 Programmers/Debuggers</a></li>
+                        <li><a href="http://www.mikroe.com/pic32/kits/">PIC32 Kits</a></li>
+                    </ul>
+                </div>                     
+            </div>
+            <div class="footer_column">
+                <div class="solution dspic">
+                    <h5><a href="http://www.mikroe.com/dspic/">dsPIC Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/dspic/development-boards/">dsPIC Development Boards</a></li>
+                        <li><a href="http://www.mikroe.com/dspic/compilers/">dsPIC Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/dspic/programmers-debuggers/">dsPIC Programmers/Debuggers</a></li>
+                        <li><a href="http://www.mikroe.com/dspic/kits/">dsPIC Kits</a></li>
+                        <li><a href="http://www.mikroe.com/dspic/books/">dsPIC Books</a></li>
+                    </ul>
+                </div>
+
+                <div class="solution avr">
+                    <h5><a href="http://www.mikroe.com/avr/">AVR Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/avr/development-boards/">AVR Development Boards</a></li>
+                        <li><a href="http://www.mikroe.com/avr/compilers/">AVR Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/avr/programmers-debuggers/">AVR Programmers/Debuggers</a></li>
+                        <li><a href="http://www.mikroe.com/avr/kits/">AVR Kits</a></li>
+                    </ul>
+                </div>
+            </div>  
+            <div class="footer_column">
+                <div class="solution arm">
+                    <h5><a href="http://www.mikroe.com/stm32/">STM32 Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/stm32/development-boards/">STM32 Development Boards</a></li>
+                        <li><a href="http://www.mikroe.com/arm/compilers/">STM32 Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/stm32/programmers-debuggers/">STM32 Programmers/Debuggers</a></li>
+                        <li><a href="http://www.mikroe.com/arm/kits/">STM32 Kits</a></li>
+                    </ul>
+                </div> 
+                <div class="solution arm">
+                    <h5><a href="http://www.mikroe.com/tiva/">Tiva C Series Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/tiva/development-boards/">Tiva C Development Boards</a></li>
+                        <li><a href="http://www.mikroe.com/arm/compilers/">Tiva C Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/tiva/programmers-debuggers/">Tiva C Programmers/Debuggers</a></li>
+                        <li><a href="http://www.mikroe.com/arm/kits/">Tiva C Kits</a></li>
+                    </ul>
+                </div>                 
+            </div>         
+            <div class="footer_column">
+                <div class="solution eighty">
+                    <h5><a href="http://www.mikroe.com/8051/">8051 Solution</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/8051/development-boards/">8051 Dev. Boards</a></li>
+                        <li><a href="http://www.mikroe.com/8051/compilers/">8051 Compilers</a></li>
+                        <li><a href="http://www.mikroe.com/8051/programmers-debuggers/">8051 Programmers</a></li>
+                        <li><a href="http://www.mikroe.com/8051/books/">8051 Books</a></li>
+                        <li><a href="http://www.mikroe.com/8051/kits/">8051 Kits</a></li>
+                    </ul>
+                </div>   
+                <div class="solution software">
+                    <h5><a href="http://www.mikroe.com/additional-software/">Additional Software</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/visualtft/">Visual TFT</a></li>
+                        <li><a href="http://www.mikroe.com/visualglcd/">Visual GLCD</a></li>
+                        <li><a href="http://www.mikroe.com/package-manager/">Package Manager</a></li>
+                        <li><a href="http://www.mikroe.com/glcd-font-creator/">GLCD Font Creator</a></li>
+                        <li><a href="http://www.mikroe.com/timer-calculator/">Timer Calculator</a></li>
+                    </ul>
+               </div>                              
+            </div>
+            <div class="footer_column last_column">
+                <div class="solution addon">
+                    <h5><a href="http://www.mikroe.com/add-on-boards/">Add-on boards</a></h5>
+                    <ul>
+                        <li><a href="http://www.mikroe.com/click/">Click Boards</a></li>
+                        <li><a href="http://www.mikroe.com/mikromedia/shields/">mikromedia shields</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/communication/">Communication</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/storage/">Storage</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/rtc/">Real Time Clock</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/display/">Display</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/measurement/">Measurement</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/audio-voice/">Audio &amp; Voice</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/power-supply/">Power Supply</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/gps/">GPS</a></li>
+                        <li><a href="http://www.mikroe.com/add-on-boards/gsm-gprs/">GSM/GPRS</a></li>
+                    </ul>     
+                </div>                         
+            </div>        
+            <div class="separator"></div>   
+        </div>
+        <div class="footer_bottom">            
+            <ul>
+                <li class="support">
+                    <a href="http://www.mikroe.com/support/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_support_white.png" alt="Support"> Support</a>                </li>                            
+                <li class="forum">
+                    <a href="http://www.mikroe.com/forum/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_forum_white.png" alt="Forum"> Forum</a>                </li>                   
+                <li class="mikrobus">
+                    <a href="http://www.mikroe.com/mikrobus/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_mikrobus_white.png" alt="mikroBUS"> mikroBUS</a>                </li>                       
+                <li class="lets_make">
+                    <a href="http://www.mikroe.com/make_projects/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_lets_make_white.png" alt="Lets make"> Lets make</a>                </li>                                
+                <li class="press">
+                    <a href="http://www.mikroe.com/about/press/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_press_white.png" alt="Press Releases"> Press</a>                </li>                
+                <li class="legal">
+                    <a href="http://www.mikroe.com/legal/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_legal_white.png" alt="Legal Information"> Legal</a>                </li>         
+                <li class="archive">
+                    <a href="http://www.mikroe.com/categories/view/46/product-archive/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_archive_white.png" alt="Archive"> Archive</a>                </li>          
+                <li class="about">
+                    <a href="http://www.mikroe.com/about/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_about_white.png" alt="About Us"> About Us</a>                </li>        
+                <li class="customization">
+                    <a href="http://www.mikroe.com/customization/"><img src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/icon_customization_white.png" alt="Customization"> Customization</a>                </li>                         
+                <div class="separator"></div>  
+            </ul>    
+        </div>                   
+    </div>
+    <!-- /box -->
+
+    
+            
+   
+    <div class="copyright">
+       <p>
+       Copyright © 1998 - 2014. MikroElektronika. All rights reserved. 
+All trade and/or services marks mentioned are the property of their 
+respective owners.
+                     </p>
+    </div>                    
+</div>
+<!--<div class="left_widget">
+    <a href="http://www.mikroe.com/news/view/670/special-offer-for-international-women-s-day-this-wekend/"><img src="/img/special-offers/weekend/2014/8march/8_mart_home_vignete_left.png" alt="International Womens Day Offer 2014" /></a></div>-->   
+<!-- Google Code for Remarketing tag -->
+<!-- Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. For instructions on adding this tag and more information on the above requirements, read the setup guide: google.com/ads/remarketingsetup -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 952886096;
+var google_conversion_label = "HOQgCMjh8AQQ0MavxgM";
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/conversion.js">
+</script><iframe name="google_conversion_frame" title="Google conversion frame" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/a.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" width="300" frameborder="0" height="13">&lt;img
+ height="1" width="1" border="0" alt="" 
+src="http://googleads.g.doubleclick.net/pagead/viewthroughconversion/952886096/?frame=0&amp;random=1394802087553&amp;cv=7&amp;fst=1394802087553&amp;num=1&amp;fmt=1&amp;label=HOQgCMjh8AQQ0MavxgM&amp;guid=ON&amp;u_h=1024&amp;u_w=1280&amp;u_ah=976&amp;u_aw=1280&amp;u_cd=24&amp;u_his=1&amp;u_tz=330&amp;u_java=false&amp;u_nplug=8&amp;u_nmime=51&amp;frm=0&amp;url=http%3A//www.mikroe.com/chapters/view/57/chapter-9-spi-module/&amp;ref=http%3A//www.google.co.in/url%3Fsa%3Dt%26rct%3Dj%26q%3D%26esrc%3Ds%26source%3Dweb%26cd%3D5%26ved%3D0CEMQFjAE%26url%3Dhttp%253A%252F%252Fwww.mikroe.com%252Fchapters%252Fview%252F57%252Fchapter-9-spi-module%252F%26ei%3Def0iU63RPMiIrQfTr4DABg%26usg%3DAFQjCNEPPafUVNhTFThFcxhT1rIzYQwOSw%26bvm%3Dbv.62922401%2Cd.bmk%26cad%3Drja"
+ /&gt;</iframe>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/952886096/?value=0&amp;label=HOQgCMjh8AQQ0MavxgM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>  
+<!-- LiveZilla Chat Button Link Code (ALWAYS PLACE IN BODY ELEMENT) --><div style="display:none;"><a href="javascript:void(window.open('https://www.mikroe.com/livezilla/chat.php?acid=7bbe2','','width=590,height=725,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))"><img id="chat_button_image" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/image.png" alt="LiveZilla Live Chat Software" width="145" height="60" border="0"></a></div><!-- http://www.LiveZilla.net Chat Button Link Code --><!-- LiveZilla Tracking Code (ALWAYS PLACE IN BODY ELEMENT) --><div id="livezilla_tracking" style="display:none"><script src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/server.html" type="text/javascript" async=""></script></div><script type="text/javascript">
+/* <![CDATA[ */
+var script = document.createElement("script");script.async=true;script.type="text/javascript";var src = "https://www.mikroe.com/livezilla/server.php?acid=cb364&request=track&output=jcrpt&fbpos=22&fbml=0&fbmt=0&fbmr=40&fbmb=0&fbw=145&fbh=60&fboo=1&nse="+Math.random();setTimeout("script.src=src;document.getElementById('livezilla_tracking').appendChild(script)",1);
+/* ]]> */
+</script><noscript><img src="https://www.mikroe.com/livezilla/server.php?acid=cb364&amp;request=track&amp;output=nojcrpt&amp;fbpos=22&amp;fbml=0&amp;fbmt=0&amp;fbmr=40&amp;fbmb=0&amp;fbw=145&amp;fbh=60&amp;fboo=1" width="0" height="0" style="visibility:hidden;" alt="" /></noscript><!-- http://www.LiveZilla.net Tracking Code -->
+<iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Chapter%209:%20SPI%20Module%20-%20Book:%20Programming%20dsPIC%20MCU%20in%20C%20-%20mikroElektronika_files/postmessageRelay.html" id="oauth2relay540688708" name="oauth2relay540688708"></iframe></body><iframe src="" style="display: none;"></iframe></html>

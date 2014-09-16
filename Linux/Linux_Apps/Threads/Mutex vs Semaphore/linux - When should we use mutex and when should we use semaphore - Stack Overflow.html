@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>linux - When should we use mutex and when should we use semaphore - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=fde65a5a78c6">
+    <meta name="og:title" content="When should we use mutex and when should we use semaphore">
+    <meta name="og:description" content="When should we use mutex and when should we use semaphore ?
+">
+    <meta name="og:url" content="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore">
+    <link rel="canonical" href="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore">
+
+    
+    
+    <script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/beacon.js" async=""></script><script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/ga.js" async="" type="text/javascript"></script><script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/quant.js" async="" type="text/javascript"></script><script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/ados_002.js" async="" type="text/javascript"></script><script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/ados.js" async="" type="text/javascript"></script><script type="text/javascript" src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/jquery.js"></script>
+    <script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/stub.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'When should we use mutex and when should we use semaphore'" href="http://stackoverflow.com/feeds/question/4039899">
+    <script type="text/javascript">
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:1,shownCommentCount:1,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:4039899});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '4039899');
+            
+                    });
+    </script>
+
+
+    <script type="text/javascript">
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1389250947,"styleCode":true,"enableUserHovercards":true,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true,"ab":{"welcome_email":{"v":"c","g":2},"anonymoushero":{"v":"bias","g":1}}}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"e0bbd4760e83","js/moderator.en.js":"f24049d774be","js/full-anon.en.js":"9bf9b6f2f031","js/full.en.js":"09da0746004a","js/wmd.en.js":"849f408083f3","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"d1d834ef85d2","js/help.en.js":"d3cc74d8a93a","js/tageditor.en.js":"6d51a5f8d7f3","js/tageditornew.en.js":"111b781cf314","js/inline-tag-editing.en.js":"f951bd09dc69","js/revisions.en.js":"33fd38144303","js/review.en.js":"038b38e68e1a","js/tagsuggestions.en.js":"e4e7b952fcc7","js/post-validation.en.js":"c275fe37d674","js/explore-qlist.en.js":"73825bd006fc","js/events.en.js":"6f8a95d5c039"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+        
+    </script>
+    
+        <script type="text/javascript">
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/full-anon.js" type="text/javascript" async=""></script><script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/post-validation.js" type="text/javascript" async=""></script><script src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/adFeedback.js" type="text/javascript"></script><link href="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/adFeedback.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/sidebar.css"></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">Explore our sites</a></h3>
+    </div>
+    <div class="modal-content">
+        <ul class="current-site">
+                <li>
+                        <a href="http://stackoverflow.com/" class="current-site-link site-link js-site-link js-gps-track" data-gps-track="site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+    <div class="related-links js-related-links">
+            <a href="http://chat.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+                </li>
+                <li class="related-site">
+                        <a href="http://meta.stackoverflow.com/" class="site-link js-site-link js-gps-track" data-gps-track="site.switch({ target_site:4, item_type:3 });site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                    
+                </li>
+                            <li class="related-site">
+                    <a class="site-link js-site-link" href="http://careers.stackoverflow.com/" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Careers 2.0
+                    </a>
+                </li>
+        </ul>
+        
+
+
+        
+            <div class="child-content"></div>
+
+    </div>
+</div>        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 114 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                        <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f4039899%2fwhen-should-we-use-mutex-and-when-should-we-use-semaphore" class="login-link">sign up</a>    
+                        <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f4039899%2fwhen-should-we-use-mutex-and-when-should-we-use-semaphore" class="login-link">log in</a>
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                        <a href="http://stackoverflow.com/help">help</a>
+                            <a href="http://careers.stackoverflow.com/">careers 2.0</a>
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () {
+        //topbar.init();
+        StackExchange.topbar.init();
+    });
+</script>    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://stackoverflow.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://stackoverflow.com/about" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a question and answer site for 
+professional and enthusiast programmers. It's 100% free, no registration
+ required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore" class="question-hyperlink">When should we use mutex and when should we use semaphore</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="4039899" id="question">
+    
+    <script type="text/javascript">
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk2093701703",4).setZone(43) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk2093701703"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjI5MTEsImNoIjoxMTc4LCJjciI6NTkxNywiZGkiOiI3MzJkODg4YWJiNzA0MTYwODczNTQ3NDg2MDhkZmEzMCIsImRtIjoxLCJmYyI6MTAxODIsImZsIjo3NDcyLCJrdyI6ImxpbnV4LG11bHRpdGhyZWFkaW5nLHN5bmNocm9uaXphdGlvbixtdXRleCxzZW1hcGhvcmUiLCJudyI6MjIsInJmIjoiaHR0cDovL3d3dy5nb29nbGUuY28uaW4vdXJsP3NhPXQmcmN0PWomcT0mZXNyYz1zJnNvdXJjZT13ZWImY2Q9MyZ2ZWQ9MENEVVFGakFDJnVybD1odHRwOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzQwMzk4OTkvd2hlbi1zaG91bGQtd2UtdXNlLW11dGV4LWFuZC13aGVuLXNob3VsZC13ZS11c2Utc2VtYXBob3JlJmVpPWJVbk9Vb2pmRjRIcXJRZkx1NEdZQ0EmdXNnPUFGUWpDTkg5bXNacllQNkhxTDdWU1pYMldPRlA2Ulp3R0EmYnZtPWJ2LjU5MDI2NDI4LGQuYm1rJmNhZD1yamEiLCJydiI6MCwicHIiOjE2MDQsInN0Ijo4Mjc3LCJ6biI6NDMsInRzIjoxMzg5MjUxMDA0NjM5LCJ1ciI6Imh0dHA6Ly9jYXJlZXJzLnN0YWNrb3ZlcmZsb3cuY29tLyJ9&amp;s=7UY77VYdP4LCrVvYB_wCxxhKKRk" rel="nofollow" target="_blank" title=""><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/879d9e1805a6495a9e3cbeeffe6da2ad.png" title="" alt="" width="728" height="90" border="0"></a><div class="adzerk-vote-controls" style="display: none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/i_002.gif" width="0px" height="0px" border="0"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="4039899" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">14</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>11</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>When should we use mutex and when should we use semaphore ?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag js-gps-track" title="show questions tagged 'linux'" rel="tag">linux</a> <a href="http://stackoverflow.com/questions/tagged/multithreading" class="post-tag js-gps-track" title="show questions tagged 'multithreading'" rel="tag">multithreading</a> <a href="http://stackoverflow.com/questions/tagged/synchronization" class="post-tag js-gps-track" title="show questions tagged 'synchronization'" rel="tag">synchronization</a> <a href="http://stackoverflow.com/questions/tagged/mutex" class="post-tag js-gps-track" title="show questions tagged 'mutex'" rel="tag">mutex</a> <a href="http://stackoverflow.com/questions/tagged/semaphore" class="post-tag js-gps-track" title="show questions tagged 'semaphore'" rel="tag">semaphore</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/4039899" title="short permalink to this question" class="short-link" id="link-post-4039899">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4039899/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4039899/revisions" title="show all edits to this post">edited <span title="2013-10-01 11:33:56Z" class="relativetime">Oct 1 '13 at 11:33</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/183120/legends2k"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/fc147f814e1473bb6105db3d924fb590.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/183120/legends2k">legends2k</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">3,515</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="13 silver badges"><span class="badge2"></span><span class="badgecount">13</span></span><span title="47 bronze badges"><span class="badge3"></span><span class="badgecount">47</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2010-10-28 05:00:26Z" class="relativetime">Oct 28 '10 at 5:00</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/365340/karthik-balaguru"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/bc508993eb62185751a91d1117d9964d.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/365340/karthik-balaguru">Karthik Balaguru</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">680</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2"></span><span class="badgecount">10</span></span><span title="25 bronze badges"><span class="badge3"></span><span class="badgecount">25</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4039899" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-4336313" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">possible duplicate of <a href="http://stackoverflow.com/questions/771347/what-is-mutex-and-semaphore-in-java-what-is-the-main-difference">What is mutex and semaphore in Java ? What is the main difference ?</a></span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/232593/merlyn-morgan-graham" title="29634 reputation" class="comment-user">Merlyn Morgan-Graham</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4336313_4039899"><span title="2010-10-28 05:20:13Z" class="relativetime-clean">Oct 28 '10 at 5:20</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-4039899" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								7 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="4039911"></a>
+<div id="answer-4039911" class="answer" data-answerid="4039911">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="4039911" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">13</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>A mutex is a mutual exclusion <em>semaphore</em>, a 
+special variant of a semaphore that only allows one locker at a time and
+ whose ownership restrictions may be more stringent than a normal 
+semaphore.</p>
+
+<p>In other words, it's equivalent to a normal counting semaphore with a
+ count of one and the requirement that it can only be released by the 
+same thread that locked it.</p>
+
+<p>A semaphore, on the other hand, has a count and can be locked by that
+ many lockers concurrently. And it may not have a requirement that it be
+ released by the same thread that claimed it (but, if not, you have to 
+carefully track who currently has responsibility for it, much like 
+allocated memory).</p>
+
+<p>So, if you have a number of instances of a resource (say three tape 
+drives), you could use a semaphore with a count of 3. Note that this 
+doesn't tell you which of those tape drives you have, just that you have
+ a certain number.</p>
+
+<p>Also with semaphores, it's possible for a single locker to lock 
+multiple instances of a resource, such as for a tape-to-tape copy. If 
+you have one resource (say a memory location that you don't want to 
+corrupt), a mutex is more suitable.</p>
+
+<p>Equivalent operations are:</p>
+
+<pre><code>Counting semaphore          Mutual exclusion semaphore
+--------------------------  --------------------------
+  Claim/decrease (P)                  Lock
+  Release/increase (V)                Unlock
+</code></pre>
+
+<p><em>Aside:</em> in case you've ever wondered at the bizarre letters 
+used for claiming and releasing semaphores, it's because the inventor 
+was Dutch. Probeer te verlagen means to try and decrease while verhogen 
+means to increase.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4039911" title="short permalink to this answer" class="short-link" id="link-post-4039911">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4039911/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4039911/revisions" title="show all edits to this post">edited <span title="2010-11-04 04:26:37Z" class="relativetime">Nov 4 '10 at 4:26</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-10-28 05:02:53Z" class="relativetime">Oct 28 '10 at 5:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/14860/paxdiablo"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/90577b5275e1d208483b844f91a4be3a.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/14860/paxdiablo">paxdiablo</a><br>
+        <span class="reputation-score" title="reputation score 307982" dir="ltr">308k</span><span title="56 gold badges"><span class="badge1"></span><span class="badgecount">56</span></span><span title="534 silver badges"><span class="badge2"></span><span class="badgecount">534</span></span><span title="961 bronze badges"><span class="badge3"></span><span class="badgecount">961</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4039911" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="4" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-4336237" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Okay, I came across binary semaphore too. When should we need to go in for binary semaphore and when should we use mutex ?</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/365340/karthik-balaguru" title="680 reputation" class="comment-user owner">Karthik Balaguru</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4336237_4039911"><span title="2010-10-28 05:08:34Z" class="relativetime-clean">Oct 28 '10 at 5:08</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-4336252" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Conceptually, a binary semaphore <i>is</i> a mutex, and it's equivalent to a normal semaphore with a one-count. There may be differences in <i>implementations</i>
+ of the concept such as efficiency, or ownership of the resource (can be
+ released by someone other than the claimer, which I don't agree with 
+BTW - a resource should only be releasable by the thread that claimed 
+it).</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/14860/paxdiablo" title="307982 reputation" class="comment-user">paxdiablo</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4336252_4039911"><span title="2010-10-28 05:12:11Z" class="relativetime-clean">Oct 28 '10 at 5:12</span></a></span>
+		<span class="edited-yes" title="this comment was edited 3 times"></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-4336321" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Another potential implementation difference 
+is the recursive mutex. Because there's only one resource, a single 
+thread may be allowed to lock it multiple times (as long as it releases 
+it that many times as well). This isn't so easy with a multiple-instance
+ resource since you may not know whether the thread wants to claim <i>another</i> instance or the <i>same</i> instance again.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/14860/paxdiablo" title="307982 reputation" class="comment-user">paxdiablo</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4336321_4039911"><span title="2010-10-28 05:21:40Z" class="relativetime-clean">Oct 28 '10 at 5:21</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-4336992" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>   
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">They solve a specific problem. The fact that the problem they solve is people who don't <i>quite</i> grok mutexes, should in no way belittle the solution :-)</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/14860/paxdiablo" title="307982 reputation" class="comment-user">paxdiablo</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4336992_4039911"><span title="2010-10-28 07:05:01Z" class="relativetime-clean">Oct 28 '10 at 7:05</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-4340929" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                                <span title="number of 'useful comment' votes received" class="cool">2</span>   
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">A mutex is totally different from a binary semaphore. Sorry but this definition is wrong</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/364327/peer-stritzinger" title="4559 reputation" class="comment-user">Peer Stritzinger</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4340929_4039911"><span title="2010-10-28 14:37:29Z" class="relativetime-clean">Oct 28 '10 at 14:37</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-4039911" data-rep="50" data-anon="true" class="comments-link " title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">show <b>4</b> more comments</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+<script type="text/javascript">
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1379427122",4).setZone(44) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1379427122"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjg0NywiY2giOjExNzgsImNyIjo1OTIxLCJkaSI6IjE2ZmZiMzc2NTdjZjQxNThhZTA0Zjg0YmYxZmRjZjI1IiwiZG0iOjEsImZjIjo4ODA3LCJmbCI6MjQ0NCwia3ciOiJsaW51eCxtdWx0aXRocmVhZGluZyxzeW5jaHJvbml6YXRpb24sbXV0ZXgsc2VtYXBob3JlIiwibnciOjIyLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTMmdmVkPTBDRFVRRmpBQyZ1cmw9aHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy80MDM5ODk5L3doZW4tc2hvdWxkLXdlLXVzZS1tdXRleC1hbmQtd2hlbi1zaG91bGQtd2UtdXNlLXNlbWFwaG9yZSZlaT1iVW5PVW9qZkY0SHFyUWZMdTRHWUNBJnVzZz1BRlFqQ05IOW1zWnJZUDZIcUw3VlNaWDJXT0ZQNlJad0dBJmJ2bT1idi41OTAyNjQyOCxkLmJtayZjYWQ9cmphIiwicnYiOjAsInByIjoxNTY4LCJzdCI6ODI3Nywiem4iOjQ0LCJ0cyI6MTM4OTI1MTAwNDY0MSwidXIiOiJodHRwOi8vY2FyZWVycy5zdGFja292ZXJmbG93LmNvbS8ifQ&amp;s=au8btN65USF-a7XWZh7-V6ZDhPg" rel="nofollow" target="_blank" title=""><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/9241eb4107b24c588c0ca0042534c03e.png" title="" alt="" width="728" height="90" border="0"></a><div class="adzerk-vote-controls" style="display:none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input value="12" name="downvoteReason" type="radio">Uninteresting</label></li><li><label><input value="13" name="downvoteReason" type="radio">Misleading</label></li><li><label><input value="14" name="downvoteReason" type="radio">Offensive</label></li><li><label><input value="15" name="downvoteReason" type="radio">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/i.gif" width="0px" height="0px" border="0"></div>
+  
+<a name="12065871"></a>
+<div id="answer-12065871" class="answer" data-answerid="12065871">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="12065871" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">8</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Here is how I remember when to use what - </p>
+
+<p><strong>Semaphore:</strong>
+Use a semaphore when you (thread) want to sleep till some other thread 
+tells you to wake up. Semaphore 'down' happens in one thread (producer) 
+and semaphore 'up' (for same semaphore) happens in another thread 
+(consumer)
+e.g.: In producer-consumer problem, producer wants to sleep till at 
+least one buffer slot is empty - only the consumer thread can tell when a
+ buffer slot is empty. </p>
+
+<p><strong>Mutex:</strong>
+Use a mutex when you (thread) want to execute code that should not be 
+executed by any other thread at the same time. Mutex 'down' happens in 
+one thread and mutex 'up' <em>must</em> happen in the same thread later 
+on.
+e.g.: If you are deleting a node from a global linked list, you do not 
+want another thread to muck around with pointers while you are deleting 
+the node. When you acquire a mutex and are busy deleting a node, if 
+another thread tries to acquire the same mutex, it will be put to sleep 
+till you release the mutex.</p>
+
+<p><strong>Spinlock:</strong>
+Use a spinlock when you really want to use a mutex but your thread is 
+not allowed to sleep. 
+e.g.: An interrupt handler within OS kernel must never sleep. If it does
+ the system will freeze / crash. If you need to insert a node to 
+globally shared linked list from the interrupt handler, acquire a 
+spinlock - insert node - release spinlock.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/12065871" title="short permalink to this answer" class="short-link" id="link-post-12065871">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/12065871/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/12065871/revisions" title="show all edits to this post">edited <span title="2012-08-22 07:29:49Z" class="relativetime">Aug 22 '12 at 7:29</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/569101/j0k"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/aee3b44e5f0b4dfa0e2da672897b3751.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/569101/j0k">j0k</a><br>
+        <span class="reputation-score" title="reputation score 12656" dir="ltr">12.7k</span><span title="10 gold badges"><span class="badge1"></span><span class="badgecount">10</span></span><span title="27 silver badges"><span class="badge2"></span><span class="badgecount">27</span></span><span title="43 bronze badges"><span class="badge3"></span><span class="badgecount">43</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-08-22 03:12:28Z" class="relativetime">Aug 22 '12 at 3:12</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/1513350/annu-gogatya"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/6c1fcbb8ed56a04fbf6f74ef2e6aefed.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/1513350/annu-gogatya">Annu Gogatya</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">91</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-12065871" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-12065871" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="4043680"></a>
+<div id="answer-4043680" class="answer" data-answerid="4043680">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="4043680" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">5</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>It is very important to understand that a mutex <strong><em>is not</em></strong> a semaphore with count 1!</p>
+
+<p>This is the reason there are things like binary semaphores (which are really semaphores with count 1).</p>
+
+<p>The difference between a Mutex and a Binary-Semaphore is the principle of ownership:</p>
+
+<p>A mutex is acquired by a task and therefore must also be released by 
+the same task.
+This makes it possible to fix several problems with binary semaphores 
+(Accidential release, recursive deadlock and priority inversion).</p>
+
+<p>Caveat: I wrote "makes it possible", if and how these problems are fixed is up to the OS implementation.</p>
+
+<p>Because the mutex is has to be released by the same task it is not 
+very good for synchronization of tasks.  But if combined with condition 
+variables you get very powerful building blocks for building all kinds 
+of ipc primitives.</p>
+
+<p>So my recommendation is: if you got cleanly implemented mutexes and condition variables (like with POSIX pthreads) use these.</p>
+
+<p>Use semaphores only if they fit exactly to the problem you are trying
+ to solve, don't try to build other primitives (e.g. rw-locks out of 
+semaphores, use mutexes and condition variables for these)</p>
+
+<p>There is a lot of misunderstanding mutexes and semaphores.  The best explanation I found so far is in this 3-Part article:</p>
+
+<p><a href="http://blog.feabhas.com/2009/09/mutex-vs-semaphores-%e2%80%93-part-1-semaphores/">Mutex vs. Semaphores – Part 1: Semaphores</a></p>
+
+<p><a href="http://blog.feabhas.com/2009/09/mutex-vs-semaphores-%e2%80%93-part-2-the-mutex/">Mutex vs. Semaphores – Part 2: The Mutex</a></p>
+
+<p><a href="http://blog.feabhas.com/2009/10/mutex-vs-semaphores-%e2%80%93-part-3-final-part-mutual-exclusion-problems/">Mutex vs. Semaphores – Part 3 (final part): Mutual Exclusion Problems</a></p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4043680" title="short permalink to this answer" class="short-link" id="link-post-4043680">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4043680/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4043680/revisions" title="show all edits to this post">edited <span title="2010-10-28 14:34:36Z" class="relativetime">Oct 28 '10 at 14:34</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-10-28 14:08:58Z" class="relativetime">Oct 28 '10 at 14:08</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/364327/peer-stritzinger"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/bf1ef895fb46e301e56569e1adc725bc.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/364327/peer-stritzinger">Peer Stritzinger</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">4,559</span><span title="11 silver badges"><span class="badge2"></span><span class="badgecount">11</span></span><span title="24 bronze badges"><span class="badge3"></span><span class="badgecount">24</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4043680" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-4340698" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">The urls to this site contain funky characters and do not work therefore... I'm working on it</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/364327/peer-stritzinger" title="4559 reputation" class="comment-user">Peer Stritzinger</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4340698_4043680"><span title="2010-10-28 14:15:21Z" class="relativetime-clean">Oct 28 '10 at 14:15</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-4340787" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Fixed the unicode characters in the urs, links now work.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/364327/peer-stritzinger" title="4559 reputation" class="comment-user">Peer Stritzinger</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4340787_4043680"><span title="2010-10-28 14:23:17Z" class="relativetime-clean">Oct 28 '10 at 14:23</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-4043680" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="4040233"></a>
+<div id="answer-4040233" class="answer" data-answerid="4040233">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="4040233" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">4</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>While @opaxdiablo answer is totally correct I would like 
+to point out that the usage scenario of both things is quite different. 
+The mutex is used for protecting parts of code from running 
+concurrently, semaphores are used for one thread to signal another 
+thread to run. </p>
+
+<pre><code>/* Task 1 */
+pthread_mutex_lock(mutex_thing);
+    // Safely use shared resource
+pthread_mutex_unlock(mutex_thing);
+
+
+
+/* Task 2 */
+pthread_mutex_lock(mutex_thing);
+   // Safely use shared resource
+pthread_mutex_lock(mutex_thing);
+</code></pre>
+
+<p>The semaphore scenario is different:</p>
+
+<pre><code>/* Task 1 - Producer */
+sema_post(&amp;sem);   // Send the signal
+
+/* Task 2 - Consumer */
+sema_wait(&amp;sem);   // Wait for signal
+</code></pre>
+
+<p>See <a href="http://www.netrino.com/node/202" rel="nofollow">http://www.netrino.com/node/202</a> for further explanations</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4040233" title="short permalink to this answer" class="short-link" id="link-post-4040233">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4040233/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4040233/revisions" title="show all edits to this post">edited <span title="2012-11-14 09:00:20Z" class="relativetime">Nov 14 '12 at 9:00</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/962311/rbrito"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/7ff1838034a934ef8553dd5c1616836d.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/962311/rbrito">rbrito</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">786</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-10-28 06:04:59Z" class="relativetime">Oct 28 '10 at 6:04</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/146377/tristopia"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/335d838c5a8327a03c271eb9629ee8ff.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/146377/tristopia">tristopia</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">4,486</span><span title="15 silver badges"><span class="badge2"></span><span class="badgecount">15</span></span><span title="23 bronze badges"><span class="badge3"></span><span class="badgecount">23</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4040233" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-4336845" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>   
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">You're right.  Even if you are using a 
+semaphore with a count of one, you are implying something about what 
+you're doing than if you used a mutex.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/167958/omnifarious" title="23606 reputation" class="comment-user">Omnifarious</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4336845_4040233"><span title="2010-10-28 06:40:47Z" class="relativetime-clean">Oct 28 '10 at 6:40</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-4337007" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">I'm not sure I agree with that, though I don't <i>disagree</i>
+ so vehemently that I'll downvote you :-) You say that the usage pattern
+ of semaphores is to notify threads but that's exactly what mutexes do 
+when there's another thread waiting on it, and exactly what semaphores <i>don't</i> when there's no threads in <code>sema_wait</code> :-) In my opinion, they're <i>both</i>
+ about resources and the notification handed to other threads is a 
+side-effect (very important, performance-wise) of the protection.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/14860/paxdiablo" title="307982 reputation" class="comment-user">paxdiablo</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment4337007_4040233"><span title="2010-10-28 07:07:59Z" class="relativetime-clean">Oct 28 '10 at 7:07</span></a></span>
+		<span class="edited-yes" title="this comment was edited 1 time"></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-21458540" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy"><code>You say that the usage pattern of semaphores is to notify threads</code>
+One point about notifying threads. You can call <code>sem_post</code> from a signal handler safely (<a href="http://pubs.opengroup.org/onlinepubs/009695399/functions/xsh_chap02_04.html" rel="nofollow">pubs.opengroup.org/onlinepubs/009695399/functions/…</a>) but it is not recomended to call <code>pthread_mutex_lock</code> and <code>pthread_mutex_unlock</code> from signal handlers (<a href="http://manpages.ubuntu.com/manpages/lucid/man3/pthread_mutex_init.3.html#contenttoc4" rel="nofollow">manpages.ubuntu.com/manpages/lucid/man3/…</a>)</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/184968/skwllsp" title="7245 reputation" class="comment-user">skwllsp</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment21458540_4040233"><span title="2013-03-05 12:13:01Z" class="relativetime-clean">Mar 5 '13 at 12:13</span></a></span>
+		<span class="edited-yes" title="this comment was edited 3 times"></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-21459696" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">Thanks, interesting.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/146377/tristopia" title="4486 reputation" class="comment-user">tristopia</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment21459696_4040233"><span title="2013-03-05 12:40:26Z" class="relativetime-clean">Mar 5 '13 at 12:40</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-25684929" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">@paxdiablo: There is one major difference 
+between this mutex  binary semaphore is maintaining the reference count.
+ Mutex or you can say  any conditional mutex does not maintain any count
+ related to lock where as sempahore use to maintain the count. So 
+sem_wait and sem_post are maintaining the count.</span>
+	–&nbsp;
+		<a href="http://stackoverflow.com/users/767835/prak" title="85 reputation" class="comment-user">Prak</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment25684929_4040233"><span title="2013-07-14 12:56:15Z" class="relativetime-clean">Jul 14 '13 at 12:56</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-4040233" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="4040058"></a>
+<div id="answer-4040058" class="answer" data-answerid="4040058">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="4040058" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>As was pointed out, a semaphore with a count of one is 
+the same thing as a 'binary' semaphore which is the same thing as a 
+mutex.</p>
+
+<p>The main things I've seen semaphores with a count greater than one 
+used for is producer/consumer situations in which you have a queue of a 
+certain fixed size.</p>
+
+<p>You have two semaphores then.  The first semaphore is initially set 
+to be the number of items in the queue and the second semaphore is set 
+to 0.  The producer does a P operation on the first semaphore, adds to 
+the queue. and does a V operation on the second.  The consumer does a P 
+operation on the second semaphore, removes from the queue, and then does
+ a V operation on the first.</p>
+
+<p>In this way the producer is blocked whenever it fills the queue, and the consumer is blocked whenever the queue is empty.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4040058" title="short permalink to this answer" class="short-link" id="link-post-4040058">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4040058/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://stackoverflow.com/posts/4040058/revisions" title="show all edits to this post">edited <span title="2010-10-28 13:52:55Z" class="relativetime">Oct 28 '10 at 13:52</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2010-10-28 05:35:08Z" class="relativetime">Oct 28 '10 at 5:35</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/167958/omnifarious"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/0defa74609a4ce5d51f2467b69c509be.png" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/167958/omnifarious">Omnifarious</a><br>
+        <span class="reputation-score" title="reputation score 23606" dir="ltr">23.6k</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="40 silver badges"><span class="badge2"></span><span class="badgecount">40</span></span><span title="97 bronze badges"><span class="badge3"></span><span class="badgecount">97</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4040058" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-4040058" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="4043630"></a>
+<div id="answer-4043630" class="answer" data-answerid="4043630">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="4043630" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>See "The Toilet Example" - <a href="http://pheatt.emporia.edu/courses/2010/cs557f10/hand07/Mutex%20vs_%20Semaphore.htm" rel="nofollow">http://pheatt.emporia.edu/courses/2010/cs557f10/hand07/Mutex%20vs_%20Semaphore.htm</a>:</p>
+
+<p><strong>Mutex:</strong></p>
+
+<p>Is a key to a toilet. One person can have the key - occupy the toilet
+ - at the time. When finished, the person gives (frees) the key to the 
+next person in the queue.</p>
+
+<p>Officially: "Mutexes are typically used to serialise access to a 
+section of  re-entrant code that cannot be executed concurrently by more
+ than one thread. A mutex object only allows one thread into a 
+controlled section, forcing other threads which attempt to gain access 
+to that section to wait until the first thread has exited from that 
+section."
+Ref: Symbian Developer Library</p>
+
+<p>(A mutex is really a semaphore with value 1.)</p>
+
+<p><strong>Semaphore:</strong></p>
+
+<p>Is the number of free identical toilet keys. Example, say we have 
+four toilets with identical locks and keys. The semaphore count - the 
+count of keys - is set to 4 at beginning (all four toilets are free), 
+then the count value is decremented as people are coming in. If all 
+toilets are full, ie. there are no free keys left, the semaphore count 
+is 0. Now, when eq. one person leaves the toilet, semaphore is increased
+ to 1 (one free key), and given to the next person in the queue.</p>
+
+<p>Officially: "A semaphore restricts the number of simultaneous users 
+of a shared resource up to a maximum number. Threads can request access 
+to the resource (decrementing the semaphore), and can signal that they 
+have finished using the resource (incrementing the semaphore)."
+Ref: Symbian Developer Library</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/4043630" title="short permalink to this answer" class="short-link" id="link-post-4043630">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4043630/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-10-28 14:02:51Z" class="relativetime">Oct 28 '10 at 14:02</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/300710/fornwall"><div><img src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/8ccd5866a37f7b3f76d92eec96ef73c2.jpeg" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/300710/fornwall">fornwall</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,376</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="6 silver badges"><span class="badge2"></span><span class="badgecount">6</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-4043630" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-4043630" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="14768430"></a>
+<div id="answer-14768430" class="answer" data-answerid="14768430">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="14768430" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>Trying not to sound zany, but can't help myself.</p>
+
+<p>Your question should be what is the difference between mutex and semaphores ?
+And to be more precise question should be, 'what is the relationship between mutex and semaphores ?'</p>
+
+<p>(I would have added that question but I'm hundred % sure some 
+overzealous moderator would close it as duplicate without understanding 
+difference between difference and relationship.)</p>
+
+<p>In object terminology we can observe that :</p>
+
+<p>observation.1 Semaphore contains mutex</p>
+
+<p>observation.2 Mutex is not semaphore and semaphore is not mutex. </p>
+
+<p>There are some semaphores that will act as if they are mutex, called binary semaphores, but they are freaking NOT mutex.</p>
+
+<p>There is a special ingredient called Signalling (posix uses 
+condition_variable for that name), required to make a Semaphore out of 
+mutex.
+Think of it as a notification-source.  If two or more threads are 
+subscribed to same notification-source, then it is possible to send them
+ message to either ONE or to ALL, to wakeup.</p>
+
+<p>There could be one or more counters associated with semaphores, which
+ are guarded by mutex. The simple most scenario for semaphore, there is a
+ single counter which can be either 0 or 1.</p>
+
+<p>This is where confusion pours in like monsoon rain.</p>
+
+<p>A semaphore with a counter that can be 0 or 1 is NOT mutex.</p>
+
+<p>Mutex has two states (0,1) and one ownership(task). 
+Semaphore has a mutex, some counters and a condition variable.</p>
+
+<p>Now, use your imagination, and every combination of usage of counter and when to signal can make one kind-of-Semaphore.</p>
+
+<ol>
+<li><p>Single counter with value 0 or 1 and signaling when value goes to
+ 1 AND then unlocks one of the guy waiting on the signal == Binary 
+semaphore</p></li>
+<li><p>Single counter with value 0 to N and signaling when value goes to
+ less than N, and locks/waits when values is N == Counting semaphore </p></li>
+<li><p>Single counter with value 0 to N and signaling when value goes to
+ N, and locks/waits when values is less than N == Barrier semaphore 
+(well if they dont call it, then they should.)</p></li>
+</ol>
+
+<p>Now to your question, when to use what. (OR rather correct question 
+version.3  when to use mutex and when to use binary-semaphore, since 
+there is no comparison to non-binary-semaphore.)
+Use mutex when 
+1. you want a customized behavior, that is not provided by binary 
+semaphore, such are spin-lock or fast-lock or recursive-locks.
+You can usually customize mutexes with attributes, but customizing 
+semaphore is nothing but writing new semaphore.
+2. you want lightweight OR faster primitive</p>
+
+<p>Use semaphores, when what you want is exactly provided by it. </p>
+
+<p>If you dont understand what is being provided by your implementation of binary-semaphore, then IMHO, use mutex.</p>
+
+<p>And lastly read a book rather than relying just on SO.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/a/14768430" title="short permalink to this answer" class="short-link" id="link-post-14768430">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/14768430/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        answered <a href="http://stackoverflow.com/posts/14768430/revisions" title="show all edits to this post"><span title="2013-02-08 08:23:43Z" class="relativetime">Feb 8 '13 at 8:23</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info">
+    <div class="user-details">
+        <span class="community-wiki" title="This post is community owned as of Feb 8 '13 at 8:23. Votes do not generate reputation, and it can be edited by users with 100 rep">
+            community wiki
+        </span>
+    </div><br>
+    <div class="user-details">
+        <a id="history-14768430" href="http://stackoverflow.com/posts/14768430/revisions" title="show revision history for this post">
+        Ajeet
+        </a>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-14768430" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-14768430" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/4039899/answer/submit" method="post" class="post-form">
+							<input id="post-id" value="4039899" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script type="text/javascript">
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="23bbd1541cf66b08a7f83ec8f404e0e7" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f4039899%2fwhen-should-we-use-mutex-and-when-should-we-use-semaphore%23new-answer">login</a></h3>
+                        <script type="text/javascript">
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script type="text/javascript">
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f4039899%2fwhen-should-we-use-mutex-and-when-should-we-use-semaphore%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script type="text/javascript">
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag" title="show questions tagged 'linux'" rel="tag">linux</a> <a href="http://stackoverflow.com/questions/tagged/multithreading" class="post-tag" title="show questions tagged 'multithreading'" rel="tag">multithreading</a> <a href="http://stackoverflow.com/questions/tagged/synchronization" class="post-tag" title="show questions tagged 'synchronization'" rel="tag">synchronization</a> <a href="http://stackoverflow.com/questions/tagged/mutex" class="post-tag" title="show questions tagged 'mutex'" rel="tag">mutex</a> <a href="http://stackoverflow.com/questions/tagged/semaphore" class="post-tag" title="show questions tagged 'semaphore'" rel="tag">semaphore</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+							<div class="module question-stats">
+					<p class="label-key">tagged</p>
+					<div class="tagged"><a href="http://stackoverflow.com/questions/tagged/linux" class="post-tag js-gps-track" title="show questions tagged 'linux'" rel="tag">linux</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">66453</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/multithreading" class="post-tag js-gps-track" title="show questions tagged 'multithreading'" rel="tag">multithreading</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">47101</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/synchronization" class="post-tag js-gps-track" title="show questions tagged 'synchronization'" rel="tag">synchronization</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">4240</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/mutex" class="post-tag js-gps-track" title="show questions tagged 'mutex'" rel="tag">mutex</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">1523</span></span><br>
+<a href="http://stackoverflow.com/questions/tagged/semaphore" class="post-tag js-gps-track" title="show questions tagged 'semaphore'" rel="tag">semaphore</a>&nbsp;<span class="item-multiplier"><span class="item-multiplier-x">×</span>&nbsp;<span class="item-multiplier-count">1075</span></span><br>
+</div>
+					<table id="qinfo">
+						<tbody><tr>
+							<td>
+								<p class="label-key">asked</p>
+							</td>
+							<td style="padding-left: 10px">
+								<p class="label-key" title="2010-10-28 05:00:26Z"><b>3 years ago</b></p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p class="label-key">viewed</p>
+							</td>
+
+							<td style="padding-left: 10px">
+								<p class="label-key">
+									<b>11686 times</b>
+								</p>
+							</td>
+						</tr>
+							<tr>
+								<td>
+									<p class="label-key">active</p>
+								</td>
+								<td style="padding-left: 10px">
+									<p class="label-key"><b><a href="http://stackoverflow.com/questions/4039899/when-should-we-use-mutex-and-when-should-we-use-semaphore?lastactivity" class="lastactivity-link" title="2013-10-01 11:33:56Z">3 months ago</a></b></p>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+						
+			<script type="text/javascript">
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk1519138622",17).setZone(45) ; });                    
+            </script>
+              
+    <div id="hireme"> <a href="http://careers.stackoverflow.com/jobs?a=144" class="top" target="_blank"></a> <ul class="jobs"> <li> <a href="http://careers.stackoverflow.com/jobs/32969/ruby-developer-idyllic-software?a=EcYL4aLC" target="_blank" title="Ruby Developer at Idyllic Software. Click to learn more."> Ruby Developer<br> <span class="company">Idyllic Software</span> <span class="location">Pune, India</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/45150/user-interface-developer-practo-technologies-pvt-ltd?a=T436oq3u" target="_blank" title="User Interface Developer at Practo Technologies Pvt. Click to learn more."> User Interface Developer<br> <span class="company">Practo Technologies Pvt</span> <span class="location">Bangalore, India / relocation</span> </a> </li> <li> <a href="http://careers.stackoverflow.com/jobs/46265/full-stack-developer-for-a-cloud-based-product-eutech-cybernetic?a=Uqmo8G1q" target="_blank" title="Full-Stack Developer for a Cloud-based Product at Eutech Cybernetic. Click to learn more."> Full-Stack Developer for a Cloud-based Product<br> <span class="company">Eutech Cybernetic</span> <span class="location">Chennai, India</span> </a> </li> </ul> <img alt="" class="impression" src="linux%20-%20When%20should%20we%20use%20mutex%20and%20when%20should%20we%20use%20semaphore%20-%20Stack%20Overflow_files/EcYL4aLC-T436oq3u-Uqmo8G1q-144.gif" style="display:none"></div>
+			<div style="margin-bottom: 10px;">
+        
+
+<style type="text/css">
+#newsletter-ad {
+    width: 190px;
+    height: 250px;
+    overflow: hidden;
+    background: url('//cdn.sstatic.net/stackoverflow/img/newsletter-ad.png');
+    padding: 0 15px 0 15px;
+}
+#newsletter-ad-header {
+    margin-top: 60px;
+}
+#newsletter-ad ul {
+    margin: 1em 0 1em 1.5em;
+}
+#newsletter-ad ul li {
+    margin-bottom: 5px;
+}
+#newsletter-signup-container {
+    text-align: center;
+}
+#newsletter-preview-container {
+    margin-top: 10px;
+    text-align: center;
+}
+#newsletter-email-input {
+    width: 200px;
+}
+</style>
+
+<script>
+    StackExchange.ready(function () {
+        StackExchange.newsletterAd.init();
+    });
+</script>
+
+<div id="newsletter-ad">
+    <p id="newsletter-ad-header">Get the <b>weekly newsletter!</b></p>
+    <ul>
+        <li>Top questions and answers</li>
+        <li>Important announcements</li>
+        <li>Unanswered questions</li>
+    </ul>
+    <div id="newsletter-signup-container"><input id="newsletter-signup" value="Sign up for the newsletter" type="button"></div>
+    <p id="newsletter-preview-container">see an <a href="http://stackexchange.com/newsletters/newsletter?site=stackoverflow.com" id="newsletter-preview">example newsletter</a></p>
+    <div class="dno">
+        
+<p class="privacy-policy-agreement">
+By subscribing, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">
+    </div>
+</div>
+
+    </div>  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="http://stackoverflow.com/q/771347?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">34</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/771347/what-is-mutex-and-semaphore-in-java-what-is-the-main-difference?lq=1" class="question-hyperlink">What is mutex and semaphore in Java ? What is the main difference?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/4989451?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">55</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/4989451/mutex-example-tutorial?lq=1" class="question-hyperlink">Mutex example / tutorial?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/4953496?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">2</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/4953496/what-is-the-difference-between-semaphore-and-mutex-in-implementation?lq=1" class="question-hyperlink">What is the difference between semaphore and mutex in implementation?</a>
+</div><div class="spacer">
+	<a href="http://stackoverflow.com/q/11733248?lq=1" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">0</div>
+	</a>
+	<a href="http://stackoverflow.com/questions/11733248/confusion-b-w-mutex-and-semaphore?lq=1" class="question-hyperlink">Confusion b/w mutex and semaphore</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/62814?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes large">182
+    </div>
+</a><a href="http://stackoverflow.com/questions/62814/difference-between-binary-semaphore-and-mutex?rq=1" class="question-hyperlink">Difference between binary semaphore and mutex</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/771347?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">34
+    </div>
+</a><a href="http://stackoverflow.com/questions/771347/what-is-mutex-and-semaphore-in-java-what-is-the-main-difference?rq=1" class="question-hyperlink">What is mutex and semaphore in Java ? What is the main difference?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/4953478?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/4953478/how-does-mutex-or-semaphore-wake-up-processes?rq=1" class="question-hyperlink">How does mutex or semaphore wake up processes?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/4953496?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/4953496/what-is-the-difference-between-semaphore-and-mutex-in-implementation?rq=1" class="question-hyperlink">What is the difference between semaphore and mutex in implementation?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/4953715?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="http://stackoverflow.com/questions/4953715/semaphore-and-mutex-which-one-is-faster?rq=1" class="question-hyperlink">Semaphore and mutex, which one is faster?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/9389730?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">6
+    </div>
+</a><a href="http://stackoverflow.com/questions/9389730/is-it-possible-to-use-mutex-in-multiprocessing-case-on-linux-unix?rq=1" class="question-hyperlink">Is it possible to use mutex in multiprocessing case on Linux/UNIX ?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/12251701?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/12251701/semaphores-and-mutex-for-thread-and-process-synchronization?rq=1" class="question-hyperlink">Semaphores and Mutex for Thread and Process Synchronization</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/13017683?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/13017683/a-mutex-for-inter-threading-usages-in-java?rq=1" class="question-hyperlink">A Mutex for inter-threading usages in Java?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/16247763?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/16247763/how-does-a-semaphore-actually-work-when-all-n-processes-are-inside-the-critical?rq=1" class="question-hyperlink">How does a semaphore actually work when all N processes are inside the critical section?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/18318761?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/18318761/using-semaphore-sync-two-threads-patient-and-assistant?rq=1" class="question-hyperlink">Using semaphore , Sync two threads Patient and Assistant</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/698312/if-32-bit-machines-can-only-handle-numbers-up-to-232-why-can-i-write-100000000" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    If 32-bit machines can only handle numbers up to 
+2^32, why can I write 1000000000000 (trillion) without my machine 
+crashing?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/631450/stopping-the-will-i-need-this-for-the-test-question" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Stopping the "Will I need this for the test" question
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/631977/why-euclids-proof-on-the-infinitude-of-primes-is-considered-a-proof" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why Euclid's proof on the infinitude of primes is considered a proof?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/630339/pedagogy-how-to-cure-students-of-the-law-of-universal-linearity" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Pedagogy: How to cure students of the "law of universal linearity"?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/145157/a-formal-way-to-say-i-dont-want-to-sound-too-cocky" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A formal way to say "I don't want to sound too cocky..."
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="http://mathoverflow.net/questions/154017/counterexamples-in-universal-algebra" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Counterexamples in universal algebra
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/15505/how-to-work-efficiently-under-loose-supervision-during-graduate-studies" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to work efficiently under loose supervision during graduate studies?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/31319/can-you-cast-invisibility-on-a-large-box-and-hide-inside" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can you cast Invisibility on a large box and hide inside?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/17005/produce-the-number-2014-without-any-numbers-in-your-source-code" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Produce the number 2014 without any numbers in your source code
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/92925/how-to-treat-differentials" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to treat differentials?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/145071/what-does-days-mean" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What does "day's" mean?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/18028/largest-number-printable" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Largest Number Printable
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/20994321/clean-ways-to-write-multiple-for-loops" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Clean ways to write multiple for loops
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/630881/there-exists-a-power-of-2-such-that-the-last-five-digits-are-all-3s-or-6s-fin" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    There exists a power of 2 such that the last five 
+digits are all 3's or 6's. Find the last 5 digits of this number
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-workplace" title="The Workplace Stack Exchange"></div><a href="http://workplace.stackexchange.com/questions/17890/determining-the-identity-of-a-person-that-is-wearing-a-hijab" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:423 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Determining the identity of a person that is wearing a Hijab
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/777/why-are-regional-airline-wages-barely-above-federal-minimum-wage" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why are regional airline wages barely above federal minimum wage?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/153106/how-can-i-adjust-the-total-page-count-variable" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I adjust the total page count variable?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/629740/how-would-you-explain-to-a-9th-grader-the-negative-exponent-rule" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How would you explain to a 9th grader the negative exponent rule?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-superuser" title="Super User"></div><a href="http://superuser.com/questions/698244/ip-address-that-is-the-equivalent-of-dev-null" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:3 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    IP address that is the equivalent of /dev/null
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/751/can-you-fly-a-light-ga-airplane-into-a-major-hub-what-operational-consideration" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Can you fly a light GA airplane into a major hub? What operational considerations are there if you do?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-serverfault" title="Server Fault"></div><a href="http://serverfault.com/questions/565743/how-can-i-block-hacking-attempts-targeting-phpmyadmin" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:2 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I block hacking attempts targeting phpMyAdmin?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-music" title="Musical Practice &amp; Performance Stack Exchange"></div><a href="http://music.stackexchange.com/questions/14600/how-do-jazz-players-communicate-while-playing" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do jazz players communicate while playing?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/20945049/modifying-strings-via-reflection-what-about-substring" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Modifying Strings via reflection: what about substring?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gis" title="Geographic Information Systems Stack Exchange"></div><a href="http://gis.stackexchange.com/questions/82362/what-are-the-benefits-of-hexagonal-sampling-polygons" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:79 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are the benefits of hexagonal sampling polygons?
+                </a>
+
+            </li>
+    </ul>
+
+        
+        <script>
+            StackExchange.ready(function () {
+                var $div = $('#hot-network-questions'),
+                    $more = $div.find('.js-show-more'),
+                    $hidden = $div.find('.js-hidden');
+
+                $more.click(function () {
+                    $hidden.show();
+                    $more.remove();
+                    return false;
+                });
+
+            
+                var mHeight = $('#mainbar').height(),
+                    sHeight = $('#sidebar').height() + 550;
+
+                if (mHeight > sHeight) {
+                    $hidden.each(function() {
+                        sHeight += $(this).show().height();
+                        return mHeight > sHeight;
+                    });
+
+                    if ($hidden.filter(':hidden').length == 0) {
+                        $more.remove();
+                    }
+                }
+            
+            
+            });
+        </script>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text"><a href="http://stackoverflow.com/feeds/question/4039899" title="feed of this question and its answers"><span class="feed-icon"></span>question feed</a></div>
+</div>
+	<script type="text/javascript">
+StackExchange.ready(function(){$.get('/posts/4039899/ivc/be2d');});
+</script>
+<noscript>
+    <div><img src="/posts/4039899/ivc/be2d" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang"></div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/about">about</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                        <a href="http://stackoverflow.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MjAsImNtIjo5NTQsImNoIjoxMTc4LCJjciI6Mjc3NiwiZG0iOjQsImZjIjoyODYyLCJmbCI6Mjc1MSwibnciOjIyLCJydiI6MCwicHIiOjExNSwic3QiOjAsInVyIjoiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL2Fib3V0L2NvbnRhY3QiLCJyZSI6MX0&amp;s=hRods5B22XvRBwWIwtIMekcyNF8">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Answers</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackoverflow.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Overflow</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc-wiki</a> 
+ with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="footer-flair">
+                <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="cc-wiki-link"></a>
+            </div>
+            <div id="svnrev">
+                rev 2014.1.8.1286
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script type="text/javascript">var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script type="text/javascript">
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('linux,multithreading,synchronization,mutex,semaphore');; ados_load(); });         
+</script>
+
+    <script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);
+        _gaq.push(['_setCustomVar', 1, 'tags', '|linux|multithreading|synchronization|mutex|semaphore|']); 
+_gaq.push(['_trackPageview']);
+    var _qevents = _qevents || [];
+    var _comscore = _comscore || [];
+    (function () {
+        var ssl='https:'==document.location.protocol,
+            s=document.getElementsByTagName('script')[0],
+            ga=document.createElement('script');
+        ga.type='text/javascript';
+        ga.async=true;
+        ga.src=(ssl?'https://ssl':'http://www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(ga,s);
+        var sc=document.createElement('script');
+        sc.type='text/javascript';
+        sc.async=true;
+        sc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+        s.parentNode.insertBefore(sc, s);
+        
+        var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+        s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+        el.parentNode.insertBefore(s, el);
+        
+    })();
+    _comscore.push({ c1: "2", c2: "17440561" });
+    _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>
+            
+
+</body></html>

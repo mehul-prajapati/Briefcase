@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":0,"url":"http:\/\/www.cyberciti.biz\/faq\/howto-quit-vim-editor-without-saving-changes\/"});

@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+       <title>Mutex vs Semaphore | GeeksforGeeks</title>
+       <style type="text/css" media="screen">
+          @import url('http://d2o58evtke57tz.cloudfront.net/wp-content/themes/minimoo/style.css');
+    </style>
+      <link href="http://d2o58evtke57tz.cloudfront.net/wp-content/themes/minimoo/favicon.ico" rel="shortcut icon">    
+    
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.22 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="http://www.geeksforgeeks.org/mutex-vs-semaphore/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mutex vs Semaphore - GeeksforGeeks">
+<meta property="og:description" content="What are the differences between Mutex vs Semaphore? When to use mutex and when to use semaphore? Concrete understanding of Operating System concepts is required to design/develop smart applications. Our objective is to educate &nbsp;the reader on these concepts and learn from other expert geeks. As per operating system terminology, the mutex and semaphore are …">
+<meta property="og:url" content="http://www.geeksforgeeks.org/mutex-vs-semaphore/">
+<meta property="og:site_name" content="GeeksforGeeks">
+<meta property="article:tag" content="Operating systems">
+<meta property="article:section" content="Articles">
+<meta property="article:published_time" content="2011-04-12T15:20:43+00:00">
+<meta property="article:modified_time" content="2011-08-19T00:23:22+00:00">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="stylesheet" id="wp-quicklatex-format-css" href="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/quicklatex-format.css" type="text/css" media="all">
+<link rel="stylesheet" id="bbp-default-css" href="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/bbpress.css" type="text/css" media="screen">
+<link rel="stylesheet" id="wp-pagenavi-css" href="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/pagenavi-css.css" type="text/css" media="all">
+<script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/ga.js" async="" type="text/javascript"></script><script async="" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/cbgapi.loaded_1"></script><script async="" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/plusone.js" async="" type="text/javascript"></script><script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/jquery.js"></script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/wp-quicklatex-frontend.js"></script>
+<meta name="generator" content="WordPress 3.8">
+
+<!-- Bad Behavior 2.2.15 run time: 2.543 ms -->
+<script type="text/javascript">
+<!--
+function bb2_addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			oldonload();
+			func();
+		}
+	}
+}
+
+bb2_addLoadEvent(function() {
+	for ( i=0; i < document.forms.length; i++ ) {
+		if (document.forms[i].method == 'post') {
+			var myElement = document.createElement('input');
+			myElement.setAttribute('type', 'hidden');
+			myElement.name = 'bb2_screener_';
+			myElement.value = '1388567038 8.35.200.36';
+			document.forms[i].appendChild(myElement);
+		}
+	}
+});
+// --></script>
+		<link rel="stylesheet" type="text/css" href="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/recaptcha.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+   <meta name="google-site-verification" content="rHK2v8_zzuAZQY8JHAzbllDN8u-aQxcn2Kqnp67Old0">
+<script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/embed.js" async="" type="text/javascript"></script><script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/a" type="text/javascript"></script><style type="text/css">.gscb_a{display:inline-block;font:27px/13px arial,sans-serif}.gsst_a .gscb_a{color:#a1b9ed;cursor:pointer}.gsst_a:hover .gscb_a,.gsst_a:focus .gscb_a{color:#36c}.gsst_a{display:inline-block}.gsst_a{cursor:pointer;padding:0 4px}.gsst_a:hover{text-decoration:none!important}.gsst_b{font-size:16px;padding:0 2px;position:relative;user-select:none;-moz-user-select:none;white-space:nowrap}.gsst_e{opacity:0.55;}.gsst_a:hover .gsst_e,.gsst_a:focus .gsst_e{opacity:0.72;}.gsst_a:active .gsst_e{opacity:1;}.gsst_f{background:white;text-align:left}.gsst_g{background-color:white;border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);margin:-1px -3px;padding:0 6px}.gsst_h{background-color:white;height:1px;margin-bottom:-1px;position:relative;top:-1px}.gsib_a{width:100%;padding:4px 6px 0}.gsib_a,.gsib_b{vertical-align:top}.gssb_c{border:0;position:absolute;z-index:989}.gssb_e{border:1px solid #ccc;border-top-color:#d9d9d9;box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);cursor:default}.gssb_f{visibility:hidden;white-space:nowrap}.gssb_k{border:0;display:block;position:absolute;top:0;z-index:988}.gsdd_a{border:none!important}.gscsep_a{display:none}.gsq_a{padding:0}.gssb_a{padding:0 7px}.gssb_a,.gssb_a td{white-space:nowrap;overflow:hidden;line-height:22px}#gssb_b{font-size:11px;color:#36c;text-decoration:none}#gssb_b:hover{font-size:11px;color:#36c;text-decoration:underline}.gssb_g{text-align:center;padding:8px 0 7px;position:relative}.gssb_h{font-size:15px;height:28px;margin:0.2em}.gssb_i{background:#eee}.gss_ifl{visibility:hidden;padding-left:5px}.gssb_i .gss_ifl{visibility:visible}a.gssb_j{font-size:13px;color:#36c;text-decoration:none;line-height:100%}a.gssb_j:hover{text-decoration:underline}.gssb_l{height:1px;background-color:#e5e5e5}.gssb_m{color:#000;background:#fff}.gsfe_a{border:1px solid #b9b9b9;border-top-color:#a0a0a0;box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);}.gsfe_b{border:1px solid #4d90fe;outline:none;box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.3);}.gssb_a{padding:0 7px}.gssb_e{border:0}.gssb_l{margin:5px 0}.gssb_c .gsc-completion-container{position:static}.gssb_c{z-index:5000}.gsc-completion-container table{background:transparent;font-size:inherit;font-family:inherit}.gssb_c > tbody > tr,.gssb_c > tbody > tr > td,.gssb_d,.gssb_d > tbody > tr,.gssb_d > tbody > tr > td,.gssb_e,.gssb_e > tbody > tr,.gssb_e > tbody > tr > td{padding:0;margin:0;border:0}.gssb_a table,.gssb_a table tr,.gssb_a table tr td{padding:0;margin:0;border:0}</style><script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/search.js" type="text/javascript"></script></head>
+
+<body data-twttr-rendered="true">
+<!-- o4dI0sCXUgoSONabbd8mbZ4SA3E -->    
+    <div id="wrapper">
+        <div class="blog-info">
+                <h1 class="blog-title">
+                <a href="http://www.geeksforgeeks.org/" title="GeeksforGeeks">GeeksforGeeks</a>
+            </h1>
+       
+            <div class="blog-description">
+                A computer science portal for geeks            </div>
+        </div>
+        <b><p>  </p><h2 align="right"> <a href="http://geeksquiz.com/">GeeksQuiz</a></h2> 
+   <a href="http://www.geeksforgeeks.org/wp-login.php">Login</a> 
+         <p></p></b>  
+         
+         <div class="clear"></div>         
+              
+                     
+            <div id="menu">   
+                 <ul>
+                   <li><a href="http://www.geeksforgeeks.org/">
+                              Home</a></li>
+                               <li><a href="http://www.geeksforgeeks.org/forums/">Q&amp;A</a></li>
+                               <li><a href="http://www.geeksforgeeks.org/about/interview-corner/">Interview Corner</a></li>
+                               <li><a href="http://www.geeksforgeeks.org/contribute/ask-a-question/">Ask a question</a></li>   
+            </ul>
+
+            <ul>
+                <li class="page_item page-item-9830 page_item_has_children"><a href="http://www.geeksforgeeks.org/contribute/">Contribute</a></li>
+<li class="page_item page-item-21638"><a href="http://www.geeksforgeeks.org/gate-corner/">GATE</a></li>
+<li class="page_item page-item-24811"><a href="http://www.geeksforgeeks.org/fundamentals-of-algorithms/">Algorithms</a></li>
+<li class="page_item page-item-24966"><a href="http://www.geeksforgeeks.org/c/">C</a></li>
+<li class="page_item page-item-25749"><a href="http://www.geeksforgeeks.org/c-plus-plus/">C++</a></li>
+<li class="page_item page-item-26089"><a href="http://www.geeksforgeeks.org/books/">Books</a></li>
+<li class="page_item page-item-2 page_item_has_children"><a href="http://www.geeksforgeeks.org/about/">About us</a></li>
+                             </ul> 
+                     
+            <div class="rssfeed">
+                <!--<a href="http://feeds.feedburner.com/limetouch" title="Subscribe to LimeTouch RSS Feed"><strong>Subscribe</strong></a>-->
+                <!--<<a href="http://feeds.feedburner.com/Geeksforgeeks" title="Subscribe to GeeksforGeeks RSS Feed"><strong>Subscribe</strong></a>-->            
+            </div>    
+               
+            <div class="clear"></div>     
+        </div>
+             <div id="navmenu">
+				<ul id="menu" style="padding:0; margin:0;">
+						<li class="cat-item cat-item-3"><a href="http://www.geeksforgeeks.org/category/c-arrays/" title="Questions regarding Arrays">Arrays</a>
+</li>	
+
+	<li class="cat-item cat-item-17"><a href="http://www.geeksforgeeks.org/category/bit-magic/" title="View all posts filed under Bit Magic">Bit Magic</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://www.geeksforgeeks.org/category/c-puzzles/" title="View all posts filed under C/C++ Puzzles">C/C++ Puzzles</a>
+</li>
+
+<li class="cat-item cat-item-18"><a href="http://www.geeksforgeeks.org/category/articles/" title="View all posts filed under Articles">Articles</a>
+</li>
+
+	<li class="cat-item cat-item-67"><a href="http://www.geeksforgeeks.org/category/gfact/" title="View all posts filed under GFacts">GFacts</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.geeksforgeeks.org/category/linked-list/" title="Linked List problems">Linked Lists</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://www.geeksforgeeks.org/category/multiple-choice-question/" title="View all posts filed under MCQ">MCQ</a>
+
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.geeksforgeeks.org/category/c-programs/" title="Miscellaneous">Misc</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.geeksforgeeks.org/category/program-output/" title="View all posts filed under Output">Output</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://www.geeksforgeeks.org/category/c-strings/" title="Questions related to strings">Strings</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="http://www.geeksforgeeks.org/category/tree/" title="View all posts filed under Trees">Trees</a>
+</li>
+</ul>
+        </div>
+             <div id="content">	   	
+	<div class="post" id="post">
+							<div class="post-info">			
+					<div class="post-title-info">
+						<h2 class="post-title">Mutex vs Semaphore</h2>
+					</div>			
+					<div class="clear"></div>				  
+				<div class="post-content" id="post-content">
+					<p>What are the differences between Mutex vs Semaphore? When to use mutex and when to use semaphore?<span id="more-9102"></span></p>
+<p>Concrete understanding of Operating System concepts is required to 
+design/develop smart applications. Our objective is to educate &nbsp;the
+ reader on these concepts and learn from other expert geeks.</p>
+<p>As per operating system terminology, the mutex and semaphore are 
+kernel resources that provide synchronization services (also called as <em>synchronization&nbsp;primitives</em>).&nbsp;<em>Why do we need such synchronization primitives? Won’t be only one sufficient? </em>To answer these questions, we need to understand few keywords. Please read the posts on <a href="http://geeksforgeeks.org/?p=9179" target="_blank">atomicity</a> and <a href="http://geeksforgeeks.org/?p=9180" target="_blank">critical section</a>. We will illustrate with examples to understand these concepts well, rather than following usual OS textual description.</p>
+<p><strong>The <a href="http://en.wikipedia.org/wiki/Producer-consumer_problem" target="_blank">producer-consumer</a> problem:</strong></p>
+<p><em>Note that the content is generalized explanation. Practical details will vary from implementation.</em></p>
+<p>Consider the standard producer-consumer problem. Assume, we have a 
+buffer of 4096 byte length. A producer thread will collect the data and 
+writes it to the buffer. A consumer thread will process the collected 
+data from the buffer. Objective is, both the threads should not run at 
+the same time.</p>
+<p><strong>Using Mutex:</strong></p>
+<p>A mutex provides mutual exclusion, either producer or consumer can 
+have the key (mutex) and proceed with their work. As long as the buffer 
+is filled by producer, the consumer needs to wait, and vice versa.</p>
+<p>At any point of time, only one thread can work with the <em>entire</em> buffer.&nbsp;The concept can be generalized using semaphore.</p>
+<p><strong>Using Semaphore:</strong></p>
+<p>A semaphore is a generalized mutex. In lieu of single buffer, we can 
+split the 4 KB buffer into four 1 KB buffers (identical resources). A 
+semaphore can be associated with these four buffers. The consumer and 
+producer can work on different buffers at the same time.</p>
+<p><strong>Misconception:</strong></p>
+<p>There is an ambiguity between <em>binary semaphore</em> and <em>mutex</em>. We might have come across&nbsp;that a mutex is binary semaphore. <em>But they are not</em>!
+ The purpose of mutex and semaphore are different. May be, due to 
+similarity in their implementation a mutex would 
+be&nbsp;referred&nbsp;as binary semaphore.</p>
+<p>Strictly speaking, a mutex is <strong><span style="color: #0000ff">locking mechanism</span></strong>
+ used to synchronize access to a resource. Only one task (can be a 
+thread or process based on OS abstraction) can acquire the mutex. It 
+means there will be ownership associated with mutex, and only the owner 
+can release the lock (mutex).</p>
+<p>Semaphore is <span style="color: #0000ff"><strong>signaling mechanism</strong></span>
+ (“I am done, you can carry on” kind of signal). For example, if you are
+ listening songs (assume it as one task) on your mobile and at the same 
+time your friend called you, an&nbsp;interrupt&nbsp;will be triggered 
+upon which an interrupt service routine (ISR) will signal the call 
+processing task to wakeup.</p>
+<p><strong>General Questions:</strong></p>
+<p><em>1. Can a thread acquire more than one lock (Mutex)?</em></p>
+<p>Yes, it is possible that a thread will be in need of more than one 
+resource, hence the locks. If any lock is not available the thread will 
+wait (block)&nbsp;on the lock.</p>
+<p><em>2. Can a mutex be locked more than once?</em></p>
+<p>A mutex is a lock. Only one state (locked/unlocked) is associated with it. However, a <em>recursive mutex</em>
+ can be locked more than once (POSIX complaint systems), in which a 
+count is associated with it, yet retains only one state 
+(locked/unlocked). The programmer must unlock the mutex as many number 
+times as it was locked.</p>
+<p><em>3. What will happen if a non-recursive mutex is locked more than once.</em></p>
+<p>Deadlock. If a thread which had already locked a mutex, tries to lock
+ the mutex again, it will enter into the&nbsp;waiting&nbsp;list of that 
+mutex, which results in deadlock. It is because no other thread can 
+unlock the mutex. An operating system implementer can exercise care in 
+identifying the owner of mutex and return if it is already locked by 
+same thread to prevent deadlocks.</p>
+<p><em>4. Are binary semaphore and mutex same?</em></p>
+<p>No. We will suggest to treat them&nbsp;separately, as it was 
+explained signalling vs locking&nbsp;mechanisms. But a binary semaphore 
+may experience the same critical issues (e.g. priority inversion) 
+associated with mutex. We will cover these later article.</p>
+<p>A programmer can prefer mutex rather than creating a semaphore with count 1.</p>
+<p><em>5. What is a mutex and critical section?</em></p>
+<p>Some operating systems use the same word <em>critical section</em> in
+ the API. Usually a mutex is costly&nbsp;operation&nbsp;due to 
+protection protocols associated with it. At last, the objective of mutex
+ is atomic access. There are other ways to achieve atomic access like 
+disabling interrupts which can be much faster but ruins responsiveness. 
+The alternate API makes use of disabling interrupts.</p>
+<p><em>6. What are events?</em></p>
+<p>The semantics of mutex, semaphore, event, critical section, etc… are 
+same. All are synchronization primitives. Based on their cost in using 
+them they are different. We should consult the OS documentation for 
+exact details.</p>
+<p><em>7. Can we acquire mutex/semaphore in an Interrupt Service Routine?</em></p>
+<p>An ISR will run&nbsp;asynchronously&nbsp;in the context of current running thread. It is <strong>not recommended</strong>
+ to query (blocking call) the availability of synchronization primitives
+ in an ISR. The ISR are meant be short, the call to mutex/semaphore may 
+block the current running thread. However, an ISR can signal a semaphore
+ or unlock a mutex.</p>
+<p><em>8. What we mean by “thread blocking on mutex/semaphore” when they are not available?</em></p>
+<p>Every synchronization primitive will have waiting list associated 
+with it. When the resource is not available, the requesting thread will 
+be moved from the running list of processor to the waiting list of the 
+synchronization primitive. When the resource is available, the higher 
+priority thread on the waiting list will get resource (more precisely, 
+it depends on the scheduling policies).</p>
+<p><em>9. Is it necessary that a thread must block always when resource is not available?</em></p>
+<p>Not&nbsp;necessarily. If the design is sure ‘<em>what has to be done when resource is not available</em>‘,
+ the thread can take up that work (a different code branch). To support 
+application requirements the OS provides non-blocking API.</p>
+<p>For example POSIX pthread_mutex_trylock() API. When the mutex is not 
+available the function will return immediately where as the API 
+pthread_mutex_lock() will block the thread till resource is available.</p>
+<p><strong>References:</strong></p>
+<p><strong><a href="http://www.netrino.com/node/202">http://www.netrino.com/node/202</a></strong></p>
+<p><strong><a href="http://doc.trolltech.com/4.7/qsemaphore.html">http://doc.trolltech.com/4.7/qsemaphore.html</a></strong></p>
+<p>Also compare mutex/semaphores with Peterson’s algorithm and Dekker’s algorithm. A good reference is the&nbsp;<em>Art of Concurrency </em>book. Also explore reader locks and writer locks in Qt documentation.</p>
+<p><strong>Exercise:</strong></p>
+<p>Implement a program that prints a message “An instance is running” 
+when executed more than once in the same session. For example, if we 
+observe word application or Adobe reader in Windows, we can see only one
+ instance in the task manager. How to implement it?</p>
+<p>Article compiled by&nbsp;<strong>Venki</strong>.&nbsp;Please write 
+comments if you find anything incorrect, or you want to share more 
+information about the topic discussed above.</p>
+		
+
+&nbsp;
+<iframe src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/like.xhtml" allowtransparency="true" style="border:none; overflow:hidden; width:90px; height:20px" frameborder="0" scrolling="no"></iframe>
+<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/widgets.js"></script>
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/fastbutton.html" name="I0_1389250817211" id="I0_1389250817211" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+<!-- Place this render call where appropriate -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+&nbsp;
+
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-9465609616171866";
+/* Big Rectangle Blog Bottom */
+google_ad_slot = "4061219431";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="336" frameborder="0" height="280" scrolling="no"></iframe></ins></ins>     			
+
+<h3>Related Questions:</h3><ul><li><a href="http://www.geeksforgeeks.org/analysis-of-algorithms-set-3asymptotic-notations/" title="Analysis of Algorithms | Set 3 (Asymptotic Notations)">Analysis of Algorithms | Set 3 (Asymptotic Notations)</a></li><li><a href="http://www.geeksforgeeks.org/np-completeness-set-1/" title="NP-Completeness | Set 1 (Introduction)">NP-Completeness | Set 1 (Introduction)</a></li><li><a href="http://www.geeksforgeeks.org/static-vs-dynamic-libraries/" title="Static and Dynamic Libraries | Set 1">Static and Dynamic Libraries | Set 1</a></li><li><a href="http://www.geeksforgeeks.org/the-ubiquitous-binary-search-set-1/" title="The Ubiquitous Binary Search | Set 1">The Ubiquitous Binary Search | Set 1</a></li><li><a href="http://www.geeksforgeeks.org/reservoir-sampling/" title="Reservoir Sampling">Reservoir Sampling</a></li><li><a href="http://www.geeksforgeeks.org/analysis-of-algorithms-set-2-asymptotic-analysis/" title="Analysis of Algorithms | Set 2 (Worst, Average and Best Cases)">Analysis of Algorithms | Set 2 (Worst, Average and Best Cases)</a></li><li><a href="http://www.geeksforgeeks.org/analysis-of-algorithms-set-1-asymptotic-analysis/" title="Analysis of Algorithms | Set 1 (Asymptotic Analysis)">Analysis of Algorithms | Set 1 (Asymptotic Analysis)</a></li><li><a href="http://www.geeksforgeeks.org/scope-rules-in-c/" title="Scope rules in C">Scope rules in C</a></li></ul>
+
+				</div>		  
+			</div> <!-- end post main -->					
+			<div class="post-meta">
+				<div class="left"></div>				
+				<div class="clear"></div>
+			</div>			
+        
+			<div class="comments-main">		
+ <b>Writing code in comment?</b> Please use <b><a href="http://ideone.com/">ideone.com</a></b> and share the link here.
+				
+<div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/a.html" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 5194px ! important;" role="complementary" allowtransparency="true" data-disqus-uid="2" id="dsq-2" width="100%" frameborder="0" scrolling="no"></iframe></div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'http://www.geeksforgeeks.org/mutex-vs-semaphore/';
+    var disqus_identifier = '9102 http://geeksforgeeks.org/?p=9102';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'geeksforgeeks';
+    var disqus_title = "Mutex vs Semaphore";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "http:\/\/www.geeksforgeeks.org\/mutex-vs-semaphore\/trackback\/"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+			</div>
+	
+					
+			
+			
+
+		</div> <!-- end post -->	
+
+<br><br>
+	
+</div> <!-- end content -->
+
+<ul id="sidebar">
+	<li id="text-19" class="widget widget_text">			<div class="textwidget"><div id="cse" style="width: 100%;"><div class="gsc-control-cse gsc-control-cse-en"><div dir="ltr" class="gsc-control-wrapper-cse"><form accept-charset="utf-8" class="gsc-search-box"><table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-input"><input style="outline: medium none; background: url(&quot;http://www.google.com/cse/intl/en/images/google_custom_search_watermark.gif&quot;) no-repeat scroll left center rgb(255, 255, 255);" spellcheck="false" dir="ltr" id="gsc-i-id1" title="search" name="search" class=" gsc-input" size="10" autocomplete="off" type="text"></td><td class="gsc-search-button"><input title="search" class="gsc-search-button" value="Search" type="button"></td><td class="gsc-clear-button"><div title="clear results" class="gsc-clear-button">&nbsp;</div></td></tr></tbody></table><table class="gsc-branding" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-branding-user-defined"></td><td class="gsc-branding-text"><div class="gsc-branding-text">powered by</div></td><td class="gsc-branding-img"><img class="gsc-branding-img" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/small-logo.png"></td></tr></tbody></table></form><div class="gsc-results-wrapper-nooverlay"><div class="gsc-tabsAreaInvisible"><div class="gsc-tabHeader gsc-inline-block gsc-tabhActive">Custom Search</div><span class="gs-spacer"> </span></div><div class="gsc-tabsAreaInvisible"></div><div class="gsc-above-wrapper-area-invisible"><table class="gsc-above-wrapper-area-container" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-result-info-container"><div class="gsc-result-info-invisible"></div></td></tr></tbody></table></div><div class="gsc-adBlockInvisible"></div><div class="gsc-wrapper"><div class="gsc-adBlockInvisible"></div><div class="gsc-resultsbox-invisible"><div class="gsc-resultsRoot gsc-tabData gsc-tabdActive"><table class="gsc-resultsHeader" cellpadding="0" cellspacing="0"><tbody><tr><td class="gsc-twiddleRegionCell"><div class="gsc-twiddle"><div class="gsc-title">Web</div></div><div class="gsc-stats"></div><div class="gsc-results-selector gsc-all-results-active"><div title="show one result" class="gsc-result-selector gsc-one-result">&nbsp;</div><div title="show more results" class="gsc-result-selector gsc-more-results">&nbsp;</div><div title="show all results" class="gsc-result-selector gsc-all-results">&nbsp;</div></div></td><td class="gsc-configLabelCell"></td></tr></tbody></table><div><div class="gsc-expansionArea"></div></div></div></div></div></div></div></div></div>
+<script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'en', style : google.loader.themes.GREENSKY});
+  google.setOnLoadCallback(function() {
+    var customSearchControl = new google.search.CustomSearchControl('010463773075615557214:qy5dkn-osd8');
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+</script><script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/a_002" type="text/javascript"></script><link href="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/defaulten.css" type="text/css" rel="stylesheet"><link href="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/greensky.css" type="text/css" rel="stylesheet"><script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/defaulten.js" type="text/javascript"></script>
+
+<style type="text/css">
+  .gsc-control-cse {
+    font-family: "Trebuchet MS", sans-serif;
+    border-color: #E1F3DA;
+    background-color: #E1F3DA;
+  }
+  input.gsc-input {
+    border-color: #94CC7A;
+  }
+  input.gsc-search-button {
+    border-color: #94CC7A;
+    background-color: #AADA92;
+  }
+  .gsc-tabHeader.gsc-tabhInactive {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gsc-tabHeader.gsc-tabhActive {
+    border-color: #A9DA92;
+    background-color: #A9DA92;
+  }
+  .gsc-tabsArea {
+    border-color: #A9DA92;
+  }
+  .gsc-webResult.gsc-result {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gsc-webResult.gsc-result:hover {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gs-webResult.gs-result a.gs-title:link,
+  .gs-webResult.gs-result a.gs-title:link b {
+    color: #009900;
+  }
+  .gs-webResult.gs-result a.gs-title:visited,
+  .gs-webResult.gs-result a.gs-title:visited b {
+    color: #009900;
+  }
+  .gs-webResult.gs-result a.gs-title:hover,
+  .gs-webResult.gs-result a.gs-title:hover b {
+    color: #003300;
+  }
+  .gs-webResult.gs-result a.gs-title:active,
+  .gs-webResult.gs-result a.gs-title:active b {
+    color: #009900;
+  }
+  .gsc-cursor-page {
+    color: #009900;
+  }
+  a.gsc-trailing-more-results:link {
+    color: #009900;
+  }
+  .gs-webResult.gs-result .gs-snippet {
+    color: #454545;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl {
+    color: #33cc00;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl-short {
+    color: #33cc00;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl-short {
+    display: none;
+  }
+  .gs-webResult.gs-result .gs-visibleUrl-long {
+    display: block;
+  }
+  .gsc-cursor-box {
+    border-color: #A9DA92;
+  }
+  .gsc-results .gsc-cursor-page {
+    border-color: #A9DA92;
+    background-color: #FFFFFF;
+  }
+  .gsc-results .gsc-cursor-page.gsc-cursor-current-page {
+    border-color: #A9DA92;
+    background-color: #A9DA92;
+  }
+  .gs-promotion.gs-result {
+    border-color: #94CC7A;
+    background-color: #CBE8B4;
+  }
+  .gs-promotion.gs-result a.gs-title:link {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result a.gs-title:visited {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result a.gs-title:hover {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result a.gs-title:active {
+    color: #0066CC;
+  }
+  .gs-promotion.gs-result .gs-snippet {
+    color: #454545;
+  }
+  .gs-promotion.gs-result .gs-visibleUrl,
+  .gs-promotion.gs-result .gs-visibleUrl-short {
+    color: #815FA7;
+  }
+</style>    
+
+</div>
+		</li>
+<li id="text-13" class="widget widget_text">			<div class="textwidget"><ul>
+<li><a href="http://www.geeksforgeeks.org/tag/interview-experience">Interview Experiences</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/advance-data-structures">Advanced Data Structures</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/dynamic-programming">Dynamic Programming</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/Greedy-Algorithm/">Greedy Algorithms</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/backtracking">Backtracking</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/pattern-searching">Pattern Searching</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/divide-and-conquer">Divide &amp; Conquer</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/graph">Graph</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/MathematicalAlgo">Mathematical Algorithms</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/recursion">Recursion</a></li>
+<li><a href="http://www.geeksforgeeks.org/tag/Java">Java</a></li>
+</ul>
+</div>
+		</li>
+<li id="text-9" class="widget widget_text">			<div class="textwidget"><iframe src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/likebox.xhtml" style="border:none; overflow:hidden; width:240px; height:200px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe></div>
+		</li>
+<li id="text-18" class="widget widget_text">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-9465609616171866";
+/* Mediam Rectange */
+google_ad_slot = "7922198189";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" width="300" frameborder="0" height="250" scrolling="no"></iframe></ins></ins></div>
+		</li>
+<li id="text-14" class="widget widget_text"><h2 class="widgettitle">Popular Posts</h2>
+			<div class="textwidget"><ul>
+<li><a href="http://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/">  All permutations of a given string </a></li>
+<li><a href="http://www.geeksforgeeks.org/memory-layout-of-c-program/"> Memory Layout of C Programs</a> </li>
+<li><a href="http://www.geeksforgeeks.org/understanding-extern-keyword-in-c/"> Understanding “extern” keyword in C</a> </li>
+<li><a href="http://www.geeksforgeeks.org/median-of-two-sorted-arrays/">Median of two sorted arrays</a> </li>
+<li><a href="http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/"> Tree traversal without recursion and without stack! </a></li>
+<li><a href="http://www.geeksforgeeks.org/structure-member-alignment-padding-and-data-packing/"> Structure Member Alignment, Padding and Data Packing</a> </li>
+<li><a href="http://www.geeksforgeeks.org/write-a-function-to-get-the-intersection-point-of-two-linked-lists/"> Intersection point of two Linked Lists</a> </li>
+<li><a href="http://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/"> Lowest Common Ancestor in a BST.</a> </li>
+<li><a href="http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/"> Check if a binary tree is BST or not</a> </li>
+<li><a href="http://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/"> Sorted Linked List to Balanced BST</a></li>
+</ul></div>
+		</li>
+<li id="text-17" class="widget widget_text">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-9465609616171866";
+/* Big 300x600 Sidebar */
+google_ad_slot = "4402736037";
+google_ad_width = 300;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" width="300" frameborder="0" height="600" scrolling="no"></iframe></ins></ins></div>
+		</li>
+<li id="text-3" class="widget widget_text">			<div class="textwidget"><!-- TWITTER BUTTON-->
+<iframe style="width: 251px; height: 20px;" data-twttr-rendered="true" title="Twitter Follow Button" class="twitter-follow-button twitter-follow-button" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/follow_button.html" allowtransparency="true" id="twitter-widget-1" frameborder="0" scrolling="no"></iframe>
+<script src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/widgets.js" type="text/javascript"></script>
+
+         <!-- Place this tag in your head or just before your close body tag -->
+         <script gapi_processed="true" type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/plusone.js"></script>
+         <!-- Place this tag where you want the +1 button to render -->
+         <div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 106px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/fastbutton_002.html" name="I1_1389250830302" id="I1_1389250830302" vspace="0" tabindex="0" style="position: static; top: 0px; width: 106px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+
+<!-- GOOGLE FEEDBURNER BUTTON-->
+<a href="http://feeds.feedburner.com/Geeksforgeeks" title="Subscribe to my feed" rel="alternate" type="application/rss+xml"><img src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/feed-icon32x32.png" alt="" style="border:0"></a><a href="http://feeds.feedburner.com/Geeksforgeeks" title="Subscribe to my feed" rel="alternate" type="application/rss+xml">Subscribe</a>
+
+</div>
+		</li>
+<li id="text-21" class="widget widget_text"><h2 class="widgettitle">Recent Comments</h2>
+			<div class="textwidget"><script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/recent_comments_widget.js"></script> <style type="text/css" media="screen">	 .dsq-widget ul.dsq-widget-list {	 padding: 0;	 margin: 0;	 text-align: left;	 }	 img.dsq-widget-avatar {	 width: 32px;	 height: 32px;	 border: 0px;	 margin: 0px;	 padding: 0px 3px 3px 0px;	 float: left;	 }	 a.dsq-widget-user {	 font-weight: bold;	 }	 a.dsq-widget-thread {	 font-weight: bold;	 }	 p.dsq-widget-meta {	 clear: both;	 font-size: 80%;	 padding: 0;	 margin: 0;	 }	 li.dsq-widget-item {	 margin: 15px 0;	 list-style-type: none;	 clear: both;	 }	 span.dsq-widget-clout {	 padding: 0 2px;	 background-color: #ff7300;	 color: #fff;	 }	 table.dsq-widget-horiz td {	 padding-right: 15px;	 }	 .dsq-widget-comment p {	 display: inline;	 }	 </style>	 <ul class="dsq-widget-list">	 <li class="dsq-widget-item">	 Guest	 <span class="dsq-widget-comment"><p>first one compiles but becomes an infinite loop..</p></span>	 <p class="dsq-widget-meta"><a href="http://www.geeksforgeeks.org/difference-int-main-int-mainvoid/">Difference between “int main()” and “int main(void)” in C/C++?</a>&nbsp;·&nbsp;<a href="http://www.geeksforgeeks.org/difference-int-main-int-mainvoid/#comment-1193307969">58 minutes ago</a></p>	 </li>	 <li class="dsq-widget-item">	 <a class="dsq-widget-user" href="http://disqus.com/disqus_Xu15w3zOzV/">Kumar Prashant</a>	 <span class="dsq-widget-comment"><p>u have inqueued the null only one time. for the...</p></span>	 <p class="dsq-widget-meta"><a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/">Maximum width of a binary tree</a>&nbsp;·&nbsp;<a href="http://www.geeksforgeeks.org/maximum-width-of-a-binary-tree/#comment-1193300086">1 hour ago</a></p>	 </li>	 <li class="dsq-widget-item">	 Kartik	 <span class="dsq-widget-comment"><p>Meet, thanks for pointing this out. We have...</p></span>	 <p class="dsq-widget-meta"><a href="http://www.geeksforgeeks.org/virtual-functions-and-runtime-polymorphism-in-c-set-1-introduction/">Virtual Functions and Runtime Polymorphism in C++ | Set 1 (Introduction)</a>&nbsp;·&nbsp;<a href="http://www.geeksforgeeks.org/virtual-functions-and-runtime-polymorphism-in-c-set-1-introduction/#comment-1193281525">1 hour ago</a></p>	 </li>	 <li class="dsq-widget-item">	 Amrapali	 <span class="dsq-widget-comment"><p>OK sorry I got it</p></span>	 <p class="dsq-widget-meta"><a href="http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/">Maximum circular subarray sum</a>&nbsp;·&nbsp;<a href="http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/#comment-1193224614">2 hours ago</a></p>	 </li>	 <li class="dsq-widget-item">	 Amrapali	 <span class="dsq-widget-comment"><p>I didn't understood what do you mean by...</p></span>	 <p class="dsq-widget-meta"><a href="http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/">Maximum circular subarray sum</a>&nbsp;·&nbsp;<a href="http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/#comment-1193218966">2 hours ago</a></p>	 </li>	 <li class="dsq-widget-item">	 ritu	 <span class="dsq-widget-comment"><p>could you please explain in detail. i am still...</p></span>	 <p class="dsq-widget-meta"><a href="http://www.geeksforgeeks.org/next-higher-number-with-same-number-of-set-bits/">Next higher number with same number of set bits</a>&nbsp;·&nbsp;<a href="http://www.geeksforgeeks.org/next-higher-number-with-same-number-of-set-bits/#comment-1193146679">4 hours ago</a></p>	 </li>	 </ul></div>
+		</li>
+<li id="text-20" class="widget widget_text">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-9465609616171866";
+/* LinkAd */
+google_ad_slot = "2606115235";
+google_ad_width = 160;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_3_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="90" scrolling="no"></iframe></ins></ins>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-9465609616171866";
+/* LinkAd */
+google_ad_slot = "2606115235";
+google_ad_width = 160;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_4_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="90" scrolling="no"></iframe></ins></ins>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-9465609616171866";
+/* LinkAd */
+google_ad_slot = "2606115235";
+google_ad_width = 160;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_5_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_5" name="aswift_5" style="left:0;position:absolute;top:0;" width="160" frameborder="0" height="90" scrolling="no"></iframe></ins></ins></div>
+		</li>
+
+</ul>					  
+		<div class="clear"></div>
+
+		<div id="footer">
+		
+		    <div class="xhtml">
+                        @geeksforgeeks, <a href="http://creativecommons.org/licenses/by-nc-nd/2.5/in/deed.en_US" title="Valid XHTML Strict 1.0">Some rights reserved</a>  <a href="http://www.geeksforgeeks.org/about/contact-us/"> &nbsp; &nbsp; &nbsp; &nbsp;Contact Us!</a>
+
+		    </div>
+		    
+		    <div class="credits">
+			  Powered by <a href="http://wordpress.org/">WordPress </a> &amp; <a href="http://mootools.net/" title="Mootools JavaScript Framework">MooTools</a>, customized by geeksforgeeks team </div>
+			  
+		   <div class="clear"></div>						                            
+		   
+		</div> <!--end footer-->  
+        
+		<script type="text/javascript" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/editor.js"></script>
+				  
+		</div><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Mutex%20vs%20Semaphore%20%7C%20GeeksforGeeks_files/postmessageRelay.html" id="oauth2relay2053991228" name="oauth2relay2053991228"></iframe> <!--end wrapper-->
+
+<script type="text/javascript">
+  // Google analytics
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12148232-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+        
+        <div id="ajaxSpinner"></div> <!--For AJAX spinner holder-->
+	
+
+
+
+
+<table class="gstl_50 gssb_c" style="width: 216px; display: none; top: 179px; left: 829px; position: absolute;" cellpadding="0" cellspacing="0"><tbody><tr><td class="gssb_f"></td><td style="width: 100%;" class="gssb_e"></td></tr></tbody></table></body></html>
+<!-- Dynamic page generated in 0.316 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2014-01-01 14:33:58 -->
+<!-- Compression = gzip -->

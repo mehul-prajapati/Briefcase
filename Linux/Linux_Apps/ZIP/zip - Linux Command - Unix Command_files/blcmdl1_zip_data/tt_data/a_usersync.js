@@ -1,0 +1,1 @@
+ANX_async_load({"url":"http://sync.mathtag.com/sync/img?mt_exid=13&mt_exuid=1416470041628487226", "c":9, "tagtype":"img"});

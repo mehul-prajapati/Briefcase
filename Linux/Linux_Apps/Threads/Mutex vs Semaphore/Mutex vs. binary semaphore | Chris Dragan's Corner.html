@@ -1,0 +1,1185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!--
+	generated in 0.375 seconds
+	64999 bytes batcached for 300 seconds
+--><head profile="http://gmpg.org/xfn/11"><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/fql" async=""></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Mutex vs. binary semaphore | Chris Dragan's Corner</title>
+
+<link rel="stylesheet" href="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/style.css" type="text/css" media="screen">
+
+<script type="text/javascript" async="" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/quant.js"></script><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/wl" async="" type="text/javascript"></script><script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/base.js"></script>
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/menu.js"></script>
+
+<link rel="pingback" href="http://chris.dragan.name/xmlrpc.php">
+		<script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/remote-login.php" type="text/javascript"></script>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			if ( 'function' === typeof WPRemoteLogin ) {
+				document.cookie = "wordpress_test_cookie=test; path=/";
+				if ( document.cookie.match( /(;|^)\s*wordpress_test_cookie\=/ ) ) {
+					WPRemoteLogin();
+				}
+			}
+		/* ]]> */
+		</script>
+		<link rel="alternate" type="application/rss+xml" title="Chris Dragan's Corner » Feed" href="http://chris.dragan.name/feed/">
+<link rel="alternate" type="application/rss+xml" title="Chris Dragan's Corner » Comments Feed" href="http://chris.dragan.name/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Chris Dragan's Corner » Mutex vs. binary&nbsp;semaphore Comments Feed" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<style type="text/css">
+	/*body div.jp-relatedposts { border-color:#eeeeee; }
+	body div.jp-relatedposts .jp-relatedposts-headline em { background:#ffffff }
+	body div.jp-relatedposts, body div.jp-relatedposts .jp-relatedposts-post a { color:#555555 }*/
+	body div.jp-relatedposts .jp-relatedposts-headline em:before { border-color:#555555; }
+</style><link rel="stylesheet" id="all-css-0" href="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a_002.js"></script>
+<link rel="stylesheet" id="all-css-0" href="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/style_002.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://mezzoteric.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://mezzoteric.wordpress.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Unenforceable&nbsp;law" href="http://chris.dragan.name/2013/05/19/unenforceable-law/">
+<link rel="next" title="Bad&nbsp;UI" href="http://chris.dragan.name/2013/06/09/bad-ui/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/">
+<link rel="shortlink" href="http://wp.me/p1V7uo-76">
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fchris.dragan.name%2F2013%2F05%2F28%2Fthose-pesky-mutices%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fchris.dragan.name%2F2013%2F05%2F28%2Fthose-pesky-mutices%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mutex vs. binary semaphore">
+<meta property="og:url" content="http://chris.dragan.name/2013/05/28/those-pesky-mutices/">
+<meta property="og:description" content="Mutices and semaphores are among the most basic tools in multithreaded programming. However most people I asked do not know what is the difference between them. So please let me introduce you to th...">
+<meta property="og:site_name" content="Chris Dragan's Corner">
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@chrisdraganname">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<meta property="article:author" content="https://www.facebook.com/profile.php?id=1430661843">
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1355642671g">
+<link rel="openid.server" href="http://mezzoteric.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://mezzoteric.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://chris.dragan.name/osd.xml" title="Chris Dragan's Corner">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="Chris Dragan's Corner"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="chris.dragan.name"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://chris.dragan.name/feed/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="Mutex vs. binary&nbsp;semaphore | Chris Dragan's Corner on WordPress.com">
+<meta name="description" content="Mutices and semaphores are among the most basic tools in multithreaded programming. However most people I asked do not know what is the difference between them. So please let me introduce you to them. Consider a resource which is shared between multiple threads. For example a container. You don't want to have multiple threads modifying…">
+
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/google_ads.js"></script><script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 28389824, pt: 'permalink', wa: 0, as: 0, domain: 'chris.dragan.name', url: 'http://chris.dragan.name/2013/05/28/those-pesky-mutices/', gid: '', };
+</script>
+<style id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'none']);
+	_gaq.push(['_setAllowLinker', true]);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/ga.js" async="" type="text/javascript"></script>
+<script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/osd.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/services.css"><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a_003.html" async="" type="text/javascript"></script></head>
+
+<body class="single single-post postid-440 single-format-standard mp6 highlander-enabled highlander-light">
+<!-- wrap START -->
+<div id="wrap">
+
+<!-- container START -->
+<div id="container">
+
+<!-- header START -->
+<div id="header">
+
+	<!-- banner START -->
+			<div class="banner">
+			<img src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/banner11.png" alt="Banner" height="60">		</div>
+		<!-- banner END -->
+
+	<div id="caption">
+		<h1 id="title"><a sl-processed="1" href="http://chris.dragan.name/">Chris Dragan's Corner</a></h1>
+		<div id="tagline">chris.dragan.name</div>
+	</div>
+
+	<div class="fixed"></div>
+</div>
+<!-- header END -->
+
+<!-- navigation START -->
+<div id="navigation">
+	<!-- menus START -->
+	<ul id="menus" class="menu"><li><a sl-processed="1" class="home" href="http://chris.dragan.name/" title="Home">Home</a></li><li id="menu-item-144" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-144"><a sl-processed="1" href="http://mezzoteric.wordpress.com/">Blog</a><ul style="visibility: hidden; display: block;" class="sub-menu"><li id="menu-item-49" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-49"><a sl-processed="1" href="http://chris.dragan.name/category/computing/">Computing</a></li><li id="menu-item-586" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-586"><a sl-processed="1" href="http://chris.dragan.name/category/haskell/">Haskell</a></li><li id="menu-item-50" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-50"><a sl-processed="1" href="http://chris.dragan.name/category/universe/">Universe</a></li><li id="menu-item-284" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-284"><a sl-processed="1" class=" last" href="http://chris.dragan.name/category/movie-reviews/">Movie Reviews</a></li></ul></li>
+<li id="menu-item-120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-120"><a sl-processed="1" href="http://chris.dragan.name/old-projects/">Old Projects</a><ul style="visibility: hidden; display: block;" class="sub-menu"><li id="menu-item-106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-106"><a sl-processed="1" href="http://chris.dragan.name/old-projects/x86-assembly/">x86 Assembly</a></li><li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a sl-processed="1" href="http://chris.dragan.name/old-projects/panorama/">Panorama</a></li><li id="menu-item-161" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-161"><a sl-processed="1" href="http://chris.dragan.name/old-projects/blue-logic-demos/">Blue Logic Demos</a></li><li id="menu-item-169" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-169"><a sl-processed="1" href="http://chris.dragan.name/old-projects/ancient-ball/">Ancient Ball</a></li><li id="menu-item-210" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-210"><a sl-processed="1" href="http://chris.dragan.name/old-projects/betelgeuse/">Betelgeuse</a></li><li id="menu-item-201" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-201"><a sl-processed="1" href="http://chris.dragan.name/old-projects/pixel-shader-converter/">Pixel Shader Converter</a></li><li id="menu-item-200" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-200"><a sl-processed="1" class=" last" href="http://chris.dragan.name/old-projects/winapi-wrapper/">WinAPI Wrapper</a></li></ul></li>
+<li id="menu-item-51" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-51"><a sl-processed="1" href="http://chris.dragan.name/about/">About</a></li>
+</ul>	<!-- menus END -->
+
+	<!-- searchbox START -->
+	<div id="searchbox">
+		<form action="http://chris.dragan.name" method="get">
+			<div class="content">
+				<input class="textfield searchtip" name="s" size="24" value="Type text to search here..." type="text">
+				<input class="button" value="" type="submit">
+			</div>
+		</form>
+	</div>
+<script type="text/javascript">
+//<![CDATA[
+	var searchbox = MGJS.$("searchbox");
+	var searchtxt = MGJS.getElementsByClassName("textfield", "input", searchbox)[0];
+	var searchbtn = MGJS.getElementsByClassName("button", "input", searchbox)[0];
+	var tiptext = "Type text to search here...";
+	if(searchtxt.value == "" || searchtxt.value == tiptext) {
+		searchtxt.className += " searchtip";
+		searchtxt.value = tiptext;
+	}
+	searchtxt.onfocus = function(e) {
+		if(searchtxt.value == tiptext) {
+			searchtxt.value = "";
+			searchtxt.className = searchtxt.className.replace(" searchtip", "");
+		}
+	}
+	searchtxt.onblur = function(e) {
+		if(searchtxt.value == "") {
+			searchtxt.className += " searchtip";
+			searchtxt.value = tiptext;
+		}
+	}
+	searchbtn.onclick = function(e) {
+		if(searchtxt.value == "" || searchtxt.value == tiptext) {
+			return false;
+		}
+	}
+//]]>
+</script>
+	<!-- searchbox END -->
+
+	<div class="fixed"></div>
+</div>
+<!-- navigation END -->
+
+<!-- content START -->
+<div id="content">
+
+	<!-- main START -->
+	<div id="main">
+
+
+	<div id="postpath">
+		<a sl-processed="1" title="Go to homepage" href="http://chris.dragan.name/">Home</a>
+		 &gt; <a sl-processed="1" href="http://chris.dragan.name/category/computing/" title="View all posts in Computing" rel="category tag">Computing</a>		 &gt; Mutex vs. binary&nbsp;semaphore	</div>
+
+	<div id="post-440" class="post-440 post type-post status-publish format-standard hentry category-computing tag-multithreading tag-mutex tag-semaphore">
+		<h2>Mutex vs. binary&nbsp;semaphore</h2>
+		<div class="info">
+			<span class="date">28.05.2013</span>
+													<span class="addcomment"><a sl-processed="1" href="#respond">Leave a comment</a></span>
+				<span class="comments"><a sl-processed="1" href="#comments">Go to comments</a></span>
+						<div class="fixed"></div>
+		</div>
+		<div class="content">
+			<p>Mutices and semaphores are among the most basic tools in 
+multithreaded programming. However most people I asked do not know what 
+is the difference between them. So please let me introduce you to them.</p>
+<p>Consider a resource which is shared between multiple threads. For 
+example a container. You don’t want to have multiple threads modifying 
+the container simultaneously, or one thread modifying the container 
+while other threads are reading from it, otherwise you will end up with 
+classical race conditions and unpredictable things will happen.</p>
+<p>To guard a resource from other threads while you are accessing it, 
+you use a synchronization primitive, which you conceptually associate 
+with the guarded resource. Threads can lock the synchronization 
+primitive when they need to access the resource. Then they can release 
+the primitive after they are finished with accessing the resource. When 
+the synchronization primitive is already locked, a thread trying to lock
+ it will wait/stall until the other thread who locked it – unlocks it.</p>
+<p>At the first glance, both mutex and binary semaphore fit the 
+description of the above synchronization primitive. Well, not quite. 
+Using binary semaphore in place of a mutex is a bad idea.</p>
+<p>Conceptually a semaphore is like an integer. You can increment it and
+ you can decrement it. If the semaphore’s value is 0, the thread trying 
+to decrement it will wait/stall until somebody else increments it. This 
+way, the semaphore never has a negative value.</p>
+<p>A binary semaphore is just a semaphore capped at one, i.e. it’s value
+ cannot exceed one. You can treat the decrement operation as “lock” and 
+the increment operation as “unlock”.</p>
+<p>The problem with the semaphore is that any thread can increment it or
+ decrement it. In particular, if the semaphore’s value is 0 (“locked”), 
+another thread can increment it (“unlock”), even if this is not the 
+thread which locked it! It takes more discipline to write code which 
+correctly uses binary semaphores for locking and there is still a 
+potential for error.</p>
+<p>Another problem is that most semaphore implementations allow sharing 
+semaphores between processes. This makes them much heavier than e.g. 
+POSIX mutices or critical sections on Windows, which are lightweight, 
+because they only work within one process and don’t require calling into
+ kernel space in most cases.</p>
+<p>Unlike binary semaphores,mutices may also have another interesting 
+property, depending on an implementation, i.e. they can be recursive. A 
+recursive mutex can be locked twice from the same thread. This allows 
+you to write an accessor function and not have to care whether the mutex
+ is already locked by the current thread or not. However it is generally
+ not recommended to use recursive mutices, the necessity for recursive 
+mutices is a sign of a bad design and indicates that there may be 
+potential problems with the interfaces or even hidden multithreading 
+bugs.</p>
+<p>In general mutices (or critical sections on Windows) are typically 
+recommended over binary semaphores as synchronization primitives between
+ multiple threads in the same process.</p>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a sl-processed="1" style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "INove";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "chris.dragan.name");
+GA_googleAddAttr("BlogId", "28389824");
+GA_googleAddAttr("PageURL", "http://chris.dragan.name/2013/05/28/those-pesky-mutices/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Autotag", "books");
+GA_googleAddAttr("Tag", "computing");
+GA_googleAddAttr("Tag", "multithreading");
+GA_googleAddAttr("Tag", "mutex");
+GA_googleAddAttr("Tag", "semaphore");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_border", "eeeeee");
+GA_googleAddAttr("theme_text", "555555");
+GA_googleAddAttr("theme_link", "2970A6");
+GA_googleAddAttr("theme_url", "c8c7c7");
+GA_googleAddAdSensePageAttr("google_page_url", "http://chris.dragan.name/2013/05/28/those-pesky-mutices/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/ads"></script><div id="google_ads_div_wpcom_below_post_ad_wrapper">
+<div id="google_ads_div_wpcom_below_post_ad_container" style="display:inline-block;"><div style="display: block; height: 250px; width: 100%; opacity: 1;" id="grv-personalization-16"><iframe style="width: 100%; height: 250px; opacity: 1; overflow: hidden;" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/w2.html" frameborder="0" scrolling="no"></iframe></div>
+<script type="text/javascript">
+  //<![CDATA[
+ function _grc(k){return(document.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2]}
+    (function(){
+    window.gravityInsightsParams = {
+      'type': 'content',
+      'site_guid': '361837bc83c4c2cba7b350dff56a564f',
+      'user_guid': _grc('grvinsights'),
+      'sourceUrl': 'chris.dragan.name',
+    };
+    var b,c,d,e,f,g,h,i;f=(b=!0===gravityInsightsParams.useGravityUserGuid?1:0,e=b?"":gravityInsightsParams.user_guid||(null!=(g=/grvinsights=([^;]+)/.exec(document.cookie))?g[1]:void 0)||"",c=(null!=(h=window.jQuery)?null!=(i=h.fn)?i.jquery:void 0:void 0)||"","http://rma-api.gravity.com/v1/api/intelligence/wl?jq="+c+"&sg="+gravityInsightsParams.site_guid+"&ug="+e+"&ugug="+b+"&pl=16&id=grv-personalization-16&type=iframe");
+    window.grvMakeScript=function(j){var a;a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=j;return a};d=document.getElementsByTagName("script")[0];f&&d.parentNode.insertBefore(window.grvMakeScript(f),d);})();
+  //]]>
+</script>
+
+</div>
+</div>
+
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a sl-processed="1" rel="nofollow" class="share-twitter sd-button share-icon" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?share=twitter&amp;nb=1" title="Click to share on Twitter" id="sharing-twitter-440"><span>Twitter<span class="share-count">1</span></span></a></li><li class="share-facebook"><a sl-processed="1" rel="nofollow" class="share-facebook sd-button share-icon" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?share=facebook&amp;nb=1" title="Share on Facebook" id="sharing-facebook-440"><span>Facebook</span></a></li><li class="share-google-plus-1"><a sl-processed="1" rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?share=google-plus-1&amp;nb=1" title="Click to share on Google+" id="sharing-google-440"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-28389824-440-52ce48e33d400" data-src="//widgets.wp.com/likes/#blog_id=28389824&amp;post_id=440&amp;origin=mezzoteric.wordpress.com&amp;obj_id=28389824-440-52ce48e33d400" data-name="like-post-frame-28389824-440-52ce48e33d400"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe style="display: inline;" class="post-likes-widget jetpack-likes-widget" name="like-post-frame-28389824-440-52ce48e33d400" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a.html" width="100%" frameborder="0" height="55px"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div style="display: block;" id="jp-relatedposts" class="jp-relatedposts">
+	<p class="jp-relatedposts-headline"><em>Related</em></p>
+<p class="jp-relatedposts-post jp-relatedposts-post0" data-post-format="false"><strong><a href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?relatedposts_to=332&amp;relatedposts_order=0" title="Multithreading
+
+Recently when reviewing some piece of code, which was going to be used in a multithreaded environment, I came to the conclusion that writing thread-safe code is twice as difficult as regular single-threaded code. Concurrency adds another dimension to programs. A function in a multi-threaded program must be aware that other pieces of code will…" rel="nofollow">Multithreading</a></strong><br><span>In "Computing"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-format="false"><strong><a href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?relatedposts_to=369&amp;relatedposts_order=1" title="Multithreading in scripting languages
+
+Scripting languages and multithreading don't go together. Sure, many scripting languages implement something which looks and works like threads, but in the end these are usually fake threads, which work like a single CPU thread and run on a single CPU core. Fake threads are of course useful, but they cannot leverage the full power…" rel="nofollow">Multithreading in scripting languages</a></strong><br><span>In "Computing"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-format="standard"><strong><a href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?relatedposts_to=52&amp;relatedposts_order=2" title="Language drawbacks
+
+The longer I am in the business of writing code (over 11 years and counting) the more nuisances I see in the set of technologies we use to write software. When you start programming, you learn your programming language for years. Then you learn another language, which has some similarities to the first one, but…" rel="nofollow">Language drawbacks</a></strong><br><span>In "Computing"</span></p></div></div>						<div class="fixed"></div>
+		</div>
+		<div class="under">
+			<span><span class="categories">Categories: </span><a sl-processed="1" href="http://chris.dragan.name/category/computing/" title="View all posts in Computing" rel="category tag">Computing</a></span>
+			<span></span>
+		</div>
+		<div class="fixed"></div>
+	</div>
+
+	
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/comment.js"></script>
+
+
+
+<div id="comments">
+
+<div id="cmtswitcher">
+			<a sl-processed="1" id="commenttab" class="curtab" href="javascript:void(0);" onclick="MGJS.switchTab('thecomments,commentnavi', 'thetrackbacks', 'commenttab', 'curtab', 'trackbacktab', 'tab');">Comments (2)</a>
+		<a sl-processed="1" id="trackbacktab" class="tab" href="javascript:void(0);" onclick="MGJS.switchTab('thetrackbacks', 'thecomments,commentnavi', 'trackbacktab', 'curtab', 'commenttab', 'tab');">Trackbacks (0)</a>
+				<span class="addcomment"><a sl-processed="1" href="#respond">Leave a comment</a></span>
+				<span class="addtrackback"><a sl-processed="1" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/trackback/">Trackback</a></span>
+		<div class="fixed"></div>
+</div>
+
+<div id="commentlist">
+	<!-- comments START -->
+	<ol id="thecomments">
+		<li class="comment even thread-even depth-1 regularcomment highlander-comment" id="comment-591">
+		<div class="author">
+			<div class="pic">
+				<img id="grav-bad5a7c2edeb4bdc2a9667252b561815-0" alt="" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/bad5a7c2edeb4bdc2a9667252b561815.png" class="avatar avatar-32 grav-hashed grav-hijack" width="32" height="32">			</div>
+			<div class="name">
+									<span id="commentauthor-591">Piotr Holonowicz</span>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				29.05.2013 at 00:20					 | <a sl-processed="1" href="#comment-591">#1</a>
+			</div>
+			<div class="act">
+				<a sl-processed="1" class="comment-reply-link" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?replytocom=591#respond" onclick='return addComment.moveForm("comment-591", "591", "respond", "440")'>Reply</a> | 				<a sl-processed="1" href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-591', 'comment-591', 'commentbody-591', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-591">
+					<p>There is also one, much more nasty problem with the semaphores 
+(both binary and counting). It is the priority inversion – a semaphore 
+locked by a low priority process can block the whole OS if the higher 
+priority processes need to wait for unlocking/releasing the semaphore. 
+This condition happens though only for OS that uses fixed priority 
+preemptive scheduling – most RTOS for embedded devices are prone.</p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+<!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 regularcomment highlander-comment" id="comment-657">
+		<div class="author">
+			<div class="pic">
+				<img id="grav-b0fbe82811f9528fdc06e9e7b2956b83-0" alt="" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/b0fbe82811f9528fdc06e9e7b2956b83.png" class="avatar avatar-32 grav-hashed grav-hijack" width="32" height="32">			</div>
+			<div class="name">
+									<span id="commentauthor-657">SOL</span>
+							</div>
+		</div>
+
+		<div class="info">
+			<div class="date">
+				19.08.2013 at 12:10					 | <a sl-processed="1" href="#comment-657">#2</a>
+			</div>
+			<div class="act">
+				<a sl-processed="1" class="comment-reply-link" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/?replytocom=657#respond" onclick='return addComment.moveForm("comment-657", "657", "respond", "440")'>Reply</a> | 				<a sl-processed="1" href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-657', 'comment-657', 'commentbody-657', 'comment');">Quote</a>
+							</div>
+			<div class="fixed"></div>
+			<div class="content">
+				
+				<div id="commentbody-657">
+					<p>Threading it’s an old school idea. Dogma which follows us every 
+day in programming. Better is to avoid using mutex or anything like 
+that. The best do not use threads at all – <a style="" sl-processed="1" href="http://vimeo.com/71278954" rel="nofollow">http://vimeo.com/71278954</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</li>
+<!-- #comment-## -->
+	</ol>
+	<!-- comments END -->
+
+
+	<!-- trackbacks START -->
+			<ol id="thetrackbacks">
+							<li class="messagebox">
+					No trackbacks yet.				</li>
+
+					</ol>
+		<div class="fixed"></div>
+	<!-- trackbacks END -->
+</div>
+
+</div>
+
+
+								<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a sl-processed="1" rel="nofollow" id="cancel-comment-reply-link" href="http://chris.dragan.name/2013/05/28/those-pesky-mutices/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://chris.dragan.name/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input id="highlander_comment_nonce" name="highlander_comment_nonce" value="1b3413a16f" type="hidden"><input name="_wp_http_referer" value="/2013/05/28/those-pesky-mutices/" type="hidden">
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea aria-hidden="true" tabindex="-1" style="height: 36px; resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; width: 583px; line-height: 16px; text-decoration: none; letter-spacing: 0px;" placeholder="Enter your comment here..." title="Enter your comment here..."></textarea><textarea style="height: 36px; resize: none; overflow-y: hidden;" placeholder="Enter your comment here..." id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a sl-processed="1" href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a_002.html" allowtransparency="true" seamless="seamless" width="24" frameborder="0" height="24" scrolling="no"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a sl-processed="1" href="https://gravatar.com/site/signup/" target="_blank">				<img src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Google+ photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" type="hidden">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'googleplus'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a sl-processed="1" href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div style="display: none;" id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p style="display: none;" class="form-submit">
+							<input name="submit" id="comment-submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="440" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						
+<input name="genseq" value="1389250787" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="482f412b54" type="hidden"></p><script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/form.js"></script>
+<p style="display: none;"><input id="ak_js" name="ak_js" value="1389250846202" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+	
+
+	<div id="postnavi">
+		<span class="prev"><a sl-processed="1" href="http://chris.dragan.name/2013/06/09/bad-ui/" rel="next">Bad&nbsp;UI</a></span>
+		<span class="next"><a sl-processed="1" href="http://chris.dragan.name/2013/05/19/unenforceable-law/" rel="prev">Unenforceable&nbsp;law</a></span>
+		<div class="fixed"></div>
+	</div>
+
+
+	</div>
+	<!-- main END -->
+
+	
+<!-- sidebar START -->
+<div id="sidebar">
+
+<!-- sidebar north START -->
+<div id="northsidebar" class="sidebar">
+
+	<!-- feeds -->
+	<div class="widget widget_feeds">
+		<div class="content">
+			<div id="subscribe-feeds"><a sl-processed="1" rel="external nofollow" id="feedrss" title="Subscribe to this blog..." href="http://chris.dragan.name/feed/"><abbr title="Really Simple Syndication">RSS</abbr> feed</a><ul style="visibility: hidden; display: block;" id="feed_readers"><li id="google_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with Google" href="http://fusion.google.com/add?feedurl=http://chris.dragan.name/feed/"><span>Google</span></a></li><li id="youdao_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with Youdao" href="http://reader.youdao.com/#url=http://chris.dragan.name/feed/"><span>Youdao</span></a></li><li id="xianguo_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with Xian Guo" href="http://www.xianguo.com/subscribe.php?url=http://chris.dragan.name/feed/"><span>Xian Guo</span></a></li><li id="zhuaxia_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with Zhua Xia" href="http://www.zhuaxia.com/add_channel.php?url=http://chris.dragan.name/feed/"><span>Zhua Xia</span></a></li><li id="yahoo_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with My Yahoo!" href="http://add.my.yahoo.com/rss?url=http://chris.dragan.name/feed/"><span>My Yahoo!</span></a></li><li id="newsgator_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with newsgator" href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://chris.dragan.name/feed/"><span>newsgator</span></a></li><li id="bloglines_reader"><a sl-processed="1" rel="external nofollow" class="reader" title="Subscribe with Bloglines" href="http://www.bloglines.com/sub/http://chris.dragan.name/feed/"><span>Bloglines</span></a></li><li id="inezha_reader"><a sl-processed="1" rel="external nofollow" class="reader last" title="Subscribe with iNezha" href="http://inezha.com/add?url=http://chris.dragan.name/feed/"><span>iNezha</span></a></li></ul></div>
+
+			<!-- twitter -->
+			
+			<div class="fixed"></div>
+		</div>
+	</div>
+
+	<!-- showcase -->
+	
+<div id="blog_subscription-3" class="widget widget_blog_subscription"><h3><label for="subscribe-field">Follow via Email</label></h3>
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="subscribe-blog">
+									<p>Enter your email address to follow this blog and receive notifications of new posts by email.</p>
+					<p><input name="email" style="width: 95%; padding: 1px 2px" id="subscribe-field" type="text"></p>
+				
+				<p>
+					<input name="action" value="subscribe" type="hidden">
+					<input name="blog_id" value="28389824" type="hidden">
+					<input name="source" value="http://chris.dragan.name/2013/05/28/those-pesky-mutices/" type="hidden">
+					<input name="sub-type" value="widget" type="hidden">
+					<input name="redirect_fragment" value="blog_subscription-3" type="hidden">
+					<input id="_wpnonce" name="_wpnonce" value="8aab48b77d" type="hidden">					<input value="Follow" type="submit">
+				</p>
+			</form>
+			
+</div><div id="facebook-likebox-3" class="widget widget_facebook_likebox"><iframe src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/likebox.xhtml" style="border: none; overflow: hidden; width: 250px;  height: 110px; background: #fff" frameborder="0" scrolling="no"></iframe></div><div id="categories-2" class="widget widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-262"><a sl-processed="1" href="http://chris.dragan.name/category/computing/" title="View all posts filed under Computing">Computing</a>
+</li>
+	<li class="cat-item cat-item-37144"><a sl-processed="1" href="http://chris.dragan.name/category/haskell/" title="View all posts filed under Haskell">Haskell</a>
+</li>
+	<li class="cat-item cat-item-3323"><a sl-processed="1" href="http://chris.dragan.name/category/movie-reviews/" title="View all posts filed under Movie Reviews">Movie Reviews</a>
+</li>
+	<li class="cat-item cat-item-1035"><a sl-processed="1" href="http://chris.dragan.name/category/other/" title="View all posts filed under Other">Other</a>
+</li>
+	<li class="cat-item cat-item-8145"><a sl-processed="1" href="http://chris.dragan.name/category/universe/" title="View all posts filed under Universe">Universe</a>
+</li>
+		</ul>
+</div><div id="pages-3" class="widget widget_pages"><h3>Site Map</h3>		<ul>
+			<li class="page_item page-item-115 page_item_has_children"><a sl-processed="1" href="http://chris.dragan.name/old-projects/">Old&nbsp;Projects</a>
+<ul class="children">
+	<li class="page_item page-item-83"><a sl-processed="1" href="http://chris.dragan.name/old-projects/x86-assembly/">x86&nbsp;Assembly</a></li>
+	<li class="page_item page-item-112"><a sl-processed="1" href="http://chris.dragan.name/old-projects/panorama/">Panorama</a></li>
+	<li class="page_item page-item-145"><a sl-processed="1" href="http://chris.dragan.name/old-projects/blue-logic-demos/">Blue Logic&nbsp;Demos</a></li>
+	<li class="page_item page-item-164"><a sl-processed="1" href="http://chris.dragan.name/old-projects/ancient-ball/">Ancient&nbsp;Ball</a></li>
+	<li class="page_item page-item-204"><a sl-processed="1" href="http://chris.dragan.name/old-projects/betelgeuse/">Betelgeuse</a></li>
+	<li class="page_item page-item-193"><a sl-processed="1" href="http://chris.dragan.name/old-projects/pixel-shader-converter/">Pixel Shader&nbsp;Converter</a></li>
+	<li class="page_item page-item-195"><a sl-processed="1" href="http://chris.dragan.name/old-projects/winapi-wrapper/">WinAPI&nbsp;Wrapper</a></li>
+</ul>
+</li>
+<li class="page_item page-item-2"><a sl-processed="1" href="http://chris.dragan.name/about/">About</a></li>
+		</ul>
+		</div><div id="archives-2" class="widget widget_archive"><h3>Archives</h3>		<ul>
+			<li><a sl-processed="1" href="http://chris.dragan.name/2013/10/">October 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/09/">September 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/07/">July 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/06/">June 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/05/">May 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/04/">April 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/03/">March 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/02/">February 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2013/01/">January 2013</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/12/">December 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/11/">November 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/10/">October 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/09/">September 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/08/">August 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/06/">June 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/05/">May 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/04/">April 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/03/">March 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/02/">February 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2012/01/">January 2012</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2011/12/">December 2011</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2011/11/">November 2011</a></li>
+	<li><a sl-processed="1" href="http://chris.dragan.name/2011/10/">October 2011</a></li>
+		</ul>
+</div><div id="meta-2" class="widget widget_meta"><h3>Meta</h3>			<ul>
+			<li><a sl-processed="1" href="http://wordpress.com/signup/?ref=wplogin">Register</a></li>			<li><a sl-processed="1" href="http://mezzoteric.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a sl-processed="1" href="http://chris.dragan.name/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a sl-processed="1" href="http://chris.dragan.name/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a sl-processed="1" href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.</li>						</ul>
+</div>	</div>
+</div>
+<!-- sidebar END -->
+	<div class="fixed"></div>
+</div>
+<!-- content END -->
+
+<!-- footer START -->
+<div id="footer">
+	<a sl-processed="1" id="gotop" href="#" onclick="MGJS.goTop();return false;">Top</a>
+	<div id="themeinfo">
+		<a sl-processed="1" href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>. <a sl-processed="1" href="http://theme.wordpress.com/themes/inove/" title="Learn more about this theme">The INove Theme</a>. 	</div>
+</div>
+<!-- footer END -->
+
+</div>
+<!-- container END -->
+</div>
+<!-- wrap END -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":"language.en,type.wpcom,posttag.multithreading,posttag.mutex,posttag.semaphore,as"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=language.en%2Ctype.wpcom%2Cposttag.multithreading%2Cposttag.mutex%2Cposttag.semaphore%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-bad5a7c2edeb4bdc2a9667252b561815">
+	</div>
+	<div class="grofile-hash-map-b0fbe82811f9528fdc06e9e7b2956b83">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/mezzoteric.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/mezzoteric.wordpress.com\/wp-login.php?action=logout&_wpnonce=8d18c3f655","homeURL":"http:\/\/chris.dragan.name\/","postID":"440","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a.js"></script>
+
+	<div style="bottom: -269px;" id="bit" class="loggedout-follow-normal">
+		<a sl-processed="1" class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Chris Dragan's Corner”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 92 other followers</p>
+			<p><input name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;' id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="28389824" type="hidden">
+			<input name="source" value="http://chris.dragan.name/2013/05/28/those-pesky-mutices/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="8aab48b77d" type="hidden"><input name="_wp_http_referer" value="/2013/05/28/those-pesky-mutices/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a sl-processed="1" href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "mezzoteric.wordpress.com";
+	</script>
+	<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/725X1342.js"></script>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/chris.dragan.name\/2013\/05\/28\/those-pesky-mutices\/":440}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/master.html" id="likes-master" name="likes-master" style="display:none;" scrolling="no"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/a_003.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'28389824','v':'wpcom','tz':'-8','user_id':'0','post':'440','subd':'mezzoteric'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWtpP0NsWnVkPS9sL0ViLndld3AsdkJ1cXFURjg1cGtGSHViTHptdXMsP3N1LFZDckQrSkR+LVNCTyYrazIlL1lYd1FFYUkrdXZDc1Y0MkN+N1N3bjg3QVo2SFRiZG5zPWMxSy1YRXQsNnBbNXxkOCtTcWZzRFY1UUdkTGVUZU9VLStVP3J1OEk1TXwzZWdKJlQ0TWFwPXVwNUVLfjM9b2VVaVIrbF9qViV5NTZvX3I/dGJ1XyZLUVF1UCsvUGFFT05SVitadCZNaixNUCs/bk89K2p8Rzk5bTAuRndbdGQyQittXWs9XVRzTTh0Mi1heGFvZl1NNVN0NkY2JW5mUC01REljYWh+Z2Y2VFMldl8zYkw1Ml9jL0ZuRyZvbj0='});
+addLoadEvent(function(){linktracker_init('28389824',440);});
+	</script><img id="wpstats" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/g_002.gif" alt=""><img id="wpstats2" src="Mutex%20vs.%20binary%20semaphore%20%7C%20Chris%20Dragan%27s%20Corner_files/g.gif" alt="" style="display:none">
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_9843350102968"></iframe></body></html>

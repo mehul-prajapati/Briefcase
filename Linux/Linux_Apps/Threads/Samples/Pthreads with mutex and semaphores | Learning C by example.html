@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/fql" async=""></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Pthreads with mutex and semaphores | Learning C by example</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://jlmedina123.wordpress.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://s2.wp.com/wp-content/themes/pub/silesia/js/html5.js?m=1356036837g" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Learning C by example » Feed" href="http://jlmedina123.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Learning C by example » Comments Feed" href="http://jlmedina123.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Learning C by example » Pthreads with mutex and&nbsp;semaphores Comments Feed" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/feed/">
+<script type="text/javascript" async="" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/quant.js"></script><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/wl" async="" type="text/javascript"></script><script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<style type="text/css">
+	/*body div.jp-relatedposts { border-color:#77b0c3; }
+	body div.jp-relatedposts .jp-relatedposts-headline em { background:#ffffff }
+	body div.jp-relatedposts, body div.jp-relatedposts .jp-relatedposts-post a { color:#404040 }*/
+	body div.jp-relatedposts .jp-relatedposts-headline em:before { border-color:#404040; }
+</style><link rel="stylesheet" id="all-css-0" href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a.css" type="text/css" media="all">
+<style type="text/css">
+
+			#tertiary:after {
+				border-color: transparent #527f8d;
+			}
+		
+</style>
+<link rel="stylesheet" id="print-css-0" href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/global-print.css" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a_003.js"></script>
+<link rel="stylesheet" id="all-css-0" href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://jlmedina123.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://jlmedina123.wordpress.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Ordered single linked&nbsp;list" href="http://jlmedina123.wordpress.com/2013/04/20/ordered-single-linked-list/">
+<link rel="next" title="Count number of bits set to 1 in&nbsp;variable" href="http://jlmedina123.wordpress.com/2013/05/09/count-number-of-bits-set-to-1-in-variable/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/">
+<link rel="shortlink" href="http://wp.me/p3njUg-2r">
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fjlmedina123.wordpress.com%2F2013%2F05%2F03%2Fpthreads-with-mutex-and-semaphores%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fjlmedina123.wordpress.com%2F2013%2F05%2F03%2Fpthreads-with-mutex-and-semaphores%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pthreads with mutex and semaphores">
+<meta property="og:url" content="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/">
+<meta property="og:description" content="I wrote a simple program that uses pthreads, mutex, and semaphores. The program creates a linked list, and creates 5 threads that each insert one number in the list. To protect the list, the progra...">
+<meta property="og:site_name" content="Learning C by example">
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1355642671g">
+<link rel="openid.server" href="http://jlmedina123.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://jlmedina123.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://jlmedina123.wordpress.com/osd.xml" title="Learning C by example">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+<meta name="application-name" content="Learning C by example"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="C programs that I have found useful during my studies"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://jlmedina123.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="Pthreads with mutex and&nbsp;semaphores | Learning C by example on WordPress.com">
+<meta name="description" content="I wrote a simple program that uses pthreads, mutex, and semaphores. The program creates a linked list, and creates 5 threads that each insert one number in the list. To protect the list, the program uses a mutex. The program also creates 5 threads that remove one number from the list each. These 5 threads…">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #527f8d; }
+</style>
+
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/google_ads.js"></script>
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script><script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/bid"></script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 49887076, pt: 'permalink', wa: 0, as: 0, domain: 'jlmedina123.wordpress.com', url: 'http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/', gid: '', };
+</script>
+<link href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/shCore.css" type="text/css" rel="stylesheet"><link href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/shThemeDefault.css" type="text/css" rel="stylesheet"><style id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/ga.js" async="" type="text/javascript"></script>
+<script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/osd.js" type="text/javascript"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/services.css"><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a_003.html" async="" type="text/javascript"></script></head>
+
+<body class="single single-post postid-151 single-format-standard custom-background mp6 highlander-enabled highlander-light">
+<div id="page" class="hfeed site">
+		<div id="tertiary" class="widget-area" role="complementary">
+
+	<aside id="pages-0" class="widget widget_pages"><h1 class="widget-title">Pages</h1>		<ul>
+			<li class="page_item page-item-12"><a sl-processed="1" href="http://jlmedina123.wordpress.com/resume/">My&nbsp;Resume</a></li>
+<li class="page_item page-item-72"><a sl-processed="1" href="http://jlmedina123.wordpress.com/welcome/">Welcome</a></li>
+		</ul>
+		</aside>	<a sl-processed="1" id="tertiary-control" class="tertiary-control" href="#" title="Open sidebar">+</a>
+</div><!-- #secondary .widget-area -->
+
+	<div id="wrapper" class="site-wrapper">
+		<header id="masthead" class="site-header" role="banner">
+			<hgroup>
+				<h1 class="site-title"><a sl-processed="1" href="http://jlmedina123.wordpress.com/" title="Learning C by example" rel="home">Learning C by example</a></h1>
+				<h2 class="site-description">C programs that I have found useful during my studies</h2>
+			</hgroup>
+
+			
+			<nav role="navigation" class="site-navigation main-navigation clearfix">
+				<h1 class="assistive-text">Menu</h1>
+				<div class="assistive-text skip-link"><a sl-processed="1" href="#content" title="Skip to content">Skip to content</a></div>
+
+				<div class="menu-top-menu-container"><ul id="menu-top-menu" class="menu"><li id="menu-item-77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77"><a sl-processed="1" href="http://jlmedina123.wordpress.com/welcome/">Welcome</a></li>
+<li id="menu-item-70" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-70"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/data-structures-in-c/">Data Structures in C</a></li>
+<li id="menu-item-91" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-91"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/c-language/">C language</a></li>
+<li id="menu-item-92" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-92"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/algorithms-in-c/">Algorithms in C</a></li>
+<li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16"><a sl-processed="1" href="http://jlmedina123.wordpress.com/resume/">My Resume</a></li>
+</ul></div>			</nav><!-- .site-navigation .main-navigation -->
+
+			
+		</header><!-- #masthead .site-header -->
+
+		<div id="main" class="site-main clearfix">
+
+<div id="primary" class="content-area">
+	<div id="content" class="site-content" role="main">
+
+	
+<article id="post-151" class="post-151 post type-post status-publish format-standard hentry category-multithreading tag-multithreading-2 tag-mutex tag-pthreads tag-semaphore clearfix">
+	<footer class="entry-meta">
+								<span class="entry-format genericon"></span>
+			
+			<span class="entry-date">Posted on <a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/" title="7:22 pm" rel="bookmark"><time class="entry-date" datetime="2013-05-03T19:22:29+00:00" pubdate="">May 3, 2013</time></a><span class="byline"> by <span class="author vcard"><a sl-processed="1" class="url fn n" href="http://jlmedina123.wordpress.com/author/jlmedina123/" title="View all posts by J Luis Medina" rel="author">J Luis Medina</a></span></span></span>
+
+						<span class="tags-links">
+				Tagged <a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/multithreading-2/" rel="tag">multithreading</a><a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/mutex/" rel="tag">mutex</a><a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/pthreads/" rel="tag">pthreads</a><a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/semaphore/" rel="tag">semaphore</a>			</span>
+					
+				<span class="comments-link">Comments<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/#comments" title="Comment on Pthreads with mutex and&nbsp;semaphores">1 Comment</a></span>
+		
+			</footer><!-- .entry-meta -->
+
+	<header class="entry-header">
+		<h1 class="entry-title"><a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/" title="Permalink to Pthreads with mutex and&nbsp;semaphores" rel="bookmark">Pthreads with mutex and&nbsp;semaphores</a></h1>	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<p>I wrote a simple program that uses pthreads, mutex, and semaphores.
+ The program creates a linked list, and creates 5 threads that each 
+insert one number in the list. To protect the list, the program uses a 
+mutex. The program also creates 5 threads that remove one number from 
+the list each. These 5 threads start after the previous 5 threads have 
+completed inserting numbers into list. To synchronize the threads, two 
+semaphores are used. Another way to synchronize threads is by using 
+conditional variables. I will write another program that uses that.<br>
+Mutexes are very useful to protect data (critical section) from race 
+conditions. Semaphores are usually used to synchronize threads more than
+ to protect critical section. The reason for that is that semaphores do 
+not have any ownership. A mutex can be released only by the thread that 
+acquired it (a thread gets ownership of a mutex when waking from a mutex
+ wait). However for semaphores any thread (or main) can initialize them 
+to locked (0), and any thread can wait on them (blocks on 0 and 
+decrements its value after) or post to them (increments its value).</p>
+<div><div id="highlighter_251199" class="syntaxhighlighter  cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div><div class="line number69 index68 alt2">69</div><div class="line number70 index69 alt1">70</div><div class="line number71 index70 alt2">71</div><div class="line number72 index71 alt1">72</div><div class="line number73 index72 alt2">73</div><div class="line number74 index73 alt1">74</div><div class="line number75 index74 alt2">75</div><div class="line number76 index75 alt1">76</div><div class="line number77 index76 alt2">77</div><div class="line number78 index77 alt1">78</div><div class="line number79 index78 alt2">79</div><div class="line number80 index79 alt1">80</div><div class="line number81 index80 alt2">81</div><div class="line number82 index81 alt1">82</div><div class="line number83 index82 alt2">83</div><div class="line number84 index83 alt1">84</div><div class="line number85 index84 alt2">85</div><div class="line number86 index85 alt1">86</div><div class="line number87 index86 alt2">87</div><div class="line number88 index87 alt1">88</div><div class="line number89 index88 alt2">89</div><div class="line number90 index89 alt1">90</div><div class="line number91 index90 alt2">91</div><div class="line number92 index91 alt1">92</div><div class="line number93 index92 alt2">93</div><div class="line number94 index93 alt1">94</div><div class="line number95 index94 alt2">95</div><div class="line number96 index95 alt1">96</div><div class="line number97 index96 alt2">97</div><div class="line number98 index97 alt1">98</div><div class="line number99 index98 alt2">99</div><div class="line number100 index99 alt1">100</div><div class="line number101 index100 alt2">101</div><div class="line number102 index101 alt1">102</div><div class="line number103 index102 alt2">103</div><div class="line number104 index103 alt1">104</div><div class="line number105 index104 alt2">105</div><div class="line number106 index105 alt1">106</div><div class="line number107 index106 alt2">107</div><div class="line number108 index107 alt1">108</div><div class="line number109 index108 alt2">109</div><div class="line number110 index109 alt1">110</div><div class="line number111 index110 alt2">111</div><div class="line number112 index111 alt1">112</div><div class="line number113 index112 alt2">113</div><div class="line number114 index113 alt1">114</div><div class="line number115 index114 alt2">115</div><div class="line number116 index115 alt1">116</div><div class="line number117 index116 alt2">117</div><div class="line number118 index117 alt1">118</div><div class="line number119 index118 alt2">119</div><div class="line number120 index119 alt1">120</div><div class="line number121 index120 alt2">121</div><div class="line number122 index121 alt1">122</div><div class="line number123 index122 alt2">123</div><div class="line number124 index123 alt1">124</div><div class="line number125 index124 alt2">125</div><div class="line number126 index125 alt1">126</div><div class="line number127 index126 alt2">127</div><div class="line number128 index127 alt1">128</div><div class="line number129 index128 alt2">129</div><div class="line number130 index129 alt1">130</div><div class="line number131 index130 alt2">131</div><div class="line number132 index131 alt1">132</div><div class="line number133 index132 alt2">133</div><div class="line number134 index133 alt1">134</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp preprocessor">#include &lt;stdio.h&gt;</code></div><div class="line number2 index1 alt1"><code class="cpp preprocessor">#include &lt;stdlib.h&gt;</code></div><div class="line number3 index2 alt2"><code class="cpp preprocessor">#include &lt;pthread.h&gt;</code></div><div class="line number4 index3 alt1"><code class="cpp preprocessor">#include &lt;semaphore.h&gt;</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="cpp preprocessor">#include "linkedlist.h"</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="cpp comments">/* prototypes for functions executed by threads */</code></div><div class="line number9 index8 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">fill_list(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">*);</code></div><div class="line number10 index9 alt1"><code class="cpp keyword bold">void</code> <code class="cpp plain">empty_list(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">*);</code></div><div class="line number11 index10 alt2"><code class="cpp keyword bold">void</code> <code class="cpp plain">show_list();</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="cpp comments">/* list */</code></div><div class="line number14 index13 alt1"><code class="cpp plain">NODE * headptr;</code></div><div class="line number15 index14 alt2"><code class="cpp plain">NODE head;</code></div><div class="line number16 index15 alt1">&nbsp;</div><div class="line number17 index16 alt2"><code class="cpp comments">/* mutex to protect access to list */</code></div><div class="line number18 index17 alt1"><code class="cpp plain">pthread_mutex_t list_mutex;</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1"><code class="cpp comments">/* semaphores for synchronizing fill_list and empty_list threads */</code></div><div class="line number21 index20 alt2"><code class="cpp plain">unsigned </code><code class="cpp color1 bold">int</code> <code class="cpp plain">threads_fill_done; </code><code class="cpp comments">/* count threads done filling list */</code></div><div class="line number22 index21 alt1"><code class="cpp plain">sem_t done_filling_list;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* barrier to sync fill_list threads and empty_list threads */</code></div><div class="line number23 index22 alt2"><code class="cpp plain">sem_t filling_list;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* to protect threads_fill_done */</code></div><div class="line number24 index23 alt1">&nbsp;</div><div class="line number25 index24 alt2">&nbsp;</div><div class="line number26 index25 alt1"><code class="cpp color1 bold">int</code> <code class="cpp plain">main()</code></div><div class="line number27 index26 alt2"><code class="cpp plain">{</code></div><div class="line number28 index27 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i;</code></div><div class="line number29 index28 alt2">&nbsp;</div><div class="line number30 index29 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* initialize list */</code></div><div class="line number31 index30 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">headptr = &amp;head;</code></div><div class="line number32 index31 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">headptr-&gt;next = NULL;</code></div><div class="line number33 index32 alt2">&nbsp;</div><div class="line number34 index33 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* initialize mutex */</code></div><div class="line number35 index34 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_init(&amp;list_mutex, NULL);</code></div><div class="line number36 index35 alt1">&nbsp;</div><div class="line number37 index36 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* initialize semaphores */</code></div><div class="line number38 index37 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">res = sem_init(&amp;done_filling_list,&nbsp; </code><code class="cpp comments">/* pointer to semaphore */</code></div><div class="line number39 index38 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">0 ,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* 0 if shared between threads, 1 if shared between processes */</code></div><div class="line number40 index39 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">0);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* initial value for semaphore (0 is locked) */</code></div><div class="line number41 index40 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(res &lt; 0)</code></div><div class="line number42 index41 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number43 index42 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">perror</code><code class="cpp plain">(</code><code class="cpp string">"Semaphore initialization failed"</code><code class="cpp plain">);</code></div><div class="line number44 index43 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">exit</code><code class="cpp plain">(0);</code></div><div class="line number45 index44 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number46 index45 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(sem_init(&amp;filling_list, 0, 1)) </code><code class="cpp comments">/* initially unlocked */</code></div><div class="line number47 index46 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number48 index47 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">perror</code><code class="cpp plain">(</code><code class="cpp string">"Semaphore initialization failed"</code><code class="cpp plain">);</code></div><div class="line number49 index48 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">exit</code><code class="cpp plain">(0);</code></div><div class="line number50 index49 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number51 index50 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">threads_fill_done = 0;</code></div><div class="line number52 index51 alt1">&nbsp;</div><div class="line number53 index52 alt2">&nbsp;</div><div class="line number54 index53 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_t threads[11]; </code><code class="cpp comments">/* used by pthread_create to return thread id */</code></div><div class="line number55 index54 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">param[5] = {0, 1, 2, 3, 4}; </code><code class="cpp comments">/* array used to pass parameter to thread functions */</code></div><div class="line number56 index55 alt1">&nbsp;</div><div class="line number57 index56 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(i = 0; i &lt; 5; i++)</code></div><div class="line number58 index57 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number59 index58 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* creating 5 threads. Each thread enters one number (0-4) in the list */</code></div><div class="line number60 index59 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_create(&amp;threads[i],&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* pointer to buffer used by pthread_create to return thread id */</code></div><div class="line number61 index60 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">NULL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* pointer to thread attribute object */</code></div><div class="line number62 index61 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">(</code><code class="cpp keyword bold">void</code> <code class="cpp plain">*)fill_list,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* pointer to function to execute */</code></div><div class="line number63 index62 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">(</code><code class="cpp keyword bold">void</code> <code class="cpp plain">*) &amp;param[i]);&nbsp;&nbsp;&nbsp; </code><code class="cpp comments">/* pointer to parameter to pass to function */</code></div><div class="line number64 index63 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number65 index64 alt2">&nbsp;</div><div class="line number66 index65 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(i = 5; i &lt; 10; i++)</code></div><div class="line number67 index66 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number68 index67 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* creating 5 threads. Each thread removes one number (0-4) from the list */</code></div><div class="line number69 index68 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_create(&amp;threads[i],</code></div><div class="line number70 index69 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">NULL,</code></div><div class="line number71 index70 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">(</code><code class="cpp keyword bold">void</code> <code class="cpp plain">*)empty_list,</code></div><div class="line number72 index71 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">(</code><code class="cpp keyword bold">void</code> <code class="cpp plain">*) &amp;param[i-5]);</code></div><div class="line number73 index72 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number74 index73 alt1">&nbsp;</div><div class="line number75 index74 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(i = 0; i &lt; 10; i++)</code></div><div class="line number76 index75 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_join(threads[i], NULL);</code></div><div class="line number77 index76 alt2">&nbsp;</div><div class="line number78 index77 alt1">&nbsp;</div><div class="line number79 index78 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_destroy(&amp;list_mutex);</code></div><div class="line number80 index79 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">sem_destroy(&amp;filling_list);</code></div><div class="line number81 index80 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">sem_destroy(&amp;done_filling_list);</code></div><div class="line number82 index81 alt1">&nbsp;</div><div class="line number83 index82 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"All threads completed. List:\n"</code><code class="cpp plain">);</code></div><div class="line number84 index83 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">Traverse(headptr);</code></div><div class="line number85 index84 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">return</code> <code class="cpp plain">0;</code></div><div class="line number86 index85 alt1"><code class="cpp plain">}</code></div><div class="line number87 index86 alt2">&nbsp;</div><div class="line number88 index87 alt1"><code class="cpp keyword bold">void</code> <code class="cpp plain">fill_list(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">*value)</code></div><div class="line number89 index88 alt2"><code class="cpp plain">{</code></div><div class="line number90 index89 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp color1 bold">int</code> <code class="cpp plain">i;</code></div><div class="line number91 index90 alt2">&nbsp;</div><div class="line number92 index91 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* using mutex before entering critical section */</code></div><div class="line number93 index92 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_lock(&amp;list_mutex);</code></div><div class="line number94 index93 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Thread is inserting number %d in list\n"</code><code class="cpp plain">, *value);</code></div><div class="line number95 index94 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">InsertOrdered(headptr,*value);</code><code class="cpp comments">// i); /* critical section */</code></div><div class="line number96 index95 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_unlock(&amp;list_mutex);</code></div><div class="line number97 index96 alt2">&nbsp;</div><div class="line number98 index97 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* entering critical section with semaphore (could use mutex too) */</code></div><div class="line number99 index98 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">sem_wait(&amp;filling_list); </code><code class="cpp comments">// blocks is semaphore 0. If semaphore nonzero,</code></div><div class="line number100 index99 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">// it decrements semaphore and proceeds</code></div><div class="line number101 index100 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">if</code> <code class="cpp plain">(threads_fill_done == 4)</code></div><div class="line number102 index101 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number103 index102 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Done filling list. Lifting barrier for 5 empty_list threads.\n"</code><code class="cpp plain">);</code></div><div class="line number104 index103 alt1"><code class="cpp spaces">&nbsp;</code><code class="cpp keyword bold">for</code> <code class="cpp plain">(i = 0; i &lt; 5; i++)</code></div><div class="line number105 index104 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">sem_post(&amp;done_filling_list); </code><code class="cpp comments">// sem_post increments semaphore. Incrementing it to 5</code></div><div class="line number106 index105 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number107 index106 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp keyword bold">else</code></div><div class="line number108 index107 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">{</code></div><div class="line number109 index108 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">threads_fill_done++;</code></div><div class="line number110 index109 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">sem_post(&amp;filling_list);</code></div><div class="line number111 index110 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">}</code></div><div class="line number112 index111 alt1"><code class="cpp plain">}</code></div><div class="line number113 index112 alt2">&nbsp;</div><div class="line number114 index113 alt1"><code class="cpp keyword bold">void</code> <code class="cpp plain">empty_list(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">*value)</code></div><div class="line number115 index114 alt2"><code class="cpp plain">{</code></div><div class="line number116 index115 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* waiting for list to be filled up */</code></div><div class="line number117 index116 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Thread is waiting for semaphore to be released to remove %d from list.\n"</code><code class="cpp plain">, *value);</code></div><div class="line number118 index117 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">sem_wait(&amp;done_filling_list);</code></div><div class="line number119 index118 alt2">&nbsp;</div><div class="line number120 index119 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp comments">/* list filled. Removing elements */</code></div><div class="line number121 index120 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_lock(&amp;list_mutex);</code></div><div class="line number122 index121 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Thread is removing number %d from list\n"</code><code class="cpp plain">, *value);</code></div><div class="line number123 index122 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">Delete(headptr,*value);</code></div><div class="line number124 index123 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_unlock(&amp;list_mutex);</code></div><div class="line number125 index124 alt2"><code class="cpp plain">}</code></div><div class="line number126 index125 alt1">&nbsp;</div><div class="line number127 index126 alt2">&nbsp;</div><div class="line number128 index127 alt1"><code class="cpp keyword bold">void</code> <code class="cpp plain">show_list(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">*thread_num)</code></div><div class="line number129 index128 alt2"><code class="cpp plain">{</code></div><div class="line number130 index129 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_lock(&amp;list_mutex);</code></div><div class="line number131 index130 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">"Current list from thread %i:\n"</code><code class="cpp plain">, *thread_num);</code></div><div class="line number132 index131 alt1"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">Traverse(headptr);</code></div><div class="line number133 index132 alt2"><code class="cpp spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="cpp plain">pthread_mutex_unlock(&amp;list_mutex);</code></div><div class="line number134 index133 alt1"><code class="cpp plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>The result is this:</p>
+<div><div id="highlighter_542360" class="syntaxhighlighter  cpp"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="cpp plain">home&gt; cc -pthread threading.c</code></div><div class="line number2 index1 alt1"><code class="cpp plain">home&gt; ./a.out</code></div><div class="line number3 index2 alt2"><code class="cpp plain">Thread is inserting number 0 in list</code></div><div class="line number4 index3 alt1"><code class="cpp plain">Thread is inserting number 1 in list</code></div><div class="line number5 index4 alt2"><code class="cpp plain">Thread is inserting number 2 in list</code></div><div class="line number6 index5 alt1"><code class="cpp plain">Thread is inserting number 3 in list</code></div><div class="line number7 index6 alt2"><code class="cpp plain">Thread is inserting number 4 in list</code></div><div class="line number8 index7 alt1"><code class="cpp plain">Done filling list. Lifting barrier </code><code class="cpp keyword bold">for</code> <code class="cpp plain">5 empty_list threads.</code></div><div class="line number9 index8 alt2"><code class="cpp plain">Thread is waiting </code><code class="cpp keyword bold">for</code> <code class="cpp plain">semaphore to be released to </code><code class="cpp functions bold">remove</code> <code class="cpp plain">0 from list.</code></div><div class="line number10 index9 alt1"><code class="cpp plain">Thread is removing number 0 from list</code></div><div class="line number11 index10 alt2"><code class="cpp plain">Thread is waiting </code><code class="cpp keyword bold">for</code> <code class="cpp plain">semaphore to be released to </code><code class="cpp functions bold">remove</code> <code class="cpp plain">2 from list.</code></div><div class="line number12 index11 alt1"><code class="cpp plain">Thread is removing number 2 from list</code></div><div class="line number13 index12 alt2"><code class="cpp plain">Thread is waiting </code><code class="cpp keyword bold">for</code> <code class="cpp plain">semaphore to be released to </code><code class="cpp functions bold">remove</code> <code class="cpp plain">3 from list.</code></div><div class="line number14 index13 alt1"><code class="cpp plain">Thread is removing number 3 from list</code></div><div class="line number15 index14 alt2"><code class="cpp plain">Thread is waiting </code><code class="cpp keyword bold">for</code> <code class="cpp plain">semaphore to be released to </code><code class="cpp functions bold">remove</code> <code class="cpp plain">4 from list.</code></div><div class="line number16 index15 alt1"><code class="cpp plain">Thread is waiting </code><code class="cpp keyword bold">for</code> <code class="cpp plain">semaphore to be released to </code><code class="cpp functions bold">remove</code> <code class="cpp plain">1 from list.</code></div><div class="line number17 index16 alt2"><code class="cpp plain">Thread is removing number 1 from list</code></div><div class="line number18 index17 alt1"><code class="cpp plain">Thread is removing number 4 from list</code></div><div class="line number19 index18 alt2"><code class="cpp plain">All threads completed. List:</code></div></div></td></tr></tbody></table></div></div>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a sl-processed="1" style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Silesia";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "jlmedina123.wordpress.com");
+GA_googleAddAttr("BlogId", "49887076");
+GA_googleAddAttr("PageURL", "http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/");
+GA_googleAddAttr("Autotag", "books");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "multithreading");
+GA_googleAddAttr("Tag", "multithreading-2");
+GA_googleAddAttr("Tag", "mutex");
+GA_googleAddAttr("Tag", "pthreads");
+GA_googleAddAttr("Tag", "semaphore");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_text", "404040");
+GA_googleAddAttr("theme_link", "2786c2");
+GA_googleAddAttr("theme_border", "77b0c3");
+GA_googleAddAttr("theme_url", "2786c2");
+GA_googleAddAdSensePageAttr("google_page_url", "http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/ads"></script><div id="google_ads_div_wpcom_below_post_ad_wrapper">
+<div id="google_ads_div_wpcom_below_post_ad_container" style="display:inline-block;"><div style="display: block; height: 250px; width: 100%; opacity: 1;" id="grv-personalization-16"><iframe style="width: 100%; height: 250px; opacity: 1; overflow: hidden;" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/w2.html" frameborder="0" scrolling="no"></iframe></div>
+<script type="text/javascript">
+  //<![CDATA[
+ function _grc(k){return(document.cookie.match('(^|; )'+k+'=([^;]*)')||0)[2]}
+    (function(){
+    window.gravityInsightsParams = {
+      'type': 'content',
+      'site_guid': '361837bc83c4c2cba7b350dff56a564f',
+      'user_guid': _grc('grvinsights'),
+      'sourceUrl': 'jlmedina123.wordpress.com',
+    };
+    var b,c,d,e,f,g,h,i;f=(b=!0===gravityInsightsParams.useGravityUserGuid?1:0,e=b?"":gravityInsightsParams.user_guid||(null!=(g=/grvinsights=([^;]+)/.exec(document.cookie))?g[1]:void 0)||"",c=(null!=(h=window.jQuery)?null!=(i=h.fn)?i.jquery:void 0:void 0)||"","http://rma-api.gravity.com/v1/api/intelligence/wl?jq="+c+"&sg="+gravityInsightsParams.site_guid+"&ug="+e+"&ugug="+b+"&pl=16&id=grv-personalization-16&type=iframe");
+    window.grvMakeScript=function(j){var a;a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src=j;return a};d=document.getElementsByTagName("script")[0];f&&d.parentNode.insertBefore(window.grvMakeScript(f),d);})();
+  //]]>
+</script>
+
+</div>
+</div>
+
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a sl-processed="1" rel="nofollow" class="share-twitter sd-button share-icon" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/?share=twitter&amp;nb=1" title="Click to share on Twitter" id="sharing-twitter-151"><span>Twitter</span></a></li><li class="share-facebook"><a sl-processed="1" rel="nofollow" class="share-facebook sd-button share-icon" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/?share=facebook&amp;nb=1" title="Share on Facebook" id="sharing-facebook-151"><span>Facebook</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-49887076-151-52ce499f32628" data-src="//widgets.wp.com/likes/#blog_id=49887076&amp;post_id=151&amp;origin=jlmedina123.wordpress.com&amp;obj_id=49887076-151-52ce499f32628" data-name="like-post-frame-49887076-151-52ce499f32628"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe style="display: inline;" class="post-likes-widget jetpack-likes-widget" name="like-post-frame-49887076-151-52ce499f32628" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a.html" width="100%" frameborder="0" height="55px"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div style="display: block;" id="jp-relatedposts" class="jp-relatedposts">
+	<p class="jp-relatedposts-headline"><em>Related</em></p>
+<p class="jp-relatedposts-post jp-relatedposts-post0" data-post-format="false"><strong><a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/?relatedposts_to=141&amp;relatedposts_order=0" title="Doubly Circular Linked List
+
+Implementation of double circular linked list: This is the result:" rel="nofollow">Doubly Circular Linked List</a></strong><br><span>In "Data Structures in C"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-format="false"><strong><a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/?relatedposts_to=22&amp;relatedposts_order=1" title="Priority queue with Heap in C
+
+This is the implementation of a priority queue as a heap. The heap uses a dynamically resized array to maintain the binary tree. priorityq_heap.c = The following program tests the priority queue above:" rel="nofollow">Priority queue with Heap in C</a></strong><br><span>In "Data Structures in C"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-format="false"><strong><a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/?relatedposts_to=106&amp;relatedposts_order=2" title="Hash
+
+This program implements a hash, and resolves collision with a linked list on each table node: The following program generates a file with random numbers for the hash: This is the result from the hash program:" rel="nofollow">Hash</a></strong><br><span>In "Data Structures in C"</span></p></div></div>			</div><!-- .entry-content -->
+	
+		<div class="entry-meta">
+		This entry was posted in <a sl-processed="1" href="http://jlmedina123.wordpress.com/category/multithreading/" title="View all posts in Multithreading" rel="category tag">Multithreading</a> and tagged <a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/multithreading-2/" rel="tag">multithreading</a>, <a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/mutex/" rel="tag">mutex</a>, <a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/pthreads/" rel="tag">pthreads</a>, <a sl-processed="1" href="http://jlmedina123.wordpress.com/tag/semaphore/" rel="tag">semaphore</a>. Bookmark the <a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/" title="Permalink to Pthreads with mutex and&nbsp;semaphores" rel="bookmark">permalink</a>.	</div><!-- .entry-meta -->
+	</article><!-- #post-151 -->
+
+	<div id="comments" class="comments-area">
+
+			<h2 class="comments-title genericon">
+			One thought on “<span>Pthreads with mutex and&nbsp;semaphores</span>”		</h2>
+
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-15">
+		<article id="comment-15" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img id="grav-63cc0af4850db40987a92e530835939d-0" alt="" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/63cc0af4850db40987a92e530835939d.png" class="avatar avatar-48 grav-hashed grav-hijack" width="48" height="48">					<cite class="fn">Govind</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/comment-page-1/#comment-15"><time pubdate="" datetime="2013-10-29T05:49:26+00:00">
+					October 29, 2013 at 5:49 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+							</footer>
+
+			<div class="comment-content">
+
+				<p>Very Nice.</p>
+			</div>
+
+			<a sl-processed="1" class="comment-reply-link" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/?replytocom=15#respond" onclick='return addComment.moveForm("comment-15", "15", "respond", "151")'>Reply</a>		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+	
+	
+									<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a sl-processed="1" rel="nofollow" id="cancel-comment-reply-link" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://jlmedina123.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input id="highlander_comment_nonce" name="highlander_comment_nonce" value="1b3413a16f" type="hidden"><input name="_wp_http_referer" value="/2013/05/03/pthreads-with-mutex-and-semaphores/" type="hidden">
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea aria-hidden="true" tabindex="-1" style="height: 41px; resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; width: 598px; line-height: 21px; text-decoration: none; letter-spacing: 0px;" placeholder="Enter your comment here..." title="Enter your comment here..."></textarea><textarea style="height: 41px; resize: none; overflow-y: hidden;" placeholder="Enter your comment here..." id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a sl-processed="1" href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a sl-processed="1" href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a_002.html" allowtransparency="true" seamless="seamless" width="24" frameborder="0" height="24" scrolling="no"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a sl-processed="1" href="https://gravatar.com/site/signup/" target="_blank">				<img src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Google+ photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" type="hidden">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a sl-processed="1" href="javascript:HighlanderComments.doExternalLogout(%20'googleplus'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a sl-processed="1" href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a sl-processed="1" href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div style="display: none;" id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p style="display: none;" class="form-submit">
+							<input name="submit" id="comment-submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="151" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						
+<input name="genseq" value="1389250975" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="48c35ffd2d" type="hidden"></p><script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/form.js"></script>
+<p style="display: none;"><input id="ak_js" name="ak_js" value="1389251017681" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments .comments-area -->
+	<nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+		<h1 class="assistive-text">Post navigation</h1>
+
+	
+		<div class="nav-previous"><a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/04/20/ordered-single-linked-list/" rel="prev"><span class="meta-nav">←</span> Ordered single linked&nbsp;list</a></div>		<div class="nav-next"><a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/09/count-number-of-bits-set-to-1-in-variable/" rel="next">Count number of bits set to 1 in&nbsp;variable <span class="meta-nav">→</span></a></div>
+	
+	</nav><!-- #nav-below -->
+	
+	</div><!-- #content .site-content -->
+</div><!-- #primary .content-area -->
+
+<div id="secondary" class="widget-area" role="complementary">
+	<aside id="search-2" class="widget widget_search">	<form method="get" id="searchform" action="http://jlmedina123.wordpress.com/" role="search">
+		<label for="s" class="assistive-text">Search</label>
+		<input class="field" name="s" id="s" placeholder="Search …" type="text">
+		<input class="submit" name="submit" id="searchsubmit" value="Search" type="submit">
+	</form>
+</aside><aside id="categories-2" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-20199957"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/algorithms-in-c/" title="Programs showing algorithms implemented in C">Algorithms in C</a>
+</li>
+	<li class="cat-item cat-item-167889"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/c-language/" title="Programs showing interesting features of C language">C language</a>
+</li>
+	<li class="cat-item cat-item-141879008"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/common-c-interview-questions/" title="These are from my experience some of the common questions engineers are asked about C languange">Common C interview questions</a>
+</li>
+	<li class="cat-item cat-item-56857714"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/data-structures-in-c/" title="Data Structures implemented in C language">Data Structures in C</a>
+</li>
+	<li class="cat-item cat-item-97554111"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/linux-kernel-modules/" title="Linux Kernel modules and C programs to test them.">Linux Kernel Modules</a>
+</li>
+	<li class="cat-item cat-item-173243548"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/lpc17xx-firmware/" title="Initialization routines and drivers in C for LPC17xx microcontrollers on mbed board">LPC17xx firmware</a>
+</li>
+	<li class="cat-item cat-item-338814"><a sl-processed="1" href="http://jlmedina123.wordpress.com/category/multithreading/" title="Multhreading programs in C and C++">Multithreading</a>
+</li>
+		</ul>
+</aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h1 class="widget-title">Recent Posts</h1>		<ul>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/08/19/circular-buffer-queue/">Circular Buffer&nbsp;Queue</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/08/13/current-variable-and-task_struct/">Current variable and&nbsp;task_struct</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/08/12/reversing-string/">Reversing&nbsp;string</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/06/04/lpc17xx-systick-initialization-routine-and-delay-functions/">LPC17xx SysTick initialization routine and delay&nbsp;functions</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/06/04/lpc17xx-rit-initialization-routine-and-irq-handler/">LPC17xx RIT initialization routine and IRQ&nbsp;handler</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/06/04/pll0-initialization-routine-for-lpc17xx-controller/">PLL0 initialization routine for LPC17xx&nbsp;controller</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/09/count-number-of-bits-set-to-1-in-variable/">Count number of bits set to 1 in&nbsp;variable</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/">Pthreads with mutex and&nbsp;semaphores</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/04/20/ordered-single-linked-list/">Ordered single linked&nbsp;list</a>
+						</li>
+					<li>
+				<a sl-processed="1" href="http://jlmedina123.wordpress.com/2013/04/20/doubly-circular-linked-list/">Doubly Circular Linked&nbsp;List</a>
+						</li>
+				</ul>
+		</aside><aside id="blog-stats-2" class="widget widget_blog-stats"><h1 class="widget-title">Blog Stats</h1>		<ul>
+			<li>8,897 hits</li>
+		</ul>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- #main .site-main -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			<div class="site-info">
+								<a sl-processed="1" href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+				<span class="sep"> | </span>
+				<a sl-processed="1" href="http://theme.wordpress.com/themes/silesia/" title="Learn more about this theme">The Silesia Theme</a>. 			</div><!-- .site-info -->
+		</footer><!-- #colophon .site-footer -->
+	</div><!-- #wrapper .site-wrapper -->
+</div><!-- #page .hfeed .site -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":"language.en,type.wpcom,posttag.multithreading-2,posttag.mutex,posttag.pthreads,posttag.semaphore,as"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=language.en%2Ctype.wpcom%2Cposttag.multithreading-2%2Cposttag.mutex%2Cposttag.pthreads%2Cposttag.semaphore%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-63cc0af4850db40987a92e530835939d">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/jlmedina123.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/jlmedina123.wordpress.com\/wp-login.php?action=logout&_wpnonce=8d18c3f655","homeURL":"http:\/\/jlmedina123.wordpress.com\/","postID":"151","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a_002.js"></script>
+
+	<div style="bottom: -243px;" id="bit" class="loggedout-follow-normal">
+		<a sl-processed="1" class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Learning C by example”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;' id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="49887076" type="hidden">
+			<input name="source" value="http://jlmedina123.wordpress.com/2013/05/03/pthreads-with-mutex-and-semaphores/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="eb56db28e4" type="hidden"><input name="_wp_http_referer" value="/2013/05/03/pthreads-with-mutex-and-semaphores/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a sl-processed="1" href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "jlmedina123.wordpress.com";
+	</script>
+	<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/725X1342.js"></script>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/jlmedina123.wordpress.com\/2013\/05\/03\/pthreads-with-mutex-and-semaphores\/":151}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/master.html" id="likes-master" name="likes-master" style="display:none;" scrolling="no"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a_004.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?m=1370811927g&amp;ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var silesia = {"open_sidebar_title":"Open sidebar","close_sidebar_title":"Close sidebar"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/a.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'49887076','v':'wpcom','tz':'0','user_id':'0','post':'151','subd':'jlmedina123'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMm9fLEFlLTVHRC0/cnFOVmxFVmkvWDY2NUcwSjZMei9BL2daXzU5RlI1fkIwfi5IN1dTV2cxZVgwOHBqNzN3K2FncFJ0RHBvSmJiOXMwQ2tvZ11JMEFTLzdbeTksWHA4K2NmaD1HRSYrM19RTiZNUXNUOEo3LkVIMW9NcjFROD9qb0tEYWpRQT1ydldPNGtMTkJKUlUzJjByOFBodDZNX1ZKVDV2ZWFnSHVwd0FlS350PzBBYXZpLnw9fDYyRUQla3NzWW1NbkhYYlVJZ1ktfElhOGVkOFh2Mj9ZLGZiWE9jYW8xRE0wZXYvQiZKZ2hrbT9pSHZiaDQ1bmxFUFhlUVMubFZl'});
+addLoadEvent(function(){linktracker_init('49887076',151);});
+	</script><img id="wpstats" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/g_002.gif" alt=""><img id="wpstats2" src="Pthreads%20with%20mutex%20and%20semaphores%20%7C%20Learning%20C%20by%20example_files/g.gif" alt="" style="display:none">
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<iframe style="display: none; width: 0px; height: 0px;" name="google_osd_static_frame" id="google_osd_static_frame_1731198639308"></iframe></body></html>

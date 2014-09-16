@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="iem7"  lang="en" dir="ltr"><![endif]-->
+<!--[if lte IE 6]><html class="lt-ie9 lt-ie8 lt-ie7"  lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"  lang="en" dir="ltr"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!-->
+<html class="js" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://www.softprayog.in/images/learning-curve-400x350.png">
+<meta property="og:url" content="http://www.softprayog.in/tutorials/alarm-sleep-and-high-resolution-timers">
+<link rel="shortcut icon" href="http://www.softprayog.in/images/xsoftprayog_icon.png.pagespeed.ic.hiJFwYOF77.png" type="image/png">
+<meta property="og:site_name" content="SoftPrayog">
+<meta property="og:title" content="Alarm, sleep and High Resolution Timers">
+<meta name="keywords" content="alarm, sleep, usleep, nanosleep, high resolution timers, HRT, itimer, interval, interface">
+<link rel="canonical" href="http://www.softprayog.in/tutorials/alarm-sleep-and-high-resolution-timers">
+<link rel="shortlink" href="http://www.softprayog.in/node/45">
+<meta content="Alarm, sleep and High Resolution Timers" about="/tutorials/alarm-sleep-and-high-resolution-timers" property="dc:title">
+<meta about="/tutorials/alarm-sleep-and-high-resolution-timers" property="sioc:num_replies" content="0" datatype="xsd:integer">
+<meta name="description" content="Alarm system call, sleep functions and the high resolution timers (HRT) provide a framework for programs to carry out time-critical tasks.">
+  <title>Alarm, sleep and High Resolution Timers | SoftPrayog</title>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cleartype" content="on">
+
+  <link type="text/css" rel="stylesheet" href="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/A.css" media="all">
+
+
+
+  <script async="" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/cbgapi.loaded_2"></script><script async="" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/cbgapi.loaded_1"></script><script async="" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/plusone.js" async="" type="text/javascript"></script><script src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/widgets.js" id="twitter-wjs"></script><script src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/all.js" id="facebook-jssdk"></script><script src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/ga.js" async="" type="text/javascript"></script><script src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/js_xAPl0qIk9eowy_iS9tNkCWXLUVoat94SQT48UBCFkyQ.js"></script>
+<script>jQuery.cookie=function(b,j,m){if(typeof j!="undefined"){m=m||{};if(j===null){j="";m.expires=-1}var e="";if(m.expires&&(typeof m.expires=="number"||m.expires.toUTCString)){var f;if(typeof m.expires=="number"){f=new Date();f.setTime(f.getTime()+(m.expires*24*60*60*1000))}else{f=m.expires}e="; expires="+f.toUTCString()}var l=m.path?"; path="+(m.path):"";var g=m.domain?"; domain="+(m.domain):"";var a=m.secure?"; secure":"";document.cookie=[b,"=",encodeURIComponent(j),e,l,g,a].join("")}else{var d=null;if(document.cookie&&document.cookie!=""){var k=document.cookie.split(";");for(var h=0;h<k.length;h++){var c=jQuery.trim(k[h]);if(c.substring(0,b.length+1)==(b+"=")){d=decodeURIComponent(c.substring(b.length+1));break}}}return d}};;</script>
+<script>(function($){Drupal.behaviors.radioactivity={config:'',activeIncidents:Array(),attach:function(context,settings){var data=settings.radioactivity.emitters;var config=settings.radioactivity.config;this.config=config;$.each(data,function(callback,incidents){$.each(incidents,function(index,incident){var config=Drupal.behaviors.radioactivity.config;var key='radioactivity_'+incident['checksum'];if(config.fpEnabled){if(Drupal.behaviors.radioactivity.fetch(key)){return;}else{var exp=new Date();exp.setTime(exp.getTime()+(config.fpTimeout*60*1000));Drupal.behaviors.radioactivity.store(key,true,exp);}}else{Drupal.behaviors.radioactivity.store(key,null,new Date());}
+var rnd=Math.random()*100;if(rnd>=incident.accuracy){return;}
+Drupal.behaviors.radioactivity.activeIncidents.push(incident);});if(Drupal.behaviors.radioactivity.activeIncidents.length>0){Drupal.behaviors.radioactivity[callback](Drupal.behaviors.radioactivity.activeIncidents);}});},hardStore:function(key,value,exp){if(typeof(Storage)!=="undefined"){localStorage.setItem(key,JSON.stringify({value:value,expire:exp.getTime()}));sessionStorage.setItem(key,JSON.stringify({value:value,expire:exp.getTime()}));}
+$.cookie(key,value,{expires:exp });},hardFetch:function(key){var data=null;if(typeof(Storage)!=="undefined"){data=localStorage.getItem(key)
+if(!data){data=sessionStorage.getItem(key);}}
+if(!data){data=$.cookie(key);}
+return data;},store:function(key,value,exp){if(typeof(Storage)!=="undefined"){localStorage.setItem(key,JSON.stringify({value:value,expire:exp.getTime()}));}else{$.cookie(key,value,{expires:exp });}},fetch:function(key){var now=new Date();if(typeof(Storage)!=="undefined"){var data=localStorage.getItem(key);if(data){data=JSON.parse(data);if(now.getTime()<data.expire){return data.value;}}
+return null;}
+return $.cookie(key);},emitDefault:function(incidents){$.ajax({url:this.config.emitPath,data:{'incidents':incidents},type:'POST',cache:false,dataType:"html"});}};})(jQuery);;</script>
+<script>jQuery.extend(Drupal.settings,{"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"www_softprayog_in","theme_token":"y33SE2LaleWuX58iWZlBoh4y7pst7DiZ97tUZsjzSe8","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"misc\/jquery.cookie.js":1,"sites\/all\/modules\/radioactivity\/js\/radioactivity.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/radioactivity\/css\/radioactivity.css":1,"sites\/all\/themes\/www_softprayog_in\/system.menus.css":1,"sites\/all\/themes\/www_softprayog_in\/system.messages.css":1,"sites\/all\/themes\/www_softprayog_in\/system.theme.css":1,"sites\/all\/themes\/www_softprayog_in\/css\/styles.css":1}},"radioactivity":{"emitters":{"emitDefault":[{"accuracy":"100","bundle":"software_information_resource","energy":10,"entity_id":"45","entity_type":"node","field_name":"field_radioactivity","language":"und","storage":"File","type":"none","checksum":"858bcb6b56aaeecacf4a5edee03b1d68"}]},"config":{"emitPath":"\/sites\/all\/modules\/radioactivity\/emit.php","fpEnabled":0,"fpTimeout":"15"}}});</script>
+      <!--[if lt IE 9]>
+    <script src="/sites/all/themes/zen/js/html5-respond.js"></script>
+    <![endif]-->
+  
+<script type="text/javascript">var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-8649059-1']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src=('https:'==document.location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();</script>
+<meta name="google-site-verification" content="8nDw-c0gl91IgUaZLc7kxxBu--KmFtDj39aZluvpgE0">
+<meta name="google-translate-customization" content="eec210276b33745f-8949011a4fca8da3-g9691d99868403c1a-11">
+<meta name="msvalidate.01" content="DE886C06251AA9A43EBAEC2B1F07B5DD">
+
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+<body data-twttr-rendered="true" class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-45 node-type-software-information-resource section-tutorials">
+<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/xd_arbiter.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" scrolling="no" frameborder="0"></iframe><iframe src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/xd_arbiter.xhtml" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" scrolling="no" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/ping.xhtml" style="display: none;" allowtransparency="true" name="f188c790d91b924" scrolling="no" frameborder="0"></iframe></div></div></div>
+<script>window.fbAsyncInit=function(){FB.init({appId:'248709508475397',status:true,cookie:true,xfbml:true,channelUrl:'http://www.softprayog.in/channel.html'});};(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/en_US/all.js#xfbml=1&appId=248709508475397";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>
+
+      <p id="skip-link">
+      <a href="#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+      
+<div id="page">
+
+  <header class="header" id="header" role="banner">
+
+    
+    
+      <div class="header__region region region-header">
+    <div id="block-search-form" class="block block-search first odd" role="search">
+
+      
+  <form onsubmit="if(this.search_block_form.value==''){ alert('Please enter a search'); return false; }" action="/tutorials/alarm-sleep-and-high-resolution-timers" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." placeholder="Search" id="edit-search-block-form--2" name="search_block_form" size="30" maxlength="128" class="form-text" type="text">
+</div>
+<div class="form-actions form-wrapper" id="edit-actions"><input id="edit-submit" name="submit" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/xlens.png" class="form-submit" type="image"></div><input name="form_build_id" value="form-MKKARkyPRIrmwA121VR2Z_hBhois8NR3NRjiVKtjE_0" type="hidden">
+<input name="form_id" value="search_block_form" type="hidden">
+</div>
+</div></form>
+</div>
+<div id="block-block-1" class="block block-block last even">
+
+      
+  <p><a href="http://www.softprayog.in/"><img src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/321x66xlogo.png" alt="SoftPrayog.in" title="SoftPrayog.in" width="321" height="66" border="0"></a></p>
+</div>
+  </div>
+
+  </header>
+
+  <div id="main">
+
+        <div class="region region-post-navigation">
+    <div id="block-block-30" class="block block-block first last odd">
+
+      
+  <div class="my_block_highlighted">
+<style>.site-respnsive-new{width:320px;height:50px}@media (min-width:500px){.site-respnsive-new{width:468px;height:60px}}@media (min-width:800px){.site-respnsive-new{width:728px;height:90px}}</style><script async="" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/adsbygoogle.js"></script><!-- site-respnsive-new --><ins data-adsbygoogle-status="done" class="adsbygoogle site-respnsive-new" style="display: inline-block; width: 728px; height: 90px;" data-ad-client="ca-pub-3963576887094645" data-ad-slot="1444179285"><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" scrolling="no" width="728" frameborder="0" height="90"></iframe></ins></ins></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+</div>
+  </div>
+
+    <div id="content" class="column" role="main">
+                  <a id="main-content"></a>
+                    <h1 class="page__title title" id="page-title"><a href="http://www.softprayog.in/tutorials/alarm-sleep-and-high-resolution-timers">Alarm, sleep and High Resolution Timers</a></h1>
+                                          
+
+
+<article class="node-45 node node-software-information-resource node-promoted view-mode-full clearfix" about="/tutorials/alarm-sleep-and-high-resolution-timers" typeof="sioc:Item foaf:Document">
+
+      <header>
+                  
+          </header>
+  
+  <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><h3>Alarm system call</h3>
+<p>
+The alarm system call arranges for the SIGALRM signal to be sent to the calling process after  
+<em>s</em> seconds.
+</p>
+<p class="sys_output_new">
+#include &lt;unistd.h&gt; <br><br>
+unsigned int alarm (unsigned int s);
+</p>
+<p>
+Any previously set alarm is cleared. And if <em>s</em> is 0, no alarm is set. So, passing 0 as argument to alarm
+clears any previously set alarm. Alarm returns the time remaining in seconds of any previously set alarm, or 0 if 
+there was no alarm set previously.
+</p>
+<h3>sleep, usleep, and nanosleep</h3>
+<p>
+With the <span class="accented">sleep</span> function, a process can sleep for <em>s</em>
+seconds. The process wakes up when <em>s</em> seconds are over or a signal, which is not ignored,
+ is received. The returned value is the unslept seconds.
+</p>
+<p class="code_snippet_much_wider">
+#include &lt;unistd.h&gt; <br><br>
+unsigned int sleep (unsigned int s);
+</p>
+<p>
+sleep might have been implemented using SIGALRM. So sleep and SIGALRM should not be used in the same process. sleep
+can easily be implemented as a function using SIGALRM.  
+</p>
+<p>
+The usleep function is similar to sleep, except that the argument usec is in microseconds. Also usec must be less than
+1000000.  That is, the calling process can only sleep for less than a second.  
+</p>
+<p class="code_snippet_much_wider"> 
+#include &lt;unistd.h&gt;   <br><br>
+int usleep (useconds_t usec);
+</p>
+<p>
+Finally, there is the nanosleep system call, which provides the high resolution sleep. nanosleep uses the struct timespec,
+which is,
+</p>
+<p class="code_snippet_much_wider">
+struct timespec {    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_t tv_sec;&nbsp;&nbsp;&nbsp;/* seconds */ <br>
+&nbsp;&nbsp;&nbsp;&nbsp;long   tv_nsec;&nbsp;&nbsp;&nbsp;&nbsp;/* nanoseconds */   <br>
+};
+</p>
+<p>
+and the call is,
+</p>
+<p class="code_snippet_much_wider">
+#include &lt;time.h&gt; <br><br>
+int nanosleep (const struct timespec *req, struct timespec *rem); <br></p>
+<p>
+With the nanosleep call, the calling thread goes to sleep as per the data pointed by <em>req</em>.
+The thread wakes up when the time is over or the sleep is interrupted by a signal which has not been
+ignored. The unslept time is returned in the timespec struct pointed by <em>rem</em>. In nanosleep, there 
+is no restriction on the amount of time a thread goes on to sleep. 
+</p>
+<h3>High Resolution Timers</h3>
+<p>
+There are two timing sub-systems in Linux, the Main Timing subsystem and
+ the High Resolution Timing subsystem. In
+the Main Timing subsystem, the smallest time maintained is denoted by a 
+jiffy, which is the duration of a tick of the system 
+timer interrupt. The number of jiffies in a second, or the frequency of 
+the system tick, is defined by the HZ constant. The value 
+of HZ can be fixed as 100, 250 or 1000 at the time of kernel 
+configuration prior to build,  giving 
+the the duration of a clock tick as 10,  4 or 1 millisecond(s) 
+respectively. The <em>times</em> system call gives the time in different 
+units of clock ticks and these number of clock ticks per second are given the system constant _SC_CLK_TCK. A typical value of 
+_SC_CLK_TCK is 100, giving a clock tick of 10 milliseconds. 
+</p>
+<p>
+With kernel version 2.6.21 onwards, high resolution timers (HRT) are 
+available under Linux. For this, the kernel has to be compiled with the 
+configuration parameter CONFIG_HIGH_RES_TIMERS enabled. With high 
+resolution timers, we can get timer resolution to 1 microsecond as
+compared to a few milliseconds without the high resolution timers. There
+ are many ways to check whether high resolution timers are available, 
+ </p>
+<ul><li>In the /boot directory, check the kernel config file. It should have a line like <em>CONFIG_HIGH_RES_TIMERS=y</em>. </li>
+<li>Check the contents of <span class="accented">/proc/timer_list</span>. For example, the .resolution entry showing 1 nanosecond 
+      and event_handler as hrtimer_interrupt in /proc/timer_list indicate that high resolution timers are available. 
+</li>
+<li>Get the clock resolution using the <span class="accented">clock_getres</span> system call.</li>
+</ul><p>
+There are two high resolution timer interfaces in Linux, the Interval Timer (itimer) interface and the POSIX timers interface.
+</p>
+<h3>Interval Timer (itimer) interface </h3>
+<p>
+There are three interval timers for a process, Once set, the timers decrement and when a timer becomes zero, a specific alarm is
+sent to the process.  The three iterms are,
+</p>
+<ul><li>
+<span class="mybold">ITIMER_REAL</span> - ITIMER_REAL decrements in real (calendar) time. When it becomes zero,  
+the SIGALRM signal is sent to the process. 
+</li>
+<li>
+<span class="mybold">ITIMER_VIRTUAL</span> - ITIMER_VIRTUAL decrements in the process's virtual time. That is, it 
+decrements when the process is executing in the user mode. When it becomes zero, the SIGVTALRM  signal is sent to the 
+process.
+</li>
+<li>
+<span class="mybold">ITIMER_PROF</span> - ITIMER_PROF decrements when the process is executing in the user mode and
+also when the system is running on behalf of the process. When it becomes zero, signal SIGPROF is sent to the process. 
+ITIMER_PROF is for the use of profilers.
+</li>
+</ul><p>
+The structures used by itimers are,
+</p>
+<p class="code_snippet_much_wider">
+struct timeval { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_t tv_sec; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* seconds */   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;suseconds_t    tv_usec;        /* microseconds */  <br>
+}; <br>
+struct itimerval {      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct timeval it_interval; /* next value */     <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct timeval it_value;    &nbsp;&nbsp;&nbsp;/* current value */  <br>
+ };
+</p>
+<p>  
+and the system calls are,
+</p>
+<p class="code_snippet_much_wider">
+int getitimer (int which, struct itimerval *curr_value);      <br>
+int setitimer (int which, const struct itimerval *new_value, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct itimerval *old_value);
+</p>
+<p>
+The timers decrement the <em>it_value</em>. When <em>it_value</em>, that is, both the members tv_sec and tv_usec, become zero,
+the relevant alarm is generated. After generating the alarm, the it_value is set to the timer reset value, <em>it_interval</em>. If both, it_value 
+and it_interval are zero, the timer stops. 
+</p>
+<p>
+The first parameter, <em>which</em>, is one of the timers, ITIMER_REAL, ITIMER_VIRTUAL or ITIMER_PROF. 
+The call <em>gettimer</em> gets the value of the timer in the parameter <span class="accented">curr_value</span>. Similarly, <em>settimer</em> sets the timer
+with the parameter <span class="accented">new_value</span>. If the timer was on, the current values of <span class="accented">it_value</span> and 
+<span class="accented">it_interval</span> are copied in the parameter <span class="accented">old_value</span>, before the timer <span class="accented">it_value</span> and <span class="accented">it_interval</span> are copied from the parameter, <span class="accented">new_value</span>.
+</p>
+<h3>POSIX timers interface</h3>
+<p>
+There are high-resolution clocks,
+</p>
+<ul><li>CLOCK_REALTIME - This is a system wide real time clock, which can be set by the superuser. </li>
+<li>CLOCK_MONOTONIC - This is also system wide clock. It can not be set 
+and gives monotonic time since some unspecified starting point.</li>
+<li>CLOCK_MONOTONIC_RAW - This clock is similar to CLOCK_MONOTONIC, it gives <q>raw</q> time thta is not subject to NTP adjustments.</li>
+<li>CLOCK_PROCESS_CPUTIME_ID - This is a per-process clock.</li>
+<li>CLOCK_THREAD_CPUTIME_ID - This is a per-thread clock.</li>
+</ul><p>
+Of the above clocks, CLOCK_REALTIME is available in all implementations.
+ Availability of other clocks is implementation dependent. The clock
+related system calls are,
+</p>
+<p class="code_snippet_much_wider">
+#include &lt;time.h&gt;   <br><br>
+int clock_getres (clockid_t clk_id, struct timespec *res);   <br><br>
+int clock_gettime (clockid_t clk_id, struct timespec *tp);   <br><br>
+int clock_settime (clockid_t clk_id, const struct timespec *tp);   <br><br></p>
+<p>
+The parameters are clk_id and pointer to struct timespec. The clk_id is 
+one one the above-mentioned clocks. The struct timespec has seconds and
+nanoseconds as members. clock_getres gives the resolution of the desired
+ clock. clock_gettime and clock_settime are used to read and set the 
+value
+of clock respectively. Of course, clocks like CLOCK_MONOTONIC can not be
+ set and superuser privilege is required for setting the system wide  
+CLOCK_REALTIME. An example program to find clock resolution is,
+</p>
+<p class="code_snippet_much_wider">
+/* clocks.c: find clock resolution */  <br><br>
+#include &lt;stdio.h&gt;  <br>
+#include &lt;string.h&gt;  <br>
+#include &lt;stdlib.h&gt;  <br>
+#include &lt;unistd.h&gt;  <br>
+#include &lt;time.h&gt;  <br><br>
+main ()  <br>
+{  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct timespec res;   <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (clock_getres (CLOCK_REALTIME, &amp;res) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("clock_getres: CLOCK_REALTIME");  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;else  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf ("CLOCK_REALTIME: %ld s, %ld ns\n", res.tv_sec, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.tv_nsec);  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (clock_getres (CLOCK_MONOTONIC, &amp;res) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("clock_getres: CLOCK_MONOTONIC");  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;else  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf ("CLOCK_MONOTONIC: %ld s, %ld ns\n", res.tv_sec,  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.tv_nsec);  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (clock_getres (CLOCK_MONOTONIC_RAW, &amp;res) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("clock_getres: CLOCK_MONOTONIC_RAW");  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;else  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf ("CLOCK_MONOTONIC_RAW: %ld s, %ld ns\n", res.tv_sec, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.tv_nsec);  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (clock_getres (CLOCK_PROCESS_CPUTIME_ID, &amp;res) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("clock_getres: CLOCK_PROCESS_CPUTIME_ID");  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;else  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf ("CLOCK_PROCESS_CPUTIME_ID: %ld s, %ld ns\n", res.tv_sec, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.tv_nsec);  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (clock_getres (CLOCK_THREAD_CPUTIME_ID, &amp;res) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("clock_getres: CLOCK_THREAD_CPUTIME_ID");  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;else  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf ("CLOCK_THREAD_CPUTIME_ID: %ld s, %ld ns\n", res.tv_sec, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.tv_nsec);  <br>
+}
+</p>
+<p>
+The above program needs to be linked with <q>-lrt</q>. In fact, programs using any of these POSIX high-resolution clocks and timers need to be 
+compiled with <q>-lrt</q>. Compiling and running the program,
+</p>
+<p class="sys_output_new">
+$ gcc clocks.c -o clocks -lrt   <br>
+$ ./clocks                             <br>
+CLOCK_REALTIME: 0 s, 1 ns              <br>
+CLOCK_MONOTONIC: 0 s, 1 ns           <br>
+CLOCK_MONOTONIC_RAW: 0 s, 1 ns      <br>
+CLOCK_PROCESS_CPUTIME_ID: 0 s, 1 ns        <br>
+CLOCK_THREAD_CPUTIME_ID: 0 s, 1 ns           <br></p>
+<p>
+THe above output shows the resolution of all these clocks to be 1 nanosecond.
+</p>
+<p>
+The structure used for the timer calls is,
+</p>
+<p class="code_snippet_much_wider">
+struct itimerspec {   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct timespec it_interval; /* Timer interval */    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct timespec it_value; &nbsp;&nbsp;&nbsp;/* Initial expiration */   <br>
+};
+</p>
+<p>
+As in the case of itemers, the member <span class="accented">it_value</span> has the time for current timing operation 
+whereas <span class="accented">it_interval</span> is the timing interval and, when the timer expires, <span class="accented">it_value</span> is 
+set from it. The system call for creating a high resolution timer is,
+</p>
+<p class="code_snippet_much_wider">
+#include &lt;signal.h&gt;   <br>
+#include &lt;time.h&gt;   <br><br>
+int timer_create (clockid_t clockid, struct sigevent *evp,   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timer_t *timerid);
+</p>
+<p>
+The call timer_create is used to create the timer. The pointer to struct
+ sigevent gives the option to specify the signal to be raised once the 
+timer
+goes off. In case NULL is passed, SIGALRM is generated. The other timer 
+related calls are,
+</p>
+<p class="code_snippet_much_wider">
+#include &lt;time.h&gt;   <br><br>
+int timer_delete (timer_t timerid);   <br><br>
+int timer_settime (timer_t timerid, int flags,   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const
+ struct itimerspec *new_value,   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct
+ itimerspec *old_value);   <br><br>
+int timer_gettime (timer_t timerid, struct itimerspec *curr_value);   <br><br>
+int timer_getoverrun (timer_t timerid);   
+</p>
+<p>
+In the <em>timer_settime</em> call, if flag is 0, the timer expires after the time <span class="accented">it_value</span> in the 
+struct itimerspec *new_value (secs and nanosecs). If the flag is set to
+<span class="accented">TIMER_ABSTIME</span>, the timer expires when the time in the relevant clock matches the time 
+in the struct itimerspec *new_value. Of course, in both cases, <span class="accented">it_interval</span> is the reset value with which <span class="accented">it_value</span> is set once the timer goes off. Regarding <em>timer_getoverrun</em>, when the timer goes off, the relevant signal (like
+<span class="accented">SIGALRM</span>) is generated. Between the time the timer goes off and the time signal is delivered to the process, it is possible
+that the timer would have gone off a number of times. For these times, a signal is not generated. <em>timer_getoverrun</em>
+ system call gives the number of times
+the timer has gone off since the last signal was generated and was being
+ delivered to the process. An example program for high resolution timers
+ is, 
+</p>
+<p class="code_snippet_much_wider">
+/*   hires_timer.c: 100 microsecond timer example program   */  <br>
+#include &lt;stdio.h&gt;  <br>
+#include &lt;string.h&gt;  <br>
+#include &lt;stdlib.h&gt;  <br>
+#include &lt;unistd.h&gt;  <br>
+#include &lt;signal.h&gt;  <br>
+#include &lt;time.h&gt;  <br><br>
+void print_time (int);  <br><br>
+timer_t timer1;  <br><br>
+int main (int argc, char **argv)  <br>
+{  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;timer_t timer2;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct itimerspec new_value, old_value;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct sigaction action;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct sigevent sevent;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;sigset_t set;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;int signum;  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;/* SIGALRM for printing time */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;memset (&amp;action, 0, sizeof (struct sigaction));  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;action.sa_handler = print_time;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (sigaction (SIGALRM, &amp;action, NULL) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("sigaction");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;/* for program completion */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;memset (&amp;sevent, 0, sizeof (struct sigevent));  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;sevent.sigev_notify = SIGEV_SIGNAL;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;sevent.sigev_signo = SIGRTMIN;  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (timer_create (CLOCK_MONOTONIC, NULL, &amp;timer1) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("timer_create");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_interval.tv_sec = 0;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_interval.tv_nsec = 100000;  /* 100 us */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_value.tv_sec = 0;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_value.tv_nsec = 100000;     /* 100 us */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (timer_settime (timer1, 0, &amp;new_value, &amp;old_value) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("timer_settime");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (sigemptyset (&amp;set) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("sigemptyset");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (sigaddset (&amp;set, SIGRTMIN) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("sigaddset");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (sigprocmask (SIG_BLOCK, &amp;set, NULL) == -1)   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("sigprocmask");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (timer_create (CLOCK_MONOTONIC, &amp;sevent, &amp;timer2) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("timer_create");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_interval.tv_sec = 0;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_interval.tv_nsec = 0;  /* one time timer, no reset */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_value.tv_sec = 0;  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;new_value.it_value.tv_nsec = 1000000; /* 1 ms */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (timer_settime (timer2, 0, &amp;new_value, &amp;old_value) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("timer_settime");   <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;/* wait for completion signal (1 ms)  */  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (sigwait (&amp;set, &amp;signum) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("sigwait");  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;exit (EXIT_SUCCESS);  <br>
+}  <br><br>
+void print_time (int signum)  <br>
+{    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;struct timespec tp;   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;char buffer [80];  <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;if (clock_gettime (CLOCK_MONOTONIC, &amp;tp) == -1)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perror ("clock_gettime");   <br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;sprintf (buffer, "%ld s %ld ns overrun = %d\n", tp.tv_sec,  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tp.tv_nsec,
+ timer_getoverrun (timer1));  <br>
+&nbsp;&nbsp;&nbsp;&nbsp;write (STDOUT_FILENO, buffer, strlen (buffer));  <br>
+}
+</p>
+<p>
+In the above program, there is a timer named timer1, which goes off 
+every 100 us. When timer1 goes off, it generates SIGALRM signal. The 
+SIGALRM signal handling
+function prints the clock time and the timer overrun, if any. There is a
+ second timer, timer2, which goes off after 1 ms and generates SIGRTMIN 
+signal. We wait for this signal
+and terminate the process when it comes. The program generates an output
+ like,
+</p>
+<p class="sys_output_new">
+$ gcc hires_timer.c -o hires_timer -lrt   <br> 
+$ ./hires_timer      <br>
+85769 s 129731553 ns overrun = 0      <br>
+85769 s 129885313 ns overrun = 1      <br>
+85769 s 130011713 ns overrun = 0      <br>
+85769 s 130108793 ns overrun = 0      <br>
+85769 s 130203153 ns overrun = 0      <br>
+85769 s 130305033 ns overrun = 0      <br>
+85769 s 130404753 ns overrun = 0      <br>
+85769 s 130505313 ns overrun = 0      <br>
+85769 s 130615513 ns overrun = 0      
+</p>
+<h3>High resolution sleep</h3>
+<p>The high-resolution sleep calls are, 
+</p>
+<p class="code_snippet_much_wider">
+int nanosleep (const struct timespec *req, struct timespec *rem);   <br><br>
+int clock_nanosleep (clockid_t clock_id, int flag,   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const
+ struct timespec *request,   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;struct
+ timespec *remain);   
+</p>
+<p>
+We discussed <em>nanosleep</em> earlier in this tutorial. <em>clock_nanosleep</em> gives the provision of specifying the clock to be used. Then, there is flag argument,
+similar to the flag argument in <em>timer_settime</em>. If flag is 0, it is a case of relative sleep. The sleep is for struct timespec *request seconds and nanoseconds, or till
+there is a signal interrupting the sleep. If flag is <span class="accented">TIMER_ABSTIME</span>, the sleep is till the time in the clock identified by <em>clock_id</em>
+matches the time in struct timespec *request or a signal comes along.
+</p>
+<h3>See also</h3>
+<ol><li><a href="http://www.softprayog.in/tutorials/linux-process-execution-time">Linux process execution time</a></li>
+<li><a href="http://www.softprayog.in/tutorials/calendar-time-under-linux">Calendar Time Under Linux</a></li>
+<li><a href="http://www.softprayog.in/tutorials/hwclock-the-hardware-clock-query-and-set-program">hwclock, the hardware clock query and set program</a></li>
+<li><a href="http://www.softprayog.in/tutorials/synchronize-your-computers-clock-using-the-ntp">Synchronize your computer's clock using the NTP</a></li>
+</ol></div></div></div><div class="field field-name-field-software field-type-taxonomy-term-reference field-label-above"><div class="field-label">Software:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="http://www.softprayog.in/tutorials" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Tutorials</a></div></div></div>
+  
+  
+</article>
+<div id="block-block-62" class="block block-block last even">
+
+      
+  <div class="last_ad">
+<script async="" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/adsbygoogle.js"></script><!-- Site content end --><ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3963576887094645" data-ad-slot="0756129388"><ins style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" scrolling="no" width="336" frameborder="0" height="280"></iframe></ins></ins></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+</div>
+       
+    </div>
+
+    <div id="navigation">
+
+              <nav id="main-menu" role="navigation" tabindex="-1">
+          <h2 class="element-invisible">Main menu</h2><ul class="links inline clearfix"><li class="menu-227 first"><a href="http://www.softprayog.in/">Home</a></li>
+<li class="menu-354"><a href="http://www.softprayog.in/software-engineering" title="Software Engineering resources">Software Engineering</a></li>
+<li class="menu-355"><a href="http://www.softprayog.in/tutorials" title="Tutorials for useful programs.">Tutorials</a></li>
+<li class="menu-356"><a href="http://www.softprayog.in/troubleshooting" title="Troubleshooting day-to-day software development and usage problems.">Troubleshooting</a></li>
+<li class="menu-385 last"><a href="http://www.softprayog.in/programming" title="Programming resources">Programming</a></li>
+</ul>        </nav>
+      
+      
+    </div>
+
+    
+          <aside class="sidebars">
+          <section class="region region-sidebar-second column sidebar">
+    <div id="block-block-23" class="block block-block first odd">
+
+      
+  <div class="my_block">
+<script async="" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/adsbygoogle.js"></script><!-- site-top-300-250 --><ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-3963576887094645" data-ad-slot="0415865348"><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" scrolling="no" width="300" frameborder="0" height="250"></iframe></ins></ins></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+</div>
+<div id="block-block-54" class="block block-block even">
+
+      
+  <div class="my_block_new">
+<div fb-iframe-plugin-query="app_id=248709508475397&amp;href=http%3A%2F%2Fwww.softprayog.in%2Ftutorials%2Falarm-sleep-and-high-resolution-timers&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=true&amp;width=450" fb-xfbml-state="parsed" class="fb-like fb_iframe_widget" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/like.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like Facebook Social Plugin" allowtransparency="true" name="feb407598fc28" scrolling="no" width="450px" frameborder="0" height="1000px"></iframe></span></div>
+&nbsp;&nbsp;&nbsp;<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" scrolling="no" frameborder="0"></iframe>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script><!-- Place this tag where you want the +1 button to render. --><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/fastbutton.html" name="I0_1393228841426" id="I0_1393228841426" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" scrolling="no" width="100%" frameborder="0"></iframe></div>
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/plusone.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();</script></div>
+</div>
+<div id="block-views-similar-entries-block" class="block block-views odd">
+
+      
+  <div class="view view-Similar-Entries view-id-Similar Entries view-display-id-block view-dom-id-6c12a1b1e2c0abb8db667d71d76c1734">
+            <div class="view-header">
+      <div class="my_view_heading">Related Posts</div>    </div>
+  
+  
+  
+      <div class="view-content">
+      <div class="my_view">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/calendar-time-under-linux">Calendar Time Under Linux</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/linux-process-execution-time">Linux process execution time</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/gtk-warning-cannot-open-display">Gtk-WARNING **: cannot open display:</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/using-diff-patch">USING diff and patch</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/make-primer">Using the make utility to build software (Primer)</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+<div id="block-block-57" class="block block-block even">
+
+      
+  <div class="my_block">
+<div fb-iframe-plugin-query="app_id=248709508475397&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FSoftPrayog%2F107959925971764&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=300" fb-xfbml-state="parsed" class="fb-like fb_iframe_widget" data-href="https://www.facebook.com/pages/SoftPrayog/107959925971764" data-send="false" data-layout="button_count" data-width="300" data-show-faces="false"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/like_002.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like Facebook Social Plugin" allowtransparency="true" name="f11d3dc60aff78a" scrolling="no" width="300px" frameborder="0" height="1000px"></iframe></span></div><br><br><iframe style="width: 230px; height: 20px;" data-twttr-rendered="true" title="Twitter Follow Button" class="twitter-follow-button twitter-follow-button" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/follow_button.html" allowtransparency="true" id="twitter-widget-1" scrolling="no" frameborder="0"></iframe>
+<script src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/widgets.js" type="text/javascript"></script><br><br><div id="___follow_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 110px; height: 20px;"><iframe data-gapiattached="true" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/follow.html" name="I1_1393228842239" id="I1_1393228842239" vspace="0" tabindex="0" style="position: static; top: 0px; width: 110px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" scrolling="no" width="100%" frameborder="0"></iframe></div><br><br><a href="http://feedburner.google.com/fb/a/mailverify?uri=Softprayog&amp;loc=en_US">Subscribe to SoftPrayog by Email</a><br><br></div>
+</div>
+<div id="block-views-recent-posts-block" class="block block-views odd">
+
+      
+  <div class="view view-recent-posts view-id-recent_posts view-display-id-block view-dom-id-697b6fafbe1a8df38244d7ae94eeb26c">
+            <div class="view-header">
+      <div class="my_view_heading">Recent Posts</div>    </div>
+  
+  
+  
+      <div class="view-content">
+      <div class="my_view">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/how-to-redirect-non-www-urls-to-www-in-varnish">How to redirect non-www URLs to www in Varnish</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/trigonometric-calculations-with-bc">Trigonometric calculations with bc</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/unity-launcher-stays-at-the-left-does-not-auto-hide">Unity launcher stays at the left, does not auto-hide</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/repairing-drupal-site-blocks-manually-in-database">Repairing Drupal site blocks manually in database</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/iptables">iptables</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+      <div class="view-footer">
+      <div class="my_view_footer"><a href="http://www.softprayog.in/rss.xml"><img src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/feed.png" alt="RSS" title="RSS" width="16" height="16"></a></div>    </div>
+  
+  
+</div>
+</div>
+<div id="block-views-most-popular-page-block" class="block block-views even">
+
+      
+  <div class="view view-most-popular-page view-id-most_popular_page view-display-id-block view-dom-id-82af8da2c3bae63c029a161a63015575">
+            <div class="view-header">
+      <div class="my_view_heading"><a href="http://www.softprayog.in/most-popular-posts">Most Popular</a></div>    </div>
+  
+  
+  
+      <div class="view-content">
+      <div class="my_view">    <ul>          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/ps-command-usage-examples-in-linux">ps command usage examples in Linux</a></span>  </div></li>
+          <li class="views-row views-row-2 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/connecting-two-computers-with-ethernet-lan-cable">Connecting two computers with Ethernet LAN cable</a></span>  </div></li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/top-command-in-linux">top Command in Linux</a></span>  </div></li>
+          <li class="views-row views-row-4 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/starting-linux-services-with-init-scripts">Starting Linux services with init scripts</a></span>  </div></li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/alarm-sleep-and-high-resolution-timers" class="active">Alarm, sleep and High Resolution Timers</a></span>  </div></li>
+          <li class="views-row views-row-6 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/synchronizing-files-between-multiple-computers-using-unison">Synchronizing Files Between Multiple Computers Using Unison</a></span>  </div></li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/linux-process-execution-time">Linux process execution time</a></span>  </div></li>
+          <li class="views-row views-row-8 views-row-even">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/troubleshooting/x-window-remote-display">Remote Display With the X - Window System</a></span>  </div></li>
+          <li class="views-row views-row-9 views-row-odd">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/routing-in-linux">Routing in Linux</a></span>  </div></li>
+          <li class="views-row views-row-10 views-row-even views-row-last">  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://www.softprayog.in/tutorials/sar-in-linux">sar in Linux</a></span>  </div></li>
+      </ul></div>    </div>
+  
+  
+  
+  
+  
+  
+</div>
+</div>
+<div id="block-very-simple-ads-very-simple-ads" class="block block-very-simple-ads last odd">
+
+      
+  <a href="https://play.google.com/store/apps/details?id=in.softprayog.randomquote" target="_top"><img src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/random-quote-ad-new-300x335-0.png" alt="Random Quote" title="Random Quote" width="300" height="335"></a>
+</div>
+  </section>
+      </aside>
+    
+  </div>
+
+    <footer id="footer" class="region region-footer">
+    <div id="block-block-5" class="block block-block first last odd">
+
+      
+  <a href="http://www.softprayog.in/about">About SoftPrayog</a> <a href="http://www.softprayog.in/privacy-policy">Privacy Policy</a><a href="http://www.softprayog.in/contact">Contact Us</a> <a href="http://karuneshjohri.com/">Blog</a>
+</div>
+  </footer>
+
+</div>
+
+  <div class="region region-bottom">
+    <div id="block-block-4" class="block block-block first last odd">
+
+      
+  <p>Copyright © 2007 - 2014 SoftPrayog.in. All Rights reserved. <br>Site powered by <a href="http://drupal.org/" class="ourfooter" target="_blank">Drupal</a><br><br></p>
+</div>
+  </div>
+  
+
+<iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Alarm,%20sleep%20and%20High%20Resolution%20Timers%20%7C%20SoftPrayog_files/postmessageRelay.html" id="oauth2relay2086061008" name="oauth2relay2086061008"></iframe></body><iframe src="" style="display: none;"></iframe></html>

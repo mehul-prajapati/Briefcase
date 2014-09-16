@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html class="wf-athelas-i4-active wf-athelas-i7-active wf-athelas-n4-active wf-athelas-n7-active wf-museoslab-i1-active wf-museoslab-i3-active wf-museoslab-i5-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n5-active wf-museoslab-n7-active wf-active"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- / Page Title -->
+<title>How To Use ps, kill, and nice to Manage Processes in Linux | DigitalOcean</title>
+<!-- / Content -->
+<meta content="&lt;h3&gt;Introduction&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;A Linux server, like any other computer you may be familiar with, runs applications.  To the computer, these are considered &amp;quot;processes&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;While Linux will handle the low-level, behind-the-scenes management in a process&amp;#39;s life-cycle, you will need a way of interacting with the operating system to manage it from a higher-level.&lt;/p&gt;
+
+&lt;p&gt;In this guide, we will discuss some simple aspects of process management.  Linux provides an abundant collection of tools for this purpose.&lt;/p&gt;
+
+&lt;p&gt;We will explore these ideas on an Ubuntu 12.04 VPS, but any modern Linux distribution will operate in a similar way.&lt;/p&gt;
+
+&lt;h2&gt;How To View Running Processes in Linux&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;h3&gt;top&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;The easiest way to find out what processes are running on your server is to run the &lt;code&gt;top&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;top
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;top - 15:14:40 up 46 min,  1 user,  load average: 0.00, 0.01, 0.05
+Tasks:  56 total,   1 running,  55 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   1019600k total,   316576k used,   703024k free,     7652k buffers
+Swap:        0k total,        0k used,        0k free,   258976k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND           
+    1 root      20   0 24188 2120 1300 S  0.0  0.2   0:00.56 init               
+    2 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S  0.0  0.0   0:00.07 ksoftirqd/0        
+    6 root      RT   0     0    0    0 S  0.0  0.0   0:00.00 migration/0        
+    7 root      RT   0     0    0    0 S  0.0  0.0   0:00.03 watchdog/0         
+    8 root       0 -20     0    0    0 S  0.0  0.0   0:00.00 cpuset             
+    9 root       0 -20     0    0    0 S  0.0  0.0   0:00.00 khelper            
+   10 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kdevtmpfs          
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The top chunk of information give system statistics, such as system load and the total number of tasks.&lt;/p&gt;
+
+&lt;p&gt;You can easily see that there is 1 running process, and 55 processes are sleeping (aka idle/not using CPU resources).&lt;/p&gt;
+
+&lt;p&gt;The bottom portion has the running processes and their usage statistics.&lt;/p&gt;
+
+&lt;h3&gt;htop&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;An improved version of &lt;code&gt;top&lt;/code&gt;, called &lt;code&gt;htop&lt;/code&gt;, is available in the repositories.  Install it with this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install htop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we run the &lt;code&gt;htop&lt;/code&gt; command, we will see that there is a more user-friendly display:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;htop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;  Mem[|||||||||||           49/995MB]     Load average: 0.00 0.03 0.05 
+  CPU[                          0.0%]     Tasks: 21, 3 thr; 1 running
+  Swp[                         0/0MB]     Uptime: 00:58:11
+
+  PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command
+ 1259 root       20   0 25660  1880  1368 R  0.0  0.2  0:00.06 htop
+    1 root       20   0 24188  2120  1300 S  0.0  0.2  0:00.56 /sbin/init
+  311 root       20   0 17224   636   440 S  0.0  0.1  0:00.07 upstart-udev-brid
+  314 root       20   0 21592  1280   760 S  0.0  0.1  0:00.06 /sbin/udevd --dae
+  389 messagebu  20   0 23808   688   444 S  0.0  0.1  0:00.01 dbus-daemon --sys
+  407 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.02 rsyslogd -c5
+  408 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.00 rsyslogd -c5
+  409 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.00 rsyslogd -c5
+  406 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.04 rsyslogd -c5
+  553 root       20   0 15180   400   204 S  0.0  0.0  0:00.01 upstart-socket-br
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can &lt;a href=&quot;https://www.digitalocean.com/community/articles/how-to-use-top-netstat-du-other-tools-to-monitor-server-resources#process&quot;&gt;learn more about how to use top and htop&lt;/a&gt; here.&lt;/p&gt;
+
+&lt;h2&gt;How To Use ps to List Processes&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Both &lt;code&gt;top&lt;/code&gt; and &lt;code&gt;htop&lt;/code&gt; provide a nice interface to view running processes similar to a graphical task manager.&lt;/p&gt;
+
+&lt;p&gt;However, these tools are not always flexible enough to adequately cover all scenarios.  A powerful command called &lt;code&gt;ps&lt;/code&gt; is often the answer to these problems.&lt;/p&gt;
+
+&lt;p&gt;When called without arguments, the output can be a bit lack-luster:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;  PID TTY          TIME CMD
+ 1017 pts/0    00:00:00 bash
+ 1262 pts/0    00:00:00 ps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This output shows all of the processes associated with the current user and terminal session.  This makes sense because we are only running &lt;code&gt;bash&lt;/code&gt; and &lt;code&gt;ps&lt;/code&gt; with this terminal currently.&lt;/p&gt;
+
+&lt;p&gt;To get a more complete picture of the processes on this system, we can run the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ps aux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.2  24188  2120 ?        Ss   14:28   0:00 /sbin/init
+root         2  0.0  0.0      0     0 ?        S    14:28   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    14:28   0:00 [ksoftirqd/0]
+root         6  0.0  0.0      0     0 ?        S    14:28   0:00 [migration/0]
+root         7  0.0  0.0      0     0 ?        S    14:28   0:00 [watchdog/0]
+root         8  0.0  0.0      0     0 ?        S&amp;lt;   14:28   0:00 [cpuset]
+root         9  0.0  0.0      0     0 ?        S&amp;lt;   14:28   0:00 [khelper]
+. . .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These options tell &lt;code&gt;ps&lt;/code&gt; to show processes owned by all users (regardless of their terminal association) in a user-friendly format.&lt;/p&gt;
+
+&lt;p&gt;To see a &lt;em&gt;tree&lt;/em&gt; view, where hierarchal relationships are illustrated, we can run the command with these options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ps axjf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt; PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
+    0     2     0     0 ?           -1 S        0   0:00 [kthreadd]
+    2     3     0     0 ?           -1 S        0   0:00  \_ [ksoftirqd/0]
+    2     6     0     0 ?           -1 S        0   0:00  \_ [migration/0]
+    2     7     0     0 ?           -1 S        0   0:00  \_ [watchdog/0]
+    2     8     0     0 ?           -1 S&amp;lt;       0   0:00  \_ [cpuset]
+    2     9     0     0 ?           -1 S&amp;lt;       0   0:00  \_ [khelper]
+    2    10     0     0 ?           -1 S        0   0:00  \_ [kdevtmpfs]
+    2    11     0     0 ?           -1 S&amp;lt;       0   0:00  \_ [netns]
+. . .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, the process &lt;code&gt;kthreadd&lt;/code&gt; is shown to be a parent of the &lt;code&gt;ksoftirqd/0&lt;/code&gt; process and the others.&lt;/p&gt;
+
+&lt;h3&gt;A Note About Process IDs&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;In Linux and Unix-like systems, each process is assigned a &lt;strong&gt;process ID&lt;/strong&gt;, or &lt;strong&gt;PID&lt;/strong&gt;.  This is how the operating system identifies and keeps track of processes.&lt;/p&gt;
+
+&lt;p&gt;A quick way of getting the PID of a process is with the &lt;code&gt;pgrep&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pgrep bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;1017
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will simply query the process ID and return it.&lt;/p&gt;
+
+&lt;p&gt;The first process spawned at boot, called &lt;em&gt;init&lt;/em&gt;, is given the PID of &amp;quot;1&amp;quot;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pgrep init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This process is then responsible for spawning every other process on the system.  The later processes are given larger PID numbers.&lt;/p&gt;
+
+&lt;p&gt;A process&amp;#39;s &lt;em&gt;parent&lt;/em&gt; is the process that was responsible for spawning it.  If a process&amp;#39;s parent is killed, then the child processes also die.  The parent process&amp;#39;s PID is referred to as the &lt;strong&gt;PPID&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see PID and PPID in the column headers in many process management applications, including &lt;code&gt;top&lt;/code&gt;, &lt;code&gt;htop&lt;/code&gt; and &lt;code&gt;ps&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Any communication between the user and the operating system about processes involves translating between process names and PIDs at some point during the operation.  This is why utilities tell you the PID.&lt;/p&gt;
+
+&lt;h2&gt;How To Send Processes Signals in Linux&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;All processes in Linux respond to &lt;em&gt;signals&lt;/em&gt;.  Signals are an os-level way of telling programs to terminate or modify their behavior.&lt;/p&gt;
+
+&lt;h3&gt;How To Send Processes Signals by PID&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;The most common way of passing signals to a program is with the &lt;code&gt;kill&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;As you might expect, the default functionality of this utility is to attempt to kill a process:&lt;/p&gt;
+
+&lt;pre&gt;
+kill &lt;span class=&quot;highlight&quot;&gt;PID_of_target_process&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;This sends the &lt;strong&gt;TERM&lt;/strong&gt; signal to the process.  The TERM signal tells the process to please terminate.  This allows the program to perform clean-up operations and exit smoothly.&lt;/p&gt;
+
+&lt;p&gt;If the program is misbehaving and does not exit when given the TERM signal, we can escalate the signal by passing the &lt;code&gt;KILL&lt;/code&gt; signal:&lt;/p&gt;
+
+&lt;pre&gt;
+kill -KILL &lt;span class=&quot;highlight&quot;&gt;PID_of_target_process&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;This is a special signal that is not sent to the program.&lt;/p&gt;
+
+&lt;p&gt;Instead, it is given to the operating system kernel, which shuts down the process.  This is used to bypass programs that ignore the signals sent to them.&lt;/p&gt;
+
+&lt;p&gt;Each signal has an associated number that can be passed instead of the name.  For instance, You can pass &amp;quot;-15&amp;quot; instead of &amp;quot;-TERM&amp;quot;, and &amp;quot;-9&amp;quot; instead of &amp;quot;-KILL&amp;quot;.&lt;/p&gt;
+
+&lt;h3&gt;How To Use Signals For Other Purposes&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Signals are not only used to shut down programs.  They can also be used to perform other actions.&lt;/p&gt;
+
+&lt;p&gt;For instance, many daemons will restart when they are given the &lt;code&gt;HUP&lt;/code&gt;, or hang-up signal.  Apache is one program that operates like this.&lt;/p&gt;
+
+&lt;pre&gt;
+sudo kill -HUP &lt;span class=&quot;highlight&quot;&gt;pid_of_apache&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;The above command will cause Apache to reload its configuration file and resume serving content.&lt;/p&gt;
+
+&lt;p&gt;You can list all of the signals that are possible to send with kill by typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kill -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt;1) SIGHUP    2) SIGINT   3) SIGQUIT  4) SIGILL   5) SIGTRAP
+ 6) SIGABRT  7) SIGBUS   8) SIGFPE   9) SIGKILL 10) SIGUSR1
+11) SIGSEGV 12) SIGUSR2 13) SIGPIPE 14) SIGALRM 15) SIGTERM
+. . .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;How To Send Processes Signals by Name&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Although the conventional way of sending signals is through the use of PIDs, there are also methods of doing this with regular process names.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;pkill&lt;/code&gt; command works in almost exactly the same way as &lt;code&gt;kill&lt;/code&gt;, but it operates on a process name instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pkill -9 ping
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above command is the equivalent of:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kill -9 `pgrep ping`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you would like to send a signal to every instance of a certain process, you can use the &lt;code&gt;killall&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;killall firefox
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above command will send the TERM signal to every instance of firefox running on the computer.&lt;/p&gt;
+
+&lt;h2&gt;How To Adjust Process Priorities&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Often, you will want to adjust which processes are given priority in a server environment.&lt;/p&gt;
+
+&lt;p&gt;Some processes might be considered mission critical for your situation, while others may be executed whenever there might be leftover resources.&lt;/p&gt;
+
+&lt;p&gt;Linux controls priority through a value called &lt;strong&gt;niceness&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;High priority tasks are considered less &lt;em&gt;nice&lt;/em&gt;, because they don&amp;#39;t share resources as well.  Low priority processes, on the other hand, are &lt;em&gt;nice&lt;/em&gt; because they insist on only taking minimal resources.&lt;/p&gt;
+
+&lt;p&gt;When we ran &lt;code&gt;top&lt;/code&gt; at the beginning of the article, there was a column marked &amp;quot;NI&amp;quot;.  This is the &lt;em&gt;nice&lt;/em&gt; value of the process:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;top
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- --&gt;
+
+&lt;pre&gt;&lt;code&gt; Tasks:  56 total,   1 running,  55 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.0%us,  0.3%sy,  0.0%ni, 99.7%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   1019600k total,   324496k used,   695104k free,     8512k buffers
+Swap:        0k total,        0k used,        0k free,   264812k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND           
+ 1635 root      20   0 17300 1200  920 R  0.3  0.1   0:00.01 top                
+    1 root      20   0 24188 2120 1300 S  0.0  0.2   0:00.56 init               
+    2 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S  0.0  0.0   0:00.11 ksoftirqd/0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nice values can range between &amp;quot;-19/-20&amp;quot; (highest priority) and &amp;quot;19/20&amp;quot; (lowest priority) depending on the system.&lt;/p&gt;
+
+&lt;p&gt;To run a program with a certain nice value, we can use the &lt;code&gt;nice&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;pre&gt;
+nice -n 15 &lt;span class=&quot;highlight&quot;&gt;command_to_execute&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;This only works when beginning a new program.&lt;/p&gt;
+
+&lt;p&gt;To alter the nice value of a program that is already executing, we use a tool called &lt;code&gt;renice&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;
+renice 0 &lt;span class=&quot;highlight&quot;&gt;PID_to_prioritize&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note: While nice operates with a command name by necessity, renice operates by calling the process PID&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Process management is a topic that is sometimes difficult for new users to grasp because the tools used are different from their graphical counterparts.&lt;/p&gt;
+
+&lt;p&gt;However, the ideas are familiar and intuitive, and with a little practice, will become natural.  Because processes are involved in everything you do with a computer system, learning how to effectively control them is an essential skill.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: right; font-size: smaller;&quot;&gt;By Justin Ellingwood&lt;/div&gt;" name="description">
+<!-- / Keywords -->
+<meta content="[&quot;Linux Basics&quot;, &quot;Ubuntu&quot;, &quot;Miscellaneous&quot;, &quot;System Tools&quot;]" name="keywords">
+<meta content="https://www.digitalocean.com/assets/v2/logos/blue_sm_logo_vert-b8ef82c7be29fefcc97f861515ed8bec.png" property="og:image">
+
+
+<link href="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/application-017c33468aba63c13579e9ee43d41c4f.css" media="screen" rel="stylesheet" type="text/css">
+<meta content="authenticity_token" name="csrf-param">
+<meta content="tYx91rTYXZBUFUUM7c3DZINJcVSsZaLX+yOYnwfsKHo=" name="csrf-token">
+<script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/51c8920f71ca6dc47d00002f.js" async="" type="text/javascript"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/mixpanel-2.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/5850.js"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/widgets.js" async="" id="twitter-wjs"></script><script async="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/cbgapi.loaded_1"></script><script async="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/cbgapi.loaded_0"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/in.js" async="" type="text/javascript"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/hn.js"></script><script gapi_processed="true" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/plusone.js" async="" type="text/javascript"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/all.js" async="" id="facebook-jssdk"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/ga.js" async="" type="text/javascript"></script><script async="" type="text/javascript" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/mwy0yxy.js"></script><script>
+  //<![CDATA[
+    (function() {
+      var config = {
+        kitId: 'mwy0yxy',
+        scriptTimeout: 3000
+      };
+      var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+    })();
+    
+    var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-26573244-1']);
+     _gaq.push(['_trackPageview']);
+    
+     (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+    
+     /* <![CDATA[ */
+     var google_conversion_id = 1010666955;
+     var google_conversion_language = "en";
+     var google_conversion_format = "3";
+     var google_conversion_color = "ffffff";
+     var google_conversion_label = "g5d3CM2C9QIQy5v24QM";
+     var google_conversion_value = 0;
+     /* ]]> */
+  //]]>
+</script><style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-athelas{font-family:"athelas",serif;}</style><link href="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/d.css" rel="stylesheet">
+<style type="text/css"></style><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/secureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link{height:1% !important;}#li_ui_li_gen_1389170170139_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link:link, #li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link:visited, #li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link:hover, #li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1389170170139_0 a#li_ui_li_gen_1389170170139_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-logo{background:url(https://www.linkedin.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -276px no-repeat !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;}#li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-logo, #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-logo{}#li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-moz-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title, #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title{}.IN-shadowed #li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title{}.IN-shadowed #li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title, .IN-shadowed #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title{}#li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title-text, #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title-text, #li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title-text *{color:#000 !important;}#li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title-text, #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title-text, #li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title-text *, #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title-text *{color:#666 !important;}#li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title #li_ui_li_gen_1389170170139_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title-text, .success #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1389170170139_0 #li_ui_li_gen_1389170170139_0-title{}.success #li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title-text, .success #li_ui_li_gen_1389170170139_0.hovered #li_ui_li_gen_1389170170139_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title, .success #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title-text, .success #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title-text, .success #li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title-text *, .success #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1389170170139_0.clicked #li_ui_li_gen_1389170170139_0-title, .IN-shadowed .success #li_ui_li_gen_1389170170139_0.down #li_ui_li_gen_1389170170139_0-title{}#li_ui_li_gen_1389170170175_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1389170170175_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background:url(https://www.linkedin.com/scds/common/u/img/sprite/sprite_connect_v13.png) right -100px no-repeat !important;}#li_ui_li_gen_1389170170175_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background:url(https://www.linkedin.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -60px no-repeat !important;}#li_ui_li_gen_1389170170175_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1389170170175_1-container.IN-hovered #li_ui_li_gen_1389170170175_1.IN-right, #li_ui_li_gen_1389170170175_1-container.IN-clicked #li_ui_li_gen_1389170170175_1.IN-right, #li_ui_li_gen_1389170170175_1-container.IN-down #li_ui_li_gen_1389170170175_1.IN-right {background-position-y:-120px !important;}#li_ui_li_gen_1389170170175_1-container.IN-hovered #li_ui_li_gen_1389170170175_1-inner.IN-right, #li_ui_li_gen_1389170170175_1-container.IN-clicked #li_ui_li_gen_1389170170175_1-inner.IN-right, #li_ui_li_gen_1389170170175_1-container.IN-down #li_ui_li_gen_1389170170175_1-inner.IN-right {background-position-y:-80px !important;}#li_ui_li_gen_1389170170175_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1389170170175_1-container.IN-hidden #li_ui_li_gen_1389170170175_1 {display:none !important;}</style><img src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/seg" width="1" height="1" border="0"><img src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/a" width="1" height="1" border="0"><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/roundtrip.js" type="text/javascript" async="true"></script><script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/4IDGVTPEAFC4TM2QKYNQ53" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline;"><img style="border-style:none;" alt="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/out" width="1" height="1">
+<img style="border-style:none;" alt="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/out.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/out_002.gif" width="1" height="1">
+<img alt="" style="display:none" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/tr" width="1" height="1"><img style="border-style:none;" alt="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/a.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/out_003.gif" width="1" height="1">
+<img src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/seg.gif" width="1" height="1">
+</div></head>
+<body data-twttr-rendered="true" class="community">
+<div class="header">
+<div class="container">
+<div class="logo">
+<a href="https://www.digitalocean.com/"><img alt="Logo" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/logo-c4c28a85d10790a9db1a1183b702b116.png" width="191" height="45"></a>
+</div>
+<div class="navigation">
+<ul>
+<li><a href="https://www.digitalocean.com/"><img alt="Home" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/home-76a8f7746e13478941f49bdcf02d9159.png" width="18" height="16"></a></li>
+<li><a href="https://www.digitalocean.com/pricing">Pricing</a></li>
+<li><a href="https://www.digitalocean.com/features">Features</a></li>
+<li><a href="https://www.digitalocean.com/customer-stories">Customers</a></li>
+<li><a href="https://www.digitalocean.com/community/" class="active">Help &amp; Community</a></li>
+</ul>
+</div>
+<div class="actions">
+<a href="https://cloud.digitalocean.com/registrations/new" class="button_header button_orange">Sign Up</a>
+<a href="https://cloud.digitalocean.com/login" class="button_header button_gray button_lock">Login</a>
+</div>
+</div>
+</div>
+
+<div class="sub_navigation">
+<div class="container">
+<div class="heading">
+<div class="title">Help &amp; Community</div>
+</div>
+<div class="actions">
+<ul>
+<li>
+<a href="https://www.digitalocean.com/community/articles" class="articles"><div class="title">Articles &amp; Tutorials</div>
+</a></li>
+<li>
+<a href="https://www.digitalocean.com/community/questions" class="questions"><div class="title">Questions</div>
+</a></li>
+<li>
+<a href="http://webchat.freenode.net/?channels=digitalocean&amp;uio=d4" class="chat" target="_blank"><div class="title">Chat</div>
+</a></li>
+<li>
+<a href="https://www.digitalocean.com/blog" class="blog"><div class="title">Blog</div>
+</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="community articles show">
+<div class="sidebar">
+<hr>
+<div class="try_us">
+<div class="top-header">
+<strong>Try this tutorial</strong>
+<br>
+on an SSD cloud server.
+</div>
+<form accept-charset="UTF-8" action="https://cloud.digitalocean.com/registrations" class="form-inline" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="tYx91rTYXZBUFUUM7c3DZINJcVSsZaLX+yOYnwfsKHo=" type="hidden"></div><input class="form_inputs" id="user_email" name="user[email]" placeholder="Your email" size="30" type="text">
+<input id="user_signup_form_name" name="user[signup_form_name]" value="Homepage" type="hidden">
+<input class="form_inputs" id="user_password" name="user[password]" placeholder="Create a password" rel="tooltip-focus" size="30" title="Must be at least 6 characters long and it must contain at least one letter" type="password">
+<input class="btn btn-primary btn-try btn-large" name="commit" value="Get Started!" type="submit">
+</form>
+
+<div class="bottom-text">
+Includes 512MB RAM, 20GB SSD Disk, and 1TB Transfer for
+<strong>$5/mo</strong>! <a href="https://www.digitalocean.com/pricing">Learn more</a>.
+</div>
+</div>
+
+<div class="title">Related Articles</div>
+<div class="tag">
+<h3>Linux Basics</h3>
+<hr>
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-ssh-keys--2">How To Set Up SSH Keys</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-vsftpd-on-ubuntu-12-04">How To Set Up vsftpd on Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-add-and-delete-users-on-ubuntu-12-04-and-centos-6">How To Add and Delete Users on Ubuntu 12.04 and CentOS 6 </a></li>
+<li><a href="https://www.digitalocean.com/community/articles/initial-server-setup-with-ubuntu-12-04">Initial Server Setup with Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-linux-apache-mysql-php-lamp-stack-on-centos-6">How To Install Linux, Apache, MySQL, PHP (LAMP) stack On CentOS 6 </a></li>
+</ul>
+</div>
+<div class="tag">
+<h3>Ubuntu</h3>
+<hr>
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/initial-server-setup-with-ubuntu-12-04">Initial Server Setup with Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-git-on-ubuntu-12-04">How To Install Git on Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-apache-virtual-hosts-on-ubuntu-12-04-lts">How To Set Up Apache Virtual Hosts on Ubuntu 12.04 LTS</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-ruby-on-rails-on-ubuntu-12-04-lts-precise-pangolin-with-rvm">How To Install Ruby on Rails on Ubuntu 12.04 LTS (Precise Pangolin) with RVM</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu">How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu</a></li>
+</ul>
+</div>
+<div class="tag">
+<h3>Miscellaneous</h3>
+<hr>
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-and-use-memcache-on-ubuntu-12-04">How To Install and Use Memcache on Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-launch-your-site-on-a-new-ubuntu-12-04-server-with-lamp-sftp-and-dns">How To Launch Your Site on a New Ubuntu 12.04 Server with LAMP, SFTP, and DNS</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-a-minecraft-server-on-linux">How To Set Up a Minecraft Server on Linux</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-apache-tomcat-on-ubuntu-12-04">How To Install Apache Tomcat on Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-git-on-ubuntu-12-04">How To Install Git on Ubuntu 12.04</a></li>
+</ul>
+</div>
+<div class="tag">
+<h3>System Tools</h3>
+<hr>
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-and-configure-a-basic-ldap-server-on-an-ubuntu-12-04-vps">How To Install and Configure a Basic LDAP Server on an Ubuntu 12.04 VPS</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps">How To Use Rsync to Sync Local and Remote Directories on a VPS</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-host-multiple-node-js-applications-on-a-single-vps-with-nginx-forever-and-crontab">How To Host Multiple Node.js Applications On a Single VPS with nginx, forever, and crontab</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-use-ssh-to-connect-to-a-remote-server-in-ubuntu">How To Use SSH to Connect to a Remote Server in Ubuntu</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-use-ps-kill-and-nice-to-manage-processes-in-linux">How To Use ps, kill, and nice to Manage Processes in Linux</a></li>
+</ul>
+</div>
+</div>
+<div class="content">
+<h1>How To Use ps, kill, and nice to Manage Processes in Linux</h1>
+<div class="article-meta">
+<div class="social">
+<div id="fb-root"></div>
+<script>
+  //<![CDATA[
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=439858199408280";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  //]]>
+</script>
+<div class="fb-like" data-font="arial" data-href="https://www.digitalocean.com/community/articles/how-to-use-ps-kill-and-nice-to-manage-processes-in-linux" data-layout="button_count" data-send="false" data-show-faces="false" data-width="450"></div>
+<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe>
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/fastbutton.html" name="I0_1389170162847" id="I0_1389170162847" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+<script>
+  //<![CDATA[
+    (function() {
+      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+  //]]>
+</script>
+<script>
+  //<![CDATA[
+    (function(d, t) {
+      var g = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+      g.src = '//hnbutton.appspot.com/static/hn.min.js';
+      s.parentNode.insertBefore(g, s);
+    }(document, 'script'));
+  //]]>
+</script>
+<div class="hacker-news"><iframe class="hn-share-iframe" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/button.html" width="75px" frameborder="0" height="20px" scrolling="auto"></iframe></div>
+<div class="linkedin">
+<span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1389170170139_0"><a id="li_ui_li_gen_1389170170139_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1389170170139_0-logo">in</span><span id="li_ui_li_gen_1389170170139_0-title"><span id="li_ui_li_gen_1389170170139_0-mark"></span><span id="li_ui_li_gen_1389170170139_0-title-text">Share</span></span></a></span></span><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1389170170175_1-container" class="IN-right IN-hidden"><span id="li_ui_li_gen_1389170170175_1" class="IN-right"><span id="li_ui_li_gen_1389170170175_1-inner" class="IN-right"><span id="li_ui_li_gen_1389170170175_1-content" class="IN-right">0</span></span></span></span></span></span><script data-counter="right" type="IN/Share+init"></script>
+<script>
+  //<![CDATA[
+    (function() {
+      var e = document.createElement('script');
+      e.type = 'text/javascript';
+      e.async = true;
+      e.src = 'https://platform.linkedin.com/in.js?async=true';
+      e.onload = function(){ IN.init() };
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(e, s);
+    })();
+  //]]>
+</script>
+</div>
+</div>
+<div class="writeArticle">
+<a href="https://www.digitalocean.com/write-for-digitalocean" target="_blank">Write an Article</a>
+</div>
+</div>
+<h3>Introduction</h3>
+
+<hr>
+
+<p>A Linux server, like any other computer you may be familiar with, 
+runs applications.  To the computer, these are considered "processes".</p>
+
+<p>While Linux will handle the low-level, behind-the-scenes management 
+in a process's life-cycle, you will need a way of interacting with the 
+operating system to manage it from a higher-level.</p>
+
+<p>In this guide, we will discuss some simple aspects of process 
+management.  Linux provides an abundant collection of tools for this 
+purpose.</p>
+
+<p>We will explore these ideas on an Ubuntu 12.04 VPS, but any modern Linux distribution will operate in a similar way.</p>
+
+<h2>How To View Running Processes in Linux</h2>
+
+<hr>
+
+<h3>top</h3>
+
+<hr>
+
+<p>The easiest way to find out what processes are running on your server is to run the <code>top</code> command:</p>
+
+<pre><code>top
+</code></pre>
+
+<!-- -->
+
+<pre><code>top - 15:14:40 up 46 min,  1 user,  load average: 0.00, 0.01, 0.05
+Tasks:  56 total,   1 running,  55 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   1019600k total,   316576k used,   703024k free,     7652k buffers
+Swap:        0k total,        0k used,        0k free,   258976k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND           
+    1 root      20   0 24188 2120 1300 S  0.0  0.2   0:00.56 init               
+    2 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S  0.0  0.0   0:00.07 ksoftirqd/0        
+    6 root      RT   0     0    0    0 S  0.0  0.0   0:00.00 migration/0        
+    7 root      RT   0     0    0    0 S  0.0  0.0   0:00.03 watchdog/0         
+    8 root       0 -20     0    0    0 S  0.0  0.0   0:00.00 cpuset             
+    9 root       0 -20     0    0    0 S  0.0  0.0   0:00.00 khelper            
+   10 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kdevtmpfs          
+</code></pre>
+
+<p>The top chunk of information give system statistics, such as system load and the total number of tasks.</p>
+
+<p>You can easily see that there is 1 running process, and 55 processes are sleeping (aka idle/not using CPU resources).</p>
+
+<p>The bottom portion has the running processes and their usage statistics.</p>
+
+<h3>htop</h3>
+
+<hr>
+
+<p>An improved version of <code>top</code>, called <code>htop</code>, is available in the repositories.  Install it with this command:</p>
+
+<pre><code>sudo apt-get install htop
+</code></pre>
+
+<p>If we run the <code>htop</code> command, we will see that there is a more user-friendly display:</p>
+
+<pre><code>htop
+</code></pre>
+
+<!-- -->
+
+<pre><code>  Mem[|||||||||||           49/995MB]     Load average: 0.00 0.03 0.05 
+  CPU[                          0.0%]     Tasks: 21, 3 thr; 1 running
+  Swp[                         0/0MB]     Uptime: 00:58:11
+
+  PID USER      PRI  NI  VIRT   RES   SHR S CPU% MEM%   TIME+  Command
+ 1259 root       20   0 25660  1880  1368 R  0.0  0.2  0:00.06 htop
+    1 root       20   0 24188  2120  1300 S  0.0  0.2  0:00.56 /sbin/init
+  311 root       20   0 17224   636   440 S  0.0  0.1  0:00.07 upstart-udev-brid
+  314 root       20   0 21592  1280   760 S  0.0  0.1  0:00.06 /sbin/udevd --dae
+  389 messagebu  20   0 23808   688   444 S  0.0  0.1  0:00.01 dbus-daemon --sys
+  407 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.02 rsyslogd -c5
+  408 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.00 rsyslogd -c5
+  409 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.00 rsyslogd -c5
+  406 syslog     20   0  243M  1404  1080 S  0.0  0.1  0:00.04 rsyslogd -c5
+  553 root       20   0 15180   400   204 S  0.0  0.0  0:00.01 upstart-socket-br
+</code></pre>
+
+<p>You can <a href="https://www.digitalocean.com/community/articles/how-to-use-top-netstat-du-other-tools-to-monitor-server-resources#process">learn more about how to use top and htop</a> here.</p>
+
+<h2>How To Use ps to List Processes</h2>
+
+<hr>
+
+<p>Both <code>top</code> and <code>htop</code> provide a nice interface to view running processes similar to a graphical task manager.</p>
+
+<p>However, these tools are not always flexible enough to adequately cover all scenarios.  A powerful command called <code>ps</code> is often the answer to these problems.</p>
+
+<p>When called without arguments, the output can be a bit lack-luster:</p>
+
+<pre><code>ps
+</code></pre>
+
+<!-- -->
+
+<pre><code>  PID TTY          TIME CMD
+ 1017 pts/0    00:00:00 bash
+ 1262 pts/0    00:00:00 ps
+</code></pre>
+
+<p>This output shows all of the processes associated with the current 
+user and terminal session.  This makes sense because we are only running
+ <code>bash</code> and <code>ps</code> with this terminal currently.</p>
+
+<p>To get a more complete picture of the processes on this system, we can run the following:</p>
+
+<pre><code>ps aux
+</code></pre>
+
+<!-- -->
+
+<pre><code>USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.2  24188  2120 ?        Ss   14:28   0:00 /sbin/init
+root         2  0.0  0.0      0     0 ?        S    14:28   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    14:28   0:00 [ksoftirqd/0]
+root         6  0.0  0.0      0     0 ?        S    14:28   0:00 [migration/0]
+root         7  0.0  0.0      0     0 ?        S    14:28   0:00 [watchdog/0]
+root         8  0.0  0.0      0     0 ?        S&lt;   14:28   0:00 [cpuset]
+root         9  0.0  0.0      0     0 ?        S&lt;   14:28   0:00 [khelper]
+. . .
+</code></pre>
+
+<p>These options tell <code>ps</code> to show processes owned by all users (regardless of their terminal association) in a user-friendly format.</p>
+
+<p>To see a <em>tree</em> view, where hierarchal relationships are illustrated, we can run the command with these options:</p>
+
+<pre><code>ps axjf
+</code></pre>
+
+<!-- -->
+
+<pre><code> PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
+    0     2     0     0 ?           -1 S        0   0:00 [kthreadd]
+    2     3     0     0 ?           -1 S        0   0:00  \_ [ksoftirqd/0]
+    2     6     0     0 ?           -1 S        0   0:00  \_ [migration/0]
+    2     7     0     0 ?           -1 S        0   0:00  \_ [watchdog/0]
+    2     8     0     0 ?           -1 S&lt;       0   0:00  \_ [cpuset]
+    2     9     0     0 ?           -1 S&lt;       0   0:00  \_ [khelper]
+    2    10     0     0 ?           -1 S        0   0:00  \_ [kdevtmpfs]
+    2    11     0     0 ?           -1 S&lt;       0   0:00  \_ [netns]
+. . .
+</code></pre>
+
+<p>As you can see, the process <code>kthreadd</code> is shown to be a parent of the <code>ksoftirqd/0</code> process and the others.</p>
+
+<h3>A Note About Process IDs</h3>
+
+<hr>
+
+<p>In Linux and Unix-like systems, each process is assigned a <strong>process ID</strong>, or <strong>PID</strong>.  This is how the operating system identifies and keeps track of processes.</p>
+
+<p>A quick way of getting the PID of a process is with the <code>pgrep</code> command:</p>
+
+<pre><code>pgrep bash
+</code></pre>
+
+<!-- -->
+
+<pre><code>1017
+</code></pre>
+
+<p>This will simply query the process ID and return it.</p>
+
+<p>The first process spawned at boot, called <em>init</em>, is given the PID of "1".</p>
+
+<pre><code>pgrep init
+</code></pre>
+
+<!-- -->
+
+<pre><code>1
+</code></pre>
+
+<p>This process is then responsible for spawning every other process on 
+the system.  The later processes are given larger PID numbers.</p>
+
+<p>A process's <em>parent</em> is the process that was responsible for 
+spawning it.  If a process's parent is killed, then the child processes 
+also die.  The parent process's PID is referred to as the <strong>PPID</strong>.</p>
+
+<p>You can see PID and PPID in the column headers in many process management applications, including <code>top</code>, <code>htop</code> and <code>ps</code>.</p>
+
+<p>Any communication between the user and the operating system about 
+processes involves translating between process names and PIDs at some 
+point during the operation.  This is why utilities tell you the PID.</p>
+
+<h2>How To Send Processes Signals in Linux</h2>
+
+<hr>
+
+<p>All processes in Linux respond to <em>signals</em>.  Signals are an os-level way of telling programs to terminate or modify their behavior.</p>
+
+<h3>How To Send Processes Signals by PID</h3>
+
+<hr>
+
+<p>The most common way of passing signals to a program is with the <code>kill</code> command.</p>
+
+<p>As you might expect, the default functionality of this utility is to attempt to kill a process:</p>
+
+<pre>kill <span class="highlight">PID_of_target_process</span>
+</pre>
+
+<p>This sends the <strong>TERM</strong> signal to the process.  The TERM
+ signal tells the process to please terminate.  This allows the program 
+to perform clean-up operations and exit smoothly.</p>
+
+<p>If the program is misbehaving and does not exit when given the TERM signal, we can escalate the signal by passing the <code>KILL</code> signal:</p>
+
+<pre>kill -KILL <span class="highlight">PID_of_target_process</span>
+</pre>
+
+<p>This is a special signal that is not sent to the program.</p>
+
+<p>Instead, it is given to the operating system kernel, which shuts down
+ the process.  This is used to bypass programs that ignore the signals 
+sent to them.</p>
+
+<p>Each signal has an associated number that can be passed instead of 
+the name.  For instance, You can pass "-15" instead of "-TERM", and "-9"
+ instead of "-KILL".</p>
+
+<h3>How To Use Signals For Other Purposes</h3>
+
+<hr>
+
+<p>Signals are not only used to shut down programs.  They can also be used to perform other actions.</p>
+
+<p>For instance, many daemons will restart when they are given the <code>HUP</code>, or hang-up signal.  Apache is one program that operates like this.</p>
+
+<pre>sudo kill -HUP <span class="highlight">pid_of_apache</span>
+</pre>
+
+<p>The above command will cause Apache to reload its configuration file and resume serving content.</p>
+
+<p>You can list all of the signals that are possible to send with kill by typing:</p>
+
+<pre><code>kill -l
+</code></pre>
+
+<!-- -->
+
+<pre><code>1) SIGHUP    2) SIGINT   3) SIGQUIT  4) SIGILL   5) SIGTRAP
+ 6) SIGABRT  7) SIGBUS   8) SIGFPE   9) SIGKILL 10) SIGUSR1
+11) SIGSEGV 12) SIGUSR2 13) SIGPIPE 14) SIGALRM 15) SIGTERM
+. . .
+</code></pre>
+
+<h3>How To Send Processes Signals by Name</h3>
+
+<hr>
+
+<p>Although the conventional way of sending signals is through the use 
+of PIDs, there are also methods of doing this with regular process 
+names.</p>
+
+<p>The <code>pkill</code> command works in almost exactly the same way as <code>kill</code>, but it operates on a process name instead:</p>
+
+<pre><code>pkill -9 ping
+</code></pre>
+
+<p>The above command is the equivalent of:</p>
+
+<pre><code>kill -9 `pgrep ping`
+</code></pre>
+
+<p>If you would like to send a signal to every instance of a certain process, you can use the <code>killall</code> command:</p>
+
+<pre><code>killall firefox
+</code></pre>
+
+<p>The above command will send the TERM signal to every instance of firefox running on the computer.</p>
+
+<h2>How To Adjust Process Priorities</h2>
+
+<hr>
+
+<p>Often, you will want to adjust which processes are given priority in a server environment.</p>
+
+<p>Some processes might be considered mission critical for your 
+situation, while others may be executed whenever there might be leftover
+ resources.</p>
+
+<p>Linux controls priority through a value called <strong>niceness</strong>.</p>
+
+<p>High priority tasks are considered less <em>nice</em>, because they don't share resources as well.  Low priority processes, on the other hand, are <em>nice</em> because they insist on only taking minimal resources.</p>
+
+<p>When we ran <code>top</code> at the beginning of the article, there was a column marked "NI".  This is the <em>nice</em> value of the process:</p>
+
+<pre><code>top
+</code></pre>
+
+<!-- -->
+
+<pre><code> Tasks:  56 total,   1 running,  55 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.0%us,  0.3%sy,  0.0%ni, 99.7%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   1019600k total,   324496k used,   695104k free,     8512k buffers
+Swap:        0k total,        0k used,        0k free,   264812k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND           
+ 1635 root      20   0 17300 1200  920 R  0.3  0.1   0:00.01 top                
+    1 root      20   0 24188 2120 1300 S  0.0  0.2   0:00.56 init               
+    2 root      20   0     0    0    0 S  0.0  0.0   0:00.00 kthreadd           
+    3 root      20   0     0    0    0 S  0.0  0.0   0:00.11 ksoftirqd/0
+</code></pre>
+
+<p>Nice values can range between "-19/-20" (highest priority) and "19/20" (lowest priority) depending on the system.</p>
+
+<p>To run a program with a certain nice value, we can use the <code>nice</code> command:</p>
+
+<pre>nice -n 15 <span class="highlight">command_to_execute</span>
+</pre>
+
+<p>This only works when beginning a new program.</p>
+
+<p>To alter the nice value of a program that is already executing, we use a tool called <code>renice</code>:</p>
+
+<pre>renice 0 <span class="highlight">PID_to_prioritize</span>
+</pre>
+
+<p><strong>Note: While nice operates with a command name by necessity, renice operates by calling the process PID</strong></p>
+
+<h2>Conclusion</h2>
+
+<hr>
+
+<p>Process management is a topic that is sometimes difficult for new 
+users to grasp because the tools used are different from their graphical
+ counterparts.</p>
+
+<p>However, the ideas are familiar and intuitive, and with a little 
+practice, will become natural.  Because processes are involved in 
+everything you do with a computer system, learning how to effectively 
+control them is an essential skill.</p>
+
+<div style="text-align: right; font-size: smaller;">By Justin Ellingwood</div>
+
+<hr>
+<div class="bottom-form">
+<div class="top-header">
+<strong>Try this tutorial</strong>
+
+on an SSD cloud server.
+</div>
+<form accept-charset="UTF-8" action="https://cloud.digitalocean.com/registrations" class="form-inline" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="tYx91rTYXZBUFUUM7c3DZINJcVSsZaLX+yOYnwfsKHo=" type="hidden"></div><input class="form_inputs" id="user_email" name="user[email]" placeholder="Your email" size="30" type="text">
+<input id="user_signup_form_name" name="user[signup_form_name]" value="Homepage" type="hidden">
+<input class="form_inputs" id="user_password" name="user[password]" placeholder="Create a password" rel="tooltip-focus" size="30" title="Must be at least 6 characters long and it must contain at least one letter" type="password">
+<input class="btn btn-primary btn-try btn-large" name="commit" value="Get Started!" type="submit">
+</form>
+
+<div class="bottom-text">
+Includes 512MB RAM, 20GB SSD Disk, and 1TB Transfer for
+<strong>$5/mo</strong>! <a href="https://www.digitalocean.com/pricing">Learn more</a>.
+</div>
+</div>
+
+<hr>
+<div class="comments" id="comments">
+<div class="load">
+<h1>Comments</h1>
+<div class="comment">
+<div class="user">
+<div class="gravatar"><img alt="Gravatar" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/2c556875733cd72c0756c3214147f59f.png" width="80" height="80"></div>
+<div class="name">rgbx.stud</div>
+</div>
+<div class="text">
+<p sanitize="true">Really nice and helpful tutorial thanks.</p>
+<hr>
+<div class="posted">Posted September 19th, 2013 12:11</div>
+</div>
+</div>
+<div class="new_comment_loading">
+<img alt="Ajax-loader" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/ajax-loader-338c17cb4b726875e8bd8c70442e2bc4.gif">
+</div>
+<div class="new_comment">
+<form accept-charset="UTF-8" action="/community/articles/how-to-use-ps-kill-and-nice-to-manage-processes-in-linux/comments" class="simple_form new_comment" data-remote="true" id="new_comment" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="tYx91rTYXZBUFUUM7c3DZINJcVSsZaLX+yOYnwfsKHo=" type="hidden"></div><div class="control-group text required"><div class="controls"><textarea class="text required textarea" cols="40" id="comment_content" name="comment[content]" placeholder="Leave a comment" rows="20"></textarea></div></div>
+<div class="not_logged_in">
+<div class="credentials">
+<div class="credential">
+<input id="user_email" name="user[email]" placeholder="Email" type="text">
+</div>
+<input data-original-title="Must be at least 6 characters long and it must contain at least one letter" data-toggle="tooltip" id="user_password" name="user[password]" placeholder="Password" rel="tooltip-focus" title="" type="password">
+<div class="note">Create your account or sign-in</div>
+</div>
+<div class="button">
+<input class="btn btn-primary btn-small" id="post_comment_button" name="commit" value="Post my Comment" type="submit">
+</div>
+</div>
+</form>
+
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+<script>
+  //<![CDATA[
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  //]]>
+</script>
+<script>
+  //<![CDATA[
+    setTimeout(function(){var a=document.createElement("script");
+    var b=document.getElementsByTagName("script")[0];
+    a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0020/5850.js?"+Math.floor(new Date().getTime()/3600000);
+    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+  //]]>
+</script><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/postmessageRelay.html" id="oauth2relay619158988" name="oauth2relay619158988"></iframe>
+<div class="footer">
+<div class="container">
+<div class="sections">
+<div class="company section">
+<div class="heading">Company</div>
+<ul>
+<li><a href="https://www.digitalocean.com/pricing">Pricing</a></li>
+<li><a href="https://www.digitalocean.com/price-comparison-chart">Comparison Chart</a></li>
+<li><a href="https://www.digitalocean.com/features">Features</a></li>
+<li><a href="https://www.digitalocean.com/customer-stories">Customers</a></li>
+<li><a href="https://www.digitalocean.com/about">About</a></li>
+<li><a href="https://www.digitalocean.com/faq">FAQ</a></li>
+<li><a href="https://www.digitalocean.com/press-center">Press</a></li>
+<li><a href="https://www.digitalocean.com/careers">Careers</a></li>
+<li><a href="https://api.digitalocean.com/">API</a></li>
+<li><a href="https://www.digitalocean.com/integrations">Integrations</a></li>
+<li><a href="http://www.digitaloceanstatus.com/" target="_blank">Network Status</a></li>
+<li><a href="https://www.digitalocean.com/contact" target="_blank">Contact</a></li>
+</ul>
+</div>
+<div class="community_section section">
+<div class="heading">Community</div>
+<ul>
+<li><a href="https://www.digitalocean.com/community/">Articles &amp; Tutorials</a></li>
+<li><a href="https://www.digitalocean.com/write-for-digitalocean">Get Paid to Write</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/digitalocean-community-article-suggestions-and-ideas" target="_blank">Suggest an Article</a></li>
+<li><a href="http://webchat.freenode.net/?channels=digitalocean&amp;uio=d4" target="_blank">Chat</a></li>
+<li><a href="https://www.digitalocean.com/community/questions">Q&amp;A</a></li>
+<li><a href="https://www.digitalocean.com/blog">Blog</a></li>
+<li><a href="https://www.digitalocean.com/referral-program">Referral Program</a></li>
+<li><a href="https://www.digitalocean.com/events-calendar">Events Calendar</a></li>
+<li><a href="http://digitalocean.uservoice.com/forums/136585-digital-ocean" target="_blank">Feedback</a></li>
+<li><a href="https://www.digitalocean.com/badges-and-logos">Badges &amp; Logos</a></li>
+<li><a href="http://digitalocean.spreadshirt.com/" target="_blank">The Shop</a></li>
+</ul>
+</div>
+<div class="blog_posts section">
+<div class="heading">Getting Started</div>
+<ul>
+<li><a href="https://www.digitalocean.com/one-click-install-applications">One-Click Install Applications</a></li>
+<li><a href="https://www.digitalocean.com/what-is-cloud-hosting">What is Cloud Hosting?</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/the-digitalocean-control-panel">Control Panel Overview</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-create-your-first-digitalocean-droplet-virtual-server">Deploy a Virtual Server</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-ssh-keys--2">Set-Up SSH Keys</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-git-on-ubuntu-12-04">Install Git on Ubuntu</a></li>
+<li><a href="https://www.digitalocean.com/community/community_tags/ruby-on-rails">How to Install Ruby on Rails</a></li>
+<li><a href="https://www.digitalocean.com/community/community_tags/lamp-stack">How to Install LAMP Stack</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-a-host-name-with-digitalocean">Set-Up a Host Name</a></li>
+</ul>
+</div>
+<div class="callOuts section">
+<div class="madeInNy">
+<a href="http://nytm.org/made-in-nyc/" target="_blank"><img alt="Madeny" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/madeNY-6a07e1da3588d9ee65e853511537d3fb.png" width="154" height="154"></a>
+</div>
+</div>
+</div>
+<div class="bottom">
+<div class="social">
+<div class="icon twitter"><a href="http://www.twitter.com/digitalocean" target="_blank"></a></div>
+<div class="icon facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank"></a></div>
+</div>
+<div class="copyright">
+©2011-2013 DigitalOcean™, Inc. All Rights Reserved.
+<a href="https://www.digitalocean.com/tos">Terms &amp; Privacy.</a>
+<a href="https://www.digitalocean.com/security">Security.</a>
+<!-- %br= link_to 'Proudly Made in NYC', 'http://nytm.org/made-in-nyc/' -->
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/conversion.js">
+</script><img alt="" src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/a_002.gif" width="1" height="1" border="0">
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1010666955/?value=0&amp;label=g5d3CM2C9QIQy5v24QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<script src="How%20To%20Use%20ps,%20kill,%20and%20nice%20to%20Manage%20Processes%20in%20Linux%20%7C%20DigitalOcean_files/application-d83f499ef90c8f305a44a7718579221c.js" type="text/javascript"></script>
+<script>
+  //<![CDATA[
+    (function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+    typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+    b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("155e217a94fcfc75058909a4489b9c58");
+  //]]>
+</script>
+
+
+<script>
+  //<![CDATA[
+    mixpanel.track("Page View");
+  //]]>
+</script>
+
+<script type="text/javascript">
+  (function() {
+    window._pa = window._pa || {};
+    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/51c8920f71ca6dc47d00002f.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+  })();
+</script>
+<script type="text/javascript">
+  adroll_adv_id = "S4BPDI4QWNB57PEKEZSLIP";
+  adroll_pix_id = "4IDGVTPEAFC4TM2QKYNQ53";
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+</script>
+
+
+</body></html>

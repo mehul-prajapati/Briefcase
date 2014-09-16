@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":2,"url":"http:\/\/simplestcodings.blogspot.com\/2013\/12\/decorator-design-pattern-implementation-in-cplusplus.html\/"});

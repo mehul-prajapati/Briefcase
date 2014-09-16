@@ -1,0 +1,63 @@
+<!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content=" 3.3.2. Data direction register, GPIODIR The GPIODIR register is the data direction register. Bits set to HIGH in the GPIODIR configure corresponding pin to be an output. Clearing a bit configures the pin to be input. All bits are cleared by a reset. Therefore, the GPIO pins are input by default. T"> 
+<title>ARM PrimeCell™ General Purpose Input/Output (PL061) Technical Reference Manual 3.3.2.&nbsp;Data direction register, GPIODIR </title><link rel="stylesheet" href="I32251_data/armEclipse.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.69.1"><link rel="start" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/index.html" title="ARM PrimeCell™ General
+Purpose Input/Output (PL061) Technical Reference Manual"><link rel="up" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I18702.html" title="Register descriptions"><link rel="prev" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I52696.html" title="Data register, GPIODATA "><link rel="next" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I28167.html" title="Interrupt sense register, GPIOIS "><link rel="chapter" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Cihgbhea.html" title="Programmer’s Model"><link rel="section" href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I18702.html" title="Register descriptions"><meta name="titlemarkup" content="ARM &amp;lt;span class=&amp;quot;trademark&amp;quot;&amp;gt;PrimeCell&amp;lt;/span&amp;gt;™ General
+Purpose Input/Output (PL061) Technical Reference Manual"><meta name="copyright" content="Copyright ©&nbsp;2000 ARM Limited. All rights reserved.. All rights reserved."><meta name="date" content="2006-09-14&nbsp;12:31:30+01:00">
+<script language="JavaScript" type="text/javascript">
+var armloggedin = top.document.getElementById('armloggedin');
+if (armloggedin && (armloggedin.style.display != 'none')) {
+	top.location.href = 'http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I32251.html';
+}
+var loginanchor = top.document.getElementById('loginanchor');
+if (loginanchor) {
+	loginanchor.onclick = function() {return top.showModal('https://login.arm.com/login.php?cams_original_url=http%3A%2F%2Finfocenter.arm.com%2Fhelp%2Ftopic%2Fcom.arm.doc.ddi0190b%2FI32251.html&mode=modal');};
+	loginanchor.href = 'https://login.arm.com/login.php?cams_original_url=http%3A%2F%2Finfocenter.arm.com%2Fhelp%2Ftopic%2Fcom.arm.doc.ddi0190b%2FI32251.html';
+}
+var languageLinks = top.document.getElementById('languagelinks');
+if (languageLinks) {
+	var anchors = languageLinks.getElementsByTagName('a');
+	for (var i = 0; i < anchors.length; i++) {
+		var anchorId = anchors[i].id;
+		if (anchorId && anchorId.match('^lang_[a-z]+$')) {
+			var language = anchorId.substring(5);
+			anchors[i].href = 'https://login.arm.com/language.php' +
+					'?language=' + language +
+					'&action=overridelanguage' +
+					'&url=http%3A%2F%2Finfocenter.arm.com%2Fhelp%2Ftopic%2Fcom.arm.doc.ddi0190b%2FI32251.html';
+		}
+	}
+}
+</script>
+
+<script language="JavaScript" type="text/javascript">
+if (parent.ContentToolbarFrame) {
+if (parent.ContentToolbarFrame.setButtonLocation) {
+parent.ContentToolbarFrame.setButtonLocation("previous", "../topic/com.arm.doc.ddi0190b/I52696.html");
+parent.ContentToolbarFrame.setButtonLocation("next", "../topic/com.arm.doc.ddi0190b/I28167.html");
+}
+if (parent.ContentToolbarFrame.setTitle) {
+parent.ContentToolbarFrame.setTitle("CoreLink controllers and peripherals");
+}
+}
+</script>
+<script language="JavaScript" type="text/javascript">if((self == top) || (parent.window.frames[window.name].name == 'modalContentFrame')){ window.location.replace( "../../?topic=/com.arm.doc.ddi0190b/I32251.html");}</script>
+</head><body><div class="headers"><table class="navheader" summary="Navigation header" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="titlingbar"><td class="titlingcell" colspan="2"><table class="titletable" summary="Nested table" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="titlebar"><td class="titlecell" colspan="2" valign="baseline" align="left">ARM <span class="trademark">PrimeCell</span>™ General
+Purpose Input/Output (PL061) Technical Reference Manual</td></tr></tbody></table></td></tr><tr class="breadcrumbbar"><td class="breadcrumbcell" colspan="2"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/index.html" accesskey="h">Home</a>&nbsp;&gt; <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Cihgbhea.html">Programmer’s Model</a>&nbsp;&gt; <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I18702.html" accesskey="u">Register descriptions</a>&nbsp;&gt; Data direction register, GPIODIR </td></tr></tbody></table></div><div class="sect2" xml:lang="en" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="I32251"></a>3.3.2.&nbsp;Data direction register, GPIODIR </h3></div></div></div><p>The GPIODIR register is the data direction register. Bits
+set to HIGH in the GPIODIR configure corresponding pin to be an
+output. Clearing a bit configures the pin to be input. All bits
+are cleared by a reset. Therefore, the GPIO pins are input by default.</p><p><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I32251.html#Chdhjihg" title="Table&nbsp;3.3.&nbsp;GPIODIR register ">Table&nbsp;3.3</a> shows
+the bit assignment of the GPIODIR register.</p><div class="TABLE"><a id="Chdhjihg"></a><p class="title"><b>Table&nbsp;3.3.&nbsp;GPIODIR register </b></p><table summary="GPIODIR register " border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th><p>Bits</p></th><th><p>Name</p></th><th><p>Type</p></th><th><p>Function</p></th></tr></thead><tbody><tr><td><p>7:0</p></td><td><p>Data direction register</p></td><td><p>Read/</p><p>write</p></td><td><p>Bits set, pins output</p><p>Bits
+cleared, pins output</p></td></tr></tbody></table></div></div><div class="footers"><table class="legalfooter" summary="Legal information footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="copyrightdocnumbar"><td class="copyrightcell" valign="top" align="left">Copyright ©&nbsp;2000 ARM Limited. All rights reserved.. All rights reserved.</td><td class="docnumcell" valign="top" align="right">ARM DDI 0190B</td></tr>
+<tr class="secstatusbar">
+ <td class="securitycell" valign="top" align="left">Non-Confidential</td>
+</tr> <tr class="pdflinkbar"><td class="pdflinkcell" colspan="2" valign="top" align="center"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/DDI0190.pdf" target="_blank" rel="nofollow"><img src="I32251_data/pdficon_small.gif" alt="PDF file icon" border="0">&nbsp;&nbsp;PDF version</a></td></tr></tbody></table><table class="navfooter" summary="Navigation footer" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr class="breadcrumbbar"><td class="breadcrumbcell" colspan="2"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/index.html" accesskey="h">Home</a>&nbsp;&gt; <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/Cihgbhea.html">Programmer’s Model</a>&nbsp;&gt; <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ddi0190b/I18702.html" accesskey="u">Register descriptions</a>&nbsp;&gt; Data direction register, GPIODIR </td></tr></tbody></table></div>
+<script type="text/javascript">
+ var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); 
+ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+ </script><script src="I32251_data/ga.js" type="text/javascript"></script> 
+ <script type="text/javascript" src="I32251_data/googlestats.js"></script>
+ <script type="text/javascript" src="I32251_data/armgooglestats.js"></script>
+ 
+</body></html>

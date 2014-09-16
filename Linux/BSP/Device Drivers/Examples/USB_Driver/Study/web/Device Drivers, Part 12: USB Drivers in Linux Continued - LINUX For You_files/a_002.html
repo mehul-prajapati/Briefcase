@@ -1,0 +1,5342 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html lang="en" dir="ltr" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" dir="ltr" class="ie9"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="js no-touch localstorage sessionstorage contenteditable use-opacity-transitions" dir="ltr" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Disqus Comments</title>
+
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        
+        <style>
+            html {
+                overflow: hidden;
+            }
+
+            html.not-supported {
+                overflow-y: auto;
+            }
+
+            .not-supported body {
+                font-family: Arial, sans-serif;
+                font-size: 10pt;
+            }
+
+            .not-supported ul, .not-supported li {
+                margin: 0;
+                padding: 0;
+            }
+
+            .not-supported li {
+                list-style-type: none;
+            }
+
+            .not-supported h4 a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            .not-supported h4 {
+                margin: 0 0 5px;
+                padding: 5px 0;
+                border-bottom: dashed 1px #999;
+            }
+
+            .not-supported #notSupported {
+                display: block;
+                border: solid 1px red;
+                padding: 10px;
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+
+            .not-supported #notSupported p {
+                margin-bottom: 10px;
+            }
+
+            .not-supported #notSupported ul {
+                margin-left: 20px;
+            }
+
+            .not-supported #notSupported ul li {
+                margin-bottom: 5px;
+            }
+
+            #notSupported, .legacy-mode, .old-browser {
+                display: none;
+            }
+
+            .not-supported.type-1 .old-browser {
+                display: block;
+            }
+
+            .not-supported.type-2 .legacy-mode {
+                display: block;
+            }
+
+            /* A trick to hide this container unless it is absolutely necessary */
+            @media (max-width: 100000px) {
+                #postCompatContainer {
+                    display: none;
+                }
+            }
+
+            .not-supported #postCompatContainer {
+                width: 500px;
+                margin-top: 20px;
+                display: block!important;
+            }
+        </style>
+
+    <script src="a_data_002/config.js" charset="utf-8" type="text/javascript"></script><script src="a_data_002/common.js" charset="utf-8" type="text/javascript"></script><script src="a_data_002/lounge_002.js" charset="utf-8" type="text/javascript"></script><link href="a_data_002/lounge.css" type="text/css" rel="stylesheet"><script src="a_data_002/beacon.js" async="" charset="utf-8" type="text/javascript"></script><script src="Device%20Drivers,%20Part%2012:%20USB%20Drivers%20in%20Linux%20Continued%20-%20LINUX%20For%20You_files/ga.js" async="" charset="utf-8" type="text/javascript"></script><style id="css_1392980517277"></style><!-- base href="http://www.linuxforu.com/2011/11/usb-drivers-in-linux-2/" --><script charset="UTF-8" async="" src="a_data_002/event_002.js"></script><script charset="UTF-8" async="" src="a_data_002/event.js"></script><link href="a_data_002/discovery.css" type="text/css" rel="stylesheet"><script src="a_data_002/discovery.js" async="" charset="utf-8" type="text/javascript"></script><script charset="UTF-8" async="" src="a_data_002/event_004.js"></script><script charset="UTF-8" async="" src="a_data_002/event_003.js"></script></head>
+    <body>
+        
+        <!--[if lte IE 8]>
+<script src="//a.disquscdn.com/1392921560/build/vendor/ie8.js"></script>
+<![endif]-->
+<!--[if IE 9]>
+<script src="//a.disquscdn.com/1392921560/build/vendor/ie9.js"></script>
+<![endif]-->
+
+        
+<script type="text/json" id="disqus-urls">{
+    "root":"http://disqus.com",
+    "next":"//a.disquscdn.com/next/f45da22e"
+}</script>
+
+
+        
+    
+
+    <div id="error" style="display:none;">
+        <p>We were unable to load Disqus. If you are a moderator please see our <a href="http://docs.disqus.com/help/83/"> troubleshooting guide</a>. </p>
+    </div>
+
+    
+    <script type="text/json" id="disqus-forumData">{"session":{"canModerate":false,"isReadOnly":null,"audienceSyncVerified":false,"canReply":true,"notificationCount":null,"mustVerifyEmail":false},"features":{},"forum":{"name":"LINUX For You","founder":"24397675","settings":{"hasCustomAvatar":false,"allowAnonPost":true,"allowMedia":true,"moderatorText":null,"typeface":"auto","promotedDiscoveryEnabled":true,"discoveryMax":true,"audienceSyncEnabled":false,"ssoRequired":false,"organicDiscoveryEnabled":true,"backplaneEnabled":false,"discoveryThumbnailsEnabled":true,"colorScheme":"auto","linkAffiliationEnabled":true},"url":"http://www.linuxforu.com/","favicon":{"permalink":"http://disqus.com/api/forums/favicons/linuxforyou.jpg","cache":"//a.disquscdn.com/uploads/forums/136/8585/favicon.png"},"language":"en","avatar":{"small":{"permalink":"http://disqus.com/api/forums/avatars/linuxforyou.jpg?size=32","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"http://disqus.com/api/forums/avatars/linuxforyou.jpg?size=92","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"}},"pk":1368585,"id":"linuxforyou"}}</script>
+
+    
+    <script type="text/json" id="disqus-threadData">{"cursor":{"hasPrev":false,"prev":null,"total":32,"hasNext":false,"next":"1:0:0"},"code":0,"response":{"lastModified":1392871877,"posts":[{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"name":"Akshay Oswal","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Okay, silly question. There's no usb folder in proc/bus.","createdAt":"2014-02-20T04:47:44","id":"1252568840","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Okay, silly question. There's no usb folder in proc/bus.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1252568840,"author":{"name":"Akshay","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Is that the same as /sys/kernel/usb/devices ?","createdAt":"2014-02-20T04:51:17","id":"1252571243","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Is that the same as /sys/kernel/usb/devices ?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"username":"tammanagaritirupathireddy","about":"","name":"tammanagari tirupathi reddy","url":"","isAnonymous":false,"rep":1.232124,"profileUrl":"http://disqus.com/tammanagaritirupathireddy/","reputation":1.232124,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2014-02-03T17:05:00","id":"93375230","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/tammanagaritirupathireddy.jpg","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/tammanagaritirupathireddy.jpg","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/tammanagaritirupathireddy.jpg","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Dear anil kumar,\n\nI am trying to write device driver for avr programmer, manufactured by 'zhifengsoft', for which i donot have linux driver. As part of this, first I wrote upto registering the usb devie and deregestering the usb device in init and exit functions respectavely. and an empty probe function with printk saying that my programmer is connected message.\nBut I am not getting the message which i gave in probe function.\nDriver is compiled perfectly and regestered. The vender id and product id I collected using lsusb -v and i also verified it by connecting and checking the dmesg.\n\nCan you please help in this context.\n\nThanking you sir.\nThis is my code snippet:\nstatic struct usb_device_id avrProg_table [] = {\n        { USB_DEVICE(AVR_PROG_VENDOR_ID, AVR_PROG_PRODUCT_ID) },\n        { }\n};\n\nMODULE_DEVICE_TABLE(usb, avrProg_table);\nstatic int avrProg_probe(struct usb_interface *interface, const struct usb_device_id *id)\n{\n/* called when a USB device is connected to the computer. */\n        printk(\"\\n\\n\\navr_programmer is connected!!!\\n\\n\\n\");\n        return 0;\n}\nstatic void avrProg_disconnect(struct usb_interface *interface)\n{\n/* called when unplugging a USB device. */\n        printk(\"\\n\\n\\navr_programmer is disconnected!!\\n\\n\\n\");\n}\nstatic struct usb_driver avrProg_driver = {\n        .name = \"avr_programmer\",\n        .id_table = avrProg_table,\n        .probe = avrProg_probe,\n        .disconnect = avrProg_disconnect,\n};\n#endif\nstatic int __init avrProg_init(void) {\n        printk(\"\u003c1> avrProg installed!\\n\");\n        return usb_register(&avrProg_driver);;\n}\nstatic void __exit avrProg_exit(void) {\n        printk(\"\u003c1> avrProg uninstalled\\n\");\n        usb_deregister(&avrProg_driver);;\n}\nmodule_init(avrProg_init);\nmodule_exit(avrProg_exit);","createdAt":"2014-02-03T17:13:17","id":"1229073426","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Dear anil kumar,\u003c/p>\n\n\u003cp>I am trying to write device driver for avr programmer, manufactured by 'zhifengsoft', for which i donot have linux driver. As part of this, first I wrote upto registering the usb devie and deregestering the usb device in init and exit functions respectavely. and an empty probe function with printk saying that my programmer is connected message.\u003cbr>But I am not getting the message which i gave in probe function.\u003cbr>Driver is compiled perfectly and regestered. The vender id and product id I collected using lsusb -v and i also verified it by connecting and checking the dmesg.\u003c/p>\n\n\u003cp>Can you please help in this context.\u003c/p>\n\n\u003cp>Thanking you sir.\u003cbr>This is my code snippet:\u003cbr>static struct usb_device_id avrProg_table [] = {\u003cbr>        { USB_DEVICE(AVR_PROG_VENDOR_ID, AVR_PROG_PRODUCT_ID) },\u003cbr>        { }\u003cbr>};\u003c/p>\n\n\u003cp>MODULE_DEVICE_TABLE(usb, avrProg_table);\u003cbr>static int avrProg_probe(struct usb_interface *interface, const struct usb_device_id *id)\u003cbr>{\u003cbr>/* called when a USB device is connected to the computer. */\u003cbr>        printk(\"\\n\\n\\navr_programmer is connected!!!\\n\\n\\n\");\u003cbr>        return 0;\u003cbr>}\u003cbr>static void avrProg_disconnect(struct usb_interface *interface)\u003cbr>{\u003cbr>/* called when unplugging a USB device. */\u003cbr>        printk(\"\\n\\n\\navr_programmer is disconnected!!\\n\\n\\n\");\u003cbr>}\u003cbr>static struct usb_driver avrProg_driver = {\u003cbr>        .name = \"avr_programmer\",\u003cbr>        .id_table = avrProg_table,\u003cbr>        .probe = avrProg_probe,\u003cbr>        .disconnect = avrProg_disconnect,\u003cbr>};\u003cbr>#endif\u003cbr>static int __init avrProg_init(void) {\u003cbr>        printk(\"&lt;1&gt; avrProg installed!\\n\");\u003cbr>        return usb_register(&amp;avrProg_driver);;\u003cbr>}\u003cbr>static void __exit avrProg_exit(void) {\u003cbr>        printk(\"&lt;1&gt; avrProg uninstalled\\n\");\u003cbr>        usb_deregister(&amp;avrProg_driver);;\u003cbr>}\u003cbr>module_init(avrProg_init);\u003cbr>module_exit(avrProg_exit);\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1229073426,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Check out for any other driver owning the interface of your AVR programmer. For that you may, check the \"Driver=...\" entry for your device in the output of the \"cat /sys/kernel/debug/usb/devices\". The debugfs should have been already mounted at /sys/kernel/debug for this.","createdAt":"2014-02-06T15:19:49","id":"1233465862","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Check out for any other driver owning the interface of your AVR programmer. For that you may, check the \"Driver=...\" entry for your device in the output of the \"cat /sys/kernel/debug/usb/devices\". The debugfs should have been already mounted at /sys/kernel/debug for this.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"name":"pmalleus","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Dear Anil_Pugalia,\n\nThank you for your really pedagogical articles. The module pen_register from Part11 worked perfectly well after addition of #include \u003clinux/init.h>.\nUnfortunatly the module pen_info from Part12 does'nt act as expected : the module usb_storage always preempt pen_info : after removing usb_storage via rmmod and adding pen_info.ko, I plug the pen drive, and usb_storage comes back after pen_info as shows lsmod. A  sudo more /sys/kernel/debug/usb/devices  shows that the driver of my pen drive is usb-storage. If I try to rmmod usb_storage, the answer is Error: Module usb_storage is in use. \nIn other words I don't see how to avoid the automatic substitution of pen_info by usb_storage.\nThank you for any advice.\n\nBest Regards","createdAt":"2014-01-27T16:53:18","id":"1218897221","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Dear Anil_Pugalia,\u003c/p>\n\n\u003cp>Thank you for your really pedagogical articles. The module pen_register from Part11 worked perfectly well after addition of #include &lt;linux init.h=\"\"&gt;.\u003cbr>Unfortunatly the module pen_info from Part12 does'nt act as expected : the module usb_storage always preempt pen_info : after removing usb_storage via rmmod and adding pen_info.ko, I plug the pen drive, and usb_storage comes back after pen_info as shows lsmod. A  sudo more /sys/kernel/debug/usb/devices  shows that the driver of my pen drive is usb-storage. If I try to rmmod usb_storage, the answer is Error: Module usb_storage is in use. \u003cbr>In other words I don't see how to avoid the automatic substitution of pen_info by usb_storage.\u003cbr>Thank you for any advice.\u003c/p>\n\n\u003cp>Best Regards&lt;/linux&gt;\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1218897221,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Try commenting the usb-storage lines in /lib/modules/&lt;kernel_version&gt;/modules.usbmap\n\n\nBut do not forget to uncomment, once you are done experimenting.","createdAt":"2014-01-31T15:03:54","id":"1225372661","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":true,"message":"\u003cp>Try commenting the usb-storage lines in /lib/modules/&lt;kernel_version&gt;/modules.usbmap\u003c/p>\n\n\u003cp>But do not forget to uncomment, once you are done experimenting.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"username":"garvitsharma","about":"","name":"Garvit Sharma","url":"","isAnonymous":false,"rep":1.2353699999999999,"profileUrl":"http://disqus.com/garvitsharma/","reputation":1.2353699999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-04-02T07:45:54","id":"47097705","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar32.jpg?1389699876"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876","large":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Can not we write a driver which works for all usb pendrives without actually taking  vendor-id and product-id ?","createdAt":"2014-01-08T19:23:51","id":"1192559247","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Can not we write a driver which works for all usb pendrives without actually taking  vendor-id and product-id ?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1192559247,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"In fact, that's how the actual driver \"usb-storage\" is written. It works on the concept of class, i.e. the category of devices, rather than their vendor & device id. Thus, usb-storage serves all the storage class devices, including all the pen drives.","createdAt":"2014-01-13T16:34:04","id":"1198566979","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>In fact, that's how the actual driver \"usb-storage\" is written. It works on the concept of class, i.e. the category of devices, rather than their vendor &amp; device id. Thus, usb-storage serves all the storage class devices, including all the pen drives.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1198566979,"author":{"username":"garvitsharma","about":"","name":"Garvit Sharma","url":"","isAnonymous":false,"rep":1.2353699999999999,"profileUrl":"http://disqus.com/garvitsharma/","reputation":1.2353699999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-04-02T07:45:54","id":"47097705","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar32.jpg?1389699876"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876","large":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Then, how to hack \"usb-storage\" ?","createdAt":"2014-01-13T16:44:06","id":"1198587202","thread":"636381226","depth":2,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Then, how to hack \"usb-storage\" ?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1198587202,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Why do you need to hack in it? Its complete code is there part of the kernel source code.","createdAt":"2014-01-14T10:42:14","id":"1199782550","thread":"636381226","depth":3,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Why do you need to hack in it? Its complete code is there part of the kernel source code.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1199782550,"author":{"username":"garvitsharma","about":"","name":"Garvit Sharma","url":"","isAnonymous":false,"rep":1.2353699999999999,"profileUrl":"http://disqus.com/garvitsharma/","reputation":1.2353699999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-04-02T07:45:54","id":"47097705","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar32.jpg?1389699876"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876","large":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"I mean, how to understand that code and modify it for our own purpose ?","createdAt":"2014-01-14T10:48:11","id":"1199786222","thread":"636381226","depth":4,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>I mean, how to understand that code and modify it for our own purpose ?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1199786222,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"It involves understanding the USB Storage protocol, which is SCSI based.","createdAt":"2014-01-14T11:35:08","id":"1199813587","thread":"636381226","depth":5,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>It involves understanding the USB Storage protocol, which is SCSI based.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1199813587,"author":{"username":"garvitsharma","about":"","name":"Garvit Sharma","url":"","isAnonymous":false,"rep":1.2353699999999999,"profileUrl":"http://disqus.com/garvitsharma/","reputation":1.2353699999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-04-02T07:45:54","id":"47097705","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar32.jpg?1389699876"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876","large":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Ok, It would be great if you could help me with that.","createdAt":"2014-01-14T11:38:58","id":"1199815858","thread":"636381226","depth":6,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Ok, It would be great if you could help me with that.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1199815858,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"How do you expect me to help? You have to first read those stuff, and the easiest would be to start reading the usb-storage code itself.","createdAt":"2014-01-14T11:41:26","id":"1199817284","thread":"636381226","depth":7,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>How do you expect me to help? You have to first read those stuff, and the easiest would be to start reading the usb-storage code itself.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1199817284,"author":{"username":"garvitsharma","about":"","name":"Garvit Sharma","url":"","isAnonymous":false,"rep":1.2353699999999999,"profileUrl":"http://disqus.com/garvitsharma/","reputation":1.2353699999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-04-02T07:45:54","id":"47097705","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar32.jpg?1389699876"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876","large":{"permalink":"http://disqus.com/api/users/avatars/garvitsharma.jpg","cache":"//a.disquscdn.com/uploads/users/4709/7705/avatar92.jpg?1389699876"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Ok, thank you sir!!","createdAt":"2014-01-14T11:44:35","id":"1199819213","thread":"636381226","depth":8,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Ok, thank you sir!!\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"name":"jakub","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"I have written code that read data about battery and light conditions from keyboard but i must detach& read & attach my keyboard and read get some time ... in this time i cant write using mi keyboard(is detached) ... is here some way how to do R/W without detaching device ???","createdAt":"2013-10-23T11:13:09","id":"1093372475","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>I have written code that read data about battery and light conditions from keyboard but i must detach&amp; read &amp; attach my keyboard and read get some time ... in this time i cant write using mi keyboard(is detached) ... is here some way how to do R/W without detaching device ???\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1093372475,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Please elaborate, as not very clear on the reason for your detach & attach.","createdAt":"2013-12-31T20:45:55","id":"1182669303","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Please elaborate, as not very clear on the reason for your detach &amp; attach.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"username":"disqus_VFtP7ykeih","about":"","name":"anil kumar","url":"","isAnonymous":false,"rep":1.235024,"profileUrl":"http://disqus.com/disqus_VFtP7ykeih/","reputation":1.235024,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-07-26T05:53:00","id":"64264859","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/disqus_VFtP7ykeih.jpg","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/disqus_VFtP7ykeih.jpg","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png","large":{"permalink":"http://disqus.com/api/users/avatars/disqus_VFtP7ykeih.jpg","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"how to know the functions \n\npen_probe,pen_disconnect (where these functions available and how to find the headder files)","createdAt":"2013-07-26T05:53:06","id":"976934009","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>how to know the functions \u003c/p>\n\n\u003cp>pen_probe,pen_disconnect (where these functions available and how to find the headder files)\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":976934009,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Those are our implementations, coded in the above article example itself","createdAt":"2013-10-21T16:17:31","id":"1090885723","thread":"636381226","depth":1,"numReports":0,"likes":1,"isEdited":false,"message":"\u003cp>Those are our implementations, coded in the above article example itself\u003c/p>","isSpam":false,"isHighlighted":false,"points":1},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"username":"aadhirai","about":"","name":"aadhirai","url":"","isAnonymous":false,"rep":1.232222,"profileUrl":"http://disqus.com/aadhirai/","reputation":1.232222,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2013-06-18T11:51:27","id":"57549581","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/aadhirai.jpg","cache":"//a.disquscdn.com/uploads/users/5754/9581/avatar32.jpg?1371556297"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/aadhirai.jpg","cache":"//a.disquscdn.com/uploads/users/5754/9581/avatar92.jpg?1371556297","large":{"permalink":"http://disqus.com/api/users/avatars/aadhirai.jpg","cache":"//a.disquscdn.com/uploads/users/5754/9581/avatar92.jpg?1371556297"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"I have tried the code in Part 11 which was working for me. \n\nHere I am not getting the /dev/pen0 listed on my system (Linux Ubuntu 12.04), even when I copy paste the code from here....\n\ncompiled & followed all your steps accordingly..\nWill you please help me in completing this ?","createdAt":"2013-06-18T11:51:36","id":"934158359","thread":"636381226","depth":0,"numReports":0,"likes":1,"isEdited":true,"message":"\u003cp>I have tried the code in Part 11 which was working for me. \u003c/p>\n\n\u003cp>Here I am not getting the /dev/pen0 listed on my system (Linux Ubuntu 12.04), even when I copy paste the code from here....\u003c/p>\n\n\u003cp>compiled &amp; followed all your steps accordingly..\u003cbr>Will you please help me in completing this ?\u003c/p>","isSpam":false,"isHighlighted":false,"points":1},{"isFlagged":false,"forum":"linuxforyou","parent":934158359,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Check out the vendor id, device id of your pen drive, and update the code accordingly.","createdAt":"2013-10-21T16:18:19","id":"1090886662","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Check out the vendor id, device id of your pen drive, and update the code accordingly.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"name":"David","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Its Fantastic !!\nThank you for your valuable Linux device driver articles.\n\n\nCould you please start the same for BSP also.","createdAt":"2013-05-17T08:23:53","id":"900120920","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Its Fantastic !!\u003cbr>Thank you for your valuable Linux device driver articles.\u003c/p>\n\n\u003cp>Could you please start the same for BSP also.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":900120920,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"I doubt, if it would be possible, as currently doing the same for mathematics in open source.","createdAt":"2013-06-07T13:56:26","id":"922215630","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>I doubt, if it would be possible, as currently doing the same for mathematics in open source.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"name":"MELWIN JOSE","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"I got an error when i tried to remove the \"usb_storage\"\n\nmelwin-Satellite-L640 USB_2 # rmmod usb_storage\nERROR: Module usb_storage is in use by ums_realtek\n\nHere is the output for \"lsusb\"\nBus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub\nBus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub\nBus 002 Device 005: ID 0930:0214 Toshiba Corp. \nBus 002 Device 006: ID 04f2:b1d6 Chicony Electronics Co., Ltd","createdAt":"2013-01-15T15:09:12","id":"768750383","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>I got an error when i tried to remove the \"usb_storage\"\u003c/p>\n\n\u003cp>melwin-Satellite-L640 USB_2 # rmmod usb_storage\u003cbr>ERROR: Module usb_storage is in use by ums_realtek\u003c/p>\n\n\u003cp>Here is the output for \"lsusb\"\u003cbr>Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\u003cbr>Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\u003cbr>Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub\u003cbr>Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub\u003cbr>Bus 002 Device 005: ID 0930:0214 Toshiba Corp. \u003cbr>Bus 002 Device 006: ID 04f2:b1d6 Chicony Electronics Co., Ltd\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":768750383,"author":{"name":"MELWIN JOSE","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"solved  :)\nums_realtk is a module that depends in usb_storage.\njust \"rmmod ums_realtk\"","createdAt":"2013-01-19T05:38:03","id":"772347496","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>solved  :)\u003cbr>ums_realtk is a module that depends in usb_storage.\u003cbr>just \"rmmod ums_realtk\"\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":772347496,"author":{"name":"Mayank","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"I'm getting the same error but on trying the same command, I got \n\"Error: Module ums_realtek does not exist in /proc/modules\". I also listed all the available modules & ums-realtek isn't present there. However, it's there in the folder. I'm a newbie. Please help.","createdAt":"2013-10-18T13:40:15","id":"1087039450","thread":"636381226","depth":2,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>I'm getting the same error but on trying the same command, I got \u003cbr>\"Error: Module ums_realtek does not exist in /proc/modules\". I also listed all the available modules &amp; ums-realtek isn't present there. However, it's there in the folder. I'm a newbie. Please help.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":1087039450,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Paste the output of lsmod.","createdAt":"2013-10-21T16:20:16","id":"1090889067","thread":"636381226","depth":3,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Paste the output of lsmod.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":null,"author":{"name":"MenDuong","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Dear, When I pug and unplug my USB driver. I can't see message in dmesg as above.\n\nMy dmesg as follow:\n\nSELinux: initialized (dev sdd1, type vfat), uses genfs_contexts\n\nusb 2-1: USB disconnect, address 5\n\nSELinux: initialized (dev sdb4, type fuseblk), uses genfs_contexts\n\nlo: Disabled Privacy Extensions\n\nSELinux: initialized (dev proc, type proc), uses genfs_contexts\n\nlo: Disabled Privacy Extensions\n\nSELinux: initialized (dev proc, type proc), uses genfs_contexts\n\nlo: Disabled Privacy Extensions\n\nSELinux: initialized (dev proc, type proc), uses genfs_contexts\n\nlo: Disabled Privacy Extensions\n\nSELinux: initialized (dev proc, type proc), uses genfs_contexts\n\nusbcore: deregistering interface driver pen_driver\n\nusbcore: registered new interface driver pen_driver\n\nusb 2-1: new high speed USB device using ehci_hcd and address 6\n\nusb 2-1: New USB device found, idVendor=1221, idProduct=3234\n\nusb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3\n\nusb 2-1: Product: Udisk 2.0\n\nusb 2-1: Manufacturer: Udisk\n\nusb 2-1: SerialNumber: 00000000295B\n\nusb 2-1: configuration #1 chosen from 1 choice\n\nscsi8 : SCSI emulation for USB Mass Storage devices\n\nusb-storage: device found at 6\n\nusb-storage: waiting for device to settle before scanning\n\nusb-storage: device scan complete\n\nscsi 8:0:0:0: Direct-Access     Udisk    Udisk 2.0        3.00 PQ: 0 ANSI: 2\n\nsd 8:0:0:0: Attached scsi generic sg5 type 0\n\nsd 8:0:0:0: [sdd] 16384000 512-byte logical blocks: (8.38 GB/7.81 GiB)\n\nsd 8:0:0:0: [sdd] Write Protect is off\n\nsd 8:0:0:0: [sdd] Mode Sense: 0b 00 00 08\n\nsd 8:0:0:0: [sdd] Assuming drive cache: write through\n\nsd 8:0:0:0: [sdd] Assuming drive cache: write through\n\n sdd: sdd1\n\nsdd: p1 size 16386237 exceeds device capacity, limited to end of disk\n\nsd 8:0:0:0: [sdd] Assuming drive cache: write through\n\nsd 8:0:0:0: [sdd] Attached SCSI removable disk\n\nSELinux: initialized (dev sdd1, type vfat), uses genfs_contexts\n\nusb 2-1: USB disconnect, address 6","createdAt":"2012-12-24T10:28:19","id":"746766934","thread":"636381226","depth":0,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Dear, When I pug and unplug my USB driver. I can't see message in dmesg as above.\u003c/p>\n\n\u003cp>My dmesg as follow:\u003c/p>\n\n\u003cp>SELinux: initialized (dev sdd1, type vfat), uses genfs_contexts\u003c/p>\n\n\u003cp>usb 2-1: USB disconnect, address 5\u003c/p>\n\n\u003cp>SELinux: initialized (dev sdb4, type fuseblk), uses genfs_contexts\u003c/p>\n\n\u003cp>lo: Disabled Privacy Extensions\u003c/p>\n\n\u003cp>SELinux: initialized (dev proc, type proc), uses genfs_contexts\u003c/p>\n\n\u003cp>lo: Disabled Privacy Extensions\u003c/p>\n\n\u003cp>SELinux: initialized (dev proc, type proc), uses genfs_contexts\u003c/p>\n\n\u003cp>lo: Disabled Privacy Extensions\u003c/p>\n\n\u003cp>SELinux: initialized (dev proc, type proc), uses genfs_contexts\u003c/p>\n\n\u003cp>lo: Disabled Privacy Extensions\u003c/p>\n\n\u003cp>SELinux: initialized (dev proc, type proc), uses genfs_contexts\u003c/p>\n\n\u003cp>usbcore: deregistering interface driver pen_driver\u003c/p>\n\n\u003cp>usbcore: registered new interface driver pen_driver\u003c/p>\n\n\u003cp>usb 2-1: new high speed USB device using ehci_hcd and address 6\u003c/p>\n\n\u003cp>usb 2-1: New USB device found, idVendor=1221, idProduct=3234\u003c/p>\n\n\u003cp>usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3\u003c/p>\n\n\u003cp>usb 2-1: Product: Udisk 2.0\u003c/p>\n\n\u003cp>usb 2-1: Manufacturer: Udisk\u003c/p>\n\n\u003cp>usb 2-1: SerialNumber: 00000000295B\u003c/p>\n\n\u003cp>usb 2-1: configuration #1 chosen from 1 choice\u003c/p>\n\n\u003cp>scsi8 : SCSI emulation for USB Mass Storage devices\u003c/p>\n\n\u003cp>usb-storage: device found at 6\u003c/p>\n\n\u003cp>usb-storage: waiting for device to settle before scanning\u003c/p>\n\n\u003cp>usb-storage: device scan complete\u003c/p>\n\n\u003cp>scsi 8:0:0:0: Direct-Access     Udisk    Udisk 2.0        3.00 PQ: 0 ANSI: 2\u003c/p>\n\n\u003cp>sd 8:0:0:0: Attached scsi generic sg5 type 0\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] 16384000 512-byte logical blocks: (8.38 GB/7.81 GiB)\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] Write Protect is off\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] Mode Sense: 0b 00 00 08\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] Assuming drive cache: write through\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] Assuming drive cache: write through\u003c/p>\n\n\u003cp> sdd: sdd1\u003c/p>\n\n\u003cp>sdd: p1 size 16386237 exceeds device capacity, limited to end of disk\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] Assuming drive cache: write through\u003c/p>\n\n\u003cp>sd 8:0:0:0: [sdd] Attached SCSI removable disk\u003c/p>\n\n\u003cp>SELinux: initialized (dev sdd1, type vfat), uses genfs_contexts\u003c/p>\n\n\u003cp>usb 2-1: USB disconnect, address 6\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":746766934,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Because the usb-storage driver is loaded. You need to make sure that is unloaded, as mentioned in the article.","createdAt":"2012-12-24T11:18:11","id":"746779112","thread":"636381226","depth":1,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Because the usb-storage driver is loaded. You need to make sure that is unloaded, as mentioned in the article.\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":746779112,"author":{"name":"MenDuong","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"Thank you. Please, how to unload usb-storage?","createdAt":"2012-12-24T15:40:48","id":"746878107","thread":"636381226","depth":2,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>Thank you. Please, how to unload usb-storage?\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":746878107,"author":{"name":"micheal","url":"","profileUrl":"","emailHash":"","avatar":{"small":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar32.png","cache":"//a.disquscdn.com/1392921560/images/noavatar32.png"},"large":{"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"permalink":"//a.disquscdn.com/1392921560/images/noavatar92.png","cache":"//a.disquscdn.com/1392921560/images/noavatar92.png"},"isAnonymous":true},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"go drivers path and then type rmmod usb-storage","createdAt":"2013-01-21T09:14:07","id":"773716775","thread":"636381226","depth":3,"numReports":0,"likes":0,"isEdited":false,"message":"\u003cp>go drivers path and then type rmmod usb-storage\u003c/p>","isSpam":false,"isHighlighted":false,"points":0},{"isFlagged":false,"forum":"linuxforyou","parent":746878107,"author":{"username":"anil_pugalia","about":"","name":"anil_pugalia","url":"","isAnonymous":false,"rep":1.3655709999999999,"profileUrl":"http://disqus.com/anil_pugalia/","reputation":1.3655709999999999,"location":"","isPrivate":false,"isPrimary":true,"joinedAt":"2012-11-16T15:10:02","id":"36665734","avatar":{"small":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar32.jpg?1392613323"},"isCustom":false,"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323","large":{"permalink":"http://disqus.com/api/users/avatars/anil_pugalia.jpg","cache":"//a.disquscdn.com/uploads/users/3666/5734/avatar92.jpg?1392613323"}}},"media":[],"isDeleted":false,"isApproved":true,"dislikes":0,"raw_message":"If it is listed in lsmod, just do a \"rmmod usb-storage\". Otherwise, you'd have to recompile your kernel, by making usb-storage as a module.","createdAt":"2012-12-24T18:30:20","id":"746959955","thread":"636381226","depth":3,"numReports":0,"likes":3,"isEdited":false,"message":"\u003cp>If it is listed in lsmod, just do a \"rmmod usb-storage\". Otherwise, you'd have to recompile your kernel, by making usb-storage as a module.\u003c/p>","isSpam":false,"isHighlighted":false,"points":3}],"thread":{"feed":"http://linuxforyou.disqus.com/device_drivers_part_12_usb_drivers_in_linux_continued/latest.rss","uploadAdd":"//linuxforyou.disqus.com/thread/device_drivers_part_12_usb_drivers_in_linux_continued/async_media_upload/","dislikes":0,"likes":0,"message":"","id":"636381226","createdAt":"2012-04-04T14:20:54","category":"1396033","author":"24397675","userScore":0,"moderators":[24397675],"isDeleted":false,"hasStreaming":false,"uploadRemove":"//linuxforyou.disqus.com/thread/device_drivers_part_12_usb_drivers_in_linux_continued/async_media_remove/","isClosed":false,"link":"http://www.linuxforu.com/2011/11/usb-drivers-in-linux-2/","slug":"device_drivers_part_12_usb_drivers_in_linux_continued","forum":"linuxforyou","identifiers":["5691 http://www.linuxforu.com/?p=5691"],"posts":32,"userSubscription":false,"title":"Device Drivers, Part 12: USB Drivers in Linux Continued","highlightedPost":null}},"order":"desc"}</script>
+
+    
+
+    <div id="fixed-content"></div>
+
+
+        <script src="a_data_002/lounge.js"></script>
+        
+    
+
+<div id="layout">
+
+<div style="position: static; visibility: visible; display: block; width: 100%;" id="discovery-top"><div id="discovery-main-c207" class="discovery-main discovery-thumbnails doublethumbnails">
+<div id="discovery-note" class="discovery-note">
+
+<div class="alert">
+<button class="close" data-action="discovery-help-close" title="Close this box">×</button>
+Disqus helps you find new and interesting content, discussions and 
+products. Some sponsors and ecommerce sites may pay us for these 
+recommendations and links. 
+<a href="http://help.disqus.com/customer/portal/articles/666278-introducing-promoted-discovery-and-f-a-q-" target="_blank">Learn more</a>
+ or 
+<a href="https://www.surveymonkey.com/s/GHK872T" target="_blank">
+give us feedback</a>.
+
+</div>
+
+</div>
+
+<div class="discovery-options">
+<button class="discovery-help" data-action="discovery-help">
+What's this?
+</button>
+</div>
+
+
+
+<section id="col-organic-c207" class="col-organic discovery-col-0">
+<header class="discovery-col-header">
+
+
+
+
+<h2>Around The Web</h2>
+
+
+</header>
+<ul class="discovery-posts"><li class="discovery-post hasthumbnail" id="discovery-link-promoted-79264">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fapi.taboola.com%2F1.1%2Fjson%2Fdisqus-safe%2Frecommendations.notify-click%3Fapp.type%3Ddesktop%26app.apikey%3D037849ccb5a799c70e319e9592c66e8b387105ff%26response.id%3D__3c7b7abc582946957ed0de24a41b7296__667b72ad8d3d6f26c698d1b0ee3e99a5%26response.session%3Dv2_bd8c36d8a525f1d27b9d7ece0cf3ece9_93d3abcb-a265-4038-8a0f-e0a2f4611f84_1392980506_1392980506_CAI%26item.id%3D%257E%257EV1%257E%257E440961410454306912%257E%257E1BGkdKlm33fM4Pf5piZHVVGaZIAlHxYTVwTLZoQ5iBmuniL6zQG_A7JieeJ4hhMV%26item.type%3Dvideo%26redir%3Dhttp%253A%252F%252Fwww.rediff.com%252Ftravel-living%252Freport%252F3-juices-that-make-you-feel-slimmer-by-the-day-%252F20131223.htm%253Fsc_cid%253DJuices_NewImage_Exp1_TB%2526utm_source%253Dtaboola%2526utm_medium%253Ddisqus-safe&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;zone=promoted_discovery&amp;advertisement_id=79264&amp;brand=Rediff&amp;headline=3%20Juices%20That%20Make%20You%20Feel%20Slimmer%20By%20The%20Day" target="_blank" rel="nofollow norewrite" class="publisher-anchor-color">
+
+<div class="thumbnail" style="background-image: url(http://thumbs.disquscdn.com/TxQ21CDr_l9tfd6yBuncLgADzIc=/340x240/smart/images.taboola.com%2Ftaboola%2Fimage%2Ffetch%2Ff_jpg%2Cq_80%2Ch_240%2Cw_340%2Cc_fill%2Cg_face%2Ce_sharpen%2Fhttp%253A%252F%252Fcdn.taboolasyndication.com%252Flibtrc%252Fstatic%252Fthumbnails%252F5c2a3cca911f931ac1ed48de72851983.jpg);">
+</div>
+
+
+<header class="discovery-post-header">
+<h3 title="3 Juices That Make You Feel Slimmer By The Day">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+3 Juices That Make You Feel Slimmer By The Day
+</span>
+
+
+
+
+
+
+
+
+<span class="inline-meta">
+Rediff
+</span>
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li>
+
+<li class="discovery-post hasthumbnail" id="discovery-link-promoted-79265">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fapi.taboola.com%2F1.1%2Fjson%2Fdisqus-safe%2Frecommendations.notify-click%3Fapp.type%3Ddesktop%26app.apikey%3D037849ccb5a799c70e319e9592c66e8b387105ff%26response.id%3D__3c7b7abc582946957ed0de24a41b7296__667b72ad8d3d6f26c698d1b0ee3e99a5%26response.session%3Dv2_bd8c36d8a525f1d27b9d7ece0cf3ece9_93d3abcb-a265-4038-8a0f-e0a2f4611f84_1392980506_1392980506_CAI%26item.id%3D%257E%257EV1%257E%257E-6133358053926828558%257E%257E_Thg1RlTwPTwHj6d4etLzwfJ0xV77aNfDiHIM5lfnGSuniL6zQG_A7JieeJ4hhMV%26item.type%3Dvideo%26redir%3Dhttp%253A%252F%252Fwww.sportable.is%252F%253Ftype%253Dcard%2526card%253D13344%2526%252Folympics%252Fthe-most-shocking-olympic-scandals%252F%2526utm_source%253Dtaboola%2526utm_medium%253Dreferral&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;zone=promoted_discovery&amp;advertisement_id=79265&amp;brand=Sportable.is&amp;headline=The%20Most%20Shocking%20Olympic%20Scandals%20" target="_blank" rel="nofollow norewrite" class="publisher-anchor-color">
+
+<div class="thumbnail" style="background-image: url(http://thumbs.disquscdn.com/A5Fs2MBPHuLl5ebBKTKILIF4eNg=/340x240/smart/images.taboola.com%2Ftaboola%2Fimage%2Ffetch%2Ff_jpg%2Cq_80%2Ch_240%2Cw_340%2Cc_fill%2Cg_face%2Ce_sharpen%2Fhttp%253A%252F%252Fwww.sportable.is%252FDJ%252Fimages%252FquestionImg%252Fthumb%252F13344_bg.jpg);">
+</div>
+
+
+<header class="discovery-post-header">
+<h3 title="The Most Shocking Olympic Scandals ">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+The Most Shocking Olympic Scandals 
+</span>
+
+
+
+
+
+
+
+
+<span class="inline-meta">
+Sportable.is
+</span>
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li>
+
+<li class="discovery-post hasthumbnail" id="discovery-link-promoted-79266">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fapi.taboola.com%2F1.1%2Fjson%2Fdisqus-safe%2Frecommendations.notify-click%3Fapp.type%3Ddesktop%26app.apikey%3D037849ccb5a799c70e319e9592c66e8b387105ff%26response.id%3D__3c7b7abc582946957ed0de24a41b7296__667b72ad8d3d6f26c698d1b0ee3e99a5%26response.session%3Dv2_bd8c36d8a525f1d27b9d7ece0cf3ece9_93d3abcb-a265-4038-8a0f-e0a2f4611f84_1392980506_1392980506_CAI%26item.id%3D%257E%257EV1%257E%257E-8963895608736843082%257E%257EjdbrCMBeklCbI09XAlITe7Nl5DL74VXlfXAm0Ar4pZwiHmzo1Td0c79an-yZwnnL%26item.type%3Dvideo%26redir%3Dhttp%253A%252F%252Fwww.businessweek.com%252Fvideos%252F2013-11-06%252Fchina-s-newest-hotel-sinking-to-new-depths%253Fcmpid%253Dtaboola.bw.vid.intl&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;zone=promoted_discovery&amp;advertisement_id=79266&amp;brand=Businessweek&amp;headline=China%E2%80%99s%20Newest%20Hotel%20Sinking%20to%20New%20Depths" target="_blank" rel="nofollow norewrite" class="publisher-anchor-color">
+
+<div class="thumbnail" style="background-image: url(http://thumbs.disquscdn.com/EjWHupRssU-oYjM36NefohYA4OY=/340x240/smart/images.taboola.com%2Ftaboola%2Fimage%2Ffetch%2Ff_jpg%2Cq_80%2Ch_240%2Cw_340%2Cc_fill%2Cg_face%2Ce_sharpen%2Fhttp%253A%252F%252Fwww.bloomberg.com%252Fimage%252FiAMjAw2BWJ08.jpg);">
+</div>
+
+
+<header class="discovery-post-header">
+<h3 title="China’s Newest Hotel Sinking to New Depths">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+China’s Newest Hotel Sinking to New Depths
+</span>
+
+
+
+
+
+
+
+
+<span class="inline-meta">
+Businessweek
+</span>
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li></ul>
+</section>
+
+
+<section id="col-promoted-c207" class="col-promoted discovery-col-1">
+<header class="discovery-col-header">
+
+
+<h2>Also on 
+<strong>LINUX For You</strong>
+</h2>
+
+
+
+
+</header>
+<ul class="discovery-posts"><li class="discovery-post" id="discovery-link-organic-1792215235">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fwww.linuxforu.com%2F2013%2F09%2Fwhat-a-native-developer-should-know-about-android-security%2F%3AOF3kx1hrB3xXIVvQqFF7XO6HVP8&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;thread=1792215235&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="What A Native Developer Should Know About Android Security?">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+What A Native Developer Should Know About Android Security?
+</span>
+
+
+
+
+
+<span class="inline-meta">
+
+
+2 comments
+
+
+</span>
+
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li>
+
+<li class="discovery-post" id="discovery-link-organic-2026062657">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fwww.linuxforu.com%2F2013%2F12%2Fintroducing-celery-pythondjango%2F%3AwC2z3qhqTPj_8Y8fRKuFag45uaE&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;thread=2026062657&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="Introducing Celery for Python+Django">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+Introducing Celery for Python+Django
+</span>
+
+
+
+
+
+<span class="inline-meta">
+
+
+1 comment
+
+
+</span>
+
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li>
+
+<li class="discovery-post" id="discovery-link-organic-2039982597">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fwww.linuxforu.com%2F2013%2F12%2Flook-top-three-network-monitoring-tools%2F%3A1sqWuT9-V0ROcdyqvl-8Tl73Nbg&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;thread=2039982597&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="A Look at the Top Three Network Monitoring Tools">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+A Look at the Top Three Network Monitoring Tools
+</span>
+
+
+
+
+
+<span class="inline-meta">
+
+
+2 comments
+
+
+</span>
+
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li>
+
+<li class="discovery-post" id="discovery-link-organic-1531313120">
+<a href="http://redirect.disqus.com/url?url=http%3A%2F%2Fwww.linuxforu.com%2Fpoll%2F%3AAhJD3BPm5CHksV5mEk4sApL2vwk&amp;imp=2nsltibt4dj9b&amp;prev_imp&amp;forum_id=1368585&amp;forum=linuxforyou&amp;thread_id=636381226&amp;major_version=midway&amp;bin=embed%3Apromoted_discovery%3Athumbnail%3Ataboola%3Aactive&amp;thread=1531313120&amp;zone=internal_discovery" class="publisher-anchor-color">
+
+
+<header class="discovery-post-header">
+<h3 title="Poll">
+<span data-role="discovery-thread-title" class="title line-truncate" data-line-truncate="4">
+Poll
+</span>
+
+
+
+
+
+<span class="inline-meta">
+
+
+2 comments
+
+
+</span>
+
+
+
+
+</h3>
+
+
+</header>
+
+
+</a>
+</li></ul>
+</section>
+
+
+</div></div>
+<div id="highlighted-post"><div style="display: none;"></div></div>
+
+<header id="main-nav">
+
+
+
+<div id="onboard"></div>
+
+<nav class="nav nav-primary">
+<ul>
+<li class="tab-conversation active">
+
+<a href="#" data-role="post-count" class="publisher-nav-color" data-nav="conversation">32 comments</a>
+</li>
+<li class="tab-community">
+<a href="#" class="publisher-nav-color" data-nav="community" id="community-tab">
+
+<strong>LINUX For You</strong>
+
+</a>
+</li>
+<li class="dropdown user-menu" data-role="logout"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<span class="dropdown-toggle-wrapper">
+
+
+<span>
+Login
+</span>
+
+
+</span> <span class="caret"></span>
+</a>
+
+<ul class="dropdown-menu">
+
+
+
+
+<li>
+<a href="#" data-action="auth:disqus">Disqus</a>
+</li>
+<li>
+<a href="#" data-action="auth:facebook">Facebook</a>
+</li>
+<li>
+<a href="#" data-action="auth:twitter">Twitter</a>
+</li>
+<li>
+<a href="#" data-action="auth:google">Google</a>
+</li>
+
+
+
+
+
+
+
+</ul></li>
+<li class="notification-menu" data-role="notification-menu"><a href="#" class="notification-container" data-action="auth:disqus">
+<span class="notification-icon icon-disqus"></span></a></li>
+</ul>
+</nav>
+
+</header>
+
+
+
+
+<section id="conversation" data-role="main" data-zone="thread">
+
+<div class="nav nav-secondary">
+<ul>
+
+<li data-role="post-sort" class="dropdown sorting">
+<a href="#" class="dropdown-toggle" data-nav="conversation" data-toggle="dropdown">
+
+Sort by Newest
+
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+<li>
+<a href="#" data-action="sort" data-sort="popular">Best</a>
+</li>
+
+<li class="selected">
+<a href="#" data-action="sort" data-sort="desc">Newest</a>
+</li>
+
+<li>
+<a href="#" data-action="sort" data-sort="asc">Oldest</a>
+</li>
+</ul>
+</li>
+
+
+<li id="thread-votes" class="favorite pull-right">
+<!-- rendered dynamically -->
+<div data-role="vote-button" class="thread-likes"><a href="#" data-action="upvote" title="Favorite this discussion">
+<span class="label">Favorite</span>
+<span class="icon-star"></span>
+<span class="icon-check"></span>
+</a></div></li>
+
+<li id="thread-share-menu" class="dropdown share-menu">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Share">
+<span class="label">Share</span> <span class="icon-export"></span>
+</a>
+<ul class="share-menu dropdown-menu pull-right">
+<li class="share">Share this discussion on
+<ul>
+<li class="twitter">
+<a data-action="share:twitter" href="#">Twitter</a>
+</li>
+<li class="facebook">
+<a data-action="share:facebook" href="#">Facebook</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div id="posts">
+
+<div id="form"><form class="reply"><div class="alert error" style="display:none" role="alert">
+<a class="close" data-action="dismiss-alert" title="Dismiss">×</a>
+<span></span>
+</div>
+
+<div class="postbox">
+<div class="avatar">
+
+<span class="user">
+<img data-role="user-avatar" src="a_data_002/noavatar92.png">
+</span>
+
+</div>
+
+<div class="textarea-wrapper" data-role="textarea" dir="auto"><div><span class="placeholder">Join the discussion…</span><div aria-label="Join the discussion…" style="overflow: auto; max-height: 350px;" data-role="editable" aria-multiline="true" role="textbox" tabindex="-1" class="textarea" contenteditable="true"><p><br></p></div><div style="display: none;"><ul class="suggestions">
+<li class="header">
+<h5>in this conversation</h5>
+</li>
+</ul></div></div>
+<div data-role="drag-drop-placeholder" class="media-drag-hover" style="display: none">
+<div class="drag-text">
+⬇ Drag and drop your images here to upload them.
+</div>
+</div>
+
+<div class="media-preview empty" data-role="media-preview">
+<ul data-role="media-legacy-list"></ul>
+<ul data-role="media-rich-list"></ul>
+<div class="media-expanded empty" data-role="media-preview-expanded">
+
+<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-role="media-preview-expanded-image">
+</div>
+</div>
+
+<div class="post-actions">
+<ul class="wysiwyg">
+
+<li>
+<a href="#" tabindex="-1" data-action="attach" class="attach" title="Upload Images"><span>Attach</span></a>
+<input data-role="media-upload" tabindex="-1" class="regular" accept="image/*" type="file">
+</li>
+
+
+</ul>
+
+
+</div>
+</div>
+
+
+<section class="auth-section logged-out">
+<div class="connect">
+<h6>Sign in with</h6>
+
+<ul data-role="login-menu" class="services login-buttons">
+
+
+
+<li class="auth-disqus">
+<button type="button" data-action="auth:disqus" title="Disqus"><i class="icon-disqus"></i></button>
+</li>
+<li class="auth-facebook">
+<button type="button" data-action="auth:facebook" title="Facebook"><i class="icon-facebook-circle"></i></button>
+</li>
+<li class="auth-twitter">
+<button type="button" data-action="auth:twitter" title="Twitter"><i class="icon-twitter-circle"></i></button>
+</li>
+<li class="auth-google">
+<button type="button" data-action="auth:google" title="Google"><i class="icon-google-plus-circle"></i></button>
+</li>
+<li class="auth-signup">
+<button type="button" data-action="auth:disqus" title="Disqus">Sign up for Disqus</button>
+</li>
+</ul>
+
+</div>
+
+<div class="guest">
+<h6 class="guest-form-title">
+
+or pick a name
+
+</h6>
+
+<div class="what-is-disqus help-icon">
+<div id="rules" class="tooltip show">
+<h3>Disqus is a conversation network</h3>
+<ul>
+<li><span>Disqus never moderates or censors. The rules on this community are its own.</span></li>
+<li><span>Your email is safe with us. It's only used for moderation and optional notifications.</span></li>
+<li><span>Don't be a jerk or do anything illegal. Everything is easier that way.</span></li>
+</ul>
+<p class="clearfix"><a href="http://docs.disqus.com/kb/terms-and-policies/" class="btn btn-small" target="_blank">Read full terms and conditions</a></p>
+</div>
+</div>
+
+<p class="input-wrapper">
+<input dir="auto" placeholder="Name" name="author-name" maxlength="30" type="text">
+</p>
+
+<div class="guest-details " data-role="guest-details">
+<p class="input-wrapper">
+<input dir="auto" placeholder="Email" name="author-email" type="email">
+</p>
+
+<p class="input-wrapper">
+<input dir="auto" placeholder="Password" name="author-password" type="password">
+</p>
+
+<div class="guest-checkbox">
+<label>
+<input name="author-guest" type="checkbox">
+I'd rather post as guest
+</label>
+</div>
+
+
+</div>
+</div>
+<div class="proceed">
+
+<button type="submit" class="btn submit" aria-label="Post"><span class="icon-proceed"></span></button>
+<button type="submit" class="btn next" aria-label="Next"><span class="icon-proceed"></span></button>
+
+</div>
+
+</section>
+
+
+
+
+</div></form></div>
+
+<button class="alert realtime" style="display: none" data-role="realtime-notification">
+
+</button>
+
+
+<div id="no-posts" style="display:none">Be the first to comment.</div>
+
+<ul id="post-list" class="post-list"><li id="post-1252568840" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Akshay Oswal</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1252568840" data-role="relative-time" class="time-ago" title="Thursday, February 20 2014 10:17 AM">a day ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Okay, silly question. There's no usb folder in proc/bus.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1252568840">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1252568840">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1252571243" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Akshay</span>
+
+
+
+<span><a href="#comment-1252568840" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Akshay Oswal</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1252571243" data-role="relative-time" class="time-ago" title="Thursday, February 20 2014 10:21 AM">a day ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Is that the same as /sys/kernel/usb/devices ?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1252571243">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1252571243">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-1229073426" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/tammanagaritirupathireddy/" class="user" data-action="profile" data-user="93375230">
+<img data-role="user-avatar" data-user="93375230" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="93375230" data-role="username">tammanagari tirupathi reddy</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1229073426" data-role="relative-time" class="time-ago" title="Monday, February 3 2014 10:43 PM">18 days ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div style="height: 374px;" class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Dear anil kumar,</p>
+
+<p>I am trying to write device driver for avr programmer, manufactured 
+by 'zhifengsoft', for which i donot have linux driver. As part of this, 
+first I wrote upto registering the usb devie and deregestering the usb 
+device in init and exit functions respectavely. and an empty probe 
+function with printk saying that my programmer is connected message.<br>But I am not getting the message which i gave in probe function.<br>Driver
+ is compiled perfectly and regestered. The vender id and product id I 
+collected using lsusb -v and i also verified it by connecting and 
+checking the dmesg.</p>
+
+<p>Can you please help in this context.</p>
+
+<p>Thanking you sir.<br>This is my code snippet:<br>static struct usb_device_id avrProg_table [] = {<br>        { USB_DEVICE(AVR_PROG_VENDOR_ID, AVR_PROG_PRODUCT_ID) },<br>        { }<br>};</p>
+
+<p>MODULE_DEVICE_TABLE(usb, avrProg_table);<br>static int avrProg_probe(struct usb_interface *interface, const struct usb_device_id *id)<br>{<br>/* called when a USB device is connected to the computer. */<br>        printk("\n\n\navr_programmer is connected!!!\n\n\n");<br>        return 0;<br>}<br>static void avrProg_disconnect(struct usb_interface *interface)<br>{<br>/* called when unplugging a USB device. */<br>        printk("\n\n\navr_programmer is disconnected!!\n\n\n");<br>}<br>static struct usb_driver avrProg_driver = {<br>        .name = "avr_programmer",<br>        .id_table = avrProg_table,<br>        .probe = avrProg_probe,<br>        .disconnect = avrProg_disconnect,<br>};<br>#endif<br>static int __init avrProg_init(void) {<br>        printk("&lt;1&gt; avrProg installed!\n");<br>        return usb_register(&amp;avrProg_driver);;<br>}<br>static void __exit avrProg_exit(void) {<br>        printk("&lt;1&gt; avrProg uninstalled\n");<br>        usb_deregister(&amp;avrProg_driver);;<br>}<br>module_init(avrProg_init);<br>module_exit(avrProg_exit);</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1229073426">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1229073426">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1233465862" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1229073426" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> tammanagari tirupathi reddy</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1233465862" data-role="relative-time" class="time-ago" title="Thursday, February 6 2014 8:49 PM">15 days ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Check out for any other driver owning the interface of your AVR 
+programmer. For that you may, check the "Driver=..." entry for your 
+device in the output of the "cat /sys/kernel/debug/usb/devices". The 
+debugfs should have been already mounted at /sys/kernel/debug for this.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1233465862">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1233465862">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-1218897221" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">pmalleus</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1218897221" data-role="relative-time" class="time-ago" title="Monday, January 27 2014 10:23 PM">25 days ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Dear Anil_Pugalia,</p>
+
+<p>Thank you for your really pedagogical articles. The module 
+pen_register from Part11 worked perfectly well after addition of 
+#include &lt;linux init.h=""&gt;.<br>Unfortunatly the module pen_info 
+from Part12 does'nt act as expected : the module usb_storage always 
+preempt pen_info : after removing usb_storage via rmmod and adding 
+pen_info.ko, I plug the pen drive, and usb_storage comes back after 
+pen_info as shows lsmod. A  sudo more /sys/kernel/debug/usb/devices  
+shows that the driver of my pen drive is usb-storage. If I try to rmmod 
+usb_storage, the answer is Error: Module usb_storage is in use. <br>In other words I don't see how to avoid the automatic substitution of pen_info by usb_storage.<br>Thank you for any advice.</p>
+
+<p>Best Regards&lt;/linux&gt;</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1218897221">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1218897221">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1225372661" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1218897221" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> pmalleus</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1225372661" data-role="relative-time" class="time-ago" title="Friday, January 31 2014 8:33 PM">21 days ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Try commenting the usb-storage lines in /lib/modules/&lt;kernel_version&gt;/modules.usbmap</p>
+
+<p>But do not forget to uncomment, once you are done experimenting.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1225372661">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1225372661">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-1192559247" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/garvitsharma/" class="user" data-action="profile" data-user="47097705">
+<img data-role="user-avatar" data-user="47097705" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="47097705" data-role="username">Garvit Sharma</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1192559247" data-role="relative-time" class="time-ago" title="Thursday, January 9 2014 12:53 AM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Can not we write a driver which works for all usb pendrives without actually taking  vendor-id and product-id ?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1192559247">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1192559247">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1198566979" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1192559247" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Garvit Sharma</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1198566979" data-role="relative-time" class="time-ago" title="Monday, January 13 2014 10:04 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>In fact, that's how the actual driver "usb-storage" is written. It 
+works on the concept of class, i.e. the category of devices, rather than
+ their vendor &amp; device id. Thus, usb-storage serves all the storage 
+class devices, including all the pen drives.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1198566979">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1198566979">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1198587202" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/garvitsharma/" class="user" data-action="profile" data-user="47097705">
+<img data-role="user-avatar" data-user="47097705" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="47097705" data-role="username">Garvit Sharma</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1198566979" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> anil_pugalia</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1198587202" data-role="relative-time" class="time-ago" title="Monday, January 13 2014 10:14 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Then, how to hack "usb-storage" ?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1198587202">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1198587202">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1199782550" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1198587202" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Garvit Sharma</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1199782550" data-role="relative-time" class="time-ago" title="Tuesday, January 14 2014 4:12 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Why do you need to hack in it? Its complete code is there part of the kernel source code.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1199782550">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1199782550">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1199786222" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/garvitsharma/" class="user" data-action="profile" data-user="47097705">
+<img data-role="user-avatar" data-user="47097705" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="47097705" data-role="username">Garvit Sharma</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1199782550" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> anil_pugalia</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1199786222" data-role="relative-time" class="time-ago" title="Tuesday, January 14 2014 4:18 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>I mean, how to understand that code and modify it for our own purpose ?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1199786222">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1199786222">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1199813587" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1199786222" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Garvit Sharma</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1199813587" data-role="relative-time" class="time-ago" title="Tuesday, January 14 2014 5:05 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>It involves understanding the USB Storage protocol, which is SCSI based.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1199813587">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1199813587">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1199815858" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/garvitsharma/" class="user" data-action="profile" data-user="47097705">
+<img data-role="user-avatar" data-user="47097705" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="47097705" data-role="username">Garvit Sharma</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1199813587" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> anil_pugalia</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1199815858" data-role="relative-time" class="time-ago" title="Tuesday, January 14 2014 5:08 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Ok, It would be great if you could help me with that.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1199815858">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1199815858">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1199817284" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1199815858" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Garvit Sharma</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1199817284" data-role="relative-time" class="time-ago" title="Tuesday, January 14 2014 5:11 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>How do you expect me to help? You have to first read those stuff, and
+ the easiest would be to start reading the usb-storage code itself.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1199817284">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1199817284">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1199819213" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/garvitsharma/" class="user" data-action="profile" data-user="47097705">
+<img data-role="user-avatar" data-user="47097705" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="47097705" data-role="username">Garvit Sharma</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1199817284" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> anil_pugalia</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1199819213" data-role="relative-time" class="time-ago" title="Tuesday, January 14 2014 5:14 PM">a month ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Ok, thank you sir!!</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1199819213">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1199819213">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li id="post-1093372475" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">jakub</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1093372475" data-role="relative-time" class="time-ago" title="Wednesday, October 23 2013 4:43 PM">4 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>I have written code that read data about battery and light conditions
+ from keyboard but i must detach&amp; read &amp; attach my keyboard and 
+read get some time ... in this time i cant write using mi keyboard(is 
+detached) ... is here some way how to do R/W without detaching device 
+???</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1093372475">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1093372475">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1182669303" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1093372475" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> jakub</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1182669303" data-role="relative-time" class="time-ago" title="Wednesday, January 1 2014 2:15 AM">2 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Please elaborate, as not very clear on the reason for your detach &amp; attach.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1182669303">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1182669303">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-976934009" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/disqus_VFtP7ykeih/" class="user" data-action="profile" data-user="64264859">
+<img data-role="user-avatar" data-user="64264859" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="64264859" data-role="username">anil kumar</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-976934009" data-role="relative-time" class="time-ago" title="Friday, July 26 2013 11:23 AM">7 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>how to know the functions </p>
+
+<p>pen_probe,pen_disconnect (where these functions available and how to find the headder files)</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:976934009">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-976934009">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1090885723" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-976934009" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> anil kumar</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1090885723" data-role="relative-time" class="time-ago" title="Monday, October 21 2013 9:47 PM">4 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Those are our implementations, coded in the above article example itself</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1090885723">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-1" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">1</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1090885723">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-934158359" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/aadhirai/" class="user" data-action="profile" data-user="57549581">
+<img data-role="user-avatar" data-user="57549581" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="57549581" data-role="username">aadhirai</a></span>
+
+
+
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-934158359" data-role="relative-time" class="time-ago" title="Tuesday, June 18 2013 5:21 PM">8 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>I have tried the code in Part 11 which was working for me. </p>
+
+<p>Here I am not getting the /dev/pen0 listed on my system (Linux Ubuntu 12.04), even when I copy paste the code from here....</p>
+
+<p>compiled &amp; followed all your steps accordingly..<br>Will you please help me in completing this ?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:934158359">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-1" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">1</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-934158359">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1090886662" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-934158359" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> aadhirai</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1090886662" data-role="relative-time" class="time-ago" title="Monday, October 21 2013 9:48 PM">4 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Check out the vendor id, device id of your pen drive, and update the code accordingly.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1090886662">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1090886662">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-900120920" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">David</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-900120920" data-role="relative-time" class="time-ago" title="Friday, May 17 2013 1:53 PM">9 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Its Fantastic !!<br>Thank you for your valuable Linux device driver articles.</p>
+
+<p>Could you please start the same for BSP also.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:900120920">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-900120920">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-922215630" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-900120920" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> David</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-922215630" data-role="relative-time" class="time-ago" title="Friday, June 7 2013 7:26 PM">9 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>I doubt, if it would be possible, as currently doing the same for mathematics in open source.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:922215630">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-922215630">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li><li id="post-768750383" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">MELWIN JOSE</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-768750383" data-role="relative-time" class="time-ago" title="Tuesday, January 15 2013 8:39 PM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>I got an error when i tried to remove the "usb_storage"</p>
+
+<p>melwin-Satellite-L640 USB_2 # rmmod usb_storage<br>ERROR: Module usb_storage is in use by ums_realtek</p>
+
+<p>Here is the output for "lsusb"<br>Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br>Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br>Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub<br>Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub<br>Bus 002 Device 005: ID 0930:0214 Toshiba Corp. <br>Bus 002 Device 006: ID 04f2:b1d6 Chicony Electronics Co., Ltd</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:768750383">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-768750383">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-772347496" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">MELWIN JOSE</span>
+
+
+
+<span><a href="#comment-768750383" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> MELWIN JOSE</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-772347496" data-role="relative-time" class="time-ago" title="Saturday, January 19 2013 11:08 AM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>solved  :)<br>ums_realtk is a module that depends in usb_storage.<br>just "rmmod ums_realtk"</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:772347496">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-772347496">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1087039450" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">Mayank</span>
+
+
+
+<span><a href="#comment-772347496" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> MELWIN JOSE</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1087039450" data-role="relative-time" class="time-ago" title="Friday, October 18 2013 7:10 PM">4 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>I'm getting the same error but on trying the same command, I got <br>"Error:
+ Module ums_realtek does not exist in /proc/modules". I also listed all 
+the available modules &amp; ums-realtek isn't present there. However, 
+it's there in the folder. I'm a newbie. Please help.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1087039450">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1087039450">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-1090889067" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-1087039450" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> Mayank</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-1090889067" data-role="relative-time" class="time-ago" title="Monday, October 21 2013 9:50 PM">4 months ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Paste the output of lsmod.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:1090889067">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-1090889067">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li></ul></li></ul></li><li id="post-746766934" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">MenDuong</span>
+
+
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-746766934" data-role="relative-time" class="time-ago" title="Monday, December 24 2012 3:58 PM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div style="height: 374px;" class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Dear, When I pug and unplug my USB driver. I can't see message in dmesg as above.</p>
+
+<p>My dmesg as follow:</p>
+
+<p>SELinux: initialized (dev sdd1, type vfat), uses genfs_contexts</p>
+
+<p>usb 2-1: USB disconnect, address 5</p>
+
+<p>SELinux: initialized (dev sdb4, type fuseblk), uses genfs_contexts</p>
+
+<p>lo: Disabled Privacy Extensions</p>
+
+<p>SELinux: initialized (dev proc, type proc), uses genfs_contexts</p>
+
+<p>lo: Disabled Privacy Extensions</p>
+
+<p>SELinux: initialized (dev proc, type proc), uses genfs_contexts</p>
+
+<p>lo: Disabled Privacy Extensions</p>
+
+<p>SELinux: initialized (dev proc, type proc), uses genfs_contexts</p>
+
+<p>lo: Disabled Privacy Extensions</p>
+
+<p>SELinux: initialized (dev proc, type proc), uses genfs_contexts</p>
+
+<p>usbcore: deregistering interface driver pen_driver</p>
+
+<p>usbcore: registered new interface driver pen_driver</p>
+
+<p>usb 2-1: new high speed USB device using ehci_hcd and address 6</p>
+
+<p>usb 2-1: New USB device found, idVendor=1221, idProduct=3234</p>
+
+<p>usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3</p>
+
+<p>usb 2-1: Product: Udisk 2.0</p>
+
+<p>usb 2-1: Manufacturer: Udisk</p>
+
+<p>usb 2-1: SerialNumber: 00000000295B</p>
+
+<p>usb 2-1: configuration #1 chosen from 1 choice</p>
+
+<p>scsi8 : SCSI emulation for USB Mass Storage devices</p>
+
+<p>usb-storage: device found at 6</p>
+
+<p>usb-storage: waiting for device to settle before scanning</p>
+
+<p>usb-storage: device scan complete</p>
+
+<p>scsi 8:0:0:0: Direct-Access     Udisk    Udisk 2.0        3.00 PQ: 0 ANSI: 2</p>
+
+<p>sd 8:0:0:0: Attached scsi generic sg5 type 0</p>
+
+<p>sd 8:0:0:0: [sdd] 16384000 512-byte logical blocks: (8.38 GB/7.81 GiB)</p>
+
+<p>sd 8:0:0:0: [sdd] Write Protect is off</p>
+
+<p>sd 8:0:0:0: [sdd] Mode Sense: 0b 00 00 08</p>
+
+<p>sd 8:0:0:0: [sdd] Assuming drive cache: write through</p>
+
+<p>sd 8:0:0:0: [sdd] Assuming drive cache: write through</p>
+
+<p> sdd: sdd1</p>
+
+<p>sdd: p1 size 16386237 exceeds device capacity, limited to end of disk</p>
+
+<p>sd 8:0:0:0: [sdd] Assuming drive cache: write through</p>
+
+<p>sd 8:0:0:0: [sdd] Attached SCSI removable disk</p>
+
+<p>SELinux: initialized (dev sdd1, type vfat), uses genfs_contexts</p>
+
+<p>usb 2-1: USB disconnect, address 6</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:746766934">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-746766934">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-746779112" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-746766934" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> MenDuong</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-746779112" data-role="relative-time" class="time-ago" title="Monday, December 24 2012 4:48 PM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Because the usb-storage driver is loaded. You need to make sure that is unloaded, as mentioned in the article.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:746779112">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-746779112">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-746878107" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">MenDuong</span>
+
+
+
+<span><a href="#comment-746779112" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> anil_pugalia</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-746878107" data-role="relative-time" class="time-ago" title="Monday, December 24 2012 9:10 PM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>Thank you. Please, how to unload usb-storage?</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:746878107">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-746878107">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"><li id="post-773716775" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar">
+
+<div class="user"><img src="a_data_002/noavatar92_002.png" class="user" alt="Avatar"></div>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author">micheal</span>
+
+
+
+<span><a href="#comment-746878107" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> MenDuong</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-773716775" data-role="relative-time" class="time-ago" title="Monday, January 21 2013 2:44 PM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>go drivers path and then type rmmod usb-storage</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:773716775">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-0" data-action="upvote" title="Vote up">
+<span class="updatable count" data-role="likes">0</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-773716775">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li><li id="post-746959955" class="post"><div data-role="post-content" class="post-content
+
+
+
+">
+
+<ul class="post-menu dropdown" data-role="menu">
+<li class="collapse">
+<a href="#" data-action="collapse" title="Collapse"><span>−</span></a>
+</li>
+<li class="expand">
+<a href="#" data-action="collapse" title="Expand"><span>+</span></a>
+</li>
+
+
+<li class="" role="menu">
+
+
+<a class="dropdown-toggle" href="#" data-action="flag" data-role="flag" title="Flag as inappropriate">
+<i aria-hidden="true" class="icon icon-flag"></i>
+</a>
+
+
+</li>
+
+</ul>
+
+<div class="indicator"></div>
+
+
+
+
+<div class="avatar hovercard">
+<a href="http://disqus.com/anil_pugalia/" class="user" data-action="profile" data-user="36665734">
+<img data-role="user-avatar" data-user="36665734" src="a_data_002/noavatar92_002.png" alt="Avatar">
+</a>
+</div>
+
+
+<div class="post-body">
+<header>
+<span class="post-byline">
+
+<span class="author publisher-anchor-color"><a href="#" data-action="profile" data-user="36665734" data-role="username">anil_pugalia</a></span>
+
+
+
+
+
+
+<span><a href="#comment-746878107" class="parent-link" data-role="parent-link"><i aria-hidden="true" class="icon-forward" title="in reply to"></i> MenDuong</a></span>
+
+</span>
+
+<span class="post-meta">
+<span class="bullet time-ago-bullet" aria-hidden="true">•</span>
+
+
+<a href="#comment-746959955" data-role="relative-time" class="time-ago" title="Tuesday, December 25 2012 12:00 AM">a year ago</a>
+
+</span>
+
+
+</header>
+
+
+<div class="post-body-inner">
+
+<div class="post-message-container" data-role="message-container">
+
+<div class="publisher-anchor-color" data-role="message-content">
+<div class="post-message " data-role="message" dir="auto">
+
+<p>If it is listed in lsmod, just do a "rmmod usb-storage". Otherwise, 
+you'd have to recompile your kernel, by making usb-storage as a module.</p>
+
+</div>
+
+<span class="post-media"><ul data-role="post-media-list"></ul></span>
+</div>
+</div>
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+<footer>
+
+
+<menu>
+<li class="realtime" data-role="realtime-notification:746959955">
+<span style="display:none;" class="realtime-replies"></span>
+<a style="display:none;" href="#" class="btn btn-small"></a>
+
+</li>
+
+<li class="voting" data-role="voting">
+
+<a href="#" class="vote-up  count-3" data-action="upvote" title="">
+<span class="updatable count" data-role="likes">3</span>
+<span class="control"><i aria-hidden="true" class="icon icon-arrow-2"></i></span>
+</a>
+<span role="button" class="vote-down  count-0" title="Vote down">
+
+<span class="updatable count" data-role="dislikes">0</span>
+
+<span class="control"><i aria-hidden="true" class="icon icon-arrow"></i></span>
+
+<span class="tooltip">You must sign in to down-vote this post.</span>
+
+</span>
+
+</li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+
+
+<li class="reply">
+<a href="#" data-action="reply">
+<i class="icon icon-mobile icon-reply"></i><span class="text">Reply</span></a></li>
+<li class="bullet" aria-hidden="true">•</li>
+
+
+<li class="share">
+<a class="toggle"><i class="icon icon-mobile icon-share"></i><span class="text">Share ›</span></a>
+<ul>
+<li class="twitter"><a href="#" data-action="share:twitter">Twitter</a></li>
+<li class="facebook"><a href="#" data-action="share:facebook">Facebook</a></li>
+<li class="link"><a href="#comment-746959955">Link</a></li>
+</ul>
+</li>
+</menu>
+
+
+</footer>
+</div>
+
+
+<div data-role="blacklist-form"></div>
+<div class="reply-form-container" data-role="reply-form"></div>
+</div>
+
+
+<ul data-role="children" class="children"></ul></li></ul></li></ul></li></ul></li></ul>
+
+<div class="load-more" data-role="more" style="display:none">
+<a href="#" data-action="more-posts" class="btn">Load more comments</a>
+</div>
+</div>
+
+</section>
+
+<section id="community" style="display:none" data-role="main" data-outbound-link="embed:community"><div>
+<div data-role="community-notification">
+
+</div>
+
+<div class="row">
+<h3>Top Commenters on 
+<strong>LINUX For You</strong>
+</h3>
+
+<div data-role="top-users"><ol class="loading" id="top-users"></ol>
+
+<a class="see-more hidden" title="see more" data-action="see-more">see more</a>
+</div>
+
+</div>
+
+<div class="row">
+<h3>Top Discussions on 
+<strong>LINUX For You</strong>
+</h3>
+<div data-role="top-threads"><ol class="loading" id="top-threads"></ol></div>
+</div>
+</div></section>
+
+<section id="dashboard" style="display:none" data-role="main">
+
+
+<p style="line-height: 1.4">Nothing for you here ... yet. But as you comment with Disqus and follow
+other Disqus users, you will start to receive notifications here, as well as a personalized
+feed of activity by you and the people you follow. So get out there and participate in
+some discussions!</p>
+</section>
+
+<section id="profile" style="display:none" data-role="main">
+</section>
+
+<div id="discovery"></div>
+
+<div id="footer">
+<ul>
+<li class="logo"><a href="http://disqus.com/" title="Powered by Disqus">Powered by Disqus</a></li>
+<li id="thread-subscribe-button" class="email"> 
+<div class="default">
+<a href="#" data-action="subscribe" title="Subscribe and get email updates from this discussion"><i aria-hidden="true" class="icon-mail"></i><span class="clip">Subscribe</span> <i aria-hidden="true" class="icon-checkmark"></i></a>
+</div>
+<div class="form">
+<div class="input-wrapper"><input id="thread-subscribe-email" placeholder="yourname@email.com" type="email"></div>
+</div>
+</li>
+<li class="install">
+<a href="https://disqus.com/websites/?utm_source=linuxforyou&amp;utm_medium=Disqus-Footer" target="_blank">
+<i aria-hidden="true" class="icon-disqus"></i>
+<span class="clip">Add Disqus to your site</span>
+</a>
+</li>
+</ul>
+</div>
+</div></body></html>

@@ -1,0 +1,10 @@
+function geoip_country_code() { return 'IN'; }
+function geoip_country_name() { return 'India'; }
+function geoip_city()         { return 'Ahmedabad'; }
+function geoip_region()       { return '09'; }
+function geoip_region_name()  { return 'Gujarat'; }
+function geoip_latitude()     { return '23.0333'; }
+function geoip_longitude()    { return '72.6167'; }
+function geoip_postal_code()  { return '380058'; }
+function geoip_area_code()    { return ''; }
+function geoip_metro_code()   { return ''; }

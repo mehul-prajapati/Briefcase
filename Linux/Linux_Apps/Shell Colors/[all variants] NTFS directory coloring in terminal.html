@@ -1,0 +1,3190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" id="vbulletin_html" lang="en"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta id="e_vb_meta_bburl" name="vb_meta_bburl" content="http://ubuntuforums.org">
+<!-- base href="http://ubuntuforums.org/" --><!--[if IE]></base><![endif]-->
+<meta name="generator" content="vBulletin 4.2.2">
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+
+	<link rel="Shortcut Icon" href="http://ubuntuforums.org/favicon.ico" type="image/x-icon">
+
+
+
+
+
+
+
+
+	
+		<script type="text/javascript" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/combo.js"></script>
+	
+
+<script type="text/javascript">
+<!--
+	if (typeof YAHOO === 'undefined') // Load ALL YUI Local
+	{
+		document.write('<script type="text/javascript" src="clientscript/yui/yuiloader-dom-event/yuiloader-dom-event.js?v=422"><\/script>');
+		document.write('<script type="text/javascript" src="clientscript/yui/connection/connection-min.js?v=422"><\/script>');
+		var yuipath = 'clientscript/yui';
+		var yuicombopath = '';
+		var remoteyui = false;
+	}
+	else	// Load Rest of YUI remotely (where possible)
+	{
+		var yuipath = 'http://yui.yahooapis.com/2.9.0/build';
+		var yuicombopath = 'http://yui.yahooapis.com/combo';
+		var remoteyui = true;
+		if (!yuicombopath)
+		{
+			document.write('<script type="text/javascript" src="http://yui.yahooapis.com/2.9.0/build/connection/connection-min.js?v=422"><\/script>');
+		}
+	}
+	var SESSIONURL = "";
+	var SECURITYTOKEN = "guest";
+	var IMGDIR_MISC = "images/ubuntu-VB4/misc";
+	var IMGDIR_BUTTON = "images/ubuntu-VB4/buttons";
+	var vb_disable_ajax = parseInt("0", 10);
+	var SIMPLEVERSION = "422";
+	var BBURL = "http://ubuntuforums.org";
+	var LOGGEDIN = 0 > 0 ? true : false;
+	var THIS_SCRIPT = "showthread";
+	var RELPATH = "showthread.php?p=4779965";
+	var PATHS = {
+		forum : "",
+		cms   : "",
+		blog  : ""
+	};
+	var AJAXBASEURL = "http://ubuntuforums.org/";
+// -->
+</script>
+<script type="text/javascript" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/vbulletin-core.js"></script>
+
+
+
+	<link rel="alternate" type="application/rss+xml" title="Ubuntu Forums RSS Feed" href="http://ubuntuforums.org/external.php?type=RSS2">
+	
+		<link rel="alternate" type="application/rss+xml" title="Ubuntu Forums - General Help - RSS Feed" href="http://ubuntuforums.org/external.php?type=RSS2&amp;forumids=331">
+	
+
+
+
+	<link rel="stylesheet" type="text/css" href="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/css_004.css">
+
+	<!--[if lt IE 8]>
+	<link rel="stylesheet" type="text/css" href="css.php?styleid=117&amp;langid=3&amp;d=1394820924&amp;td=ltr&amp;sheet=popupmenu-ie.css,vbulletin-ie.css,vbulletin-chrome-ie.css,vbulletin-formcontrols-ie.css,editor-ie.css" />
+	<![endif]-->
+
+<link href="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/css.css" rel="stylesheet" type="text/css">
+	
+	<meta name="description" content="I'm annoyed by the default coloring of NTFS directories in Ubuntu. Just watch: 
+http://josteinaj.no/images/2011/ntfs_coloring.png 
+(I believe the NTFS partition may have encryption enabled and the green background color symbolizes that the folder is encrypted?) 
+ 
+The screenshot is taken from a gnome-terminal running on my Ubuntu 7.10 laptop, ssh'ed into my desktop PC which has both a ntfs and a fat32/vfat partition on it. However the same colors appear when sshing in using PuTTY, or using">
+
+	<title>[all variants] NTFS directory coloring in terminal</title>
+	<link rel="canonical" href="http://ubuntuforums.org/showthread.php?t=764824">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+		<link rel="stylesheet" type="text/css" href="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/css_002.css">
+	
+	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="css.php?styleid=117&amp;langid=3&amp;d=1394820924&amp;td=ltr&amp;sheet=toolsmenu-ie.css,postlist-ie.css,showthread-ie.css,postbit-ie.css,poll-ie.css" /><![endif]-->
+<link rel="stylesheet" type="text/css" href="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/css_003.css">
+
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,.fb_connect_bar_container span,.fb_connect_bar_container a,.fb_connect_bar_container img,.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}.fb_connect_bar a:hover{color:#fff}.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}.fb_connect_bar div a,.fb_connect_bar span,.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style></head>
+
+<body onload="if (document.body.scrollIntoView &amp;&amp; fetch_object('currentPost') &amp;&amp; (window.location.href.indexOf('#') == -1 || window.location.href.indexOf('#post') > -1)) { fetch_object('currentPost').scrollIntoView(true); }">
+
+<div class="above_body"> <!-- closing tag is in template navbar -->
+<div id="header" class="floatcontainer doc_header">
+	<div><a name="top" href="http://ubuntuforums.org/index.php" class="logo-image"><img title="Ubuntu Forums" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/ubuntulogo-o-small.png" alt="Ubuntu Forums"></a></div>
+	<div id="toplinks" class="toplinks">
+		
+			<ul class="nouser">
+			
+				<li><a rel="help" href="http://ubuntuforums.org/faq.php">Help</a></li>
+                <li>
+                    <!-- OpenID Login Button -->
+<form class="logindetails" action="login.php" method="post">
+<input name="do" value="login" type="hidden">
+<input name="openid" value="https://login.ubuntu.com" type="hidden">
+<input class="loginbutton" value="Login with SSO" type="submit"><br>
+</form>
+<!-- / OpenID Login Button -->
+                </li>
+
+				
+			</ul>
+		
+	</div>
+	<div class="ad_global_header">
+		
+		
+	</div>
+	<hr>
+</div>
+<div id="navbar" class="navbar">
+	<ul id="navtabs" class="navtabs floatcontainer">
+		
+		
+	
+		<li class="selected" id="vbtab_forum">
+			<a class="navtab" href="http://ubuntuforums.org/forum.php">Forum</a>
+		</li>
+		
+		
+			<ul class="floatcontainer">
+				
+					
+						<li class="popupmenu" id="vbmenu_qlinks">
+							<a id="yui-gen1" href="javascript://" class="popupctrl">Quick Links</a>
+							<ul id="yui-gen0" class="popupbody">
+								
+									<li id="vbclink_albums"><a href="http://ubuntuforums.org/album.php">Albums</a></li>
+								
+									<li id="link_mje2_914"><a href="http://ubuntuforums.org/search.php?do=process&amp;type[]=1&amp;replyless=1&amp;replylimit=0">Unanswered Posts</a></li>
+								
+									<li id="link_mjm0_271"><a href="http://ubuntuforums.org/search.php?do=getnew&amp;contenttype=vBForum_Post">New Posts</a></li>
+								
+							</ul>
+						</li>
+					
+				
+					
+						<li class="popupmenu" id="menu_mja2_174">
+							<a id="yui-gen3" href="javascript://" class="popupctrl">Forum Community</a>
+							<ul id="yui-gen2" class="popupbody">
+								
+									<li id="link_mja2_178"><a href="https://wiki.ubuntu.com/ForumCouncil">Forum Council</a></li>
+								
+									<li id="link_mja2_759"><a href="https://wiki.ubuntu.com/ForumCouncilAgenda"><span> FC Agenda</span></a></li>
+								
+									<li id="link_mja2_602"><a href="https://wiki.ubuntu.com/ForumsGovernance">Forum Governance</a></li>
+								
+									<li id="link_ntk3_139"><a href="http://ubuntuforums.org/showgroups.php/">Forum Staff</a></li>
+								
+									<li id="link_mja2_802"><a href="http://ubuntuforums.org/misc.php?do=showrules">Ubuntu Forums Code of Conduct</a></li>
+								
+									<li id="link_mja2_447"><a href="http://webchat.freenode.net/?channels=ubuntuforums">Forum IRC Channel</a></li>
+								
+							</ul>
+						</li>
+					
+				
+					
+						<li class="popupmenu" id="menu_mja2_686">
+							<a id="yui-gen5" href="javascript://" class="popupctrl">Ubuntu Community</a>
+							<ul id="yui-gen4" class="popupbody">
+								
+									<li id="link_mja2_167"><a href="http://community.ubuntu.com/">Ubuntu</a></li>
+								
+									<li id="link_mja2_232"><a href="http://www.ubuntu.com/download/desktop">Get <b style="color: #dd4814">Ubuntu</b></a></li>
+								
+									<li id="link_mja2_426"><a href="http://www.kubuntu.org/getkubuntu">Get <b style="color:#10147e">Kubuntu</b></a></li>
+								
+									<li id="link_mja2_138"><a href="http://xubuntu.org/getxubuntu/">Get <b style="color: #04a">Xubuntu</b></a></li>
+								
+									<li id="link_mja2_351"><a href="https://help.ubuntu.com/community/Lubuntu/GetLubuntu">Get <b style="color: #033C71">Lubuntu</b></a></li>
+								
+									<li id="link_nzmw_867"><a href="http://ubuntustudio.org/download/">Get <b style="color:#116286">UbuntuStudio</b></a></li>
+								
+									<li id="link_nzmw_456"><a href="http://www.mythbuntu.org/download-type">Get <b style="color: #dd4814">Mythbuntu</b></a></li>
+								
+									<li id="link_nzmw_464"><a href="http://www.edubuntu.org/download">Get <b style="color: #a30b00">Edubuntu</b></a></li>
+								
+									<li id="link_nzmw_559"><a href="http://ubuntugnome.org/download/">Get <b style="color: #dd4814">Ubuntu-GNOME</b></a></li>
+								
+									<li id="link_nzmw_633"><a href="http://www.ubuntukylin.com/downloads/show.php?lang=en&amp;id=122">Get <b style="color: #dd4814">UbuntuKylin</b></a></li>
+								
+									<li id="link_mja2_877"><a href="http://www.ubuntu.com/project/about-ubuntu/conduct">Ubuntu Code of Conduct</a></li>
+								
+									<li id="link_mja2_199"><a href="https://wiki.ubuntu.com/">Ubuntu Wiki</a></li>
+								
+									<li id="link_mja2_891"><a href="https://wiki.ubuntu.com/community">Community Wiki</a></li>
+								
+							</ul>
+						</li>
+					
+				
+					
+						
+					
+				
+					
+						<li class="popupmenu" id="menu_mja2_593">
+							<a id="yui-gen7" href="javascript://" class="popupctrl">Other Support</a>
+							<ul id="yui-gen6" class="popupbody">
+								
+									<li id="link_mja2_994"><a href="https://answers.launchpad.net/">Launchpad Answers</a></li>
+								
+									<li id="link_mja2_430"><a href="http://webchat.freenode.net/?channels=ubuntu">Ubuntu IRC Support</a></li>
+								
+									<li id="link_mja2_646"><a href="http://askubuntu.com/">AskUbuntu</a></li>
+								
+									<li id="link_mja2_817"><a href="https://help.ubuntu.com/">Official Documentation</a></li>
+								
+									<li id="link_mja2_745"><a href="https://help.ubuntu.com/community">User Documentation</a></li>
+								
+							</ul>
+						</li>
+					
+				
+					
+						<li class="popupmenu" id="menu_mtaz_185">
+							<a id="yui-gen9" href="javascript://" class="popupctrl">Social Media</a>
+							<ul id="yui-gen8" class="popupbody">
+								
+									<li id="link_mtaz_522"><a href="https://www.facebook.com/ubuntu.forums.official">Facebook</a></li>
+								
+									<li id="link_mtaz_149"><a href="https://twitter.com/ubuntuforums">Twitter</a></li>
+								
+							</ul>
+						</li>
+					
+				
+					
+						
+					
+				
+			</ul>
+		
+
+	
+		<li id="tab_nti4_938">
+			<a class="navtab" href="http://ubuntuforums.org/showthread.php?t=2230004">Please read before SSO login</a>
+		</li>
+		
+		
+
+	
+		<li id="vbtab_whatsnew">
+			<a class="navtab" href="http://ubuntuforums.org/activity.php">Activity Page</a>
+		</li>
+		
+		
+
+		
+	</ul>
+	
+		<div id="globalsearch" class="globalsearch">
+			<form action="search.php?do=process" method="post" id="navbar_search" class="navbar_search">
+				
+				<input name="securitytoken" value="guest" type="hidden">
+				<input name="do" value="process" type="hidden">
+				<span class="textboxcontainer"><span><input name="query" class="textbox" tabindex="99" type="text"></span></span>
+				<span class="buttoncontainer"><span><input class="searchbutton" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/search.png" name="submit" onclick="document.getElementById('navbar_search').submit;" tabindex="100" type="image"></span></span>
+			</form>
+			<ul class="navbar_advanced_search">
+				<li><a href="http://ubuntuforums.org/search.php?search_type=1" accesskey="4">Advanced Search</a></li>
+				
+			</ul>
+		</div>
+	
+</div>
+</div><!-- closing div for above_body -->
+
+<div class="body_wrapper">
+<div id="breadcrumb" class="breadcrumb">
+	<ul class="floatcontainer">
+		<li class="navbithome"><a href="http://ubuntuforums.org/index.php" accesskey="1"><img title="Home" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/navbit-home.png" alt="Home"></a></li>
+		
+	<li class="navbit"><a href="http://ubuntuforums.org/index.php">Forum</a></li>
+
+	<li class="navbit"><a href="http://ubuntuforums.org/forumdisplay.php?f=130">The Ubuntu Forum Community</a></li>
+
+	<li class="navbit"><a href="http://ubuntuforums.org/forumdisplay.php?f=327">Ubuntu General Support</a></li>
+
+	<li class="navbit"><a href="http://ubuntuforums.org/forumdisplay.php?f=331">General Help</a></li>
+
+		
+	<li class="navbit lastnavbit"><span><span style="font-weight: bold; color: #008C00;">[all variants]</span> NTFS directory coloring in terminal</span></li>
+
+	</ul>
+	<hr>
+</div>
+
+
+
+
+
+
+
+
+
+	<div id="above_postlist" class="above_postlist">
+		
+		<div id="pagination_top" class="pagination_top">
+		
+			<div id="postpagestats_above" class="postpagestats">
+				Results 1 to 9 of 9
+			</div>
+		</div>
+	</div>
+	<div id="pagetitle" class="pagetitle">
+		<h1>
+			Thread: <span class="threadtitle"><a href="http://ubuntuforums.org/showthread.php?t=764824" title="Reload this Page">NTFS directory coloring in terminal</a></span>
+		</h1>
+		
+			
+<span class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/V80PAcvrynR.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/V80PAcvrynR_002.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></span>
+<script type="text/javascript" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/all.js"></script>
+
+<fb:like fb-iframe-plugin-query="action=like&amp;app_id=&amp;color_scheme=light&amp;font=tahoma&amp;href=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;layout=standard&amp;locale=en_US&amp;sdk=joey&amp;show_faces=false&amp;width=260" fb-xfbml-state="rendered" class=" fb_iframe_widget" href="http://ubuntuforums.org/showthread.php?t=764824" font="tahoma" layout="standard" show_faces="false" width="260" action="like" colorscheme="light"><span style="vertical-align: bottom; width: 260px; height: 28px;"><iframe class="" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/like.html" style="border: medium none; visibility: visible; width: 260px; height: 28px;" title="fb:like Facebook Social Plugin" allowtransparency="true" name="f30b42f63a9468e" frameborder="0" height="1000px" scrolling="no" width="260px"></iframe></span></fb:like>
+		
+	</div>
+	<div id="thread_controls" class="thread_controls toolsmenu">
+		<div>
+		<ul id="postlist_popups" class="postlist_popups popupgroup">
+			
+			
+			<li class="popupmenu" id="threadtools">
+				<h6><a id="yui-gen11" class="popupctrl" href="javascript://">Thread Tools</a></h6>
+				<ul id="yui-gen10" class="popupbody">
+					<li><a href="http://ubuntuforums.org/printthread.php?t=764824&amp;pp=10&amp;page=1" accesskey="3" rel="nofollow">Show Printable Version</a></li>
+					
+					<li>
+						
+							<a href="http://ubuntuforums.org/subscription.php?do=addsubscription&amp;t=764824" rel="nofollow">Subscribe to this Thread…</a>
+						
+					</li>
+					
+
+						
+					
+				</ul>
+			</li>
+
+			
+
+			
+
+			
+
+			
+				<li class="popupmenu" id="displaymodes">
+					<h6><a id="yui-gen13" class="popupctrl" href="javascript://">Display</a></h6>
+					<ul id="yui-gen12" class="popupbody">
+						<li><label>Linear Mode</label></li>
+						<li><a href="http://ubuntuforums.org/showthread.php?t=764824&amp;mode=hybrid"> Switch to Hybrid Mode</a></li>
+						<li><a href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=4779520&amp;mode=threaded#post4779520"> Switch to Threaded Mode</a></li>
+					</ul>
+				</li>
+			
+
+			
+			</ul>
+		</div>
+	</div>
+
+<div id="postlist" class="postlist restrain">
+	
+
+	
+		<ol id="posts" class="posts" start="1">
+			
+<li class="postbit postbitim postcontainer old" id="post_4779520">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">April 24th, 2008</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post4779520" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=4779520#post4779520" class="postcounter">#1</a><a id="postcount4779520" name="1"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen14" class="popupmenu memberaction">
+	<a id="yui-gen16" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=214379" title="josteinaj is offline"><strong><span style="color: #000000;">josteinaj</span></strong></a>
+	<ul id="yui-gen15" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=214379" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=214379&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=214379" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="josteinaj is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="josteinaj is offline" border="0">
+
+					
+					<span class="usertitle">
+						5 Cups of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_2.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Dec 2006</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>30</dd>	 -->
+<dt>Beans</dt> <dd>30</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			<img title="Question" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/icon5.png" alt="Question"> NTFS directory coloring in terminal
+		</h2>
+		
+				
+					
+					
+				
+				
+		<div class="content">
+			<div id="post_message_4779520">
+				<blockquote class="postcontent restore">
+					I'm annoyed by the default coloring of NTFS directories in Ubuntu. Just watch:<br>
+<img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/ntfs_coloring.png" alt="" border="0"><br>
+(I believe the NTFS partition may have encryption enabled and the green 
+background color symbolizes that the folder is encrypted?)<br>
+<br>
+The screenshot is taken from a gnome-terminal running on my Ubuntu 7.10 
+laptop, ssh'ed into my desktop PC which has both a ntfs and a fat32/vfat
+ partition on it. However the same colors appear when sshing in using 
+PuTTY, or using gnome-terminal without sshing directly from the desktop 
+computer.<br>
+<br>
+So I guess it must be the "terminal-server" (if there is such a thing) 
+on the Ubuntu 7.10 x64 desktop PC that defines the coloring scheme.<br>
+<br>
+I want to remove the green background-color from the NTFS directories so it becomes readable. How do I do that?
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+			<!-- edit note -->
+			<blockquote class="postcontent lastedited">
+				
+					Last edited by josteinaj; October 10th, 2011 at <span class="time">11:37 PM</span>.
+				
+				
+					<span class="reason">Reason:</span> Replaced screenshot since the link was broken. the new one doesn't have a FAT-illustration. Taken in Ubuntu 11.10 Beta2.
+				
+			</blockquote>
+			<!-- / edit note -->
+			
+				
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_4779520" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=4779520&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_4779520" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_4779520 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_4779749">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">April 24th, 2008</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post4779749" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=4779749#post4779749" class="postcounter">#2</a><a id="postcount4779749" name="2"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo">
+			<div class="contact">
+				
+					<a class="postuseravatarlink" href="http://ubuntuforums.org/member.php?u=80206" title="warp99 is offline">
+						
+							<img title="warp99's Avatar" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/CircleofFriends80x80.png" alt="warp99's Avatar">
+						
+					</a>
+				
+				<div class="username_container">
+					
+						<div id="yui-gen17" class="popupmenu memberaction">
+	<a id="yui-gen19" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=80206" title="warp99 is offline"><strong><span style="color: #000000;">warp99</span></strong></a>
+	<ul id="yui-gen18" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=80206" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=80206&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=80206" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="warp99 is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="warp99 is offline" border="0">
+
+					
+					<span class="usertitle">
+						Dark Roasted Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_17.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Mar 2006</dd>
+						<dt>Location</dt> <dd>Saint Petersburg, FL</dd>
+						
+						<!-- <dt>Beans</dt> <dd>1,123</dd>	 -->
+<dt>Beans</dt> <dd>1,123</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_4779749">
+				<blockquote class="postcontent restore">
+					<div class="bbcode_container">
+	<div class="bbcode_quote">
+		<div class="quote_container">
+			<div class="bbcode_quote_container"></div>
+			
+				<div class="bbcode_postedby">
+					<img title="Quote" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/quote_icon.png" alt="Quote"> Originally Posted by <strong>josteinaj</strong>
+					<a href="http://ubuntuforums.org/showthread.php?p=4779520#post4779520" rel="nofollow"><img title="View Post" class="inlineimg" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/viewpost-right.png" alt="View Post"></a>
+				</div>
+				<div class="message">I'm annoyed by the default coloring of NTFS directories in Ubuntu. Just watch:<br>
+<img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/ntfs_coloring.html" alt="" border="0"><br>
+(I believe the NTFS partition may have encryption enabled and the green 
+background color symbolizes that the folder is encrypted?)<br>
+<br>
+The screenshot is taken from a gnome-terminal running on my Ubuntu 7.10 
+laptop, ssh'ed into my desktop PC which has both a ntfs and a fat32/vfat
+ partition on it. However the same colors appear when sshing in using 
+PuTTY, or using gnome-terminal without sshing directly from the desktop 
+computer.<br>
+<br>
+So I guess it must be the "terminal-server" (if there is such a thing) 
+on the Ubuntu 7.10 x64 desktop PC that defines the coloring scheme.<br>
+<br>
+I want to remove the green background-color from the NTFS directories so it becomes readable. How do I do that?</div>
+			
+		</div>
+	</div>
+</div>You need to make changes to the dircolors command in your .bashrc 
+script, but first you need to export the dircolors database to a file 
+like this:<br>
+<div class="bbcode_container">
+	<div class="bbcode_description">Code:</div>
+	<pre class="bbcode_code" style="height:36px;">dircolors --print-database &gt; ~/.mydircolors</pre>
+</div>then edit the file:<br>
+<div class="bbcode_container">
+	<div class="bbcode_description">Code:</div>
+	<pre class="bbcode_code" style="height:36px;">nano ~/.mydircolors</pre>
+</div>and change the colors to your preferences. Save the file then make changes to your .bashrc script. So you would:<br>
+<div class="bbcode_container">
+	<div class="bbcode_description">Code:</div>
+	<pre class="bbcode_code" style="height:36px;">nano ~/.bashrc</pre>
+</div>then locate the following portion:<br>
+<div class="bbcode_container">
+	<div class="bbcode_description">Code:</div>
+	<pre class="bbcode_code" style="height:108px;"># enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+    #alias dir='ls --color=auto --format=vertical'
+    #alias vdir='ls --color=auto --format=long'
+fi</pre>
+</div>and change the string:<br>
+<div class="bbcode_container">
+	<div class="bbcode_description">Code:</div>
+	<pre class="bbcode_code" style="height:36px;">"`dircolors -b`"</pre>
+</div>to <br>
+<div class="bbcode_container">
+	<div class="bbcode_description">Code:</div>
+	<pre class="bbcode_code" style="height:36px;">"`dircolors ~/.mydircolors`"</pre>
+</div>so when you login your bash script will change the defaults to your colors.
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+				<blockquote class="signature restore"><div class="signaturecontainer">For those new to Ubuntu most of your answers can be found at <a href="http://help.ubuntu.com/" target="_blank">help.ubuntu.com</a> or <a href="http://ubuntuguide.org/" target="_blank">ubuntuguide.org</a> <img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/icon_smile.gif" alt="" title="Smile" class="inlineimg" border="0"></div></blockquote>
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_4779749" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=4779749&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_4779749" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_4779749 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_4779965">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">April 24th, 2008</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post4779965" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=4779965#post4779965" class="postcounter">#3</a><a id="postcount4779965" name="3"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen20" class="popupmenu memberaction">
+	<a id="yui-gen22" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=214379" title="josteinaj is offline"><strong><span style="color: #000000;">josteinaj</span></strong></a>
+	<ul id="yui-gen21" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=214379" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=214379&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=214379" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="josteinaj is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="josteinaj is offline" border="0">
+
+					
+					<span class="usertitle">
+						5 Cups of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_2.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Dec 2006</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>30</dd>	 -->
+<dt>Beans</dt> <dd>30</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_4779965">
+				<blockquote class="postcontent restore">
+					It worked. Thanks! <img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/icon_smile.gif" alt="" title="Smile" class="inlineimg" border="0"><br>
+<br>
+<img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/ntfs_coloring_fixed.html" alt="" border="0"><br>
+(It seems NTFS doesn't discriminate between "readable" and "executable", but that's another issue.)
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_4779965" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=4779965&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_4779965" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_4779965 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_5784067">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">September 13th, 2008</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post5784067" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=5784067#post5784067" class="postcounter">#4</a><a id="postcount5784067" name="4"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen23" class="popupmenu memberaction">
+	<a id="yui-gen25" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=663735" title="aodhan is offline"><strong><span style="color: #000000;">aodhan</span></strong></a>
+	<ul id="yui-gen24" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=663735" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=663735&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=663735" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="aodhan is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="aodhan is offline" border="0">
+
+					
+					<span class="usertitle">
+						First Cup of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_1.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Sep 2008</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>2</dd>	 -->
+<dt>Beans</dt> <dd>2</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_5784067">
+				<blockquote class="postcontent restore">
+					Thanks for that tip.  It worked for me as well. <img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/icon_smile.gif" alt="" title="Smile" class="inlineimg" border="0">
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_5784067" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=5784067&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_5784067" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_5784067 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_6007339">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">October 21st, 2008</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post6007339" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=6007339#post6007339" class="postcounter">#5</a><a id="postcount6007339" name="5"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen26" class="popupmenu memberaction">
+	<a id="yui-gen28" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=151375" title="andylinux is offline"><strong><span style="color: #000000;">andylinux</span></strong></a>
+	<ul id="yui-gen27" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=151375" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=151375&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=151375" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="andylinux is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="andylinux is offline" border="0">
+
+					
+					<span class="usertitle">
+						5 Cups of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_2.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Aug 2006</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>21</dd>	 -->
+<dt>Beans</dt> <dd>21</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_6007339">
+				<blockquote class="postcontent restore">
+					If you got this to work, can you share your .mydircolors file?  I 
+can't seem to get the directory background highlighting turned off.<br>
+<br>
+Thanks.
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_6007339" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=6007339&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_6007339" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_6007339 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_6018131">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">October 23rd, 2008</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post6018131" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=6018131#post6018131" class="postcounter">#6</a><a id="postcount6018131" name="6"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen29" class="popupmenu memberaction">
+	<a id="yui-gen31" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=151375" title="andylinux is offline"><strong><span style="color: #000000;">andylinux</span></strong></a>
+	<ul id="yui-gen30" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=151375" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=151375&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=151375" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="andylinux is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="andylinux is offline" border="0">
+
+					
+					<span class="usertitle">
+						5 Cups of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_2.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Aug 2006</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>21</dd>	 -->
+<dt>Beans</dt> <dd>21</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_6018131">
+				<blockquote class="postcontent restore">
+					I figured it out.  Change the line in .mydircolors to this,<br>
+<br>
+STICKY_OTHER_WRITABLE 01;34 # dir that is sticky and other-writable (+t,o+w)<br>
+OTHER_WRITABLE 01;34 # dir that is other-writable (o+w) and not sticky<br>
+<br>
+Problem solved.
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_6018131" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=6018131&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_6018131" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_6018131 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_7261087">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">May 12th, 2009</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post7261087" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=7261087#post7261087" class="postcounter">#7</a><a id="postcount7261087" name="7"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen32" class="popupmenu memberaction">
+	<a id="yui-gen34" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=715303" title="jt_04 is offline"><strong><span style="color: #000000;">jt_04</span></strong></a>
+	<ul id="yui-gen33" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=715303" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=715303&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=715303" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="jt_04 is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="jt_04 is offline" border="0">
+
+					
+					<span class="usertitle">
+						Just Give Me the Beans!
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_3.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Nov 2008</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>58</dd>	 -->
+<dt>Beans</dt> <dd>58</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_7261087">
+				<blockquote class="postcontent restore">
+					<div class="bbcode_container">
+	<div class="bbcode_quote">
+		<div class="quote_container">
+			<div class="bbcode_quote_container"></div>
+			
+				<div class="bbcode_postedby">
+					<img title="Quote" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/quote_icon.png" alt="Quote"> Originally Posted by <strong>andylinux</strong>
+					<a href="http://ubuntuforums.org/showthread.php?p=6018131#post6018131" rel="nofollow"><img title="View Post" class="inlineimg" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/viewpost-right.png" alt="View Post"></a>
+				</div>
+				<div class="message">I figured it out.  Change the line in .mydircolors to this,<br>
+<br>
+STICKY_OTHER_WRITABLE 01;34 # dir that is sticky and other-writable (+t,o+w)<br>
+OTHER_WRITABLE 01;34 # dir that is other-writable (o+w) and not sticky<br>
+<br>
+Problem solved.</div>
+			
+		</div>
+	</div>
+</div>thanks for that extra detail, that solved it.  the details are rather important.
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_7261087" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=7261087&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_7261087" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_7261087 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_7318283">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">May 21st, 2009</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post7318283" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=7318283#post7318283" class="postcounter">#8</a><a id="postcount7318283" name="8"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo_noavatar">
+			<div class="contact">
+				
+				<div class="username_container">
+					
+						<div id="yui-gen35" class="popupmenu memberaction">
+	<a id="yui-gen37" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=829375" title="atomics is offline"><strong><span style="color: #000000;">atomics</span></strong></a>
+	<ul id="yui-gen36" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=829375" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=829375&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=829375" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="atomics is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="atomics is offline" border="0">
+
+					
+					<span class="usertitle">
+						First Cup of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_1.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>May 2009</dd>
+						
+						
+						<!-- <dt>Beans</dt> <dd>1</dd>	 -->
+<dt>Beans</dt> <dd>1</dd>
+
+                                                 
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+		<div class="content">
+			<div id="post_message_7318283">
+				<blockquote class="postcontent restore">
+					What does it mean when a directory is listed with a green background?<br>
+<br>
+When I text copied from the terminal window into Gmail I don't get the 
+colors. How do you copy the directory listing with colors? <br>
+<br>
+Thanks in advance.
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_7318283" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=7318283&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_7318283" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_7318283 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+<li class="postbit postbitim postcontainer old" id="post_9390984">
+	<div class="postdetails_noavatar">
+		<div class="posthead">
+                        
+                                <span class="postdate old">
+                                        
+                                                <span class="date">June 1st, 2010</span>
+                                        
+                                </span>
+                                <span class="nodecontrols">
+                                        
+                                                <a name="post9390984" href="http://ubuntuforums.org/showthread.php?t=764824&amp;p=9390984#post9390984" class="postcounter">#9</a><a id="postcount9390984" name="9"></a>
+                                        
+                                        
+                                        
+                                </span>
+                        
+		</div>
+
+		<div class="userinfo">
+			<div class="contact">
+				
+					<a class="postuseravatarlink" href="http://ubuntuforums.org/member.php?u=952705" title="rocuan is offline">
+						
+							<img title="rocuan's Avatar" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/avatar952705_1.gif" alt="rocuan's Avatar">
+						
+					</a>
+				
+				<div class="username_container">
+					
+						<div id="yui-gen38" class="popupmenu memberaction">
+	<a id="yui-gen40" class="username offline popupctrl" href="http://ubuntuforums.org/member.php?u=952705" title="rocuan is offline"><strong><span style="color: #000000;">rocuan</span></strong></a>
+	<ul id="yui-gen39" class="popupbody memberaction_body">
+		<li class="left">
+			<a href="http://ubuntuforums.org/member.php?u=952705" class="siteicon_profile">
+				View Profile
+			</a>
+		</li>
+		
+		<li class="right">
+			<a href="http://ubuntuforums.org/search.php?do=finduser&amp;userid=952705&amp;contenttype=vBForum_Post&amp;showposts=1" class="siteicon_forum" rel="nofollow">
+				View Forum Posts
+			</a>
+		</li>
+		
+		
+		<li class="left">
+			<a href="http://ubuntuforums.org/private.php?do=newpm&amp;u=952705" class="siteicon_message" rel="nofollow">
+				Private Message
+			</a>
+		</li>
+		
+		
+		
+		
+		
+		
+		
+
+		
+
+		
+		
+	</ul>
+</div>
+						<img title="rocuan is offline" class="inlineimg onlinestatus" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/user-offline.png" alt="rocuan is offline" border="0">
+
+					
+					<span class="usertitle">
+						5 Cups of Ubuntu
+					</span>
+					
+						<span class="rank"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/rank_2.png" alt="" border=""></span>
+					
+
+                                        
+					
+					
+						<div class="imlinks">
+							    
+						</div>
+					
+				</div>
+			</div>
+			
+				<div class="userinfo_extra">
+					<dl class="userstats">
+						<dt>Join Date</dt> <dd>Nov 2009</dd>
+						<dt>Location</dt> <dd>Two Rivers</dd>
+						
+						<!-- <dt>Beans</dt> <dd>30</dd>	 -->
+<dt>Beans</dt> <dd>30</dd>
+
+                                                 <dt>Distro</dt><dd>Ubuntu 10.04 Lucid Lynx</dd>
+						
+					</dl>
+					
+					
+				</div>
+			
+		</div>
+	</div>
+
+	<div class="postbody">
+		
+		<div class="postrow">
+		
+		<h2 class="posttitle icon">
+			Re: NTFS directory coloring in terminal
+		</h2>
+		
+				
+				
+					
+				
+		<div class="content">
+			<div id="post_message_9390984">
+				<blockquote class="postcontent restore">
+					Cool tip! Thanx
+				</blockquote>
+			</div>
+
+			
+
+
+		</div>
+			
+				
+			
+			
+			
+		</div>
+	</div>
+	<div class="postfoot">
+		<div class="textcontrols floatcontainer">
+			<span class="postcontrols">
+				<img style="display:none" id="progress_9390984" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/progress.gif" alt="">
+				
+				
+<!-- added advance reply -->
+                    
+                        <a class="quickreply" href="http://ubuntuforums.org/newreply.php?p=9390984&amp;noquote=1" rel="nofollow"><img title="Advanced reply" id="replyimg_9390984" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/clear.gif" alt="Advanced reply"> Adv Reply</a>
+                        <span class="seperator">&nbsp;</span>
+                    
+<!-- end added advance reply -->
+<!-- the next id was qrwq_9390984 -->
+				
+				
+			</span>
+			<span class="postlinking">
+				
+					
+				
+				
+
+				 
+				
+
+					
+
+					
+					 
+
+					
+					
+					
+					
+					
+			</span>
+		</div>
+	</div>
+	<hr>
+</li>
+
+		</ol>
+		<div class="separator"></div>
+		<div class="postlistfoot">
+			
+		</div>
+
+	
+
+</div>
+
+<div id="below_postlist" class="noinlinemod below_postlist">
+	
+	<div id="pagination_bottom" class="pagination_bottom">
+	
+		<div class="clear"></div>
+<div class="navpopupmenu popupmenu nohovermenu" id="showthread_navpopup">
+	
+		<span class="shade">Quick Navigation</span>
+		<a id="yui-gen42" href="http://ubuntuforums.org/showthread.php?t=764824" class="popupctrl"><span class="ctrlcontainer">General Help</span></a>
+		<a href="http://ubuntuforums.org/showthread.php?p=4779965#top" class="textcontrol" onclick="document.location.hash='top';return false;">Top</a>
+	
+	<ul id="yui-gen41" class="navpopupbody popupbody">
+		
+		<li class="optionlabel">Site Areas</li>
+		<li><a href="http://ubuntuforums.org/usercp.php">Settings</a></li>
+		<li><a href="http://ubuntuforums.org/private.php">Private Messages</a></li>
+		<li><a href="http://ubuntuforums.org/subscription.php">Subscriptions</a></li>
+		<li><a href="http://ubuntuforums.org/online.php">Who's Online</a></li>
+		<li><a href="http://ubuntuforums.org/search.php">Search Forums</a></li>
+		<li><a href="http://ubuntuforums.org/index.php">Forums Home</a></li>
+		
+			<li class="optionlabel">Forums</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=130">The Ubuntu Forum Community</a>
+					<ol class="d1">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=327">Ubuntu General Support</a>
+					<ol class="d2">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=326">Absolute Beginners Section</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=331">General Help</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=408">Asus Ubuntu Support</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=342">Dell Ubuntu Support</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=333">Installation &amp; Upgrades</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=332">Hardware</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=329">Desktop Environments</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=334">Multimedia &amp; Video</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=336">Networking &amp; Wireless</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=308">Virtualisation</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=335">Ubuntu Studio</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=93">Gaming &amp; Leisure</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=413">Emulators</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=313">Wine</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=425">Ubuntu Loco Teams Forums</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=418">WINE</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=125">Ubuntu Specialised Support</a>
+					<ol class="d2">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=427">Ubuntu Development Version</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=338">Security Discussions</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=339">Server Platforms</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=392">Ubuntu Cloud and Juju</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=310">Development &amp; Programming</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=44">Packaging and Compiling Programs</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=201">Development CD/DVD Image Testing</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=417">Ubuntu Application Development</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=307">Ubuntu Dev Link Forum</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=39">Programming Talk</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=41">Repositories &amp; Backports</a>
+					<ol class="d4">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=47">Ubuntu Backports</a>
+					<ol class="d5">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=82">Bug Reports / Support</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=237">Ubuntu Forums Development Archives</a>
+					<ol class="d4">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=346">Intrepid Ibex Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=352">Jaunty Jackalope Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=359">Karmic Koala Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=377">Lucid Lynx Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=385">Maverick Meerkat Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=394">Natty Narwhal Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=403">Oneiric Ocelot Testing and Discussion (CLOSED)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=412">Ubuntu +1 (Precise Pangolin)(Closed)</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=416">Ubuntu +1 (Quantal Quetzal) (Closed)</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=367">Ubuntu One</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=301">Mythbuntu</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=341">System76 Support</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=391">Ubuntu Translations</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=328">Apple Users</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=46">3rd Party Projects</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=249">Projects</a>
+					<ol class="d4">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=270">Full Circle Magazine</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=168">Ubuntu Christian Edition</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=251">Ubuntuzilla</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=175">Ubuntu Community Discussions</a>
+					<ol class="d2">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=434">Ubuntu, Linux and OS Chat</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=302">Recurring Discussions</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=11">The Cafe</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=298">Cafe Games</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=38">Market</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=426">Mobile Technology Discussions</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=13">Announcements &amp; News</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=243">Weekly Newsletter</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=404">Membership Applications</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=122">The Fridge Discussions</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=357">Forum Council Agenda</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=48">Forum Feedback &amp; Help</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=181">Request a LoCo forum</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=123">Resolution Centre</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=423">Ubuntu Specialised Discussions</a>
+					<ol class="d2">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=401">Other OS/Distro Support</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=145">Assistive Technology &amp; Accessibility</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=16">Art &amp; Design</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=169">Education &amp; Science</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=428">Community Wiki Discussions</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=100">Tutorials</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=255">Outdated Tutorials &amp; Tips</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=76">Ubuntu Women</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=216">Unanswered Posts Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=183">Ubuntu LoCo Team Forums</a>
+					<ol class="d3">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=245">Americas LoCo Teams</a>
+					<ol class="d4">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=284">US LoCo Teams</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=232">Alabama Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=280">Alaska Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=209">Arizona Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=208">Arkansas Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=188">California Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=207">Colorado Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=189">Argentina Team</a>
+					<ol class="d5">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=349">Software</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=350">Hardware</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=351">Comunidad</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=248">Connecticut Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=225">Florida Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=210">Georgia Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=314">Hawaii Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=197">Colombia Team - Colombia</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=247">Illinois Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=213">Indiana - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=275">Kansas Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=203">Kentucky Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=288">Louisiana Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=292">Maine Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=224">Maryland Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=260">Massachusetts Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=271">Michigan Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=282">Minnesota Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=276">Mississippi Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=277">Missouri Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=229">Montana Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=262">Costa Rica Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=283">Nevada Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=289">New Hampshire Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=185">New Jersey Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=187">New Mexico Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=212">New York - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=273">Paraguay Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=278">North Carolina Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=281">Panama Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=191">Ohio Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=290">Ecuador Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=286">Oklahoma Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=345">Oregon Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=228">Pennsylvania Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=300">Venezuela Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=287">Rhode Island Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=311">South Carolina Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=285">South Dakota Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=259">Tennessee Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=184">Utah Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=236">Virginia Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=362">Chile Team</a>
+					<ol class="d5">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=363">Comunidad</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=364">Hardware</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=365">Software</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=366">Instalación y Actualización</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=312">West Virginia Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=369">Honduras Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=263">Wisconsin Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=373">Bolivia Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=252">Washington DC Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=374">El Salvador Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=190">Northeastern Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=375">Quebec Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=371">Nebraska Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=379">Texas Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=380">Washington State Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=381">Iowa Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=386">Trinidad &amp; Tobago Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=393">Peru Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=395">Canada Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=397">Centroamerica Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=398">Idaho Team - US</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=414">Uruguay Team</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=389">Asia and Oceania LoCo Teams</a>
+					<ol class="d4">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=431">Myanmar Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=429">Qatar Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=433">Singapore Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=186">Tamil Team - India</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=202">Andhra Pradesh Team - India</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=303">Philippine Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=309">Bangalore Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=347">Delhi Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=382">Hong Kong Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=399">Australia Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=409">Bangladesh Team</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=388">Europe, Middle East, and African (EMEA) LoCo Teams</a>
+					<ol class="d4">
+						
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=193">Kenyan Team - Kenya</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=194">Za Team - South Africa</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=195">Ireland Team - Ireland</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=196">Kurdish Team - Kurdistan</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=206">Catalan Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=227">Tunisia Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=250">Senegal Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=258">Egypt Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=261">Sudan Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=264">Saudi Arabia Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=272">Lebanon Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=274">United Kingdom Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=291">Cameroon Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=299">Zimbabwe Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=304">Georgia Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=319">Switzerland Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=320">Jordan Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=356">Galician LoCo Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=360">Wales Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=372">Albania Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=378">Libya Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=383">Algerian Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=384">Uganda Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=387">Yemen Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=390">Morocco Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=396">Afghanistan Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=400">Austria Team</a></li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=410">Namibia Team</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+				<li><a href="http://ubuntuforums.org/forumdisplay.php?f=204">Other Forums &amp; Teams</a></li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+			
+					</ol>
+				</li>
+			
+		
+		
+	</ul>
+</div>
+<div class="clear"></div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+	<!-- next / previous links -->
+	<div class="navlinks">
+		
+			<strong>«</strong>
+			<a href="http://ubuntuforums.org/showthread.php?t=764824&amp;goto=nextoldest" rel="nofollow">Previous Thread</a>
+			|
+			<a href="http://ubuntuforums.org/showthread.php?t=764824&amp;goto=nextnewest" rel="nofollow">Next Thread</a>
+			<strong>»</strong>
+		
+	</div>
+	<!-- / next / previous links -->
+
+<div id="thread_info" class="thread_info block">
+	
+	
+	
+	
+	
+	
+	<h4 class="threadinfohead blockhead">Tags for this Thread</h4>
+	<div id="thread_tags_list" class="thread_info_block blockbody formcontrols">
+		<div class="inner_block">
+			
+			<div id="tag_list_cell">
+				
+		
+			<a href="http://ubuntuforums.org/tags.php?tag=7.10">7.10</a>, 
+		
+			<a href="http://ubuntuforums.org/tags.php?tag=color">color</a>, 
+		
+			<a href="http://ubuntuforums.org/tags.php?tag=directory">directory</a>, 
+		
+			<a href="http://ubuntuforums.org/tags.php?tag=ntfs">ntfs</a>, 
+		
+			<a href="http://ubuntuforums.org/tags.php?tag=terminal">terminal</a>
+		
+
+<img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/11x11progress.gif" id="tag_form_progress" class="inlineimg hidden" alt="">
+			</div>
+			<p>
+				<a href="http://ubuntuforums.org/tags.php">View Tag Cloud</a>
+			</p>
+		</div>
+	</div>
+	
+	<div class="options_block_container">
+		
+		<div class="options_block2">
+			<h4 class="blockhead options_correct">Bookmarks</h4>
+			<div id="social_bookmarks_list" class="thread_info_block blockbody formcontrols floatcontainer options_correct">
+				<h5 class="blocksubhead">Bookmarks</h5>
+				<ul class="icon_list"><li class="smallfont">
+	
+		<a href="http://digg.com/submit?phrase=2&amp;url=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark"><img title="Submit to Digg" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/bookmarksite_digg.gif" alt="Submit to Digg"></a>
+	
+	<a href="http://digg.com/submit?phrase=2&amp;url=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark">Digg</a>
+</li><li class="smallfont">
+	
+		<a href="http://del.icio.us/post?url=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark"><img title="Submit to del.icio.us" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/bookmarksite_delicious.gif" alt="Submit to del.icio.us"></a>
+	
+	<a href="http://del.icio.us/post?url=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark">del.icio.us</a>
+</li><li class="smallfont">
+	
+		<a href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark"><img title="Submit to StumbleUpon" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/bookmarksite_stumbleupon.gif" alt="Submit to StumbleUpon"></a>
+	
+	<a href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark">StumbleUpon</a>
+</li><li class="smallfont">
+	
+		<a href="http://www.google.com/bookmarks/mark?op=edit&amp;output=popup&amp;bkmk=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark"><img title="Submit to Google" src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/bookmarksite_google.gif" alt="Submit to Google"></a>
+	
+	<a href="http://www.google.com/bookmarks/mark?op=edit&amp;output=popup&amp;bkmk=http%3A%2F%2Fubuntuforums.org%2Fshowthread.php%3Ft%3D764824&amp;title=NTFS+directory+coloring+in+terminal" target="socialbookmark">Google</a>
+</li></ul>
+			</div>
+		</div>
+		
+		<div class="options_block">
+			<h4 class="collapse blockhead options_correct">
+				<a class="collapse" id="collapse_posting_rules" href="http://ubuntuforums.org/showthread.php?p=4779965#top"><img src="%5Ball%20variants%5D%20NTFS%20directory%20coloring%20in%20terminal_files/collapse_40b.png" alt=""></a>
+				Posting Permissions
+			</h4>
+			<div id="posting_rules" class="thread_info_block blockbody formcontrols floatcontainer options_correct">
+				
+<div id="forumrules" class="info_subblock">
+
+	<ul class="youcandoblock">
+		<li>You <strong>may not</strong> post new threads</li>
+		<li>You <strong>may not</strong> post replies</li>
+		<li>You <strong>may not</strong> post attachments</li>
+		<li>You <strong>may not</strong> edit your posts</li>
+		<li>&nbsp;</li>
+	</ul>
+	<div class="bbcodeblock">
+		<ul>
+			<li><a href="http://ubuntuforums.org/misc.php?do=bbcode" target="_blank">BB code</a> is <strong>On</strong></li>
+			<li><a href="http://ubuntuforums.org/misc.php?do=showsmilies" target="_blank">Smilies</a> are <strong>On</strong></li>
+			<li><a href="http://ubuntuforums.org/misc.php?do=bbcode#imgcode" target="_blank">[IMG]</a> code is <strong>On</strong></li>
+			<li><a href="http://ubuntuforums.org/misc.php?do=bbcode#videocode" target="_blank">[VIDEO]</a> code is <strong>Off</strong></li>
+			<li>HTML code is <strong>Off</strong></li>
+		</ul>
+	</div>
+	<p class="rules_link"><a href="http://ubuntuforums.org/misc.php?do=showrules" target="_blank">Ubuntu Forums Code of Conduct</a></p>
+
+</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+<div id="footer" class="floatcontainer footer">
+
+	<form action="index.php" method="get" id="footer_select" class="footer_select">
+
+		
+			<select name="styleid" onchange="switch_id(this, 'style')">
+				<optgroup label="Quick Style Chooser"><option class="hidden"></option></optgroup>
+				
+					
+					<optgroup label="&nbsp;Standard Styles">
+									
+					
+	<option value="117" class="" selected="selected">-- Ubuntu vB4.x</option>
+
+					
+					</optgroup>
+										
+				
+				
+					
+					<optgroup label="&nbsp;Mobile Styles">
+					
+					
+	<option value="118" class="">-- Ubuntu Mobile Style</option>
+
+					
+					</optgroup>
+										
+				
+			</select>	
+		
+		
+		
+	</form>
+
+	<ul id="footer_links" class="footer_links">
+		
+		<li><a href="http://ubuntuforums.org/">Ubuntu Forums</a></li>
+		
+		
+		<li><a href="http://ubuntuforums.org/archive/index.php">Archive</a></li>
+		
+		
+		
+		<li><a href="http://ubuntuforums.org/showthread.php?p=4779965#top" onclick="document.location.hash='top'; return false;">Top</a></li>
+	</ul>
+	
+	
+	
+	
+	<script type="text/javascript">
+	<!--
+		// Main vBulletin Javascript Initialization
+		vBulletin_init();
+	//-->
+	</script>
+        
+</div>
+</div> <!-- closing div for body_wrapper -->
+
+<div class="below_body">
+<div id="footer_time" class="shade footer_time">All times are GMT +1. The time now is <span class="time">06:55 AM</span>.</div>
+
+<div id="footer_copyright" class="shade footer_copyright">
+	<!-- Do not remove this copyright notice -->
+	vBulletin  ©2000 - 2014, Jelsoft Enterprises Ltd. Ubuntu Logo, Ubuntu 
+and Canonical © Canonical Ltd. Tango Icons © Tango Desktop Project.  
+
+	<!-- Do not remove this copyright notice -->	
+</div>
+<div id="footer_morecopyright" class="shade footer_morecopyright">
+	<!-- Do not remove cronimage or your scheduled tasks will cease to function -->
+	
+	<!-- Do not remove cronimage or your scheduled tasks will cease to function -->
+	
+	
+</div>
+ 
+
+</div>
+
+</body></html>

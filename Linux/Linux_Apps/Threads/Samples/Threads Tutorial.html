@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+		<title>Threads Tutorial</title> 
+		<!-- html-include file="metaheader.html" -->
+	<!-- Contents of file ./metaheader.html -->
+      <link rel="SHORTCUT ICON" href="http://www.mobydisk.com/favicon.ico">
+      <style type="text/css" media="all">@import "/main.css";</style>
+      <style type="text/css" media="print">@import "/main_print.css";</style>
+<!-- html-include-end -->
+		<meta name="keywords" content="linux,pthreads,threads,tutorial,source,code,">
+		<meta name="description" content="POSIX threads tutorial">
+		<meta name="copyright" content="Copyright (C) 2004 William Garrison">
+		<meta name="sidebar title" content="pthreads tutorial">
+		<meta name="sidebar sort" content="50">
+	</head>
+	<body bgcolor="white">
+		<!-- html-include file="header.html" -->
+	<!-- Contents of file ./header.html -->
+      <div class="header">
+         <!-- Nifty curves -->
+         <img src="Threads%20Tutorial_files/ul16x16.gif" class="uldecor" alt="">
+         <img src="Threads%20Tutorial_files/ur16x16.gif" class="urdecor" alt="">
+         <img src="Threads%20Tutorial_files/lr16x16.gif" class="lrdecor" alt="">
+
+         <div class="floatingcontent">
+            <a href="http://www.mobydisk.com/"><img src="Threads%20Tutorial_files/mobydiskconsulting2.gif" alt="Moby Disk Consulting" width="594" height="35" border="0"></a><br>
+            Software Development, Training &amp; Consulting<br>
+            William Garrison - <a href="mailto:consulting@mobydisk.com">
+                           mobydisk&nbsp;at&nbsp;mobydisk&nbsp;daht&nbsp;com</a>
+         </div>
+      </div>
+<!-- html-include-end -->
+		<!-- html-include file="sidebar.html" -->
+	<!-- Contents of file ./sidebar.html -->
+      <div class="sidebar">
+         <div class="sidebar_inside">
+            <!-- More nifty curves -->
+            <img src="Threads%20Tutorial_files/lr16x16.gif" class="lrdecor" alt="">
+            <img src="Threads%20Tutorial_files/ll16x16.gif" class="lldecor" alt="">
+            <img src="Threads%20Tutorial_files/ul16x16inverse.gif" class="uldecori" alt="">
+
+            <div class="floatingcontent" id="sidebar_gen">
+               <div style="text-align: center">~ Site Index ~<br><br></div>
+<!-- sidebar-generate -->
+
+<div class="level1">
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/about/index.html">About</a><br>
+<img src="Threads%20Tutorial_files/bullet2.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/index.html" class="current">Software Development</a><br>
+<div class="level2">
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/software/index.html">Programs</a><br>
+<img src="Threads%20Tutorial_files/bullet2.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/index.html" class="current">Articles</a><br>
+<div class="level3">
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/dotnetkeyboard.html">.net keyboard shortcuts</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/flaming_progress_bar/index.html">WPF Flaming Progress Bar</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/tidying/index.html">C# Code tidying</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/dotnetdelegates.html">all .NET delegates</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/dotnetexceptions.html">all .NET exceptions</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/exceptions_messageloop/index.html">Exceptions in modal dialogs</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/hash_paper/index.html">hashing</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/outlining/index.html">Improved VS outlining</a><br>
+<img src="Threads%20Tutorial_files/bullet2.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/pthreads_tutorial/index.html" class="current">pthreads tutorial</a><br>
+<div class="level4">
+</div>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/sqlserver.html">SQL server lockout</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/speedtest/index.html">JIT benchmarks</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/softdev/techinfo/cpptips.html">c++ tips</a><br>
+</div>
+</div>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/techres/index.html">Technical Articles</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/mobydisk/index.html">Personal</a><br>
+<img src="Threads%20Tutorial_files/bullet.gif" alt="" width="6" height="11" align="middle" border="0"> <a href="http://www.mobydisk.com/links.html">Links</a><br>
+</div>
+<!-- sidebar-generate-end -->
+            </div>
+
+            <div style="text-align: center; font-family: serif; font-weight: bold;">
+               <br>
+               You are visitor<br><iframe src="Threads%20Tutorial_files/webcount_hex.html" allowtransparency="true" style="width: 10ex; height: 1em" marginwidth="0" marginheight="0" frameborder="0" align="top" scrolling="no"></iframe> hex
+               <br>
+            </div>
+         </div>
+      </div>
+<!-- html-include-end -->
+		<!-- html-include file="bodytop.html" -->
+	<!-- Contents of file ./bodytop.html -->
+      <div class="mainbody">
+<!-- html-include-end -->
+			<h1>POSIX threads tutorial</h1>
+			<p>This is a short tutorial on how to code POSIX threads in C++ on GNU/Linux. For 
+				up-to-date information on the Linux implementation of pthreads called 
+				LinuxThreads, check out <a href="http://pauillac.inria.fr/%7Exleroy/linuxthreads/" target="_blank">
+					Xavier Leroy's page</a>.</p>
+			<h2>What you need</h2>
+			<p>Any modern Linux should be able to do this. For specific requirements, check 
+				outthe link above. This tutorial does not explain what threads are, how they 
+				work, or how to synchronize multiple threads. It assumes you know what you plan 
+				to use threads for, and that you have a good reference on synchronizing 
+				threads. If you don't have any of this information, then visit the Links 
+				section at the bottom of this page.</p>
+			<h2>Compiling this demo</h2>
+			<p>At your Linux prompt type:</p>
+			<pre>   g++ threaddemo.cpp -o threaddemo -lpthread -D_REENTRANT</pre>
+			<p>then:</p>
+			<pre>   ./threaddemo</pre>
+			<h2>Program description</h2>
+			<p>This sample program will create 2 threads. One thread displays the word "ping" 
+				and the other displays "pong." The resulting output will look something like 
+				this:</p>
+			<pre>ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,
+ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,
+ping,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,
+pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,
+pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,
+pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,pong,ping,
+Done!</pre>
+			<h2>Sample source</h2>
+			<p>The sample source code is <a href="http://www.mobydisk.com/softdev/techinfo/pthreads_tutorial/threaddemo.cpp">threaddemo.cpp</a>. You will 
+				also need Morgan McGuire's great <a href="http://www.mobydisk.com/softdev/techinfo/pthreads_tutorial/kbhit.cpp">kbhit.cpp</a> which makes 
+				things a little easier.</p>
+			<h2>The how-to</h2>
+			<p>The pthreads library hides out in the pthread.h file, as you can see below.</p>
+			<pre><span style="color:#008000">#include &lt;pthread.h&gt;
+#include &lt;iostream&gt;
+#include "kbhit.cpp"
+
+</span><span style="color:#808080"><i>// On Linux, you must compile with the -D_REENTRANT option.  This tells
+// the C/C++ libraries that the functions must be thread-safe
+</i></span><span style="color:#008000">#ifndef _REENTRANT
+#error ACK! You need to compile with _REENTRANT defined since this uses threads
+#endif</span></pre>
+			<p>Whenever compiling an application for pthreads, you must use the -D_REENTRANT 
+				option to inform the C/C++ libraries that they are in multithread mode. The 
+				#ifndef _REENTRANT line verifies that this is the case before allowing the 
+				compile to continue. Further, you should only make calls to other libraries 
+				that were compiled with -D_REENTRANT. If you need to know if your favorite 
+				library is compiled with this code, seek the author or the documentation. For 
+				more information about this subject see the links at the bottom of this page.</p>
+			<pre><span style="color:#800000">volatile</span><span style="color:#000000"> </span><span style="color:#800000">int</span><span style="color:#000000"> bStop = <b>false</b>;</span></pre>
+			<p>The bStop variable is used to tell the threads when to stop. If the variable is 
+				not declared volatile, then the compiler may think that the value is always 
+				false, and may not even pay attention to it! More later.</p>
+			<pre><span style="color:#808080"><i>////////////////////////////////////////////////////////////////////////////////
+// Starting point for a thread
+////////////////////////////////////////////////////////////////////////////////
+</i></span><span style="color:#800000">void</span><span style="color:#000000"> * runMe(</span><span style="color:#800000">void</span><span style="color:#000000"> *generic_pointer)
+{
+   </span><span style="color:#808080"><i>// Do this until we are told to stop
+</i></span><span style="color:#000000">   <b>while</b> (!bStop)
+   {
+      </span><span style="color:#808080"><i>// Output some text
+</i></span><span style="color:#000000">      cout &lt;&lt; <b>static_cast</b>&lt;</span><span style="color:#800000">char</span><span style="color:#000000"> *&gt;(generic_pointer) &lt;&lt; </span><span style="color:#ff0000">","</span><span style="color:#000000">;
+      </span><span style="color:#808080"><i>// Relenquish the CPU for another thread
+</i></span><span style="color:#000000">      pthread_yield();
+   }
+   
+   <b>return</b> NULL;
+}</span></pre>
+			<p>This routine will be executed in each of the 2 threads that we will create. The 
+				function takes a void pointer, and returns a void pointer. This is necessary, 
+				since it is a requirement of the <b>pthread_create</b> function that we are 
+				about to use. The parameter, and the return value are arbitrary; that is, they 
+				can be used for whatever purpose you wish.</p>
+			<p>In this demo, the parameter is assumed to be a char * that holds a string for 
+				the thread to display. In a real application, this parameter may be a pointer 
+				to a structure with information about what the thread needs to do. For example, 
+				imagine a multithreaded game, with a thread controlling each of the enemy 
+				characters. This parameter may be a pointer to the character's information, 
+				with the character position, intelligence, weapons, etc.</p>
+			<p>The return value is not used here. It could be treated similarly to the 
+				parameter, in that it can be used to return some arbitrary data to the parent 
+				thread. It could be a pointer to an integer return value indicating success or 
+				failure, or an exception structure, or error message.</p>
+			<p>The basic function of this thread is to display a message over and over, while 
+				not using up the entire CPU. The thread avoids hogging the CPU by calling <b>pthread_yield()</b>
+				after displaying the message. This function tells the OS that the thread isn't 
+				busy and something else can go happen now. Note that the OS may not wait until 
+				the thread calls <b>pthread_yield</b>
+			to switch threads. It may happen at any point. This call just tells the OS that 
+			this would be a good time to do so. More on this later.</p><p>
+			</p><p>The thread will stop displaying the message once the value of bStop becomes 
+				true. At this point, the thread will exit with a return value of NULL. This 
+				return statement does not return control to the caller: it stops the thread 
+				from executing entirely. This is the equivalent to calling <b>pthread_exit(NULL)</b>.</p>
+			<pre><span style="color:#000000">   pthread_t nThreadID1, nThreadID2;</span></pre>
+			<p>Every thread has an ID. Nothing special there.</p>
+			<pre><span style="color:#000000">   pthread_create(&amp;nThreadID1, NULL, runMe, szMessage1);
+   pthread_create(&amp;nThreadID2, NULL, runMe, szMessage2);</span></pre>
+			<p>This code is kinda like doing:
+			</p>
+			<pre><span style="color:#000000">    runMe(szMessage1);
+   runMe(szMessage2);</span></pre>
+			<p>Except that the code executes in the background, instead of sequentially.</p>
+			<p>After this code, there are 3 threads: the parent, and 2 children. Let's check 
+				out the <b>pthread_create</b> call. The first parameter is the address of 
+				nThreadID. <b>pthread_create</b> will stuff the thread ID into this. The second 
+				parameter has all sorts of nifty stuff about the thread: priority, scheduling, 
+				stack size, whatever. We don't care about any of this so it is NULL. Next is 
+				the name of the function to use as the starting point for the thread. The 
+				function must take a void * and return a void *. Lots of tutorials do this 
+				incorrectly, and must cast the function with some crazy C-style weirdness. If 
+				you declare the function exactly right, you can just place the name there and 
+				nothing else. The last function is the generic parameter, which we use for the 
+				message.</p>
+			<pre><span style="color:#000000">   <b>while</b> (!_kbhit())
+   {
+      </span><span style="color:#000000">      pthread_yield();
+   }</span></pre>
+			<p>At this point the child threads are running. The parent thread now loops until 
+				the user presses a key. It is crucial that this loop call pthread_yield() or 
+				the child threads may not execute. This is because the parent thread would 
+				spend all its time checking for a key, and never giving anyone else a chance to 
+				work. This behavior of threads varies with operating system, kernel, processor, 
+				phase of the moon, etc. Pthreads makes no guarantee that each thread executes 
+				"fairly." Threads may be interrupted at any time, for any length of time. If 
+				this isn't appropriate, then you may need some thread synchronization code, or 
+				to provide a hint during the <b>pthread_create</b> call about how you want the 
+				threads to behave.</p>
+			<pre><span style="color:#000000">   bStop = <b>true</b>;</span></pre>
+			<p>This changes the value of the bStop variable. When the threads check this value 
+				they will exit. If this value were not declared volatile, then it is possible 
+				that the threads may not notice it, and continue running forever!</p>
+			<pre><span style="color:#000000">   pthread_join(nThreadID1, NULL);
+   pthread_join(nThreadID2, NULL);   </span></pre>
+			<p>The <b>pthread_join</b> call tells a thread to wait until the specified thread 
+				has exited. This is why we saved the thread IDs. What happens if we remove this 
+				code? In this demo, nothing. The child threads will stop anyway, once the 
+				parent thread exits. In more complex code, you may need to wait for your 
+				threads to free their memory, close open files, etc. before your application 
+				exits. The <b>pthread_join</b> call also allows you to see the return value of 
+				the thread. Remember the void * return value? The second parameter to 
+				pthread_join() tells you where to put this value. For this application, we 
+				don't care what they returned.</p>
+			<h2>Further improvements</h2>
+			<p>A nifty improvement (left to the reader, of course) would be to have each thread 
+				return the number of times it displayed the message. In a perfect world, it 
+				would be the same for each thread. But as we know, threads aren't guaranteed 
+				fair excecution time!</p>
+			<p>In theory, this code is POSIX compliant (except for the kbhit.cpp) and should 
+				run on other operating systems. You may wish to compile this code and run it on 
+				Coolix or Niftyux or FreeBVD or whatever and see if it works.</p>
+			<h2>Links</h2>
+			<p>Most of these are pretty much the first things you find in a search for threads, 
+				linux, and POSIX or some combination thereof.</p>
+			<ul>
+				<li>
+					<a href="http://pauillac.inria.fr/%7Exleroy/linuxthreads/" target="_blank">Xavier 
+						Leroy</a> is the author of LinuxThreads and his page has lotsa info.</li>
+				<li>
+					<a href="http://www.llnl.gov/computing/tutorials/workshops/workshop/pthreads/MAIN.html" target="_blank">posix threads programming</a></li>
+				<li>
+					<a href="http://dmoz.org/Computers/Software/Operating_Systems/Linux/Programming/Threads/" target="_blank">DMOZ links on Linux threads programming</a></li>
+			</ul>
+			<!-- html-include file="bodybottom.html" -->
+	<!-- Contents of file ./bodybottom.html -->
+      </div>
+<!-- html-include-end -->
+	
+
+</body></html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="ie6 ie"> <![endif]-->
+<!--[if IE 7]>         <html class="ie7 ie"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8 ie"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9 ie"> <![endif]-->
+<html class=" js" itemscope="" itemtype="http://schema.org/TechArticle" lang="en"><head>
+ <title>Linux and Unix ln command help and examples</title>
+ <link href="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/site.css" type="text/css" rel="stylesheet">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta content="Information, examples and help with the Unix and Linux ln command." name="description">
+ <meta itemprop="name" content="Linux and Unix ln command help and examples">
+ <meta itemprop="description" content="Information, examples and help with the Unix and Linux ln command.">
+ <meta property="og:description" content="Information, examples and help with the Unix and Linux ln command.">
+ <meta property="og:title" content="Linux and Unix ln command help and examples">
+ <meta property="og:type" content="article">
+ <meta name="twitter:card" content="summary">
+ <meta name="twitter:title" content="Linux and Unix ln command help and examples">
+ <meta name="twitter:description" content="Information, examples and help with the Unix and Linux ln command.">
+ <meta name="twitter:creator" content="@computerhope">
+ <!-- HTML5 fix -->
+ <!--[if lt IE 9]>
+ <script src="http://cdn.computerhope.com/html5shiv.js"></script>
+ <![endif]-->
+ <meta property="og:image" content="http://cdn.computerhope.com/freehelp.jpg">
+ <meta itemprop="image" content="http://cdn.computerhope.com/freehelp.jpg">
+ <link rel="image_src" href="http://cdn.computerhope.com/freehelp.jpg">
+ <link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="http://feeds.feedburner.com/LatestNewPagesOnComputerHope">
+ <link rel="apple-touch-icon" href="http://cdn.computerhope.com/apple-touch-icon.png">
+ <link rel="shortcut icon" href="http://cdn.computerhope.com/favicon.ico" type="image/x-icon">
+ <meta name="robots" content="noodp">
+ </head>
+ <body>
+ <div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+ <div class="wrapper">
+   <header class="cf"> <a style="border-bottom: none!important;" href="http://www.computerhope.com/"><img src="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/computer-hope.jpg" alt="Computer Hope" class="logo" width="412" height="82"></a>
+     <div itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+       <form action="http://www.computerhope.com/cgi-bin/search.cgi" method="post">
+         <input class="sbar" name="q" title="Search" type="text">
+         <button type="Submit">Search</button>
+       </form>
+       <ul id="nav">
+         <li><a href="http://www.computerhope.com/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li>
+         <li><a href="http://www.computerhope.com/tips/" title="Computer tips and tricks">Tips</a></li>
+         <li><a href="http://www.computerhope.com/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li>
+         <li><a href="http://www.computerhope.com/history/" title="Computer timeline, events, and biographies">History</a></li>
+         <li><a href="http://www.computerhope.com/forum/" title="Computer Hope forums and community">Forums</a></li>
+         <li><a href="http://www.computerhope.com/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li>
+       </ul><select class="selectnav" id="selectnav1"><option selected="selected" value="">- Navigation -</option><option value="http://www.computerhope.com/oh.htm">Help</option><option value="http://www.computerhope.com/tips/">Tips</option><option value="http://www.computerhope.com/jargon.htm">Dictionary</option><option value="http://www.computerhope.com/history/">History</option><option value="http://www.computerhope.com/forum/">Forums</option><option value="http://www.computerhope.com/contact/">Contact</option></select>
+     </div>
+   </header>
+   <section class="container ad"> <ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-3999293766533555" data-ad-slot="2314450128"><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" scrolling="no" width="728" frameborder="0" height="90"></iframe></ins></ins></ins>
+     <script src="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/ga.js" async="" type="text/javascript"></script><script>
+ 	(adsbygoogle = window.adsbygoogle || []).push({});
+ 	</script>
+   </section>
+   <section class="container breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+     <p><span class="bctitle">You are here:</span> <a href="http://www.computerhope.com/oh.htm" itemprop="url"><span itemprop="title">Help</span></a> &gt; <a href="http://www.computerhope.com/unix.htm" itemprop="url"><span itemprop="title">Linux and Unix</span></a></p>
+   </section>
+   <section class="container content" id="main-content">
+     <article>
+        <h1>Linux and Unix ln command</h1> <p class="nb">Quick links</p> <p class="tabb"><a href="#01">About ln</a><br> <a href="#02">Syntax</a><br> <a href="#03">Examples</a><br> <a href="#04">Related commands</a><br> <a href="http://www.computerhope.com/unix.htm">Linux and Unix main page</a></p> <h2><a name="01"></a>About ln</h2> <p class="tab"><b>ln</b> creates links between files.</p> <h2><a name="02"></a>Syntax</h2> <p class="tcy">ln [OPTION]... TARGET [...] [LINK_NAME [...]]</p> <p class="nb">Description</p> <p class="tab"><b>ln</b> creates a <a href="http://www.computerhope.com/unix/link.htm">link</a> to file TARGET with the name LINK_NAME. If LINK_NAME is omitted, a link to TARGET is created in the current <a href="http://www.computerhope.com/jargon/d/director.htm">directory</a>, using the name of TARGET as the LINK_NAME.</p> <p class="tab"><b>ln</b> creates <a href="http://www.computerhope.com/jargon/h/hardlink.htm">hard links</a> by default, or <a href="http://www.computerhope.com/jargon/s/symblink.htm">symbolic links</a> if the <b>-s</b> (<b>--symbolic</b>) option is specified. When creating hard links, each TARGET must exist.</p> <h2>Options</h2> <table class="mtable"> <tbody><tr class="tcw"> <td><b>--backup</b>[<b>=</b>CONTROL]</td> <td>make a backup of each existing destination file.</td> </tr> <tr class="tcw"> <td><b>-b</b></td> <td>like <b>--backup</b>, but does not accept an argument.</td> </tr> <tr class="tcw"> <td><b>-d</b>, <b>-F</b>, <b>--directory</b></td> <td>allow the <a href="http://www.computerhope.com/jargon/r/root.htm">superuser</a> to attempt to hard link directories (although it will probably fail due to system restrictions, even for the superuser).</td> </tr> <tr class="tcw"> <td><b>-f</b>, <b>--force</b></td> <td>remove existing destination files.</td> </tr> <tr class="tcw"> <td><b>-i</b>, <b>--interactive</b></td> <td>prompt whether to remove destinations.</td> </tr> <tr class="tcw"> <td><b>-L</b>, <b>--logical</b></td> <td>dereference TARGETs that are symbolic links. In other words, treat the symbolic link target as a file, not a link to a target.</td> </tr> <tr class="tcw"> <td><b>-n</b>, <b>--no-dereference</b></td> <td>treat LINK_NAME as a normal file if it is a symbolic link to a directory.</td> </tr> <tr class="tcw"> <td><b>-P</b>, <b>--physical</b></td> <td>make hard links directly to symbolic links.</td> </tr> <tr class="tcw"> <td><b>-r</b>, <b>--relative</b></td> <td>create symbolic links relative to link location.</td> </tr> <tr class="tcw"> <td><b>-s</b>, <b>--symbolic</b></td> <td>make symbolic links instead of hard links.</td> </tr> <tr class="tcw"> <td><b>-S</b>, <b>--suffix=</b>SUFFIX</td> <td>override the usual backup suffix.</td> </tr> <tr class="tcw"> <td><b>-t</b>, <b>--target-directory=</b>DIRECTORY</td> <td>specify the DIRECTORY in which to create the links.</td> </tr> <tr class="tcw"> <td><b>-T</b>, <b>--no-target-directory</b></td> <td>always treat LINK_NAME as a normal file.</td> </tr> <tr class="tcw"> <td><b>-v</b>, <b>--verbose</b></td> <td>print name of each linked file.</td> </tr> <tr class="tcw"> <td><b>--help</b></td> <td>display a help message and exit.</td> </tr> <tr class="tcw"> <td><b>--version</b></td> <td>output version information and exit.</td> </tr> </tbody></table> <p class="tab">The default suffix for backups is '<b>~</b>', unless set with <b>--suffix</b> or <b>SIMPLE_BACKUP_SUFFIX</b>. The version control method may be selected via the <b>--backup</b> option or through the <b>VERSION_CONTROL</b> <a href="http://www.computerhope.com/jargon/e/envivari.htm">environment variable</a>. Here are the values:</p> <table class="mtable"> <tbody><tr class="tcw"> <td><b>none</b>, <b>off</b></td> <td>never make backups (even if <b>--backup</b> is given)</td> </tr> <tr class="tcw"> <td><b>numbered</b>, <b>t</b></td> <td>make numbered backups.</td> </tr> <tr class="tcw"> <td><b>existing</b>, <b>nil</b></td> <td>numbered if numbered backups exist, simple otherwise.</td> </tr> <tr class="tcw"> <td><b>simple</b>, <b>never</b></td> <td>always make simple backups.</td> </tr> </tbody></table> <p class="tab"> Using <b>-s</b> ignores <b>-L</b> and <b>-P</b>. Otherwise, the last option specified controls behavior when a TARGET is a symbolic link, defaulting to <b>-P</b>. </p> <h2><a name="03"></a>Examples</h2> <p class="tcy">ln public_html/myfile.txt</p> <p class="tab">Creates a hard link to the file <b>public_html/myfile.txt</b>, in the current directory.</p> <p class="tcy">ln -s public_html/myfile.txt</p> <p class="tab">Creates a symbolic link to the file <b>public_html/myfile.txt</b>, in the current directory.</p> <h2><a name="04"></a>Related commands</h2> <p class="tabb"><a href="http://www.computerhope.com/unix/uchmod.htm">chmod</a><br><a href="http://www.computerhope.com/unix/link.htm">link</a><br><a href="http://www.computerhope.com/unix/uls.htm">ls</a><br> <a href="http://www.computerhope.com/unix/readlink.htm">readlink</a> </p> 
+     </article>
+     <section class="bottomad"> <ins data-adsbygoogle-status="done" class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-3999293766533555" data-ad-slot="6287322521"><ins style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" scrolling="no" width="336" frameborder="0" height="280"></iframe></ins></ins></ins>
+       <script>
+ 			(adsbygoogle = window.adsbygoogle || []).push({});
+ 			</script>
+     </section>
+     <div id="meta_wrap" class="cf">
+       <ul class="options cf">
+         <li class="useful-page"> <span class="nolink">Was this page useful?</span> <a href="http://www.computerhope.com/cgi-bin/feedback.cgi?yes" rel="nofollow" class="first-child">Yes</a><a href="http://www.computerhope.com/cgi-bin/feedback.cgi?no" rel="nofollow">No</a> </li>
+         <li>
+           <ul>
+             <li class="feedback"><a href="http://www.computerhope.com/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li>
+             <li class="email"><a href="http://www.computerhope.com/email/" rel="nofollow" title="E-mail a friend about this page">E-mail</a></li>
+             <li class="share"><a href="http://www.computerhope.com/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li>
+             <li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li>
+           </ul>
+         </li>
+       </ul>
+     </div>
+   </section>
+   <footer>
+     <form action="http://www.computerhope.com/cgi-bin/search.cgi" method="post" class="cf">
+       <input value="Ask another computer question" style="color: rgb(187, 187, 187);" class="sbar" name="q" title="Search" type="text">
+       <button type="Submit">Search</button>
+     </form>
+     <ul class="cf">
+       <li class="recent-pages">
+         <ol>
+           <li class="widget-title">
+             <h4>Recently added pages</h4>
+           </li>
+           <script src="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/recent.js"></script><li><a href="http://www.computerhope.com/jargon/c/cleanwipe.htm">What is cleanwipe?</a></li><li><a href="http://www.computerhope.com/jargon/d/disk-clone.htm">What is disk clone?</a></li><li><a href="http://www.computerhope.com/jargon/num/4chan.htm">What is 4chan?</a></li><li><a href="http://www.computerhope.com/jargon/r/reverse-engineering.htm">What is reverse engineering?</a></li><li><a href="http://www.computerhope.com/jargon/s/screencast.htm">What is screencast?</a></li>
+           <li><a href="http://www.computerhope.com/whatnew.htm">View all recent updates</a></li>
+         </ol>
+       </li>
+       <li class="useful-links">
+         <ol>
+           <li class="widget-title">
+             <h4>Useful links</h4>
+           </li>
+           <li><a href="http://www.computerhope.com/more.htm">About Computer Hope</a></li>
+           <li><a href="http://www.computerhope.com/sindex.htm">Site Map</a></li>
+           <li><a href="http://www.computerhope.com/forum/">Forum</a></li>
+           <li><a href="http://www.computerhope.com/contact/">Contact Us</a></li>
+           <li><a href="http://www.computerhope.com/issues/ch000586.htm">How to Help</a></li>
+           <li><a href="http://www.computerhope.com/chtop10.htm">Top 10 pages</a></li>
+         </ol>
+       </li>
+       <li class="social-networks">
+         <ol>
+           <li class="widget-title first-child">
+             <h4>Follow us</h4>
+           </li>
+           <li><a href="http://www.facebook.com/computerhope/" class="facebook">Facebook</a></li>
+           <li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li>
+           <li><a href="https://plus.google.com/+Computerhopehelp/" rel="publisher" class="google">Google+</a></li>
+           <li><a href="http://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li>
+           <li><a href="http://www.youtube.com/user/Computerhope" class="youtube">YouTube</a></li>
+           <li><a href="http://www.computerhope.com/rss.htm" class="rss">RSS</a></li>
+         </ol>
+       </li>
+     </ul>
+     <div class="copyright"> <span>© 2014 Computer Hope</span> <a href="http://www.computerhope.com/legal.htm">Legal Disclaimer</a> - <a href="http://www.computerhope.com/legal.htm#2">Privacy Statement</a> </div>
+   </footer>
+ </div>
+ <script async="" src="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/adsbygoogle.js"></script>
+ <script src="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/jquery.js"></script>
+ <script src="Linux%20and%20Unix%20ln%20command%20help%20and%20examples_files/site.js"></script>
+ 
+ </body></html>

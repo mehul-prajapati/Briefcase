@@ -1,0 +1,1305 @@
+<html lang="en"><head>
+<title>Terminal Concepts in GNU/Linux</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Terminal Concepts in GNU/Linux">
+<meta name="generator" content="makeinfo 4.1">
+<link href="http://texinfo.org/" rel="generator-home">
+</head>
+<body>
+<h1>Terminal Concepts in GNU/Linux</h1>
+Copyright © 2003 <a href="http://frank.harvard.edu/%7Ecoldwell/">Charles M. "Chip" Coldwell</a>.
+
+<a name="Top"></a>
+
+<h2>Terminal Concepts in Linux</h2>
+
+
+
+<a name="Introduction"></a>
+
+<h2>Introduction</h2>
+
+<p>Although it is rarely done today, one can connect a video terminal
+with a null modem cable to a serial port on a Linux box and get an
+interactive shell with very little effort.  All that is required is
+that you add a line such as
+
+<br></p><pre>dt:12345:respawn:/sbin/agetty -L ttyS0 9600 vt510
+</pre>
+
+<p>to <code>/etc/inittab</code>, and then run <code>telinit q</code> as root to
+get <code>init</code> to re-read the <code>/etc/inittab</code> file, and you
+will be greeted by a login prompt on the terminal screen.
+
+</p><p>The ease with which we can do this task that we almost never want to
+do is due to the long legacy of Unix that Linux inherited.  When Unix
+was young, video terminals were the user interface of choice and became
+a very important concept in the design of the operating system. 
+Today, although "glass teletypes" are becoming more and more rare,
+the terminal has remained at the heart of the operating system as a
+very powerful metaphor.
+
+</p><p>Most computer users sophisticated (or perhaps old) enough to know what
+a character cell terminal is probably think of them as relics of the
+past before the GUI revolutionized the user interface.  Nonetheless,
+the first thing almost all Unix users do immediately after logging in
+to their elaborate desktops (and watching the dazzling eye candy meant
+to distract them from the intolerably long wait until the desktop
+system is ready to do something useful) is to throw up a terminal
+window to get an interactive shell into which they can type commands. 
+Many probably think of it as just an interactive shell and not a
+terminal window, but in fact in Unix you cannot have an interactive
+shell without a controlling terminal.
+
+</p><p>The controlling terminal is one of the properties listed by the
+<code>ps</code> command, in the column headed TTY below:
+
+<br></p><pre>$ ps
+  PID TTY          TIME CMD
+26841 pts/1    00:00:00 bash
+26897 pts/1    00:00:00 ps
+</pre>
+
+<p><code>pts/1</code> is actually an abbreviation for <code>/dev/pts/1</code>, a
+character special file for the interactive shell's (PID 26841)
+controlling terminal:
+
+<br></p><pre>$ ls -l /dev/pts/1
+crw--w----    1 user tty      136,   1 Feb 21 00:35 /dev/pts/1
+</pre>
+
+<p>This is a bit of a peculiar thing, because normally character special
+files correspond to hardware devices such as serial ports.  However,
+there is no hardware corresponding to <code>/dev/pts/1</code>; it is a
+"pseudo-terminal".  When a terminal window is opened, a new
+pseudo-terminal will appear in <code>/dev/pts</code> that will disappear
+again once the window is closed.  Pseudo-terminals are discussed in
+detail below, but for now they can be thought of as virtual serial
+ports that allow the interactive shell and the operating system to use
+the familiar user interface paradigm of a user sitting in front of a
+character-cell terminal connected to the computer by a serial port,
+even in situations that bear little resemblance to the one described. 
+For the purposes of this book, then, a "terminal" will be any device
+that connects to a computer through an asynchronous serial port (real
+or virtual) and communicates with it using the ASCII character
+set.<a rel="footnote" href="#fn-1"><sup>1</sup></a>
+
+<a name="Asynchronous Serial Communications"></a>
+
+</p><h2>Asynchronous Serial Communications</h2>
+
+<p>From the operating system's point of view, the terminal <em>is</em> the
+serial port and its associated device driver.  Therefore, in this
+chapter the operation of the hardware and the implementation of the
+device driver are examined in some detail starting from the voltages
+on the wires and moving up to a discussion of the protocols for
+grouping serial bits into characters.
+
+
+
+<a name="Timing and Voltages"></a>
+
+</p><h3>Timing and voltages</h3>
+
+<p>The serial part of "asynchronous serial communications" is easy to
+explain: it refers to the fact that the data are represented by
+voltages driven serially on one physical wire.  This is as opposed to
+a parallel interface, which would transmit bits on more than one
+physical wire simultaneously.  To say that the voltages are driven
+serially simply means that to transmit a character the transmitter
+must assert the voltages corresponding to each bit of the character
+sequentially in time.  It is up to the receiver to reassemble them
+into the original character.
+
+</p><p>When a 1 bit is driven onto the wire the corresponding voltage is
+referred to as a "mark", and the voltage corresponding to a 0 bit is
+a "space".  The RS-232C standard specifies the following voltages
+
+</p><p><table><tbody><tr align="left"><td valign="top"></td><td valign="top">Mark     </td><td valign="top">Space
+<br></td></tr><tr align="left"><td valign="top">Transmit </td><td valign="top">-5V to -15V </td><td valign="top">+5V to +15V
+<br></td></tr><tr align="left"><td valign="top">Receive  </td><td valign="top">-3V to -25V </td><td valign="top">+3V to +25V
+<br></td></tr></tbody></table>
+
+</p><p>by which it is meant, for example, that a standard-compliant line
+driver must drive a voltage between -5 and -15 volts to represent a
+mark, and a standard-compliant line receiver must recognize a voltage
+between -3 and -25 volts to represent a mark, etc.
+
+</p><p>If the transmitter and receiver were synchronized, then the receiver
+would know which bit is which simply by sampling the voltage on the
+wire at the times when bits are expected.  This is, in fact, a fairly
+common way of doing serial communications, and synchronous serial
+ports are often used in telecommunications applications (for example,
+T1 lines).  The important difference in asynchronous serial
+communications is that transmitter and receiver are only synchronized
+during a character, but the receiver can not determine when the
+transmitter will start the next character based on when the last one
+was sent.
+
+<a name="Bits and Characters"></a>
+
+</p><h3>Bits and Characters</h3>
+
+<p>When a transmitter is idle, it holds a mark on its output.  That is,
+when a character is not being transmitted, the transmit pin is at a
+voltage of between -5 and -15 volts.  Since the receiver is not
+synchronized with the transmitter, it does not know in advance when
+transmission of the next character will start.  Therefore,
+asynchronous transmission of a character always begins with a "start
+bit", which the receiver uses as a reference point for timing the
+bits that follow.  Since the idle channel is held at the voltage
+corresponding to a mark, the start bit is always a space so that it
+can be distinguished.
+
+</p><p>The bits that follow the start bit are the data bits.  In order to
+reconstruct the character, the receiver must know the speed that the
+transmitter is sending data bits and the number of data bits per
+character (not always 8!).  For example, if the receiver receives the
+start bit at time t, and the bit rate is r bits per
+second with n bits per character, then it can sample the
+voltage on the wire at t + i/r for i = 1, 2, 3 ... n to
+determine the corresponding bits of the character.
+
+</p><p>Since there are a number of ways that things could go wrong with such
+a simple scheme as the one just described, two additional measures are
+provided to make communications more robust: parity and stop bits.
+
+</p><p>Parity means an additional bit is generated before the first data bit
+of every character whose value is chosen so that the total number of
+ones transmitted always has the same parity, either even or odd.  For
+example, the ASCII character 'A' is represented by the seven-bit
+binary number 1000001 which contains two ones.  If even parity is
+chosen, then transmitted 'A' characters will be prefixed by a zero
+parity bit.  If odd parity is chosen then transmitted 'A' characters
+will be prefixed by a one parity bit.<a rel="footnote" href="#fn-2"><sup>2</sup></a>  Note that parity adds
+a one bit overhead to the communications channel which can be avoided
+by choosing to use no parity at all.
+
+</p><p>Stop bits are more subtle.  As was described above, an idle channel is
+held in a marking condition and therefore the start bit is always a
+space.  The stop bits, on the other hand, are always marks and
+therefore are indistiguishable from an idle channel.  The standard
+allows for one, one and a half or two stop bits.  What this amounts to
+is a choice of the minimum inter-character spacing, with one bit-time
+being the minimum and two bit-times the maximum.  In the past, two
+stop bits were required by hardcopy terminals whose mechanisms would
+otherwise not be able to keep up with the data stream, but it is rare
+to use more than one stop bit today.
+
+</p><p><table><tbody><tr align="left"><td valign="top">Setting   </td><td valign="top">Possible values
+<br></td></tr><tr align="left"><td valign="top">Data rate </td><td valign="top">many
+<br></td></tr><tr align="left"><td valign="top">Data bits </td><td valign="top">5, 6, 7, 8
+<br></td></tr><tr align="left"><td valign="top">Stop bits </td><td valign="top">1, 1.5, 2
+<br></td></tr><tr align="left"><td valign="top">Parity    </td><td valign="top">even, odd
+<br></td></tr></tbody></table>
+
+<a name="Bit Errors"></a>
+
+</p><h3>Bit errors</h3>
+
+<p>Things often go wrong on an asynchronous serial communications
+channel. However, it may be possible for the receiver to determine
+that an error has occurred in many situations. Three types of errors
+that are commonly detected are overrun, framing and parity.
+
+</p><p>An overrun means that the receiver's FIFO was full when a new
+character was received, forcing it to clobber existing data in order
+to store it.  This is not a failure of the communications channel per
+se, but means that the computer isn't keeping up with the rate of data
+being received.
+
+</p><p>A framing error means that the receiver recognized a start bit, but
+did not find a valid stop bit when it was expected. This typically
+means that the intra-character timing was not synchronized between
+transmitter and receiver, possibly meaning that either the data rate
+or data bits settings do not match on transmitter and receiver.
+
+</p><p>A parity error simply means that the number of ones in a received
+character plus the parity bit did not match the setting specified.
+
+<a name="Break"></a>
+
+</p><h3>Break</h3>
+
+<p>There is an "out of band" signal that can be transmitted by a
+serial port, namely, a break.  A break is sent by holding the
+transmit wire in a spacing condition for a duration of at least two
+character times plus three bit times (as specified by the CCITT "blue
+book").  In other words, the transmitter holds the voltage
+corresponding to a zero bit for a length of time that is definitely
+longer than the transmission time for a single character.  The
+receiver, therefore, can recognize a break since it receives more than
+a character's worth of spaces with no stop bit (which are always
+marks, see <a href="#Bits%20and%20Characters">Bits and Characters</a>) when one would be expected.
+
+</p><p>Normally, recognizing breaks is the responsibility of the UART
+(see <a href="#The%20UART">The UART</a>), but if for some reason (such as a limited UART
+that does not implement this functionality) the UART fails to do so,
+reception of a break will manifest itself as a large number of framing
+errors (see <a href="#Bit%20Errors">Bit Errors</a>).
+
+</p><p>Breaks are used to signal an interrupt to the receiving process
+(see <a href="#Terminal%20Signals">Terminal Signals</a>).
+
+<a name="Modem Control Signals"></a>
+
+</p><h3>Modem Control Signals</h3>
+
+<p>The serial communications scheme described so far only requires three
+wires to connect the transmitter and receiver: at either end there
+must be one wire for transmitting, one wire for receiving and one to
+carry a ground reference for the transmit and receive voltages. In
+practice, serial communications are often done with just these three
+wires. However, the standard provides for a number of ancillary
+signals for supporting the most common serial communications
+application: serial communications mediated by modems over the public
+telephone network. These are known collectively as the modem control
+signals.
+
+</p><p>The situation envisioned by the standard is that of a terminal or a
+computer (called "Data Terminal Equipment" or DTE) connected to a
+modem (called "Data Communications Equipment" or DCE) by an
+asynchronous serial channel. The modem is connected to the telephone
+network, and should be able to originate and/or receive telephone
+calls to/from other modems. The modem control signals are listed in
+the table below, and typically external modems have LEDs that display
+the condition of most of these signals at any time.
+
+</p><p><table><tbody><tr align="left"><td valign="top">Acronym   </td><td valign="top">Full name           </td><td valign="top">Comes From
+<br></td></tr><tr align="left"><td valign="top">DTR       </td><td valign="top">Data Terminal Ready </td><td valign="top">DTE
+<br></td></tr><tr align="left"><td valign="top">DSR       </td><td valign="top">Data Set Ready      </td><td valign="top">DCE
+<br></td></tr><tr align="left"><td valign="top">RTS       </td><td valign="top">Request To Send     </td><td valign="top">DTE
+<br></td></tr><tr align="left"><td valign="top">CTS       </td><td valign="top">Clear To Send       </td><td valign="top">DCE
+<br></td></tr><tr align="left"><td valign="top">DCD       </td><td valign="top">Data Carrier Detect </td><td valign="top">DCE
+<br></td></tr><tr align="left"><td valign="top">RI        </td><td valign="top">Ring Indicator      </td><td valign="top">DCE
+<br></td></tr></tbody></table>
+
+</p><ul>
+<li>Data Set Ready (DSR).  This line is asserted by the modem and is meant
+to indicate to the terminal that the modem is present and
+ready. Typically, this signal comes on soon after the modem is powered
+on and stays on until it is powered off. 
+</li><li>Data Terminal Ready (DTR).  This line is asserted by the
+terminal/computer and is meant to indicate to the modem that the
+terminal/computer is ready. On Linux, this line comes on when a serial
+port is opened and goes off again when the serial port is closed. In
+general, if a modem detects that DTR has gone off while a call is in
+progress, it hangs up the telephone. 
+</li><li>Request To Send (RTS) and Clear To Send (CTS) are used for flow
+control. The modem should not send data to the terminal unless the
+terminal is asserting RTS, and the terminal should not send data to
+the modem unless the modem is asserting CTS. Normally, CTS comes on
+soon after the modem is powered on and stays on until it is powered
+off. On Linux, RTS comes on when the serial port is opened and goes
+off again when it is closed. 
+</li><li>Data Carrier Detect (DCD) is a signal generated by the modem that
+indicates that it is receiving a carrier signal from the modem on the
+opposite side of the telephone call. This is a necessary but not
+sufficient condition for the two modems to communicate. 
+</li><li>Ring Indicator (RI) is a singal generated by the modem that indicates
+that it is receiving a call (i.e. the local telephone is ringing). 
+</li></ul>
+
+<p>So the normal course of events when originating a call is
+
+</p><ol start="1" type="1">
+<p></p><li>DSR and CTS come on when the modem is powered up. 
+</li><li>DTR and RTS come on when the serial port in opened. 
+</li><li>DCD comes on when the number has been dialed and the remote modem has
+answered the call.
+</li></ol>
+
+<p>and when receiving a call
+
+</p><ol start="1" type="1">
+<p></p><li>DSR and CTS come on when the modem is powered up. 
+</li><li>DTR and RTS come on when the serial port is opened. 
+</li><li>RI comes on when the local telephone rings. 
+</li><li>DCD comes on when the local modem has answered the call.
+</li></ol>
+
+<p>Like the transmit and received data signals, the modem control signals
+are held at -5 to -15 volts when idle, and +5 to +15 volts when
+asserted.  These are the same voltages used on the data lines (TXD and
+RXD) to represent mark and space, respectively (see <a href="#Timing%20and%20Voltages">Timing and Voltages</a>).  Therefore a binary zero and a control signal being
+asserted are both represented by the same voltage; in this sense the
+control signals can be said to use "complementary" or
+"negative" logic.
+
+<a name="Pin Assignments"></a>
+
+</p><h3>Pin Assignments</h3>
+
+<p>The inclusion of the modem control signals causes the number of wires
+to proliferate beyond the minimal three-wire configuration discussed
+above. In fact, most serial ports have either nine or 25 pins, with
+the signals assigned to pins as shown in the following table.
+
+</p><p><table><tbody><tr align="left"><td valign="top">Signal Name         </td><td valign="top">Acronym </td><td valign="top">25-pin </td><td valign="top">9-pin
+<br></td></tr><tr align="left"><td valign="top">Protective ground   </td><td valign="top"></td><td valign="top">1      </td><td valign="top">N/A
+<br></td></tr><tr align="left"><td valign="top">Transmitted data    </td><td valign="top">TXD     </td><td valign="top">2      </td><td valign="top">3
+<br></td></tr><tr align="left"><td valign="top">Received data       </td><td valign="top">RXD     </td><td valign="top">3      </td><td valign="top">2
+<br></td></tr><tr align="left"><td valign="top">Ready To Send       </td><td valign="top">RTS     </td><td valign="top">4      </td><td valign="top">7
+<br></td></tr><tr align="left"><td valign="top">Clear To Send       </td><td valign="top">CTS     </td><td valign="top">5      </td><td valign="top">8
+<br></td></tr><tr align="left"><td valign="top">Data Set Ready      </td><td valign="top">DSR     </td><td valign="top">6      </td><td valign="top">6
+<br></td></tr><tr align="left"><td valign="top">Signal ground       </td><td valign="top">SG      </td><td valign="top">7      </td><td valign="top">5
+<br></td></tr><tr align="left"><td valign="top">Data Carrier Detect </td><td valign="top">DCD     </td><td valign="top">8      </td><td valign="top">1
+<br></td></tr><tr align="left"><td valign="top">Data Terminal Ready </td><td valign="top">DTR     </td><td valign="top">20     </td><td valign="top">4
+<br></td></tr><tr align="left"><td valign="top">Ring Indicator      </td><td valign="top">RI      </td><td valign="top">22     </td><td valign="top">9
+<br></td></tr></tbody></table>
+
+</p><p>Note that the signal names are chosen from the perspective of a
+terminal (DTE); for example, a modem will transmit data to the
+terminal on RXD and receive data from the terminal on
+TXD.
+
+</p><p>Furthermore, if two DTEs are to be directly connected to each other
+without modems or telephones (such as the terminal and the Linux box
+in the introduction), the cable that connects them must interchange
+signals since, for example, both will want to transmit on pin 2 of a
+25-pin connector and receive on pin 3. The cable must connect pin 2 of
+one connector to pin 3 of the other and vice versa; such a cable is
+called a "null modem" cable.
+
+</p><p>A null modem cable should also rearrange the modem control signals
+apropriately: RTS at one end should connect to CTS at the other, and
+DTR at one end should connect to DSR at the other.  The DCD signal is
+usually connected to DSR at each end (and therefore to DTR at the
+opposite end).
+
+<br></p><pre>TXD--\/--TXD
+RXD--/\--RXD
+
+RTS--\/--RTS
+CTS--/\--CTS
+
+DSR--+---DTR
+DCD--|
+
+DTR---+--DSR
+      |--DCD
+</pre>
+
+<a name="The UART"></a>
+
+<h3>The UART</h3>
+
+<p>The hardware in a serial port that handles serial communications is
+called a UART,
+an acronym which stands for "Universal Asynchronous Receiver
+Transmitter".  The UART is the device that the serial device driver
+drives.  It is responsible for transmitting and receiving data as well
+as implementing all of the ancillary settings including bit rate, bits
+per character, parity, stop bits and modem control signals.
+
+</p><p>The UART does not directly interface with the pins on the serial port. 
+It is usually designed to operate at much lower voltages (3.3 or 5)
+and is interfaced to the pins by line drivers and receivers (such as
+the DS1488 and DS1489) that convert between the RS-232C voltages and
+the UART voltage.
+
+</p><p>Important examples of UARTs include the Intel 8251, a very early UART
+that was used in Digital Equipment Corporation's VT100 terminals, and
+National Semiconductor's 16550A which is probably the most popular
+UART on the market today.
+
+<a name="Operating System Support"></a>
+
+</p><h2>Operating System Support</h2>
+
+<p>So far, the discussion has not touched at all on the software needed
+to support an asynchronous serial port.  In this chapter, the
+bottom up approach continues with a detailed look at the operating
+system components that provide user level processes access to the
+hardware.  Two characters play prominent roles in this part of the
+story: the serial device driver and the GNU C Library.
+
+
+
+<a name="Device Drivers"></a>
+
+</p><h3>Device Drivers</h3>
+
+<p>The serial device driver is a component of the operating system kernel
+(in Linux, it is frequently implemented as a loadable module), and
+implements the hardware-specific aspects of the software needed to use
+the serial port.  For example, there are a variety of multiport serial
+cards available on the market, and no two will have the same register
+map unless they share a chipset.  Therefore each will have a different
+device driver, all of which present the same interface to the
+operating system but perform different operations on the hardware.
+
+</p><p>A large part of any device driver is usually devoted to implementing
+"methods" that do the real work of system calls.  System calls are
+the way the kernel provides services to user space programs in a safe
+and controlled way.  When a system call is executed by a user space
+program, it invokes a "trap" causing the CPU to context switch into
+the privileged kernel mode and thereby gain access to registers, I/O
+ports and protected memory regions that are normally off-limits to
+user space programs.  The kernel then passes (and possibly rearranges)
+the system call parameters to the device driver method that was
+registered for that call when the driver was loaded.<a rel="footnote" href="#fn-3"><sup>3</sup></a>
+
+</p><p>This operation is fundamentally different from the execution of a
+library function.  Execution of a library function does not imply a
+context switch nor a change in CPU privilege; it is in almost every
+way the same a executing a normal call to a function.<a rel="footnote" href="#fn-4"><sup>4</sup></a>  However, most of the interesting functions
+in the GNU C Library are implemented by executing system calls.
+
+<a name="Special Files"></a>
+
+</p><h3>Special Files</h3>
+
+<p>The Unix approach is to make an analogy between a hardware device such
+as a serial port and a file.  A file is something that you can open,
+read, write and close with some expectation that the next time you
+open and read it you will find the last thing that was written there. 
+Obviously this expectation cannot be extended to serial ports, but it
+still seems reasonable to read and write to them.  Data read by a
+process from a serial port is what was received, and data written by a
+process to a serial port is transmitted.
+
+</p><p>Opening and closing a serial port is a bit more problematic.  Since a
+serial port isn't really a file, it may seem a bit counterintuitive to
+open an entry in the filesystem in order to gain access to it. 
+However, this is precisely what is done for hardware devices, except
+that the corresponding "special files" are conventionally found in
+the directory <code>/dev</code>.
+
+</p><p>Special files are created by the <code>mknod(1)</code> command and come
+in two flavors: block and character.  Block devices can only be read
+from or written to one block (for example, 1024 bytes) at a time and
+are usually associated with disk drives, whereas character devices
+operate one character at a time.  Since an asynchronous serial port
+always transmits or receives one character at a time, they are always
+character devices.
+
+</p><p>Special files also have major and minor numbers.  The major number
+identifies to the operating system which device driver will service
+system calls on behalf of the special file,<a rel="footnote" href="#fn-5"><sup>5</sup></a>
+and the minor number identifies to the device driver one of the
+possibly several hardware devices that it manages on behalf of which
+it must act.  For example, a multiport serial card would be managed by
+a single device driver but provides several serial ports.  Each serial
+port would have a correpsonding special file with the same major
+number but a unique minor number.  The minor number enables the device
+driver to distinguish which serial port has been opened, read from,
+written to, etc.
+
+</p><p>In fact, most serial ports are associated with <em>two</em> special
+files with different major but the same minor numbers.  For example,
+both <code>/dev/ttyS0</code> and <code>/dev/cua0</code> are associated with the
+first UART serial port.  Since device special files are a mechanism
+for extending the device/file analogy to the <code>open(2)</code> and
+<code>close(2)</code> system calls, different special files for the same
+device must correspond to different behaviors on one or both of these
+system calls.  In fact, it is the <code>open(2)</code> system call that
+behaves differently depending on which of the two special files is
+opened.
+
+</p><p>Recall that the DCD modem control signal (see <a href="#Modem%20Control%20Signals">Modem Control Signals</a>) is an indication to a DTE from a DCE that a dialed call has
+been completed and the opposite modem's carrier signal detected.  If a
+program opens a serial port expecting to <em>receive</em> a call, it
+makes sense for the operating system to put that process to sleep
+until the modem asserts DCD since there is nothing for it to do before
+a call is established.  On the other hand, if a program opens a serial
+port for purposes of <em>placing</em> a call, then it must have access
+to the modem before DCD is asserted in order to direct it to dial the
+number.  This is precisely the difference between <code>/dev/ttyS0</code>
+and <code>/dev/cua0</code>: a program that opens <code>/dev/ttyS0</code> will
+block in the system call until DCD is asserted whereas it will not
+block if it opens <code>/dev/cua0</code>.  For this reason, <code>/dev/cua0</code>
+is often referred to as the "callout device."
+
+</p><p>Note that the blocking behavior of <code>/dev/ttyS0</code> can be modified
+by setting the CLOCAL control mode flag, which causes the modem status
+lines to be ignored.  This flag indicates that the terminal associated
+with the serial port is connected "locally", as opposed to remotely
+via a modem.
+
+<a name="ioctl and termios"></a>
+
+</p><h2><code>ioctl</code> and <code>termios</code></h2>
+
+<p>Special files are the method used to extend the analogy between files
+and devices to the <code>open(2)</code> and <code>close(2)</code> system calls;
+however, it is not at all clear how to express operations such as
+changing the bit rate of a serial port or enabling hardware flow
+control in terms of operations that can also be done on a file.  In
+fact, an addiontal system call, <code>ioctl(2)</code> that exists for the
+purpose of providing a mechanism for implementing these sorts of
+ancillary "I/O Control" functions.
+
+</p><p>Because of the central role played by serial ports in user
+interaction, the serial device driver provides a much richer set of
+<code>ioctl(2)</code> settings than might be expected for a device as simple
+as the UART.  In fact, many of these settings control things like
+character substitution and line buffering that have nothing to do with
+the UART per se.<a rel="footnote" href="#fn-6"><sup>6</sup></a>  Nonetheless, a
+subset of the serial <code>ioctl(2)</code>s have a one-to-one correspondence
+with UART settings like bit rate, character size, parity, modem
+control signals, etc.
+
+</p><p>These days it is rare and considered bad form (for portability
+reasons) to use the <code>ioctl(2)</code> system call on a serial port
+directly.  Instead, the GNU C Library provides a set of mediating
+functions defined by the POSIX standard and declared in the header
+file <code>&lt;termios.h&gt;</code>.  Full details on these functions can be
+found in
+<a href="http://www.gnu.org/manual/glibc-2.2.5/html_node/Low-Level-Terminal-Interface.html">The GNU C Library Reference Manual</a>.
+
+</p><p>The <code>&lt;termios.h&gt;</code> functions are passed a data structure called
+<code>struct termios</code> that contains the following members
+
+<br></p><pre>              tcflag_t c_iflag;      /* input modes */
+              tcflag_t c_oflag;      /* output modes */
+              tcflag_t c_cflag;      /* control modes */
+              tcflag_t c_lflag;      /* local modes */
+              cc_t c_cc[NCCS];       /* control chars */
+</pre>
+
+<p>The first four members are bit masks in which programs can set and
+clear flags to specify certain behaviors.  The UART settings can be
+directly mapped onto flags in the third bit mask, the control modes.
+
+
+
+<a name="termios Control Modes"></a>
+
+</p><h3><code>termios</code> Control Modes</h3>
+
+<p>As an example of how to use <code>&lt;termios.h&gt;</code> functions to configure
+UART settings, let us see how the control modes settings are used to
+configure a serial port to operate at 9600 bps, with 8-bit characters,
+no parity and one stop bit.  (This is a very common serial port
+setting, usually abbreviated to something like "9600 8n1".) 
+Usually, 9600 bps is slow enough that flow control is not needed,
+either.
+
+</p><p>Because of the plethora of terminal settings available, the
+recommended method for changing them is to first read the current
+settings into a <code>struct termios</code> and then set and clear bits
+to make the necessary changes.  That way, the settings that we haven't
+touched will remain at reasonable default values (hopefully).  The
+following code reads the current settings for the serial port
+<code>/dev/ttyS0</code> into a <code>struct termios</code> called <code>tios</code>.
+
+<br></p><pre>#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;termios.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[])
+{
+  struct termios tios;
+  int fd;
+
+  fd = open("/dev/ttyS0", O_RDWR);
+  if(fd &lt; 0) {
+    perror("open failed: ");
+    return 1;
+  }
+  if(tcgetattr(fd, &amp;tios) &lt; 0) {
+    perror("tcgetattr failed: ");
+    return 2;
+  }
+</pre>
+
+<p>From here, we go about changing the settings one at a time until we
+arrive at "9600 8n1".
+
+</p><ul>
+<li><strong>Bit rate</strong>
+
+<p>Unlike the other settings show below, the bit rate is not set by
+directly setting and clearing flags in <code>tios.c_cflag</code>.  Instead,
+a function <code>cfsetspeed</code> is provided to diddle the bits for
+us.<a rel="footnote" href="#fn-7"><sup>7</sup></a>
+
+<br></p><pre>  cfsetspeed(&amp;tios, B9600);
+</pre>
+
+<p>Note that we use the preprocessor symbol <code>B9600</code>, <em>not</em> the
+number 9600.
+
+</p></li><li><strong>Bits per Character</strong>
+
+<p>There are four possible settings for the number of bits per character:
+5, 6, 7 and 8 (see <a href="#Bits%20and%20Characters">Bits and Characters</a>).  The GNU C Library
+defines five macros for accessing the corresponding bits in the
+control modes bitmask, namely <code>CS5</code>, <code>CS6</code>, <code>CS7</code>,
+<code>CS8</code> and <code>CSIZE</code>.  To set the number of bits per character
+you first clear all of the bits with the <code>CSIZE</code> macro and then
+set the bits corresponding to the size you want.  To set eight bits
+per character
+
+<br></p><pre>  tios.c_cflag &amp;= ~CSIZE;
+  tios.c_cflag |= CS8;
+</pre>
+
+<p></p></li><li><strong>Parity</strong>
+
+<p>There are three possible settings for parity: even, odd and none
+(see <a href="#Bits%20and%20Characters">Bits and Characters</a>).  The GNU C Library defines two macros
+for accessing the corresponding bits in the control modes bitmask,
+namely <code>PARENB</code> and <code>PARODD</code>.  The former enables and
+disable parity, the latter chooses odd parity (if parity is enabled
+and <code>PARODD</code> is cleared, then even parity is generated).  Note
+that these flags affect both transmitter and receiver; for example, if
+both flags are set then odd parity will be generated by the
+transmitter and if a received character has an even number of bits the
+receiver will generate a parity error.
+
+</p><p>To configure for no parity
+
+<br></p><pre>  tios.c_cflag &amp;= ~(PARENB | PARODD);
+</pre>
+
+<p></p></li><li><strong>Stop bits</strong>
+
+<p>In the GNU C Library, there are two possible settings for the number
+of stop bits: one and two (see <a href="#Bits%20and%20Characters">Bits and Characters</a>).  If the
+<code>CSTOPB</code> flag is set, two stop bits are used, and only one is
+used if it is cleared.  The following example shows how to configure a
+serial port for one stop bit.
+
+<br></p><pre>  tios.c_cflag &amp;= ~CSTOPB;
+</pre>
+
+<p></p></li><li><strong>Flow control</strong>
+
+<p>The flow control signals are the RTS and CTS modem control signals
+that can be used to gate the flow of data in and out of a serial port
+(see <a href="#Modem%20Control%20Signals">Modem Control Signals</a>).  Flow control can be enabled and
+disabled by setting and clearing the <code>CRTSCTS</code> flag.<a rel="footnote" href="#fn-8"><sup>8</sup></a>  The following example shows how to
+configure a serial port for no flow control.
+
+<br></p><pre>  tios.c_cflag &amp;= ~CRTSCTS;
+</pre>
+</li></ul>
+
+<p>Finally, we can apply our changes using the <code>tcsetattr</code> function
+
+<br></p><pre>  tcsetattr(fd, TCSANOW, &amp;tios);
+</pre>
+
+<p>Note that this function returns 0, indicating success, if <em>any</em>
+of the changes could be carried out.
+
+<a name="termios Input and Output Modes"></a>
+
+</p><h3><code>termios</code> Input/Output Modes</h3>
+
+<p>The control mode settings are the only ones that directly affect the
+UART hardware, but there are numerous other settings that control the
+way the serial device driver and kernel TTY layers will process I/O on
+the device.  At the lowest software level, these settings control
+how parity errors and breaks are handled and character substitution.
+
+</p><h4>Parity</h4>
+
+<p>If the hardware is configured to generate parity bits on transmitted
+characters and to check parity on received characters (i.e., the
+<code>PARENB</code> flag is set in the control modes, see <a href="#ioctl%20and%20termios">ioctl and termios</a>), the software must still decide what to do when parity
+errors are reported on received characters.  There are four choices
+for how to handle characters containing parity errors: pass it through
+exactly as received (ignore the error), drop it (ignore the
+character), mark it as containing an error, or replace it with
+something else.  These behaviors are controlled by flags in the
+terminal input modes, <code>c_iflag</code>, namely <code>INPCK</code>,
+<code>IGNPAR</code> and <code>PARMRK</code>.
+</p><ol start="1" type="1">
+<p></p><li>Ignore the error: disable input parity checking.
+<br><pre>        tios.c_iflag &amp;= ~INPCK;
+</pre>
+The UART will still generate parity bits on transmitted characters as
+long as the <code>PARENB</code> bit in the control modes is set, but input
+characters with parity errors will be passed on as they were received
+by the device driver. 
+</li><li>Ignore the character: enable input parity checking and ignore
+any character containing an error.
+<br><pre>        tios.c_iflag |= (INPCK | IGNPAR);
+        tios.c_iflag &amp;= ~PARMRK;
+</pre>
+Any received characters containing parity errors will be silently
+dropped. 
+</li><li>Mark the character as containing an error.
+<br><pre>        tios.c_iflag |= (INPCK | PARMRK);
+        tios.c_iflag &amp;= ~IGNPAR;
+</pre>
+This will cause a character containing a parity or framing error to be
+replaced by a three character sequence consiting of the erroneous
+charcter preceded by <code>\377</code> and <code>\000</code>.  A legitimate
+received <code>\377</code> will be replaced by a pair of <code>\377</code>s. 
+</li><li>Replace the character with another
+<br><pre>        tios.c_iflag |= INPCK;
+        tios.c_iflag &amp;= ~(IGNPAR | PARMRK);
+</pre>
+This will cause a character containing a parity or framing error to be
+replaced by the null character <code>\000</code>.
+</li></ol>
+
+<h4>Carriage Return and Line Feed</h4>
+
+<p>The character substitutions provided by the low-level input/output
+modes are there in part to deal with the endless confusion over how
+lines of text should be terminated.  Although one might think that
+ASCII text is a well-defined standard file format, it leaves
+unspecified what character or character-sequence should mark the end
+of a line.  There are three commonly used conventions composed of two
+characters: carriage return (ASCII octal code <code>\015</code>,
+<kbd>&lt;Ctrl&gt;-M</kbd>, <code>'\r'</code>) and line feed (ASCII octal code
+<code>\012</code>, <kbd>&lt;Ctrl&gt;-J</kbd>, <code>'\n'</code>).  Macintosh computers
+use a single carriage return, VMS, DOS and Windows computers use a
+carriage return followed by a line feed, and Unix computers use a
+single line feed.
+
+</p><p>One could think of an ASCII text file as being a transcript of a
+terminal session.  In particular, a command like
+<br></p><pre>$ cat file.txt &gt;/dev/ttyS0
+</pre>
+
+<p>should produce readable output on the terminal attached to
+<code>/dev/ttyS0</code> and a command like
+<br></p><pre>$ cat /dev/ttyS0 &gt;file.txt
+</pre>
+
+<p>should capture all of the input from the terminal in the file
+<code>file.txt</code>.  Typically, real character-cell terminals will treat
+received carriage return and line feed characters literally: a
+carriage return moves the cursor to the leftmost column without
+altering its row position and a line feed advances the cursor to the
+next row without altering its column position.  Therefore, in order
+for the first command above to produce the expected output on the
+terminal screen, the lines in <code>file.txt</code> should be terminated by
+both a carriage return and a line feed (the DOS convention).  However,
+real terminals typically do not transmit more than one ASCII character
+per key typed, and the &lt;Enter&gt; or &lt;Return&gt; key will usually
+cause it to transmit a single carriage return.  Therefore, the second
+command above will create a <code>file.txt</code> with lines terminated by a
+single carriage return (the Macintosh convention).  It could be said
+that terminal output follows the DOS convention and terminal input
+follows the Macintosh covention.
+
+</p><p>There are four flags available in the <code>struct termios</code> low-level
+input and output modes <code>c_iflag</code> and <code>c_oflag</code> for coping
+with this mess, namely <code>IGNCR</code>, <code>ICRNL</code>, <code>INLCR</code> and
+<code>ONLCR</code>.
+</p><ol start="1" type="1">
+<p></p><li><code>IGNCR</code>: ignore carriage return.  If this flag is set,
+carriage returns are discarded on input.  This is only useful if the
+attached terminal transmits both carriage return and line feed
+characters when the <kbd>&lt;Return&gt;</kbd> key is pressed (rare). 
+</li><li><code>ICRNL</code>: replace input carriage returns with line feeds. 
+This is useful if the attached terminal transmits a single carriage
+return character when the <kbd>&lt;Return&gt;</kbd> key is pressed (the most
+common case).  The lines received by the process reading from the
+serial port will be terminated by a single line feed character
+(<code>'\n'</code>), which is again the Unix convention. 
+</li><li><code>INLCR</code>: replace input line feeds with carriage returns. 
+This is the inverse of the <code>ICRNL</code> flag, and rarely used. 
+</li><li><code>ONLCR</code>: replace output line feeds with carriage return
+and line feed.  This will cause a line of text terminated by a single
+line feed character to display properly on a terminal that moves its
+cursor as described above.
+</li></ol>
+
+<p>Therefore, the most common character substitution configuration is to
+set the flags <code>ICRNL</code> and <code>ONLCR</code> and leave the rest
+cleared.
+<br></p><pre>    tios.c_iflag &amp;= ~(IGNCR | INLCR);
+    tios.c_iflag |= ICRNL;
+    tios.c_oflag |= ONLCR;
+</pre>
+This way, output lines of text terminated according to the Unix
+convention (a single <code>'\n'</code>) will be transmitted to the terminal
+as lines terminated by a carriage return and line feed (<code>'\r'</code>
+followed by <code>'\n'</code>) and will display properly.  Furthermore,
+input lines of text terminated by a single carriage return
+(<code>'\r'</code>) will be read by a process as lines terminated by a
+single line feed (<code>'\n'</code>), which is the Unix convention.
+
+<p>Note that there is no combination of these flags that will just
+replace output line feeds with carriage returns (without a following
+line feed).  You might expect that <code>ONLCR</code> is exactly
+complementary to <code>ICRNL</code>, but the latter replaces a single
+character (<code>'\r'</code>) with a single character (<code>'\n'</code>) on
+input, whereas the former replaces a single character (<code>'\n'</code>)
+with two characters (<code>'\r'</code> and <code>'\n'</code>) on output.
+
+</p><h4>Stripping 8-bit characters</h4>
+
+<p>The ASCII character set contains only 128 distinct characters: it fits
+entirely into seven bits.  Nonetheless, when reading or writing data
+to a terminal device, characters are always padded so that every
+character occupies exactly one byte, irregardless of the configured
+number of bits per character (see <a href="#Bits%20and%20Characters">Bits and Characters</a>).  These
+settings only affect the number of bits that are put on the wire by
+the UART; the operating system must still provide the UART with one
+byte per character transmitted and the user program with one byte per
+character received.
+
+</p><p>Since the ASCII character set fits in seven bits, but a program
+reading from a terminal device reads one byte (eight bits) per
+character, it is sometimes useful to be able to strip the eighth, most
+significant bit off of input characters (in practice, this means
+setting it to zero).  The input mode flag <code>ISTRIP</code> is provided
+for precisely this purpose:
+<br></p><pre>  tios.c_iflag |= ISTRIP;
+</pre>
+
+<p>The most likely scenario where this flag is useful is if the
+communication channel is configured for parity and seven bits per
+character.  In this case, the eigth bit on every received character is
+a parity bit, not part of the data payload.  The user program does not
+need to know the value of the parity bit to check for parity errors;
+the device driver will check parity automatically if the <code>PARENB</code>
+control mode flag and the <code>INPCK</code> input mode flag are set
+(see <a href="#termios%20Input%20and%20Output%20Modes">termios Input and Output Modes</a>).
+
+</p><h4>Breaks</h4>
+
+<p>The single out of band signal supported by most UARTs is the break
+(see <a href="#Break">Break</a>).  Transmission of a break is mean to signal an
+exceptional condition, and a program reading from a serial port can
+choose how it wants to deal with these sorts of exceptions.  Two input
+mode flags are provided to configure how breaks are handled, namely
+<code>IGNBRK</code> and <code>BRKINT</code>.  If <code>IGNBRK</code> is set, then break
+conditions are ignored.  If <code>IGNBRK</code> is cleared and <code>BRKINT</code>
+is set then a <code>SIGINT</code> signal will be sent to the foreground
+process group associated with the terminal (see <a href="#Sessions%20groups%20processes">Sessions groups processes</a>).
+
+</p><p>(experiment: what if both IGNBRK and BRKINT clear?)
+
+</p><h4>Software flow control</h4>
+
+<p>Two ASCII characters can be set aside for purposes of flow control. 
+Traditionally, these are <kbd>&lt;Ctrl&gt;-s</kbd> (ASCII DC3, <code>'\023'</code>)
+and <kbd>&lt;Ctrl&gt;-q</kbd> (ASCII DC1, <code>'\021'</code>), but the actual
+values at any time can be accessed by reading or writing the values of
+<code>tios.c_cc[VSTOP]</code> and <code>tios.c_cc[VSTART]</code>, respectively. 
+If the <code>IXON</code> input mode flag is set, then the device driver will
+suspend output to the terminal device (by putting the process to sleep
+the next time it tries to write to the device) when it inputs
+(receives) the STOP character on input.  Output is resumed (by waking
+up the process) when the device driver receives the START character on
+input.  Since the START/STOP characters control the flow of output,
+this is called "output flow control".
+
+</p><p>Conversely, if the <code>IXOFF</code> input mode flag is set, then the
+device driver will output (transmit) the STOP character if the input
+buffer is filling faster than programs are reading it, and output the
+START character once enough space becomes available.  In this case, it
+is the responsibility of the hardware connected to the serial port
+(e.g. a terminal) to stop transmitting data when it receives the STOP
+character until it receives a START.  Here, then, the START/STOP
+characters control the flow of input, and therefore this is called
+"input flow control".
+
+<a name="termios Local Modes"></a>
+
+</p><h3><code>termios</code> Local Modes</h3>
+
+<p>The high-level input processing settings available in
+<code>tios.c_lflag</code> mask are mostly to control the ways that
+characters are echoed.  In this context, echo means that the device
+driver will transmit every character received back to the terminal
+connected to the serial port.  This is the preferred setting, unless
+the terminal itself has a "local echo" enabled.  There are some
+additional wrinkles to this behavior having to do with how erase
+characters are echoed that are rarely used these days since they are
+intended for hardcopy terminals.  However, there is one very important
+flag, <code>ICANON</code>, that deserves a more detailed treatment.
+
+</p><h4>Canonical Input Processing</h4>
+
+<p>Recall the model of a character-cell terminal connected to a serial
+port providing a user with an interactive shell.  The user types
+command lines, and the shell executes them.  The role of the operating
+system kernel is to deliver the command lines to the shell and their
+output to the terminal.  Typically, the shell process is sleeping in a
+blocking read, waiting for input from the user.  The kernel will
+receive an interrupt for every character typed by the user.  It could
+pass the characters on to the shell one at a time as they are typed,
+but this is inefficient because the shell works with input one line at
+a time (i.e. it doesn't do anything until you hit return), and there
+is a fairly high probability that any line of input will contain at
+least one correction (remember, the backspace character is also an
+ASCII character, <code>\010</code>, and is treated like any other by the
+serial port hardware).  So if the device driver itself could buffer
+the input into lines, which implies that it must also handle
+corrections, then the shell process can be left sleeping until the
+input is really ready for it to do something with it.  This greatly
+reduces the amount of context-switching.
+
+</p><p>This is precisely the meaning of "canonical input processing": if
+the serial port is configured for canonical input processing (i.e. the
+<code>ICANON</code> bit is set in the local modes, <code>tios.c_lflag</code>) then
+the device driver will buffer input into lines and a process reading
+from the serial port will block until a carriage-return is read. (XXX:
+experiment with clearing icrnl).  Since this implies that the device
+driver will also have to handle the correction characters (backspace,
+word erase, line erase, etc.), there are a number of additional
+settings available to control how this will be done, and in particular
+how erasures will be echoed to the terminal: <code>ECHO</code>,
+<code>ECHOE</code>, <code>ECHOPRT</code>, <code>ECHOK</code>, <code>ECHOKE</code> and
+<code>ECHONL</code>.  The usual default settings for these flags (with
+canonical input processing) are
+<br></p><pre>    tios.c_lflag |= (ICANON | ECHO | ECHOE | ECHOK | ECHOKE
+                     | ECHONL);
+    tios.c_lflag &amp;= ~(ECHOPRT);
+</pre>
+In practice, these flags should only deviate from the defaults if
+the device connected to the serial port is not a terminal, or if it is
+a hardcopy (printing) terminal.  For complete details, see
+<a href="http://www.gnu.org/manual/glibc-2.2.5/html_node/Local-Modes.html#Local%20Modes">The GNU C Library Reference Manual</a>.
+
+<h4>Non-Canonical Input Processing</h4>
+
+<p>Since an interactive shell is not the only process that might read
+from a serial port, there has to be some provision for running a
+serial port without canonical input processing.  The important
+question is one of buffering input.  In canonical mode, input is
+buffered one line at a time, in non-canonical modes the amount of
+buffering is determined by two parameters in the <code>termios</code>
+structure: <code>tios.c_cc[VMIN]</code> and <code>tios.c_cc[VTIME]</code>.  The
+notion is that <code>VMIN</code> specifies the minimum number of characters
+to buffer and <code>VTIME</code> the maximum amount of inter-character time
+(in tenths of a second) before the device driver returns the buffered
+input to a process reading from the serial port.  The precise
+interactions between the two parameters are subtle, once again full
+details are found in
+<a href="http://www.gnu.org/manual/glibc-2.2.5/html_node/Noncanonical-Input.html#Noncanonical%20Input">The GNU C Library Reference Manual</a>.
+
+<a name="stty"></a>
+
+</p><h3><code>stty</code></h3>
+
+<p>The <code>stty(1)</code> command provides access to the <code>termios</code>
+settings from the command shell.  The easy way to find the current
+termios settings for the controlling terminal of a running login shell
+is to type the command <code>stty -a</code>, which produces output
+similar to the following:
+<br></p><pre>$ stty -a
+speed 38400 baud; rows 24; columns 80; line = 0;
+intr = ^C; quit = ^\; erase = ^?; kill = ^U; eof = ^D;
+eol = &lt;undef&gt;; eol2 = &lt;undef&gt;; start = ^Q; stop = ^S;
+susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V; flush = ^O;
+min = 1; time = 0;
+-parenb -parodd cs8 -hupcl -cstopb cread -clocal -crtscts
+-ignbrk -brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr
+icrnl ixon -ixoff -iuclc -ixany -imaxbel
+opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0
+cr0 tab0 bs0 vt0 ff0
+isig icanon iexten echo echoe echok -echonl -noflsh -xcase
+-tostop -echoprt echoctl echoke
+</pre>
+For the most part, all of the settings shown above exist in one-to-one
+correspondence to <code>termios</code> settings.  The speed setting is
+obvious.  Settings prefixed with a
+<code>-</code> in the list are negated.
+
+<a name="Accessing the Modem Control Signals"></a>
+
+<h3>Accessing the Modem Control Signals</h3>
+
+<p>Getting the modem control signals.
+<br></p><pre>    int flags;
+    ioctl(fd, TIOCMGET, &amp;flags );
+    if ( flags &amp; TIO_F_RTS ) puts(" RTS");
+    if ( flags &amp; TIO_F_CTS ) puts(" CTS");
+    if ( flags &amp; TIO_F_DSR ) puts(" DSR");
+    if ( flags &amp; TIO_F_DTR ) puts(" DTR");
+    if ( flags &amp; TIO_F_DCD ) puts(" DCD");
+    if ( flags &amp; TIO_F_RI  ) puts(" RI");
+</pre>
+<code>TIOCMSET</code>
+
+<a name="Serial ports and getty"></a>
+
+<h2>Serial ports and getty</h2>
+
+<a name="init getty login"></a>
+
+<h2>init, getty and login</h2>
+
+<a name="Alternatives to getty"></a>
+
+<h2>Alternatives to getty: agetty</h2>
+
+<a name="Modem gettys"></a>
+
+<h2>Modem gettys: mgetty and vgetty</h2>
+
+<a name="Sessions groups processes"></a>
+
+<h2>Sessions, groups and processes</h2>
+
+<a name="Controlling terminals and daemons"></a>
+
+<h2>Controlling terminals and daemons</h2>
+
+<a name="Terminal Signals"></a>
+
+<h2>Terminal Signals</h2>
+
+<p>SIGTTIN SIGTTOU SIGWINCH SIGTSTP
+
+<a name="Serial consoles"></a>
+
+</p><h2>Serial consoles</h2>
+
+<p>Console cannot be a controlling tty.
+
+<a name="Linux virtual terminals and mingetty"></a>
+
+</p><h2>Linux virtual terminals and mingetty</h2>
+
+<p>openvt(1), doshell(8) and switchto(1) commands
+
+<a name="Major types of terminals"></a>
+
+</p><h2>Major types of terminals</h2>
+
+<p>DEC VT100, Tektronix 4014, IBM 3270
+
+<a name="The TERM environment variable"></a>
+
+</p><h2>The TERM environment variable</h2>
+
+<a name="termcap and terminfo"></a>
+
+<h2>Terminal independence 1: termcap and terminfo</h2>
+
+<a name="curses and ncurses"></a>
+
+<h2>Terminal independence 2: curses and ncurses</h2>
+
+<a name="Pseudo-terminals"></a>
+
+<h2>Pseudo-terminals</h2>
+
+<a name="network virtual terminal"></a>
+
+<h2>telnet: the network virtual terminal</h2>
+
+<a name="xterm"></a>
+
+<h2>The xterm terminal emulator</h2>
+
+<a name="X terminals"></a>
+
+<h2>X terminals</h2>
+
+<a name="Resources"></a>
+
+<h2>Resources</h2>
+
+<ul>
+<li><a href="http://www.tldp.org/HOWTO/Serial-HOWTO.html">Linux Serial HOWTO</a>
+</li><li><a href="http://www.tldp.org/HOWTO/Serial-Programming-HOWTO.html">Linux Serial Programming HOWTO</a>
+</li><li><a href="http://www.tldp.org/HOWTO/Modem-HOWTO.html">Linux Modem HOWTO</a>
+</li><li><a href="http://www.cs.utk.edu/%7Eshuford/terminal_index.html">Richard Shuford's Video Terminal Information Page</a>
+</li><li><a href="http://www.vt100.net/">Terminal Information</a>
+</li><li><a href="http://dickey.his.com/xterm/xterm.html">Thomas Dickey's xterm page</a>
+</li><li><a href="http://dickey.his.com/ncurses/ncurses.html">Thomas Dickey's ncurses page</a>
+</li></ul>
+
+<a name="Concept Index"></a>
+
+<h2>Concept Index</h2>
+
+<ul compact="compact">
+<li>agetty: <a href="#Introduction">Introduction</a>
+</li><li>asynchronous: <a href="#Timing%20and%20Voltages">Timing and Voltages</a>
+</li><li>break: <a href="#Break">Break</a>
+</li><li>controlling terminal: <a href="#Introduction">Introduction</a>
+</li><li>CTS: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>data bits: <a href="#Bits%20and%20Characters">Bits and Characters</a>
+</li><li>DCD: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>DCE: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>DSR: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>DTE: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>DTR: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>framing error: <a href="#Bit%20Errors">Bit Errors</a>
+</li><li>inittab: <a href="#Introduction">Introduction</a>
+</li><li>mark: <a href="#Timing%20and%20Voltages">Timing and Voltages</a>
+</li><li>modem: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>null modem: <a href="#Pin%20Assignments">Pin Assignments</a>, <a href="#Introduction">Introduction</a>
+</li><li>overrun: <a href="#Bit%20Errors">Bit Errors</a>
+</li><li>parity: <a href="#Bits%20and%20Characters">Bits and Characters</a>
+</li><li>parity error: <a href="#Bit%20Errors">Bit Errors</a>
+</li><li>ps: <a href="#Introduction">Introduction</a>
+</li><li>pseudo-terminal: <a href="#Introduction">Introduction</a>
+</li><li>RI: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>RTS: <a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li>RXD: <a href="#Pin%20Assignments">Pin Assignments</a>
+</li><li>serial: <a href="#Timing%20and%20Voltages">Timing and Voltages</a>
+</li><li>SG: <a href="#Pin%20Assignments">Pin Assignments</a>
+</li><li>space: <a href="#Timing%20and%20Voltages">Timing and Voltages</a>
+</li><li>start bit: <a href="#Bits%20and%20Characters">Bits and Characters</a>
+</li><li>stop bits: <a href="#Bits%20and%20Characters">Bits and Characters</a>
+</li><li>synchronous: <a href="#Timing%20and%20Voltages">Timing and Voltages</a>
+</li><li>TXD: <a href="#Pin%20Assignments">Pin Assignments</a>
+</li><li>UART: <a href="#The%20UART">The UART</a>
+</li><li>voltages: <a href="#Timing%20and%20Voltages">Timing and Voltages</a>
+</li></ul>
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top"></a>
+    <a href="#Top">Terminal Concepts in Linux</a>
+</li><li><a name="toc_Introduction"></a>
+    <a href="#Introduction">Introduction</a>
+</li><li><a name="toc_Asynchronous Serial Communications"></a>
+    <a href="#Asynchronous%20Serial%20Communications">Asynchronous Serial Communications</a>
+<ul>
+<li><a href="#Timing%20and%20Voltages">Timing and voltages</a>
+</li><li><a href="#Bits%20and%20Characters">Bits and Characters</a>
+</li><li><a href="#Bit%20Errors">Bit errors</a>
+</li><li><a href="#Break">Break</a>
+</li><li><a href="#Modem%20Control%20Signals">Modem Control Signals</a>
+</li><li><a href="#Pin%20Assignments">Pin Assignments</a>
+</li><li><a href="#The%20UART">The UART</a>
+</li></ul>
+</li><li><a name="toc_Operating System Support"></a>
+    <a href="#Operating%20System%20Support">Operating System Support</a>
+<ul>
+<li><a href="#Device%20Drivers">Device Drivers</a>
+</li><li><a href="#Special%20Files">Special Files</a>
+</li></ul>
+</li><li><a name="toc_ioctl and termios"></a>
+    <a href="#ioctl%20and%20termios"><code>ioctl</code> and <code>termios</code></a>
+<ul>
+<li><a href="#termios%20Control%20Modes"><code>termios</code> Control Modes</a>
+</li><li><a href="#termios%20Input%20and%20Output%20Modes"><code>termios</code> Input/Output Modes</a>
+<ul>
+<li><a href="#termios%20Input%20and%20Output%20Modes">Parity</a>
+</li><li><a href="#termios%20Input%20and%20Output%20Modes">Carriage Return and Line Feed</a>
+</li><li><a href="#termios%20Input%20and%20Output%20Modes">Stripping 8-bit characters</a>
+</li><li><a href="#termios%20Input%20and%20Output%20Modes">Breaks</a>
+</li><li><a href="#termios%20Input%20and%20Output%20Modes">Software flow control</a>
+</li></ul>
+</li><li><a href="#termios%20Local%20Modes"><code>termios</code> Local Modes</a>
+<ul>
+<li><a href="#termios%20Local%20Modes">Canonical Input Processing</a>
+</li><li><a href="#termios%20Local%20Modes">Non-Canonical Input Processing</a>
+</li></ul>
+</li><li><a href="#stty"><code>stty</code></a>
+</li><li><a href="#Accessing%20the%20Modem%20Control%20Signals">Accessing the Modem Control Signals</a>
+</li></ul>
+</li><li><a name="toc_Serial ports and getty"></a>
+    <a href="#Serial%20ports%20and%20getty">Serial ports and getty</a>
+</li><li><a name="toc_init getty login"></a>
+    <a href="#init%20getty%20login">init, getty and login</a>
+</li><li><a name="toc_Alternatives to getty"></a>
+    <a href="#Alternatives%20to%20getty">Alternatives to getty: agetty</a>
+</li><li><a name="toc_Modem gettys"></a>
+    <a href="#Modem%20gettys">Modem gettys: mgetty and vgetty</a>
+</li><li><a name="toc_Sessions groups processes"></a>
+    <a href="#Sessions%20groups%20processes">Sessions, groups and processes</a>
+</li><li><a name="toc_Controlling terminals and daemons"></a>
+    <a href="#Controlling%20terminals%20and%20daemons">Controlling terminals and daemons</a>
+</li><li><a name="toc_Terminal Signals"></a>
+    <a href="#Terminal%20Signals">Terminal Signals</a>
+</li><li><a name="toc_Serial consoles"></a>
+    <a href="#Serial%20consoles">Serial consoles</a>
+</li><li><a name="toc_Linux virtual terminals and mingetty"></a>
+    <a href="#Linux%20virtual%20terminals%20and%20mingetty">Linux virtual terminals and mingetty</a>
+</li><li><a name="toc_Major types of terminals"></a>
+    <a href="#Major%20types%20of%20terminals">Major types of terminals</a>
+</li><li><a name="toc_The TERM environment variable"></a>
+    <a href="#The%20TERM%20environment%20variable">The TERM environment variable</a>
+</li><li><a name="toc_termcap and terminfo"></a>
+    <a href="#termcap%20and%20terminfo">Terminal independence 1: termcap and terminfo</a>
+</li><li><a name="toc_curses and ncurses"></a>
+    <a href="#curses%20and%20ncurses">Terminal independence 2: curses and ncurses</a>
+</li><li><a name="toc_Pseudo-terminals"></a>
+    <a href="#Pseudo-terminals">Pseudo-terminals</a>
+</li><li><a name="toc_network virtual terminal"></a>
+    <a href="#network%20virtual%20terminal">telnet: the network virtual terminal</a>
+</li><li><a name="toc_xterm"></a>
+    <a href="#xterm">The xterm terminal emulator</a>
+</li><li><a name="toc_X terminals"></a>
+    <a href="#X%20terminals">X terminals</a>
+</li><li><a name="toc_Resources"></a>
+    <a href="#Resources">Resources</a>
+</li><li><a name="toc_Concept Index"></a>
+    <a href="#Concept%20Index">Concept Index</a>
+</li></ul>
+
+
+
+
+<hr><h4>Footnotes</h4>
+<ol type="1">
+<li><a name="fn-1"></a>
+<p> There are devices that are called terminals but fail to
+meet either of these criteria.  Notable examples are the venerable IBM
+3270 series of terminals which connect to an SNA network (usually a
+3174 establishment controller) via coaxial connectors and speak
+EBCDIC.  These differences reflect the very different philosophy of
+mainframe computing as opposed to the minicomputer environment of Unix
+and VMS.  When minicomputers were introduced by Digital Equipment
+Corporation, the concept of a user terminal generating an interrupt on
+the main CPU for <em>every character typed</em> was revolutionary;
+contemporaneously, IBM was using specialized equipment (establishment
+controllers, communications controllers, front-end processors, etc.) 
+to offload communications functions from the mainframe.  IBM's
+terminals operated one page at a time; DEC's terminals operated one
+character at a time.  This could be the subject of a very interesting
+article, but it is beyond the scope of this one, so let us stick to
+our original working definition of a terminal and leave it to the
+pedants to figure out where these other beasts fit in the terminal
+taxonomy.</p>
+
+</li><li><a name="fn-2"></a>
+<p>There are two more
+possible parity settings, rarely seen, called "mark" and "space"
+parity.  If one of these settings is chosen, the transmitted parity
+bit is always a mark or a space, respectively.</p>
+
+</li><li><a name="fn-3"></a>
+<p>The
+Linux system calls are declared in the file
+<code>/usr/include/linux/syscall.h</code>.  The assembly traps are found in
+<code>/usr/src/linux/arch/i386/entry.S</code></p>
+
+</li><li><a name="fn-4"></a>
+<p>The
+only difference that comes to mind is that most libraries are
+dynamically loaded and the code is shared by all processes using the
+library simultaneously.</p>
+
+</li><li><a name="fn-5"></a>
+<p>Since major
+numbers identify device drivers, there has to be a convention
+specifying which number corresponds to each device driver.  This can
+be found in the file <code>/usr/src/linux/Documentation/devices.txt</code>.</p>
+
+</li><li><a name="fn-6"></a>
+<p>It could reasonably be argued that the
+purpose of pseudo-terminals, virtual terminals that do not have
+physical UARTs and do not modify their behavior in response to
+<code>ioctl(2)</code>s changing UART settings, is to provide these non-UART
+settings and behaviors to interactive programs like the shell in
+situations when there is no real UART involved such as a network login
+or X Windows session.  See <a href="#Pseudo-terminals">Pseudo-terminals</a>.</p>
+
+</li><li><a name="fn-7"></a>
+<p>In fact, input and output speeds can be set independently
+to unequal values using the <code>cfsetispeed</code> and <code>cfsetospeed</code>
+functions, but this is rarely done in practice.</p>
+
+</li><li><a name="fn-8"></a>
+<p>The
+GNU C Library actually allows input (RTS) and output (CTS) flow
+control to be independently controlled using the <code>CCTS_OFLOW</code> and
+<code>CRTS_IFLOW</code> flags.</p>
+
+</li></ol><hr>
+
+
+
+</body></html>

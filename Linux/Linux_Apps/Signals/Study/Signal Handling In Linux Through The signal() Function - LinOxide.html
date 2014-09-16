@@ -1,0 +1,779 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html style="height: 100%;" xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11"><link rel="stylesheet" type="text/css" href="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/VYxLDoAgDEQvZFM9EtaKRKWE1t_tReNCFpNM8mZei0eCwe0hUkC1a-Gmw9ER.css" media="all">
+<script async="" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/cbgapi.loaded_1"></script><script async="" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/cbgapi.loaded_0"></script><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/ga.js" async="" type="text/javascript"></script><script gapi_processed="true" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/plusone.js" async="" type="text/javascript"></script><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/all.js" id="facebook-jssdk"></script><script type="text/javascript" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/jYtLDsIwDEQvVGMQXCh1ndRtfjgJpLcvZcGmGxYjjea9eSClEDhWUM5-uwSJw.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+<link rel="pingback" href="http://linoxide.com/xmlrpc.php">
+
+<!--[if lt IE 9]>
+<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+
+
+<style type="text/css">
+		.stpulldown-gradient
+		{
+			background: #E1E1E1;
+			background: -moz-linear-gradient(top, #E1E1E1 0%, #A7A7A7 100%); /* firefox */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E1E1E1), color-stop(100%,#A7A7A7)); /* webkit */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E1E1E1', endColorstr='#A7A7A7',GradientType=0 ); /* ie */
+			background: -o-linear-gradient(top, #E1E1E1 0%,#A7A7A7 100%); /* opera */
+			color: #636363;
+		}
+		#stpulldown .stpulldown-logo
+		{
+			height: 40px;
+			width: 300px;
+			margin-left: 20px;
+			margin-top: 5px;
+			background:url('') no-repeat;
+		}
+</style>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.22 - http://yoast.com/wordpress/seo/ -->
+<title>Signal Handling In Linux Through The signal() Function - LinOxide</title>
+<meta name="description" content="In this article, we will discuss the practical aspects of signal handling in Linux through the signal() function.">
+<link rel="canonical" href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Signal Handling In Linux Through The signal() Function - LinOxide">
+<meta property="og:description" content="In this article, we will discuss the practical aspects of signal handling in Linux through the signal() function.">
+<meta property="og:url" content="http://linoxide.com/how-tos/signal-handling-linux-signal-function/">
+<meta property="og:site_name" content="LinOxide">
+<meta property="article:section" content="HOWTOS">
+<meta property="article:section" content="PROGRAMMING">
+<meta property="article:published_time" content="2013-12-05T03:15:58+00:00">
+<meta property="article:modified_time" content="2013-12-09T17:57:36+00:00">
+<meta property="og:image" content="http://linoxide.com/wp-content/uploads/2013/12/c-signal-function.jpg">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="LinOxide » Feed" href="http://linoxide.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="LinOxide » Comments Feed" href="http://linoxide.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="LinOxide » Signal Handling In Linux Through The signal() Function Comments Feed" href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/feed/">
+
+
+
+
+
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var lb_l_ret = {"fb_id":"261363770562299","display_on_page":"1","display_on_post":"1","display_on_homepage":"1","show_once":"3","delay":"1000","fancybox":"","facebookheader":"","gaevent":"","eam":"","display_on_archive":"","hideonlike":""};
+/* ]]> */
+</script>
+
+
+
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://linoxide.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://linoxide.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 3.8">
+<link rel="shortlink" href="http://linoxide.com/?p=5811">
+<script charset="utf-8" type="text/javascript">var switchTo5x=false;</script><script charset="utf-8" type="text/javascript" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/buttons.js"></script><script charset="utf-8" type="text/javascript">stLight.options({publisher:"wp.49c554d3-aed4-4b86-b620-53166ddd01a2" });var st_type='wordpress3.5.1';</script>
+<!-- Alternate Stylesheet -->
+
+
+<!-- Custom Styles from Theme Setting Page -->
+<style type="text/css">
+a,a:link,a:visited {color:#0d3dff;}
+#sitetitle .title,#sitetitle .description {float:none;text-indent:-999em;position:absolute;display:none;left:-999em;}
+#topnav,#topnav ul ul a {font-size:11pt;font-weight:bold;font-family:Arial,Helvetica,sans-serif;background:#84bec7;}
+#topnav {border:0;}
+#topnav ul ul,#topnav ul ul a {border-color:#fff;}
+#topnav ul li.searchform {padding-right:4px;padding-left:4px;}
+#topnav ul a,#topnav ul ul a {color:#ffffff;}
+#topnav ul a:hover,#topnav ul ul a:hover {color:#1f19e0;}
+#catnav,#catnav ul ul a {font-size:11pt;font-weight:bold;font-family:Arial,Helvetica,sans-serif;background-color:#84bec7;}
+#catnav {border:0;} #catnav ul ul,#catnav ul ul a {border-color:#fff;}
+#catnav ul a,#catnav ul ul a {color:#ffffff;}
+#catnav ul a:hover,#catnav ul ul a:hover {color:#1f19e0;}
+#footer {font-size:8pt;}
+</style>
+
+<!-- Styles from custom.css -->
+
+
+
+<!-- Dynamic Widgets v1.5.6 by QURL - http://www.qurl.nl //-->
+
+<link href="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/translateelement.css" charset="UTF-8" rel="stylesheet" type="text/css"><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/main.js" charset="UTF-8" type="text/javascript"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/getAppDefault.esi" type="text/javascript"></script><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/checkOAuth.esi" type="text/javascript"></script><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/element_main.js" charset="UTF-8" type="text/javascript"></script><link href="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/buttons.css" type="text/css" rel="stylesheet"><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/getCount2.php" type="text/javascript"></script><script gapi_processed="true" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/plusone.js" type="text/javascript"></script></head>
+
+<body style="position: relative; min-height: 100%; top: 0px;" onclick="if(stWidget.buttonClicked==false){stWidget.stopClosing=false;stWidget.openDuration=0;stWidget.stClose(100);}" class="single single-post postid-5811 single-format-standard c-sw">
+
+<div id="outer-wrap">
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="wrap">
+
+		<div id="header">
+			<div id="head-content" class="clearfix">
+									<div id="logo">
+						<a href="http://linoxide.com/" title="LinOxide"><img src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/linoxide-banner.jpg" alt="LinOxide"></a>
+					</div>
+											</div>
+		</div>
+
+		<div id="topnav">
+			<div class="limit clearfix">
+									<ul class="clearfix">
+						<li id="menu-item-3838" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3838"><a href="http://www.linoxide.com/">HOME</a></li>
+<li id="menu-item-5758" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5758"><a href="http://linoxide.com/category/news/">NEWS</a></li>
+<li id="menu-item-5780" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-5780"><a href="http://linoxide.com/category/opensource/">OPENSOURCE</a>
+<ul class="sub-menu">
+	<li id="menu-item-3856" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3856"><a href="http://linoxide.com/category/ubuntu-how-to/">UBUNTU</a></li>
+	<li id="menu-item-3872" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3872"><a href="http://linoxide.com/category/linux-troubleshooting/">TROUBLESHOOTING</a></li>
+	<li id="menu-item-3862" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3862"><a href="http://linoxide.com/category/tools/">OPEN SOURCE TOOLS</a></li>
+	<li id="menu-item-5571" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5571"><a href="http://linoxide.com/category/webserver/">WEB SERVERS</a></li>
+</ul>
+</li>
+<li id="menu-item-3839" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-3839"><a href="http://linoxide.com/category/how-tos/">HOWTOS</a>
+<ul class="sub-menu">
+	<li id="menu-item-3857" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3857"><a href="http://linoxide.com/category/file-system/">FILE SYSTEM</a></li>
+	<li id="menu-item-3866" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3866"><a href="http://linoxide.com/category/usr-mgmt/">USER MANAGEMENT</a></li>
+	<li id="menu-item-3858" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-3858"><a href="http://linoxide.com/category/firewall/">FIREWALL</a>
+	<ul class="sub-menu">
+		<li id="menu-item-3859" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3859"><a href="http://linoxide.com/category/iptables/">LINUX IPTABLES</a></li>
+	</ul>
+</li>
+	<li id="menu-item-3865" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3865"><a href="http://linoxide.com/category/storage/">STORAGE</a></li>
+	<li id="menu-item-3861" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3861"><a href="http://linoxide.com/category/monitoring-2/">MONITORING</a></li>
+	<li id="menu-item-3863" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3863"><a href="http://linoxide.com/category/samba/">SAMBA</a></li>
+	<li id="menu-item-3864" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3864"><a href="http://linoxide.com/category/security/">SECURITY</a></li>
+	<li id="menu-item-3880" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3880"><a href="http://linoxide.com/category/netwrk/">NETWORK</a></li>
+</ul>
+</li>
+<li id="menu-item-3855" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-3855"><a href="http://linoxide.com/category/linux-how-to/">LINUX HOWTO</a>
+<ul class="sub-menu">
+	<li id="menu-item-3860" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3860"><a href="http://linoxide.com/category/linux-command/">LINUX COMMANDS</a></li>
+	<li id="menu-item-5784" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5784"><a href="http://linoxide.com/category/linux-shell-script/">LINUX SHELL SCRIPT</a></li>
+</ul>
+</li>
+<li id="menu-item-3844" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3844"><a href="http://linoxide.com/about/">ABOUT</a></li>
+<li id="menu-item-4044" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4044"><a href="http://linoxide.com/contact-us/">CONTACT US</a></li>
+						<li class="searchform"><form id="searchform" method="get" action="http://linoxide.com/"><input value="Enter Search Terms" onfocus="if (this.value == 'Enter Search Terms') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Enter Search Terms';}" size="18" maxlength="50" name="s" id="searchfield" type="text"><input value="search" id="submitbutton" type="submit"></form>
+</li>
+					</ul>
+							</div>
+		</div>
+
+		
+		
+<p></p>
+
+<div class="breadcrumbs">
+    <!-- Breadcrumb NavXT 5.0.1 -->
+<a title="Go to LinOxide." href="http://linoxide.com/" class="home">LinOxide</a> &gt; <a title="Go to the HOWTOS category archives." href="http://linoxide.com/category/how-tos/" class="taxonomy category">HOWTOS</a> &gt; <a title="Go to the PROGRAMMING category archives." href="http://linoxide.com/category/how-tos/programs/" class="taxonomy category">PROGRAMMING</a> &gt; Signal Handling In Linux Through The signal() Function</div>
+
+	
+	
+	<div id="page" class="clearfix">
+
+		<div id="contentleft">
+
+			
+			
+			
+			<div id="content" class="maincontent">
+
+				
+				
+
+				<div class="singlepost">
+
+					<div class="post" id="post-main-5811">
+
+						<div class="entry">
+
+							<h1 class="post-title single"><a href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/" rel="bookmark" title="Permanent Link to Signal Handling In Linux Through The signal() Function">Signal Handling In Linux Through The signal() Function</a></h1>
+
+							<div class="meta single">
+
+	<span class="meta-date">
+		December 5, 2013 | 
+	</span> 
+
+	<span class="meta-author">
+		By <a href="http://linoxide.com/author/himanshu/" title="Posts by Himanshu Arora" rel="author">Himanshu Arora</a> in <a href="http://linoxide.com/category/how-tos/" title="View all posts in HOWTOS" rel="category tag">HOWTOS</a>, <a href="http://linoxide.com/category/how-tos/programs/" title="View all posts in PROGRAMMING" rel="category tag">PROGRAMMING</a>	</span>
+
+		<span class="meta-comments">
+		 | <a href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/#comments" rel="bookmark" title="Comments for Signal Handling In Linux Through The signal() Function">Reply</a>
+	</span>
+	
+	<span class="readmore">
+		<a href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/" rel="nofollow" title="Permanent Link to Signal Handling In Linux Through The signal() Function">More</a>
+	</span>
+
+</div>
+							
+							<p>In the <a href="http://linoxide.com/linux-how-to/linux-signals-part-1/">part-1</a>
+ of this series on Linux signals, we discussed the fundamentals of 
+signals in Linux. In this article, we will discuss the practical aspects
+ of signal handling in Linux through the <strong>signal()</strong> function. All the explanations will be accompanied by practical examples.</p>
+<p><a href="http://linoxide.com/wp-content/uploads/2013/12/c-signal-function.jpg"><img src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/c-signal-function.jpg" alt="c signal function" class="aligncenter size-full wp-image-6397" width="435" height="321"></a></p>
+<p><span id="more-5811"></span></p>
+<h2>Signal Handlers</h2>
+<p>A signal handler is special function (defined in the software program
+ code and registered with the kernel) that gets executed when a 
+particular signal arrives. This causes the interruption of current 
+executing process and all the current registers are also saved. The 
+interrupted process resumes once the signal handler returns.</p>
+<h3>The signal() Function</h3>
+<p>The simplest way to register signal handler function with the kernel is by using the <strong>signal()</strong> function.</p>
+<p>Here is the syntax of <strong>signal()</strong> function :</p>
+<blockquote><p>#include &lt;signal.h&gt;</p>
+<p>typedef void (*sighandler_t)(int);</p>
+<p>sighandler_t signal(int signum, sighandler_t handler);</p></blockquote>
+<p>So you can see that a signal handler is a function that accepts an 
+integer argument but returns void. The signal handler can be registered 
+with kernel using the <strong>signal()</strong> function (described 
+above) that accepts a particular signal number and signal handler 
+function name (though there can be other values for the second argument 
+but we will discuss them later).</p>
+<p>Here is a working example of signal handling in Linux through the <strong>signal()</strong> function :</p>
+<blockquote><p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;signal.h&gt;<br>
+#include &lt;unistd.h&gt;</p>
+<p>void sig_handler(int sig_num)<br>
+{<br>
+if(sig_num == SIGINT)<br>
+{<br>
+printf(“\n Caught the SIGINT signal\n”);<br>
+}<br>
+else<br>
+{<br>
+printf(“\n Caught the signal number [%d]\n”, sig_num);<br>
+}</p>
+<p>// Do all the necessary clean-up work here</p>
+<p>exit(sig_num);<br>
+}</p>
+<p>int main(void)<br>
+{<br>
+//Register signal handler through the signal() function<br>
+signal(SIGINT, sig_handler);</p>
+<p>while(1)<br>
+{<br>
+//simulate a delay -- as if the program is doing some other stuff<br>
+sleep(1);<br>
+}</p>
+<p>return 0;<br>
+}</p></blockquote>
+<p>In the program code shown above :</p>
+<ul>
+<li>Inside the main() function, the signal() function is used to register a handler (sig_handler()) for <strong>SIGINT</strong> signal.</li>
+<li>The while loop simulates an infinite delay. So, the program waits for <strong>SIGNIT</strong> signal infinitely.</li>
+<li>The signal handler ‘sig_handler’ prints a debug statement by checking if the desired signal is <strong>SIGINT</strong> or not.</li>
+<li>The signal handler is mostly used to do all the clean-up and other related stuff after a signal is delivered to a process.</li>
+</ul>
+<p>Here is the output of this program :</p>
+<blockquote><p>$ ./sig_example<br>
+^C<br>
+Caught the SIGINT signal</p></blockquote>
+<p>So you can see that the program (sig_example) was executed and then the signal <strong>SIGINT</strong>
+ is passed to it by pressing the Ctrl+c key combination. As can be seen 
+from the debug print in the output, the signal handler was executed as 
+soon as the signal <strong>SIGINT</strong> was delivered to the process.</p>
+<h3>Disposition Of A Signal</h3>
+<p>To understand the concept of disposition of a signal, lets revisit the declaration of signal function :</p>
+<blockquote><p>sighandler_t signal(int signum, sighandler_t handler);</p></blockquote>
+<p>The second argument to the signal() function is known as the 
+disposition of a signal. As of now, we learned that the second argument 
+is a signal handling function but this is not the only type of signal 
+disposition method. Other ways of disposition of a a signal are to 
+specify <strong>SIG_IGN</strong> or <strong>SIG_DFL</strong> as the second argument to the signal function.</p>
+<p>If the disposition is set to <strong>SIG_IGN</strong> then the signal (passed as the first argument to <strong>signal()</strong> function) is ignored and not delivered to the process but if the disposition is set to <strong>SIG_DFL</strong> then the default action corresponding to that signal is taken.</p>
+<p>Here is an example of a code that ignores the <strong>SIGINT</strong> signal :</p>
+<blockquote><p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;signal.h&gt;<br>
+#include &lt;unistd.h&gt;</p>
+<p>int main(void)<br>
+{<br>
+//Register signal handler through the signal() function<br>
+signal(SIGINT, SIG_IGN);</p>
+<p>while(1)<br>
+{<br>
+//simulate a delay -- as if the program is doing some other stuff<br>
+sleep(1);<br>
+}</p>
+<p>return 0;<br>
+}</p></blockquote>
+<p>So you can see that there is no signal handler function now as the second argument to the signal function is replaced with <strong>SIG_IGN</strong>.</p>
+<p>Here is the output of this program :</p>
+<blockquote><p>$ ./sig_example<br>
+^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C^C</p></blockquote>
+<p>So you can see that despite of repeatedly pressing <strong>Ctrl+c</strong>, the process was not affected in any way. This is because the signal <strong>SIGINT</strong> (generated when <strong>Ctrl+c</strong> is pressed) is ignored.</p>
+<p>Similarly, here is a program code that leaves <strong>SIGINT</strong> to its default action :</p>
+<blockquote><p>#include &lt;stdio.h&gt;<br>
+#include &lt;stdlib.h&gt;<br>
+#include &lt;signal.h&gt;<br>
+#include &lt;unistd.h&gt;</p>
+<p>int main(void)<br>
+{<br>
+//Register signal handler through the signal() function<br>
+signal(SIGINT, SIG_DFL);</p>
+<p>while(1)<br>
+{<br>
+//simulate a delay -- as if the program is doing some other stuff<br>
+sleep(1);<br>
+}</p>
+<p>return 0;<br>
+}</p></blockquote>
+<p>So you can see that the second argument to the signal function (in the code shown above) is replaced with <strong>SIG_DFL</strong> in this case.</p>
+<p>And here is the output of this program :</p>
+<blockquote><p>$ ./sig_example<br>
+^C<br>
+$</p></blockquote>
+<p>So you can see that pressing <strong>Ctrl+c</strong> terminated the process because the default action of <strong>SIGINT</strong> is to terminate the process.</p>
+<h3>The signal() Function Limitations</h3>
+<p>Though the <strong>signal()</strong> function is the oldest and the easiest way to handle signals, it has a couple of major limitations :</p>
+<ul>
+<li>Other signals are not blocked by the signal() function while the 
+signal handler is executing for current signal. This may produce 
+undesired results.</li>
+<li>The signal action for a particular signal is reset to its default value i.e., <strong>SIG_DFL</strong>
+ as soon as the signal is delivered. This means that even if the signal 
+handler again sets the signal action as the first step, there is a 
+possible time window in which the signal may occur again while its 
+action is set to <strong>SIG_DFL</strong>.</li>
+</ul>
+<p>Due to these major limitations, it is now advised to use the function <strong>sigaction()</strong> that overcomes all these limitations.</p>
+<div id="crp_related" class="crp_related"><h3>You May Like Below Topics</h3><ul><li><a href="http://linoxide.com/linux-how-to/linux-signals-part-1/" class="crp_title">An Introduction To Linux Signals - Kill Command</a></li><li><a href="http://linoxide.com/how-tos/linux-last-command-records-user-logins-and-last-reboots/" class="crp_title">Linux Last Command - Records User Logins And Last Reboots</a></li><li><a href="http://linoxide.com/how-tos/kill-zombie-process-linux/" class="crp_title">What Is Zombie Process ? How To Kill Zombie Process In…</a></li><li><a href="http://linoxide.com/how-tos/linux-kill-process-grep-command/" class="crp_title">How To Use Linux Kill Command</a></li><li><a href="http://linoxide.com/linux-command/fg-bg/" class="crp_title">Fg/Bg Command - Linux Manage Process Foreground / Background</a></li><li><a href="http://linoxide.com/how-tos/example-how-to-use-linux-nohup-command/" class="crp_title">Example How To Use Linux nohup Command</a></li><li><a href="http://linoxide.com/how-tos/pointers-function-arrays-c/" class="crp_title">Pointer to Pointers, Function, Array in C</a></li><li><a href="http://linoxide.com/tools/gprof-performance-analysis-programs/" class="crp_title">gprof - A GNU Profiler For Performance Analysis Of Programs</a></li><li><a href="http://linoxide.com/linux-command/examples-linux-shutdown-commands/" class="crp_title">Examples - Linux Shutdown Commands</a></li><li><a href="http://linoxide.com/how-tos/cpu-bottleneck-linux/" class="crp_title">CPU Bottleneck - How To Use Vmstat , Mpstat and SAR Commands</a></li></ul></div>
+
+<span st_processed="yes" class="st_facebook_hcount" st_title="Signal Handling In Linux Through The signal() Function" st_url="http://linoxide.com/how-tos/signal-handling-linux-signal-function/"><span class="stButton" style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"><span><span style="background-image: url(&quot;http://w.sharethis.com/images/facebook_counter.png&quot;);" class="stMainServices st-facebook-counter">&nbsp;<img style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none;" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/check-big.png"></span><span class="stArrow"><span style="display: inline-block;" class="stButton_gradient stHBubble"><span class="stBubble_hcount">5</span></span></span></span></span></span><span st_processed="yes" class="st_plusone_hcount" st_title="Signal Handling In Linux Through The signal() Function" st_url="http://linoxide.com/how-tos/signal-handling-linux-signal-function/"><div style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:0px;width:75px; height:21px;">&nbsp;<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/fastbutton.html" name="I0_1389170839007" id="I0_1389170839007" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div></div></span><span st_processed="yes" class="st_twitter_hcount" st_title="Signal Handling In Linux Through The signal() Function" st_url="http://linoxide.com/how-tos/signal-handling-linux-signal-function/"><span class="stButton" style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"><span><span style="background-image: url(&quot;http://w.sharethis.com/images/twitter_counter.png&quot;);" class="stMainServices st-twitter-counter">&nbsp;<img style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none;" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/check-big.png"></span><span class="stArrow"><span style="display: inline-block;" class="stButton_gradient stHBubble"><span class="stBubble_hcount">0</span></span></span></span></span></span><span st_processed="yes" class="st_fblike_hcount" st_title="Signal Handling In Linux Through The signal() Function" st_url="http://linoxide.com/how-tos/signal-handling-linux-signal-function/"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;position:relative;margin:3px 3px 0;padding:0px;font-size:11px;line-height:0px;vertical-align:bottom;overflow:visible;"><div fb-xfbml-state="parsed" data-href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/" class="fb-like fb_edge_widget_with_comment fb_iframe_widget" data-show-faces="false" data-layout="button_count" data-send="false" data-action=""><span style="height: 21px; width: 90px;"><iframe src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/like.xhtml" class="fb_ltr" title="Like this content on Facebook." style="border: medium none; overflow: hidden; height: 21px; width: 90px;" name="f3eb431bc8e057a" id="f86efa043da87" scrolling="no"></iframe></span></div></span></span><span st_processed="yes" class="st_email_hcount" st_title="Signal Handling In Linux Through The signal() Function" st_url="http://linoxide.com/how-tos/signal-handling-linux-signal-function/"><span class="stButton" style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"><span><span style="background-image: url(&quot;http://w.sharethis.com/images/email_counter.png&quot;);" class="stMainServices st-email-counter">&nbsp;<img style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none;" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/check-big.png"></span><span class="stArrow"><span style="display: inline-block;" class="stButton_gradient stHBubble"><span class="stBubble_hcount">0</span></span></span></span></span></span><span st_processed="yes" class="st_sharethis_hcount" st_title="Signal Handling In Linux Through The signal() Function" st_url="http://linoxide.com/how-tos/signal-handling-linux-signal-function/"><span class="stButton" style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;"><span><span style="background-image: url(&quot;http://w.sharethis.com/images/sharethis_counter2.png&quot;);" class="stMainServices st-sharethis-counter2">&nbsp;<img style="position: absolute; top: -7px; right: -7px; width: 19px; height: 19px; max-width: 19px; max-height: 19px; display: none;" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/check-big.png"></span><span class="stArrow"><span style="display: inline-block;" class="stButton_gradient stHBubble"><span class="stBubble_hcount">47</span></span></span></span></span></span>
+
+<p></p>
+
+<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/xd_arbiter.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/xd_arbiter.xhtml" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div fb-xfbml-state="parsed" class="fb-like fb_edge_widget_with_comment fb_iframe_widget" data-href="http://www.facebook.com/pages/Linux-Technical-Website/261363770562299" data-send="true" data-width="450" data-show-faces="true"><span style="height: 80px; width: 450px;"><iframe src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/like_002.xhtml" class="fb_ltr" title="Like this content on Facebook." style="border: medium none; overflow: hidden; height: 80px; width: 450px;" name="f34c055988950aa" id="f3ff135a7562c7c" scrolling="no"></iframe></span></div>
+
+<p></p>
+
+
+
+							<div style="clear:both;"></div>
+
+							
+														<p class="cats"><strong>Category</strong>: <a href="http://linoxide.com/category/how-tos/" title="View all posts in HOWTOS" rel="category tag">HOWTOS</a>, <a href="http://linoxide.com/category/how-tos/programs/" title="View all posts in PROGRAMMING" rel="category tag">PROGRAMMING</a></p>
+
+						</div>
+
+						
+						
+						
+<!-- You can start editing here. -->
+
+<div class="allcomments">
+
+
+			<!-- If comments are open, but there are no comments. -->
+
+	 
+
+</div>
+
+
+	<div id="respond">
+
+		<form action="http://linoxide.com/wp-comments-post.php" method="post" id="commentform">
+
+			<h3>Leave a Reply</h3>
+
+			<div class="cancel-comment-reply">
+				<a rel="nofollow" id="cancel-comment-reply-link" href="http://linoxide.com/how-tos/signal-handling-linux-signal-function/#respond" style="display:none;">Click here to cancel reply.</a>			</div>
+
+			
+				
+					<p><input name="author" id="author" size="40" tabindex="1" type="text">
+					<label for="author">Name ( required )</label></p>
+
+					<p><input name="email" id="email" size="40" tabindex="2" type="text">
+					<label for="email">Email ( required; will not be published )</label></p>
+
+					<p><input name="url" id="url" size="40" tabindex="3" type="text">
+					<label for="url">Website</label></p>
+
+				
+				<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+				<p id="commentquiz" style="clear:both">
+<strong>Commenting Policy:</strong><br>
+Keywords instead of a real name? Comment gets deleted.<br>
+A fake name instead of your real name? Comment gets deleted.<br>
+1 liner "thank you" comment or offtopic? Comment gets deleted.<br>
+If the comment gets approved, we own all rights to it.<br>
+All comments are subject to moderation.<br>
+
+<label for="quiz">Which OS use linux kernel, windows or redhat </label><input name="quiz" id="quiz" size="22" tabindex="4" type="text">
+</p><p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+				<p class="button-submit"><input name="submit" id="submit" tabindex="5" value="Submit Comment" type="submit">
+				<input name="comment_post_ID" value="5811" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+				</p>
+
+				
+			
+		</form>
+
+	</div>
+
+
+					</div>
+
+					<div class="navigation clearfix">
+	<div class="alignleft single">
+		« <a href="http://linoxide.com/news/centos-6-5-released/" rel="prev">CentOS 6.5 Has Been Released With Many Fundamental Changes</a>	</div>
+	<div class="alignright single">
+		<a href="http://linoxide.com/ubuntu-how-to/install-calendar-system-and-todo-lists-ubuntu/" rel="next">How To Install Calendar System and Todo Lists In Ubuntu</a> »	</div>
+</div>
+				</div>
+
+
+			</div>
+
+			
+		</div>
+
+
+		<div id="contentright">
+
+			<div id="sidebar" class="clearfix">
+				<div id="banner300-widget-23" class="widget banner300"><div class="widget-wrap"><meta name="google-translate-customization" content="cfe45055ede4cd80-fd75d905da6c68bd-g5896404a71b56654-10">
+<div id="google_translate_element"><div style="" dir="ltr" class="skiptranslate goog-te-gadget"><div id=":0.targetLanguage"><select class="goog-te-combo"><option selected="selected" value="">Select Language</option><option value="af">Afrikaans</option><option value="sq">Albanian</option><option value="ar">Arabic</option><option value="hy">Armenian</option><option value="az">Azerbaijani</option><option value="eu">Basque</option><option value="be">Belarusian</option><option value="bn">Bengali</option><option value="bs">Bosnian</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="ceb">Cebuano</option><option value="zh-CN">Chinese (Simplified)</option><option value="zh-TW">Chinese (Traditional)</option><option value="hr">Croatian</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="eo">Esperanto</option><option value="et">Estonian</option><option value="tl">Filipino</option><option value="fi">Finnish</option><option value="fr">French</option><option value="gl">Galician</option><option value="ka">Georgian</option><option value="de">German</option><option value="el">Greek</option><option value="gu">Gujarati</option><option value="ht">Haitian Creole</option><option value="ha">Hausa</option><option value="iw">Hebrew</option><option value="hi">Hindi</option><option value="hmn">Hmong</option><option value="hu">Hungarian</option><option value="is">Icelandic</option><option value="ig">Igbo</option><option value="id">Indonesian</option><option value="ga">Irish</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="jw">Javanese</option><option value="kn">Kannada</option><option value="km">Khmer</option><option value="ko">Korean</option><option value="lo">Lao</option><option value="la">Latin</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="mk">Macedonian</option><option value="ms">Malay</option><option value="mt">Maltese</option><option value="mi">Maori</option><option value="mr">Marathi</option><option value="mn">Mongolian</option><option value="ne">Nepali</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="pa">Punjabi</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sr">Serbian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="so">Somali</option><option value="es">Spanish</option><option value="sw">Swahili</option><option value="sv">Swedish</option><option value="ta">Tamil</option><option value="te">Telugu</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="ur">Urdu</option><option value="vi">Vietnamese</option><option value="cy">Welsh</option><option value="yi">Yiddish</option><option value="yo">Yoruba</option><option value="zu">Zulu</option></select></div>Powered by <span style="white-space:nowrap"><a class="goog-logo-link" href="https://translate.google.com/" target="_blank"><img src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/google_logo_41.png" style="padding-right: 3px" width="37px" height="13px">Translate</a></span></div></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/element.js"></script></div></div><div id="banner300-widget-21" class="widget banner300"><div class="widget-wrap"><!-- Place this tag where you want the widget to render. -->
+<div id="___page_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 282px; height: 365px;"><iframe title="+Badge" data-gapiattached="true" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/page.html" name="I0_1389170837835" id="I0_1389170837835" vspace="0" tabindex="0" style="position: static; top: 0px; width: 282px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 365px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+
+<!-- Place this tag after the last widget tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script></div></div><div id="subscribebox-widget-3" class="widget subscribebox"><div class="widget-wrap"><h3 class="widgettitle"><span>LinOxide Free Subscription</span></h3><div class="textwidget"><p>Enter your email address below to receive updates each time we publish new content.</p>
+			
+			<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=linoxideblog', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+				<input value="linoxideblog" name="uri" type="hidden">
+				<input name="loc" value="en_US" type="hidden">
+				<p class="email-form">
+					<input class="sub" name="email" value="email address" onfocus="if (this.value == 'email address') {this.value = '';}" onblur="if (this.value == '') {this.value = 'email address';}" type="text"><input value="submit" class="subbutton" type="submit">
+				</p>
+				<div style="clear:both;"><small>Privacy guaranteed. We never share your info.</small></div>
+			</form>
+
+			
+		</div>
+		</div></div><div id="facebooklikebox-3" class="widget widget_FacebookLikeBox"><div class="widget-wrap"><script src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/all_002.js"></script><fb:like-box fb-iframe-plugin-query="app_id=&amp;header=true&amp;href=http%3A%2F%2Fwww.facebook.com%2FLinoxide&amp;locale=en_US&amp;sdk=joey&amp;show_faces=true&amp;stream=false&amp;width=292" fb-xfbml-state="parsed" class=" fb_iframe_widget" href="http://www.facebook.com/Linoxide" width="292" show_faces="true" border_color="AAAAAA" stream="false" header="true"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/like_box.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like_box Facebook Social Plugin" allowtransparency="true" name="f2a660688ebef4" width="292px" frameborder="0" height="1000px" scrolling="no"></iframe></span></fb:like-box></div></div><div id="banner300-widget-22" class="widget banner300"><div class="widget-wrap"><b><font color="#FF5C33">Get LinOxide</font></b> <a href="http://feeds.feedburner.com/linoxideblog" target="_blank">RSS Feeds</a>
+<br>
+<b>For a beginner</b> <a href="http://linoxide.com/linux-how-to/understand-what-is-linux-gnu-linux/" target="_blank">What is Linux</a> ?</div></div><div id="banner300-widget-18" class="widget banner300"><div class="widget-wrap"><h3 class="widgettitle"><span>Ebook</span></h3><div class="textwidget">
+<ul>
+<img title="Linux command ebook and pdf" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/free.png" alt="Linux command  cheat sheet">&nbsp;<a href="http://www.linoxide.com/guide/linux-command-shelf.html" target="_blank">Linux Command Shelf Ebook</a> - Cheat Sheet For Linux Commands To Bookmark + Download Ebook in PDF
+</ul></div></div></div><div id="banner300-widget-19" class="widget banner300"><div class="widget-wrap"><h3 class="widgettitle"><span>Shell Scripts</span></h3>Memstat.sh - <a href="http://www.linoxide.com/linux-shell-script/linux-memory-usage-program/" target="_blank">Find Linux Memory Usage By Applications</a>.<br>
+<a href="http://www.linoxide.com/guide/scripts-pdf.html" target="_blank">More Shell Script Programs</a></div></div><div id="banner300-widget-20" class="widget banner300"><div class="widget-wrap"><h3 class="widgettitle"><span>Linux PDF’s</span></h3>Download <a href="http://www.linoxide.com/doc/linux_cluster_concepts.pdf" target="_blank">Linux Cluster Concepts PDF</a></div></div>		<div id="recent-posts-2" class="widget widget_recent_entries"><div class="widget-wrap">		<h3 class="widgettitle"><span>Recent Articles</span></h3>		<ul>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/install-gtkorphan-ubuntu/">Install GtkOrphan - Remove Orphaned Libraries In Ubuntu</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/connect-android-device-ubuntu/">How To Connect Your Android Device To Ubuntu</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/how-tos/filezilla-3-7-3-client-linux/">How To Get  FileZilla 3.7.3 Client In Linux</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/create-ascii-text-ubuntu-figlet/">How To Create ASCII Text In Ubuntu With figlet Tool</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/copy-files-to-usb-terminal/">How To Copy Files To Your Usb From The Terminal</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/install-package-converter-ubuntu/">How To Install Package Converter 3.0.0.2 In Ubuntu</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/install-vmware-workstation-ubuntu/">How To Install VMware Workstation In Ubuntu</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/monitoring-2/install-nmon-monitor-linux-performance/">Install Nmon - Monitor Linux System Performance using Java Analyzer</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/how-tos/linux-exit-terminal-after-x-seconds/">Linux Tip - How To Exit From Terminal After X Seconds Of Inactivity</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/how-tos/lynis-security-tool-audit-hardening-linux/">Lynis - Security Tool for Audit and Hardening Linux / Unix Systems</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/no-password-sudo/">No Password Prompt When Using Sudo</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/linux-command/linux-userdel-command/">userdel Command - Delete User Account from Linux system</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/how-tos/7zip-linux-command-line/">How To Use 7zip Archiver On Linux Command Line</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/tools/play-tetris-game-console/">How To Play Tetris Game In Your Console</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/wifi-passwords-encrypted-ubuntu/">Security Issue, Wifi Passwords Are Not Encrypted In Ubuntu Systems</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/tools/limit-cpu-usage-process-linux/">How To Limit CPU Usage Of A Process In Linux With cpulimit Tool</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/how-tos/programs/system-endianness-structure-padding-c-examples/">The Concept Of System Endianness And Structure Padding Explained Through C Examples</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/tools/play-music-terminal/">How To Play Music From The Terminal</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/linux-command/linux-free-command/">Linux free Command - Display Free and used Memory in the System</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/tools/geary-0-4-3-released-install-ubuntu/">Geary 0.4.3 Has Been Released, Install It In Ubuntu</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/tools/linux-tool-weather-terminal/">Linux Tool To Know Weather in your City from Terminal</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/linux-command/linux-cd-command-examples/">Understanding Linux cd Command with Examples</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/test-internet-speed-terminal/">How To Test Your Internet Speed From Linux Command Line</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/install-applications-web-browser-ubuntu/">How To Install Applications From The Web Browser In Ubuntu</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/monitor-network-load-slurm-tool/">How To Monitor Network Load in Ubuntu With slurm Tool</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/linux-how-to/install-vlc-media-player-2-1-2-linux/">How To Install VLC Media Player 2.1.2 In Ubuntu / Fedora / OpenSuse</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/linux-command/linux-who-command/">Linux who command - Displays who is on the system</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/screen-resolution-terminal-ubuntu/">How To Find Screen Resolution From Ubuntu Terminal</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/linux-command/linux-id-command/">Linux id Command - Print user ID and group ID information</a>
+						</li>
+					<li>
+				<a href="http://linoxide.com/ubuntu-how-to/install-eclipse-ubuntu/">How To Install Eclipse 4.3.1 In Ubuntu 12.04 LTS</a>
+						</li>
+				</ul>
+		</div></div>			</div>
+
+			<div id="sidebar-bottom" class="clearfix">
+
+				<div id="sidebar-bottom-left">
+														</div>
+
+				<div id="sidebar-bottom-right">
+														</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+	
+</div>
+
+
+<div id="footer">
+	<div class="limit clearfix">
+
+		<div class="sub-icons clearfix">
+
+	
+
+	<a target="_blank" rel="external" title="Follow Us on Twitter" href="http://www.twitter.com/LinOxide"><img class="twitter-sub" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/twitter.png" alt="Follow Us on Twitter" align="top"></a>
+
+	<a target="_blank" title="Connect on Facebook" rel="external" href="http://www.facebook.com/Linoxide"><img class="facebook-sub" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/facebook.png" alt="Connect on Facebook" align="top"></a>
+
+
+
+
+
+
+
+</div>
+		
+		©  2014 LinOxide. All rights reserved.<a href="http://www.linoxide.com/sitemap/">Sitemap</a> <a href="http://linoxide.com/privacy-policy/">Privacy</a>
+	</div>
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+//<!--
+	var u=document.getElementById("comment");
+	if ( u ) {
+		u.parentNode.parentNode.insertBefore(document.getElementById("commentquiz"), u.parentNode);
+	}
+//-->
+</script>
+
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37200508-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+
+
+
+<div style="padding: 40px;" id="arevicofancy-tmp"></div><div style="display: none;" id="arevicofancy-loading"><div></div></div><div style="background-color: rgb(119, 119, 119); opacity: 0.7; cursor: auto; height: 5685px; display: none;" id="arevicofancy-overlay"></div><div style="width: 400px; height: auto; top: 280px; left: 412px; display: none;" id="arevicofancy-wrap"><div id="arevicofancy-outer"><div class="arevicofancy-bg" id="arevicofancy-bg-n"></div><div class="arevicofancy-bg" id="arevicofancy-bg-ne"></div><div class="arevicofancy-bg" id="arevicofancy-bg-e"></div><div class="arevicofancy-bg" id="arevicofancy-bg-se"></div><div class="arevicofancy-bg" id="arevicofancy-bg-s"></div><div class="arevicofancy-bg" id="arevicofancy-bg-sw"></div><div class="arevicofancy-bg" id="arevicofancy-bg-w"></div><div class="arevicofancy-bg" id="arevicofancy-bg-nw"></div><div style="border-width: 0px; width: 400px; height: 255px;" id="arevicofancy-content"></div><a style="display: none;" id="arevicofancy-close"></a><div style="display: none;" id="arevicofancy-title"></div><a style="display: none;" href="javascript:;" id="arevicofancy-left"><span class="fancy-ico" id="arevicofancy-left-ico"></span></a><a style="display: none;" href="javascript:;" id="arevicofancy-right"><span class="fancy-ico" id="arevicofancy-right-ico"></span></a></div></div><div style="position: absolute; top: -1999px; left: -1988px;" id="stcpDiv">ShareThis Copy and Paste</div><iframe style="display:none;" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/getSegment.html" name="stSegmentFrame" id="stSegmentFrame" width="0px" frameborder="0" height="0px" scrolling="no"></iframe><iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/postmessageRelay.html" id="oauth2relay952572170" name="oauth2relay952572170"></iframe><a id="inline" href="#data" style="display: none;">Show</a><div style="display:none"><div style="display: none;" class="arevicofancy-inline-tmp"></div></div><div style="visibility: hidden; top: -999px; left: -999px;" class="stwrapper" id="stwrapper"><div class="stclose"></div><iframe src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/index.html" style="top: 0px; left: 0px;" name="stLframe" class="stLframe" id="stLframe" allowtransparency="true" width="353px" frameborder="0" height="350px" scrolling="no"></iframe></div><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/translate-32.png" width="20" height="20"></div><iframe style="width:348px;height:1.1em;float:right;" id="signin_status" border="0" src="Signal%20Handling%20In%20Linux%20Through%20The%20signal%28%29%20Function%20-%20LinOxide_files/tminfo.html" frameborder="0"></iframe></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">Original text</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">Contribute a better translation</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div style="display: none;" class="status-message"></div></div><div id="fb-root"></div><div style="position: absolute; top: -1000px; height: 1px; width: 1px;"><object id="fI0hq6cghgv" name="fI0hq6cghgv" type="application/x-shockwave-flash" data="Signal%20Handling%20In%20Linux%20Through%20The%20signal()%20Function%20-%20LinOxide_files/hrs.swf" width="400" height="500"><param name="allowScriptAccess" value="always"></object></div></body></html>
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Minified using apc
+Page Caching using apc
+Database Caching 9/49 queries in 0.046 seconds using apc
+Object Caching 1628/1698 objects using apc
+
+ Served from: linoxide.com @ 2014-01-08 08:46:35 by W3 Total Cache -->

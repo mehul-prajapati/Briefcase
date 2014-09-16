@@ -1,0 +1,983 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" xml:lang="en-US"><head><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/a_003.html" async=""></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/client.js" async="" type="text/javascript" id="LR1"></script><script async="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/cbgapi.loaded_2"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/count.bin" async="true" type="text/javascript"></script><link href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/buttons3.css" type="text/css" rel="stylesheet">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Device Drivers, Part 2: Writing Your First Linux Driver in the Classroom - LINUX For You</title>
+        <script gapi_processed="true" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/plusone.js" async="" type="text/javascript"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/buttons.js" async="" type="text/javascript"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/widgets.js" async="" type="text/javascript"></script><script async="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/cbgapi.loaded_1"></script><script async="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/plusone.js" async="" type="text/javascript"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/all.js" id="facebook-jssdk"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/ga.js" async="" type="text/javascript"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/cloudflare.js" async=""></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok8v=02fcfa4f56/"},atok:"6bf051395f7604ae0090c3054f3eefa1",petok:"fbd828381448219720daaa72f2d82ecd601b8a1b-1394692505-3600",zone:"linuxforu.com",rocket:"0",apps:{"ga_key":{"ua":"UA-27466087-1","ga_bs":"2"}}}];var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok8v=b064e16429/cloudflare.min.js";b.parentNode.insertBefore(a,b);}}catch(e){};
+//]]>
+</script>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+        <link rel="shortcut icon" href="http://www.linuxforu.com/favicon.ico" type="image/x-icon">		<link rel="stylesheet" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/style.css" type="text/css" media="all">
+		<link rel="stylesheet" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery.css" type="text/css" media="all">
+        <link rel="pingback" href="http://www.linuxforu.com/xmlrpc.php">
+        <link rel="alternate" type="text/xml" title="RSS .92" href="http://www.linuxforu.com/feed/rss/">
+        <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://www.linuxforu.com/feed/atom/">
+		<!--[if lt IE 8]><link rel="stylesheet" href="http://www.linuxforu.com/wp-content/themes/unspoken/ie.css?b1cee3" type="text/css" media="all" /><![endif]-->
+
+        
+        <style type="text/css">body {font: 62.5% Helvetica, Arial, sans-serif;}</style>
+        
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.18 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="This article, which is part of the series on Linux device drivers, deals with the concept of dynamically loading drivers, first writing a Linux driver, before building and then loading it.">
+<link rel="canonical" href="http://www.linuxforu.com/2010/12/writing-your-first-linux-driver/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Device Drivers, Part 2: Writing Your First Linux Driver in the Classroom - LINUX For You">
+<meta property="og:description" content="This article, which is part of the series on Linux device drivers, deals with the concept of dynamically loading drivers, first writing a Linux driver, before building and then loading it.">
+<meta property="og:url" content="http://www.linuxforu.com/2010/12/writing-your-first-linux-driver/">
+<meta property="og:site_name" content="LINUX For You">
+<meta property="article:author" content="anil.pugalia">
+<meta property="fb:admins" content="709350085,1340102256">
+<meta property="og:image" content="http://www.linuxforu.com/wp-content/uploads/2010/12/writing-ldd-590x215.jpg">
+<meta property="og:image" content="http://www.linuxforu.com/wp-content/uploads/2010/12/figure_4_linux_modules-590x448.png">
+<meta property="og:image" content="http://www.linuxforu.com/wp-content/uploads/2010/12/figure_5_linux_module_operations-590x448.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@linuxforyou">
+<meta name="twitter:domain" content="LINUX For You">
+<meta name="twitter:creator" content="@anil_pugalia">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="alternate" type="application/rss+xml" title="LINUX For You » Feed" href="http://www.linuxforu.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="LINUX For You » Comments Feed" href="http://www.linuxforu.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="LINUX For You » Device Drivers, Part 2: Writing Your First Linux Driver in the Classroom Comments Feed" href="http://www.linuxforu.com/2010/12/writing-your-first-linux-driver/feed/">
+<link rel="stylesheet" id="wpgform-css-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/wpgform.css" type="text/css" media="all">
+<link rel="stylesheet" id="cptchStylesheet-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/style_wp_before_3.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-widgets-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="sphinxStyleSheets-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/sphinxsearch.css" type="text/css" media="all">
+<link rel="stylesheet" id="pre-tag-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/pre.css" type="text/css" media="all">
+<link rel="stylesheet" id="core3.0-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/shCore.css" type="text/css" media="all">
+<link rel="stylesheet" id="core-Default3.0-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/shCoreDefault.css" type="text/css" media="all">
+<link rel="stylesheet" id="theme-Default3.0-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/shThemeDefault.css" type="text/css" media="all">
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery_004.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jcarousellite_1.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/scripts.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/comment-reply.js"></script>
+<meta name="generator" content="WordPress 3.6.1">
+
+<!-- WP SyntaxHighlighter Ver.1.7.3 CSS for code Begin -->
+<style type="text/css">
+.syntaxhighlighter,
+.syntaxhighlighter a,
+.syntaxhighlighter div,
+.syntaxhighlighter code,
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody,
+.syntaxhighlighter table thead,
+.syntaxhighlighter table caption,
+.syntaxhighlighter textarea {
+font-size: 12px !important; /* Set the font size in pixels */  
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */  
+}
+.syntaxhighlighter table caption {
+/* For Title(Caption) */  
+font-size: 14px !important; /* Set the font size in pixels */  
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */  
+}
+.syntaxhighlighter.nogutter td.code .line {
+/* Set the left padding space when no-gutter in ver. 3.0 */  
+padding-left: 3px !important;
+}
+.syntaxhighlighter {
+/* For Chrome/Safari(WebKit) */  
+/* Hide the superfluous vertical scrollbar in ver. 3.0 */  
+overflow-y: hidden !important;
+padding: 1px !important;
+}
+.widget-area.syntaxhighlighter a,
+.widget-area.syntaxhighlighter div,
+.widget-area.syntaxhighlighter code,
+.widget-area.syntaxhighlighter table,
+.widget-area.syntaxhighlighter table td,
+.widget-area.syntaxhighlighter table tr,
+.widget-area.syntaxhighlighter table tbody,
+.widget-area.syntaxhighlighter table thead,
+.widget-area.syntaxhighlighter table caption,
+.widget-area.syntaxhighlighter textarea {
+/* For Widget */  
+font-size: 14px !important; /* Set the font size in pixels */  
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */  
+}
+.widget-area table caption {
+/* For Widget */  
+/* For Title(Caption) */  
+font-size: 10px !important; /* Set the font size in pixels */  
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */  
+}
+</style>
+<!-- WP SyntaxHighlighter Ver.1.7.3 CSS for code End -->
+<meta property="og:image" content="http://www.linuxforu.com/wp-content/uploads/2010/12/writing-ldd-150x150.jpg"><style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style><style type="text/css">.logo-header a span { height: 80px; width: 270px; margin: 0 0 0 40px; }
+.logo-footer span { height: 60px; }
+.header-meta { background-color: #07112B; }
+.header-middle { margin-bottom: 15px; }
+.header-adplace img  { margin-top: 7px; margin-bottom: 0;}
+.wrapper { box-shadow: 0 0 7px #53728E; }
+.announcementbar { background: none repeat scroll 0 0 #FF5800;  color: #FFFFFF; font-family: tahoma; font-size: 14px; padding: 10px; text-align: center; }
+#top-menu ul li a { color: #FFFFFF; }
+#top-menu ul li a:hover { color: #D2E6FF; }
+#navigation ul li { text-transform: uppercase; }
+.footer { background-color: #07112B; }
+.hentry-content { font-size: 14px; }
+.slider {background-color: #FFF8E7;}
+.slider-item h2 { font-size: 18px; line-height: 21px; }
+.block-title2 {border-bottom: 1px solid #222222;color: #444444;}
+.slider-item h2 a {color: #555555;}
+.slider-item p {color: #333333;}
+.slider-item-meta {color: #111111;}
+.slider-item-meta a {color: #111111;}
+.latest-news li { padding: 4px 0; }
+.choice-item { border-right: 1px solid #FFFFFF; }
+.choice-item h2 { font-size: 13px; line-height: 17px; }
+.category-item h2 { font-size: 16px; line-height: 22px; }
+.catlist-item h2 { font-size: 13px; margin-bottom: 0; }
+.wrapper { background: none repeat scroll 0 0 #FFFFFF; }
+.single .hentry-middle { float: none; width: 620px; }
+.single .hentry-content { width: 610px; }
+.single .hentry-sidebar { display: none; width: 0; float: none}
+.single .hentry-content img { max-width: 610px; }
+.hentry-content h2 { line-height: 30px; }
+.hentry-content ol { margin: 0 0 15px 30px;} 
+table { margin: 1px; text-align:left; }
+.single .hentry-content thead { font-weight: bold; background: #EDF7FF;}
+.hentry-content td { border: 1px solid #8DB5FE !important; padding: 4px 8px !important; }
+code { color:#054E76; background:#EDF7FF; font-size: 90%;}
+.syntaxhighlighter { border: 1px solid #EFEFEF; width: 99% !important; }
+.introduction { border-bottom: 3px double #FF5800; font-family: Georgia; font-size: medium; font-style: italic; margin-bottom: 20px; padding: 10px; }
+.note {background: none repeat scroll 0 0 #EDF7FF; margin-bottom: 10px; padding: 3px 10px; }
+.imagecredit { background-color: #EDF7FF; border: 1px solid #8DB5FE; font-size: x-small; font-style: italic; margin: 20px; padding: 0 20px; }
+.list .hentry .post-thumb img, .hentry-content img.alignleft, .hentry-content img.alignright, .hentry-content img.aligncenter { border: 1px double #EFEFEF; }
+.hentry-content .alignleft, .hentry-content img.alignleft { margin: 4px 15px 4px 0; }
+.hentry-content .alignright, .hentry-content img.alignright { margin: 4px 0 4px 15px;}
+.single .hentry-content .wp-caption { max-width: 610px !important; background: none repeat scroll 0 0 transparent; border-bottom: 1px solid #CCCCCC; border-radius: 0 0 0 0;}
+.hentry-content .wp-caption p.wp-caption-text { color: #111111; }
+#comments .block-title { margin: 20px 0; }
+.single .hentry-like, .single .hentry-tags { font-size: x-small; }
+.hentry-content blockquote { font-family: Georgia; font-size: 110%; font-style: oblique; font-weight: normal; }
+.boxmain {border: 3px double #8DB5FE;margin-bottom: 20px;}
+.boxhead {padding: 0 5px; background: none repeat scroll #8DB5FE; color:#FFFFFF;}
+.boxbody {padding: 0 15px;}
+/* WP C-A-PLUS */
+#author-info {font-size: 115%; margin: 20px 25px 20px 15px; padding: 20px; border: 2px solid #4b3e34; background: #5c4e42; color: #ffffff;}
+#author-info a:hover {color: #fdb312;}
+#author-info a {color: #08c5ed;}
+#authorbox-title {font-size: 150%;}
+.author {padding: 20px 0;}
+.authorboxfix  {clear: both;}
+.author-image {width: 105px; float: left;}
+.author-name {float: left; width: 405px; font-size: 140%; font-weight: bold; padding-bottom: 10px; margin: 0 10px;}
+.author-blurb {float: left; width: 405px; margin: 0 10px;}
+.author-blurb .social-links {padding-top: 10px; font-weight: bold;}</style>	<script type="text/javascript">
+/* <![CDATA[ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-27466087-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+(function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+/* ]]> */
+</script>
+<style type="text/css">.cf-hidden { display: none; } .cf-invisible { visibility: hidden; }</style><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/embed.js" async="" type="text/javascript"></script><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/count.js" type="text/javascript" async=""></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/services.css"><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/count-data.js" async=""></script><script charset="UTF-8" async="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/alfie.js"></script></head>
+	<body data-twttr-rendered="true" class="single single-post postid-3779 single-format-standard"><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/hub.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;" name="twttrHubFrameSecure" tabindex="0" allowtransparency="true" id="twttrHubFrameSecure" scrolling="no" frameborder="0"></iframe><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/hub_002.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;" name="twttrHubFrame" tabindex="0" allowtransparency="true" id="twttrHubFrame" scrolling="no" frameborder="0"></iframe>
+        <div class="wrapper">
+											
+            <div class="header">
+                <div class="header-meta">
+
+                    <div id="top-menu" class="menu-top-menu-container"><ul id="menu-top-menu" class="header-menu clear"><li id="menu-item-5544" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5544 first"><a href="http://www.linuxforu.com/write-for-linux-for-you/">Write For Us</a></li>
+<li id="menu-item-5540" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5540"><a title="for Tips &amp; Tricks section of print magazine" href="http://www.linuxforu.com/submit-your-tips-tricks/">Submit Tips</a></li>
+<li id="menu-item-6605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6605"><a title="Click takes you to our publisher’s gateway" href="http://electronicsforu.com/electronicsforu/subscription/subsc2scheme.asp">Subscribe to Print Edition</a></li>
+<li id="menu-item-12896" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12896"><a href="http://www.linuxforu.com/wpgforms/poll/">Have Your Say</a></li>
+<li id="menu-item-12899" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12899 last"><a href="http://www.linuxforu.com/contact-us/">Contact Us</a></li>
+</ul></div>
+                    <div class="header-searchform">
+                        	<form method="get" action="http://www.linuxforu.com">
+                            <fieldset>
+                                <input id="s" name="s" onfocus="if(this.value=='Search') this.value='';" onblur="if(this.value=='') this.value='Search';" value="Search" type="text">
+                                <button type="submit"></button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="header-middle clear">
+                    <div class="logo-header offset">
+                        <a href="http://www.linuxforu.com/">
+                                                        <span style="background: url(http://www.linuxforu.com/wp-content/themes/unspoken/images/logo-header.png) 0 0 no-repeat;"></span>                                                    </a>
+                    </div>
+                    <div class="header-adplace">
+                        <a class="unspoken-banner alignright" href="http://electronicsforu.com/electronicsforu/subscription/subsc2scheme.asp" target="_blank"><img src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/OSI-Magazine-468x60.gif" alt="OSI 2013" title="Open Source India"></a><div class="clear"></div>                    </div>
+                </div>
+            </div>
+
+						<div id="navigation" class="menu-navigation clear"><ul id="menu-navigation" class="menu"><li id="menu-item-12423" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-12423 first"><a href="http://www.linuxforu.com/">Home</a></li>
+<li id="menu-item-12424" class="menu-item menu-item-type-taxonomy menu-item-object-category parent menu-item-12424"><a href="http://www.linuxforu.com/category/reviews/">Reviews</a>
+<ul style="top: 40px;" class="sub-menu">
+	<li id="menu-item-12426" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12426"><a href="http://www.linuxforu.com/category/reviews/distros/">Distros</a></li>
+	<li id="menu-item-12425" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12425"><a href="http://www.linuxforu.com/category/reviews/apps/">Apps</a></li>
+	<li id="menu-item-12427" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12427"><a href="http://www.linuxforu.com/category/reviews/products/">Products</a></li>
+</ul>
+</li>
+<li id="menu-item-12428" class="menu-item menu-item-type-taxonomy menu-item-object-category parent menu-item-12428"><a href="http://www.linuxforu.com/category/how-tos/">How-Tos</a>
+<ul style="top: 40px;" class="sub-menu">
+	<li id="menu-item-12429" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12429"><a href="http://www.linuxforu.com/category/how-tos/home-quick-tips/">Home / Quick Tips</a></li>
+	<li id="menu-item-12432" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12432"><a href="http://www.linuxforu.com/category/how-tos/servers/">Servers</a></li>
+	<li id="menu-item-12430" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12430"><a href="http://www.linuxforu.com/category/how-tos/networking/">Networking</a></li>
+	<li id="menu-item-12431" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12431"><a href="http://www.linuxforu.com/category/how-tos/secure/">Security</a></li>
+	<li id="menu-item-12433" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12433"><a href="http://www.linuxforu.com/category/how-tos/tools-apps/">Tools / Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-12434" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-12434"><a href="http://www.linuxforu.com/category/coding/">Coding</a></li>
+<li id="menu-item-12435" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12435"><a href="http://www.linuxforu.com/category/interviews/">Interviews</a></li>
+<li id="menu-item-12436" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12436"><a href="http://www.linuxforu.com/category/features/">Features</a></li>
+<li id="menu-item-12437" class="menu-item menu-item-type-taxonomy menu-item-object-category parent menu-item-12437"><a href="http://www.linuxforu.com/category/overview/">Overview</a>
+<ul style="top: 40px;" class="sub-menu">
+	<li id="menu-item-12441" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12441"><a href="http://www.linuxforu.com/category/overview/security/">Security</a></li>
+	<li id="menu-item-12443" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12443"><a href="http://www.linuxforu.com/category/overview/tips/">Tips</a></li>
+	<li id="menu-item-12442" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12442"><a href="http://www.linuxforu.com/category/overview/technology/">Technology</a></li>
+	<li id="menu-item-12439" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12439"><a href="http://www.linuxforu.com/category/overview/case-studies/">Case Studies</a></li>
+	<li id="menu-item-12438" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12438"><a href="http://www.linuxforu.com/category/overview/applications-overview/">Applications</a></li>
+	<li id="menu-item-12440" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12440"><a href="http://www.linuxforu.com/category/overview/concepts/">Concepts</a></li>
+</ul>
+</li>
+<li id="menu-item-12444" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12444"><a href="http://www.linuxforu.com/category/blogs/">Blogs</a></li>
+<li id="menu-item-12445" class="menu-item menu-item-type-custom menu-item-object-custom parent menu-item-12445"><a href="#">Series</a>
+<ul style="top: 40px;" class="sub-menu">
+	<li id="menu-item-12446" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12446"><a href="http://www.linuxforu.com/tag/linux-device-drivers-series/">Device Drivers</a></li>
+	<li id="menu-item-12447" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12447"><a href="http://www.linuxforu.com/tag/lisp-tears-of-joy-series/">Lisp Programming</a></li>
+	<li id="menu-item-12448" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12448"><a href="http://www.linuxforu.com/tag/securing-apache-series/">Apache Security</a></li>
+	<li id="menu-item-12449" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12449"><a href="http://www.linuxforu.com/tag/advanced-nmap-series/">Advanced NMAP</a></li>
+</ul>
+</li>
+<li id="menu-item-12450" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-12450 last"><a href="http://www.linuxforu.com/category/sysadmins/">IT Admin</a></li>
+</ul></div>						
+	          <div class="middle clear">
+
+                
+<div class="br" id="content">
+
+
+<div id="post-3779" class="post-3779 post type-post status-publish format-standard hentry category-coding category-developers tag-c tag-device-drivers tag-dynamic-loading tag-insmod tag-kernel-source-tree tag-lfy-december-2010 tag-linux-device-drivers tag-linux-device-drivers-series tag-loadable-kernel-modules tag-loading-drivers tag-lsmod tag-modprobe tag-rmmod single">
+
+    <div class="hentry-meta">
+        <h1>Device Drivers, Part 2: Writing Your First Linux Driver in the Classroom</h1>
+        <p class="hentry-meta-data">By <a href="http://www.linuxforu.com/author/anil-kumar-pugalia/" title="Posts by Anil Kumar Pugalia" rel="author">Anil Kumar Pugalia</a> on December 1, 2010 in <a href="http://www.linuxforu.com/category/coding/" title="View all posts in Coding" rel="category tag">Coding</a>, <a href="http://www.linuxforu.com/category/developers/" title="View all posts in Developers" rel="category tag">Developers</a> · <a data-disqus-identifier="3779 http://www.linuxforu.com/?p=3779" href="http://www.linuxforu.com/2010/12/writing-your-first-linux-driver/#disqus_thread" title="Comment on Device Drivers, Part 2: Writing Your First Linux Driver in the Classroom">89 Comments</a></p>
+    </div>
+
+    <div class="hentry-container clear">
+                <div class="hentry-middle">
+            <div class="hentry-content clear">
+                <p><img class="aligncenter size-large wp-image-7945" title="Sketching a driver" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/writing-ldd-590x215.jpg" alt="Sketching a driver" width="590" height="215"></p>
+<div class="introduction">This article, which is part of the <a href="http://www.linuxforu.com/tag/linux-device-drivers-series/">series on Linux device drivers</a>, deals with the concept of dynamically loading drivers, first writing a Linux driver, before building and then loading it.</div>
+<p>Shweta and Pugs reached their classroom late, to find their professor
+ already in the middle of a lecture. Shweta sheepishly asked for his 
+permission to enter. An annoyed Professor Gopi responded, “Come on! You 
+guys are late again; what is your excuse, today?”</p>
+<p>Pugs hurriedly replied that they had been discussing the very topic 
+for that day’s class — device drivers in Linux. Pugs was more than happy
+ when the professor said, “Good! Then explain about dynamic loading in 
+Linux. If you get it right, the two of you are excused!” Pugs knew that 
+one way to make his professor happy was to criticise Windows.</p>
+<p>He explained, “As we know, a typical driver installation on Windows 
+needs a reboot for it to get activated. That is really not acceptable; 
+suppose we need to do it on a server? That’s where Linux wins. In Linux,
+ we can load or unload a driver on the fly, and it is active for use 
+instantly after loading. Also, it is instantly disabled when unloaded. 
+This is called dynamic loading and unloading of drivers in Linux.”</p>
+<p>This impressed the professor. “Okay! Take your seats, but make sure 
+you are not late again.” The professor continued to the class, “Now you 
+already know what is meant by dynamic loading and unloading of drivers, 
+so I’ll show you how to do it, before we move on to write our first 
+Linux driver.”</p>
+<h2>Dynamically loading drivers</h2>
+<p>These dynamically loadable drivers are more commonly called modules and built into individual files with a <code>.ko</code> (kernel object) extension. Every Linux system has a standard place under the root of the file system (<code>/</code>) for all the pre-built modules. They are organised similar to the kernel source tree structure, under <code>/lib/modules/&lt;kernel_version&gt;/kernel</code>, where <code>&lt;kernel_version&gt;</code> would be the output of the command <code>uname -r</code>on the system, as shown in Figure 1.</p>
+<p>
+</p><div id="attachment_7943" class="wp-caption aligncenter" style="width: 590px"><a href="http://www.linuxforu.com/wp-content/uploads/2010/12/figure_4_linux_modules.png"><img class="size-large wp-image-7943" title="Linux pre-built modules" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/figure_4_linux_modules-590x448.png" alt="Linux pre-built modules" width="590" height="448"></a>
+<p class="wp-caption-text">Figure 1: Linux pre-built modules</p>
+</div>
+<p>To dynamically load or unload a driver, use these commands, which reside in the <code>/sbin</code> directory, and must be executed with root privileges:</p>
+<ul>
+<li><code>lsmod</code> — lists currently loaded modules</li>
+<li><code>insmod &lt;module_file&gt;</code> — inserts/loads the specified module file</li>
+<li><code>modprobe &lt;module&gt;</code> — inserts/loads the module, along with any dependencies</li>
+<li><code>rmmod &lt;module&gt;</code> — removes/unloads the module</li>
+</ul>
+<p>Let’s look at the FAT filesystem-related drivers as an example. 
+Figure 2 demonstrates this complete process of experimentation. The 
+module files would be <code>fat.ko</code>, <code>vfat.ko</code>, etc., in the <code>fat</code> (<code>vfat</code> for older kernels) directory under <code>/lib/modules/`uname -r`/kernel/fs</code>. If they are in compressed <code>.gz</code> format, you need to uncompress them with <code>gunzip</code>, before you can <code>insmod</code>them.</p>
+<p>
+</p><div id="attachment_7944" class="wp-caption aligncenter" style="width: 590px"><a href="http://www.linuxforu.com/wp-content/uploads/2010/12/figure_5_linux_module_operations.png"><img class="size-large wp-image-7944" title="Linux module operations" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/figure_5_linux_module_operations-590x448.png" alt="Linux module operations" width="590" height="448"></a>
+<p class="wp-caption-text">Figure 2: Linux module operations</p>
+</div>
+<p>The <code>vfat</code> module depends on the <code>fat</code> module, so <code>fat.ko</code> needs to be loaded first. To automatically perform decompression and dependency loading, use <code>modprobe</code> instead. Note that you shouldn’t specify the <code>.ko</code> extension to the module’s name, when using the <code>modprobe</code> command. <code>rmmod</code> is used to unload the modules.</p>
+<h2>Our first Linux driver</h2>
+<p>Before we write our first driver, let’s go over some concepts. A 
+driver never runs by itself. It is similar to a library that is loaded 
+for its functions to be invoked by a running application. It is written 
+in C, but lacks a <code>main()</code> function. Moreover, it will be 
+loaded/linked with the kernel, so it needs to be compiled in a similar 
+way to the kernel, and the header files you can use are only those from 
+the kernel sources, not from the standard <code>/usr/include</code>.</p>
+<p>One interesting fact about the kernel is that it is an 
+object-oriented implementation in C, as we will observe even with our 
+first driver. Any Linux driver has a constructor and a destructor. The 
+module’s constructor is called when the module is successfully loaded 
+into the kernel, and the destructor when <code>rmmod</code> succeeds in unloading the module. These two are like normal functions in the driver, except that they are specified as the <em>init</em> and <em>exit</em> functions, respectively, by the macros <code>module_init()</code> and <code>module_exit()</code>, which are defined in the kernel header <code>module.h</code>.</p>
+<div><div id="highlighter_458709" class="syntaxhighlighter notranslate c"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="c comments">/* ofd.c – Our First Driver code */</code></div><div class="line number2 index1 alt1"><code class="c preprocessor">#include &lt;linux/module.h&gt;</code></div><div class="line number3 index2 alt2"><code class="c preprocessor">#include &lt;linux/version.h&gt;</code></div><div class="line number4 index3 alt1"><code class="c preprocessor">#include &lt;linux/kernel.h&gt;</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="c keyword bold">static</code> <code class="c color1 bold">int</code> <code class="c plain">__init ofd_init(</code><code class="c keyword bold">void</code><code class="c plain">) </code><code class="c comments">/* Constructor */</code></div><div class="line number7 index6 alt2"><code class="c plain">{</code></div><div class="line number8 index7 alt1"><code class="c spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="c plain">printk(KERN_INFO </code><code class="c string">"Namaskar: ofd registered"</code><code class="c plain">);</code></div><div class="line number9 index8 alt2"><code class="c spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="c keyword bold">return</code> <code class="c plain">0;</code></div><div class="line number10 index9 alt1"><code class="c plain">}</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="c keyword bold">static</code> <code class="c keyword bold">void</code> <code class="c plain">__exit ofd_exit(</code><code class="c keyword bold">void</code><code class="c plain">) </code><code class="c comments">/* Destructor */</code></div><div class="line number13 index12 alt2"><code class="c plain">{</code></div><div class="line number14 index13 alt1"><code class="c spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="c plain">printk(KERN_INFO </code><code class="c string">"Alvida: ofd unregistered"</code><code class="c plain">);</code></div><div class="line number15 index14 alt2"><code class="c plain">}</code></div><div class="line number16 index15 alt1">&nbsp;</div><div class="line number17 index16 alt2"><code class="c plain">module_init(ofd_init);</code></div><div class="line number18 index17 alt1"><code class="c plain">module_exit(ofd_exit);</code></div><div class="line number19 index18 alt2">&nbsp;</div><div class="line number20 index19 alt1"><code class="c plain">MODULE_LICENSE(</code><code class="c string">"GPL"</code><code class="c plain">);</code></div><div class="line number21 index20 alt2"><code class="c plain">MODULE_AUTHOR(</code><code class="c string">"Anil Kumar Pugalia &lt;email_at_sarika-pugs_dot_com&gt;"</code><code class="c plain">);</code></div><div class="line number22 index21 alt1"><code class="c plain">MODULE_DESCRIPTION(</code><code class="c string">"Our First Driver"</code><code class="c plain">);</code></div></div></td></tr></tbody></table></div></div>
+<p>Given above is the complete code for our first driver; let’s call it <code>ofd.c</code>. Note that there is no <code>stdio.h</code> (a user-space header); instead, we use the analogous <code>kernel.h</code> (a kernel space header). <code>printk()</code> is the equivalent of <code>printf()</code>. Additionally, <code>version.h</code> is included for the module version to be compatible with the kernel into which it is going to be loaded. The <code>MODULE_*</code> macros populate module-related information, which acts like the module’s “signature”.</p>
+<h2>Building our first Linux driver</h2>
+<p>Once we have the C code, it is time to compile it and create the module file <code>ofd.ko</code>. We use the kernel build system to do this. The following <code>Makefile</code> invokes the kernel’s build system from the kernel source, and the kernel’s <code>Makefile</code> will, in turn, invoke our first driver’s <code>Makefile</code> to build our first driver.</p>
+<p>To build a Linux driver, you need to have the kernel source (or, at 
+least, the kernel headers) installed on your system. The kernel source 
+is assumed to be installed at <code>/usr/src/linux</code>. If it’s at any other location on your system, specify the location in the <code>KERNEL_SOURCE</code> variable in this <code>Makefile</code>.</p>
+<div><div id="highlighter_751534" class="syntaxhighlighter notranslate bash"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="bash comments"># Makefile – makefile of our first driver</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="bash comments"># if KERNELRELEASE is defined, we've been invoked from the</code></div><div class="line number4 index3 alt1"><code class="bash comments"># kernel build system and can use its language.</code></div><div class="line number5 index4 alt2"><code class="bash plain">ifneq (${KERNELRELEASE},)</code></div><div class="line number6 index5 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">obj-m := ofd.o</code></div><div class="line number7 index6 alt2"><code class="bash comments"># Otherwise we were called directly from the command line.</code></div><div class="line number8 index7 alt1"><code class="bash comments"># Invoke the kernel build system.</code></div><div class="line number9 index8 alt2"><code class="bash keyword">else</code></div><div class="line number10 index9 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">KERNEL_SOURCE := </code><code class="bash plain">/usr/src/linux</code></div><div class="line number11 index10 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">PWD := $(shell </code><code class="bash functions">pwd</code><code class="bash plain">)</code></div><div class="line number12 index11 alt1"><code class="bash plain">default:</code></div><div class="line number13 index12 alt2"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">${MAKE} -C ${KERNEL_SOURCE} SUBDIRS=${PWD} modules</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="bash plain">clean:</code></div><div class="line number16 index15 alt1"><code class="bash spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="bash plain">${MAKE} -C ${KERNEL_SOURCE} SUBDIRS=${PWD} clean</code></div><div class="line number17 index16 alt2"><code class="bash plain">endif</code></div></div></td></tr></tbody></table></div></div>
+<p>With the C code (<code>ofd.c</code>) and <code>Makefile</code> ready, all we need to do is invoke <code>make</code> to build our first driver (<code>ofd.ko</code>).</p>
+<div><div id="highlighter_812342" class="syntaxhighlighter nogutter notranslate text"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="text plain">$ make</code></div><div class="line number2 index1 alt1"><code class="text plain">make -C /usr/src/linux SUBDIRS=... modules</code></div><div class="line number3 index2 alt2"><code class="text plain">make[1]: Entering directory `/usr/src/linux'</code></div><div class="line number4 index3 alt1"><code class="text spaces">&nbsp;&nbsp;</code><code class="text plain">CC [M]&nbsp; .../ofd.o</code></div><div class="line number5 index4 alt2"><code class="text spaces">&nbsp;&nbsp;</code><code class="text plain">Building modules, stage 2.</code></div><div class="line number6 index5 alt1"><code class="text spaces">&nbsp;&nbsp;</code><code class="text plain">MODPOST 1 modules</code></div><div class="line number7 index6 alt2"><code class="text spaces">&nbsp;&nbsp;</code><code class="text plain">CC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .../ofd.mod.o</code></div><div class="line number8 index7 alt1"><code class="text spaces">&nbsp;&nbsp;</code><code class="text plain">LD [M]&nbsp; .../ofd.ko</code></div><div class="line number9 index8 alt2"><code class="text plain">make[1]: Leaving directory `/usr/src/linux'</code></div></div></td></tr></tbody></table></div></div>
+<h2>Summing up</h2>
+<p>Once we have the <code>ofd.ko</code> file, perform the usual steps as the root user, or with <code>sudo</code>.</p>
+<div><div id="highlighter_18779" class="syntaxhighlighter nogutter notranslate text"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="text plain"># su</code></div><div class="line number2 index1 alt1"><code class="text plain"># insmod ofd.ko</code></div><div class="line number3 index2 alt2"><code class="text plain"># lsmod | head -10</code></div></div></td></tr></tbody></table></div></div>
+<p><code>lsmod</code> should show you the <code>ofd</code> driver loaded.</p>
+<p>While the students were trying their first module, the bell rang, 
+marking the end of the session. Professor Gopi concluded, “Currently, 
+you may not be able to observe anything other than the <code>lsmod</code> listing showing the driver has loaded. Where’s the <code>printk</code>
+ output gone? Find that out for yourselves, in the lab session, and 
+update me with your findings. Also note that our first driver is a 
+template for any driver you would write in Linux. Writing a specialised 
+driver is just a matter of what gets filled into its constructor and 
+destructor. So, our further learning will be to enhance this driver to 
+achieve specific driver functionalities.”</p>
+<div id="crp_related" class="crp_related">
+<h5>Related Posts:</h5>
+<ul>
+<li><a href="http://www.linuxforu.com/2012/05/linux-device-drivers-module-interactions/" class="crp_title">Device Drivers, Part 17: Module Interactions</a></li>
+<li><a href="http://www.linuxforu.com/2011/04/character-device-files-creation-operations/" class="crp_title">Device Drivers, Part 5: Character Device Files —…</a></li>
+<li><a href="http://www.linuxforu.com/2012/03/device-drivers-kernel-window-peeping-through-proc/" class="crp_title">Device Drivers, Part 16: Kernel Window — Peeping…</a></li>
+<li><a href="http://www.linuxforu.com/2011/10/usb-drivers-in-linux-1/" class="crp_title">Device Drivers, Part 11: USB Drivers in Linux</a></li>
+<li><a href="http://www.linuxforu.com/2011/12/data-transfers-to-from-usb-devices/" class="crp_title">Device Drivers, Part 13: Data Transfer to and from USB…</a></li>
+</ul>
+</div>
+            </div>
+            <div class="hentry-footer">
+                <p class="hentry-tags">Tags: <a href="http://www.linuxforu.com/tag/c/" rel="tag">C</a>, <a href="http://www.linuxforu.com/tag/device-drivers/" rel="tag">device drivers</a>, <a href="http://www.linuxforu.com/tag/dynamic-loading/" rel="tag">dynamic loading</a>, <a href="http://www.linuxforu.com/tag/insmod/" rel="tag">insmod</a>, <a href="http://www.linuxforu.com/tag/kernel-source-tree/" rel="tag">kernel source tree</a>, <a href="http://www.linuxforu.com/tag/lfy-december-2010/" rel="tag">LFY December 2010</a>, <a href="http://www.linuxforu.com/tag/linux-device-drivers/" rel="tag">linux device drivers</a>, <a href="http://www.linuxforu.com/tag/linux-device-drivers-series/" rel="tag">Linux Device Drivers Series</a>, <a href="http://www.linuxforu.com/tag/loadable-kernel-modules/" rel="tag">Loadable kernel modules</a>, <a href="http://www.linuxforu.com/tag/loading-drivers/" rel="tag">loading drivers</a>, <a href="http://www.linuxforu.com/tag/lsmod/" rel="tag">lsmod</a>, <a href="http://www.linuxforu.com/tag/modprobe/" rel="tag">modprobe</a>, <a href="http://www.linuxforu.com/tag/rmmod/" rel="tag">rmmod</a></p>                                                <div id="author-info">
+                        <div id="authorbox-title">Article written by:</div>
+                                                        <div class="authorboxfix"></div>
+                                <div class="author">
+                                        <div class="author-image">
+                                                <img id="grav-6b9420b27bbb357fa9cd481711a43494-0" alt="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/6b9420b27bbb357fa9cd481711a43494.jpeg" class="avatar avatar-102 photo grav-hashed grav-hijack" width="102" height="102">                                        </div>
+                                        <div class="author-name">
+                                                <a href="http://www.linuxforu.com/author/anil-kumar-pugalia/" title="More articles by Anil Kumar Pugalia" rel="nofollow" target="_blank">Anil Kumar Pugalia</a>
+                                        </div>
+                                        <div class="author-blurb">
+                                                <p class="description">The
+ author is a freelance trainer in Linux internals, Linux device drivers,
+ embedded Linux and related topics. Prior to this, he had worked at 
+Intel and Nvidia. He has been exploring Linux since 1994. A gold 
+medallist from the Indian Institute of Science, Linux and 
+knowledge-sharing are two of his many passions.</p>
+                                                <div class="social-links"><p>Connect with him: <a href="http://profession.sarika-pugs.com/">Website</a> - <a rel="nofollow" href="http://twitter.com/anil_pugalia" target="_blank">Twitter</a> - <a rel="nofollow" href="http://facebook.com/anil.pugalia" target="_blank">Facebook</a> - <a rel="nofollow" href="http://plus.google.com/103727326491474549031" target="_blank">Google+</a></p>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="authorboxfix"></div>
+                                        </div>
+                                <div class="hentry-navigation">
+                    <div class="hentry-navigation-inn clear">
+                                                    <a class="hentry-navigation-prev" href="http://www.linuxforu.com/2010/12/kernel-tracing-with-ftrace-part-2/">
+                                <em>Previous Post</em>
+                                <span>Kernel Tracing with ftrace, Part 2</span>
+                            </a>
+                                                    <a class="hentry-navigation-next" href="http://www.linuxforu.com/2010/12/secure-upload-methods-in-php/">
+                                <em>Next Post</em>
+                                <span>Secure Upload Methods in PHP</span>
+                            </a>
+                                                    <div class="hentry-navigation-line"></div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+				        <div class="hentry-sidebar">
+            
+            
+            
+            
+        </div>
+				
+                <div style="position: fixed; top: 20px;" id="sharebox">
+             <div class="share-item"><iframe style="width: 55px; height: 62px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-vertical" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" scrolling="no" frameborder="0"></iframe><script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/widgets_002.js"></script></div>
+            <div class="share-item">
+<div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/LEdxGgtB9cN.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" scrolling="no" frameborder="0"></iframe><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/LEdxGgtB9cN_002.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" scrolling="no" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div fb-iframe-plugin-query="app_id=&amp;href=http%3A%2F%2Fwww.linuxforu.com%2F2010%2F12%2Fwriting-your-first-linux-driver%2F&amp;layout=box_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=49" fb-xfbml-state="parsed" class="fb-like fb_iframe_widget" data-send="false" data-href="http://www.linuxforu.com/2010/12/writing-your-first-linux-driver/" data-layout="box_count" data-width="49" data-show-faces="false"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/like.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like Facebook Social Plugin" allowtransparency="true" name="faaed556fd9de8" scrolling="no" width="49px" frameborder="0" height="1000px"></iframe></span></div>
+						</div>
+<div class="share-item">
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 50px; height: 60px;"><iframe title="+1" data-gapiattached="true" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/fastbutton.html" name="I0_1394692526756" id="I0_1394692526756" vspace="0" tabindex="0" style="position: static; top: 0px; width: 50px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 60px;" marginwidth="0" marginheight="0" hspace="0" scrolling="no" width="100%" frameborder="0"></iframe></div>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+						</div>
+            <div class="share-item"><script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/button2.js"></script><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/button2.html" scrolling="no" width="51" frameborder="0" height="69"></iframe></div>
+            <div class="share-item"><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/hostedbadge.html"></script><iframe id="iframe-stmblpn-widget-1" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/a.html" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px none;" allowtransparency="true" scrolling="no" width="50" frameborder="0" height="60"></iframe> <script type="text/javascript">   (function() {     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;     li.src = window.location.protocol + '//platform.stumbleupon.com/1/widgets.js';     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);   })(); </script></div>
+<div class="share-item"><script type="text/javascript"> (function() { var s = document.createElement('SCRIPT'), s1 = document.getElementsByTagName('SCRIPT')[0]; s.type = 'text/javascript'; s.async = true; s.src = 'http://widgets.digg.com/buttons.js'; s1.parentNode.insertBefore(s, s1); })(); </script> <span class="db-wrapper db-clear db-medium"><span><span class="db-container db-submit"><span class="db-body db-medium"><span class="db-count"></span><span class="db-copy"></span><a class="db-anchor">digg</a></span></span></span></span></div>
+        </div>
+        
+    </div>
+
+    <div class="clear"></div>
+
+    
+<div id="disqus_thread"><iframe verticalscrolling="no" horizontalscrolling="no" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/a_002.html" style="width: 100% ! important; border: medium none ! important; overflow: hidden ! important; height: 11937px ! important;" title="Disqus" tabindex="0" allowtransparency="true" data-disqus-uid="2" id="dsq-2" scrolling="no" width="100%" frameborder="0"></iframe><iframe style="width: 620px ! important; border: medium none ! important; overflow: hidden ! important; top: 0px ! important; min-width: 620px ! important; max-width: 620px ! important; position: fixed ! important; z-index: 2147483646 ! important; height: 29px ! important; min-height: 29px ! important; max-height: 29px ! important; display: none ! important;" title="Disqus" tabindex="0" allowtransparency="true" data-disqus-uid="indicator-north" id="dsq-indicator-north" scrolling="no" frameborder="0"></iframe><iframe style="width: 620px ! important; border: medium none ! important; overflow: hidden ! important; bottom: 0px ! important; min-width: 620px ! important; max-width: 620px ! important; position: fixed ! important; z-index: 2147483646 ! important; height: 29px ! important; min-height: 29px ! important; max-height: 29px ! important; display: none ! important;" title="Disqus" tabindex="0" allowtransparency="true" data-disqus-uid="indicator-south" id="dsq-indicator-south" scrolling="no" frameborder="0"></iframe></div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'http://www.linuxforu.com/2010/12/writing-your-first-linux-driver/';
+    var disqus_identifier = '3779 http://www.linuxforu.com/?p=3779';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'linuxforyou';
+    var disqus_title = "Device Drivers, Part 2: Writing Your First Linux Driver in the Classroom";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=3779';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+    var facebookXdReceiverPath = 'http://www.linuxforu.com/wp-content/plugins/disqus-comment-system/xd_receiver.htm';
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "http:\/\/www.linuxforu.com\/2010\/12\/writing-your-first-linux-driver\/trackback\/"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+        dsq.src = 'http' + '://' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.73';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+</div> <!-- .single -->
+
+
+</div><!-- #content -->
+
+<div id="sidebar">
+    <div id="search-3" class="widget_search widget"><form role="search" method="get" id="searchform" class="searchform" action="http://www.linuxforu.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input name="s" id="s" type="text">
+					<input id="searchsubmit" value="Search" type="submit">
+				</div>
+			</form></div><div id="text-5" class="widget_text widget">			<div class="textwidget"><a href="http://cloudoye.com/" title=" " target="_blank"><img src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/banner-cloudoye300x250.jpg" style="box-shadow: 0 0 3px #999999; padding: 4px;"></a></div>
+		</div><div id="wpshower_getconnected-3" class="unspoken-getconnected widget"><h3 class="widget-title">Get Connected</h3><ul>
+				<li class="feed">
+					<a href="http://feeds.feedburner.com/LinuxForYou">RSS Feed</a>
+				</li>
+
+		
+				<li class="twitter">
+					<a href="https://twitter.com/#%21/linuxforyou">Twitter</a>
+				</li>
+
+		</ul></div><div id="wpshower_adplace-26" class="unspoken-adplace widget"><script type="text/javascript"><!--
+google_ad_client = "pub-8234370613268639";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "text_image";
+google_ad_channel ="";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "006699";
+google_color_text = "000000";
+google_color_url = "000000";
+//--></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" scrolling="no" width="300" frameborder="0" height="250"></iframe></ins></ins>
+</div><div id="wpshower_adplace-28" class="unspoken-adplace widget"><a class="unspoken-banner aligncenter" href="http://www.enterpriseciosummit.com/" target="_blank"><img src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/cio-new-200p-x-150p.gif" alt="CIO Summit" title="CIO Summit"></a><div class="clear"></div></div><div id="text-7" class="widget_text widget">			<div class="textwidget"><!-- Place this tag in the <head> of your document -->
+<link href="https://plus.google.com/104556966235097268920" rel="publisher"><script type="text/javascript">
+window.___gcfg = {lang: 'en'};
+(function() 
+{var po = document.createElement("script");
+po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(po, s);
+})();</script><!-- Place this tag where you want the badge to render --><div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 106px;"><iframe title="+Badge" data-gapiattached="true" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/badge.html" name="I1_1394692529571" id="I1_1394692529571" vspace="0" tabindex="0" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 106px;" marginwidth="0" marginheight="0" hspace="0" scrolling="no" width="100%" frameborder="0"></iframe></div></div>
+		</div><div id="text-3" class="widget_text widget">			<div class="textwidget"><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=241865729181918";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div fb-iframe-plugin-query="app_id=&amp;header=true&amp;href=http%3A%2F%2Fwww.facebook.com%2Fopensourceforu&amp;locale=en_US&amp;sdk=joey&amp;show_faces=true&amp;stream=false&amp;width=300" fb-xfbml-state="parsed" class="fb-like-box fb_iframe_widget" data-href="http://www.facebook.com/opensourceforu" data-width="300" data-show-faces="true" data-stream="false" data-header="true"><span style="vertical-align: top; width: 0px; height: 0px;"><iframe src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/like_box.xhtml" style="border: medium none; visibility: hidden; width: 0px; height: 0px;" title="fb:like_box Facebook Social Plugin" allowtransparency="true" name="f353c6845eae3" scrolling="no" width="300px" frameborder="0" height="1000px"></iframe></span></div></div>
+		</div><div id="text-4" class="widget_text widget">			<div class="textwidget"><script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'search',
+  search: 'linuxforyou',
+  interval: 30000,
+  title: 'Complete Magazine on Open Source',
+  subject: '@LinuxForYou',
+  width: 'auto',
+  height: 350,
+  theme: {
+    shell: {
+      background: '#188cc2',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#444444',
+      links: '#0079c9'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: true,
+    live: true,
+    behavior: 'default'
+  }
+}).render().start();
+</script></div>
+		</div><div id="wpshower_tabs-3" class="unspoken-tabs widget"><div class="tabs-section"><ul class="tabs-list"><li class="tabs-current">Popular</li><li>Comments</li><li>Tag cloud</li></ul><div class="tabs-box visible"><div id="wpshower_popular_posts-3" class="unspoken_popular_posts widget"><span class="no-title">Popular</span><ul>
+            <li class="hentry-thumb clear">
+                <span class="hentry-thumb-image"><a href="http://www.linuxforu.com/2014/02/learn-write-apps-firefox-os/"><img src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/firefox-50x50.jpg" class="attachment-micro wp-post-image" alt="Learn How to Write Apps for the  Firefox OS" title="Learn How to Write Apps for the  Firefox OS" width="50" height="50"></a></span>
+                <span class="hentry-thumb-meta offset">February 14, 2014 · <a href="http://www.linuxforu.com/2014/02/learn-write-apps-firefox-os/#comments">5 Comments</a> · <a class="url fn n" href="http://www.linuxforu.com/author/sahil-chelaramani/" title="View all posts by Sahil Chelaramani">Sahil Chelaramani</a></span>
+                <span class="hentry-thumb-title offset"><a href="http://www.linuxforu.com/2014/02/learn-write-apps-firefox-os/">Learn How to Write Apps for the  Firefox OS</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb clear">
+                <span class="hentry-thumb-image"><a href="http://www.linuxforu.com/2013/12/open-source-technology/"></a></span>
+                <span class="hentry-thumb-meta ">December 10, 2013 · <a href="http://www.linuxforu.com/2013/12/open-source-technology/#comments">5 Comments</a> · <a class="url fn n" href="http://www.linuxforu.com/author/diksha-p-gupta/" title="View all posts by Diksha P Gupta">Diksha P Gupta</a></span>
+                <span class="hentry-thumb-title "><a href="http://www.linuxforu.com/2013/12/open-source-technology/">“We are where we are because of open source technology”</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb clear">
+                <span class="hentry-thumb-image"><a href="http://www.linuxforu.com/2014/02/programming-can-fun-hy/"><img src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/a-studnet-learning-hy-programming-with-fun-50x50.jpg" class="attachment-micro wp-post-image" alt="Programming Can Be Fun with Hy" title="Programming Can Be Fun with Hy" width="50" height="50"></a></span>
+                <span class="hentry-thumb-meta offset">February 14, 2014 · <a href="http://www.linuxforu.com/2014/02/programming-can-fun-hy/#comments">4 Comments</a> · <a class="url fn n" href="http://www.linuxforu.com/author/tuukka-turto/" title="View all posts by Tuukka Turto">Tuukka Turto</a></span>
+                <span class="hentry-thumb-title offset"><a href="http://www.linuxforu.com/2014/02/programming-can-fun-hy/">Programming Can Be Fun with Hy</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb clear">
+                <span class="hentry-thumb-image"><a href="http://www.linuxforu.com/2013/12/look-top-three-network-monitoring-tools/"></a></span>
+                <span class="hentry-thumb-meta ">December 10, 2013 · <a href="http://www.linuxforu.com/2013/12/look-top-three-network-monitoring-tools/#comments">3 Comments</a> · <a class="url fn n" href="http://www.linuxforu.com/author/prashant-phatak/" title="View all posts by Prashant Phatak">Prashant Phatak</a></span>
+                <span class="hentry-thumb-title "><a href="http://www.linuxforu.com/2013/12/look-top-three-network-monitoring-tools/">A Look at the Top Three Network Monitoring Tools</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb clear">
+                <span class="hentry-thumb-image"><a href="http://www.linuxforu.com/2014/02/foss-helps-naaptol-take-e-commerce-new-heights/"><img src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/naptol-50x50.jpg" class="attachment-micro wp-post-image" alt="FOSS Helps Naaptol Take E-Commerce to New Heights!" title="FOSS Helps Naaptol Take E-Commerce to New Heights!" width="50" height="50"></a></span>
+                <span class="hentry-thumb-meta offset">February 10, 2014 · <a href="http://www.linuxforu.com/2014/02/foss-helps-naaptol-take-e-commerce-new-heights/#comments">2 Comments</a> · <a class="url fn n" href="http://www.linuxforu.com/author/priyanka-sarkar/" title="View all posts by Priyanka Sarkar">Priyanka Sarkar</a></span>
+                <span class="hentry-thumb-title offset"><a href="http://www.linuxforu.com/2014/02/foss-helps-naaptol-take-e-commerce-new-heights/">FOSS Helps Naaptol Take E-Commerce to New Heights!</a></span>
+             </li>
+
+        </ul></div></div><div class="tabs-box"><div id="wpshower_recent_comments-3" class="unspoken_recent_comments widget"><span class="no-title">Comments</span><ul>
+            <li class="hentry-thumb hentry-thumb-comment clear">
+                <span class="hentry-thumb-image"><img id="grav-e2cebcabf7e1a597017284ecc14bc334-0" alt="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/e2cebcabf7e1a597017284ecc14bc334.png" class="avatar avatar-50 photo grav-hashed grav-hijack" width="50" height="50"></span>
+                <span class="hentry-thumb-meta offset">March 6, 2014</span>
+                <span class="hentry-thumb-title offset">Juri Pospelow                    <span>—</span> <a href="http://www.linuxforu.com/2011/10/usb-drivers-in-linux-1/#comment-6500" title="Comment on post &quot;Device Drivers, Part 11: USB Drivers in Linux&quot;">it is resolved! Under Ubuntu you must as first disconnect the USB-stick, then rmmod usb-storage! Else you get error message...</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb hentry-thumb-comment clear">
+                <span class="hentry-thumb-image"><img id="grav-6b9420b27bbb357fa9cd481711a43494-1" alt="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/6b9420b27bbb357fa9cd481711a43494.png" class="avatar avatar-50 photo grav-hashed grav-hijack" width="50" height="50"></span>
+                <span class="hentry-thumb-meta offset">March 6, 2014</span>
+                <span class="hentry-thumb-title offset">anil_pugalia                    <span>—</span> <a href="http://www.linuxforu.com/2011/10/usb-drivers-in-linux-1/#comment-6499" title="Comment on post &quot;Device Drivers, Part 11: USB Drivers in Linux&quot;">1) Seems like you have renamed / moved the usb_storage.ko* file.
+
+2) .config is a kernel configuration file and have nothing...</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb hentry-thumb-comment clear">
+                <span class="hentry-thumb-image"><img id="grav-6b9420b27bbb357fa9cd481711a43494-2" alt="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/6b9420b27bbb357fa9cd481711a43494.png" class="avatar avatar-50 photo grav-hashed grav-hijack" width="50" height="50"></span>
+                <span class="hentry-thumb-meta offset">March 6, 2014</span>
+                <span class="hentry-thumb-title offset">anil_pugalia                    <span>—</span> <a href="http://www.linuxforu.com/2011/10/usb-drivers-in-linux-1/#comment-6498" title="Comment on post &quot;Device Drivers, Part 11: USB Drivers in Linux&quot;">Lot of discussions are there below, regarding the same. Though in the simplest form, it should happen by doing "rmmod...</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb hentry-thumb-comment clear">
+                <span class="hentry-thumb-image"><img id="grav-a5d4a86b94f3c0ae1d19ce829e4f4307-0" alt="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/a5d4a86b94f3c0ae1d19ce829e4f4307.png" class="avatar avatar-50 photo grav-hashed grav-hijack" width="50" height="50"></span>
+                <span class="hentry-thumb-meta offset">March 6, 2014</span>
+                <span class="hentry-thumb-title offset">Akshay                    <span>—</span> <a href="http://www.linuxforu.com/2011/10/usb-drivers-in-linux-1/#comment-6497" title="Comment on post &quot;Device Drivers, Part 11: USB Drivers in Linux&quot;">HI,
+1) 
+I'm trying to insmod/modprobe usb-storage.
+I'm getting the following error:
+FATAL: Module usb_storage not found.
+
+I dont know why is it not...</a></span>
+             </li>
+
+        
+            <li class="hentry-thumb hentry-thumb-comment clear">
+                <span class="hentry-thumb-image"><img id="grav-bba2b9cbc015ec6f570a397812b17679-0" alt="" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/bba2b9cbc015ec6f570a397812b17679.png" class="avatar avatar-50 photo grav-hashed grav-hijack" width="50" height="50"></span>
+                <span class="hentry-thumb-meta offset">March 5, 2014</span>
+                <span class="hentry-thumb-title offset">akas                    <span>—</span> <a href="http://www.linuxforu.com/2014/02/learn-write-apps-firefox-os/#comment-6495" title="Comment on post &quot;Learn How to Write Apps for the  Firefox OS&quot;">How do i make my app responsive to different screen sizes?</a></span>
+             </li>
+
+        </ul></div></div><div class="tabs-box"><div id="simpletags-3" class="widget-simpletags widget"><span class="no-title">Tag cloud</span>
+<!-- Generated by Simple Tags 2.3.2 - http://wordpress.org/extend/plugins/simple-tags -->
+	<div class="st-tag-cloud">
+	<a href="http://www.linuxforu.com/tag/lfy-january-2011/" id="tag-link-2809" class="st-tags t1" title="24 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY January 2011</a>
+<a href="http://www.linuxforu.com/tag/gnome/" id="tag-link-570" class="st-tags t1" title="27 topics" rel="tag" style="font-size:8pt; color:#cccccc;">GNOME</a>
+<a href="http://www.linuxforu.com/tag/java/" id="tag-link-763" class="st-tags t6" title="79 topics" rel="tag" style="font-size:15.78pt; color:#5a5a5a;">Java</a>
+<a href="http://www.linuxforu.com/tag/android/" id="tag-link-79" class="st-tags t5" title="70 topics" rel="tag" style="font-size:14.22pt; color:#717171;">Android</a>
+<a href="http://www.linuxforu.com/tag/gpl/" id="tag-link-602" class="st-tags t1" title="22 topics" rel="tag" style="font-size:8pt; color:#cccccc;">GPL</a>
+<a href="http://www.linuxforu.com/tag/mysql/" id="tag-link-1009" class="st-tags t4" title="65 topics" rel="tag" style="font-size:12.67pt; color:#888888;">MySQL</a>
+<a href="http://www.linuxforu.com/tag/lfy-february-2012/" id="tag-link-4678" class="st-tags t1" title="24 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY February 2012</a>
+<a href="http://www.linuxforu.com/tag/operating-systems/" id="tag-link-2261" class="st-tags t1" title="28 topics" rel="tag" style="font-size:8pt; color:#cccccc;">operating systems</a>
+<a href="http://www.linuxforu.com/tag/cc/" id="tag-link-232" class="st-tags t1" title="22 topics" rel="tag" style="font-size:8pt; color:#cccccc;">C/C++</a>
+<a href="http://www.linuxforu.com/tag/lfy-may-2011/" id="tag-link-849" class="st-tags t1" title="24 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY May 2011</a>
+<a href="http://www.linuxforu.com/tag/ram/" id="tag-link-1817" class="st-tags t1" title="29 topics" rel="tag" style="font-size:8pt; color:#cccccc;">RAM</a>
+<a href="http://www.linuxforu.com/tag/php/" id="tag-link-1181" class="st-tags t3" title="53 topics" rel="tag" style="font-size:11.11pt; color:#9e9e9e;">PHP</a>
+<a href="http://www.linuxforu.com/tag/open-source/" id="tag-link-1094" class="st-tags t2" title="37 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">open source</a>
+<a href="http://www.linuxforu.com/tag/lfy-april-2012/" id="tag-link-5316" class="st-tags t1" title="28 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY April 2012</a>
+<a href="http://www.linuxforu.com/tag/api/" id="tag-link-105" class="st-tags t1" title="26 topics" rel="tag" style="font-size:8pt; color:#cccccc;">API</a>
+<a href="http://www.linuxforu.com/tag/microsoft/" id="tag-link-964" class="st-tags t2" title="40 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">Microsoft</a>
+<a href="http://www.linuxforu.com/tag/fedora/" id="tag-link-490" class="st-tags t4" title="58 topics" rel="tag" style="font-size:12.67pt; color:#888888;">Fedora</a>
+<a href="http://www.linuxforu.com/tag/linux/" id="tag-link-865" class="st-tags t10" title="124 topics" rel="tag" style="font-size:22pt; color:#000000;">Linux</a>
+<a href="http://www.linuxforu.com/tag/foss/" id="tag-link-521" class="st-tags t1" title="26 topics" rel="tag" style="font-size:8pt; color:#cccccc;">FOSS</a>
+<a href="http://www.linuxforu.com/tag/python/" id="tag-link-1244" class="st-tags t4" title="60 topics" rel="tag" style="font-size:12.67pt; color:#888888;">python</a>
+<a href="http://www.linuxforu.com/tag/lfy-july-2011/" id="tag-link-848" class="st-tags t1" title="24 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY July 2011</a>
+<a href="http://www.linuxforu.com/tag/javascript/" id="tag-link-774" class="st-tags t1" title="30 topics" rel="tag" style="font-size:8pt; color:#cccccc;">JavaScript</a>
+<a href="http://www.linuxforu.com/tag/lfy-june-2011/" id="tag-link-2496" class="st-tags t1" title="26 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY June 2011</a>
+<a href="http://www.linuxforu.com/tag/google/" id="tag-link-592" class="st-tags t4" title="61 topics" rel="tag" style="font-size:12.67pt; color:#888888;">Google</a>
+<a href="http://www.linuxforu.com/tag/firewall/" id="tag-link-506" class="st-tags t1" title="27 topics" rel="tag" style="font-size:8pt; color:#cccccc;">firewall</a>
+<a href="http://www.linuxforu.com/tag/distro-review/" id="tag-link-401" class="st-tags t1" title="22 topics" rel="tag" style="font-size:8pt; color:#cccccc;">distro review</a>
+<a href="http://www.linuxforu.com/tag/facebook/" id="tag-link-484" class="st-tags t1" title="23 topics" rel="tag" style="font-size:8pt; color:#cccccc;">Facebook</a>
+<a href="http://www.linuxforu.com/tag/web-applications/" id="tag-link-2351" class="st-tags t2" title="40 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">web applications</a>
+<a href="http://www.linuxforu.com/tag/apache/" id="tag-link-98" class="st-tags t2" title="34 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">Apache</a>
+<a href="http://www.linuxforu.com/tag/html/" id="tag-link-661" class="st-tags t2" title="43 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">html</a>
+<a href="http://www.linuxforu.com/tag/ethernet/" id="tag-link-1759" class="st-tags t1" title="24 topics" rel="tag" style="font-size:8pt; color:#cccccc;">Ethernet</a>
+<a href="http://www.linuxforu.com/tag/windows/" id="tag-link-1647" class="st-tags t2" title="39 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">Windows</a>
+<a href="http://www.linuxforu.com/tag/lfy-march-2012/" id="tag-link-5165" class="st-tags t1" title="25 topics" rel="tag" style="font-size:8pt; color:#cccccc;">LFY March 2012</a>
+<a href="http://www.linuxforu.com/tag/kernel/" id="tag-link-809" class="st-tags t1" title="26 topics" rel="tag" style="font-size:8pt; color:#cccccc;">kernel</a>
+<a href="http://www.linuxforu.com/tag/web-server/" id="tag-link-1634" class="st-tags t1" title="24 topics" rel="tag" style="font-size:8pt; color:#cccccc;">Web server</a>
+<a href="http://www.linuxforu.com/tag/security/" id="tag-link-22" class="st-tags t2" title="36 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">Security</a>
+<a href="http://www.linuxforu.com/tag/red-hat/" id="tag-link-1272" class="st-tags t1" title="33 topics" rel="tag" style="font-size:8pt; color:#cccccc;">Red Hat</a>
+<a href="http://www.linuxforu.com/tag/oracle/" id="tag-link-1125" class="st-tags t1" title="30 topics" rel="tag" style="font-size:8pt; color:#cccccc;">Oracle</a>
+<a href="http://www.linuxforu.com/tag/india/" id="tag-link-701" class="st-tags t2" title="37 topics" rel="tag" style="font-size:9.56pt; color:#b5b5b5;">India</a>
+<a href="http://www.linuxforu.com/tag/programming/" id="tag-link-1225" class="st-tags t1" title="33 topics" rel="tag" style="font-size:8pt; color:#cccccc;">programming</a>
+<a href="http://www.linuxforu.com/tag/http/" id="tag-link-662" class="st-tags t1" title="26 topics" rel="tag" style="font-size:8pt; color:#cccccc;">http</a>
+<a href="http://www.linuxforu.com/tag/xml/" id="tag-link-2131" class="st-tags t1" title="29 topics" rel="tag" style="font-size:8pt; color:#cccccc;">xml</a>
+<a href="http://www.linuxforu.com/tag/ubuntu/" id="tag-link-1539" class="st-tags t7" title="97 topics" rel="tag" style="font-size:17.33pt; color:#434343;">ubuntu</a>
+<a href="http://www.linuxforu.com/tag/c/" id="tag-link-224" class="st-tags t3" title="47 topics" rel="tag" style="font-size:11.11pt; color:#9e9e9e;">C</a>
+<a href="http://www.linuxforu.com/tag/unix/" id="tag-link-1561" class="st-tags t1" title="33 topics" rel="tag" style="font-size:8pt; color:#cccccc;">unix</a></div>
+
+</div></div></div></div></div><!-- #sidebar -->
+
+            </div> <!-- .middle -->
+            <div class="bottom-widgetarea">
+                <div class="bottom-widgetarea-inn clear">
+                                                        </div>
+            </div>
+            <div class="footer clear">
+
+            <div class="menu-footer clear"><ul id="menu-navigation-footer" class="menu"><li id="menu-item-26" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-26"><a href="http://www.linuxforu.com/category/reviews/">Reviews</a></li>
+<li id="menu-item-27" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-27"><a href="http://www.linuxforu.com/category/how-tos/">How-Tos</a></li>
+<li id="menu-item-28" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-28"><a href="http://www.linuxforu.com/category/coding/">Coding</a></li>
+<li id="menu-item-5530" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5530"><a href="http://www.linuxforu.com/category/interviews/">Interviews</a></li>
+<li id="menu-item-29" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29"><a href="http://www.linuxforu.com/category/features/">Features</a></li>
+<li id="menu-item-5548" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5548"><a href="http://www.linuxforu.com/category/overview/">Overview</a></li>
+<li id="menu-item-32" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32"><a href="http://www.linuxforu.com/category/blogs/">Blogs</a></li>
+</ul></div>
+                <div style="height: 126px;" class="footer-leftpart">
+                    <a class="logo-footer" href="http://www.linuxforu.com/">
+                                                    <span style="background: url(http://www.linuxforu.com/wp-content/themes/unspoken/images/logo-footer.png) 0 0 no-repeat;"></span>                                            </a>
+                </div>
+                <div style="height: 126px;" class="footer-middlepart">
+                    <div class="footer-searchform">
+                        <form method="get" id="searchform" action="http://www.linuxforu.com">
+                            <fieldset>
+                                <input name="s" onfocus="if(this.value=='Search') this.value='';" onblur="if(this.value=='') this.value='Search';" value="Search" type="text">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="footer-tags">
+                        <p>Popular tags</p><a href="http://www.linuxforu.com/tag/linux/" title="Linux" class="linux">Linux</a>, <a href="http://www.linuxforu.com/tag/ubuntu/" title="ubuntu" class="ubuntu">ubuntu</a>, <a href="http://www.linuxforu.com/tag/java/" title="Java" class="java">Java</a>, <a href="http://www.linuxforu.com/tag/android/" title="Android" class="android">Android</a>, <a href="http://www.linuxforu.com/tag/mysql/" title="MySQL" class="mysql">MySQL</a>, <a href="http://www.linuxforu.com/tag/google/" title="Google" class="google">Google</a>, <a href="http://www.linuxforu.com/tag/python/" title="python" class="python">python</a>, <a href="http://www.linuxforu.com/tag/fedora/" title="Fedora" class="fedora">Fedora</a>, <a href="http://www.linuxforu.com/tag/php/" title="PHP" class="php">PHP</a>, <a href="http://www.linuxforu.com/tag/c/" title="C" class="c">C</a>, <a href="http://www.linuxforu.com/tag/html/" title="html" class="html">html</a>, <a href="http://www.linuxforu.com/tag/microsoft/" title="Microsoft" class="microsoft">Microsoft</a>, <a href="http://www.linuxforu.com/tag/web-applications/" title="web applications" class="web-applications">web applications</a>, <a href="http://www.linuxforu.com/tag/windows/" title="Windows" class="windows">Windows</a>, <a href="http://www.linuxforu.com/tag/india/" title="India" class="india">India</a>, <a href="http://www.linuxforu.com/tag/open-source/" title="open source" class="open-source">open source</a>, <a href="http://www.linuxforu.com/tag/security/" title="Security" class="security">Security</a>, <a href="http://www.linuxforu.com/tag/apache/" title="Apache" class="apache">Apache</a>, <a href="http://www.linuxforu.com/tag/programming/" title="programming" class="programming">programming</a>, <a href="http://www.linuxforu.com/tag/red-hat/" title="Red Hat" class="red-hat">Red Hat</a>, <a href="http://www.linuxforu.com/tag/unix/" title="unix" class="unix">unix</a>, <a href="http://www.linuxforu.com/tag/javascript/" title="JavaScript" class="javascript">JavaScript</a>, <a href="http://www.linuxforu.com/tag/oracle/" title="Oracle" class="oracle">Oracle</a>, <a href="http://www.linuxforu.com/tag/ram/" title="RAM" class="ram">RAM</a>, <a href="http://www.linuxforu.com/tag/xml/" title="xml" class="xml">xml</a>, <a href="http://www.linuxforu.com/tag/operating-systems/" title="operating systems" class="operating-systems">operating systems</a>, <a href="http://www.linuxforu.com/tag/lfy-april-2012/" title="LFY April 2012" class="lfy-april-2012">LFY April 2012</a>, <a href="http://www.linuxforu.com/tag/firewall/" title="firewall" class="firewall">firewall</a>, <a href="http://www.linuxforu.com/tag/gnome/" title="GNOME" class="gnome">GNOME</a>, <a href="http://www.linuxforu.com/tag/api/" title="API" class="api">API</a>                    </div>
+                </div>
+
+            <ul style="height: 126px;" id="menu-footer-left-linkset" class="footer-linkset"><li id="menu-item-33" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33"><a href="http://www.linuxforu.com/category/everyone/">For You &amp; Me</a></li>
+<li id="menu-item-3257" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3257"><a href="http://www.linuxforu.com/category/developers/">Developers</a></li>
+<li id="menu-item-5536" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5536"><a href="http://www.linuxforu.com/category/sysadmins/">Sysadmins</a></li>
+<li id="menu-item-11294" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11294"><a href="http://www.linuxforu.com/category/power-users/">Open Gurus</a></li>
+<li id="menu-item-11293" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-11293"><a href="http://www.linuxforu.com/category/cxo/">CXOs</a></li>
+<li id="menu-item-3258" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3258"><a href="http://www.linuxforu.com/category/columns/">Columns</a></li>
+</ul>
+            
+            </div><!-- .footer -->
+            <div class="copyrights">
+                <p>All published articles are released under <a href="http://creativecommons.org/licenses/by-nc/3.0/" target="_blank">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>, unless otherwise noted.<br><a href="http://www.linuxforu.com/">LINUX For You</a> is powered by <a href="http://wordpress.org/" target="_blank&gt;">WordPress</a>, which gladly sits on top of a <a href="http://www.centos.org/" target="_blank">CentOS</a>-based <a href="http://en.wikipedia.org/wiki/LAMP_%28software_bundle%29" target="_blank">LEMP stack</a>.</p>
+                            </div>
+            <div class="credits">
+            
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons License" style="border-width:0" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/88x31.png"></a>.
+            </div>
+            <div class="clear"></div>
+        </div><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/postmessageRelay.html" id="oauth2relay1801567169" name="oauth2relay1801567169"></iframe> <!-- .wrapper -->
+
+            <script type="text/javascript">
+    // <![CDATA[
+        var disqus_shortname = 'linuxforyou';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) url = url[0];
+                    else url = url[1]
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+                        s.src = 'http' + '://' + 'disqus.com/forums/' + disqus_shortname + '/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    //]]>
+    </script>
+
+<!-- WP SyntaxHighlighter Ver.1.7.3 Begin -->
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/shCore.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/shAutoloader.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/shBrushXml.js"></script>
+<script type="text/javascript">//<![CDATA[
+	SyntaxHighlighter.autoloader(
+	"bash shell	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js?ver=3.0"
+	,"cpp c	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0"
+	,"c# c-sharp csharp	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js?ver=3.0"
+	,"css	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js?ver=3.0"
+	,"delphi pas pascal	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js?ver=3.0"
+	,"diff patch	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js?ver=3.0"
+	,"erl erlang	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js?ver=3.0"
+	,"groovy	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js?ver=3.0"
+	,"java	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0"
+	,"js jscript javascript	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js?ver=3.0"
+	,"perl pl	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js?ver=3.0"
+	,"php	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0"
+	,"plain text	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0"
+	,"py python	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js?ver=3.0"
+	,"rails ror ruby rb	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js?ver=3.0"
+	,"scala	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js?ver=3.0"
+	,"sql	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js?ver=3.0"
+	,"vb vbnet	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js?ver=3.0"
+	,"xml xhtml xslt html	http://www.linuxforu.com/wp-content/plugins/wp-syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0"
+	);
+	SyntaxHighlighter.defaults['auto-links'] = false;
+	SyntaxHighlighter.defaults['quick-code'] = true;
+	SyntaxHighlighter.defaults['title'] = '';
+	SyntaxHighlighter.defaults['class-name'] = 'notranslate';
+	SyntaxHighlighter.defaults['collapse'] = false;
+	SyntaxHighlighter.defaults['first-line'] = 1;
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['smart-tabs'] = true;
+	SyntaxHighlighter.defaults['tab-size'] = 4;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = "Can't find brush for: ";
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = "Brush wasn't configured for html-script option: ";
+	SyntaxHighlighter.all();
+	
+//]]></script>
+<!-- WP SyntaxHighlighter Ver.1.7.3 End -->
+	<div style="display:none">
+	<div class="grofile-hash-map-6b9420b27bbb357fa9cd481711a43494">
+	</div>
+	<div class="grofile-hash-map-e2cebcabf7e1a597017284ecc14bc334">
+	</div>
+	<div class="grofile-hash-map-a5d4a86b94f3c0ae1d19ce829e4f4307">
+	</div>
+	<div class="grofile-hash-map-bba2b9cbc015ec6f570a397812b17679">
+	</div>
+	</div>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery_002.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery_003.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpgform_script_vars = {"required":"This field is required.","remote":"Please fix this field.","email":"Please enter a valid email address.","url":"Please enter a valid URL.","date":"Please enter a valid date.","dateISO":"Please enter a valid date (ISO).","number":"Please enter a valid number.","digits":"Please enter only digits.","creditcard":"Please enter a valid credit card number.","equalTo":"Please enter the same value again.,","accept":"Please enter a value with a valid extension.","maxlength":"Please enter no more than {0} characters.","minlength":"Please enter at least {0} characters.","rangelength":"Please enter a value between {0} and {1} characters long.","range":"Please enter a value between {0} and {1}.","max":"Please enter a value less than or equal to {0}.","min":"Please enter a value greater than or equal to {0}."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/wpgform.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/jquery_005.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.linuxforu.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ...","cached":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/scripts_002.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/wpgroho.js"></script>
+
+	<script src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/e-201411.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:2.5',blog:'12329356',post:'3779',tz:'5.5'});
+	var load_cmc = function(){linktracker_init(12329356,3779,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img id="wpstats" src="Device%20Drivers,%20Part%202:%20Writing%20Your%20First%20Linux%20Driver%20in%20the%20Classroom%20-%20LINUX%20For%20You_files/g.gif" alt="">
+        <script type="text/javascript">/* CloudFlare analytics upgrade */
+</script>
+	
+
+<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body><iframe src="" style="display: none;"></iframe></html>
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Database Caching 40/67 queries in 0.059 seconds using apc
+Object Caching 3678/3847 objects using apc
+
+ Served from: www.linuxforu.com @ 2014-03-13 12:05:05 by W3 Total Cache -->

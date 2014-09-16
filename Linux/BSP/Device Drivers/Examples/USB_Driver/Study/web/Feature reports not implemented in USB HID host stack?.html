@@ -1,0 +1,940 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>
+	Feature reports not implemented in USB HID host stack?
+</title><link type="application/rss+xml" rel="alternate" title="Feature reports not implemented in USB HID host stack?" href="http://www.microchip.com/forums/rss-m530537.ashx"><link type="text/css" href="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/prettify.css" rel="stylesheet"><link type="text/css" href="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/combinedCss_003.css" rel="stylesheet"><link type="text/css" href="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/combinedCss_002.css" rel="stylesheet"><link type="text/css" href="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/combinedCss.css" rel="stylesheet"><link href="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/StyleSheets.css" type="text/css" rel="stylesheet"><meta name="keywords" content="Feature reports not implemented in USB HID host stack?"><meta name="description" content="Hi everybody!       I'm new to PICs (been using mainly atmel for the last 5 years) and I have had a very good first start so far.    It was fairly easy to get the &quot;USB host Mouse&quot; demo running on a breadboarded PIC24FJ64GB002.       I would like to point out some issues I have encountered, now that ..."></head>
+<body>
+    <form method="post" action="m530537-print.aspx" id="aspnetForm">
+<div>
+<input autocomplete="off" name="ctl00_RadScriptManager1_TSM" id="ctl00_RadScriptManager1_TSM" value=";;System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35:en-US:c2b5a2f3-2711-4e71-b087-b34e92289501:ea597d4b:b25378d2;;Telerik.Web.UI, Version=2009.3.1208.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4:en-US:6ed19be3-4ef3-4060-9b74-4985886ad7d9:16e4e7cd:ed16cbdc:874f8ea2:24ee1bba:19620875:39040b5c:e330518b:1e771326:c8618e41:e4f8f289" type="hidden">
+<input autocomplete="off" name="__EVENTTARGET" id="__EVENTTARGET" value="" type="hidden">
+<input autocomplete="off" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" type="hidden">
+<input autocomplete="off" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTQxOTg1NzQwN2QYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgQFF2N0bDAwJFJhZE1hbmFnZXJUb29sVGlwBS1jdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJFJhZFRvb2xUaXBNZXNzYWdlSUQFIWN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkQWxsTWVudQUoY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyMSRCcmVhZENydW1iTWVudRrpQ5rePBSRGtU9BpF7L8JmVVpv" type="hidden">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/WebResource.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+var clientScriptPathInfo = new Array(); 
+clientScriptPathInfo.ApplicationPath = '/forums'; 
+clientScriptPathInfo.FilePath = '/forums/m530537-print.aspx'; 
+clientScriptPathInfo.PathInfo = ''; 
+clientScriptPathInfo.RawUrl = '/forums/m530537-print.aspx'; 
+clientScriptPathInfo.Url = 'http://www.microchip.com/forums/m530537-print.aspx?m=530537&mpage=&print=true'; 
+clientScriptPathInfo.ForumDir = 'http://www.microchip.com/forums/';
+clientScriptPathInfo.ForumBreadCrumbHome = '~/default.aspx';
+pageMasterUniqueID = 'ctl00';
+pageThemeImageURL = 'app_themes/Classic/image/';
+var currentMemberInfo = new Array(); 
+currentMemberInfo.memID = -1; 
+currentMemberInfo.lastVisit = '2014/02/28 04:18:14';
+currentMemberInfo.popupPosting = false; 
+currentMemberInfo.usingMobileTheme = false; 
+var ImageOpenFile = "plus.gif"; var ImageCloseFile = "minus.gif";//]]>
+</script>
+
+<script src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/Javascript_002.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/combinedJs.js" type="text/javascript"></script>
+<script src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/Javascript.js" type="text/javascript"></script>
+<div>
+
+	<input autocomplete="off" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWBgL91/jQDALpr43+CALzhpemBALUwbdEAsW00s8JAs/X16MCAg9Qbo8Vbz6Mrc0aGLzbHiTEtN4=" type="hidden">
+</div>
+    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$RadScriptManager1', document.getElementById('aspnetForm'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tctl00$RM1SU'], [], [], 90);
+//]]>
+</script>
+
+        
+    <!-- 2009.3.1208.35 --><div style="display: none;" id="ctl00_RM1SU">
+	<span id="ctl00_RM1" style="display:none;"></span>
+</div>
+    <div id="ctl00_RadManagerToolTip" style="display:none;position:absolute;">
+	<input autocomplete="off" id="ctl00_RadManagerToolTip_ClientState" name="ctl00_RadManagerToolTip_ClientState" type="hidden">
+</div>
+    
+    <script type="text/javascript">
+        var oWindow ;
+        
+        try {
+            oWindow = GetRadWindow();
+        } catch (Err) {
+        
+        }
+        
+         
+        var RadManagerToolTipClientID = "ctl00_RadManagerToolTip";
+        
+    </script>
+    
+    <div style="margin:20px auto 0 auto; width:95%;">
+        
+    
+    <div id="ctl00_ContentPlaceHolder1_RadToolTipMessageID" style="display:none;position:absolute;">
+	<input autocomplete="off" id="ctl00_ContentPlaceHolder1_RadToolTipMessageID_ClientState" name="ctl00_ContentPlaceHolder1_RadToolTipMessageID_ClientState" type="hidden">
+</div>
+    
+  
+    
+
+    <div id="ctl00_ContentPlaceHolder1_AjaxLoadingPanel1" style="display:none;">
+	
+        <img id="ctl00_ContentPlaceHolder1_loadingImg" src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/loading.gif" alt="Loading..." style="border-width:0px;">
+    
+</div> 
+    
+
+    
+
+    
+        <h1>
+    <a href="http://www.microchip.com/forums/m530537.aspx">&nbsp;Feature reports not implemented in USB HID host stack?</a>
+        </h1>
+    
+    
+    <div id="ctl00_ContentPlaceHolder1_MsgListPanel">
+        <input name="ctl00$ContentPlaceHolder1$MessageList$pagingHiddenField" id="ctl00_ContentPlaceHolder1_MessageList_pagingHiddenField" type="hidden"><input name="ctl00$ContentPlaceHolder1$MessageList$pagingHiddenButton" value="" id="ctl00_ContentPlaceHolder1_MessageList_pagingHiddenButton" class="HiddenButton" type="submit">
+            <table class="maintable" cellspacing="1">
+                <tbody><tr class="smallcat">
+                    <th width="200">
+                        Author</th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            </tbody></table>
+<table id="msg_tbl530537" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">axeloide</span>
+            <div id="AuthorInfo530537" style="display: ;">
+                <ul id="AuthorSummary530537" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        2
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 10/21/2010</li><li>Location: Spain</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td530537">
+            <div id="530537">
+                <div id="UpperSection530537" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject530537" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Feature reports not implemented in USB HID host stack?
+                        </span><span id="date530537" style="font: normal 11px Verdana">-
+                            Thursday, October 21, 2010 1:32 AM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg530537" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv530537"><select style="display: none;" class="ratingSelect" id="starRating530537" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult530537">0</span></div>
+                    
+                       <br>   <br>  Hi everybody!  <br>   <br>  I'm new to PICs (been using mainly atmel for the last 5 years) and I have had a very good first start so far.  <br>  It was fairly easy to get the "USB host Mouse" demo running on a breadboarded PIC24FJ64GB002.  <br>   <br>
+  I would like to point out some issues I have encountered, now that I 
+am writing a HID host firmware to communicate with a proprietary HID 
+device of mine:  <br>   <br>  ---<li>Microchip's HID host stack (v2010-08-04 Revision 2.7a) doesn't implement feature-reports.  <br>  I've been able to send Feature reports by tampering USBHostHIDTransfer(), so that it applies the following:  <br>  <pre class="prettyprint"><span class="pln">&nbsp;<br>&nbsp;deviceInfoHID</span><span class="pun">[</span><span class="pln">i</span><span class="pun">].</span><span class="pln">reportId </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">reportid </span><span class="pun">|((</span><span class="pln">WORD</span><span class="pun">)</span><span class="pln">USB_HID_FEATURE_REPORT</span><span class="pun">&lt;&lt;</span><span class="lit">8</span><span class="pun">));</span><span class="pln"> <br>&nbsp;</span></pre>  <br>
+  This only works if correcting the wrong definition of the preprocessor
+ constant USB_HID_FEATURE_REPORT: it should be 0x03, not 0x00.  <br>  So it seems there is no technical/architectural limitation for feature-reports not being implemented, right?  <br>  Is there any beta or patch out there, that adds feature-reports to the HID host stack?  <br>  If there is not and I give it a try to patch it myself, whom do I send the patch?  <br>   <br>  ---  <br>   <br>
+  I also see no way to get rid of the (otherwise useful and elegantly 
+implemented) Report-Descriptor-Parser. The application I want to develop
+ knows in advance what HID reports it is expecting. The parser bloats 
+the binary, but worse: it needs plenty of heap made available (my 
+proprietary report descriptor is huge). Is there a way to make the 
+parser optional? Maybe it doesn't make sense for 99% of the 
+applications... or maybe yes, I don't know who else might be developing 
+USB host applications on tiny low-pin-count microcontrollers.  <br>   <br>  ---  <br>   <br>  The following line seems to be missing between 895 and 896 in file usb_host_hic.c :  <br>  <pre class="prettyprint"><span class="pln">&nbsp;<br>&nbsp;deviceInfoHID</span><span class="pun">[</span><span class="pln">i</span><span class="pun">].</span><span class="pln">bytesTransferred </span><span class="pun">=</span><span class="pln"> byteCount</span><span class="pun">;</span><span class="pln"><br>&nbsp;<br>&nbsp;</span></pre> <br>   <br>  Without that line, USBHostHIDTransferIsComplete() will not return the number of bytes transmitted when sending a report. <br>   <br>  ---</li><li><i>    <br>
+  The demos "USB host - HID - Mouse" and "USB host - HID - Keyboard" do 
+compile and run fine, but the source-code is full of unused code lines 
+which are probably leftovers from prior framework versions, but do 
+confuse the newbie.  <br>   <br>  ---  <br>   <br>   <br>  I would appreciate any hints and pointers for PIC-USB newbies.  <br>   <br>  Best regards,  <br>  Axel.  <br>  </i> 
+                    <div class="editInfo">&lt;message edited by axeloide on Thursday, October 21, 2010 1:40 AM&gt;</div>
+                    
+                </li></div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl530706" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">chinzei</span>
+            <div id="AuthorInfo530706" style="display: ;">
+                <ul id="AuthorSummary530706" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        2111
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 11/7/2003</li><li>Location: Tokyo, Japan</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td530706">
+            <div id="530706">
+                <div id="UpperSection530706" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject530706" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date530706" style="font: normal 11px Verdana">-
+                            Thursday, October 21, 2010 10:09 PM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg530706" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv530706"><select style="display: none;" class="ratingSelect" id="starRating530706" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult530706">0</span></div>
+                    
+                       <br> <blockquote class="quote"><i></i><br>I also see no way to get rid of the (otherwise useful and elegantly implemented) Report-Descriptor-Parser.</blockquote> <br>    <br>  Apply generic driver, instead of HID <br>    <br>  "receive report without hid report descriptor?" <br>  <a href="http://www.microchip.com/forums/m524525.aspx" target="_blank" rel="nofollow">http://www.microchip.com/forums/m524525.aspx</a> <br>    <br>  Tsuneo <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl531076" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">xiaofan</span>
+            <div id="AuthorInfo531076" style="display: ;">
+                <ul id="AuthorSummary531076" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        6253
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 4/14/2005</li><li>Location: Singapore</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td531076">
+            <div id="531076">
+                <div id="UpperSection531076" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject531076" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date531076" style="font: normal 11px Verdana">-
+                            Sunday, October 24, 2010 6:38 PM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg531076" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv531076"><select style="display: none;" class="ratingSelect" id="starRating531076" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult531076">0</span></div>
+                    
+                      <blockquote class="quote"><i></i><br>Is there any 
+beta or patch out there, that adds feature-reports to the HID host 
+stack? If there is not and I give it a try to patch it myself, whom do I
+ send the patch? </blockquote> <br>   <br>  I do not think there are any
+ publich patched out there. But you can always post the patches here and
+ Microchip may incorporate the patches in the future stack version. <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    <div class="sigDivider"></div> &nbsp; <a href="http://www.microchip.com/forums/tm.aspx?m=123533" target="_blank" rel="nofollow">USB_Links | </a> <a href="http://sourceforge.net/projects/libusb-win32/" target="_blank" rel="nofollow"> libusb-win32 </a> <br>  
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl540214" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">nikolajsheller</span>
+            <div id="AuthorInfo540214" style="display: ;">
+                <ul id="AuthorSummary540214" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        2
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 12/2/2010</li><li>Location: 0</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td540214">
+            <div id="540214">
+                <div id="UpperSection540214" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject540214" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date540214" style="font: normal 11px Verdana">-
+                            Friday, December 03, 2010 6:29 AM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg540214" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv540214"><select style="display: none;" class="ratingSelect" id="starRating540214" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult540214">0</span></div>
+                    
+                      Hello <br>   <br>  I'm working with a custom USB device, and I am attempting to set it up by sending Feature Requests to it. <br>   <br>  Reading data from it using using the Host USB mouse example works like a charm. <br>
+  Additional configuration has to be performed on it to get the correct 
+data I want, and this has to be done using aforementioned feature 
+requests. <br>   <br>  I have incorporated the corrections from this 
+thread, but there still seems to be some work missing to actually send a
+ feature request. <br>  E.g. USBHostHIDTransfer() in "usb_host_hid.c" is hardcoded to use USB_HID_SET_REPORT, and cannot use USB_HID_FEATURE_REPORT. <br>   <br>  Have you (the people reading this thread) got feature requests to work? <br>  And if you have: how did you manage to do it?  <br>   <br>  Any feedback is appreciated. <br>   <br>  Regards <br>  -Nikolaj <br>   <br>  <blockquote class="quote"><i>axeloide</i><br>  <br>   <br>  Hi everybody!   <br>   <br>  I'm new to PICs (been using mainly atmel for the last 5 years) and I have had a very good first start so far.   <br>  It was fairly easy to get the "USB host Mouse" demo running on a breadboarded PIC24FJ64GB002.   <br>   <br>
+  I would like to point out some issues I have encountered, now that I 
+am writing a HID host firmware to communicate with a proprietary HID 
+device of mine:   <br>   <br>  ---<li>Microchip's HID host stack (v2010-08-04 Revision 2.7a) doesn't implement feature-reports.   <br>  I've been able to send Feature reports by tampering USBHostHIDTransfer(), so that it applies the following:   <br>  <pre class="prettyprint"><span class="pln">&nbsp; <br>&nbsp;deviceInfoHID</span><span class="pun">[</span><span class="pln">i</span><span class="pun">].</span><span class="pln">reportId </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">reportid </span><span class="pun">|((</span><span class="pln">WORD</span><span class="pun">)</span><span class="pln">USB_HID_FEATURE_REPORT</span><span class="pun">&lt;&lt;</span><span class="lit">8</span><span class="pun">));</span><span class="pln"> &nbsp;<br>&nbsp;</span></pre>   <br>
+  This only works if correcting the wrong definition of the preprocessor
+ constant USB_HID_FEATURE_REPORT: it should be 0x03, not 0x00.   <br>  So it seems there is no technical/architectural limitation for feature-reports not being implemented, right?   <br>  Is there any beta or patch out there, that adds feature-reports to the HID host stack?   <br>  If there is not and I give it a try to patch it myself, whom do I send the patch?   <br>   <br>  ---   <br>   <br>
+  I also see no way to get rid of the (otherwise useful and elegantly 
+implemented) Report-Descriptor-Parser. The application I want to develop
+ knows in advance what HID reports it is expecting. The parser bloats 
+the binary, but worse: it needs plenty of heap made available (my 
+proprietary report descriptor is huge). Is there a way to make the 
+parser optional? Maybe it doesn't make sense for 99% of the 
+applications... or maybe yes, I don't know who else might be developing 
+USB host applications on tiny low-pin-count microcontrollers.   <br>   <br>  ---   <br>   <br>  The following line seems to be missing between 895 and 896 in file usb_host_hic.c :   <br>  <pre class="prettyprint"><span class="pln">&nbsp; <br>&nbsp;deviceInfoHID</span><span class="pun">[</span><span class="pln">i</span><span class="pun">].</span><span class="pln">bytesTransferred </span><span class="pun">=</span><span class="pln"> byteCount</span><span class="pun">;</span><span class="pln"> <br>&nbsp;<br>&nbsp;</span></pre>  <br>   <br>  Without that line, USBHostHIDTransferIsComplete() will not return the number of bytes transmitted when sending a report.  <br>   <br>  ---</li><li><i>     <br>
+  The demos "USB host - HID - Mouse" and "USB host - HID - Keyboard" do 
+compile and run fine, but the source-code is full of unused code lines 
+which are probably leftovers from prior framework versions, but do 
+confuse the newbie.   <br>   <br>  ---   <br>   <br>   <br>  I would appreciate any hints and pointers for PIC-USB newbies.   <br>   <br>  Best regards,   <br>  Axel.   <br>  </i>  <br>  </li></blockquote>  <br>    <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl749285" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">sgermain</span>
+            <div id="AuthorInfo749285" style="display: ;">
+                <ul id="AuthorSummary749285" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        4
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 5/24/2013</li><li>Location: 0</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td749285">
+            <div id="749285">
+                <div id="UpperSection749285" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject749285" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date749285" style="font: normal 11px Verdana">-
+                            Thursday, October 03, 2013 2:55 PM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg749285" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv749285"><select style="display: none;" class="ratingSelect" id="starRating749285" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult749285">0</span></div>
+                    
+                      Hi,  <br>  I also need a GetFeature. This look like an old trouble so I would like to know if some solution existe now?  <br>  &nbsp;  <br>  Thanks,  <br>  Steph <br>  
+                    <div class="editInfo">&lt;message edited by sgermain on Thursday, October 03, 2013 2:58 PM&gt;</div>
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl749309" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">chinzei</span>
+            <div id="AuthorInfo749309" style="display: ;">
+                <ul id="AuthorSummary749309" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        2111
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 11/7/2003</li><li>Location: Tokyo, Japan</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td749309">
+            <div id="749309">
+                <div id="UpperSection749309" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject749309" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date749309" style="font: normal 11px Verdana">-
+                            Thursday, October 03, 2013 5:41 PM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg749309" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="1 vote" id="ratingDiv749309"><select style="display: none;" class="ratingSelect" id="starRating749309" disabled="disabled"><option value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2" selected="selected"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-full"></a><a value="0" title="" class="ui-rating-star ui-rating-full"></a><a value="1" title="" class="ui-rating-star ui-rating-full"></a><a value="2" title="" class="ui-rating-star ui-rating-full"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult749309">5</span></div>
+                    
+                      As discussed on other topic ( <a href="http://www.microchip.com/forums/m748046.aspx" target="_blank" rel="nofollow">http://www.microchip.com/forums/m748046.aspx</a> ),  <br>  Feature report is sent over USBHostHIDTransfer  <br>  <pre class="prettyprint"><span class="pln">&nbsp;<br>&nbsp;</span><span class="com">#define</span><span class="pln"> HID_INPUT_REPORT &nbsp; &nbsp;</span><span class="lit">1</span><span class="pln"><br></span><span class="com">#define</span><span class="pln"> HID_OUTPUT_REPORT &nbsp; </span><span class="lit">2</span><span class="pln"><br></span><span class="com">#define</span><span class="pln"> HID_FEATURE_REPORT &nbsp;</span><span class="lit">3</span><span class="pln"><br><br></span><span class="com">#define</span><span class="pln"> </span><span class="typ">USBHostHIDWrite_Feature</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="pln">reportid</span><span class="pun">,</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln">size</span><span class="pun">,</span><span class="pln">data</span><span class="pun">)</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="typ">USBHostHIDTransfer</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="lit">0</span><span class="pun">,</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">((</span><span class="pln">HID_FEATURE_REPORT </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="lit">8</span><span class="pun">)</span><span class="pln"> </span><span class="pun">|(</span><span class="pln">reportid</span><span class="pun">)),</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;size</span><span class="pun">,</span><span class="pln">data</span><span class="pun">)</span><span class="pln"><br><br></span><span class="com">#define</span><span class="pln"> </span><span class="typ">USBHostHIDRead_Feature</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="pln">reportid</span><span class="pun">,</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln">size</span><span class="pun">,</span><span class="pln">data</span><span class="pun">)</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">USBHostHIDTransfer</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="lit">1</span><span class="pun">,</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">((</span><span class="pln">HID_FEATURE_REPORT </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="lit">8</span><span class="pun">)</span><span class="pln"> </span><span class="pun">|(</span><span class="pln">reportid</span><span class="pun">)),</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size</span><span class="pun">,</span><span class="pln">data</span><span class="pun">)</span></pre>  <br>   <br>  Tsuneo <br>  
+                    <div class="editInfo">&lt;message edited by chinzei on Thursday, October 03, 2013 8:50 PM&gt;</div>
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl749398" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">sgermain</span>
+            <div id="AuthorInfo749398" style="display: ;">
+                <ul id="AuthorSummary749398" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        4
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 5/24/2013</li><li>Location: 0</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td749398">
+            <div id="749398">
+                <div id="UpperSection749398" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject749398" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date749398" style="font: normal 11px Verdana">-
+                            Friday, October 04, 2013 6:34 AM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg749398" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv749398"><select style="display: none;" class="ratingSelect" id="starRating749398" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult749398">0</span></div>
+                    
+                      Thank you very much but, I still miss something. 
+If I call your USBHostHIDRead_Feature, the "usb stack" will only do a 
+USBHostRead so how the device know that they need the send that feature?
+ <br>  &nbsp; <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl749460" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">chinzei</span>
+            <div id="AuthorInfo749460" style="display: ;">
+                <ul id="AuthorSummary749460" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        2111
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 11/7/2003</li><li>Location: Tokyo, Japan</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td749460">
+            <div id="749460">
+                <div id="UpperSection749460" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject749460" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date749460" style="font: normal 11px Verdana">-
+                            Friday, October 04, 2013 10:47 AM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg749460" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="1 vote" id="ratingDiv749460"><select style="display: none;" class="ratingSelect" id="starRating749460" disabled="disabled"><option value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2" selected="selected"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-full"></a><a value="0" title="" class="ui-rating-star ui-rating-full"></a><a value="1" title="" class="ui-rating-star ui-rating-full"></a><a value="2" title="" class="ui-rating-star ui-rating-full"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult749460">5</span></div>
+                    
+                      Ah, sorry, <br> USBHostHIDTransfer() isn't a good one. <br> We have to call USBHostIssueDeviceRequest() directly. <br>  <br> <pre class="prettyprint"><span class="com">#define</span><span class="pln"> HID_INPUT_REPORT &nbsp; &nbsp;</span><span class="lit">1</span><span class="pln"><br></span><span class="com">#define</span><span class="pln"> HID_OUTPUT_REPORT &nbsp; </span><span class="lit">2</span><span class="pln"><br></span><span class="com">#define</span><span class="pln"> HID_FEATURE_REPORT &nbsp;</span><span class="lit">3</span><span class="pln"><br><br></span><span class="com">#define</span><span class="pln"> </span><span class="typ">USBHostHIDWrite_Feature</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="pln">reportid</span><span class="pun">,</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln">size</span><span class="pun">,</span><span class="pln">data</span><span class="pun">,</span><span class="pln">clientDriverID</span><span class="pun">)</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">USBHostIssueDeviceRequest</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;USB_SETUP_HOST_TO_DEVICE </span><span class="pun">|</span><span class="pln"> USB_SETUP_TYPE_CLASS </span><span class="pun">|</span><span class="pln"> USB_SETUP_RECIPIENT_INTERFACE</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;USB_HID_SET_REPORT</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">(</span><span class="pln">HID_FEATURE_REPORT </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="lit">8</span><span class="pun">)</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="pun">(</span><span class="pln">reportid</span><span class="pun">),</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln"> size</span><span class="pun">,</span><span class="pln"> data</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;USB_DEVICE_REQUEST_SET</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;clientDriverID </span><span class="pun">)</span><span class="pln"><br><br></span><span class="com">#define</span><span class="pln"> </span><span class="typ">USBHostHIDRead_Feature</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="pln">reportid</span><span class="pun">,</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln">size</span><span class="pun">,</span><span class="pln">data</span><span class="pun">,</span><span class="pln">clientDriverID</span><span class="pun">)</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">USBHostIssueDeviceRequest</span><span class="pun">(</span><span class="pln"> deviceAddress</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;USB_SETUP_DEVICE_TO_HOST </span><span class="pun">|</span><span class="pln"> USB_SETUP_TYPE_CLASS </span><span class="pun">|</span><span class="pln"> USB_SETUP_RECIPIENT_INTERFACE</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;USB_HID_GET_REPORT</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">(</span><span class="pln">HID_FEATURE_REPORT </span><span class="pun">&lt;&lt;</span><span class="pln"> </span><span class="lit">8</span><span class="pun">)</span><span class="pln"> </span><span class="pun">|</span><span class="pln"> </span><span class="pun">(</span><span class="pln">reportid</span><span class="pun">),</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">interface</span><span class="pun">,</span><span class="pln"> size</span><span class="pun">,</span><span class="pln"> data</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;USB_DEVICE_REQUEST_GET</span><span class="pun">,</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;clientDriverID </span><span class="pun">)</span></pre> <br>  <br> Tsuneo <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl750207" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">sgermain</span>
+            <div id="AuthorInfo750207" style="display: ;">
+                <ul id="AuthorSummary750207" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        4
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 5/24/2013</li><li>Location: 0</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td750207">
+            <div id="750207">
+                <div id="UpperSection750207" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject750207" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date750207" style="font: normal 11px Verdana">-
+                            Tuesday, October 08, 2013 6:36 AM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg750207" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="1 vote" id="ratingDiv750207"><select style="display: none;" class="ratingSelect" id="starRating750207" disabled="disabled"><option value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2" selected="selected"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-full"></a><a value="0" title="" class="ui-rating-star ui-rating-full"></a><a value="1" title="" class="ui-rating-star ui-rating-full"></a><a value="2" title="" class="ui-rating-star ui-rating-full"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult750207">5</span></div>
+                    
+                      Thank you again.  <br>  &nbsp;  <br>  Now it 
+clearly working better but (for future user) we cannot use 
+USBHostHID_ApiTransferIsComplete anymore cause look like control 
+structure "deviceInfoHID" is doubled and not in sync with the USBHost 
+one when we bypass the HID layer.  <br>  &nbsp;  <br>  When I use 
+USBHostTransferIsComplete, I can do a successful USBHostHIDRead_Feature 
+but all my USBHostHIDWrite_Feature end without error, transfer is 
+reported completed again without error but not working. If I dig, I can 
+see that in fact, the ep STALL (pBDT-&gt;STAT.PID == PID_STALL). <br>  Is the trouble can come of the fact that we use Control EP else if an InterruptOut EP is available? <br>   <br>  Any help will be appreciated.  <br>  &nbsp;  <br>  Stephane Germain  <br>  &nbsp;  <br>  
+                    <div class="editInfo">&lt;message edited by sgermain on Tuesday, October 08, 2013 1:32 PM&gt;</div>
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl750512" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">sgermain</span>
+            <div id="AuthorInfo750512" style="display: ;">
+                <ul id="AuthorSummary750512" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        4
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 5/24/2013</li><li>Location: 0</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td750512">
+            <div id="750512">
+                <div id="UpperSection750512" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject750512" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date750512" style="font: normal 11px Verdana">-
+                            Wednesday, October 09, 2013 1:26 PM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg750512" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="1 vote" id="ratingDiv750512"><select style="display: none;" class="ratingSelect" id="starRating750512" disabled="disabled"><option value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2" selected="selected"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-full"></a><a value="0" title="" class="ui-rating-star ui-rating-full"></a><a value="1" title="" class="ui-rating-star ui-rating-full"></a><a value="2" title="" class="ui-rating-star ui-rating-full"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult750512">5</span></div>
+                    
+                      Got it, <br>  For the USBHostHIDWrite_Feature to work, you need to put the reportID also as 1er byte of the payload. <br>  &nbsp; <br>  Thank you <br>  Stephane Germain <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<table id="msg_tbl750529" class="maintable" cellspacing="1">
+    <tbody><tr>
+        <td class="altItem authorside" valign="top" width="200">
+            <span class="titlehead">DarioG</span>
+            <div id="AuthorInfo750529" style="display: ;">
+                <ul id="AuthorSummary750529" class="msgAuthorInfo">
+                    <li>
+                        Total Posts
+                        :
+                        42858
+                    </li>
+                     
+                    <li>
+                        Reward points
+                        :
+                        0
+                    </li>
+                    <li>Joined: 2/25/2006</li><li>Location: Trana (TO), Italy</li>
+                </ul>
+            </div>
+        </td> 
+        <td class="item msgside" style="vertical-align:top;" id="td750529">
+            <div id="750529">
+                <div id="UpperSection750529" style="display:;">
+                    <div style="color: #999;">
+                        <span id="subject750529" style="font: bold 11px Verdana">
+                            <img src="Feature%20reports%20not%20implemented%20in%20USB%20HID%20host%20stack%3F_files/m1.gif" title="">
+                            Re:Feature reports not implemented in USB HID host stack?
+                        </span><span id="date750529" style="font: normal 11px Verdana">-
+                            Wednesday, October 09, 2013 2:06 PM
+                        </span>
+                    </div>
+                </div>
+                
+                <div id="msg750529" class="msg" style="display: ;">
+                    <div style="margin:0 10px 10px 10px; float:right; text-align:center; width:80px;" class="altItem" title="0 vote" id="ratingDiv750529"><select style="display: none;" class="ratingSelect" id="starRating750529" disabled="disabled"><option selected="selected" value="-2"></option><option value="-1"></option><option value="0"></option><option value="1"></option><option value="2"></option></select><div class="ui-rating" title=""><a value="-2" title="" class="ui-rating-star ui-rating-full"></a><a value="-1" title="" class="ui-rating-star ui-rating-empty"></a><a value="0" title="" class="ui-rating-star ui-rating-empty"></a><a value="1" title="" class="ui-rating-star ui-rating-empty"></a><a value="2" title="" class="ui-rating-star ui-rating-empty"></a></div><div class="divider"></div><span class="ratingResult" id="ratingResult750529">0</span></div>
+                    
+                      Oh well, sure... (sorry for not noticing that before!) <br>  
+                    
+                    
+                </div>
+                <div class="msg" style="display: ;">
+                    <div class="sigDivider"></div> Dario Greggio              <br>   <br>  
+                </div>                
+            </div>
+        </td>
+    </tr>
+    <tr class="altItem">
+        <td colspan="2">
+            <hr style="width:100%">
+        </td>
+    </tr>
+</tbody></table>
+
+<script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript"></script><script type="text/javascript">$('select.ratingSelect').rating({ showCancel: false });</script>
+
+    </div>
+    
+    
+    <input name="ctl00$ContentPlaceHolder1$MessageListRefresh" value="" onclick='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ContentPlaceHolder1$MessageListRefresh", "", true, "", "", false, false))' id="ctl00_ContentPlaceHolder1_MessageListRefresh" class="HiddenButton" type="submit">
+    <input name="ctl00$ContentPlaceHolder1$TreeMsgID" id="ctl00_ContentPlaceHolder1_TreeMsgID" type="hidden">
+    <input name="ctl00$ContentPlaceHolder1$LastMessageForPost" id="ctl00_ContentPlaceHolder1_LastMessageForPost" value="750529" type="hidden">
+    
+    
+    
+    
+    
+    <div class="wideDivider"></div>
+    
+    <div id="ctl00_ContentPlaceHolder1_AllMenu" contextmenuelementid="None" style="z-index: 7001; display: none; visibility: visible;">
+	<div id="ctl00_ContentPlaceHolder1_AllMenu_detached" style="display: none; visibility: visible; z-index: 7001;" class="RadMenu RadMenu_Telerik RadMenu_Context RadMenu_Telerik_Context ">
+		<ul style="float: left;" class="rmActive rmVertical rmGroup rmLevel1">
+			<li class="rmItem rmFirst"><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem "><a href="#" class="rmLink"><span class="rmText"></span></a></li><li class="rmItem rmLast"><a href="#" class="rmLink"><span class="rmText"></span></a></li>
+		</ul>
+	</div><input autocomplete="off" id="ctl00_ContentPlaceHolder1_AllMenu_ClientState" name="ctl00_ContentPlaceHolder1_AllMenu_ClientState" type="hidden">
+</div>
+
+    <div id="ctl00_ContentPlaceHolder1_BreadCrumbMenu" contextmenuelementid="None" style="z-index: 7001; display: none; visibility: visible;">
+	<div id="ctl00_ContentPlaceHolder1_BreadCrumbMenu_detached" style="display: none; visibility: visible; z-index: 7001;" class="RadMenu RadMenu_Telerik RadMenu_Context RadMenu_Telerik_Context ">
+		<ul style="float: left;" class="rmActive rmVertical rmGroup rmLevel1">
+
+		</ul>
+	</div><input autocomplete="off" id="ctl00_ContentPlaceHolder1_BreadCrumbMenu_ClientState" name="ctl00_ContentPlaceHolder1_BreadCrumbMenu_ClientState" type="hidden">
+</div>
+
+    <script type="text/javascript">
+	<!--
+
+    
+   
+    var currentThreadID = 530537;
+    var currentForumID = 102;
+        
+    var refreshButton = $get("ctl00_ContentPlaceHolder1_MessageListRefresh");
+        
+    var menu, breadcrumbMenu;
+    
+    Sys.Application.add_load(function(){
+        menu = $find("ctl00_ContentPlaceHolder1_AllMenu");
+        breadcrumbMenu = $find("ctl00_ContentPlaceHolder1_BreadCrumbMenu");
+    }); 
+    
+    var ReplyToMessageText = "Reply to message";
+    var QuoteMessageText = "Quote message";
+    var EditMessageText = "Edit Message";
+    var ForwardMessageText = "Forward message";
+    var ManageMessageText = "Manage message";	
+    
+    var ProfMemText = "View member's profile";
+    var FriendMemText = "Add member to contact";
+    var PmMemText = "Send a Private Message";
+    var UnBlockMemText = "Un-block member";
+    var BlockMemText = "Block member";
+    var RecentPostText = "Recent Posts";
+
+    var PostHelpfulText = "Mark post as helpful";
+    var PostUnHelpfulText = "Unmark post as helpful";
+    var PostGetRewardText = "Award points to this post";
+    var RatingText = "Rate post";
+    var ReportAbuseText = "Report Abuse";
+    var PostInappropriateText = "Flag as SPAM";
+    var TempBanText = "Ban this member";
+    var MultiquoteText = "Add to Quote";
+    var tooManyQuotes = "You can only quote 3 messages at once!";
+    var menuItemNoOptionsText = "No additional options";
+    var menuMsgLinkText = "Message Number";
+     
+    var msgTreeHiddenField = "ctl00_ContentPlaceHolder1_TreeMsgID";
+    var msgLastMessageForPostHiddenField = "ctl00_ContentPlaceHolder1_LastMessageForPost";
+    var isInPrintMode = true;
+    var inTreeMode = false;
+    
+    var messageIDToolTipClientID = "ctl00_ContentPlaceHolder1_RadToolTipMessageID";
+    
+    var dbName = "ASP-Playground";
+    
+    var loadingPanelClientID = "ctl00_ContentPlaceHolder1_AjaxLoadingPanel1";
+    
+    var OptionalMenu;
+    var UnSubscribeMenuText = "Remove thread subscription";
+	var SubscribeMenuText = "Subscribe to this thread";
+	
+	var tmPrevThread = "Prev Thread";
+	var tmNextThread = "Next Thread";
+    
+    var blockMemberWarn = "Are you sure you want to block this member?";
+    
+    var ratingSuccessMsg = "Rating successfully recorded in the database!";
+    var ratingFailureMsg = "You cannot submit rating more than once for each message!";
+    var ratingCount_sing = "{0} vote";
+    var ratingCount_pl = "{0} votes";
+    
+    var treeIframeContainment = "ctl00_ContentPlaceHolder1_TreeDiv";
+    var byDesc = "by ";
+    var ignoredDesc = "*Ignored Member*";
+    var tpg = 20;
+    var reachedLastInTree = "You have reached the last message.";
+    var reachedFirstInTree = "You have reached the first message.";
+    var treeInLoadingState = "Loading... Please Wait"; 
+    
+    setTimeout("keepalive();", (30 - 1) * 60000);
+    
+    
+    var currSelectedMsgID;       
+    
+                
+    function pageLoad(sender, args){
+        if (!isInPrintMode){
+
+            OptionalMenu = $find('');
+            
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            
+            if(!prm.get_isInAsyncPostBack()) $find(RadManagerWindowClientID).add_close(reloadParent);
+        }
+
+    }
+    
+
+	//-->
+    </script>
+
+    </div>
+    
+
+<script type="text/javascript">
+//<![CDATA[
+prettyPrint();setCatState();Sys.Application.initialize();
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadAjaxManager, {"_updatePanels":"","ajaxSettings":[],"clientEvents":{OnRequestStart:"",OnResponseEnd:""},"defaultLoadingPanelID":"","enableAJAX":true,"enableHistory":false,"links":[],"styles":[],"uniqueID":"ctl00$RM1","updatePanelsRenderMode":0}, null, null, $get("ctl00_RM1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadToolTip, {"_cssClass":"","_manualCloseButtonText":"Close","clientStateFieldID":"ctl00_RadManagerToolTip_ClientState","formID":"aspnetForm","position":22,"relativeTo":2,"skin":"Web20"}, null, null, $get("ctl00_RadManagerToolTip"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadToolTip, {"_cssClass":"","_manualCloseButtonText":"Close","clientStateFieldID":"ctl00_ContentPlaceHolder1_RadToolTipMessageID_ClientState","formID":"aspnetForm","position":22,"relativeTo":2,"skin":"Web20"}, null, null, $get("ctl00_ContentPlaceHolder1_RadToolTipMessageID"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadAjaxLoadingPanel, {"initialDelayTime":0,"isSticky":false,"minDisplayTime":300,"skin":"","transparency":0,"uniqueID":"ctl00$ContentPlaceHolder1$AjaxLoadingPanel1","zIndex":90000}, null, null, $get("ctl00_ContentPlaceHolder1_AjaxLoadingPanel1"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadContextMenu, {"_childListElementCssClass":null,"_skin":"Telerik","attributes":{"ContextMenuElementID":"None"},"clientStateFieldID":"ctl00_ContentPlaceHolder1_AllMenu_ClientState","collapseAnimation":"{\"type\":12,\"duration\":200}","collapseDelay":100,"enableScreenBoundaryDetection":false,"itemData":[{"value":"friend"},{"value":"block"},{"value":"pm"},{"value":"quote"},{"value":"manage"},{"value":"fwd"},{"value":"ban"},{"value":"multiquote"},{"value":"edit"},{"value":"searchposts"}],"targets":[]}, {"itemClicking":OnMenuItemClick,"mouseOut":menuMouseOut,"mouseOver":PreventMenuHide}, null, $get("ctl00_ContentPlaceHolder1_AllMenu"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadContextMenu, {"_childListElementCssClass":null,"_skin":"Telerik","attributes":{"ContextMenuElementID":"None"},"clientStateFieldID":"ctl00_ContentPlaceHolder1_BreadCrumbMenu_ClientState","collapseAnimation":"{\"type\":12,\"duration\":200}","collapseDelay":100,"enableScreenBoundaryDetection":false,"itemData":[],"targets":[]}, {"mouseOut":menuMouseOut,"mouseOver":PreventMenuHide}, null, $get("ctl00_ContentPlaceHolder1_BreadCrumbMenu"));
+});
+//]]>
+</script>
+</form>
+    
+
+
+</body></html>

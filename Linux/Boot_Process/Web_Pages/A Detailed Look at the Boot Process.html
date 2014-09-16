@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>A Detailed Look at the Boot Process</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.76b+
+"><link rel="HOME" title="Red Hat Enterprise Linux 3" href="http://www.centos.org/docs/rhel-rg-en-3/index.html"><link rel="UP" title="Boot Process, Init, and Shutdown" href="http://www.centos.org/docs/rhel-rg-en-3/ch-boot-init-shutdown.html"><link rel="PREVIOUS" title="Boot Process, Init, and Shutdown" href="http://www.centos.org/docs/rhel-rg-en-3/ch-boot-init-shutdown.html"><link rel="NEXT" title="Running Additional Programs at Boot Time" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-run-boot.html"><link rel="STYLESHEET" type="text/css" href="A%20Detailed%20Look%20at%20the%20Boot%20Process_files/rhdocs-man.css"></head><body class="SECT1" text="#000000" vlink="#840084" link="#0000FF" alink="#0000FF" bgcolor="#FFFFFF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><th colspan="3" align="center">Red Hat Enterprise Linux 3: Reference Guide</th></tr><tr><td valign="bottom" width="10%" align="left"><a href="http://www.centos.org/docs/rhel-rg-en-3/ch-boot-init-shutdown.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center">Chapter 1. Boot Process, Init, and Shutdown</td><td valign="bottom" width="10%" align="right"><a href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-run-boot.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="SECT1"><h1 class="SECT1"><a name="S1-BOOT-INIT-SHUTDOWN-PROCESS"></a>1.2. A Detailed Look at the Boot Process</h1><p>	The beginning of the boot process varies depending on the hardware
+	platform being used. However, once the kernel is found and loaded by the
+	boot loader, the default boot process is identical across all
+	architectures. This chapter focuses primarily on the x86 architecture.
+      </p><div class="SECT2"><h2 class="SECT2"><a name="S2-BOOT-INIT-SHUTDOWN-BIOS"></a>1.2.1. The BIOS</h2><p>	  When an x86 computer is booted, the processor looks at the end of
+	  system memory for the <i class="FIRSTTERM">Basic Input/Output System</i>
+	  or <i class="FIRSTTERM">BIOS</i> program and runs it. The BIOS controls
+	  not only the first step of the boot process, but also provides the
+	  lowest level interface to peripheral devices. For this reason it is
+	  written into read-only, permanent memory and is always available for
+	  use.
+	</p><p>	  Other platforms use different programs to perform low-level tasks
+	  roughly equivalent to those of the BIOS on an x86 system. For
+	  instance, Itanium-based computers use the <i class="FIRSTTERM">Extensible
+	  Firmware Interface</i> (<i class="FIRSTTERM">EFI</i>)
+	  <i class="FIRSTTERM">Shell</i>, while Alpha systems use the
+	  <i class="FIRSTTERM">SRM console</i>.
+	</p><p>	  Once loaded, the BIOS tests the system, looks for and checks
+	  peripherals, and then locates a valid device with which to boot the
+	  system. Usually, it checks any diskette drives and CD-ROM drives
+	  present for bootable media, then, failing that, looks to the system's
+	  hard drives. In most cases, the order of the drives searched while
+	  booting is controlled with a setting in BIOS, and it looks on the
+	  master IDE device on the primary IDE bus. The BIOS then loads into
+	  memory whatever program is residing in the first sector of this
+	  device, called the <i class="FIRSTTERM">Master Boot Record</i> or
+	  <i class="FIRSTTERM">MBR</i>. The MBR is only 512 bytes in size and
+	  contains machine code instructions for booting the machine, called a
+	  boot loader, along with the partition table. Once the BIOS finds and
+	  loads the boot loader program into memory, it yields control of the
+	  boot process to it.
+	</p></div><div class="SECT2"><h2 class="SECT2"><a name="S2-BOOT-INIT-SHUTDOWN-LOADER"></a>1.2.2. The Boot Loader</h2><p>	  This section looks at the boot loaders for the x86 platform. Depending
+	  on the system's architecture, the boot process may differ slightly.
+	  Refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#S3-BOOT-INIT-SHUTDOWN-OTHER-ARCHITECTURES">Section 1.2.2.1 <i>Boot Loaders for Other Architectures</i></a>
+	  for a brief overview of non-x86 boot loaders.
+	</p><p>	  When using Red Hat Enterprise Linux, two boot loaders are available:
+	  <i class="FIRSTTERM">GRUB</i> or <i class="FIRSTTERM">LILO</i>. GRUB is
+	  the default boot loader, but LILO is available for those who require
+	  or prefer it. For more information about configuring and using GRUB or
+	  LILO, see <a href="http://www.centos.org/docs/rhel-rg-en-3/ch-grub.html">Chapter 2 <i>Boot Loaders</i></a>.  </p><p>	  Both boot loaders for the x86 platform are broken into at least two
+	  stages. The first stage is a small machine code binary on the MBR. Its
+	  sole job is to locate the second stage boot loader and load the first
+	  part of it into memory.
+	</p><p>	  GRUB is the newer boot loader and has the advantage of being able read
+	  ext2 and ext3<a name="AEN601" href="#FTN.AEN601">[1]</a> partitions and load its configuration file —
+	  <tt class="FILENAME">/boot/grub/grub.conf</tt> — at boot time. Refer
+	  to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-grub-configfile.html">Section 2.7 <i>GRUB Menu Configuration File</i></a> for information on how to edit
+	  this file.
+	</p><p>	  With LILO, the second stage boot loader uses information on the MBR to
+	  determine the boot options available to the user. This means that any
+	  time a configuration change is made or kernel is manually upgraded,
+	  the <tt class="COMMAND">/sbin/lilo -v -v</tt> command must be executed to
+	  write the appropriate information to the MBR. For details about doing
+	  this, refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-grub-lilo.html">Section 2.8 <i>LILO</i></a>.
+	</p><div class="TIP"><p></p><table class="TIP" width="100%" border="0"><tbody><tr><td valign="TOP" width="25" align="CENTER"><img src="A%20Detailed%20Look%20at%20the%20Boot%20Process_files/tip.png" alt="Tip" hspace="5"></td><th valign="CENTER" align="LEFT"><b>Tip</b></th></tr><tr><td>&nbsp;</td><td valign="TOP" align="LEFT"><p>	    If upgrading the kernel using the <b class="APPLICATION">Red Hat Update Agent</b>,
+	    the boot loader configuration file is updated automatically. More
+	    information on Red Hat Network can be found online at the following URL:
+	    <a href="https://rhn.redhat.com/" target="_top">https://rhn.redhat.com</a>.
+	  </p></td></tr></tbody></table></div><p>	  Once the second stage boot loader is in memory, it presents the user
+	  with a graphical screen showing the different operating systems or
+	  kernels it has been configured to boot. On this screen a user can use
+	  the arrow keys to choose which operating system or kernel they wish to
+	  boot and press <span class="KEYCAP"><keycap>[Enter]</keycap></span>.  If no key is pressed, the boot
+	  loader loads the default selection after a configurable period of time
+	  has passed.
+	</p><div class="NOTE"><p></p><table class="NOTE" width="100%" border="0"><tbody><tr><td valign="TOP" width="25" align="CENTER"><img src="A%20Detailed%20Look%20at%20the%20Boot%20Process_files/note.png" alt="Note" hspace="5"></td><th valign="CENTER" align="LEFT"><b>Note</b></th></tr><tr><td>&nbsp;</td><td valign="TOP" align="LEFT"><p>	    If Symmetric Multi-Processor (SMP) kernel support is installed,
+	    there will be more than one option present the first time the system
+	    is booted. In this situation, LILO will display
+	    <tt class="COMPUTEROUTPUT">linux</tt>, which is the SMP kernel, and
+	    <tt class="COMPUTEROUTPUT">linux-up</tt>, which is for single
+	    processors.  GRUB displays <tt class="COMPUTEROUTPUT">Red Hat Enterprise Linux
+	    (<tt class="REPLACEABLE"><i>&lt;kernel-version&gt;</i></tt>-smp)</tt>,
+	    which is the SMP kernel, and <tt class="COMPUTEROUTPUT">Red Hat Enterprise Linux
+	    (<tt class="REPLACEABLE"><i>&lt;kernel-version&gt;</i></tt>)</tt>,
+	    which is for single processors.
+	  </p><p>	    If any problems occur using the SMP kernel, try selecting the a
+	    non-SMP kernel upon rebooting.
+	  </p></td></tr></tbody></table></div><p>	  Once the second stage boot loader has determined which kernel to boot,
+	  it locates the corresponding kernel binary in the
+	  <tt class="FILENAME">/boot/</tt> directory. The kernel binary is named
+	  using the following format —
+	  <tt class="FILENAME">/boot/vmlinuz-<tt class="REPLACEABLE"><i>&lt;kernel-version&gt;</i></tt></tt>
+	  file (where
+	  <tt class="FILENAME"><tt class="REPLACEABLE"><i>&lt;kernel-version&gt;</i></tt></tt>
+	  corresponds to the kernel version specified in the boot loader's
+	  settings).
+	</p><p>	  For instructions on using the boot loader to supply command line
+	  arguments to the kernel, refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/ch-grub.html">Chapter 2 <i>Boot Loaders</i></a>. For information
+	  on changing the runlevel at the GRUB or LILO prompt, refer <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-grub-runlevels.html">Section 2.10 <i>Changing Runlevels at Boot Time</i></a>.
+	</p><p>	  The boot loader then places the appropriate <i class="FIRSTTERM">initial RAM
+	    disk</i> image, called an <tt class="FILENAME">initrd</tt>, into
+	    memory. The <tt class="FILENAME">initrd</tt> is used by the kernel to
+	    load drivers necessary to boot the system. This is particularly
+	    important if SCSI hard drives are present or if the systems uses the
+	    ext3 file system<a name="AEN640" href="#FTN.AEN640">[2]</a>.
+	</p><div class="WARNING"><p></p><table class="WARNING" width="100%" border="0"><tbody><tr><td valign="TOP" width="25" align="CENTER"><img src="A%20Detailed%20Look%20at%20the%20Boot%20Process_files/warning.png" alt="Warning" hspace="5"></td><th valign="CENTER" align="LEFT"><b>Warning</b></th></tr><tr><td>&nbsp;</td><td valign="TOP" align="LEFT"><p>	    Do not remove the <tt class="FILENAME">/initrd/</tt> directory from the
+	    file system for any reason. Removing this directory will cause the
+	    system to fail with a kernel panic error message at boot time.
+	  </p></td></tr></tbody></table></div><p>	  Once the kernel and the <i class="FIRSTTERM">initrd</i> image are loaded
+	  into memory, the boot loader hands control of the boot process to
+	  the kernel.
+	</p><p>	   For a more detailed overview of the GRUB and LILO boot loaders, refer to
+	   <a href="http://www.centos.org/docs/rhel-rg-en-3/ch-grub.html">Chapter 2 <i>Boot Loaders</i></a>.
+	</p><div class="SECT3"><h3 class="SECT3"><a name="S3-BOOT-INIT-SHUTDOWN-OTHER-ARCHITECTURES"></a>1.2.2.1. Boot Loaders for Other Architectures</h3><p>	    Once the kernel loads and hands off the boot process to the
+	    <tt class="COMMAND">init</tt> command, the same sequence of events occurs
+	    on every architecture. So the main difference between each
+	    architecture's boot process is in the application used to find and
+	    load the kernel.
+	  </p><p>	    For example, the Alpha architecture uses the aboot boot loader, the
+	    Itanium architecture uses the ELILO boot loader, IBM pSeries uses
+	    YABOOT, and IBM s390 systems use the z/IPL boot loader.
+	  </p><p>	    Consult the <i class="CITETITLE">Red Hat Enterprise Linux Installation Guide</i> specific to these
+	    platforms for information on configuring their boot loaders.
+	  </p></div></div><div class="SECT2"><h2 class="SECT2"><a name="S2-BOOT-INIT-SHUTDOWN-KERNEL"></a>1.2.3. The Kernel</h2><p>	  When the kernel is loaded, it immediately initializes and configures
+	  the computer's memory and configures the various hardware attached to
+	  the system, including all processors, I/O subsystems, and storage
+	  devices. It then looks for the compressed <tt class="FILENAME">initrd</tt>
+	  image in a predetermined location in memory, decompresses it, mounts
+	  it, and loads all necessary drivers. Next, it initializes virtual
+	  devices related to the file system, such as LVM or software RAID
+	  before unmounting the <tt class="FILENAME">initrd</tt> disk image and
+	  freeing up all the memory the disk image once occupied.
+	</p><p>	  The kernel then creates a root device, mounts the root partition
+	  read-only, and frees any unused memory.
+	</p><p>	  At this point, the kernel is loaded into memory and operational.
+	  However, since there are no user applications that allow meaningful
+	  input to the system, not much can be done with the system.
+	</p><p>	  To set up the user environment, the kernel executes the
+	  <tt class="COMMAND">/sbin/init</tt> program.
+	</p></div><div class="SECT2"><h2 class="SECT2"><a name="S2-BOOT-INIT-SHUTDOWN-INIT"></a>1.2.4. The <tt class="COMMAND">/sbin/init</tt> Program</h2><p>	  The <tt class="COMMAND">/sbin/init</tt> program (also called
+	  <tt class="COMMAND">init</tt>) coordinates the rest of the boot process and
+	  configures the environment for the user.
+	</p><p>	  When the <tt class="COMMAND">init</tt> command starts, it becomes the parent
+	  or grandparent of all of the processes that start up automatically on
+	  the system. First, it runs the
+	  <tt class="FILENAME">/etc/rc.d/rc.sysinit</tt> script, which sets the
+	  environment path, starts swap, checks the file systems, and executes
+	  all other steps required for system initialization. For example, most
+	  systems use a clock, so on them <tt class="FILENAME">rc.sysinit</tt> reads
+	  the <tt class="FILENAME">/etc/sysconfig/clock</tt> configuration file to
+	  initialize the hardware clock. Another example is if there are special
+	  serial port processes which must be initialized,
+	  <tt class="FILENAME">rc.sysinit</tt> will execute the
+	  <tt class="FILENAME">/etc/rc.serial</tt> file.
+	</p><p>	  The <tt class="COMMAND">init</tt> command then runs the
+	  <tt class="FILENAME">/etc/inittab</tt> script, which describes how the
+	  system should be set up in each <i class="FIRSTTERM">SysV init</i>
+	  <i class="FIRSTTERM">runlevel</i>
+	  <a name="AEN713" href="#FTN.AEN713">[3]</a>. Among other things, the
+	  <tt class="FILENAME">/etc/inittab</tt> sets the default runlevel and
+	  dictates that <tt class="COMMAND">/sbin/update</tt> should be run whenever
+	  it starts a given runlevel
+	  <a name="AEN718" href="#FTN.AEN718">[4]</a>.
+	</p><p>	  Next, the <tt class="COMMAND">init</tt> command sets the source function
+	  library, <tt class="FILENAME">/etc/rc.d/init.d/functions</tt>, for the
+	  system, which configures how to start, kill, and determine the PID of
+	  a program.
+	</p><p>	  The <tt class="COMMAND">init</tt> program starts all of the background
+	  processes by looking in the appropriate <tt class="FILENAME">rc</tt>
+	  directory for the runlevel specified as default in
+	  <tt class="FILENAME">/etc/inittab</tt>. The <tt class="FILENAME">rc</tt>
+	  directories are numbered to corresponds to the runlevel they
+	  represent. For instance, <tt class="FILENAME">/etc/rc.d/rc5.d/</tt> is the
+	  directory for runlevel 5.
+	</p><p>	  When booting to runlevel 5, the <tt class="COMMAND">init</tt> program looks
+	  in the <tt class="FILENAME">/etc/rc.d/rc5.d/</tt> directory to determine
+	  which processes to start and stop.
+	</p><p>	  Below is an example listing of the
+	  <tt class="FILENAME">/etc/rc.d/rc5.d/</tt> directory:
+	</p><table class="SCREEN" width="100%" bgcolor="#DCDCDC"><tbody><tr><td><pre class="SCREEN"><tt class="COMPUTEROUTPUT">K05innd -&gt; ../init.d/innd
+K05saslauthd -&gt; ../init.d/saslauthd
+K10psacct -&gt; ../init.d/psacct
+K10radiusd -&gt; ../init.d/radiusd
+K12mysqld -&gt; ../init.d/mysqld
+K15httpd -&gt; ../init.d/httpd
+K15postgresql -&gt; ../init.d/postgresql
+K16rarpd -&gt; ../init.d/rarpd
+K20iscsi -&gt; ../init.d/iscsi
+K20netdump-server -&gt; ../init.d/netdump-server
+K20nfs -&gt; ../init.d/nfs
+K20tomcat -&gt; ../init.d/tomcat
+K24irda -&gt; ../init.d/irda
+K25squid -&gt; ../init.d/squid
+K28amd -&gt; ../init.d/amd
+K34dhcrelay -&gt; ../init.d/dhcrelay
+K34yppasswdd -&gt; ../init.d/yppasswdd
+K35dhcpd -&gt; ../init.d/dhcpd
+K35smb -&gt; ../init.d/smb
+K35vncserver -&gt; ../init.d/vncserver
+K35winbind -&gt; ../init.d/winbind
+K36lisa -&gt; ../init.d/lisa
+K45arpwatch -&gt; ../init.d/arpwatch
+K45named -&gt; ../init.d/named
+K45smartd -&gt; ../init.d/smartd
+K46radvd -&gt; ../init.d/radvd
+K50netdump -&gt; ../init.d/netdump
+K50snmpd -&gt; ../init.d/snmpd
+K50snmptrapd -&gt; ../init.d/snmptrapd
+K50tux -&gt; ../init.d/tux
+K50vsftpd -&gt; ../init.d/vsftpd
+K54pxe -&gt; ../init.d/pxe
+K61ldap -&gt; ../init.d/ldap
+K65kadmin -&gt; ../init.d/kadmin
+K65kprop -&gt; ../init.d/kprop
+K65krb524 -&gt; ../init.d/krb524
+K65krb5kdc -&gt; ../init.d/krb5kdc
+K70aep1000 -&gt; ../init.d/aep1000
+K70bcm5820 -&gt; ../init.d/bcm5820
+K74ntpd -&gt; ../init.d/ntpd
+K74ypserv -&gt; ../init.d/ypserv
+K74ypxfrd -&gt; ../init.d/ypxfrd
+K84bgpd -&gt; ../init.d/bgpd
+K84ospf6d -&gt; ../init.d/ospf6d
+K84ospfd -&gt; ../init.d/ospfd
+K84ripd -&gt; ../init.d/ripd
+K84ripngd -&gt; ../init.d/ripngd
+K85zebra -&gt; ../init.d/zebra
+K92ipvsadm -&gt; ../init.d/ipvsadm
+K95firstboot -&gt; ../init.d/firstboot
+S00microcode_ctl -&gt; ../init.d/microcode_ctl
+S08ip6tables -&gt; ../init.d/ip6tables
+S08iptables -&gt; ../init.d/iptables
+S09isdn -&gt; ../init.d/isdn
+S10network -&gt; ../init.d/network
+S12syslog -&gt; ../init.d/syslog
+S13irqbalance -&gt; ../init.d/irqbalance
+S13portmap -&gt; ../init.d/portmap
+S14nfslock -&gt; ../init.d/nfslock
+S17keytable -&gt; ../init.d/keytable
+S20random -&gt; ../init.d/random
+S24pcmcia -&gt; ../init.d/pcmcia
+S25netfs -&gt; ../init.d/netfs
+S26apmd -&gt; ../init.d/apmd
+S28autofs -&gt; ../init.d/autofs
+S44acpid -&gt; ../init.d/acpid
+S55sshd -&gt; ../init.d/sshd
+S56rawdevices -&gt; ../init.d/rawdevices
+S56xinetd -&gt; ../init.d/xinetd
+S59hpoj -&gt; ../init.d/hpoj
+S80sendmail -&gt; ../init.d/sendmail
+S85gpm -&gt; ../init.d/gpm
+S90canna -&gt; ../init.d/canna
+S90crond -&gt; ../init.d/crond
+S90cups -&gt; ../init.d/cups
+S90FreeWnn -&gt; ../init.d/FreeWnn
+S90xfs -&gt; ../init.d/xfs
+S95atd -&gt; ../init.d/atd
+S97rhnsd -&gt; ../init.d/rhnsd
+S99local -&gt; ../rc.local
+S99mdmonitor -&gt; ../init.d/mdmonitor</tt></pre></td></tr></tbody></table><p>	  As illustrated in this listing, none of the scripts that actually
+	  start and stop the services are located in the
+	  <tt class="FILENAME">/etc/rc.d/rc5.d/</tt> directory. Rather, all of the
+	  files in <tt class="FILENAME">/etc/rc.d/rc5.d/</tt> are <i class="FIRSTTERM">symbolic
+	  links</i> pointing to scripts located in the
+	  <tt class="FILENAME">/etc/rc.d/init.d/</tt> directory. Symbolic links are
+	  used in each of the <tt class="FILENAME">rc</tt> directories so that the
+	  runlevels can be reconfigured by creating, modifying, and deleting the
+	  symbolic links without affecting the actual scripts they reference.
+	</p><p>	  The name of each symbolic link begin with either a
+	  <tt class="COMPUTEROUTPUT">K</tt> or an
+	  <tt class="COMPUTEROUTPUT">S</tt>. The
+	  <tt class="COMPUTEROUTPUT">K</tt> links are processes that are killed
+	  on that runlevel, while those beginning with an
+	  <tt class="COMPUTEROUTPUT">S</tt> are started.
+	</p><p>	  The <tt class="COMMAND">init</tt> command first stops all of the
+	  <tt class="COMPUTEROUTPUT">K</tt> symbolic links in the directory by
+	  issuing the
+	  <tt class="COMMAND">/etc/rc.d/init.d/<tt class="REPLACEABLE"><i>&lt;command&gt;</i></tt>
+	  stop</tt> command, where
+	  <tt class="REPLACEABLE"><i>&lt;command&gt;</i></tt> is the process to be
+	  killed. It then starts all of the <tt class="COMPUTEROUTPUT">S</tt>
+	  symbolic links by issuing
+	  <tt class="COMMAND">/etc/rc.d/init.d/<tt class="REPLACEABLE"><i>&lt;command&gt;</i></tt>
+	  start</tt>.
+	</p><div class="TIP"><p></p><table class="TIP" width="100%" border="0"><tbody><tr><td valign="TOP" width="25" align="CENTER"><img src="A%20Detailed%20Look%20at%20the%20Boot%20Process_files/tip.png" alt="Tip" hspace="5"></td><th valign="CENTER" align="LEFT"><b>Tip</b></th></tr><tr><td>&nbsp;</td><td valign="TOP" align="LEFT"><p>	    After the system is finished booting, it is possible to log in as
+	    root and execute these same scripts to start and stop services. For
+	    instance, the command <tt class="COMMAND">/etc/rc.d/init.d/httpd stop</tt>
+	    stops the Apache HTTP Server.
+	  </p></td></tr></tbody></table></div><p>	  Each of the symbolic links are numbered to dictate start order. The
+	  order in which the services are started or stopped can be altered by
+	  changing this number. The lower the number, the earlier it is
+	  started. Those symbolic links with the same number are started
+	  alphabetically.
+	</p><div class="NOTE"><p></p><table class="NOTE" width="100%" border="0"><tbody><tr><td valign="TOP" width="25" align="CENTER"><img src="A%20Detailed%20Look%20at%20the%20Boot%20Process_files/note.png" alt="Note" hspace="5"></td><th valign="CENTER" align="LEFT"><b>Note</b></th></tr><tr><td>&nbsp;</td><td valign="TOP" align="LEFT"><p>	    One of the last things the <tt class="COMMAND">init</tt> program executes
+	    is the <tt class="FILENAME">/etc/rc.d/rc.local</tt> file. This file is
+	    useful for system customization. Refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-run-boot.html">Section 1.3 <i>Running Additional Programs at Boot Time</i></a> for more information about
+	    using the <tt class="FILENAME">rc.local</tt> file.
+	  </p></td></tr></tbody></table></div><p>	  After the <tt class="COMMAND">init</tt> command has progressed through the
+	  appropriate <tt class="FILENAME">rc</tt> directory for the runlevel, the
+	  <tt class="FILENAME">/etc/inittab</tt> script forks an
+	  <tt class="COMMAND">/sbin/mingetty</tt> process for each virtual console
+	  (login prompt) allocated to the runlevel. Runlevels 2 through 5 has
+	  all six virtual consoles, while runlevel 1 (single user mode) has one
+	  and runlevels 0 and 6 have none. The <tt class="COMMAND">/sbin/mingetty</tt>
+	  process opens communication pathways to <i class="FIRSTTERM">tty</i>
+	  devices<a name="AEN776" href="#FTN.AEN776">[5]</a>,
+	  sets their modes, prints the login prompt, accepts the user's username
+	  and password and initiates the login process.
+	</p><p>	  In runlevel 5, the <tt class="FILENAME">/etc/inittab</tt> runs a script
+	  called <tt class="FILENAME">/etc/X11/prefdm</tt>. The
+	  <tt class="FILENAME">prefdm</tt> script executes the preferred X display
+	  manager<a name="AEN784" href="#FTN.AEN784">[6]</a> — <tt class="COMMAND">gdm</tt>, <tt class="COMMAND">kdm</tt>, or
+	  <tt class="COMMAND">xdm</tt>, depending on the contents of the
+	  <tt class="FILENAME">/etc/sysconfig/desktop</tt> file.
+	</p><p>	  Once finished, the system is operating on runlevel 5 and 
+	  displaying a login screen.
+	</p></div></div><h3 class="FOOTNOTES">Notes</h3><table class="FOOTNOTES" width="100%" border="0"><tbody><tr><td valign="TOP" width="5%" align="LEFT"><a name="FTN.AEN601" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#AEN601">[1]</a></td><td valign="TOP" width="95%" align="LEFT"><p>GRUB reads ext3 file systems as ext2, disregarding the journal
+	      file. Refer to the chapter titled <i class="CITETITLE">The ext3 File
+	      System</i> in the <i class="CITETITLE">Red Hat Enterprise Linux System Administration Guide</i> for
+	      more information on the ext3 file system.
+	    </p></td></tr><tr><td valign="TOP" width="5%" align="LEFT"><a name="FTN.AEN640" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#AEN640">[2]</a></td><td valign="TOP" width="95%" align="LEFT"><p> For details on making an
+	    <i class="FIRSTTERM">initrd</i>, refer to the chapter titled
+	    <i class="CITETITLE">The ext3 File System</i> in the
+	    <i class="CITETITLE">Red Hat Enterprise Linux System Administration Guide</i>.
+	    </p></td></tr><tr><td valign="TOP" width="5%" align="LEFT"><a name="FTN.AEN713" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#AEN713">[3]</a></td><td valign="TOP" width="95%" align="LEFT"><p>	      For more information on SysV init runlevels, refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-sysv.html">Section 1.4 <i>SysV Init Runlevels</i></a>.
+	    </p></td></tr><tr><td valign="TOP" width="5%" align="LEFT"><a name="FTN.AEN718" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#AEN718">[4]</a></td><td valign="TOP" width="95%" align="LEFT"><p>	      The <tt class="COMMAND">update</tt> command is used to flush dirty
+	      buffers back to disk.
+	    </p></td></tr><tr><td valign="TOP" width="5%" align="LEFT"><a name="FTN.AEN776" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#AEN776">[5]</a></td><td valign="TOP" width="95%" align="LEFT"><p>Refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-proc-directories.html#S2-PROC-TTY">Section 5.3.11 <i><tt class="FILENAME">/proc/tty/</tt></i></a> for more
+	  information about <tt class="FILENAME">tty</tt> devices.</p></td></tr><tr><td valign="TOP" width="5%" align="LEFT"><a name="FTN.AEN784" href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-process.html#AEN784">[6]</a></td><td valign="TOP" width="95%" align="LEFT"><p>Refer to <a href="http://www.centos.org/docs/rhel-rg-en-3/s1-x-runlevels.html#S2-X-RUNLEVELS-5">Section 7.5.2 <i>Runlevel 5</i></a> for more
+	  information about display managers.</p></td></tr></tbody></table><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td valign="top" width="33%" align="left"><a href="http://www.centos.org/docs/rhel-rg-en-3/ch-boot-init-shutdown.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://www.centos.org/docs/rhel-rg-en-3/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a href="http://www.centos.org/docs/rhel-rg-en-3/s1-boot-init-shutdown-run-boot.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">Boot Process, Init, and Shutdown</td><td valign="top" width="34%" align="center"><a href="http://www.centos.org/docs/rhel-rg-en-3/ch-boot-init-shutdown.html" accesskey="U">Up</a></td><td valign="top" width="33%" align="right">Running Additional Programs at Boot Time</td></tr></tbody></table></div></body></html>

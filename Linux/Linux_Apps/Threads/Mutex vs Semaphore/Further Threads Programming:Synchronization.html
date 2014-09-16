@@ -1,0 +1,1113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--Converted with LaTeX2HTML 97.1 (release) (July 13th, 1997)
+ by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippman, Marek Rouchal, Martin Wilck and others -->
+<html><head>
+<title>Further Threads Programming:Synchronization</title>
+<meta name="description" content="Further Threads Programming:Synchronization">
+<meta name="keywords" content="C">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="STYLESHEET" href="Further%20Threads%20Programming:Synchronization_files/C.css">
+</head>
+<body>
+<!--Table of Child-Links-->
+<a name="CHILD_LINKS"><strong>Subsections</strong></a>
+<ul>
+<li><a name="tex2html1382" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003110000000000000000">
+Mutual Exclusion Locks</a>
+<ul>
+<li><a name="tex2html1383" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003111000000000000000">
+Initializing a Mutex Attribute Object</a>
+</li><li><a name="tex2html1384" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003112000000000000000">
+Destroying a Mutex Attribute Object</a>
+</li><li><a name="tex2html1385" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003113000000000000000">
+The Scope of a Mutex</a>
+</li><li><a name="tex2html1386" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003114000000000000000">
+Initializing a Mutex</a>
+</li><li><a name="tex2html1387" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003115000000000000000">
+Locking a Mutex</a>
+<ul>
+<li><a name="tex2html1388" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003115100000000000000">
+Lock with a Nonblocking Mutex</a>
+</li></ul>
+</li><li><a name="tex2html1389" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003116000000000000000">
+Destroying a Mutex</a>
+</li><li><a name="tex2html1390" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003117000000000000000">
+Mutex Lock Code
+Examples</a>
+<ul>
+<li><a name="tex2html1391" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003117100000000000000">
+Mutex Lock Example</a>
+</li><li><a name="tex2html1392" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003117200000000000000">
+Using Locking Hierarchies: Avoiding Deadlock</a>
+</li></ul>
+</li><li><a name="tex2html1393" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003118000000000000000">
+Nested Locking with a Singly Linked List</a>
+</li><li><a name="tex2html1394" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003119000000000000000">
+Solaris Mutex Locks</a>
+</li></ul>
+</li><li><a name="tex2html1395" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003120000000000000000">
+Condition Variable Attributes</a>
+<ul>
+<li><a name="tex2html1396" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003121000000000000000">
+Initializing a Condition Variable Attribute</a>
+</li><li><a name="tex2html1397" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003122000000000000000">
+Destoying a Condition Variable Attribute</a>
+</li><li><a name="tex2html1398" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003123000000000000000">
+The Scope of a Condition Variable</a>
+</li><li><a name="tex2html1399" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003124000000000000000">
+Initializing a Condition Variable</a>
+</li><li><a name="tex2html1400" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003125000000000000000">
+Block on a Condition Variable</a>
+</li><li><a name="tex2html1401" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003126000000000000000">
+Destroying a  Condition Variable State</a>
+</li><li><a name="tex2html1402" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003127000000000000000">
+Solaris Condition Variables</a>
+</li></ul>
+</li><li><a name="tex2html1403" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003130000000000000000">
+Threads and Semaphores</a>
+<ul>
+<li><a name="tex2html1404" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003131000000000000000">
+POSIX Semaphores</a>
+</li><li><a name="tex2html1405" href="http://www.cs.cf.ac.uk/Dave/C/node31.html#SECTION003132000000000000000">
+Basic Solaris Semaphore Functions</a>
+</li></ul></li></ul>
+<!--End of Table of Child-Links-->
+<hr>
+<h1><a name="SECTION003100000000000000000">
+Further Threads Programming:Synchronization</a>
+</h1>
+<p>
+When we multiple threads running they will invariably need to communicate with each
+other in order <em>synchronise</em> their execution. This chapter describes the
+synchronization types available with  threads and discusses when and how to use
+synchronization.
+</p><p>
+There are a few possible methods of synchronising threads:
+</p><ul>
+<li> Mutual Exclusion (Mutex) Locks
+</li><li> Condition Variables
+</li><li> Semaphores 
+</li></ul>
+<p>
+We wil frequently make use of <em>Synchronization objects</em>: these are variables in
+memory that you access just like data. Threads in different processes can communicate
+with each other through synchronization objects placed in threads-controlled shared
+memory, even though the threads in different processes are generally invisible to each
+other.
+</p><p>
+Synchronization objects can also be placed in files and can have lifetimes
+beyond that of the creating process.
+</p><p>
+Here are some example situations that require or can
+profit from the use of synchronization: 
+</p><ul>
+<li> When synchronization is the only way to
+ensure consistency of shared data.
+</li><li> When threads in two or more processes can use a
+single synchronization object jointly. Note that the synchronization object should be
+initialized by only one of the cooperating processes, because reinitializing a
+synchronization object sets it to the unlocked state.
+</li><li> When synchronization can ensure
+the safety of mutable data.
+</li><li> When a process can map a file and have a thread in this
+process get a record's lock. Once the lock is acquired, any other thread in any process
+mapping the file that tries to acquire the lock is blocked until the lock is released.
+</li><li> Even when accessing a single primitive variable, such as an integer. On machines
+where the integer is not aligned to the bus data width or is larger than the data
+width, a single memory load can use more  than one memory cycle. While this cannot
+happen on the SPARC architectures, portable programs cannot rely on this.
+<p></p></li></ul><h1><a name="SECTION003110000000000000000">
+Mutual Exclusion Locks</a>
+</h1>
+<p>
+Mutual exclusion locks (mutexes) are a comon method of serializing thread execution.
+Mutual exclusion locks synchronize threads, usually by ensuring that only one thread at
+a time executes a critical section of code. Mutex locks can also preserve
+single-threaded code.
+</p><p>
+Mutex attributes may be associated with every thread. To change the default mutex
+attributes, you can declare and initialize an mutex attribute object and then alter
+specific values much like we have seen in the last chapter on more general POSIX
+attributes. Often, the mutex attributes are set in one place at the beginning of the
+application so they can be located quickly and modified easily.
+</p><p>
+After the attributes for a
+mutex are configured, you initialize the mutex itself. Functions are available
+to initialize or destroy, lock or unlock, or try to lock a mutex.
+</p><p></p><h2><a name="SECTION003111000000000000000">
+Initializing a Mutex Attribute Object</a>
+</h2>
+<p>
+The function <tt>pthread_mutexattr_init()</tt> is used
+to initialize attributes associated with this object to their default values. It is
+prototyped by:
+</p><p></p><pre>int pthread_mutexattr_init(pthread_mutexattr_t *mattr);
+</pre>
+<p>
+Storage
+for each attribute object is allocated by the threads system during execution. <tt>mattr</tt> is an opaque type that contains a system-allocated attribute object. The
+possible values of mattr's scope are <tt>PTHREAD_PROCESS_PRIVATE</tt> (the default) and
+<tt>PTHREAD_PROCESS_SHARED</tt>.The
+default value of the pshared attribute when this function is called is
+<tt>PTHREAD_PROCESS_PRIVATE</tt>, which means that the initialized mutex can be used
+within a process.
+</p><p>
+Before a mutex attribute object can be reinitialized, it must
+first be destroyed by <tt>pthread_mutexattr_destroy()</tt> (see below). The
+<tt>pthread_mutexattr_init()</tt> call returns a pointer to an opaque object. If the
+object is not destroyed, a memory leak will result. <tt>
+pthread_mutexattr_init()</tt> returns zero after completing successfully. Any other
+returned value indicates that an error occurred.
+</p><p>
+A simple example of this function call is:
+</p><p></p><pre>#include &lt;pthread.h&gt;
+
+pthread_mutexattr_t mattr; 
+int ret; 
+
+/* initialize an attribute to default value */ 
+
+ret = pthread_mutexattr_init(&amp;mattr);
+</pre>
+<p>  </p><h2><a name="SECTION003112000000000000000">
+Destroying a Mutex Attribute Object</a>
+</h2>
+<p>
+The function 
+<tt>pthread_mutexattr_destroy()</tt> deallocates the storage space used to maintain the
+attribute object created by <tt>pthread_mutexattr_init()</tt>. It is prototyped by:
+</p><p></p><pre>int pthread_mutexattr_destroy(pthread_mutexattr_t *mattr);
+</pre>
+<p>
+which returns zero
+after completing successfully. Any other returned value indicates that an error
+occurred.
+</p><p>
+The function is called as follows:
+</p><p></p><pre>#include &lt;pthread.h&gt;
+
+pthread_mutexattr_t mattr; 
+int ret; 
+
+/* destroy an attribute */ 
+ret = pthread_mutexattr_destroy(&amp;mattr);
+</pre>
+<p></p><h2><a name="SECTION003113000000000000000">
+The Scope of a Mutex</a>
+</h2>
+<p>
+The scope of a mutex
+variable can be either process private (intraprocess) or system wide (interprocess).
+The function <tt>pthread_mutexattr_setpshared()</tt> is used to set the scope of
+a mutex atrribute and it is prototype as follows:
+</p><p></p><pre>int pthread_mutexattr_setpshared(pthread_mutexattr_t *mattr, int pshared);
+</pre>
+<p>
+If
+the mutex is created with the <tt>pshared</tt> (POSIX) attribute set to the
+<tt>PTHREAD_PROCESS_SHARED</tt> state, and it exists in shared memory, it can be shared
+among threads from more than one process. This is equivalent to the
+ <tt>USYNC_PROCESS</tt> flag in <tt>mutex_init()</tt> in  Solaris
+threads. 
+If the mutex <tt>pshared</tt>
+attribute is set to <tt>PTHREAD_PROCESS_PRIVATE</tt>, only those threads created by the
+same process can operate on the mutex. This is equivalent to the
+ <tt>USYNC_THREAD</tt> flag in <tt>mutex_init()</tt> in  Solaris
+threads.
+</p><p><tt>pthread_mutexattr_setpshared()</tt> returns zero after completing successfully. Any
+other returned value indicates that an error occurred.
+</p><p>
+A simple example call is:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+
+pthread_mutexattr_t mattr; 
+int ret; 
+
+ret = pthread_mutexattr_init(&amp;mattr); 
+
+/* resetting to its default value: private */
+ret = pthread_mutexattr_setpshared(&amp;mattr, PTHREAD_PROCESS_PRIVATE);
+</pre>
+<p>
+The function <tt>
+pthread_mutexattr_getpshared(pthread_mutexattr_t *mattr, int *pshared)</tt> may be used
+to obtain the scope of a current thread mutex as follows:
+</p><p></p><pre> #include &lt;pthread.h&gt;
+pthread_mutexattr_t mattr; 
+int pshared, ret; 
+
+/* get pshared of mutex */ ret =
+pthread_mutexattr_getpshared(&amp;mattr, &amp;pshared);
+</pre>
+<p></p><h2><a name="SECTION003114000000000000000">
+Initializing a Mutex</a>
+</h2>
+<p>
+The function <tt>
+pthread_mutex_init()</tt> to initialize the mutex, it is prototyped by:
+</p><p></p><pre>int pthread_mutex_init(pthread_mutex_t *mp, const pthread_mutexattr_t *mattr);
+</pre>
+<p>
+Here, <tt>pthread_mutex_init()</tt> initializes the mutex pointed at by <tt>mp </tt> to its
+default value if <tt>mattr</tt> is <tt>NULL</tt>, or to specify mutex attributes that have
+already been set with <tt>pthread_mutexattr_init()</tt>.
+</p><p>
+A mutex lock must not be reinitialized or destroyed while other
+threads might be using it. Program failure will result if either action is not done
+correctly. If a mutex is reinitialized or destroyed, the application must be sure the
+mutex is not currently in use. <tt>pthread_mutex_init()</tt> returns zero after
+completing successfully. Any other returned value indicates that an error occurred.
+</p><p>
+A simple example call is:
+</p><p></p><pre>#include &lt;pthread.h&gt;
+
+pthread_mutex_t mp = PTHREAD_MUTEX_INITIALIZER; 
+pthread_mutexattr_t mattr; 
+int ret; 
+
+/* initialize a mutex to its default value */ 
+ret = pthread_mutex_init(&amp;mp, NULL);
+</pre>
+<p>
+When the mutex is
+initialized, it is in an unlocked state. The effect of <tt>mattr</tt> being <tt>NULL</tt> is
+the same as passing the address of a default mutex attribute object, but without the
+memory overhead. Statically defined mutexes can be initialized directly to have default
+attributes with the macro <tt>PTHREAD_MUTEX_INITIALIZER</tt>.
+</p><p>
+To initialise a mutex with non-default values do something like:
+</p><pre>/* initialize a mutex attribute */ 
+ret = pthread_mutexattr_init(&amp;mattr);
+
+/* change mattr default values with some function */
+ ret = pthread_mutexattr_*();
+
+/* initialize a mutex to a non-default value */
+ret = pthread_mutex_init(&amp;mp, &amp;mattr);
+</pre>
+<p></p><h2><a name="SECTION003115000000000000000">
+Locking a Mutex</a>
+</h2>
+<p>
+The function <tt>pthread_mute_lock()</tt> is used to lock a mutex, it is prototyped by:
+</p><p></p><pre>int pthread_mutex_lock(pthread_mutex_t *mp);
+</pre>
+<p><tt>pthread_mute_lock()</tt> locks the mutex pointed to by <tt>mp</tt>. When the mutex is
+already locked, the calling thread blocks and the mutex waits on a prioritized queue.
+When <tt>pthread_mute_lock()</tt> returns, the mutex is locked and the calling thread
+is the owner. <tt>pthread_mute_lock()</tt> returns zero after completing successfully.
+Any other returned value indicates that an  error occurred.
+</p><p>
+Therefor to lock a mutex <tt>mp</tt> on would do the following:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+pthread_mutex_t mp; 
+int ret; 
+
+ret = pthread_mutex_lock(&amp;mp);
+</pre>
+<p>
+To unlock a  mutex use the function <tt>pthread_mutex_unlock()</tt> 
+whose prototype is:
+</p><p></p><pre>int pthread_mutex_unlock(pthread_mutex_t *mp);
+</pre>
+<p>
+Clearly, this function unlocks the mutex
+pointed to by <tt>mp</tt>.
+</p><p>
+The mutex must be locked and the calling thread <b>must</b> be the one that last
+locked the mutex (<em>i.e. the owner</em>). When any other threads are waiting for the
+mutex to become available, the thread at the head of the queue is unblocked. <tt>
+pthread_mutex_unlock()</tt>  returns zero after completing successfully. Any other
+returned value indicates that an error occurred.
+</p><p>
+A simple example call of <tt>pthread_mutex_unlock()</tt>  is:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+
+pthread_mutex_t mp; 
+int ret; 
+
+/* release the mutex */ 
+ret = pthread_mutex_unlock(&amp;mp);
+</pre>
+<p></p><h3><a name="SECTION003115100000000000000">
+Lock with a Nonblocking Mutex</a>
+</h3>
+<p>
+The function <tt>pthread_mutex_trylock()</tt> to
+attempt to lock the mutex and is prototyped by:
+</p><p></p><pre>int pthread_mutex_trylock(pthread_mutex_t *mp);
+</pre>
+<p>
+This function attempts  to lock the mutex pointed to by <tt>mp</tt>. <tt>
+pthread_mutex_trylock()</tt> is a nonblocking version of <tt>pthread_mutex_lock()</tt>.
+When the mutex is already locked, this call returns with an error. Otherwise, the mutex
+is locked and the calling thread is the owner. <tt>pthread_mutex_trylock()</tt>
+returns zero after completing successfully. Any other returned value indicates that an
+error occurred.
+</p><p>
+The function is called as follows:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+pthread_mutex_t mp;
+
+/* try to lock the mutex */
+int ret; ret = pthread_ mutex_trylock(&amp;mp);
+</pre>
+<p></p><h2><a name="SECTION003116000000000000000">
+Destroying a Mutex</a>
+</h2>
+<p>
+The function <tt>pthread_mutex_destroy()</tt> may be used to destroy any state
+associated with the mutex. It is prototyped by:
+</p><p></p><pre>int pthread_mutex_destroy(pthread_mutex_t *mp);
+</pre>
+<p>
+and destroys a mutex pointed to by mp.
+</p><p><b>Note</b>: that the
+space for storing the mutex is not freed. <tt>pthread_mutex_destroy()</tt> returns
+zero after completing successfully. Any other returned value indicates that an error
+occurred.
+</p><p>
+It is called by:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+pthread_mutex_t mp;
+int ret; 
+
+/* destroy mutex */
+ret = pthread_mutex_destroy(&amp;mp);
+</pre>
+<p></p><h2><a name="SECTION003117000000000000000">
+Mutex Lock Code
+Examples</a>
+</h2>
+<p>
+Here are some code fragments showing mutex locking.
+</p><p></p><h3><a name="SECTION003117100000000000000">
+Mutex Lock Example</a>
+</h3>
+<p>
+We develop two small functions that use the mutex lock for
+different purposes.
+</p><p></p><ul>
+<li> The <tt>increment_count function()</tt> uses the mutex lock simply to ensure
+an atomic update of the shared variable, <tt>count</tt>.
+</li><li> The <tt>get_count()</tt> function uses the
+mutex lock to guarantee that the (<tt>long long</tt>) 64-bit quantity count is read
+atomically. On a 32-bit architecture, a long long is really two 32-bit quantities.
+</li></ul>
+<p>
+The 2 functions are as follows:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+pthread_mutex_t count_mutex; 
+long long count; 
+
+void increment_count() 
+   { pthread\_mutex\_lock(&amp;count_mutex); 
+     count = count + 1;
+     pthread_mutex_unlock(&amp;count_mutex); 
+   }   
+
+
+long long get_count()  
+   { long long c;
+     pthread\_mutex\_lock(&amp;count_mutex); 
+     c = count; 
+     pthread_mutex_unlock(&amp;count_mutex);
+     return (c); 
+    }
+</pre>
+<p><b>Recall</b> that 
+reading an integer value is an atomic operation because integer is the common word size
+on most machines.
+</p><p></p><h3><a name="SECTION003117200000000000000">
+Using Locking Hierarchies: Avoiding Deadlock</a>
+</h3>
+<p>
+You may occasionally want to access two
+resources at once. For instance, you are using one of the resources, and then discover
+that the other resource is needed as well. However, there could be a problem
+if two threads attempt to claim both resources but lock the associated mutexes in
+different orders.
+</p><p>
+In this example, if the two threads lock mutexes 1 and 2
+respectively, then a <em>deadlock</em> occurs when each attempts to lock the other mutex.
+</p><p><table border="1" cellpadding="3">
+<tbody><tr valign="TOP"><th align="LEFT" nowrap="nowrap"><b>Thread 1</b></th>
+<th align="LEFT" nowrap="nowrap"><b>Thread 2</b></th>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap"><tt>/* use resource 1 */ </tt></td>
+<td align="LEFT" nowrap="nowrap"><tt>/* use resource 2 */</tt></td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap"><tt>pthread_mutex_lock(&amp;m1);</tt></td>
+<td align="LEFT" nowrap="nowrap"><tt>pthread_mutex_lock(&amp;m2);</tt></td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap">&nbsp;</td>
+<td align="LEFT" nowrap="nowrap">&nbsp;</td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap"><tt>/* NOW use resources  2 + 1 */</tt></td>
+<td align="LEFT" nowrap="nowrap"><tt>/* NOW use resources 1 + 2 */</tt></td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap">&nbsp;</td>
+<td align="LEFT" nowrap="nowrap">&nbsp;</td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap"><tt>pthread_mutex_lock(&amp;m2);</tt></td>
+<td align="LEFT" nowrap="nowrap"><tt>pthread_mutex_lock(&amp;m1);</tt></td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap">&nbsp;</td>
+<td align="LEFT" nowrap="nowrap">&nbsp;</td>
+</tr>
+<tr valign="TOP"><td align="LEFT" nowrap="nowrap"><tt>pthread_mutex_lock(&amp;m1);</tt></td>
+<td align="LEFT" nowrap="nowrap"><tt>pthread_mutex_lock(&amp;m2);</tt></td>
+</tr>
+</tbody></table>
+</p><p>
+The best way to avoid this problem is to make sure that
+whenever threads lock multiple mutexes, they do so in the same order. This technique is
+known as lock hierarchies: order the mutexes by logically assigning numbers to them.
+Also, honor the restriction that you cannot take a mutex that is assigned n when you
+are holding any mutex assigned a number greater than n.
+</p><p><b>Note</b>: The <tt>lock_lint</tt> tool can
+detect the sort of deadlock problem shown in this example.
+</p><p>
+The best  way to avoid such
+deadlock problems is to use lock hierarchies. When locks are always taken in a
+prescribed order, deadlock should not occur. However, this technique cannot always be
+used :
+</p><p></p><ul>
+<li> sometimes you must take the mutexes in an order other than prescribed.
+</li><li> To prevent deadlock in such a situation, use <tt>pthread_mutex_trylock()</tt>. One
+thread must release its mutexes when it discovers that deadlock would otherwise be
+inevitable.
+</li></ul>
+<p>
+The idea of <em>Conditional Locking</em> use this approach:
+</p><p><b>Thread 1</b>:
+</p><p></p><pre>pthread_mutex_lock(&amp;m1); 
+pthread_mutex_lock(&amp;m2); 
+
+/* no processing */
+pthread_mutex_unlock(&amp;m2);
+pthread_mutex_unlock(&amp;m1);
+</pre>
+<p><b>Thread 2</b>:
+</p><p></p><pre>for (; ;) {
+  pthread_mutex_lock(&amp;m2); 
+  if(pthread_mutex_trylock(&amp;m1)==0) 
+    /* got it! */ 
+    break; 
+ /* didn't get it */ 
+ pthread_mutex_unlock(&amp;m2); 
+ } 
+/* get locks; no processing */
+pthread_mutex_unlock(&amp;m1); 
+pthread_mutex_unlock(&amp;m2);
+</pre>
+<p>
+In the above example, thread 1 locks
+mutexes in the prescribed order, but thread 2 takes them out of order. To make certain
+that there is no deadlock, thread 2 has to take mutex 1 very carefully; if it were to
+block waiting for the mutex to be released, it is likely to have just entered into a
+deadlock with thread 1. To ensure this does not happen, thread 2 calls
+<tt>pthread_mutex_trylock()</tt>, which takes the mutex if it is available. If it is not,
+thread 2 returns immediately, reporting failure. At this point, thread 2 must release
+mutex 2, so that thread 1 can lock it, and then release both mutex 1 and mutex 2.
+</p><p></p><h2><a name="SECTION003118000000000000000">
+Nested Locking with a Singly Linked List</a>
+</h2>
+<p>
+We have met basic linked structues in Section&nbsp;<a href="http://www.cs.cf.ac.uk/Dave/C/node11.html#sec:linklist">10.3</a>, when using threads
+which share a linked list structure the possibility of deadlock may arise.
+</p><p>
+By nesting mutex locks into the linked data structure and a simple ammendment of the
+link list code we can  prevent deadlock by
+taking the locks in a prescribed order.
+</p><p>
+The modified linked is as follows:
+</p><p></p><pre>typedef struct node1 { 
+     int value; 
+     struct node1 *link;
+     pthread_mutex_t lock; 
+   } node1_t;
+</pre>
+<p><b>Note:</b> we simply ammend a standard
+singly-linked list structure so that each node containing a mutex.
+</p><p>
+Assuming we have created a variable <code>node1_t ListHead</code>.
+</p><p>
+To remove a node from
+the list:
+</p><ul>
+<li> first search the list starting at ListHead (which itself is never
+removed) until the desired node is found.
+</li><li> To protect this search from the effects of
+concurrent deletions, lock each node before any of its contents are accessed.
+<p>
+Because
+all searches start at ListHead, there is never a deadlock because the locks are always
+taken in list order.
+</p></li><li> When the desired node is found, lock both the node and its
+predecessor since the change involves both nodes.
+<p>
+Because the predecessor's lock is
+always taken first, you are again protected from deadlock. 
+</p></li></ul>
+<p>
+The C code to remove an item from a singly linked list with nested locking is as
+follows:
+</p><p></p><pre> 
+
+node1_t *delete(int value) 
+  { node1_t *prev,
+    *current; prev = &amp;ListHead;
+ 
+   pthread_mutex_lock(&amp;prev-&gt;lock); 
+   while ((current = prev-&gt;link) != NULL) 
+     { pthread_mutex_lock(&amp;current-&gt;lock); 
+       if (current-&gt;value == value) 
+         { prev-&gt;link = current-&gt;link;
+           pthread_mutex_unlock(&amp;current-&gt;lock); 
+           pthread_mutex_unlock(&amp;prev-&gt;lock);
+           current-&gt;link = NULL; return(current); 
+         } 
+       pthread_mutex_unlock(&amp;prev-&gt;lock);
+       prev = current; 
+      } 
+    pthread_mutex_unlock(&amp;prev-&gt;lock); 
+    return(NULL); 
+   }
+</pre>
+<p></p><h2><a name="SECTION003119000000000000000">
+Solaris Mutex Locks</a>
+</h2>
+<a name="sec:sol_mutex">&nbsp;</a>
+Similar mutual
+exclusion locks exist for in Solaris.
+<p>
+You should include the &lt;synch.h&gt; or  &lt;thread.h&gt;libraries.
+</p><p>
+To initialize a mutex  use <tt>int mutex_init(mutex_t *mp, int type, void *arg))</tt>.
+<tt>mutex_init()</tt> initializes the mutex pointed to by <tt>mp</tt>.  The <tt>type</tt> can be
+one of the following (note that <tt>arg</tt>  is currently ignored).
+</p><p></p><dl>
+<dt><strong><tt>USYNC_PROCESS</tt></strong>
+</dt><dd>-- The
+mutex can be used to synchronize threads in this and other processes.
+</dd><dt><strong><tt>USYNC_THREAD</tt></strong>
+</dt><dd>-- The
+mutex can be used to synchronize threads in this process, only. 
+</dd></dl>
+<p>
+Mutexes can also be
+initialized by allocation in zeroed memory, in which case a type of <tt>USYNC_THREAD</tt>
+is assumed.  Multiple threads must not
+initialize the same mutex simultaneously. A mutex lock must not be reinitialized while
+other threads might be using it.
+</p><p>
+The function <tt>int mutex_destroy (mutex_t *mp)</tt>
+ destroys any state associated with the mutex pointed to by <tt>mp</tt>. <b>Note</b>
+that the space for storing the mutex is not freed.
+</p><p>
+To acquire a mutex lock use the function <tt>mutex_lock(mutex_t *mp)</tt>
+which  locks the mutex pointed to by mp. When the mutex is already locked,
+the calling thread blocks until the mutex becomes available (blocked threads wait on a
+prioritized queue).
+</p><p>
+To release a mutex use <tt>mutex_unlock(mutex_t *mp)</tt> which unlocks the
+mutex pointed to by mp. The mutex must be locked and the calling thread must be the one
+that last locked the mutex (the owner).
+</p><p>
+To try to acquire a mutex use mutex_trylock(mutex_t *mp) to attempt to
+lock the mutex pointed to by <tt>mp</tt>. This function is a nonblocking version of
+<tt>mutex_lock()</tt>
+</p><p></p><h1><a name="SECTION003120000000000000000">
+Condition Variable Attributes</a>
+</h1>
+<p>
+Condition variables can be usedto atomically block
+threads until a particular condition is true. Condition variables are <em>always</em> used
+in conjunction with  mutex locks:
+</p><p></p><ul>
+<li> With a condition variable, a thread can atomically
+block until a condition is satisfied.
+</li><li> The condition is tested under the protection of a
+mutual exclusion lock (mutex). 
+<ul>
+<li> When the condition is false, a thread usually blocks on a
+condition variable and atomically releases the mutex waiting for the condition to
+change.
+</li><li> When another thread changes the condition, it can signal the associated
+condition variable to cause one or more waiting threads to wake up, acquire the mutex
+again, and reevaluate the condition. 
+</li></ul></li></ul>
+<p>
+Condition variables can be used to synchronize
+threads among processes when they are allocated in memory that can be written to and is
+shared by the cooperating processes.
+</p><p>
+The
+scheduling policy determines how blocking threads are awakened. For the default
+<tt>SCHED_OTHER</tt>, threads are awakened in priority order. The attributes for condition
+variables must be set and initialized before the condition variables can be used.
+</p><p>
+As with mutex locks, The condiotion variable attributes must be initialised  and set (or set
+to <tt>NULL</tt>) before an actual condition variable may be initialise (with
+appropriat attributes) and then used.
+</p><p></p><h2><a name="SECTION003121000000000000000">
+Initializing a Condition Variable Attribute</a>
+</h2>
+<p>
+The function   <tt>pthread_condattr_init()</tt>  initializes attributes associated with
+this object to their default values. It is prototyped by:
+</p><p></p><pre>int pthread_condattr_init(pthread_condattr_t *cattr);
+</pre>
+<p>
+Storage for each attribute object, <tt>cattr</tt>, is allocated by
+the threads system during execution. <tt>cattr</tt> is an opaque data type that contains a
+system-allocated attribute object. The possible values of cattr's scope are
+<tt>PTHREAD_PROCESS_PRIVATE</tt>  and <tt>PTHREAD_PROCESS_SHARED</tt>. The default value
+of the pshared attribute when this function is called is <tt>
+PTHREAD_PROCESS_PRIVATE</tt>, which means that the initialized condition variable can be
+used within a process.
+</p><p>
+Before a condition variable attribute can be reused, it must
+first be reinitialized by <tt>pthread_condattr_destroy()</tt>. The
+<tt>pthread_condattr_init()</tt> call returns a pointer to an opaque object. If the
+object is not destroyed, a memory leak will result.
+</p><p><tt>pthread_condattr_init()</tt>  returns zero
+after completing successfully. Any other returned value indicates that an error
+occurred. When either of the following conditions occurs, the function fails and
+returns the corresponding value.
+</p><p>
+A simple example call of this function is :
+</p><p></p><pre>#include &lt;pthread.h&gt;
+
+pthread_condattr_t cattr; 
+int ret; 
+
+/* initialize an attribute to default value */ 
+ret = pthread_condattr_init(&amp;cattr);
+</pre>
+<p></p><h2><a name="SECTION003122000000000000000">
+Destoying a Condition Variable Attribute</a>
+</h2>
+<p>
+The function <tt>pthread_condattr_destroy()</tt>  removes storage and renders
+the attribute object invalid, it is prototyped by:
+</p><p></p><pre>int pthread_condattr_destroy(pthread_condattr_t *cattr);
+</pre>
+<p><tt>pthread_condattr_destroy()</tt>   returns zero
+after completing successfully and destroying the condition variable pointed to by <tt>
+cattr</tt>. Any other returned value indicates that an error occurred. If the following
+condition occurs, the function fails and returns the corresponding value.
+</p><p></p><h2><a name="SECTION003123000000000000000">
+The Scope of a Condition Variable</a>
+</h2>
+<p>
+The scope of a condition variable can be either process
+private (intraprocess) or system wide (interprocess), as with mutex locks. If the
+condition variable is created with the pshared attribute set to the
+<tt>PTHREAD_PROCESS_SHARED</tt> state, and it exists in shared memory, it can be shared
+among threads from more than one process. This is equivalent to the <tt>USYNC_PROCESS</tt>
+flag in <tt>mutex_init()</tt> in the original Solaris threads. If the mutex pshared
+attribute is set to <tt>PTHREAD_PROCESS_PRIVATE</tt> (default value), only those threads
+created by the same process can operate on the mutex. Using <tt>
+PTHREAD_PROCESS_PRIVATE</tt> results in the same behavior as with the <tt>USYNC_THREAD</tt>
+flag in the original Solaris threads <tt>cond_init()</tt> call, which is that of a local
+condition variable. <tt>PTHREAD_PROCESS_SHARED</tt> is equivalent to a global condition
+variable.
+</p><p>
+The function <tt>pthread_condattr_setpshared()</tt> is used to set the scope of a
+condition variable, it is  prototyped by:
+</p><p></p><pre>int pthread_condattr_setpshared(pthread_condattr_t *cattr, int pshared);
+</pre>
+<p>
+The condition variable attribute <tt>cattr</tt> must be initialised first and the value of
+<tt>pshared</tt> is either <tt>PTHREAD_PROCESS_SHARED</tt> or <tt>
+PTHREAD_PROCESS_PRIVATE</tt>.
+</p><p><tt>pthread_condattr_setpshared()</tt>  returns zero after completing successfully. Any
+other returned value indicates that an error occurred.
+</p><p>
+A sample use of this function is as follows:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+
+pthread_condattr_t cattr; 
+int ret; 
+
+/* Scope: all processes */ 
+ret = pthread_condattr_setpshared(&amp;cattr, PTHREAD_PROCESS_SHARED); 
+
+/* OR */
+/* Scope: within a process */ 
+ret = pthread_condattr_setpshared(&amp;cattr, PTHREAD_PROCESS_PRIVATE);
+</pre>
+<p>
+The function <tt>int pthread_condattr_getpshared(const pthread_condattr_t *cattr,
+int *pshared)</tt> may be used to obtain the scope of a given condition variable.
+</p><p> </p><h2><a name="SECTION003124000000000000000">
+Initializing a Condition Variable</a>
+</h2>
+<p>
+The function <tt>pthread_cond_init()</tt>  initializes the condition variable and
+is prototyped as follows:
+</p><p></p><pre>int pthread_cond_init(pthread_cond_t *cv, const pthread_condattr_t *cattr);
+</pre>
+<p>
+The condition variable which is initialized is  pointed at by <tt>cv</tt> and is set to its
+default value if <tt>cattr</tt> is <tt>NULL</tt>, or to specific <tt>cattr</tt> condition
+variable attributes that are already set with <tt>pthread_condattr_init()</tt>. 
+The
+effect of <tt>cattr</tt> being NULL is the same as passing the address of a default
+condition variable attribute object, but without the memory overhead.
+</p><p>
+Statically-defined condition variables can be initialized directly to have default
+attributes with the macro <tt>PTHREAD_COND_INITIALIZER</tt>. This has the same effect as
+dynamically allocating <tt>pthread_cond_init()</tt> with null attributes. No error
+checking is done. Multiple threads must not simultaneously initialize or reinitialize
+the same condition variable. If a condition variable is reinitialized or destroyed, the
+application must be sure the condition variable is not in use.
+</p><p><tt>pthread_cond_init()</tt> returns zero after completing successfully. Any other
+returned value indicates that an error occurred.
+</p><p>
+Sample calls of this function are:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+
+pthread_cond_t cv; 
+pthread_condattr_t cattr; 
+int ret; 
+
+/* initialize a condition variable to its default value */ 
+ret = pthread_cond_init(&amp;cv, NULL); 
+
+/* initialize a condition variable */ ret =
+pthread_cond_init(&amp;cv, &amp;cattr);
+</pre>
+<p></p><h2><a name="SECTION003125000000000000000">
+Block on a Condition Variable</a>
+</h2>
+<p>
+The function <tt>pthread_cond_wait()</tt> is used to atomically release a mutex and to
+cause the calling thread to block on the condition variable. It is protoyped by:
+</p><p></p><pre>int pthread_cond_wait(pthread_cond_t *cv,pthread_mutex_t *mutex);
+</pre>
+<p>
+The mutex that is released is pointed
+to by <tt>mutex</tt> and  the condition variable
+pointed to by <tt>cv</tt> is blocked.
+</p><p><tt>pthread_cond_wait()</tt> returns zero after completing successfully. Any other
+returned value indicates that an error occurred. When the following condition occurs,
+the function fails and returns the corresponding value.
+</p><p>
+A simple example call is:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+
+pthread_cond_t cv; 
+pthread_mutex_t mutex; 
+int ret; 
+
+/* wait on condition variable */ 
+ret = pthread_cond_wait(&amp;cv, &amp;mutex);
+</pre>
+<p>
+The blocked thread
+can be awakened by a <tt>pthread_cond_signal()</tt>, a <tt>pthread_cond_broadcast()</tt>,
+or when interrupted by delivery of a signal. Any change in the value of a condition
+associated with the condition variable cannot be inferred by the return of
+<tt>pthread_cond_wait()</tt>, and any such condition must be reevaluated. The
+<tt>pthread_cond_wait()</tt> routine always returns with the mutex locked and owned by
+the calling thread, even when returning an error. This function blocks until the
+condition is signaled. It atomically releases the associated mutex lock before
+blocking, and atomically acquires it again before returning. In typical use, a
+condition expression is evaluated under the protection of a mutex lock. When the
+condition expression is false, the thread blocks on the condition variable. The
+condition variable is then signaled by another thread when it changes the condition
+value. This causes one or all of the threads waiting on the condition to unblock and to
+try to acquire the mutex lock again. Because the condition can change before an
+awakened thread returns from <tt>pthread_cond_wait()</tt>, the  condition that
+caused the wait must be retested before the mutex lock is acquired.
+</p><p>
+The recommended
+test method is to write the condition check as a while loop that calls
+<tt>pthread_cond_wait()</tt>, as follows:
+</p><p></p><pre>pthread_mutex_lock();
+
+while(condition_is_false) 
+  pthread_cond_wait(); 
+pthread_mutex_unlock();
+</pre>
+<p>
+No specific
+order of acquisition is guaranteed when more than one thread blocks on the condition
+variable. Note also that <tt>pthread_cond_wait()</tt> is a cancellation point. If a
+cancel is pending and the calling thread has cancellation enabled, the thread
+terminates and begins executing its cleanup handlers while continuing to hold the lock.
+</p><p>
+To unblock a specific thread use
+<tt>pthread_cond_signal()</tt> which is prototyped by:
+</p><p></p><pre>int pthread_cond_signal(pthread_cond_t *cv);
+</pre>
+<p>
+This unblocks one thread that is blocked on the condition
+variable pointed to by <tt>cv</tt>. <tt>
+pthread_cond_signal()</tt> returns zero after completing successfully. Any other returned
+value indicates that an error occurred.
+</p><p>
+You should always call <tt>pthread_cond_signal()</tt> under the protection of the
+same mutex used with the condition variable being signaled. Otherwise, the condition
+variable could be signaled between the test of the associated condition and blocking in
+<tt>pthread_cond_wait()</tt>, which can cause an infinite wait. The scheduling policy
+determines the order in which blocked threads are awakened. For <tt>SCHED_OTHER</tt>,
+threads are awakened in priority order. When no threads are blocked on the condition
+variable, then calling <tt>pthread_cond_signal()</tt>l has no effect.
+</p><p>
+The folloowing code fragment illustrates how to avoid an infinite problem
+described above:
+</p><p></p><pre>pthread_mutex_t count_lock; 
+pthread_cond_t count_nonzero; 
+unsigned count; 
+
+decrement_count() 
+   { pthread_mutex_lock(&amp;count_lock); 
+
+     while (count == 0) 
+        pthread_cond_wait(&amp;count_nonzero, &amp;count_lock); 
+     count = count - 1; 
+     pthread_mutex_unlock(&amp;count_lock); 
+   } 
+
+increment_count() 
+   { pthread_mutex_lock(&amp;count_lock); 
+     if (count == 0)
+       pthread_cond_signal(&amp;count_nonzero); 
+     count = count + 1;
+     pthread_mutex_unlock(&amp;count_lock); 
+    }
+</pre>
+<p>
+You can also block until a specified event occurs. The function
+<tt>pthread_cond_timedwait()</tt> is used for this purpose. It is  prototyped by:
+</p><p></p><pre>int pthread_cond_timedwait(pthread_cond_t *cv,
+      pthread_mutex_t *mp, const struct timespec *abstime);
+</pre>
+<p><tt>pthread_cond_timedwait()</tt> is used in a similar manner to <tt>
+pthread_cond_wait()</tt>: <tt>pthread_cond_timedwait()</tt>  blocks
+until the condition is signaled or until the time of day, specified by <tt>abstime</tt>,
+has passed. <tt>pthread_cond_timedwait()</tt> always returns with the mutex, <tt>mp</tt>,
+locked and owned by the calling thread, even when it is returning an error. <tt>
+pthread_cond_timedwait()</tt> is also a cancellation point.
+</p><p><tt>pthread_cond_timedwait()</tt> returns zero after completing successfully. Any other
+returned value indicates that an error occurred. When either of the following
+conditions occurs, the function fails and returns the corresponding value.
+</p><p>
+An examle  call of this function is:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+#include &lt;time.h&gt; 
+
+pthread_timestruc_t to;
+pthread_cond_t cv; 
+pthread_mutex_t mp;
+timestruct_t abstime; 
+int ret; 
+
+/* wait on condition variable */ 
+
+ret = pthread_cond_timedwait(&amp;cv, &amp;mp, &amp;abstime);
+
+
+pthread_mutex_lock(&amp;m); 
+to.tv_sec = time(NULL) + TIMEOUT; 
+to.tv_nsec = 0; 
+
+while (cond == FALSE) 
+  {  err = pthread_cond_timedwait(&amp;c, &amp;m, &amp;to); 
+     if (err == ETIMEDOUT) 
+       { /* timeout, do something */ 
+         break; 
+       } 
+   } 
+pthread_mutex_unlock(&amp;m);
+</pre>
+<p>
+All threads may be unblocked in one function: <tt>pthread_cond_broadcast()</tt>.
+This function is prototyped as follows:
+</p><p></p><pre>int pthread_cond_broadcast(pthread_cond_t *cv);
+</pre>
+<p><tt>pthread_cond_broadcast()</tt> unblocks
+all threads that are blocked on the condition variable pointed to by <tt>cv</tt>, specified
+by <tt>pthread_cond_wait()</tt>. When no threads are blocked on the condition variable,
+<tt>pthread_cond_broadcast()</tt> has no effect.
+</p><p><tt>pthread_cond_broadcast()</tt>
+returns zero after completing successfully. Any other returned value indicates that an
+error occurred. When the following condition occurs, the function fails and returns the
+corresponding value.
+</p><p>
+Since
+<tt>pthread_cond_broadcast()</tt> causes all threads blocked on the condition to contend
+again for the mutex lock, use carefully. For example, use <tt>
+pthread_cond_broadcast()</tt> to allow threads to contend for varying resource amounts
+when resources are freed:
+</p><p></p><pre>#include &lt;pthread.h&gt;
+
+pthread_mutex_t rsrc_lock; 
+pthread_cond_t rsrc_add;
+unsigned int resources; 
+
+get_resources(int amount) 
+  { pthread_mutex_lock(&amp;rsrc_lock);
+    while (resources &lt; amount) 
+       pthread_cond_wait(&amp;rsrc_add, &amp;rsrc_lock); 
+        
+   resources -= amount; 
+   pthread_mutex_unlock(&amp;rsrc_lock); 
+  } 
+
+add_resources(int amount) 
+  { pthread_mutex_lock(&amp;rsrc_lock); 
+    resources += amount;
+    pthread_cond_broadcast(&amp;rsrc_add); 
+    pthread_mutex_unlock(&amp;rsrc_lock); 
+  }
+</pre>
+<p><b>Note:</b> that in
+<tt>add_resources</tt> it does not matter whether resources is updated first or if
+<tt>pthread_cond_broadcast()</tt> is called first inside the mutex lock. Call
+<tt>pthread_cond_broadcast()</tt> under the protection of the same mutex that is used
+with the condition variable being signaled. Otherwise, the condition variable could be
+signaled between the test of the associated condition and blocking in
+<tt>pthread_cond_wait()</tt>, which can cause an infinite wait.
+</p><p></p><h2><a name="SECTION003126000000000000000">
+Destroying a  Condition Variable State</a>
+</h2>
+<p>
+The function <tt>pthread_cond_destroy()</tt> to destroy any state associated with the
+condition variable, it is prototyped by:
+</p><p></p><pre>int pthread_cond_destroy(pthread_cond_t *cv);
+</pre>
+<p>
+The condition variable pointed to by <tt>cv</tt> will be destroyed by this call:
+</p><p></p><pre>#include &lt;pthread.h&gt; 
+
+pthread_cond_t cv; 
+int ret; 
+
+/* Condition variable is destroyed */ 
+ret = pthread_cond_destroy(&amp;cv);
+</pre>
+<p><b>Note</b> that the space for storing the
+condition variable is not freed.
+</p><p><tt>pthread_cond_destroy()</tt> returns zero after
+completing successfully. Any other returned value indicates that an error occurred.
+When any of the following conditions occur, the function fails and returns the
+corresponding value.
+</p><p></p><h2><a name="SECTION003127000000000000000">
+Solaris Condition Variables</a>
+</h2>
+<p>
+Similar
+ condition variables exist in Solaris. The functions are prototyped in
+&lt;thread.h&gt;.
+</p><p>
+To initialize a condition variable use 
+<tt>int cond_init(cond_t *cv, int type, int arg)</tt> which  initializes the condition
+variable pointed to by <tt>cv</tt>. The <tt>type</tt> can be one of <tt>USYNC_PROCESS</tt> or  
+<tt>USYNC_THREAD</tt> (See Solaris mutex (Section&nbsp;<a href="http://www.cs.cf.ac.uk/Dave/C/node31.html#sec:sol_mutex">30.1.9</a> for more details).
+Note that <tt>arg</tt> is currently ignored.
+</p><p>
+Condition variables
+can also be initialized by allocation in zeroed memory, in which case a type of
+<tt>USYNC_THREAD</tt> is assumed. Multiple threads must not initialize the same condition
+variable simultaneously. A condition variable must not be reinitialized while other
+threads might be using it.
+</p><p>
+To destroy a condition variable use <tt>int cond_destroy(cond_t *cv)</tt>
+which destroys a state associated with the condition variable pointed to by
+<tt>cv</tt>. The space for storing the condition variable is not freed.
+</p><p>
+To wait for a
+condition use <tt>int cond_wait(cond_t *cv, mutex_t *mp)</tt> which atomically releases
+the mutex pointed to by <tt>mp</tt> and to cause the calling thread to block on the
+condition variable pointed to by <tt>cv</tt>.
+</p><p>
+The blocked thread can be awakened by <tt>cond_signal(cond_t *cv)</tt>,
+<tt>cond_broadcast(cond_t *cv)</tt>, or when interrupted by delivery of a signal or a
+fork. Use <tt>cond_signal()</tt> to unblock one thread that is blocked on the condition
+variable pointed to by <tt>cv</tt>. Call this function under protection of the same mutex
+used with the condition variable being signaled. Otherwise, the condition could be
+signaled between its test and <tt>cond_wait()</tt>, causing an infinite wait. Use <tt>
+cond_broadcast()</tt> to unblock all threads that are blocked on the condition variable
+pointed to by <tt>cv</tt>. When no threads are blocked on the condition variable then
+<tt>cond_broadcast()</tt> has no effect.
+</p><p>
+Finally, to wait until the condition is signaled or for
+an absolute time use <tt>int cond_timedwait(cond_t *cv,
+mutex_t *mp, timestruct_t abstime)</tt>  Use <tt>cond_timedwait()</tt> as you would use
+<tt>cond_wait()</tt>, except that <tt>cond_timedwait()</tt> does not block past the time of
+day specified by abstime. <tt>cond_timedwait()</tt> always returns with the mutex locked
+and owned by the calling thread even when returning an error.
+</p><p></p><h1><a name="SECTION003130000000000000000">
+Threads and Semaphores</a>
+</h1>
+<a name="ch:thread_sem">&nbsp;</a>
+<h2><a name="SECTION003131000000000000000">
+POSIX Semaphores</a>
+</h2>
+<p>
+Chapter&nbsp;<a href="http://www.cs.cf.ac.uk/Dave/C/node26.html#ch:semaphores">25</a> has dealt with semaphore programming for POSIX and System V
+IPC semaphores.
+</p><p>
+Semaphore operations are the same in both POSIX and Solaris. The function
+names are changed from  <tt>sema_</tt> in Solaris to <tt>sem_</tt> in pthreads. Solaris
+semaphore are defined in &lt;thread.h&gt;.
+</p><p>
+In this section we give a brief description of Solaris thread semaphores.
+</p><p></p><h2><a name="SECTION003132000000000000000">
+Basic Solaris Semaphore Functions</a>
+</h2>
+<p>
+To initialize the function <tt>int sema_init(sema_t *sp, unsigned int count,
+int type, void *arg)</tt> is used. <tt>sema</tt>. <tt>type</tt> can be one of the following 
+):
+</p><p></p><dl>
+<dt><strong><tt>USYNC_PROCESS</tt></strong>
+</dt><dd>--  The semaphore can be used to
+synchronize threads in this process and other processes. Only one process should
+initialize the semaphore.
+</dd><dt><strong><tt>USYNC_THREAD</tt></strong>
+</dt><dd>-- The semaphore can be used to
+synchronize threads in this process.
+</dd></dl>
+<p><tt>arg </tt> is currently unused.
+</p><p>
+Multiple threads <b>must not</b>
+initialize the same semaphore simultaneously. A semaphore <b>must not</b> be
+reinitialized while other threads may be using it.
+</p><p>
+To increment a Semaphore use the function <tt>int sema_post(sema_t *sp)</tt>. <tt>
+sema_post</tt> atomically increments the semaphore pointed to by <tt>sp</tt>. When any threads
+are blocked on the semaphore, one is unblocked.
+</p><p>
+To block on a Semaphore use <tt>int sema_wait(sema_t *sp)</tt>. <tt>sema_wait()</tt> to
+block the calling thread until the count in the semaphore pointed to by <tt>sp</tt> becomes
+greater than zero, then atomically decrement it.
+</p><p>
+To decrement a Semaphore count use <tt>int sema_trywait(sema_t *sp)</tt>. <tt>
+sema_trywait()</tt>  atomically decrements the count in the semaphore pointed to by <tt>
+sp</tt> when the count is greater than zero. This function is a nonblocking version of
+<tt>sema_wait()</tt>.
+</p><p>
+To destroy the Semaphore state call the function <tt>
+sema_destroy(sema_t *sp)</tt>. <tt>sema_destroy()</tt> to
+destroy any state associated with the semaphore pointed to by <tt>sp</tt>. The space for
+storing the semaphore is not freed.
+</p><p>
+<br></p><hr>
+<address>
+<i>Dave Marshall</i>
+<br><i>1/5/1999</i>
+</address>
+
+
+</body></html>

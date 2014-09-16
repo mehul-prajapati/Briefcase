@@ -1,0 +1,1121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="dj_gecko dj_contentbox" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Kernel APIs, Part 3: Timers and lists in the 2.6 kernel</title>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM Corporation&nbsp;2010">
+<meta name="Keywords" content="Linux, kernel, timer, hrtimer, list, API, M. Tim Jones, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2010-03-30">
+<meta name="Source" content="v17 delivery:developerWorks">
+<meta name="Security" content="Public">
+<meta name="Abstract" content="The Linux kernel includes a variety of APIs intended to help developers build simpler and more efficient driver and kernel applications. Two of the more common APIs that can be used for work deferral are the list management and timer APIs. Discover these APIs, and learn how to develop kernel applications with timers and lists.">
+<meta name="Description" content="The Linux kernel includes a variety of APIs intended to help developers build simpler and more efficient driver and kernel applications. Two of the more common APIs that can be used for work deferral are the list management and timer APIs. Discover these APIs, and learn how to develop kernel applications with timers and lists.">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2010-03-30">
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="en">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.Country" content="ZZ">
+<meta name="Robots" content="index,follow">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWGC0">
+<meta name="dW.ContentArea" content="2">
+<meta name="dW.Topic" content="263,67,87">
+<!-- META_INCLUDE -->
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCLNXZZ">
+
+<!-- SITE MON : START (DO NOT DELETE) -->
+<!-- developerWorks monitoring token -->
+<!-- SITE MON : END (DO NOT DELETE) -->
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/www.css" rel="stylesheet" title="www" type="text/css">
+<!-- Masthead/footer -->
+<link href="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-mf.css" rel="stylesheet" title="www" type="text/css">
+<link href="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-article-6.css" rel="stylesheet" title="www" type="text/css">
+<link href="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-common-features.css" rel="stylesheet" title="www" type="text/css">
+<script type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/www.js">//</script><script type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/eluminate.js"></script><link title="IBM Search" href="http://www.ibm.com/search/opensearch/description.xml" type="application/opensearchdescription+xml" rel="search"><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/head.js"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/50200000.js" type="text/javascript" language="javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/cookie-id.js" type="text/javascript" language="javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/rules_50200000.js" type="text/javascript" language="javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dispatcher-v3.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-www.js">//</script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/Dialog.js" charset="utf-8" type="text/javascript"></script>
+
+<script type="text/javascript">
+//  ibmweb.config.set({ sbs: { enabled: false }});
+</script>
+
+<!-- A/B/Exp -->
+
+<!-- LEADSPACE_STYLES -->
+
+<!-- canonical url generation -->
+	<link rel="canonical" href="http://www.ibm.com/developerworks/library/l-timers-list/index.html">
+
+
+<script charset="utf-8" id="dojoIoScript1" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/usen-utf8.js" type="text/javascript"></script><script charset="utf-8" id="dojoIoScript2" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/a_002" type="text/javascript"></script><script type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/cp-v3.js"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/mmcore.js" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/move.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/TimedMoveable.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/_CssStateMixin.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/_FormMixin.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/_DialogMixin.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/DialogUnderlay.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/ContentPane.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/common.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/TooltipDialog.js" charset="utf-8" type="text/javascript"></script><script charset="utf-8" type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/a" id="mmcore.1"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/Mover.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/Moveable.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/_ContentPaneResizeMixin.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/html.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/loading.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/_LayoutWidget.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/common_002.js" charset="utf-8" type="text/javascript"></script><script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/autoscroll.js" charset="utf-8" type="text/javascript"></script></head>
+
+<body aria-busy="false" class="v17" id="ibm-com">
+
+	<div id="ibm-top" class="ibm-landing-page ibm-no-scroll"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/ibm_logo_print.png" id="ibm-print-masthead" alt="IBM Print" width="43" height="15">
+
+<!-- MASTHEAD_BEGIN -->
+<div role="banner" id="ibm-masthead">
+
+    <!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar">
+			<li role="presentation" id="dw-mast-top-4">
+				<a tabindex="0" href="http://www.ibm.com/developerworks/"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dwn-dw-badge.png" alt="dW" aria-label="dW" width="43" height="22"></a>
+			</li>
+			<li role="presentation" id="dw-mast-top-0">
+				<div><a class="" href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=en&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2F" title="" role="button" tabindex="0">Sign in (or register)</a></div>
+			</li>
+			<li role="presentation" id="dw-mast-top-1">
+				<div><a href="#SELECTLANG" role="button">English</a></div>
+			</li>
+			<li role="presentation" id="dw-mast-top-3">
+				<a href="http://www.ibm.com/" role="button">IBM</a>
+			</li>
+			<li role="presentation" id="dw-mast-top-2" class="dw-mf-hide">
+				<a href="#">[userid]</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- TOP ROW SLIDER -->
+	<div id="ibm-my-menu-dw" style="display:none">
+        <!-- Sign-in -->
+		
+        <!-- Language selector --> 
+		
+		<div id="empty_div" class="dw-mast-columns" role="group"><!-- Authenticated --></div>		
+		<!-- IBM -->
+				
+	<div widgetid="ibmweb_ribbon_0" id="ibmweb_ribbon_0" class="ibm-container-body" dojoattachpoint="ribbonContainer"><a title="Previous" style="margin-top: -12px;" class="ibm-ribbon-prev ibm-disabled" dojoattachpoint="scrollLeftButton" role="button" href="#">Previous</a><div style="height: 0px;" class="ibm-ribbon-pane" dojoattachpoint="scrollContainer"><div id="ibmweb_ribbon_0_scrollable" class="ibm-ribbon-section" dojoattachpoint="scrollableNode" role="listbox"><div aria-labelledby="ibm-rib-menu-0" widgetid="ibmweb_ribbonSlide_0" id="ibmweb_ribbonSlide_0" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-menu-0" class="ibm-access">Sign in (or register)</h2><div widgetid="ibmweb_ribbonItemAbstract_0" tabindex="0" id="ibmweb_ribbonItemAbstract_0" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-1-1">
+				<div id="dw-mast-sso">
+					<div id="signin_error_mf" class="no-display"></div>
+					<div id="dw-mast-sso-form">
+						<form id="sForm_mf" action="" method="post" name="sForm_name_mf" onsubmit="return false;">
+							<div id="dw-mast-sso-id" class="dw-mast-sso-id-en">
+								<label for="ibmid_mf">IBM ID:</label>
+								<input id="ibmid_mf" name="ibmid_name_mf" maxlength="100" onkeypress="dwsi.siInst.handleEP(event,this.form,'mf');" type="text">
+							</div>
+							<div id="dw-mast-sso-pw" class="dw-mast-sso-pw-en">
+								<label for="pw_mf">Password:</label>
+								<input id="pw_mf" value="" name="pw_name_mf" maxlength="100" onkeypress="dwsi.siInst.handleEP(event,this.form,'mf');" type="password">
+							</div>
+							<div id="dw-mast-sso-target" class="dw-mast-sso-target-en">
+								<p class="dw-mf-perm-box">
+									<input id="perm_mf" name="perm_name_mf" type="checkbox"><label for="perm_mf"> Keep me signed in.</label>
+								</p>
+							</div>					
+							<div id="dw-mast-sso-terms">
+								<p class="dw-mast-sso-terms-en">By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+							</div>
+							<div>
+								<input class="dw-mf-submit-btn" name="ibm_submit_name_mf" value="Submit" onclick="dwsi.siInst.signin('mf');return false;" type="submit">
+							</div>
+						</form>
+					</div>
+					<div id="dw-mast-sso-update">
+						<div id="dw-mast-sso-update-id">
+							<ul>
+								<li><a href="#" onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=en&amp;d='+encodeURIComponent(location.href);})();">Need an IBM ID?</a></li>
+								<li><a href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></li>
+							</ul>
+						</div>
+						<div id="dw-mast-sso-update-pw">
+							<ul class="dw-mf-pwupdate">
+								<li><a href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(dwsi.siInst.getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();">Forgot your password?</a></li>
+								<li><a href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();">Change your password</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="dw-mast-sso-text">
+						<p>The first time you sign into developerWorks, a profile is created for you.  <strong>Select
+ information in your profile (name, country/region, and company) is 
+displayed to the public and will accompany any content you post</strong>.  You may update your IBM account at any time.</p>
+						<p class="dw-mf-secure">All information submitted is secure.</p>
+					</div>
+				</div>
+				<div id="dw-mast-dname" class="dw-mf-hide">
+					<p>The first time you sign in to developerWorks, a profile is 
+created for you, so you need to choose a display name.  Your display 
+name accompanies the content you post on developerworks.</p><p><strong>Please choose a display name between 3-31 characters</strong>.  Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+					<div id="signin_dname_error_mf" class="no-display"></div>
+					<div id="dw-mast-dname-form">
+						<form id="dForm_mf" action="" method="post" name="dForm_name_mf" onsubmit="return false;">
+							<div id="dw-mast-dname-mf">
+								<label for="dname_mf">Display name:</label>
+								<input id="dname_mf" name="dname_name_mf" maxlength="31" size="25" onkeypress="dwsi.siInst.handleEP(event,this.form,'mf');" type="text">
+							</div>
+							<div id="dw-mast-dname-terms">
+								<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+							</div>
+							<div>
+								<input class="dw-mf-submit-btn" name="dname_submit_name_mf" value="Submit" onclick="dwsi.siInst.signin('mf');return false;" type="submit">
+							</div>
+						</form>								
+					</div>
+					<div id="dw-mast-dname-secure">
+						<p class="dw-mf-secure">All information submitted is secure.</p>
+					</div>
+				</div>
+				<div id="dw-mast-auth" class="dw-mf-hide">
+					<div>
+						<h2>developerWorks Community:</h2>
+						<ul>
+							<li><a id="dw-mast-top-0-0" href="http://www.ibm.com/developerworks/community/homepage/web/updates/?lang=en">My home</a></li>
+							<li><a href="http://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=en">My profile</a></li>
+							<li><a href="http://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=en">My communities</a></li>
+							<li><a href="http://www.ibm.com/developerworks/community/news">Settings</a></li>
+						</ul>     
+					</div>
+					<div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="#" onclick="dwsi.siInst.signOut(); return false;"><strong>Sign out</strong></a></li>
+						</ul>
+					</div>
+				</div>								
+			</div>		
+		</div></div><div aria-labelledby="ibm-rib-menu-1" widgetid="ibmweb_ribbonSlide_1" id="ibmweb_ribbonSlide_1" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-menu-1" class="ibm-access">English</h2><div widgetid="ibmweb_ribbonItemAbstract_1" tabindex="0" id="ibmweb_ribbonItemAbstract_1" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-2-1">
+				<h2>Select a language:</h2>
+				<ul>
+					<li><a id="dw-mast-top-1-0" href="http://www.ibm.com/developerworks/">English</a></li>
+					<li><a href="http://www.ibm.com/developerworks/cn/" lang="zh">中文</a></li>
+					<li><a href="http://www.ibm.com/developerworks/jp/" lang="ja">日本語</a></li>
+					<li><a href="http://www.ibm.com/developerworks/ru/" lang="ru">Русский</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-2-2">
+				<ul>
+					<li><a href="http://www.ibm.com/developerworks/br/" lang="pt">Português (Brasil)</a></li>
+					<li><a href="http://www.ibm.com/developerworks/ssa/" lang="es">Español</a></li>
+					<li><a href="http://www.ibm.com/developerworks/vn/" lang="vi">Việt</a></li>
+				</ul>
+			</div>
+		</div></div><div aria-labelledby="ibm-rib-menu-2" widgetid="ibmweb_ribbonSlide_2" id="ibmweb_ribbonSlide_2" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-menu-2" class="ibm-access">IBM</h2><div widgetid="ibmweb_ribbonItemAbstract_2" tabindex="0" id="ibmweb_ribbonItemAbstract_2" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-2-1">
+				<ul>
+					<li><a id="dw-mast-top-3-0" href="http://www.ibm.com/">IBM home</a></li>
+					<li><a href="http://www.ibm.com/solutions/">Industries &amp; solutions</a></li>
+					<li><a href="http://www.ibm.com/technologyservices/">Services</a></li>
+					<li><a href="http://www.ibm.com/products/">Products</a></li>
+					<li><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-2-2 dw-mast-ibm">
+				<ul>
+					<li><a href="http://www.ibm.com/support/publications/us/library/index.shtml">Product information</a></li>
+					<li><a href="http://www.ibm.com/redbooks/">Redbooks</a></li>
+					<li><a href="http://www.ibm.com/software/">Software</a></li>
+					<li><a href="http://www.ibm.com/software/sw-services/">Software services</a></li>
+				</ul>
+			</div>	
+		</div></div></div></div><a title="Next" style="margin-top: -12px;" class="ibm-ribbon-next" dojoattachpoint="scrollRightButton" role="button" href="#">Next</a><div class="ibm-mm-close"><span tabindex="0" aria-label="Close" role="button" title="Close"></span></div></div></div>
+		
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerworks/"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dwn-dw-wordmark.png" alt="developerWorks®" width="225" height="28"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/topics/" role="button" tabindex="0">Technical topics</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/downloads/" role="button">Evaluation software</a></li>
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/index.html" role="button">Community</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="http://www.ibm.com/developerworks/events/" role="button">Events</a></li>
+		</ul>
+		<form id="ibm-search-form" action="//www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="IBM developerWorks Search" role="search">
+			<p>
+				<label for="q"><span class="ibm-access">Search developerWorks</span></label>
+				<input id="q" name="q" value="Search developerWorks" maxlength="100" type="text">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="en" type="hidden">
+				<input name="cc" value="US" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="dw" type="hidden">
+				<input id="ibm-search" class="ibm-btn-search" value="Submit" type="submit">
+			</p>
+		</form>
+	</div>
+    
+	<!-- BOTTOM ROW SLIDER -->
+	<div style="display: none;" id="ibm-common-menu-dw">
+		<!-- Technical topics category -->
+		
+		<!-- Evaluation software category -->
+		
+		<!-- Community category -->
+		
+		<!-- Events category -->
+		
+	<div widgetid="ibmweb_ribbon_1" id="ibmweb_ribbon_1" class="ibm-container-body" dojoattachpoint="ribbonContainer"><a title="Previous" style="margin-top: -12px;" class="ibm-ribbon-prev ibm-disabled" dojoattachpoint="scrollLeftButton" role="button" href="#">Previous</a><div style="height: 0px;" class="ibm-ribbon-pane" dojoattachpoint="scrollContainer"><div id="ibmweb_ribbon_1_scrollable" class="ibm-ribbon-section" dojoattachpoint="scrollableNode" role="listbox"><div aria-labelledby="ibm-rib-head-0" widgetid="ibmweb_ribbonSlide_3" id="ibmweb_ribbonSlide_3" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-head-0" class="ibm-access">Technical topics</h2><div widgetid="ibmweb_ribbonItemAbstract_3" tabindex="0" id="ibmweb_ribbonItemAbstract_3" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-5-1">
+				<h2><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></h2>
+				<ul role="menu">
+					<li role="menuitem"><a id="dw-mast-nav-0-0" href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/bigdata/">Big data</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/analytics/">Business analytics</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/bpm/">Business process management</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/cloud/">Cloud computing</a></li>
+				</ul>     
+			</div>
+			<div class="dw-mast-col-5-2">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/commerce/">Commerce</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/devops/">DevOps</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/ibmi/">IBM i</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/data/">Information management</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-5-3">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/lotus/">Lotus (collaboration)</a></li> 
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/mobile/">Mobile development</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/opensource/">Open source</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/rational/">Rational</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-5-4">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/security/">Security</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/servicemanagement/">Tivoli (service management)</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/web/">Web development</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/websphere/">WebSphere</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-5-5">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/library/"><strong>Technical library</strong></a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/products/"><strong>Products A to Z</strong></a></li>
+				</ul>
+			</div>  
+		</div></div><div aria-labelledby="ibm-rib-head-1" widgetid="ibmweb_ribbonSlide_4" id="ibmweb_ribbonSlide_4" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-head-1" class="ibm-access">Evaluation software</h2><div widgetid="ibmweb_ribbonItemAbstract_4" tabindex="0" id="ibmweb_ribbonItemAbstract_4" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-2-1">
+				<h2><a id="dw-mast-nav-1-0" href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></h2>
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#bd">Big data</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#ba">Business analytics</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#data">Information management</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#lotus">Lotus (collaboration)</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#rational">Rational</a></li>
+				</ul>            
+			</div>
+			<div class="dw-mast-col-2-2">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#security">Security</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#tivoli">Tivoli (service management)</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#websphere">WebSphere</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/downloads/#more">More IBM products (Mobile, PureSystems...)</a></li>
+				</ul>            
+            </div>
+		</div></div><div aria-labelledby="ibm-rib-head-2" widgetid="ibmweb_ribbonSlide_5" id="ibmweb_ribbonSlide_5" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-head-2" class="ibm-access">Community</h2><div widgetid="ibmweb_ribbonItemAbstract_5" tabindex="0" id="ibmweb_ribbonItemAbstract_5" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-3-1">
+				<h2><a id="dw-mast-nav-2-0" href="http://www.ibm.com/developerworks/community/index.html">Community</a></h2>
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/homepage/?lang=en">My home</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/profiles/?lang=en">Profiles</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/groups/?lang=en">Communities</a></li>
+				</ul>     
+			</div>
+			<div class="dw-mast-col-3-2">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/blogs/?lang=en">Blogs</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/forums/?lang=en">Forums</a></li>
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/wikis?lang=en">Wikis</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+				<ul role="menu">
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/community/activities/?lang=en">Activities</a></li>
+					<li role="menuitem"><a href="https://www.ibm.com/developerworks/community/podcasts/?lang=en">Podcasts</a></li>   
+					<li role="menuitem"><a href="http://www.ibm.com/developerworks/champion/">IBM Champion program</a></li>
+				</ul>
+			</div>		
+		</div></div><div aria-labelledby="ibm-rib-head-3" widgetid="ibmweb_ribbonSlide_6" id="ibmweb_ribbonSlide_6" class="ibm-columns" dojoattachpoint="containerNode" role="dialog"><h2 id="ibm-rib-head-3" class="ibm-access">Events</h2><div widgetid="ibmweb_ribbonItemAbstract_6" tabindex="0" id="ibmweb_ribbonItemAbstract_6" class="dw-mast-columns" role="group">
+			<div class="dw-mast-col-1-1">
+				<h2><a id="dw-mast-nav-3-0" href="http://www.ibm.com/developerworks/events/">Events</a></h2>
+					<ul role="menu">
+						<li role="menuitem"><a href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</a></li>
+						<li role="menuitem"><a href="http://www.ibm.com/developerworks/find/events/">Find events (webcasts, conferences...)</a></li>
+				</ul>            
+			</div>
+		</div></div></div></div><a title="Next" style="margin-top: -12px;" class="ibm-ribbon-next" dojoattachpoint="scrollRightButton" role="button" href="#">Next</a><div class="ibm-mm-close"><span tabindex="0" aria-label="Close" role="button" title="Close"></span></div></div></div>
+	
+<div id="dw-masthead-top"><div aria-label="Social tools" role="navigation" style="display: block;" id="ibm-social-tools"><ul aria-label="Social tool list" role="toolbar"><li><a tabindex="0" role="button" dojoattrid="1" rel="print" href="#" title="Print this page" class="ibm-share-print">Print this page</a></li><li><a tabindex="-1" role="button" dojoattrid="2" rel="email" href="#" title="E-mail this page" class="ibm-share-email">E-mail this page</a></li><li><a tabindex="-1" role="button" dojoattrid="3" rel="digg" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html&amp;title=Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Digg" class="ibm-share-digg">Digg</a></li><li><a tabindex="-1" role="button" dojoattrid="4" rel="facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html&amp;t=Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Facebook" class="ibm-share-facebook">Facebook</a></li><li><a tabindex="-1" role="button" dojoattrid="5" rel="twitter" href="http://twitter.com/?status=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html%20-%20Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Twitter" class="ibm-share-twitter">Twitter</a></li><li><a tabindex="-1" role="button" dojoattrid="6" rel="delicious" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html&amp;title=Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Delicious" class="ibm-share-delicious">Delicious</a></li><li><a tabindex="-1" role="button" dojoattrid="7" rel="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html&amp;title=Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Linked In" class="ibm-share-linkedin">Linked In</a></li><li><a tabindex="-1" role="button" dojoattrid="8" rel="stumble" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html&amp;title=Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Stumbleupon" class="ibm-share-stumble">Stumbleupon</a></li><li><a tabindex="-1" role="button" dojoattrid="9" rel="googleplus" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2Findex.html&amp;t=Kernel%20APIs%2C%20Part%203%3A%20Timers%20and%20lists%20in%20the%202.6%20kernel" title="Google+" class="ibm-share-googleplus">Google+</a></li></ul></div></div></div>
+<div id="fdiv" class="ibm-access"></div><!-- MASTHEAD_END -->
+
+<!-- LAYOUT -->
+<!-- LEADSPACE_BEGIN --> 
+<div role="main" id="ibm-access-cntr"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+        <ul aria-label="Bread Crumbs" role="navigation" id="ibm-navigation-trail"><li><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></li><li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li><li><a href="http://www.ibm.com/developerworks/linux/library/">Technical library</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>Kernel APIs, Part 3: Timers and lists in the 2.6 kernel</h1><p><em><span>Efficient processing with work-deferral APIs</span></em></p>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>The Linux® kernel includes a variety of APIs intended to
+            help developers build simpler and more efficient driver and kernel
+            applications. Two of the more common APIs that can be used for work deferral
+            are the list management and timer APIs. Discover these APIs, and learn how to
+            develop kernel applications with timers and lists.</p>
+		<p class="ibm-no-print ibm-ind-link">
+<a class="ibm-forward-link" href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?site_id=1&amp;contentarea_by=Linux&amp;sort_by=Date&amp;sort_order=1&amp;start=1&amp;end=3&amp;topic_by=-1&amp;product_by=&amp;type_by=Articles&amp;show_abstract=true&amp;search_by=kernel%20apis,">View more content in this series</a> <span class="dw-summary-bar">|</span>
+			<a class="ibm-pdf-link" href="http://www.ibm.com/developerworks/library/l-timers-list/l-timers-list-pdf.pdf">PDF</a> (239 KB) <span class="dw-summary-bar">|</span>
+			<span id="nCmts"><span>2</span><img class="dw-cmts-arrow" alt="" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-cmts-arrow.png" width="7" height="7"> <a href="#icomments" class="dw-cmt-link">Comments</a></span>
+		</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a href="#authorN1002F" class="ibm-popup-link" onclick="ibmweb.overlay.show('authorN1002F',this);return false;">M. Tim Jones</a>, Independent author</p>
+<div id="authorN1002F" class="ibm-common-overlay"><div class="ibm-head"><p><a href="#close" class="ibm-common-overlay-close">Close [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually
+                                    goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+<img class="dw-summary-bio-image-x64" alt="M. Tim Jones" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/p-mjones.jpg" width="64">M. Tim Jones is an embedded firmware architect and the author of <em>Artificial Intelligence: A Systems Approach, GNU/Linux Application Programming</em> (now in its second edition), <em>AI Application Programming</em> (in its second edition), and <em>BSD Sockets Programming from a Multilanguage Perspective</em>.
+ His engineering background ranges from the development of kernels for 
+geosynchronous spacecraft to embedded systems architecture and 
+networking protocols development. Tim is a Consultant Engineer for 
+Emulex Corp. in Longmont, Colorado.</p><br><img class="dw-author-level-img" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/authorrecogbadge_cont_v3.jpg" alt="developerWorks Contributing author
+        level" width="187" height="30"><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">30 March 2010</p>
+			
+				<p>Also available in&nbsp;<a href="http://www.ibm.com/developerworks/br/library/l-timers-list/">Portuguese</a>&nbsp;<a href="http://www.ibm.com/developerworks/ssa/linux/library/l-timers-list/">Spanish</a></p>
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/c.gif" alt="+"></a><span class="ibm-twisty-head">Table of contents</span><div style="display: none;" class="ibm-twisty-body"><ul style="font-size:0.8em" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="#origin">Origin of (Linux) time</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#kernel_timers">Kernel timers</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#kernel_lists">Kernel lists</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#going_further">Going further</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#resources">Resources</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#icomments">Comments</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+
+<div class="dw-sidebar ibm-inset"><h2 id="author">Connect with Tim</h2><p>Tim is
+                one of our most popular and prolific authors. Browse
+                <a href="http://www.ibm.com/developerworks/views/global/libraryview.jsp?site_id=1&amp;contentarea_by=global&amp;sort_by=Date&amp;sort_order=2&amp;start=1&amp;end=48&amp;topic_by=-1&amp;product_by=-1&amp;type_by=All%20Types&amp;show_abstract=true&amp;search_by=tim%20jones" onmouseover="linkQueryAppend(this)">all of Tim's articles</a>
+                on developerWorks. Check out
+                <a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/user/MTimJones" onmouseover="linkQueryAppend(this)">Tim's profile</a>
+                and connect with him, other authors, and fellow readers in My
+                developerWorks.</p></div><p>This article continues the topic of work deferral I started in "<a href="http://www.ibm.com/developerworks/linux/library/l-tasklets/index.html">Kernel APIs, Part 2: Deferrable functions, kernel tasklets, and work queues</a>"
+                (developerWorks, March 2010). This time, I discuss the timer application
+                programming interface (API) and a core element to all work deferral
+                schemes, the kernel list construct. I also explore the kernel list API,
+                which timers and other work deferral mechanisms (such as work queues)
+                use.</p><p>Timers are an integral part of any operating system, and you'll find
+                multiple timer mechanisms. Let's begin with a quick overview of the Linux
+                timer schemes before delving further into their operation.</p><h2 id="origin">Origin of (Linux) time</h2><p>In the Linux kernel, time is measured by a global variable named
+                <code>jiffies</code>, which identifies the number of ticks
+                that have occurred since the system was booted. The manner in which ticks
+                are counted depends, at its lowest level, on the particular hardware
+                platform on which you're running; however, it is typically incremented
+                through an interrupt. The tick rate (<code>jiffies</code>'s
+                least significant bit) is configurable, but in a recent 2.6 kernel for
+                x86, a tick equals 4ms (250Hz). The <code>jiffies</code>
+                global variable is used broadly in the kernel for a number of purposes,
+                one of which is the current absolute time to calculate the time-out value
+                for a timer (you'll see examples of this later). </p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="kernel_timers">Kernel timers</h2><p>There are few different schemes for timers in recent 2.6 kernels. The
+                simplest and least accurate of all timers (though suitable for most
+                instances) is the timer API. This API permits the construction of timers
+                that operate in the <code>jiffies</code> domain (minimum 4ms
+                time-out). There's also the <em>high-resolution timer API</em>, which
+                permits timer constructions in which time is defined in nanoseconds.
+                Depending upon your processor and the speed at which it operates, your
+                mileage may vary, but the API does offer a way to schedule time-outs below
+                the <code>jiffies</code> tick interval. </p><h3 id="standard_timers">Standard timers</h3><p>The standard timer API has been part of the Linux kernel for quite some
+                time (since the early versions of the Linux kernel). Although it offers
+                less accuracy than high-resolution timers, it is ideal for traditional
+                driver time-outs that provide coverage of error cases when dealing with
+                physical devices. In many cases, these time-outs never actually fire but
+                instead are started and subsequently removed. </p><p>Simple kernel timers are implemented using the <em>timer wheel</em>. The idea
+                was originally introduced by Finn Arne Gangstad in 1997. It ignores the
+                problem of managing a large number of timers but does a good job of
+                managing a reasonable number of timers—the typical case. (The
+                original timer implementation simply kept timers doubly linked in
+                expiration order. Although conceptually simple, the approach was not
+                scalable.) The timer wheel is a collection of buckets in which each bucket
+                represents a chunk of time in the future for timer expiration. The buckets
+                are defined using logarithmic time based on five buckets. Using
+                <code>jiffies</code> as the granularity of time, a number of
+                groups is defined that represents future periods of expiration (where each
+                group is represented by a list of timers). Timer insertion occurs using
+                list operations that are O(1) complexity, with expiration occurring in
+                    O(<em>N</em>) time. Expiration of timers occurs in a cascading
+                operation, where timers are removed from higher-granularity buckets, and
+                then inserted into lower-granularity buckets as their expiration time
+                decreases. Let's now look at the API for this timer implementation. </p><h3 id="timer_api">The timer API</h3><p>Linux provides a simple API for the construction and management of timers.
+                It consists of functions (and helper functions) for timer creation,
+                cancellation, and management. </p><p>Timers are defined by the <code>timer_list</code> structure,
+                which includes all of the data necessary to implement a timer (including
+                list pointers and optional timer statistics that are configured at compile
+                time). From a user's perspective, <code>timer_list</code>
+                contains an expiration time, a callback function (when/if the timer
+                expires), and a user-provided context. The user must then initialize the
+                timer, which he or she can do in a few ways. The simplest method is a call
+                to <code>setup_timer</code>, which initializes the timer and
+                sets the user-provided callback function and context. Otherwise, the user
+                can set these values (function and data) in the timer and simply call
+                <code>init_timer</code>. Note that
+                <code>init_timer</code> is called internally by
+                <code>setup_timer</code>" </p><div class="codesection"><pre class="displaycode">void <strong>init_timer</strong>( struct timer_list *timer );
+void <strong>setup_timer</strong>( struct timer_list *timer, 
+                     void (*function)(unsigned long), unsigned long data );</pre></div><p>With an initialized timer, the user now needs to set the expiration time,
+                which is done through a call to <code>mod_timer</code>. As
+                users commonly provide an expiration in the future, they typically add
+                <code>jiffies</code> here to offset from the current time.
+                Users can also delete a timer (if it has not expired) through a call to
+                <code>del_timer</code>: </p><div class="codesection"><pre class="displaycode">int <strong>mod_timer</strong>( struct timer_list *timer, unsigned long expires );
+void <strong>del_timer</strong>( struct timer_list *timer );</pre></div><p>Finally, users can determine whether the timer is pending (yet to fire)
+                through a call to <code>timer_pending</code>
+                (<code>1</code> is returned if the timer is pending): </p><div class="codesection"><pre class="displaycode">int <strong>timer_pending</strong>( const struct timer_list *timer );</pre></div><h3 id="timer_example">Timer example</h3><p>Let's look at some of these API functions in practice. <a href="#list1">Listing 1</a> provides a simple kernel module that demonstrates the
+                core aspects of the simple timer API. Within
+                <code>init_module</code>, you initialize a timer with
+                <code>setup_timer</code> and then kick it off with a call to
+                <code>mod_timer</code>. When the timer expires, the callback
+                function (<code>my_timer_callback</code>) is invoked.
+                Finally, the timer deletion (via <code>del_timer</code>)
+                occurs when you remove the module. (Note the return check from
+                <code>del_timer</code>, which identifies whether the timer
+                is still in use.) </p><h5 id="list1">Listing 1. Exploring the simple timer API</h5><div class="codesection"><pre class="displaycode">#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/timer.h&gt;
+
+MODULE_LICENSE("GPL");
+
+static <strong>struct timer_list</strong> my_timer;
+
+void my_timer_callback( unsigned long data )
+{
+  printk( "my_timer_callback called (%ld).\n", jiffies );
+}
+
+int init_module( void )
+{
+  int ret;
+
+  printk("Timer module installing\n");
+
+  // my_timer.function, my_timer.data
+  <strong>setup_timer</strong>( &amp;my_timer, my_timer_callback, 0 );
+
+  printk( "Starting timer to fire in 200ms (%ld)\n", jiffies );
+  ret = <strong>mod_timer</strong>( &amp;my_timer, jiffies + msecs_to_jiffies(200) );
+  if (ret) printk("Error in mod_timer\n");
+
+  return 0;
+}
+
+void cleanup_module( void )
+{
+  int ret;
+
+  ret = <strong>del_timer</strong>( &amp;my_timer );
+  if (ret) printk("The timer is still in use...\n");
+
+  printk("Timer module uninstalling\n");
+
+  return;
+}</pre></div><p>You can learn more about the timer API in ./include/linux/timer.h. Although
+                the simple timer API is easy and efficient, it does not offer the accuracy
+                required for real-time applications. For that, let's look at a recent
+                addition to Linux that supports higher-resolution timers. </p><h3 id="highres_timers">High-resolution
+                timers</h3><p>High-resolution timers (or <em>hrtimers</em>) provide a high-precision
+                framework for timer management independent of the previously discussed
+                timer framework because of complexities in merging the two frameworks.
+                Although timers operate on the granularity of
+                <code>jiffies</code>, hrtimers operate at the granularity of
+                nanoseconds. </p><p>The hrtimer framework is implemented differently from the traditional timer
+                API. Instead of buckets and timer cascading, hrtimers maintain a
+                time-ordered data structure of timers (timers are inserted in time order
+                to minimize processing at activation time). The data structure used is a
+                red-black tree, which is ideal for performance-focused applications (and
+                happens to be available generically as a library within the kernel). </p><p>The hrtimer framework is available as an API within the kernel and is also
+                used by user space applications through
+                <code>nanosleep</code>, <code>itimers</code>,
+                and the Portable Operating System Interface (POSIX)-timers interface. It
+                was mainlined into the 2.6.21 kernel. </p><h3 id="highres_api">High-resolution timer
+                API</h3><p>The hrtimer API has some similarities to the traditional API as well as
+                some fundamental differences to account for the additional timing control.
+                The first thing you'll notice is that time is represented not in
+                <code>jiffies</code> but in a special data type called
+                <code>ktime</code>. This representation hides some of the
+                details of efficiently managing time at this granularity. The API
+                formalizes the distinction between absolute and relative times, requiring
+                the caller to specify the type. </p><p>Like the traditional timer API, timers are represented by a
+                structure—in this case, <code>hrtimer</code>. This
+                structure defines the timer from a user perspective (callback function,
+                expiration time, and so on) and also incorporates the management
+                information (where the timer exists in the red-black tree, optional
+                statistics, and so on). </p><p>The process begins with the initialization of a timer through
+                <code>hrtimer_init</code>. This call includes the timer,
+                clock definition, and timer mode (one-shot or restart). The clock to use
+                is defined in ./include/linux/time.h and represents the various clocks
+                that the system supports (such as the real-time clock or a monotonic clock
+                that simply represents time from a starting point, such as system boot).
+                Once a timer has been initialized, it can be started with
+                <code>hrtimer_start</code>. This call includes the
+                expiration time (in <code>ktime_t</code>) and the mode of
+                the time value (absolute or relative value). </p><div class="codesection"><pre class="displaycode">void <strong>hrtimer_init</strong>( struct hrtimer *time, clockid_t which_clock, 
+			enum hrtimer_mode mode );
+int <strong>hrtimer_start</strong>(struct hrtimer *timer, ktime_t time, const 
+			enum hrtimer_mode mode);</pre></div><p>Once an hrtimer has started, it can be cancelled through a call to
+                <code>hrtimer_cancel</code> or
+                <code>hrtimer_try_to_cancel</code>. Each function includes
+                the hrtimer reference as the timer to be stopped. These functions differ
+                in that the <code>hrtimer_cancel</code> function attempts to
+                cancel the timer, but if it has already fired, it will wait for the
+                callback function to finish. The
+                <code>hrtimer_try_to_cancel</code> function differs in that
+                it also attempts to cancel the timer but will return failure if the timer
+                has fired. </p><div class="codesection"><pre class="displaycode">int <strong>hrtimer_cancel</strong>(struct hrtimer *timer);
+int <strong>hrtimer_try_to_cancel</strong>(struct hrtimer *timer);</pre></div><p>You can check to see if the hrtimer has activated its callback through a
+                call to <code>hrtimer_callback_running</code>. Note that
+                this function is called internally by
+                <code>hrtimer_try_to_cancel</code> in order to return an
+                error if the timer's callback function was called. </p><div class="codesection"><pre class="displaycode">int <strong>hrtimer_callback_running</strong>(struct hrtimer *timer);</pre></div><div class="dw-sidebar ibm-inset"><h2 id="sidebar1">The ktime API</h2><p>Not discussed here was the ktime API, which provides a rich set of
+                    functions for managing time at high resolution. You can see the ktime
+                    API in ./linux/include/ktime.h. </p></div><h3 id="hrtimer_example">An hrtimer example</h3><p>Use of the hrtimer API is quite simple, as shown in <a href="#list2">Listing 2</a>. Within <code>init_module</code>, you
+                start by defining your relative time to time-out (in this case, 200ms).
+                You initialize your hrtimer with a call to
+                <code>hrtimer_init</code> (using the monotonic clock), and
+                then set the callback function. Finally, you start the timer using your
+                previously created <code>ktime</code> value. When the timer
+                fires, the <code>my_hrtimer_callback</code> function is
+                called, which returns <code>HRTIMER_NORESTART</code> so that
+                the timer is not automatically restarted. In the
+                <code>cleanup_module</code> function, you clean up by
+                cancelling the timer with <code>hrtimer_cancel</code>. </p><h5 id="list2">Listing 2. Exploring the hrtimer API</h5><div class="codesection"><pre class="displaycode">#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/hrtimer.h&gt;
+#include &lt;linux/ktime.h&gt;
+
+MODULE_LICENSE("GPL");
+
+#define MS_TO_NS(x)	(x * 1E6L)
+
+static <strong>struct hrtimer</strong> hr_timer;
+
+enum hrtimer_restart my_hrtimer_callback( struct hrtimer *timer )
+{
+  printk( "my_hrtimer_callback called (%ld).\n", jiffies );
+
+  return <strong>HRTIMER_NORESTART</strong>;
+}
+
+int init_module( void )
+{
+  <strong>ktime_t ktime</strong>;
+  unsigned long delay_in_ms = 200L;
+
+  printk("HR Timer module installing\n");
+
+  ktime = <strong>ktime_set</strong>( 0, MS_TO_NS(delay_in_ms) );
+
+  <strong>hrtimer_init</strong>( &amp;hr_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL );
+  
+  <strong>hr_timer.function</strong> = &amp;my_hrtimer_callback;
+
+  printk( "Starting timer to fire in %ldms (%ld)\n", delay_in_ms, jiffies );
+
+  <strong>hrtimer_start</strong>( &amp;hr_timer, ktime, HRTIMER_MODE_REL );
+
+  return 0;
+}
+
+void cleanup_module( void )
+{
+  int ret;
+
+  ret = <strong>hrtimer_cancel</strong>( &amp;hr_timer );
+  if (ret) printk("The timer was still in use...\n");
+
+  printk("HR Timer module uninstalling\n");
+
+  return;
+}</pre></div><p>There's much more to the hrtimer API than has been touched on here. One
+                interesting aspect is the ability to define the execution context of the
+                callback function (such as in softirq or hardiirq context). You can learn
+                more about the hrtimer API from the include file in
+                ./include/linux/hrtimer.h. </p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="kernel_lists">Kernel lists</h2><p>As mentioned early in this article, lists are useful structures, and 
+                the kernel provides an efficient implementation for generic use.
+                Additionally, you'll find lists underneath the APIs that we've explored
+                thus far. Understanding the doubly linked list API will help you develop
+                with this efficient data structure as well as 
+                understand the plethora of code in the kernel that utilizes lists. Let's
+                now take a quick tour of the kernel list API. </p><p>The API provides a <code>list_head</code> structure that is
+                used to represent not only the list head (anchor) but also the
+                in-structure list pointers. Let's look at a sample structure that includes
+                list capabilities (see <a href="#list3">Listing 3</a>). Note the addition
+                of the <code>list_head</code> structure, which is used for
+                object linkage. And note that you can add the
+                <code>list_head</code> structure anywhere in your structure,
+                and—though some GCC magic (<code>list_entry</code>
+                and <code>container_of</code>, defined in
+                ./include/kernel/kernel.h)—you can dereference from the list
+                pointer to the super-object. </p><h5 id="list3">Listing 3. Sample structure with list references</h5><div class="codesection"><pre class="displaycode">struct my_data_structure {
+	int value;
+	<strong>struct list_head</strong> list;
+};</pre></div><p>Like any list implementation, you need a list head that serves as the
+                anchor for the list. This is commonly done with the
+                <code>LIST_HEAD</code> macro, which provides the declaration
+                and initialization of the list. This macro creates a struct
+                <code>list_head</code> object onto which you can add
+                objects. </p><div class="codesection"><pre class="displaycode"><strong>LIST_HEAD</strong>( new_list )</pre></div><p>You can also create a list head manually (for example, if your list head is
+                in another structure) through the use of the
+                <code>LIST_HEAD_INIT</code> macro. </p><p>With the primary initialization complete, you can manipulate the list using
+                the <code>list_add</code> and
+                <code>list_del</code> functions (in addition to many more).
+                Now, let's jump into example code, which better serves to illustrate the
+                use of the API. </p><h3 id="list_example">List API example</h3><p><a href="#list4">Listing 4</a> provides a simple kernel module that
+                explores a number of the list API functions (though many more can be found
+                in ./include/linux/list.h). This example creates two lists, populates them
+                in the <code>init_module</code> function, and then
+                manipulates the lists in the <code>cleanup_module</code>
+                function. </p><p>At the start, you create your data structure
+                (<code>my_data_struct</code>), which includes some data and
+                then two list heads. This example demonstrates that you can insert an
+                object into multiple lists at the same time. You then create two list
+                heads (<code>my_full_list</code> and
+                <code>my_odd_list</code>). </p><p>In the <code>init_module</code> function, you create 10 data
+                objects and load them onto the lists (all objects on the
+                <code>my_full_list</code>, and all odd-valued objects onto
+                the <code>my_odd_list</code>) using the
+                <code>list_add</code> function. Note here that
+                <code>list_add</code> takes two arguments, the first being
+                the list reference within the object to be used and the second being the
+                list anchor. This demonstrates the ability of a data object to be on
+                multiple lists, using the kernel's internal tricks for identifying the
+                super-object that contains the list reference. </p><p>The <code>cleanup_module</code> function illustrates a few
+                more capabilities of the list API, the first of which is the
+                <code>list_for_each</code> macro, which simplifies list
+                iteration. For this macro, you provide a reference to the current object
+                (<code>pos</code>) and the list reference to be iterated.
+                For each iteration, you receive a <code>list_head</code>
+                reference, which can be provided to <code>list_entry</code>
+                to identify the container object (your data structure). Specify your
+                structure and the list variable within your structure, which is used
+                internally to dereference back to the container. </p><p>To emit the odd list, you use another iteration macro called
+                <code>list_for_each_entry</code>. This macro is simpler in
+                that it automatically provides your data structure, obviating the need to
+                perform a <code>list_entry</code>. </p><p>Finally, you use <code>list_for_each_safe</code> to iterate
+                the list for purposes of freeing the allocated elements. This macro
+                permits iteration over the list with safeguards against removal of a list
+                entry (which you'll do as part of the iteration). You use
+                <code>list_entry</code> to get at your data object (to free
+                it back to the kernel pool), and then use
+                <code>list_del</code> to free the entry on the list. </p><h5 id="list4">Listing 4. Exploring the list API</h5><div class="codesection"><pre class="displaycode">#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/list.h&gt;
+
+MODULE_LICENSE("GPL");
+
+struct my_data_struct {
+  int value;
+  struct <strong>list_head</strong> full_list;
+  struct <strong>list_head</strong> odd_list;
+};
+
+<strong>LIST_HEAD</strong>( my_full_list );
+<strong>LIST_HEAD</strong>( my_odd_list );
+
+
+int init_module( void )
+{
+  int count;
+  struct my_data_struct *obj;
+
+  for (count = 1 ; count &lt; 11 ; count++) {
+
+    obj = (struct my_data_struct *)
+            kmalloc( sizeof(struct my_data_struct), GFP_KERNEL );
+
+    obj-&gt;value = count;
+
+    <strong>list_add</strong>( &amp;obj-&gt;full_list, &amp;my_full_list );
+
+    if (obj-&gt;value &amp; 0x1) {
+      <strong>list_add</strong>( &amp;obj-&gt;odd_list, &amp;my_odd_list );
+    }
+
+  }
+
+  return 0;
+}
+
+
+void cleanup_module( void )
+{
+  struct <strong>list_head</strong> *pos, *q;
+  struct my_data_struct *my_obj;
+
+  printk("Emit full list\n");
+  <strong>list_for_each</strong>( pos, &amp;my_full_list ) {
+    my_obj = <strong>list_entry</strong>( pos, struct my_data_struct, full_list );
+    printk( "%d\n", my_obj-&gt;value );
+  }
+
+  printk("Emit odd list\n");
+  <strong>list_for_each_entry</strong>( my_obj, &amp;my_odd_list, odd_list ) {
+    printk( "%d\n", my_obj-&gt;value );
+  }
+
+  printk("Cleaning up\n");
+  <strong>list_for_each_safe</strong>( pos, q, &amp;my_full_list ) {
+    struct my_data_struct *tmp;
+    tmp = <strong>list_entry</strong>( pos, struct my_data_struct, full_list );
+    <strong>list_del</strong>( pos );
+    kfree( tmp );
+  }
+
+  return;
+}</pre></div><p>Numerous other functions exist for adding to the tail of a list instead of
+                the head (<code>list_add_tail</code>), joining lists
+                (<code>list_splice</code>), and testing the contents of a
+                list (<code>list_empty</code>). See <a href="#resources">Resources</a> for more details on kernel list functions. </p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="going_further">Going further</h2><p>This article explored a few APIs that demonstrate the ability to segregate
+                functionality where necessary (timer and high-precision hrtimer APIs) as
+                well as commonize code for code reuse (list API). Traditional timers
+                provide an efficient mechanism for typical driver time-outs, where
+                hrtimers provide another level of quality of service for more precise
+                timer capabilities. The list API provides a very generic but efficient and
+                richly functional interface. If you write kernel code, you'll run across
+                one or all three of these APIs, so they're definitely worth exploring.
+            </p><!--CMA ID: true--><!--Site ID: 1--><!--XSLT stylesheet used to transform this file:
+        dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">Resources</h2><h3 class="dw-resources-category-heading">Learn</h3><ul class="ibm-bullet-list"><li> Learn about other work deferral schemes
+                (tasklets and work queues) in "<a href="http://www.ibm.com/developerworks/linux/library/l-tasklets">Kernel APIs, Part 2: Deferrable functions, kernel tasklets, and work queues</a>" 
+                (developerWorks, March 2010). </li><li> For more information on the traditional
+                timer implementation, including details on the cascading timer wheel,
+                check out this Linux kernel mailing list <a href="http://lkml.org/lkml/2005/10/19/46">post from Ingo Molnar</a>.
+                It provides a detailed view of the timer API, its rationale, and
+                considerable details of its implementation. </li><li> Thomas Gleixner provides a great
+                introduction to the timer subsystem and the split of timers and
+                high-resolution timers in this Linux kernel mailing list <a href="http://lwn.net/Articles/152363/">post of the
+                    <code>ktimers</code> patch</a>. It also provides details
+                on the use of timers by higher-level subsystems. </li><li> For a detailed look at the changes to the
+                Linux time system (which provides the basis for timers in the kernel),
+                check out the paper <a href="http://www.kernel.org/doc/ols/2006/ols2006v1-pages-333-346.pdf">Hrtimers and Beyond: Transforming the Linux Time Subsystems</a> (PDF). This
+                paper details the design of the overall time subsystem and the changes
+                required to support multiple timer APIs. </li><li> The Linux list API uses GCC extensions to
+                identify the container of an object that includes a list pointer structure
+                (using <code>typeof</code> and
+                <code>offsetof</code>). To learn about other GCC extensions,
+                check out "<a href="http://www.ibm.com/developerworks/linux/library/l-gcc-hacks/">GCC hacks in the Linux kernel</a>" (developerworks, November 2008). </li><li> The <a href="http://kernelnewbies.org/FAQ/LinkedLists">FAQ/LinkedLists</a> at
+                KernelNewbies provides a good introduction to lists and some of the
+                internals. </li><li> 
+                In the <a href="http://www.ibm.com/developerworks/linux/index.html" onmouseover="linkQueryAppend(this)">developerWorks Linux zone</a>, 
+                find hundreds of <a href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp">how-to
+                    articles
+                    and tutorials</a>, as well as downloads, discussion forums, 
+                and a wealth other resources for Linux developers and administrators.               
+            </li><li>
+                Stay current with 
+                <a href="http://www.ibm.com/developerworks/offers/techbriefings/events.html" onmouseover="linkQueryAppend(this)">developerWorks technical events and webcasts</a> focused on a variety of IBM products and IT industry topics. 
+            </li><li> 
+                Attend a <a href="http://www.ibm.com/developerworks/offers/techbriefings/index.html" onmouseover="linkQueryAppend(this)">free developerWorks Live! 
+                    briefing</a> to get up-to-speed quickly on IBM products and tools as well as IT industry trends. 
+            </li><li> 
+                Watch <a href="http://www.ibm.com/developerworks/offers/lp/demos/index.html" onmouseover="linkQueryAppend(this)">developerWorks on-demand demos</a>
+ 
+                ranging from product installation and setup demos for 
+beginners, to advanced functionality for experienced developers.
+            </li><li> 
+                Follow <a href="http://www.twitter.com/developerworks/" onmouseover="linkQueryAppend(this)">developerWorks on Twitter</a>.</li></ul><h3 class="dw-resources-category-heading">Get products and technologies</h3><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/downloads/index.html" onmouseover="linkQueryAppend(this)">Evaluate IBM products</a>
+ 
+                in the way that suits you best: Download a product 
+trial, try a product online, use a product in a cloud environment, or 
+spend a few hours in the  
+                <a href="http://www.ibm.com/developerworks/downloads/soasandbox/index.html" onmouseover="linkQueryAppend(this)">SOA Sandbox</a>  
+                learning how to implement Service Oriented Architecture efficiently.
+            </li></ul><h3 class="dw-resources-category-heading">Discuss</h3><ul class="ibm-bullet-list"><li> 
+                Get involved in the <a href="http://www.ibm.com/developerworks/community" onmouseover="linkQueryAppend(this)"> My developerWorks community</a>. 
+                Connect with other developerWorks users while exploring the developer-driven blogs, forums, groups, and wikis. 
+            </li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">Comments</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img style="display: none;" id="imgPlHdr" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/animated-progress-38x38c.gif" alt=""><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect"> <a onclick="var e=arguments[0] || window.event; dwsi.siInst &amp;&amp; dwsi.siInst.showSignIn(); if (e.stopPropagation){ e.stopPropagation();} else { e.cancelBubble = true; } e.preventDefault &amp;&amp; e.preventDefault(); return false;" href="#">Sign in</a> or <a href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=register&amp;lang=en&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-timers-list%2F%23icomments">register</a>  to leave a comment.</p><p id="cmtHead"><label for="newCmt"><strong>Add comment:</strong></label></p><p>Note: HTML elements are not supported within comments.</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled="disabled"></textarea><br></p><span class="ibm-input-group"><input value="1" name="comment_notification" id="comment_notification" disabled="disabled" type="checkbox"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">Notify me when a comment is added</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount"><span id="charCount">1000</span> characters left</span><p class="ibm-buttons-row"><input value="Submit" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled" type="button"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style=""><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts">2</span>)</strong></span><span class="dw-how-many-comments-label" style="display:none" id="dropdownCmts"><label for="howManyComments"><strong>Show:</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>Hi
+ Steve. The following URL is to another article on 2.6 synchronization 
+primitives (including atomics, spinlocks, and mutexes). Hope this helps!<br><br>http://www.ibm.com/developerworks/linux/library/l-linux-synchronization.html</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">Posted by <a href="https://www.ibm.com/developerworks/community/profiles/user/MTimJones">MTimJones</a> on 08 April 2010</p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=en&amp;referingURL=http://www.ibm.com/developerworks/library/l-timers-list/&amp;mymessage=Comment:%20Hi%20Steve.%20The%20following%20URL%20is%20to%20another%20article%20on%202.6%20synchronization%20primitives%20%28including%20atomics%2C%20spinlocks%2C%20and%20mutexes%29.%20Hope%20this%20helps%21http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-synchronization.html%0DPosted%20by%20MTimJones%20on%2008%20April%202010%0D%0D---%20Add%20any%20comments%20below%20this%20line%20---" target="_self">Report abuse</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>Nice article - I would love to see one on locking primitives.</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">Posted by <a href="https://www.ibm.com/developerworks/community/profiles/user/SteveClark">SteveClark</a> on 08 April 2010</p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="http://www.ibm.com/developerworks/community/report?lang=en&amp;referingURL=http://www.ibm.com/developerworks/library/l-timers-list/&amp;mymessage=Comment:%20Nice%20article%20-%20I%20would%20love%20to%20see%20one%20on%20locking%20primitives.%0DPosted%20by%20SteveClark%20on%2008%20April%202010%0D%0D---%20Add%20any%20comments%20below%20this%20line%20---" target="_self">Report abuse</a></p><div class="dw-clear-both"></div></div></div></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display:none"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts2">2</span>)</strong></span><span class="dw-how-many-comments-label" style="display:none" id="dropdownCmts2"><label for="howManyComments2"><strong>Show:</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#" onclick="dwsi.siInst.clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+ <div class="ibm-title">
+<h2>developerWorks: Sign in</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">Required fields are indicated with an asterisk (<span class="ibm-required">*<span class="ibm-access">required</span></span>).</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm" onsubmit="return false;">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*<span class="ibm-access">required</span></span></label><span><input name="ibm-id" id="ibmid" size="25" class="required" onkeypress="dwsi.siInst.handleEP(event,this.form);" type="text"><br><a onclick="window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;d='+encodeURIComponent(location.protocol + '//' + location.hostname + location.pathname + '#icomments'); return false;" href="#" class="ibm-forward-link">Need an IBM ID?</a> <br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></span>   
+</p> 
+<p><label for="password">Password:<span class="ibm-required">*<span class="ibm-access">required</span></span></label><span><input name="password" id="password" size="25" value="" class="required" onkeypress="dwsi.siInst.handleEP(event,this.form);" type="password"><br><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(dwsi.siInst.getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();">Forgot your password?</a><br><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();">Change your password</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" name="perm_name" type="checkbox"><label for="perm"> Keep me signed in.</label></span>
+</p>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="dwsi.siInst.signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="dwsi.siInst.clearForm();ibmweb.overlay.hide('signin_overlay');return false;" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<p>The first time you sign into developerWorks, a profile is created for you. <strong>Select
+ information in your profile (name, country/region, and company) is 
+displayed to the public and will accompany any content you post.</strong> You may update your IBM account at any time.</p>
+<div><p class="dw-c-overlay-secure">All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#" onclick="dwsi.siInst.clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>Choose your display name</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">The first time you sign in to 
+developerWorks, a profile is created for you, so you need to choose a 
+display name.  Your display name accompanies the content you post on 
+developerWorks.</p>
+<p><strong>Please choose a display name between 3-31 characters</strong>. Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+<p class="ibm-overlay-intro">Required fields are indicated with an asterisk (<span class="ibm-required">*<span class="ibm-access">required</span></span>).</p> 
+<form id="dFormId" method="post" action="" name="dForm" onsubmit="return false;" class="ibm-column-form">
+<p><label for="displayname">Display name:<span class="ibm-required">*<span class="ibm-access">required</span></span></label><span><input name="displayname" id="displayname" size="25" onkeypress="dwsi.siInst.handleEP(event,this.form);" type="text"></span><span class="ibm-form-note">(Must be between 3 – 31 characters.)</span>
+</p>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="dwsi.siInst.signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="dwsi.siInst.clearForm();ibmweb.overlay.hide('displayname_overlay');return false;" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+<!-- DIG_DEEPER_START -->
+<h2 class="ibm-rule">Dig deeper into Linux on developerWorks</h2>
+<ul class="ibm-link-list">
+	<li class="ibm-first"><a href="http://www.ibm.com/developerworks/linux/" class="ibm-forward-link">Overview</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/newto/" class="ibm-forward-link">New to Linux</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/library/" class="ibm-forward-link">Technical library (articles and more)</a></li>
+	<li><a href="https://www.ibm.com/developerworks/community/forums/html/category?id=33333333-0000-0000-0000-000000000005" class="ibm-forward-link">Forums</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/find/projects/" class="ibm-forward-link">Open source projects</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/find/events/" class="ibm-forward-link">Events</a></li>
+</ul>
+<!-- DIG_DEEPER_END -->
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/labs/?ca=dti-tiles-labs"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/sm-f-dwlabs60.png" alt="" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/labs/?ca=dti-tiles-labs">developerWorks Labs</a></h3>
+<p>Experiment with new directions in software development.</p></li>    
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/newsletter/index.html"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/sm-f-dwnewsletters60.png" alt="" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/newsletter/index.html">developerWorks newsletters</a></h3>
+<p>Read and subscribe for the best and latest technical info to help you deal with your development challenges.</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="https://hub.jazz.net/?utm_source=developerWorks&amp;utm_medium=ad&amp;utm_campaign=dW+tiny+ad"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/sm-f-jazzhub2.png" alt="" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="https://hub.jazz.net/?utm_source=developerWorks&amp;utm_medium=ad&amp;utm_campaign=dW+tiny+ad">JazzHub</a></h3>
+<p>Software development in the cloud.  Register today and get free private projects through  2014.</p></li>
+<li><a role="presentation" tabindex="-1" class="" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tiles-evaluate"><img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/sm-f-evaluationsoftware60.png" alt="" width="60" height="60"></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tiles-evaluate">IBM evaluation software</a></h3>
+<p>Evaluate IBM software and solutions, and transform challenges into opportunities.</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-content" class="ibm-anchor-up-link">Back to top</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Linux</div><div class="metavalue">ArticleID=478772</div><div class="metavalue">ArticleTitle=Kernel APIs, Part 3: Timers and lists in the 2.6 kernel</div><div class="metavalue">publish-date=03302010</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace(/</g,  '%3C')+'</div>');</script><div class="metavalue">url=http://www.ibm.com/developerworks/library/l-timers-list/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>
+<!-- LEADSPACE_END -->
+
+
+<!-- END_IBM_PCON -->
+<!-- FOOTER_BEGIN -->
+<div aria-label="Footer" id="ibm-footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-5-1">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/">About</a></li>
+				<li><a href="https://www.ibm.com/developerworks/feedback">Help</a></li>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/contacts.html">Contact us</a></li>
+				<li><a href="https://www.ibm.com/developerworks/ideas">Submit content</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-2">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/feeds/">Feeds</a></li>
+				<li><a class="ibm-twitter-link" href="http://twitter.com/developerWorks" target="_blank">Follow</a></li>
+				<li><a class="ibm-facebook-link" href="http://www.facebook.com/developerworks" target="_blank">Like</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-3">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/community/report/">Report abuse</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/use/">Terms of use</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/thirdparty/">Third party notice</a></li>
+				<li><a href="http://www.ibm.com/privacy/">IBM privacy</a></li>
+				<li><a href="http://www.ibm.com/accessibility/">IBM accessibility</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-4">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/university/academicinitiative/">Faculty</a></li>
+				<li><a href="http://www.ibm.com/developerworks/university/students/">Students</a></li>
+				<li><a href="http://www.ibm.com/isv/">Business Partners</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-5">
+			<img src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dwn-ibm-logo-v17.png" alt="IBM®" width="223" height="46">
+			<img class="dw-preload" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/ibm_sprite_social_blue_ON.png" alt="" width="1" height="1">
+			<img class="dw-preload" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/arrow-down-active.gif" alt="" width="1" height="1">			
+		</div>
+	</div>
+	<!-- Language selector no-script -->
+	<noscript>
+	<div id="dw-footer-selectlang">
+		<h2><a name="SELECTLANG">Select a language:</a></h2>
+		<ul>
+			<li><a href="http://www.ibm.com/developerworks/">English</a></li>
+			<li><a href="http://www.ibm.com/developerworks/cn/" lang="zh">中文</a></li>
+			<li><a href="http://www.ibm.com/developerworks/jp/" lang="ja">日本語</a></li>
+			<li><a href="http://www.ibm.com/developerworks/ru/" lang="ru">Русский</a></li>
+			<li><a href="http://www.ibm.com/developerworks/br/" lang="pt">Português (Brasil)</a></li>
+			<li><a href="http://www.ibm.com/developerworks/ssa/" lang="es">Español</a></li>
+			<li><a href="http://www.ibm.com/developerworks/vn/" lang="vi">Việt</a></li>
+		</ul>
+	</div>
+	</noscript>
+</div>
+
+</div><!-- FOOTER_END -->
+
+<!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+<script type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-comments.js">//</script>
+<script type="text/javascript" language="JavaScript">
+		dojo.ready(function(){
+		rBHash = null;
+		rBHash = new Object();
+		rBHash['viperLang'] = 'en';
+		rBHash['urlLang'] = 'en';
+		
+		dwsi.siInst = new dwweb.dynnav.dwsi();
+		dwsi.siInst.initSI();		
+
+		// construct the comment widget
+		dwc && new dwc.comments('threadShow','95%',5,'nCmts','icomments');
+		});
+</script>
+
+<script type="text/javascript" src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/dw-event-tagging.js">//</script>
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=3&ibmAdoptPhase=648&ibmRole=36&ibmCmaId=478772&ibmContentAreas=linux";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="Kernel%20APIs,%20Part%203:%20Timers%20and%20lists%20in%20the%202.6%20kernel_files/stats.js" type="text/javascript">//</script>
+</div>
+
+
+</body></html>

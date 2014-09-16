@@ -1,0 +1,837 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>pthreads in C – a minimal working example «  timmurphy.org</title>
+
+<link rel="stylesheet" href="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/style.css" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="timmurphy.org RSS Feed" href="http://timmurphy.org/feed/">    
+<link rel="alternate" type="application/atom+xml" title="timmurphy.org Atom Feed" href="http://timmurphy.org/feed/atom/">
+<link rel="pingback" href="http://timmurphy.org/xmlrpc.php">
+<script type="text/javascript" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/validation.js"></script>
+<style type="text/css" media="screen"></style>
+
+
+<link rel="alternate" type="application/rss+xml" title="timmurphy.org » Feed" href="http://timmurphy.org/feed/">
+<link rel="alternate" type="application/rss+xml" title="timmurphy.org » Comments Feed" href="http://timmurphy.org/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="timmurphy.org » pthreads in C – a minimal working example Comments Feed" href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/feed/">
+<script type="text/javascript" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/comment-reply.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://timmurphy.org/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://timmurphy.org/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Setting the SMTP port number in Evolution" href="http://timmurphy.org/2010/05/03/setting-the-smtp-port-number-in-evolution/">
+<link rel="next" title="My second LaTeX document" href="http://timmurphy.org/2010/05/16/my-second-latex-document/">
+<meta name="generator" content="WordPress 3.8">
+<link rel="canonical" href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/">
+<link rel="shortlink" href="http://timmurphy.org/?p=617">
+<!-- HeadSpace SEO 3.6.41 by John Godley - urbangiraffe.com -->
+<meta name="keywords" content="asx,australia,australian national university,c,canberra,coding,example,java,javascript,latex,multithread,murphy,mysql,php,programming,pthreads,share market,shares,software development,software engineering,stock market,threading,threads,tim,tim murphy">
+<!-- HeadSpace -->
+</head>
+<body class="single single-post postid-617 single-format-standard">
+<div id="page">
+	<div id="nav">
+    	<ul>
+			<li><a href="http://timmurphy.org/">Home</a></li>
+  		</ul>
+  		
+  		<ul>
+		<li class="page_item page-item-8"><a href="http://timmurphy.org/things-to-do-before-24/">Things to do before 24</a></li>
+<li class="page_item page-item-153"><a href="http://timmurphy.org/1001-albums/">1001 Albums</a></li>
+<li class="page_item page-item-194"><a href="http://timmurphy.org/1001-movies/">1001 Movies</a></li>
+<li class="page_item page-item-753"><a href="http://timmurphy.org/ascii-table/">ASCII Table</a></li>
+<li class="page_item page-item-998"><a href="http://timmurphy.org/world-beers/">World Beers</a></li>
+<li class="page_item page-item-1147"><a href="http://timmurphy.org/races/">Races</a></li>
+  		</ul>
+	</div>
+
+<div id="header" role="banner">
+		<h1><a href="http://timmurphy.org/">timmurphy.org</a></h1>
+		<div class="description">Software and etc.</div>
+	<div class="rss">stay updated via <a href="http://timmurphy.org/feed/rss/" title="RSS">rss</a> </div>
+</div>
+<hr>
+
+<div id="container">	
+	<div id="sidebar" role="complementary">
+		
+		<!-- begin widgetized sidebar 1 -->	
+		<ul>
+			<li id="text-3" class="widget widget_text"><h2 class="widgettitle">AdSense</h2>			<div class="textwidget"><div style="margin-left: -10px;"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-4621913403372658";
+/* 250 square image */
+google_ad_slot = "5985590525";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="250" frameborder="0" height="250" scrolling="no"></iframe></ins></ins></div>
+<div style="height: 10px;">&nbsp;</div>
+<div style="margin-left: -10px;"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-4621913403372658";
+/* 250 square text image */
+google_ad_slot = "7207507404";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:250px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" width="250" frameborder="0" height="250" scrolling="no"></iframe></ins></ins></div></div>
+		</li><li id="categories-3" class="widget widget_categories"><h2 class="widgettitle">Categories</h2>		<ul>
+	<li class="cat-item cat-item-531"><a href="http://timmurphy.org/category/gnuplot/" title="View all posts filed under Gnuplot">Gnuplot</a>
+</li>
+	<li class="cat-item cat-item-588"><a href="http://timmurphy.org/category/language-2/" title="View all posts filed under Language">Language</a>
+<ul class="children">
+	<li class="cat-item cat-item-589"><a href="http://timmurphy.org/category/language-2/japanese/" title="View all posts filed under Japanese">Japanese</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-30"><a href="http://timmurphy.org/category/latex/" title="LaTex-specific content.">LaTeX</a>
+</li>
+	<li class="cat-item cat-item-581"><a href="http://timmurphy.org/category/lilypond/" title="View all posts filed under LilyPond">LilyPond</a>
+</li>
+	<li class="cat-item cat-item-606"><a href="http://timmurphy.org/category/linux-2/" title="View all posts filed under Linux">Linux</a>
+<ul class="children">
+	<li class="cat-item cat-item-608"><a href="http://timmurphy.org/category/linux-2/debian/" title="View all posts filed under Debian">Debian</a>
+</li>
+	<li class="cat-item cat-item-607"><a href="http://timmurphy.org/category/linux-2/fedora/" title="View all posts filed under Fedora">Fedora</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://timmurphy.org/category/linux-2/ubuntu/" title="View all posts filed under Ubuntu">Ubuntu</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-798"><a href="http://timmurphy.org/category/mathematics/" title="View all posts filed under Mathematics">Mathematics</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://timmurphy.org/category/software/" title="Anything related to software development.">Software Development</a>
+<ul class="children">
+	<li class="cat-item cat-item-138"><a href="http://timmurphy.org/category/software/apache/" title="View all posts filed under Apache">Apache</a>
+</li>
+	<li class="cat-item cat-item-172"><a href="http://timmurphy.org/category/software/bash/" title="View all posts filed under Bash">Bash</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://timmurphy.org/category/software/c/" title="C-specific content.">C</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://timmurphy.org/category/software/c-plus-plus/" title="C++-specific content.">C++</a>
+</li>
+	<li class="cat-item cat-item-195"><a href="http://timmurphy.org/category/software/css-software/" title="CSS-specific content.">CSS</a>
+</li>
+	<li class="cat-item cat-item-547"><a href="http://timmurphy.org/category/software/fortran/" title="View all posts filed under Fortran">Fortran</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://timmurphy.org/category/software/html/" title="HMTL-specific content.">HTML</a>
+</li>
+	<li class="cat-item cat-item-274"><a href="http://timmurphy.org/category/software/java-software/" title="View all posts filed under Java">Java</a>
+</li>
+	<li class="cat-item cat-item-222"><a href="http://timmurphy.org/category/software/kde/" title="KDE-specific content">KDE</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="http://timmurphy.org/category/software/opengl/" title="OpenGL-specific content.">OpenGL</a>
+</li>
+	<li class="cat-item cat-item-597"><a href="http://timmurphy.org/category/software/perl/" title="View all posts filed under Perl">Perl</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://timmurphy.org/category/software/php/" title="PHP-specific content.">PHP</a>
+</li>
+	<li class="cat-item cat-item-689"><a href="http://timmurphy.org/category/software/python/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-320"><a href="http://timmurphy.org/category/software/vim-software/" title="View all posts filed under Vim">Vim</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-463"><a href="http://timmurphy.org/category/sql-2/" title="SQL-specific content">SQL</a>
+<ul class="children">
+	<li class="cat-item cat-item-8"><a href="http://timmurphy.org/category/sql-2/mysql/" title="MySQL-specific content.">MySQL</a>
+</li>
+	<li class="cat-item cat-item-237"><a href="http://timmurphy.org/category/sql-2/postgresql/" title="PostgreSQL-specific content">PostgreSQL</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://timmurphy.org/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-473"><a href="http://timmurphy.org/category/version-control-3/" title="View all posts filed under Version Control">Version Control</a>
+<ul class="children">
+	<li class="cat-item cat-item-474"><a href="http://timmurphy.org/category/version-control-3/cvs-version-control-3/" title="View all posts filed under CVS">CVS</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-694"><a href="http://timmurphy.org/category/windows-2/" title="View all posts filed under Windows">Windows</a>
+<ul class="children">
+	<li class="cat-item cat-item-695"><a href="http://timmurphy.org/category/windows-2/windows-7/" title="View all posts filed under Windows 7">Windows 7</a>
+</li>
+</ul>
+</li>
+		</ul>
+</li><li id="linkcat-213" class="widget widget_links"><h2 class="widgettitle">Popular Posts</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://timmurphy.org/2009/08/16/bold-and-italic-font-in-latex/">LaTeX Bold and Italic Font</a></li>
+<li><a href="http://timmurphy.org/2009/08/15/drawing-horizontal-lines-in-latex/">LaTeX Horizontal Lines</a></li>
+<li><a href="http://timmurphy.org/2009/07/22/line-spacing-in-latex-documents/">LaTeX Line Spacing</a></li>
+<li><a href="http://timmurphy.org/2009/07/22/adjusting-latex-margins/">LaTeX Margins</a></li>
+<li><a href="http://timmurphy.org/2009/06/29/latex-page-numbering/">LaTeX Page Numbering</a></li>
+<li><a href="http://timmurphy.org/2009/08/16/therefore-symbol-in-latex/">LaTeX Therefore Symbol</a></li>
+
+	</ul>
+</li>
+<li id="linkcat-536" class="widget widget_links"><h2 class="widgettitle">LaTeX Tutorials</h2>
+	<ul class="xoxo blogroll">
+<li><a href="http://timmurphy.org/2010/02/28/my-first-latex-document/" target="_top">My First LaTeX Document</a></li>
+<li><a href="http://timmurphy.org/2010/02/28/my-first-latex-document/" target="_top">My Second LaTeX Document</a></li>
+<li><a href="http://timmurphy.org/2010/08/30/my-third-latex-document/" target="_top">My Third LaTeX Document</a></li>
+
+	</ul>
+</li>
+		</ul>
+		<!-- end widgetized sidebar 1 -->	
+		
+		<!-- begin search -->
+		<div class="search-box">
+			<form method="get" action="http://timmurphy.org/">
+			<input size="15" class="search-field" name="s" id="s" value="search this site" onfocus="if(this.value == 'search this site') {this.value = '';}" onblur="if (this.value == '') {this.value = 'search this site';}" type="text"><input value="" class="search-go" type="submit">
+			</form>
+		</div>
+		<!-- end search -->
+		
+		<!-- begin widgetized sidebar 2 -->
+		<ul>
+			<li id="tag_cloud-3" class="widget widget_tag_cloud"><h2 class="widgettitle">Tags</h2><div class="tagcloud"><a href="http://timmurphy.org/tag/bash/" class="tag-link-172" title="16 topics" style="font-size: 15.2038834951pt;">Bash</a>
+<a href="http://timmurphy.org/tag/c/" class="tag-link-9" title="27 topics" style="font-size: 18.1941747573pt;">C</a>
+<a href="http://timmurphy.org/tag/call/" class="tag-link-69" title="4 topics" style="font-size: 8pt;">call</a>
+<a href="http://timmurphy.org/tag/class/" class="tag-link-67" title="5 topics" style="font-size: 9.08737864078pt;">class</a>
+<a href="http://timmurphy.org/tag/code/" class="tag-link-154" title="6 topics" style="font-size: 10.0388349515pt;">code</a>
+<a href="http://timmurphy.org/tag/coding/" class="tag-link-44" title="11 topics" style="font-size: 13.1650485437pt;">coding</a>
+<a href="http://timmurphy.org/tag/compile/" class="tag-link-149" title="6 topics" style="font-size: 10.0388349515pt;">compile</a>
+<a href="http://timmurphy.org/tag/database/" class="tag-link-145" title="5 topics" style="font-size: 9.08737864078pt;">database</a>
+<a href="http://timmurphy.org/tag/document/" class="tag-link-32" title="50 topics" style="font-size: 21.7281553398pt;">document</a>
+<a href="http://timmurphy.org/tag/environment/" class="tag-link-338" title="4 topics" style="font-size: 8pt;">environment</a>
+<a href="http://timmurphy.org/tag/figure/" class="tag-link-114" title="6 topics" style="font-size: 10.0388349515pt;">figure</a>
+<a href="http://timmurphy.org/tag/font/" class="tag-link-93" title="5 topics" style="font-size: 9.08737864078pt;">font</a>
+<a href="http://timmurphy.org/tag/function/" class="tag-link-68" title="5 topics" style="font-size: 9.08737864078pt;">function</a>
+<a href="http://timmurphy.org/tag/header/" class="tag-link-193" title="5 topics" style="font-size: 9.08737864078pt;">header</a>
+<a href="http://timmurphy.org/tag/image/" class="tag-link-45" title="5 topics" style="font-size: 9.08737864078pt;">image</a>
+<a href="http://timmurphy.org/tag/include/" class="tag-link-211" title="5 topics" style="font-size: 9.08737864078pt;">include</a>
+<a href="http://timmurphy.org/tag/indent/" class="tag-link-33" title="4 topics" style="font-size: 8pt;">indent</a>
+<a href="http://timmurphy.org/tag/latex/" class="tag-link-30" title="53 topics" style="font-size: 22pt;">LaTeX</a>
+<a href="http://timmurphy.org/tag/layout/" class="tag-link-31" title="48 topics" style="font-size: 21.4563106796pt;">layout</a>
+<a href="http://timmurphy.org/tag/linux/" class="tag-link-90" title="24 topics" style="font-size: 17.5145631068pt;">linux</a>
+<a href="http://timmurphy.org/tag/list/" class="tag-link-121" title="5 topics" style="font-size: 9.08737864078pt;">list</a>
+<a href="http://timmurphy.org/tag/math/" class="tag-link-128" title="14 topics" style="font-size: 14.5242718447pt;">math</a>
+<a href="http://timmurphy.org/tag/mysql/" class="tag-link-8" title="7 topics" style="font-size: 10.7184466019pt;">MySQL</a>
+<a href="http://timmurphy.org/tag/page/" class="tag-link-126" title="20 topics" style="font-size: 16.427184466pt;">page</a>
+<a href="http://timmurphy.org/tag/postgresql/" class="tag-link-237" title="12 topics" style="font-size: 13.572815534pt;">PostgreSQL</a>
+<a href="http://timmurphy.org/tag/program/" class="tag-link-212" title="4 topics" style="font-size: 8pt;">program</a>
+<a href="http://timmurphy.org/tag/programming/" class="tag-link-70" title="11 topics" style="font-size: 13.1650485437pt;">programming</a>
+<a href="http://timmurphy.org/tag/query/" class="tag-link-111" title="6 topics" style="font-size: 10.0388349515pt;">query</a>
+<a href="http://timmurphy.org/tag/reference/" class="tag-link-250" title="4 topics" style="font-size: 8pt;">reference</a>
+<a href="http://timmurphy.org/tag/script/" class="tag-link-181" title="9 topics" style="font-size: 12.0776699029pt;">script</a>
+<a href="http://timmurphy.org/tag/set/" class="tag-link-239" title="5 topics" style="font-size: 9.08737864078pt;">SET</a>
+<a href="http://timmurphy.org/tag/sh/" class="tag-link-499" title="5 topics" style="font-size: 9.08737864078pt;">sh</a>
+<a href="http://timmurphy.org/tag/shell/" class="tag-link-196" title="10 topics" style="font-size: 12.6213592233pt;">shell</a>
+<a href="http://timmurphy.org/tag/sql/" class="tag-link-144" title="8 topics" style="font-size: 11.3980582524pt;">sql</a>
+<a href="http://timmurphy.org/tag/statement/" class="tag-link-112" title="4 topics" style="font-size: 8pt;">statement</a>
+<a href="http://timmurphy.org/tag/string/" class="tag-link-353" title="12 topics" style="font-size: 13.572815534pt;">string</a>
+<a href="http://timmurphy.org/tag/style/" class="tag-link-127" title="8 topics" style="font-size: 11.3980582524pt;">style</a>
+<a href="http://timmurphy.org/tag/symbol/" class="tag-link-136" title="4 topics" style="font-size: 8pt;">symbol</a>
+<a href="http://timmurphy.org/tag/syntax/" class="tag-link-263" title="4 topics" style="font-size: 8pt;">syntax</a>
+<a href="http://timmurphy.org/tag/table/" class="tag-link-72" title="11 topics" style="font-size: 13.1650485437pt;">table</a>
+<a href="http://timmurphy.org/tag/terminal/" class="tag-link-197" title="6 topics" style="font-size: 10.0388349515pt;">terminal</a>
+<a href="http://timmurphy.org/tag/text/" class="tag-link-132" title="7 topics" style="font-size: 10.7184466019pt;">text</a>
+<a href="http://timmurphy.org/tag/ubuntu/" class="tag-link-17" title="15 topics" style="font-size: 14.7961165049pt;">Ubuntu</a>
+<a href="http://timmurphy.org/tag/unix/" class="tag-link-174" title="5 topics" style="font-size: 9.08737864078pt;">unix</a>
+<a href="http://timmurphy.org/tag/vim/" class="tag-link-260" title="6 topics" style="font-size: 10.0388349515pt;">vim</a></div>
+</li><li id="meta-3" class="widget widget_meta"><h2 class="widgettitle">Meta</h2>			<ul>
+			<li><a href="http://timmurphy.org/wp-login.php?action=register">Register</a></li>			<li><a href="http://timmurphy.org/wp-login.php">Log in</a></li>
+			<li><a href="http://timmurphy.org/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://timmurphy.org/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>						</ul>
+</li>		</ul>
+
+		<!-- end widgetized sidebar 2 -->
+			
+	</div>
+	
+
+	
+	<div id="content" role="main">
+
+	
+	<div class="column">
+
+	
+		<div class="post-617 post type-post status-publish format-standard hentry category-c tag-c tag-example tag-multithread tag-pthreads tag-threading tag-threads" id="post-617">
+				<div class="posttitle">
+					<h2 class="pagetitle"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/" rel="bookmark" title="Permanent Link to pthreads in C – a minimal working example">pthreads in C – a minimal working example</a></h2>
+				<small>Posted: 4th May 2010 by <strong>Tim</strong> in <a href="http://timmurphy.org/category/software/c/" title="View all posts in C" rel="category tag">C</a><br>
+				Tags: <a href="http://timmurphy.org/tag/c/" rel="tag">C</a>, <a href="http://timmurphy.org/tag/example/" rel="tag">example</a>, <a href="http://timmurphy.org/tag/multithread/" rel="tag">multithread</a>, <a href="http://timmurphy.org/tag/pthreads/" rel="tag">pthreads</a>, <a href="http://timmurphy.org/tag/threading/" rel="tag">threading</a>, <a href="http://timmurphy.org/tag/threads/" rel="tag">threads</a></small>
+				</div>
+				<div class="postcomments"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/#comments" title="Comment on pthreads in C – a minimal working example">20</a></div>
+
+			<div class="entry">
+				<p>Pthreads are a simple and effective way of creating a 
+multi-threaded application.  This introduction to pthreads shows the 
+basic functionality – executing two tasks in parallel and merging back 
+into a single thread when the work has been done.</p>
+<p>First I’ll run through the basics of threading applications with 
+pthreads.  Multi-threaded applications allow two or more tasks to be 
+executed concurrently (ie: at the same time).  When a thread is created 
+using <code>pthread_create</code>, both the original thread and the new 
+thread share the same code base and the same memory – it’s just like 
+making two function calls at the same time.  Multi-threaded applications
+ come with a whole host of concurrency issues, which will be discussed 
+further in a future post.</p>
+<p>All C programs using pthreads need to include the <em>pthread.h</em> header file (ie: <code>#include &lt;pthread.h&gt;</code>).  There are four steps to creating a basic threaded program:</p>
+<h6>1: Define thread reference variables</h6>
+<p>The variable type <code>pthread_t</code> is a means of referencing threads.  There needs to be a <code>pthread_t</code> variable in existence for every thread being created.  Something like <code>pthread_t thread0;</code> will do the trick.</p>
+<h6>2: Create an entry point for the thread</h6>
+<p>When creating a thread using pthreads, you need to point it to a function for it to start execution.  The function must return <code>void *</code> and take a single <code>void *</code>
+ argument.  For example, if you want the function to take an integer 
+argument, you will need to pass the address of the integer and 
+dereference it later.  This may sound complicated but, as is shown 
+below, it’s pretty simple.  An example function signature would be <code>void *my_entry_function(void *param);</code></p>
+<h6>3: Create the thread</h6>
+<p>Once the <code>pthread_t</code> variable has been defined and the entry point function created, we can create the thread using <code>pthread_create</code>.  This method takes four arguments: a pointer to the <code>pthread_t</code>
+ variable, any extra attributes (don’t worry about this for now – just 
+set it to NULL), a pointer to the function to call (ie: the name of the 
+entry point) and the pointer being passed as the argument to the 
+function.  Now there’s a lot of pointers in that call, but don’t stress –
+ it’s not as tricky as it sounds.  This call will look something like <code>pthread_create(&amp;thread0, NULL, my_entry_function, &amp;parameter);</code></p>
+<h6>4: Join everything back up</h6>
+<p>When the newly-created thread has finished doing it’s bits, we need to join everything back up.  This is done by the <code>pthread_join</code> function which takes two parameters: the <code>pthread_t</code> variable used when <code>pthread_create</code>
+ was called (not a pointer this time) and a pointer to the return value 
+pointer (don’t worry about this for now – just set it to NULL).  This 
+call will look something like <code>pthread_join(thread0, NULL);</code></p>
+<p>And that’s all there is to it.  The function used as the thread entry
+ point can call other functions, create variables or do anything any 
+other function can do.  It can also use the variables set by the other 
+thread.</p>
+<p>When compiling the program, you will also need to add <code>-lpthread</code> to the compile command.  ie:  <code>gcc program.c -o program <strong>-lpthread</strong></code></p>
+<p>Below is a minimum example of a threaded application.  It creates two
+ numbers, x and y, and creates a second thread.  The first thread 
+increments y until it has the value of 100, while the second thread 
+increments x until it has the value of 100 at the same time.  When this 
+is done, it joins the second thread back with the main program and 
+prints the results.  Note how, even though x was changed by the second 
+thread, it has been changed for the main program too!</p>
+<p><span style="color: #008000;"><code>#include &lt;pthread.h&gt;<br>
+#include &lt;stdio.h&gt;</code></span></p>
+<p><code><span style="color: #888888;">/* this function is run by the second thread */</span><br>
+<span style="color: #333399;">void</span> *inc_x(<span style="color: #333399;">void</span> *x_void_ptr)<br>
+{</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* increment x to 100 */</span><br>
+<span style="color: #333399;">int</span> *x_ptr = (<span style="color: #333399;">int</span> *)x_void_ptr;<br>
+while(++(*x_ptr) &lt; <span style="color: #993300;">100</span>);</code></p>
+<p style="padding-left: 30px;"><code>printf(<span style="color: #ff0000;">"x increment finished\n"</span>);</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* the function must return something - NULL will do */</span><br>
+<span style="color: #333399;">return</span> <span style="color: #993300;">NULL</span>;</code></p>
+<p><code>}</code></p>
+<p><code><span style="color: #333399;">int</span> main()<br>
+{</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #333399;">int</span> x = <span style="color: #993300;">0</span>, y = <span style="color: #993300;">0</span>;</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* show the initial values of x and y */</span><br>
+printf(<span style="color: #ff0000;">"x: %d, y: %d\n"</span>, x, y);</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* this variable is our reference to the second thread */</span><br>
+<span style="color: #333399;">pthread_t</span> inc_x_thread;</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* create a second thread which executes inc_x(&amp;x) */</span><br>
+if(pthread_create(&amp;inc_x_thread, <span style="color: #993300;">NULL</span>, inc_x, &amp;x)) {</code></p>
+<p style="padding-left: 60px;"><code>fprintf(<span style="color: #333399;">stderr</span>, <span style="color: #ff0000;">"Error creating thread\n"</span>);<br>
+return <span style="color: #993300;">1</span>;</code></p>
+<p style="padding-left: 30px;"><code>}<br>
+<span style="color: #888888;">/* increment y to 100 in the first thread */</span><br>
+while(++y &lt; <span style="color: #993300;">100</span>);</code></p>
+<p style="padding-left: 30px;"><code>printf(<span style="color: #ff0000;">"y increment finished\n"</span>);</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* wait for the second thread to finish */</span><br>
+if(pthread_join(inc_x_thread, <span style="color: #993300;">NULL</span>)) {</code></p>
+<p style="padding-left: 60px;"><code>fprintf(<span style="color: #333399;">stderr</span>, <span style="color: #ff0000;">"Error joining thread\n"</span>);<br>
+return <span style="color: #993300;">2</span>;</code></p>
+<p style="padding-left: 30px;"><code>}</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #888888;">/* show the results - x is now 100 thanks to the second thread */</span><br>
+printf(<span style="color: #ff0000;">"x: %d, y: %d\n"</span>, x, y);</code></p>
+<p style="padding-left: 30px;"><code><span style="color: #000080;">return</span> <span style="color: #993300;">0</span>;</code></p>
+<p><code>}</code></p>
+<p>This code will print something like:</p>
+<p><code>x: 0, y:0<br>
+y increment finished<br>
+x increment finished<br>
+x: 100, y: 100</code></p><center><br>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-4621913403372658";
+/* 468 x 60 banner image */
+google_ad_slot = "1275911374";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script><br>
+<script type="text/javascript" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" width="468" frameborder="0" height="60" scrolling="no"></iframe></ins></ins><br>
+</center><p></p>
+
+				
+			</div>
+		
+	
+<!-- You can start editing here. -->
+
+	<div id="comments"></div>
+
+	<ol class="commentlist">
+			<li class="comment even thread-even depth-1" id="comment-762">
+				<div id="div-comment-762" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/3c7df0c81cf1085f18a4f0d84211c180.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Matt</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-762">
+			April 23, 2011 at 6:10 am</a>		</div>
+
+		<p>Nice simple example, thank you.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1916">
+				<div id="div-comment-1916" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/e6b294fba391f44b9fa9c05a9dec6a0b.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Priya Wagh</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-1916">
+			March 13, 2012 at 4:54 am</a>		</div>
+
+		<p>nice example !<br>
++ your site have an awesome theme.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-5115">
+				<div id="div-comment-5115" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/bff4d7f6719b02f8f5231dd78f913386.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Niklas</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-5115">
+			November 29, 2012 at 7:49 pm</a>		</div>
+
+		<p>Hi Tim,<br>
+thank you very much for this good example. It helped me very much.<br>
+yours<br>
+Niklas</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-5704">
+				<div id="div-comment-5704" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/4c196a1286a273b409d2d11685d3d6ae.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">void</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-5704">
+			January 18, 2013 at 10:42 pm</a>		</div>
+
+		<p>Thanx, it helped me</p>
+<p>cheers</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-5731">
+				<div id="div-comment-5731" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/513b25d4862fe8fd496fe96e37930bba.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn"><a href="http://www.spikynorman.net/" rel="external nofollow" class="url">fred gannett</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-5731">
+			January 20, 2013 at 8:31 am</a>		</div>
+
+		<p>Check out Open-MP. Less overheads and more task focused.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-5897">
+				<div id="div-comment-5897" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/4ef61558736e7a8f02eecf54432af145.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">void1</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-5897">
+			February 5, 2013 at 2:20 am</a>		</div>
+
+		<p>This site was really helpful for doing my intro in pthreads</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-6489">
+				<div id="div-comment-6489" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/fd3946dd7b1e8e7103916166eeb593e2.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Lucy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6489">
+			April 10, 2013 at 1:55 am</a>		</div>
+
+		<p>I want to add two numbers using pthread and the result comes back to main…</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-6550">
+				<div id="div-comment-6550" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/b57b3cb8f52de77615804f85057e50f2.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">void2</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6550">
+			May 2, 2013 at 12:21 am</a>		</div>
+
+		<p>Thanks for this very helpful document</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-6569">
+				<div id="div-comment-6569" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/80c2609020f4f7fee7dd51c06d7b6be8.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">gl</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6569">
+			May 7, 2013 at 5:39 am</a>		</div>
+
+		<p>very good example. thank you.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-6571">
+				<div id="div-comment-6571" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/aff343f6255b848b929d61170c9cf0af.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">tasos</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6571">
+			May 8, 2013 at 6:27 am</a>		</div>
+
+		<p>hi! nice code but when i copy paste to backtrack 5 and try to compile its says :<br>
+root@root:~/Desktop# gcc -o tasos1 tasos1.c -Ipthread<br>
+/tmp/ccJoQXZL.o: In function `main’:<br>
+tasos1.c:(.text+0x8c): undefined reference to `pthread_create’<br>
+tasos1.c:(.text+0xee): undefined reference to `pthread_join’<br>
+collect2: ld returned 1 exit status</p>
+<p>what i am doing wrong? please help</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="comment-6572">
+				<div id="div-comment-6572" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/54cbe4258125a45a51f379307adf064e.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn"><a href="http://timmurphy.org/" rel="external nofollow" class="url">Tim</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6572">
+			May 8, 2013 at 8:41 am</a>		</div>
+
+		<p>Hi tasos. I’ve never used backtrack 5 so I’m not sure how the link 
+line is specified. It looks like -lpthread is being ignored, or that 
+you’re compiling on a system which does not support pthreads.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-6628">
+				<div id="div-comment-6628" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/a19e3001bc542aac2c39dd15fcd569dc.jpeg" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">undx</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6628">
+			May 16, 2013 at 11:16 pm</a>		</div>
+
+		<p>Tasos: you’ve a typo in commandline: -l and -I (capital i).<br>
+Tim: excellent post !  Thank you.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-6643">
+				<div id="div-comment-6643" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/d8b95e468fe91473681a6f822da5adcd.jpeg" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Vishal</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6643">
+			May 18, 2013 at 1:22 pm</a>		</div>
+
+		<p>thanks!<br>
+I had no idea that we could do this using C <img src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-6769">
+				<div id="div-comment-6769" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/6050dedadaee1932f1de286a39232ef2.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Krzychu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6769">
+			June 2, 2013 at 6:46 am</a>		</div>
+
+		<p>Hi. I have trouble to understand code. Why y increment if as argument to fuction we set x?</p>
+<p>If this create second thread:<br>
+/* create a second thread which executes count_x(&amp;x) */<br>
+if(pthread_create(&amp;inc_x_thread, NULL, inc_x, &amp;x)) {</p>
+<p>when is creating first thread?</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="comment-6804">
+				<div id="div-comment-6804" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/54cbe4258125a45a51f379307adf064e.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn"><a href="http://timmurphy.org/" rel="external nofollow" class="url">Tim</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-6804">
+			June 4, 2013 at 9:04 pm</a>		</div>
+
+		<p>Hi Krzychu.</p>
+<p>The first thread is the main program. the <code>pthread_create</code> call spawns a second thread to increment <code>x</code>, and the first (main) thread increments <code>y</code>. The program will have two threads until the second thread is joined back into the main thread with the <code>pthread_join</code> call.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-7100">
+				<div id="div-comment-7100" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/3a8c62936fc533c4f48148572a171f7a.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Carlos</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-7100">
+			July 13, 2013 at 3:39 am</a>		</div>
+
+		<p>With this two small modification one can be sured the two threads run at the same time:</p>
+<p>/* increment x to 100 */<br>
+while(++(*x_ptr) &lt; 100){<br>
+	printf(" x = %d from child\n",*x_ptr);<br>
+}</p>
+<p>and</p>
+<p>/* increment y to 100 in the first thread */<br>
+while(++y &lt; 100){<br>
+	printf(" y = %d from parent\n",y);<br>
+}</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-8257">
+				<div id="div-comment-8257" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/87f60ea777b0d9395d5d4ad7ea4be745.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Some Guy</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-8257">
+			October 7, 2013 at 3:26 pm</a>		</div>
+
+		<p>Thanks, super helpful stuff. Glad you kept it simple and focussed on one thing, since we’re here for just that one thing.</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-8475">
+				<div id="div-comment-8475" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/ee9ee4d7530bdb0b4c7d813a74df10ad.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">alex</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-8475">
+			November 4, 2013 at 5:48 am</a>		</div>
+
+		<p>If we wanted to write this using synchronization primitives then what is the changes required</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-8484">
+				<div id="div-comment-8484" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/cb22491d2844e1726fff769c77ec16e3.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">Markus</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-8484">
+			November 5, 2013 at 12:42 am</a>		</div>
+
+		<p>Very cool intro!!</p>
+<p>Note: If you use mingw in eclipse:<br>
+- be shure you got pthreadGC2.dll in mingw bin folder<br>
+- add a linker Option -lpthreadGC2 at the end (the order is important!)<br>
+otherwise you get<br>
+undefined reference to `_imp__pthread_create’</p>
+<p>modify project-&gt;properties-&gt;c/c++build-&gt;settings-&gt;mingwlinker:<br>
+- the command line pattern:<br>
+${COMMAND} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS} ${FLAGS}<br>
+- the micellanous -&gt; linker flags:<br>
+ -lpthreadGC2</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-8667">
+				<div id="div-comment-8667" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/0220329269e1026b790f99425899ebe3.png" class="avatar avatar-40 photo" width="40" height="40">			<cite class="fn">papi</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/comment-page-1/#comment-8667">
+			December 17, 2013 at 5:51 am</a>		</div>
+
+		<p>Salem alikoum(hello for every one),Thank you it helped me,but i have a question:you create a one thread,not two ???</p>
+
+		<div class="reply">
+					</div>
+				</div>
+		</li><!-- #comment-## -->
+	</ol>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+
+<div id="respondcon">
+<div id="respond">
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://timmurphy.org/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><input name="author" id="author" size="22" tabindex="1" aria-required="true" type="text">
+<label for="author"><commentlabel>Name (required)</commentlabel></label></p>
+
+<p><input name="email" id="email" size="22" tabindex="2" aria-required="true" type="text">
+<label for="email"><commentlabel>Mail (will not be published) (required)</commentlabel></label></p>
+
+<p><input name="url" id="url" size="22" tabindex="3" type="text">
+<label for="url"><commentlabel>Website</commentlabel></label></p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea>
+
+<p><input name="submit" id="submit" tabindex="5" value="Submit Comment" type="submit">
+<input name="comment_post_ID" value="617" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p>
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="c1cbef4664" type="hidden"></p>
+</form>
+
+</div>
+</div>
+
+
+		</div>
+	</div>
+
+		<div id="nav-post">
+		<div class="navigation-bott">
+			<a href="http://timmurphy.org/2010/05/16/my-second-latex-document/" rel="next"><div class="leftnav">newer posts</div></a>			<a href="http://timmurphy.org/2010/05/03/setting-the-smtp-port-number-in-evolution/" rel="prev"><div class="rightnav">older posts</div></a>		</div>
+
+		</div>
+	</div>
+	
+
+<hr>
+<div id="footer" role="contentinfo">
+	<div class="socialfooter"><h4 class="footerwidget">Social Connections</h4>
+		<ul>
+		</ul>
+	</div>
+	
+	<div class="blogroll-foot">
+		
+		
+		<!-- begin widgetized footer -->	
+		
+		<ul>
+				
+		
+		<h4 class="footerwidget">Blog Roll</h4>
+				<ul class="left_blogroll">
+			<li><a href="http://shares.timmurphy.org/" rel="me" title="Stock market simulator for the Australian Stock Market.  Provides buy/sell suggestions." target="_blank">Fuzzy stock market simulator</a></li>
+<li><a href="http://timmurphy.org/2009/08/16/bold-and-italic-font-in-latex/">LaTeX Bold and Italic Font</a></li>
+<li><a href="http://timmurphy.org/2009/08/15/drawing-horizontal-lines-in-latex/">LaTeX Horizontal Lines</a></li>
+<li><a href="http://timmurphy.org/2009/07/22/line-spacing-in-latex-documents/">LaTeX Line Spacing</a></li>
+<li><a href="http://timmurphy.org/2009/07/22/adjusting-latex-margins/">LaTeX Margins</a></li>		</ul>
+		<ul class="right_blogroll">
+			
+<li><a href="http://timmurphy.org/2009/06/29/latex-page-numbering/">LaTeX Page Numbering</a></li>
+<li><a href="http://timmurphy.org/2009/08/16/therefore-symbol-in-latex/">LaTeX Therefore Symbol</a></li>
+<li><a href="http://timmurphy.org/2010/02/28/my-first-latex-document/" target="_top">My First LaTeX Document</a></li>
+<li><a href="http://timmurphy.org/2010/02/28/my-first-latex-document/" target="_top">My Second LaTeX Document</a></li>
+<li><a href="http://timmurphy.org/2010/08/30/my-third-latex-document/" target="_top">My Third LaTeX Document</a></li>		</ul>		
+	
+		
+		
+					</ul>
+		
+		<!-- end widgetized footer -->	
+		
+		</div>
+		
+		<!-- begin widgetized footer right -->
+		
+	<div class="recent-foot">
+	<div class="getintouch">
+			
+	<h4 class="footerwidget">Recent Comments</h4>
+		
+<ul>
+<li>Ainan ihsan: <a href="http://timmurphy.org/2009/07/07/adding-images-to-opengl-in-c/#comment-8684" title="on Adding images to OpenGL in C">Hi 
+I tried to comp</a></li>
+<li>lalo: <a href="http://timmurphy.org/2011/08/27/create-language-if-it-doesnt-exist-in-postgresql/#comment-8670" title="on CREATE LANGUAGE if it doesn't exist in PostgreSQL">Or you can try this:</a></li>
+<li>papi: <a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/#comment-8667" title="on pthreads in C - a minimal working example">Salem alikoum(hello </a></li>
+<li>Taffie: <a href="http://timmurphy.org/2009/08/16/therefore-symbol-in-latex/#comment-8656" title="on Therefore symbol in LaTeX">\usepackage{amssymb}</a></li>
+<li>Patricio: <a href="http://timmurphy.org/2009/08/16/bold-and-italic-font-in-latex/#comment-8612" title="on Bold and Italic font in LaTeX">Gracias capo. Ojalá</a></li>
+<li>Pankaj: <a href="http://timmurphy.org/2010/08/11/the-difference-between-stack-and-heap-memory-allocation/#comment-8598" title="on The difference between stack and heap memory allocation">Thanks, simple and c</a></li>
+<li>sincere: <a href="http://timmurphy.org/2009/07/07/adding-images-to-opengl-in-c/#comment-8596" title="on Adding images to OpenGL in C">I want you full code</a></li>
+<li>Markus: <a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/#comment-8484" title="on pthreads in C - a minimal working example">Very cool intro!!
+
+</a></li>
+<li>alex: <a href="http://timmurphy.org/2010/05/04/pthreads-in-c-a-minimal-working-example/#comment-8475" title="on pthreads in C - a minimal working example">If we wanted to writ</a></li>
+<li>Rafael: <a href="http://timmurphy.org/2009/07/05/removing-paragraph-indenting-in-latex/#comment-8463" title="on Removing Paragraph Indenting in LaTeX">Thanks! Keep it up!</a></li>
+</ul>	
+	<!-- end widgetized footer right -->
+		</div></div>
+
+</div>
+</div>
+	
+	<div class="footerlinks">
+	
+   <a href="http://timmurphy.org/">Home</a> &nbsp;&nbsp;|			
+		&nbsp;<a href="http://timmurphy.org/things-to-do-before-24/" title="Things to do before 24">Things to do before 24</a>&nbsp; | &nbsp;&nbsp;<a href="http://timmurphy.org/1001-albums/" title="1001 Albums">1001 Albums</a>&nbsp; | &nbsp;&nbsp;<a href="http://timmurphy.org/1001-movies/" title="1001 Movies">1001 Movies</a>&nbsp; | &nbsp;&nbsp;<a href="http://timmurphy.org/ascii-table/" title="ASCII Table">ASCII Table</a>&nbsp; | &nbsp;&nbsp;<a href="http://timmurphy.org/world-beers/" title="World Beers">World Beers</a>&nbsp; | &nbsp;&nbsp;<a href="http://timmurphy.org/races/" title="Races">Races</a>	
+		&nbsp;|&nbsp; <a href="http://timmurphy.org/feed/rss/" title="RSS">Posts RSS</a>
+		&nbsp;|&nbsp; <a href="http://timmurphy.org/comments/feed/" title="Comments RSS">Comments RSS</a>
+
+	</div>
+</div>
+
+<div id="footer-bott">© 2010 timmurphy.org. All Rights Reserved. Greyzed Theme created by <a href="http://www.theforge.co.za/" title="The Forge Web Creations">The Forge Web Creations</a>. Powered by <a href="http://wordpress.org/">WordPress</a>.</div>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="pthreads%20in%20C%20%E2%80%93%20a%20minimal%20working%20example%20%C2%AB%20timmurphy.org_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-8232375-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>		
+
+</body></html>

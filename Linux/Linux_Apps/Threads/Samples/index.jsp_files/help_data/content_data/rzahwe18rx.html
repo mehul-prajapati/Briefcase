@@ -1,0 +1,130 @@
+<!--?xml version="1.0" encoding="utf-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-US"><head><script>if( self == top ){ window.location.replace( "../../?topic=%2Frzahw%2Frzahwe18rx.htm");}</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="dc.language" scheme="rfc1766" content="en-us">
+<!-- All rights reserved. Licensed Materials Property of IBM -->
+<!-- US Government Users Restricted Rights                   -->
+<!-- Use, duplication or disclosure restricted by            -->
+<!-- GSA ADP Schedule Contract with IBM Corp.                -->
+<meta name="dc.date" scheme="iso8601" content="2005-04-15">
+<meta name="copyright" content="(C) Copyright IBM Corporation 1998, 2005">
+<meta name="security" content="public">
+<meta name="Robots" content="index,follow">
+<meta http-equiv="PICS-Label" content="(PICS-1.1 &quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l gen true r (SS~~000 1))">
+<title>Example: Using mutexes in Pthread programs</title>
+<link rel="stylesheet" type="text/css" href="rzahwe18rx_data/ibmidwb.css">
+<link rel="stylesheet" type="text/css" href="rzahwe18rx_data/ic.css">
+</head>
+<body>
+<a id="Top_Of_Page" name="Top_Of_Page"></a><!-- Java sync-link --> 
+<script language="Javascript" src="rzahwe18rx_data/synch.asc" type="text/javascript"></script><div class="runningfooter"><a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r3/topic/rzahg/icfeedback.htm?noframes=true" target="_blank ">Send feedback</a>&nbsp;|&nbsp;<a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r3/topic/rzahg/icsurvey.htm?noframes=true" target="_blank ">Rate this page</a><br><hr></div>
+
+
+<a name="rzahwe18-e18rx"></a>
+<h4 id="rzahwe18-e18rx">Example: Using mutexes in Pthread programs</h4>
+<a name="wq20"></a>
+<div class="notetitle" id="wq20">Note:</div>
+<div class="notebody">Read the <a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r3/topic/rzahw/codedisclaimer.htm#codedisclaimer">Code disclaimer information</a> for important legal
+information.</div>
+<p>The following example shows a Pthread program that is starting several
+threads that protect access to shared data with a mutex.</p>
+<pre class="xmp">/*
+Filename: ATEST16.QCSRC
+The output of this example is as follows:
+ Enter Testcase - LIBRARY/ATEST16
+ Hold Mutex to prevent access to shared data
+ Create/start threads
+ Wait a bit until we are 'done' with the shared data
+ Thread 00000000 00000019: Entered
+ Thread 00000000 0000001a: Entered
+ Thread 00000000 0000001b: Entered
+ Unlock shared data
+ Wait for the threads to complete, and release their resources
+ Thread 00000000 00000019: Start critical section, holding lock
+ Thread 00000000 00000019: End critical section, release lock
+ Thread 00000000 0000001a: Start critical section, holding lock
+ Thread 00000000 0000001a: End critical section, release lock
+ Thread 00000000 0000001b: Start critical section, holding lock
+ Thread 00000000 0000001b: End critical section, release lock
+ Clean up
+ Main completed
+*/
+#define _MULTI_THREADED
+#include &lt;pthread.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#define checkResults(string, val) {             \
+ if (val) {                                     \
+   printf("Failed with %d at %s", val, string); \
+   exit(1);                                     \
+ }                                              \
+}
+ 
+#define                 NUMTHREADS   3
+pthread_mutex_t         mutex = PTHREAD_MUTEX_INITIALIZER;
+int                     sharedData=0;
+int                     sharedData2=0;
+ 
+void *theThread(void *parm)
+{
+   int   rc;
+   printf("Thread %.8x %.8x: Entered\n", pthread_getthreadid_np());
+   rc = pthread_mutex_lock(&amp;mutex);
+   checkResults("pthread_mutex_lock()\n", rc);
+   /********** Critical Section *******************/
+   printf("Thread %.8x %.8x: Start critical section, holding lock\n",
+          pthread_getthreadid_np());
+   /* Access to shared data goes here */
+   ++sharedData; --sharedData2;
+   printf("Thread %.8x %.8x: End critical section, release lock\n",
+          pthread_getthreadid_np());
+   /********** Critical Section *******************/
+   rc = pthread_mutex_unlock(&amp;mutex);
+   checkResults("pthread_mutex_unlock()\n", rc);
+   return NULL;
+}
+ 
+int main(int argc, char **argv)
+{
+  pthread_t             thread[NUMTHREADS];
+  int                   rc=0;
+  int                   i;
+ 
+  printf("Enter Testcase - %s\n", argv[0]);
+ 
+  printf("Hold Mutex to prevent access to shared data\n");
+  rc = pthread_mutex_lock(&amp;mutex);
+  checkResults("pthread_mutex_lock()\n", rc);
+ 
+  printf("Create/start threads\n");
+  for (i=0; i&lt;NUMTHREADS; ++i) {
+ rc = pthread_create(&amp;thread[i], NULL, theThread, NULL);
+     checkResults("pthread_create()\n", rc);
+  }
+ 
+  printf("Wait a bit until we are 'done' with the shared data\n");
+  sleep(3);
+  printf("Unlock shared data\n");
+  rc = pthread_mutex_unlock(&amp;mutex);
+  checkResults("pthread_mutex_lock()\n",rc);
+ 
+  printf("Wait for the threads to complete, and release their resources\n");
+  for (i=0; i &lt;NUMTHREADS; ++i) {
+   rc = pthread_join(thread[i], NULL);
+     checkResults("pthread_join()\n", rc);
+  }
+ 
+  printf("Clean up\n");
+  rc = pthread_mutex_destroy(&amp;mutex);
+  printf("Main completed\n");
+  return 0;
+}
+ </pre>
+<p>See <a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r3/topic/rzahw/rzahwmutco.htm#rzahwmut-mutco">Mutexes and threads</a> for information on using mutexes with
+threads.</p>
+<a id="Bot_Of_Page" name="Bot_Of_Page"></a>
+
+
+</body></html>

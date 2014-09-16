@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <title>How do I install and run a TFTP server? - Ask Ubuntu</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/askubuntu/img/favicon.ico?v=a2e2fb1f0677">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon.png?v=e16e1315edd6">
+    <link rel="search" type="application/opensearchdescription+xml" title="Ask Ubuntu" href="http://askubuntu.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@AskUbuntu">
+    <meta name="twitter:domain" content="askubuntu.com">
+    <meta name="og:type" content="website">
+    <meta name="og:image" content="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon@2.png?v=c492c9229955">
+    <meta name="og:title" content="How do I install and run a TFTP server?">
+    <meta name="og:description" content="I have an embedded VxWorks target that needs to boot its kernel from my Ubuntu computer. How do I install and run a TFTP server?
+">
+    <meta name="og:url" content="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server">
+    <link rel="canonical" href="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server">
+
+    
+    
+    <script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/ados.js" async="" type="text/javascript"></script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/quant.js" async=""></script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/beacon.js" async=""></script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/analytics.js" async=""></script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/ados_002.js" async="" type="text/javascript"></script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/jquery.js"></script>
+    <script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/stub.js"></script>
+    <link rel="stylesheet" type="text/css" href="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'How do I install and run a TFTP server?'" href="http://askubuntu.com/feeds/question/201505">
+    <script>
+        
+        StackExchange.ready(function () {
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:201505});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('89', '201505');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('89');
+                StackExchange.realtime.subscribeToTopBarNotifications('89');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1400759592,"networkMetaHostname":"meta.stackexchange.com","styleCode":true,"enableUserHovercards":true,"site":{"name":"Ask Ubuntu","description":"Q&A for Ubuntu users and developers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdsB7sSAAAAAAzjgEF_Hd8vXv-C42sa_KyofaGR","recaptchaAudioLang":"en","enableSocialMediaInSharePopup":true},"user":{"fkey":"23bbd1541cf66b08a7f83ec8f404e0e7","isAnonymous":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"68e5e1678d77","js/moderator.en.js":"f5670619b6d0","js/full-anon.en.js":"40172165edf4","js/full.en.js":"eb9fcae87699","js/wmd.en.js":"1f55561815b3","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"cdf5496ec352","js/help.en.js":"ceae85b045a1","js/tageditor.en.js":"3d32a02c91b8","js/tageditornew.en.js":"2b70c1cd32ad","js/inline-tag-editing.en.js":"fe79c26885f4","js/revisions.en.js":"9a2b9be85a69","js/review.en.js":"7ac11ef3e641","js/tagsuggestions.en.js":"844a025a43f3","js/post-validation.en.js":"53a3eeda69e2","js/explore-qlist.en.js":"24424eb238e8","js/events.en.js":"3daaba745c06"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+        
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+<script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/full-anon.js" async=""></script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/post-validation.js" async=""></script></head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"><div class="nav-global"><div class="nav-global-wrapper"><ul><li><a href="http://www.ubuntu.com/">Ubuntu</a></li><li><a href="http://community.ubuntu.com/">Community</a></li><li><a href="http://askubuntu.com/" class="active">Ask!</a></li><li><a href="http://developer.ubuntu.com/">Developer</a></li><li><a href="http://design.ubuntu.com/">Design</a></li><li></li><li><a href="http://discourse.ubuntu.com/">Discourse</a></li><li><a href="http://www.ubuntu.com/certification">Hardware</a></li><li><a href="http://shop.ubuntu.com/">Shop</a></li><li class="more"><a href="#">More <span>›</span></a><ul><li><a href="http://apps.ubuntu.com/">Apps</a></li><li><a href="https://help.ubuntu.com/">Help</a></li><li><a href="http://ubuntuforums.org/">Forum</a></li><li><a href="http://one.ubuntu.com/">Ubuntu One</a></li><li><a href="http://www.launchpad.net/">Launchpad</a></li><li><a href="http://juju.ubuntu.com/">Juju</a></li><li><a href="http://maas.ubuntu.com/">MAAS</a></li><li><a href="http://www.canonical.com/">Canonical</a></li></ul></li></ul></div></div>
+<script>
+$(function() {
+  $(".nav-global .more > a").click(function(e){ $(this).closest(".more").toggleClass("open"); return false; });
+  $(document).click(function(){ $(".nav-global .more.open").removeClass("open"); });
+});
+</script></div>
+<div class="topbar">
+    <div class="topbar-wrapper">
+        
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://askubuntu.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackexchange.com/" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+            </div>
+
+
+
+
+    <a href="http://askubuntu.com/" class="current-site-link site-link js-gps-track" data-id="89" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-askubuntu" title="Ask Ubuntu"></div>
+        Ask Ubuntu
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.askubuntu.com/" class="site-link js-gps-track" data-id="91" data-gps-track="
+            site.switch({ target_site:91, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-askubuntumeta" title="Ask Ubuntu Meta"></div>
+        Ask Ubuntu Meta
+    </a>
+
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+                        <a href="https://askubuntu.com/users/signup?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f201505%2fhow-do-i-install-and-run-a-tftp-server" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:10 })">Sign up</a>
+                    or
+                    <a href="https://askubuntu.com/users/login?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f201505%2fhow-do-i-install-and-run-a-tftp-server" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:11 })">log in</a>
+
+                    to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+            
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 126 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+            
+        </div>
+
+        <div class="topbar-links">
+            
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+                            <a href="https://askubuntu.com/users/signup?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f201505%2fhow-do-i-install-and-run-a-tftp-server" class="login-link">sign up</a>
+                            <a href="https://askubuntu.com/users/login?returnurl=http%3a%2f%2faskubuntu.com%2fquestions%2f201505%2fhow-do-i-install-and-run-a-tftp-server" class="login-link">log in</a>
+                            <a href="http://askubuntu.com/tour">tour</a>
+
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                <li>
+                    <a href="http://askubuntu.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                        Tour
+                        <span class="item-summary">
+                            Start here for a quick overview of the site
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://askubuntu.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.askubuntu.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+			<div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" placeholder="search" tabindex="1" autocomplete="off" maxlength="240" type="text">
+                </form>
+			</div>
+            	
+        </div>      
+    </div> 
+</div>
+<script>
+    StackExchange.ready(function () { StackExchange.topbar.init(); });
+</script>
+    <div class="container">
+        <div id="header" class="headeranon">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://askubuntu.com/">
+                    Ask Ubuntu
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs mainnavsanon">
+                    <ul>
+                            <li class="youarehere"><a id="nav-questions" href="http://askubuntu.com/questions">Questions</a></li>
+                            <li><a id="nav-tags" href="http://askubuntu.com/tags">Tags</a></li>
+                            <li><a id="nav-tour" href="http://askubuntu.com/about">Tour</a></li>
+                            <li><a id="nav-users" href="http://askubuntu.com/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://askubuntu.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content">
+            
+
+<div itemscope="" itemtype="http://schema.org/Article">
+	<link itemprop="image" href="http://cdn.sstatic.net/askubuntu/img/apple-touch-icon.png">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+            <a href="http://askubuntu.com/about" id="tell-me-more" class="button">Take the 2-minute tour</a>
+            <span id="close"><a title="click to dismiss">×</a></span>
+        </span>
+        <div id="blurb">
+            Ask Ubuntu is a question and answer site for Ubuntu users and developers. It's 100% free, no registration required.
+        </div>        
+    </div>
+    <script>
+        $('#tell-me-more').click(function () {
+            var clickSource = $("body").attr("class") + '-mini';
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+            }
+
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("aboutpage.click", { aboutclick_location: clickSource } , true);
+            });
+        });
+        $('#herobox-mini #close').click(function () {
+            StackExchange.using("gps", function () {
+                StackExchange.gps.track("hero.action", { hero_action_type: "close" }, true);
+            });
+            $.cookie("hero", "none", { path: "/" });
+            var $hero = $("#herobox-mini");
+            $hero.slideUp('fast', function () { $hero.remove(); });
+            return false;
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server" class="question-hyperlink">How do I install and run a TFTP server?</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="201505" id="question">
+    
+    <script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk1028187737",4).enableDynamicSiteSelection().setZone(29) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1028187737"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/i.gif" border="0" height="0px" width="0px"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="201505" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">8</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>3</b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>I have an embedded VxWorks target that needs to boot its kernel from my Ubuntu computer. How do I install and run a TFTP server?</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://askubuntu.com/questions/tagged/tftp" class="post-tag js-gps-track" title="show questions tagged 'tftp'" rel="tag">tftp</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/q/201505" title="short permalink to this question" class="short-link" id="link-post-201505">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/201505/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/201505/revisions" title="show all edits to this post">edited <span title="2013-09-06 07:01:36Z" class="relativetime">Sep 6 '13 at 7:01</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/125365/dedunumax"><div class="gravatar-wrapper-32"><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/nYTew.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/125365/dedunumax">dedunumax</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,091</span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2012-10-15 19:32:29Z" class="relativetime">Oct 15 '12 at 19:32</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/95442/user1689961"><div class="gravatar-wrapper-32"><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/2eca7387bc88b920856d9e1702a41900.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/95442/user1689961">user1689961</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">310</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="14 bronze badges"><span class="badge3"></span><span class="badgecount">14</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-201505" class="comments dno" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+					    <tr><td></td><td></td></tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-201505" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								3 Answers
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="202548"></a>
+<div id="answer-202548" class="answer accepted-answer" data-answerid="202548">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="202548" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">13</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>I got TFTP service working great by using:</p>
+
+<pre><code>sudo apt-get install xinetd tftpd tftp
+</code></pre>
+
+<p>Here is where the solution came from:
+<a href="http://mohammadthalif.wordpress.com/2010/03/05/installing-and-testing-tftpd-in-ubuntudebian/">http://mohammadthalif.wordpress.com/2010/03/05/installing-and-testing-tftpd-in-ubuntudebian/</a></p>
+
+<p>And here is what's there:</p>
+
+<ol>
+<li><p>Install following packages.</p>
+
+<pre><code>sudo apt-get install xinetd tftpd tftp
+</code></pre></li>
+<li><p>Create /etc/xinetd.d/tftp and put this entry</p>
+
+<pre><code>service tftp
+{
+protocol        = udp
+port            = 69
+socket_type     = dgram
+wait            = yes
+user            = nobody
+server          = /usr/sbin/in.tftpd
+server_args     = /tftpboot
+disable         = no
+}
+</code></pre></li>
+<li><p>Create a folder /tftpboot  this should match whatever you gave in server_args. mostly it will be tftpboot</p>
+
+<pre><code>sudo mkdir /tftpboot
+sudo chmod -R 777 /tftpboot
+sudo chown -R nobody /tftpboot
+</code></pre></li>
+<li><p>Restart the xinetd service.</p>
+
+<pre><code>sudo /etc/init.d/xinetd restart
+</code></pre>
+
+<p>Now our tftp server is up and running.</p></li>
+</ol>
+
+<h3>Testing our tftp server</h3>
+
+<ol>
+<li><p>Create a file named test with some content in /tftpboot path of the tftp server</p>
+
+<p>Obtain the ip address of the tftp server using ifconfig command</p></li>
+<li><p>Now in some other system follow the following steps.</p>
+
+<pre><code>tftp 192.168.1.2
+tftp&gt; get test
+Sent 159 bytes in 0.0 seconds
+
+tftp&gt; quit
+
+cat test
+</code></pre></li>
+</ol>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/202548" title="short permalink to this answer" class="short-link" id="link-post-202548">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/202548/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td class="post-signature" align="right">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="http://askubuntu.com/posts/202548/revisions" title="show all edits to this post">edited <span title="2013-09-06 07:01:17Z" class="relativetime">Sep 6 '13 at 7:01</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/125365/dedunumax"><div class="gravatar-wrapper-32"><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/nYTew.jpg" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/125365/dedunumax">dedunumax</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,091</span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>
+    </div>
+</div>    </td>
+            
+
+
+    <td class="post-signature owner" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2012-10-18 16:59:25Z" class="relativetime">Oct 18 '12 at 16:59</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/95442/user1689961"><div class="gravatar-wrapper-32"><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/2eca7387bc88b920856d9e1702a41900.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/95442/user1689961">user1689961</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">310</span><span title="2 gold badges"><span class="badge1"></span><span class="badgecount">2</span></span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="14 bronze badges"><span class="badge3"></span><span class="badgecount">14</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-202548" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-435181" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">this doesnt work for 13.04. I just tried</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/6228/b" title="1325 reputation" class="comment-user">BЈовић</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment435181_202548"><span title="2013-09-03 09:07:46Z" class="relativetime-clean">Sep 3 '13 at 9:07</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-435996" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">only step 4 needs to be changed, since xinetd is spawned by upstart. you need to restart it with 'service xinetd restart'</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/6228/b" title="1325 reputation" class="comment-user">BЈовић</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment435996_202548"><span title="2013-09-04 12:14:06Z" class="relativetime-clean">Sep 4 '13 at 12:14</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-582593" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I followed this instruction 
+and faced permission denied! Destination filename 
+[c2950-i6q4l2-mz.121-22.EA1b.bin]?  TFTP: error code 2 received - Access
+ violation  %Error opening 
+tftp://10.1.11.14/c2950-i6q4l2-mz.121-22.EA1b.bin (Permission denied) 
+#copy flash:c2950-i6q4l2-mz.121-22.EA1b.bin tftp: Address or name of 
+remote host []? 10.1.11.14 Destination filename 
+[c2950-i6q4l2-mz.121-22.EA1b.bin]?  TFTP: error code 2 received - Access
+ violation</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/40771/mohammad-rafiee" title="101 reputation" class="comment-user">Mohammad Rafiee</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment582593_202548"><span title="2014-04-08 06:30:50Z" class="relativetime-clean">Apr 8 at 6:30</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-202548" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk87427912",4).enableDynamicSiteSelection().setZone(30) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk87427912"><div style="background-image: url( data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== ); width: 1px; height: 1px; display:none;"></div><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/i_003.gif" border="0" height="0px" width="0px"></div>
+  
+<a name="201508"></a>
+<div id="answer-201508" class="answer" data-answerid="201508">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="201508" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">2</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>You can install <a href="http://packages.ubuntu.com/precise/atftpd" rel="nofollow"><code>atftpd</code></a> and it will create a directory called <code>/tftpboot</code> in which you may place your files. Put especially the <code>pxelinux.0</code> file there. Any future configuration will be addressed if it is necessary.</p>
+
+<p>When you install the package with </p>
+
+<pre><code>sudo apt-get install atftpd
+</code></pre>
+
+<p>it will use Debconf to prompt you for some choices. You can set many choices(server timeout may be useful), especially the <strong>basepath</strong>. You can also adjust the multicast range.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/201508" title="short permalink to this answer" class="short-link" id="link-post-201508">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/201508/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2012-10-15 19:41:32Z" class="relativetime">Oct 15 '12 at 19:41</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/54298/hexafraction"><div class="gravatar-wrapper-32"><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/0699e8d7047af9b68a0cc396f0b75829.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/54298/hexafraction">hexafraction</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">7,973</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="26 silver badges"><span class="badge2"></span><span class="badgecount">26</span></span><span title="59 bronze badges"><span class="badge3"></span><span class="badgecount">59</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-201508" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-250862" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">What is pxelinux.0 for?  I'm booting a VxWorks target, so I thought that I only need the file vxworks in /tftpboot.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/95442/user1689961" title="310 reputation" class="comment-user owner">user1689961</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment250862_201508"><span title="2012-10-15 21:11:20Z" class="relativetime-clean">Oct 15 '12 at 21:11</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-252150" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Sorry - that did not work for me.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/95442/user1689961" title="310 reputation" class="comment-user owner">user1689961</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment252150_201508"><span title="2012-10-18 16:59:40Z" class="relativetime-clean">Oct 18 '12 at 16:59</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-252260" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Try renaming <code>vxworks</code> to <code>pxelinux.0</code>, just to see whether my answer will work for future users.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/54298/hexafraction" title="7973 reputation" class="comment-user">hexafraction</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment252260_201508"><span title="2012-10-18 20:40:12Z" class="relativetime-clean">Oct 18 '12 at 20:40</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-435172" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">this doesnt work for 13.04. I just tried</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/6228/b" title="1325 reputation" class="comment-user">BЈовић</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment435172_201508"><span title="2013-09-03 08:55:30Z" class="relativetime-clean">Sep 3 '13 at 8:55</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+    <tr id="comment-435965" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@BЈовић This is somewhat of an old answer and I honestly do not know the procedure for 13.04.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/54298/hexafraction" title="7973 reputation" class="comment-user">hexafraction</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment435965_201508"><span title="2013-09-04 11:02:49Z" class="relativetime-clean">Sep 4 '13 at 11:02</span></a></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-201508" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+
+  
+<a name="342043"></a>
+<div id="answer-342043" class="answer" data-answerid="342043">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input name="_id_" value="342043" type="hidden">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>You can install <code>tftpd-hpa</code> and change the configurations . Steps for installing tftpd-hpa is explained in this <a href="http://irfantechinfo.blogspot.in/2013/09/installing-tftp-server-on-ubuntu-1004.html" rel="nofollow">blog post</a>.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://askubuntu.com/a/342043" title="short permalink to this answer" class="short-link" id="link-post-342043">share</a><span class="lsep">|</span><a href="http://askubuntu.com/posts/342043/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-09-06 06:06:17Z" class="relativetime">Sep 6 '13 at 6:06</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://askubuntu.com/users/91304/irfan-np"><div class="gravatar-wrapper-32"><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/d31f68123008d4e731db0f5a5bebd0ab.png" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://askubuntu.com/users/91304/irfan-np">irfan_np</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">11</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-342043" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-437173" class="comment">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of 'useful comment' votes received" class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Whilst this may theoretically answer the question, <a href="http://meta.stackexchange.com/q/8259">it would be preferable</a> to include the essential parts of the answer here, and provide the link for reference.</span>
+                –&nbsp;
+                    <a href="http://askubuntu.com/users/117103/guntbert" title="3681 reputation" class="comment-user">guntbert</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="#comment437173_342043"><span title="2013-09-06 07:02:39Z" class="relativetime-clean">Sep 6 '13 at 7:02</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-342043" data-rep="50" data-anon="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/201505/answer/submit" method="post" class="post-form">
+						    <input id="post-id" value="201505" type="hidden">
+                            <input id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" type="hidden">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+         
+        prepareEditor({
+            heartbeatType: 'answer',
+            bindNavPrevention: true,
+            postfix: "",
+            onDemand: true,
+            discardSelector: ".discard-answer"
+            ,immediatelyShowMarkdownHelp:true
+        });
+        
+
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="23bbd1541cf66b08a7f83ec8f404e0e7" type="hidden">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+            <div class="form-item new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="http://askubuntu.com/users/login?returnurl=%2fquestions%2f201505%2fhow-do-i-install-and-run-a-tftp-server%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Stack Exchange</span></p>
+                        </div>
+                    </div>
+                    <input name="manual-openid" class="manual-openid" type="hidden">
+                    <input name="use-facebook" class="use-facebook" value="false" type="hidden">
+                    <input class="submit-openid" value="Submit" style="display:none" type="button">
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" size="30" maxlength="30" tabindex="105" type="text">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" size="30" maxlength="100" tabindex="106" type="text">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', '%2fquestions%2f201505%2fhow-do-i-install-and-run-a-tftp-server%23new-answer');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <script>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.bindHelpOverlayEvents($('.vm input'));
+                });
+            </script>
+            <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="text" size="30" maxlength="100" value="" tabindex="106">
+                    <span class="edit-field-overlay">required, but not shown</span>
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" value="Post Your Answer" tabindex="110" type="submit">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href="http://stackexchange.com/legal/privacy-policy" target="_blank">privacy policy</a> and <a href="http://stackexchange.com/legal/terms-of-service" target="_blank">terms of service</a>.</p>
+<input name="legalLinksShown" value="1" type="hidden">								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you're looking for?							Browse other questions tagged <a href="http://askubuntu.com/questions/tagged/tftp" class="post-tag" title="show questions tagged 'tftp'" rel="tag">tftp</a>  or <a href="http://askubuntu.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2012-10-15 19:32:29Z"><b>1 year ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>51250 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="http://askubuntu.com/questions/201505/how-do-i-install-and-run-a-tftp-server?lastactivity" class="lastactivity-link" title="2013-09-06 07:01:36Z">8 months ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <h4>Community Bulletin</h4>
+    <div class="related">
+
+            <div class="spacer">
+                <div class="bulletin-item-type"><a href="http://blog.stackoverflow.com/?cb=1" class="event-date" target="_blank">blog</a></div>
+                <div class="bulletin-item-content">
+                    <a href="http://blog.stackoverflow.com/2014/05/podcast-58-pack-em-in-like-bees/?cb=1" class="question-hyperlink" target="_blank">Podcast #58 – Pack ‘Em In Like Bees</a>
+                </div>
+                <br class="cbt">
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,0,"adzerk1243166284",17).enableDynamicSiteSelection().setZone(56016) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1243166284"><div id="a51-ad-container" style="height: 250px; width: 220px;">
+<style type="text/css">
+#a51-ad { background: url("http://cdn.sstatic.net/area51/Img/bg-area51-ad-commitment.png") no-repeat bottom center; }
+#a51-ad, #a51-ad a { display:block; height: 250px; width: 220px; text-decoration: none; }
+#a51-ad table { position: relative; top: 55px; }
+#a51-ad-title-row { height: 95px; }
+#a51-ad-title { padding: 0 5px; text-align: center; font-size: 30.3px; line-height: 34.3px; font-family: Impact,'Futura-CondensedExtraBold',sans-serif; color: #FBF9E2; text-shadow: 3px 3px 3px #000; width: 220px; vertical-align: middle; }
+#a51-ad-subtitle { padding:3px; text-align: center; color: white; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 14px; font-weight: bold; }
+</style>
+<!--[if lte IE 7]>
+<style type-"text/css">
+#a51-ad { background: url(http://cdn.sstatic.net/area51/Img/bg-area51-ad-commitment.png) no-repeat bottom center; }
+</style>
+<![endif]-->
+<div id="a51-ad">
+    <a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6Mjk3MSwiZGkiOiJlOTI5ODFiYmQwZDY0OTc1YTM3OTY4MmQxYjJjMDI2ZiIsImRtIjoxLCJmYyI6MzMwOTY4LCJmbCI6MTcxNzU3LCJrdyI6InRmdHAseC1jb21tdW5pdHkseC1ob3N0LWFza3VidW50dS5jb20iLCJudyI6MjIsInBjIjowLCJwciI6NTcyMjIsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTEmc3FpPTImdmVkPTBDQ2NRRmpBQSZ1cmw9aHR0cDovL2Fza3VidW50dS5jb20vcXVlc3Rpb25zLzIwMTUwNS9ob3ctZG8taS1pbnN0YWxsLWFuZC1ydW4tYS10ZnRwLXNlcnZlciZlaT1KZVY5VTlINUg5REh1QVM4Z29LWUFRJnVzZz1BRlFqQ05FVkdIdWU4SDdRQmtlczVXb0ZMWUxPUWNsaXVnJmJ2bT1idi42NzIyOTI2MCxkLmMyRSZjYWQ9cmphIiwic3QiOjU2NzQ5LCJ1ayI6InVlMS0xM2IwNTExMTY4NmQ0YjY0OWE2ZWQ4MjEyYTA5NWJjZSIsInpuIjo1NjAxNiwidHMiOjE0MDA3NTk1OTY3ODcsInVyIjpudWxsfQ&amp;s=7xfJ0ooVMQuaBbpB_ljhHVsAAIw&amp;url=http%3A%2F%2Farea51.stackexchange.com%2Fproposals%2F52070%2Fmoderators%3Fcommit%3D1">
+        <table>
+            <tbody><tr id="a51-ad-title-row"><td id="a51-ad-title">Moderators Q&amp;A</td></tr>
+            <tr><td id="a51-ad-subtitle">67% committed</td></tr>
+        </tbody></table>        
+    </a>
+</div>
+</div><script type="text/javascript">window._a51AdUrl = "http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6MTcsImNtIjo5NTU2MCwiY2giOjE2NTMxLCJjciI6Mjk3MSwiZGkiOiJlOTI5ODFiYmQwZDY0OTc1YTM3OTY4MmQxYjJjMDI2ZiIsImRtIjoxLCJmYyI6MzMwOTY4LCJmbCI6MTcxNzU3LCJrdyI6InRmdHAseC1jb21tdW5pdHkseC1ob3N0LWFza3VidW50dS5jb20iLCJudyI6MjIsInBjIjowLCJwciI6NTcyMjIsInJ0IjoxLCJyZiI6Imh0dHA6Ly93d3cuZ29vZ2xlLmNvLmluL3VybD9zYT10JnJjdD1qJnE9JmVzcmM9cyZzb3VyY2U9d2ViJmNkPTEmc3FpPTImdmVkPTBDQ2NRRmpBQSZ1cmw9aHR0cDovL2Fza3VidW50dS5jb20vcXVlc3Rpb25zLzIwMTUwNS9ob3ctZG8taS1pbnN0YWxsLWFuZC1ydW4tYS10ZnRwLXNlcnZlciZlaT1KZVY5VTlINUg5REh1QVM4Z29LWUFRJnVzZz1BRlFqQ05FVkdIdWU4SDdRQmtlczVXb0ZMWUxPUWNsaXVnJmJ2bT1idi42NzIyOTI2MCxkLmMyRSZjYWQ9cmphIiwic3QiOjU2NzQ5LCJ1ayI6InVlMS0xM2IwNTExMTY4NmQ0YjY0OWE2ZWQ4MjEyYTA5NWJjZSIsInpuIjo1NjAxNiwidHMiOjE0MDA3NTk1OTY3ODcsInVyIjpudWxsfQ&s=7xfJ0ooVMQuaBbpB_ljhHVsAAIw";</script><script src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/js" type="text/javascript"></script><img src="How%20do%20I%20install%20and%20run%20a%20TFTP%20server%3F%20-%20Ask%20Ubuntu_files/i_002.gif" border="0" height="0px" width="0px"></div>
+			  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/17084?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">17
+    </div>
+</a><a href="http://askubuntu.com/questions/17084/how-do-i-temporarily-run-an-ftp-server?rq=1" class="question-hyperlink">How do I temporarily run an FTP server?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/28291?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">3
+    </div>
+</a><a href="http://askubuntu.com/questions/28291/how-do-i-create-a-file?rq=1" class="question-hyperlink">How do I create a file?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/96300?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/96300/xinet-tftp-timeout?rq=1" class="question-hyperlink">Xinet tftp timeout</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/130231?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">4
+    </div>
+</a><a href="http://askubuntu.com/questions/130231/tftp-server-atftpd-fails-to-start?rq=1" class="question-hyperlink">TFTP Server atftpd fails to start</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/237287?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/237287/tftp-server-not-working?rq=1" class="question-hyperlink">TFTP server not working</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/325362?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/325362/how-to-fix-dhcp-and-tftp-server?rq=1" class="question-hyperlink">How to fix DHCP and TFTP server?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/346339?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://askubuntu.com/questions/346339/maas-with-external-dhcp-tftp-time-out?rq=1" class="question-hyperlink">MAAS with external DHCP TFTP time out</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/359141?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/359141/thin-client-lubuntu-over-pxe-server-with-dhcp-and-tftp?rq=1" class="question-hyperlink">Thin Client Lubuntu over PXE Server with DHCP and TFTP</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/398655?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/398655/need-help-with-tftpd-hpa-configs-on-ubuntu-server-12-04-3-lts?rq=1" class="question-hyperlink">need help with tftpd-hpa configs on ubuntu server 12.04.3 LTS</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://askubuntu.com/q/422188?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://askubuntu.com/questions/422188/how-to-set-hostnames-to-specific-range-of-ip-addresses-on-dhcp-server?rq=1" class="question-hyperlink">How to set hostnames to specific range of IP addresses on DHCP Server?</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-arduino" title="Arduino Stack Exchange"></div><a href="http://arduino.stackexchange.com/questions/1625/bootloader-uploading-into-atmega328" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:540 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    bootloader uploading into Atmega328
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/172115/a-word-that-means-hateful-but-indispensable" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    A word that means 'hateful but indispensable'
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-stats" title="Cross Validated"></div><a href="http://stats.stackexchange.com/questions/99640/is-multicollinearity-a-concern-in-nonparametric-statistics" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:65 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is multicollinearity a concern in nonparametric statistics?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/470383/how-to-avoid-prompt-password-for-sudo" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to avoid prompt password for sudo?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-dba" title="Database Administrators Stack Exchange"></div><a href="http://dba.stackexchange.com/questions/65658/sql-question-selecting-different-language-versions-based-on-availability" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:182 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    SQL Question: Selecting different language versions based on availability
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/21276/best-practice-models-for-research-code" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Best-practice models for "research" code?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/171868/what-is-the-opposite-of-a-monopoly" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the opposite of a monopoly?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tridion" title="Tridion Stack Exchange"></div><a href="http://tridion.stackexchange.com/questions/5635/is-it-possible-to-use-content-porter-2009-sp2-to-help-translation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:485 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it possible to use Content Porter 2009 SP2 to help translation?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-german" title="German Language Stack Exchange"></div><a href="http://german.stackexchange.com/questions/12070/von-aus-or-mit-or-none" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:253 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    von, aus or mit (or none)
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-biology" title="Biology Stack Exchange"></div><a href="http://biology.stackexchange.com/questions/17565/does-a-walk-after-a-meal-help-with-digestion" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:375 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Does a walk after a meal help with digestion?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stats" title="Cross Validated"></div><a href="http://stats.stackexchange.com/questions/99171/why-is-euclidean-distance-not-a-good-metric-in-high-dimensions" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:65 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is Euclidean distance not a good metric in high dimensions?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/804518/is-there-any-clasification-of-such-groups" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there any clasification of such groups?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="http://history.stackexchange.com/questions/12892/were-the-living-standards-in-medieval-europe-a-lot-worse-than-in-the-muslim-worl" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Were the living standards in Medieval Europe a lot worse than in the Muslim world?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/23801386/what-happens-if-an-alert-window-is-shown-during-an-ajax-call" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What happens if an alert window is shown during an ajax call?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/179708/how-to-compare-against-a-constant-with-ifx" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to compare against a constant with ifx?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/21189/what-is-the-socio-economic-argument-or-historical-basis-for-university-tuition-f" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the socio-economic argument or historical basis for university tuition fees?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-security" title="Information Security Stack Exchange"></div><a href="http://security.stackexchange.com/questions/58214/whats-to-stop-someone-from-3d-print-cloning-a-key" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:162 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What's to stop someone from 3D print cloning a key?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/179680/skew-unequal-symbols" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    skew unequal symbols
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/113749/is-there-experimental-evidence-that-massless-particles-such-as-photons-attract-m" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there experimental evidence that massless particles such as photons attract massive objects?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/57535/new-vs-create" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    "New" vs. "Create"
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/172129/what-to-call-someone-who-doesnt-like-foreigners-who-lack-manners-and-basic-know" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What to call someone who doesn't like foreigners who
+ lack manners and basic knowledge of the country and culture they are 
+mixing themselves in?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-gaming" title="Arqade"></div><a href="http://gaming.stackexchange.com/questions/168787/what-is-the-name-of-this-game" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:41 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the name of this game?
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/28359/determine-if-all-decimal-digits-are-unique" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Determine if all decimal digits are unique
+                </a>
+
+            </li>
+            <li style="display: list-item;" class="dno js-hidden">
+                <div class="favicon favicon-chemistry" title="Chemistry Stack Exchange"></div><a href="http://chemistry.stackexchange.com/questions/10984/how-would-you-name-this-organic-compound" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:431 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How would you name this organic compound?
+                </a>
+
+            </li>
+    </ul>
+
+        
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://askubuntu.com/feeds/question/201505" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/201505/ivc/54a0');});
+</script>
+<noscript>
+    <div><img src="/posts/201505/ivc/54a0" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang"></div></div>
+
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://askubuntu.com/about">about</a>
+                    <a href="http://askubuntu.com/help">help</a>
+                        <a href="http://askubuntu.com/help/badges">badges</a>
+                    <a href="http://blog.stackexchange.com/?blb=1">blog</a>
+                        <a href="http://chat.stackexchange.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/about/hiring">jobs</a>
+                    <a href="http://stackexchange.com/about/contact">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="http://askubuntu.com/contact">contact us</a></b>
+                        <b><a href="http://meta.askubuntu.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="professional system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="professional graphic designers and non-designers trying to do their own graphic design">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2014 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2014.5.22.1619
+            </div>
+                <div id="additional-notices">
+                    Ubuntu and Canonical are registered trademarks of Canonical Ltd.
+                </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Ask Ubuntu works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('tftp,x-community,x-host-askubuntu.com');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-29');        
+        
+        ga('set', 'dimension2', '|tftp|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+</body></html>

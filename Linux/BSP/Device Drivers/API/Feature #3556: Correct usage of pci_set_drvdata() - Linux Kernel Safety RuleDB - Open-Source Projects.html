@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Feature #3556: Correct usage of pci_set_drvdata() - Linux Kernel Safety RuleDB - Open-Source Projects</title>
+<meta name="description" content="Redmine">
+<meta name="keywords" content="issue,bug,tracker">
+<meta content="authenticity_token" name="csrf-param">
+<meta content="xIyHMwASaV7cJ11M0T7auCeHEgcTCDeuqEf/OYraAVY=" name="csrf-token">
+<link rel="shortcut icon" href="http://forge.ispras.ru/favicon.ico?1382968093">
+<link href="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/jquery-ui-1.css" media="all" rel="stylesheet" type="text/css">
+<link href="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/application.css" media="all" rel="stylesheet" type="text/css">
+
+<script src="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/jquery-1.js" type="text/javascript"></script>
+<script src="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/application.js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(window).load(function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+ <link href="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/hudson.css" media="screen" rel="stylesheet" type="text/css">
+<script src="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/jquery.js" type="text/javascript"></script>
+
+<!-- page specific tags -->
+    <link href="http://forge.ispras.ru/issues/3556.atom" rel="alternate" title="Linux Kernel Safety RuleDB - Feature #3556: Correct usage of pci_set_drvdata()" type="application/atom+xml">
+<script src="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/context_menu.js" type="text/javascript"></script><link href="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/context_menu.css" media="screen" rel="stylesheet" type="text/css"></head>
+<body class="controller-issues action-show">
+<div id="wrapper">
+<div id="wrapper2">
+<div id="wrapper3">
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a href="http://forge.ispras.ru/login" class="login">Sign in</a></li>
+<li><a href="http://forge.ispras.ru/account/register" class="register">Register</a></li></ul>    </div>
+    
+    <ul><li><a href="http://forge.ispras.ru/" class="home">Home</a></li>
+<li><a href="http://forge.ispras.ru/projects" class="projects">Projects</a></li>
+<li><a href="http://www.redmine.org/guide" class="help">Help</a></li></ul></div>
+
+<div id="header">
+    <div id="quick-search">
+        <form accept-charset="UTF-8" action="/projects/ldv-rules/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"></div>
+        <input name="issues" value="1" type="hidden">
+        <label for="q">
+          <a href="http://forge.ispras.ru/projects/ldv-rules/search" accesskey="4">Search</a>:
+        </label>
+        <input accesskey="f" class="small" id="q" name="q" size="20" type="text">
+</form>        
+    </div>
+
+    <h1><a href="http://forge.ispras.ru/projects/ldv?jump=issues" class="root">Linux Driver Verification</a> » Linux Kernel Safety RuleDB</h1>
+
+    <div id="main-menu">
+        <ul><li><a href="http://forge.ispras.ru/projects/ldv-rules" class="overview">Overview</a></li>
+<li><a href="http://forge.ispras.ru/projects/ldv-rules/activity" class="activity">Activity</a></li>
+<li><a href="http://forge.ispras.ru/projects/ldv-rules/issues" class="issues selected">Issues</a></li>
+<li><a href="http://forge.ispras.ru/projects/ldv-rules/news" class="news">News</a></li>
+<li><a href="http://forge.ispras.ru/projects/ldv-rules/repository" class="repository">Repository</a></li></ul>
+    </div>
+</div>
+
+<div id="main" class="">
+    <div id="sidebar">
+          <h3>Issues</h3>
+<a href="http://forge.ispras.ru/projects/ldv-rules/issues?set_filter=1">View all issues</a><br>
+<a href="http://forge.ispras.ru/projects/ldv-rules/issues/report">Summary</a><br>
+
+
+
+
+<h3>Custom queries</h3><a href="http://forge.ispras.ru/projects/ldv-rules/issues?query_id=11" class="query">extended view</a><br><a href="http://forge.ispras.ru/projects/ldv-rules/issues?query_id=48" class="query">rules-list</a>
+
+
+
+
+        
+    </div>
+
+    <div id="content">
+        
+        <div class="contextual">
+
+
+
+
+
+</div>
+
+
+<h2>Feature #3556</h2>
+
+<div class="issue tracker-4 status-5 priority-4 priority-default closed details">
+
+  <img alt="" class="gravatar" default="" rating="PG" src="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/8064d26c767040cf5662497ac0b749b2.html" ssl="false" title="">
+
+<div class="subject">
+<div><h3>Correct usage of pci_set_drvdata()</h3></div>
+</div>
+        <p class="author">
+        Added by <a href="http://forge.ispras.ru/users/505" class="user active">Ilya Shchepetkov</a> <a href="http://forge.ispras.ru/projects/ldv-rules/activity?from=2012-10-09" title="10/09/2012 01:03 pm">almost 2 years</a> ago.
+        </p>
+
+<table class="attributes">
+<tbody><tr><th class="status">Status:</th><td class="status">Closed</td><th class="start-date">Start date:</th><td class="start-date">10/08/2012</td></tr><tr><th class="priority">Priority:</th><td class="priority">Normal</td><th class="due-date">Due date:</th><td class="due-date"></td></tr><tr><th class="assigned-to">Assignee:</th><td class="assigned-to"><img alt="" class="gravatar" default="" rating="PG" src="Feature%20%233556:%20Correct%20usage%20of%20pci_set_drvdata%28%29%20-%20Linux%20Kernel%20Safety%20RuleDB%20-%20Open-Source%20Projects_files/8064d26c767040cf5662497ac0b749b2_002.html" ssl="false" title=""><a href="http://forge.ispras.ru/users/505" class="user active">Ilya Shchepetkov</a></td><th class="progress">% Done:</th><td class="progress"><table class="progress" style="width: 80px;"><tbody><tr><td class="todo" style="width: 100%;"></td></tr></tbody></table><p class="percent">0%</p></td></tr><tr><th class="category">Category:</th><td class="category">-</td><th></th><td></td></tr><tr><th class="fixed-version">Target version:</th><td class="fixed-version">-</td><th></th><td></td></tr>
+<tr>
+	<th>Published in build:</th><td></td>
+</tr>
+
+
+</tbody></table>
+
+<hr>
+<div class="description">
+  <div class="contextual">
+  
+  </div>
+
+  <p><strong>Description</strong></p>
+  <div class="wiki">
+  <p><em>(Ex rule 145_1a)</em></p>
+
+
+	<p>We use <strong>pci_set_drvdata(pci, something)</strong> when we want to save a pointer to something in the pci structure. We can receive back this pointer using <strong>pci_get_drvdata(pci)</strong>. After that, we must free the memory using <strong>pci_set_drvdata(pci, NULL)</strong>.</p>
+
+
+	<p>(next copied almost as is from <a href="http://git.kernel.org/?p=linux/kernel/git/torvalds/linux.git;a=commitdiff;h=0998d063" class="external">kernel.org</a>)</p>
+
+
+<pre>1) drvdata is for a driver to store a pointer to driver specific data
+2) If no driver is bound, there is no driver specific data associated with
+   the device
+3) Thus logically drvdata should be NULL if no driver is bound.
+
+But many drivers don't clear drvdata on device_release, or set drvdata
+early on in probe and leave it set on probe error. Both of which results
+in a dangling pointer in drvdata.
+
+This patch enforce for drvdata to be NULL after device_release or on probe
+failure.
+</pre>
+
+	<p>Now <strong>pci_set_drvdata(pci, NULL)</strong> is called by device_release in each (<em>maybe not in each</em>) driver.</p>
+
+
+	<p>So rule can be closed.</p>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+//<!--
+$(document).ready(function() {
+revisions = {};
+$('body').buildResultAppender({revisions: revisions});
+});
+//-->
+</script>
+
+
+
+
+</div>
+
+
+
+
+<div style="clear: both;"></div>
+<div class="contextual">
+
+
+
+
+
+</div>
+
+
+<div style="clear: both;"></div>
+
+<p class="other-formats">Also available in:  <span><a href="http://forge.ispras.ru/issues/3556.atom" class="atom" rel="nofollow">Atom</a></span>
+  <span><a href="http://forge.ispras.ru/issues/3556.pdf" class="pdf" rel="nofollow">PDF</a></span>
+</p>
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+contextMenuInit('/issues/context_menu')
+//]]>
+</script><div style="display:none;" id="context-menu"></div>
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+<div id="footer">
+  <div class="bgl"><div class="bgr">
+    Powered by <a href="http://www.redmine.org/">Redmine</a> © 2006-2013 Jean-Philippe Lang
+  </div></div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+</body></html>

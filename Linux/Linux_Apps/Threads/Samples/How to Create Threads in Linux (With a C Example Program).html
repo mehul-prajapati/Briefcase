@@ -1,0 +1,636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>How to Create Threads in Linux (With a C Example Program)</title>
+<meta name="robots" content="noodp, noydir">
+<link rel="stylesheet" href="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/style.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/layout.css" type="text/css" media="screen, projection">
+<!--[if lte IE 8]><link rel="stylesheet" href="http://static.thegeekstuff.com/wp-content/themes/thesis_18/lib/css/ie.css?122710-193752" type="text/css" media="screen, projection" /><![endif]-->
+<link rel="stylesheet" href="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/custom.css" type="text/css" media="screen, projection">
+<link rel="canonical" href="http://www.thegeekstuff.com/2012/04/create-threads-in-linux/">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff RSS Feed" href="http://feedproxy.google.com/TheGeekStuff">
+<link rel="pingback" href="http://www.thegeekstuff.com/xmlrpc.php">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.thegeekstuff.com/xmlrpc.php?rsd">
+<link href="http://static.thegeekstuff.com/favicon.ico" rel="icon" type="image/x-icon">
+<link rel="author" href="https://plus.google.com/112493711428194838421/posts">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff » How to Create Threads in Linux (With a C Example Program) Comments Feed" href="http://www.thegeekstuff.com/2012/04/create-threads-in-linux/feed/">
+
+<!-- All in One SEO Pack 2.1 by Michael Torbert of Semper Fi Web Design[277,341] -->
+<meta name="description" content="In the part I of the Linux Threads series, we discussed various aspects related to threads in Linux. In this article we will focus on how a thread is created">
+
+<link rel="canonical" href="http://www.thegeekstuff.com/2012/04/create-threads-in-linux/">
+<!-- /all in one seo pack -->
+<script src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/ga.js" async="" type="text/javascript"></script><script async="" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/cbgapi.loaded_1"></script><script async="" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/cbgapi.loaded_0"></script><script src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/a" type="text/javascript"></script><link rel="stylesheet" href="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/inputtools.css" type="text/css"><script src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/inputtools.js" type="text/javascript"></script></head>
+<body data-twttr-rendered="true" class="custom">
+<div id="container">
+<div id="page">
+	<div id="header">
+<p id="logo"><a href="http://www.thegeekstuff.com/"><img src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/thegeekstuff.gif" alt="The Geek Stuff"></a></p><div id="header_ad"><div id="header_ad1">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8090601437064582";
+/* TGS Logo Header Big Image Only */
+google_ad_slot = "4708993701";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="728" frameborder="0" height="90" scrolling="no"></iframe></ins></ins>
+</div></div>
+	</div>
+<ul class="menu">
+<li class="tab tab-home"><a href="http://www.thegeekstuff.com/">Home</a></li>
+<li class="tab tab-1"><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/" title="Linux 101 Hacks eBook, by Ramesh Natarajan">Free eBook</a></li>
+<li class="tab tab-2"><a href="http://www.thegeekstuff.com/best-of-the-blog/" title="">Start Here</a></li>
+<li class="tab tab-3"><a href="http://www.thegeekstuff.com/contact/" title="Contact">Contact</a></li>
+<li class="tab tab-4"><a href="http://www.thegeekstuff.com/about/" title="">About</a></li>
+</ul>
+	<div id="content_box">
+		<div id="content" class="hfeed">
+
+			<div class="post-10252 post type-post status-publish format-standard hentry category-c-programming category-linux tag-pthread_create-example tag-pthread_self post_box top" id="post-10252">
+				<div class="headline_area">
+					<h1 class="entry-title">How to Create Threads in Linux (With a C Example Program)</h1>
+					<p class="headline_meta">by <span class="author vcard fn">Himanshu Arora</span> on <abbr class="published" title="2012-04-06">April 6, 2012</abbr></p>
+				</div>
+				<div class="format_text entry-content">
+<div style="margin:7px 0px 6px 0px; padding:5px;"> 
+
+<div style="float:left; width=95px">
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/fastbutton.html" name="I0_1389171968518" id="I0_1389171968518" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/like_002.xhtml" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div style="width=95px">
+<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/widgets.js"></script>
+</div>
+
+</div>
+<p>In the part I of the <a href="http://www.thegeekstuff.com/2012/03/linux-threads-intro/">Linux Threads</a> series, we discussed various aspects related to threads in Linux.</p>
+<p>In this article we will focus on how a thread is created and 
+identified. We will also present a working C program example that will 
+explain how to do basic threaded programming.<br>
+<span id="more-10252"></span><br>
+Linux Threads Series: <a href="http://www.thegeekstuff.com/2012/03/linux-threads-intro/">part 1</a>, part 2 (this article), <a href="http://www.thegeekstuff.com/2012/04/terminate-c-thread/">part 3</a>.</p>
+<h3>Thread Identification</h3>
+<p>Just as a process is identified through a process ID, a thread is 
+identified by a thread ID. But interestingly, the similarity between the
+ two ends here.</p>
+<ul>
+<li>A process ID is unique across the system where as a thread ID is unique only in context of a single process.</li>
+<li>A process ID is an integer value but the thread ID is not necessarily an integer value. It could well be a structure</li>
+<li>A process ID can be printed very easily while a thread ID is not easy to print.</li>
+</ul>
+<p>The above points give an idea about the difference between a process ID and thread ID.</p>
+<p>Thread ID is represented by the type ‘pthread_t’.&nbsp; As we already
+ discussed that in most of the cases this type is a structure, so there 
+has to be a function that can compare two thread IDs.</p>
+<pre>#include &lt;pthread.h&gt;
+int pthread_equal(pthread_t tid1, pthread_t tid2);</pre>
+<p>So as you can see that the above function takes two thread IDs and 
+returns nonzero value if both the thread IDs are equal or else it 
+returns zero.</p>
+<p>Another case may arise when a thread would want to know its own 
+thread ID. For this case the following function provides the desired 
+service.</p>
+    <center>
+      <div style="margin-left:2px; margin-top:10px; margin-bottom:10px; ">
+
+        <!-- AD BLOCK -->
+		
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-8090601437064582";
+/* TGS SinglePost Bottom Medium Rect */
+google_ad_slot = "8643685131";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" width="300" frameborder="0" height="250" scrolling="no"></iframe></ins></ins>
+
+        <!-- END AD BLOCK -->
+
+	  </div>
+    </center>
+
+
+<pre>#include &lt;pthread.h&gt;
+pthread_t pthread_self(void);</pre>
+<p>So we see that the function ‘pthread_self()’ is used by a thread for printing its own thread ID.</p>
+<p>Now, one would ask about the case where the above two function would 
+be required. Suppose there is a case where a link list contains data for
+ different threads. Every node in the list contains a thread ID and the 
+corresponding data. Now whenever a thread tries to fetch its data from 
+linked list, it first gets its own ID by calling ‘pthread_self()’ and 
+then it calls the ‘pthread_equal()’ on every node to see if the node 
+contains data for it or not.</p>
+<p>An example of the generic case discussed above would be the one in 
+which a master thread gets the jobs to be processed and then it pushes 
+them into a link list. Now individual worker threads parse the linked 
+list and extract the job assigned to them.</p>
+<h3>Thread Creation</h3>
+<p>Normally when a program starts up and becomes a process, it starts 
+with a default thread. So we can say that every process has at least one
+ thread of control.&nbsp; A process can create extra threads using the 
+following function :</p>
+<pre>#include &lt;pthread.h&gt;
+int pthread_create(pthread_t *restrict tidp, const pthread_attr_t *restrict attr, void *(*start_rtn)(void), void *restrict arg)</pre>
+<p>The above function requires four arguments, lets first discuss a bit on them :</p>
+<ul>
+<li>The first argument is a pthread_t type address. Once the function is
+ called successfully, the variable whose address is passed as first 
+argument will hold the thread ID of the newly created thread.</li>
+<li>The second argument may contain certain attributes which we want the new thread to contain.&nbsp; It could be priority etc.</li>
+<li>The third argument is a function pointer. This is something to keep 
+in mind that each thread starts with a function and that functions 
+address is passed here as the third argument so that the kernel knows 
+which function to start the thread from.</li>
+<li>As the function (whose address is passed in the third argument 
+above) may accept some arguments also so we can pass these arguments in 
+form of a pointer to a void type. Now, why a void type was chosen? This 
+was because if a function accepts more than one argument then this 
+pointer could be a pointer to a structure that may contain these 
+arguments.</li>
+</ul>
+<h3>A Practical Thread Example</h3>
+<p>Following is the example code where we tried to use all the three functions discussed above.</p>
+<pre>#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;unistd.h&gt;
+
+pthread_t tid[2];
+
+void* doSomeThing(void *arg)
+{
+    unsigned long i = 0;
+    pthread_t id = pthread_self();
+
+    if(pthread_equal(id,tid[0]))
+    {
+        printf("\n First thread processing\n");
+    }
+    else
+    {
+        printf("\n Second thread processing\n");
+    }
+
+    for(i=0; i&lt;(0xFFFFFFFF);i++);
+
+    return NULL;
+}
+
+int main(void)
+{
+    int i = 0;
+    int err;
+
+    while(i &lt; 2)
+    {
+        err = pthread_create(&amp;(tid[i]), NULL, &amp;doSomeThing, NULL);
+        if (err != 0)
+            printf("\ncan't create thread :[%s]", strerror(err));
+        else
+            printf("\n Thread created successfully\n");
+
+        i++;
+    }
+
+    sleep(5);
+    return 0;
+}</pre>
+<p>So what this code does is :</p>
+<ul>
+<li>It uses the pthread_create() function to create two threads</li>
+<li>The starting function for both the threads is kept same.</li>
+<li>Inside the function ‘doSomeThing()’, the thread uses pthread_self() 
+and pthread_equal() functions to identify whether the executing thread 
+is the first one or the second one as created.</li>
+<li>Also, Inside the same function ‘doSomeThing()’ a for loop is run so as to simulate some time consuming work.</li>
+</ul>
+<p>Now, when the above code is run, following was the output :</p>
+<pre>$ ./threads
+Thread created successfully
+First thread processing
+Thread created successfully
+Second thread processing</pre>
+<p>As seen in the output, first thread is created and it starts 
+processing, then the second thread is created and then it starts 
+processing. Well one point to be noted here is that the order of 
+execution of threads is not always fixed. It depends on the OS 
+scheduling algorithm.</p>
+<p>Note: The whole explanation in this article is done on Posix threads.
+ As can be comprehended from the type, the pthread_t type stands for 
+POSIX threads. If an application wants to test whether POSIX threads are
+ supported or not, then the application can use the macro _POSIX_THREADS
+ for compile time test. To compile a code containing calls to posix 
+APIs, please use the compile option ‘-pthread’.</p>
+<div style="margin:7px 0px 3px 0px; padding:5px; background:#F2F0E8">
+
+<div style="float:left; width=95px">
+<div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe title="+1" data-gapiattached="true" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/fastbutton_002.html" name="I1_1389171968527" id="I1_1389171968527" vspace="0" tabindex="0" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div>
+</div>
+
+<div style="float:left; width=95px">
+<iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/tweet_button_002.html" allowtransparency="true" id="twitter-widget-1" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/widgets.js"></script>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/like_002.xhtml" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div style="padding:1px">
+&gt;&nbsp;<a href="#respond">Add your comment</a> 
+</div>
+
+</div>
+<br>
+<div id="subscribebox">
+<a rel="nofollow" href="http://www.thegeekstuff.com/linux-sysadmin"><img class="alignright" title="Linux Sysadmin Course" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/linux-sysadmin-200-166.png" alt="Linux Sysadmin Course"></a>
+Linux provides several powerful administrative tools and utilities which
+ will help you to manage your systems effectively. If you don’t know 
+what these tools are and how to use them, you could be spending lot of 
+time trying to perform even the basic administrative tasks. The focus of
+ this course is to help you understand system administration tools, 
+which will help you to become an effective Linux system administrator.<br> Get the <a href="http://www.thegeekstuff.com/linux-sysadmin" class="button">Linux Sysadmin Course</a> Now!
+</div>
+<h3>If you enjoyed this article, you might also like..</h3>
+<table>
+<tbody><tr>
+<td valign="top">
+<ol>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! – 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a>&nbsp;<img title="Linux 101 Hacks Book" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/free-small.png" alt="Linux 101 Hacks Book"></li>
+</ol>
+</td>
+<td>
+<ul>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/8-essential-vim-editor-navigation-fundamentals/">8 Essential Vim Editor Navigation Fundamentals</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<br>
+<center> 
+<table border="0" cellspacing="10"> 
+<tbody><tr> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/bash-132.png" alt="Bash 101 Hacks Book"></a> 
+</td> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/sed-and-awk-132.png" alt="Sed and Awk 101 Hacks Book"></a> 
+</td> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/nagios-core-132.png" alt="Nagios Core 3 Book"></a> 
+</td> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/vim-101-hacks-132.png" alt="Vim 101 Hacks Book"></a> 
+</td> 
+</tr> 
+</tbody></table> 
+</center>
+<br>
+<div id="tgs-tags">
+Tags: <a href="http://www.thegeekstuff.com/tag/pthread_create-example/" rel="tag">pthread_create Example</a>, <a href="http://www.thegeekstuff.com/tag/pthread_self/" rel="tag">pthread_self</a></div>
+				</div>
+			</div>
+
+			<div id="comments">
+				<div id="comments_intro" class="comments_intro">
+					<p><span class="bracket">{</span> <span>6</span> comments… read them below or <a href="#respond" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				</div>
+
+				<dl id="comment_list">
+					<dt class="comment even thread-even depth-1" id="comment-218505">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-218505" title="Permalink to this comment" rel="nofollow">1</a></span>
+<span class="comment_author">steve</span>
+<span class="comment_time">April 6, 2012 at 9:46 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-218505">
+<p>Hello,</p>
+<p>Great article but missing a few things.</p>
+<p>I noticed you are return NULL from your worker/background thread. 
+Should be pthread_exit(NULL) NULL since you are not returning any 
+arguments. This should clean up a few things before the thread exits.</p>
+<p>Also you have a sleep() function at the end of main. I guess if the 
+thread had a long task that takes more than 5 seconds then main would 
+finish and as the main thread created the worker thread that would get 
+killed as well, which could result it UB and cause you program to crash.
+ </p>
+<p>You should just pthread_join(thread_id) for main to wait for the worker thread to finish.</p>
+<p>Or you can use pthread_exit(NULL) at the end of main. So that the 
+main thread would finish without killing the worker thread. The worker 
+thread would finish without any problem. However, I would recommend 
+pthread_join() so you can exit your program in a controlled way.</p>
+<p>Hope this helps,</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-218842">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-218842" title="Permalink to this comment" rel="nofollow">2</a></span>
+<span class="comment_author">Himanshu</span>
+<span class="comment_time">April 7, 2012 at 3:34 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-218842">
+<p>@steve<br>
+Hi Steve, thanks for you valuable comments. The two points that you 
+brought into notice will be covered in the next part of the ongoing 
+series of Linux threads. I intentionally did not focus on 
+‘pthread_exit()’ and the ‘sleep()’ function in this part as this part 
+was intended to just give a small overview of how threads come alive. 
+The subsequent parts will peel of the layers and will focus on deeper 
+aspects including ‘pthread_exit()’ and why sleep() should not be used 
+etc..</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-366365">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-366365" title="Permalink to this comment" rel="nofollow">3</a></span>
+<span class="comment_author">SF</span>
+<span class="comment_time">November 5, 2012 at 4:52 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-366365">
+<p>Also for clarity, it should be added to link against library -lpthread for the example given to build correctly.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-366875">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-366875" title="Permalink to this comment" rel="nofollow">4</a></span>
+<span class="comment_author">Chokho</span>
+<span class="comment_time">November 5, 2012 at 11:48 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-366875">
+<p>Another Example that might help</p>
+<p>#include<br>
+#include<br>
+#include </p>
+<p>void * func(void * param){<br>
+	printf(“Inside Thread function\n”);<br>
+	char ** var = (char **)param;<br>
+	printf(“The passed argument is \”%s\”\n”, *var);<br>
+	int * i;<br>
+	i=(int *)malloc(4);<br>
+	*i=100;<br>
+	pthread_exit((void*)i);<br>
+}</p>
+<p>int main(int argc, char * argv[]){   //Argument to be passed as command line argument<br>
+	int * retval;<br>
+	retval = (int *)malloc(4);<br>
+	pthread_t tid;<br>
+	pthread_attr_t attr;<br>
+	pthread_attr_init(&amp;attr);<br>
+	pthread_create(&amp;tid,&amp;attr,func,&amp;argv[1]);<br>
+	pthread_join(tid, (void **)&amp;retval);<br>
+	printf(“retval is %d\n”, *retval);<br>
+}</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-852897">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-852897" title="Permalink to this comment" rel="nofollow">5</a></span>
+<span class="comment_author">Dominic Pritham</span>
+<span class="comment_time">July 22, 2013 at 6:46 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-852897">
+<p>Hi, you mentioned that thread ID can be a structure. And you also 
+mentioned that thread IDs can be compared. In C, can structures be 
+compared? Isn’t it a syntax error if you try to compare two structures?</p>
+<p>Thank you,<br>
+Dominic Pritham</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-981764">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-981764" title="Permalink to this comment" rel="nofollow">6</a></span>
+<span class="comment_author">tweety</span>
+<span class="comment_time">October 14, 2013 at 11:00 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-981764">
+<p>can u tell me when will dosomething function be invocked??</p>
+</div>
+					</dd>
+				</dl>
+				<div id="respond">
+					<div id="respond_intro">
+						<p>Leave a Comment</p>
+					</div>
+					<form action="http://www.thegeekstuff.com/wp-comments-post.php" method="post" id="commentform">
+						<p><input class="text_input" name="author" id="author" tabindex="1" type="text"><label for="author">Name</label></p>
+						<p><input class="text_input" name="email" id="email" tabindex="2" type="text"><label for="email">E-mail</label></p>
+						<p><input class="text_input" name="url" id="url" tabindex="3" type="text"><label for="url">Website</label></p>
+						<p class="comment_box">
+							<textarea name="comment" id="comment" tabindex="4" cols="40" rows="8"></textarea>
+						</p>
+
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" type="checkbox">
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+						<p class="remove_bottom_margin">
+							<input name="submit" class="form_submit" id="submit" tabindex="5" value="Submit" type="submit">
+<input name="comment_post_ID" value="10252" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="f16b8356fe" type="hidden"></p>					</form>
+				</div>
+			</div>
+					<div class="prev_next post_nav">
+						<p class="previous">Previous post: <a href="http://www.thegeekstuff.com/2012/04/upgrade-big-ip-f5-ltm/" rel="prev">How to Upgrade Big-IP F5 LTM from 10.1 to 11.1 (or 9.4 to 11.1)</a></p>
+						<p>Next post: <a href="http://www.thegeekstuff.com/2012/04/ip-routing-intro/" rel="next">Introduction to Linux IP Routing Fundamentals (Part 1)</a></p>
+					</div>
+		</div>
+
+		<div id="sidebars">
+			<div id="sidebar_1" class="sidebar">
+				<ul class="sidebar_list">
+<li class="widget widget_text" id="text-21">			<div class="textwidget"><a title="Subscribe via RSS" href="http://www.thegeekstuff.com/feed" rel="nofollow">RSS</a>&nbsp; | &nbsp;<a title="Subscribe via Email" href="http://feedburner.google.com/fb/a/mailverify?uri=TheGeekStuff&amp;loc=en_US" rel="nofollow">Email</a>&nbsp; | &nbsp;<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Twitter</a>&nbsp; | &nbsp;<a title="Become a fan" href="http://www.facebook.com/thegeekstuff" rel="nofollow">Facebook</a>&nbsp; | &nbsp;<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Google+</a>
+<br><br>
+<form action="http://www.thegeekstuff.com/search" id="cse-search-box">
+  <div>
+    <input name="cx" value="005666763606120661560:zkmegbt_djm" type="hidden">
+    <input name="cof" value="FORID:10" type="hidden">
+    <input name="ie" value="UTF-8" type="hidden">
+    <input style="background: url(&quot;http://www.google.com/cse/intl/en/images/google_custom_search_watermark.gif&quot;) no-repeat scroll left center rgb(255, 255, 255);" name="q" size="40" type="text">
+    <input style="border-color:#CCCCCC #999999 #999999 #CCCCCC; border-style:double; border-width:1px; overflow:visible;" name="sa" value="Search" type="submit">
+  </div>
+<input value="www.thegeekstuff.com/2012/04/create-threads-in-linux/" name="siteurl" type="hidden"><input value="www.google.co.in/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0CDIQFjAB&amp;url=http%3A%2F%2Fwww.thegeekstuff.com%2F2012%2F04%2Fcreate-threads-in-linux%2F&amp;ei=yRTNUom0E8aMrQfYsIGQCA&amp;usg=AFQjCNENdEIbS8toIoyyg5A84_VsRvx4Rw&amp;bvm=bv.59026428,d.bmk&amp;cad=rja" name="ref" type="hidden"><input name="ss" type="hidden"></form>
+<script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/jsapi"></script>
+<script type="text/javascript">google.load("elements", "1", {packages: "transliteration"});</script><script src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/a_002" type="text/javascript"></script><link href="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/transliteration.css" type="text/css" rel="stylesheet"><script src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/transliteration.js" type="text/javascript"></script>
+<script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/t13n"></script>
+<script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/brand"></script>
+<br></div>
+		</li><li class="widget widget_text" id="text-3">			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-8090601437064582";
+/* TGS Right Bar Rectangle Text Ad */
+google_ad_slot = "9054077260";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" width="300" frameborder="0" height="250" scrolling="no"></iframe></ins></ins>
+<br></div>
+		</li><li class="widget widget_text" id="text-18"><h3>COURSE</h3>			<div class="textwidget"><ul>
+<li><a href="http://www.thegeekstuff.com/linux-sysadmin/">Linux Sysadmin CentOS 6 Course</a> - Master the Tools, Configure it Right, and be Lazy</li>
+</ul></div>
+		</li><li class="widget widget_text" id="text-4"><h3>EBOOKS</h3>			<div class="textwidget"><ul>
+<li><img title="Linux 101 Hacks Book" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/free-small.png" alt="Linux 101 Hacks Book">&nbsp;<a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a> - Practical Examples to Build a Strong Foundation in Linux</li>
+<li><a href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a> - Take Control of Your Bash Command Line and Shell Scripting</li>
+<li><a href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a> - Enhance Your UNIX / Linux Life with Sed and Awk</li>
+<li><a href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a> - Practical Examples for Becoming Fast and Productive in Vim Editor</li>
+<li><a href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a> - Monitor Everything, Be Proactive, and Sleep Well</li>
+</ul></div>
+		</li><li class="widget widget_text" id="text-17"><h3>POPULAR POSTS</h3>			<div class="textwidget"><ul>
+<li><a href="http://www.thegeekstuff.com/2009/01/12-amazing-and-essential-linux-books-to-enrich-your-brain-and-library/">12 Amazing and Essential Linux Books To Enrich Your Brain and Library</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 UNIX / Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used UNIX / Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/gtd-getting-things-done/">How To Be Productive and Get Things Done Using GTD</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/30-things-to-do-when-you-are-bored-and-have-a-computer/">30 Things To Do When you are Bored and have a Computer</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/linux-file-system-structure/">Linux Directory Structure (File System Structure) Explained with Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">Linux Crontab: 15 Awesome Cron Job Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">Get a Grip on the Grep! – 15 Practical Grep Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/linux-ls-command-examples/">Unix LS Command: 15 Practical Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/15-examples-to-master-linux-command-line-history/">15 Examples To Master Linux Command Line History</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/bug-tracking-system/">Top 10 Open Source Bug Tracking System</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/01/vi-and-vim-macro-tutorial-how-to-record-and-play/">Vi and Vim Macro Tutorial: How To Record and Play</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! -- 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/best-gmail-tips-and-tricks/">15 Awesome Gmail Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/expertise-in-google-search/">15 Awesome Google Search Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/raid-levels-tutorial/">RAID 0, RAID 1, RAID 5, RAID 10 Explained with Diagrams</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/15-practical-unix-linux-top-command-examples/">Can You Top This? 15 Practical Linux Top Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/top-5-best-network-monitoring-tools/">Top 5 Best System Monitoring Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/top-5-best-linux-os-distributions/">Top 5 Best Linux OS Distributions</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/">How To Monitor Remote Linux Host using Nagios 3.0</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction Tutorial – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/rsync-command-examples/">How to Backup Linux? 15 rsync Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/">The Ultimate Wget Download Guide With 15 Awesome Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/top-5-best-linux-text-editors/">Top 5 Best Linux Text Editors</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/tcpdump-command-examples/">Packet Analyzer: 15 TCPDUMP Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/06/bash-array-tutorial/">The Ultimate Bash Array Tutorial with 15 Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/">3 Steps to Perform SSH Login Without Password Using ssh-keygen &amp; ssh-copy-id</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Unix Sed Tutorial: Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/netstat-command-examples/">UNIX / Linux: 10 Netstat Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/the-ultimate-guide-for-creating-strong-passwords/">The Ultimate Guide for Creating Strong Passwords</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/6-steps-to-secure-your-home-wireless-network/">6 Steps to Secure Your Home Wireless Network</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul></div>
+		</li><li class="widget widget_text" id="text-19"><h3>CATEGORIES</h3>			<div class="textwidget"><ul>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/linux/">Linux Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/vim-2/">Vim Editor</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/sed/">Sed Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/awk/">Awk Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/bash-2/">Bash Shell Scripting</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/nagios-2/">Nagios Monitoring</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/openssh-2/">OpenSSH</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/iptables/">IPTables Firewall</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/apache/">Apache Web Server</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/mysql/">MySQL Database</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/perl/">Perl Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/google/">Google Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/ubuntu/">Ubuntu Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/postgresql/">PostgreSQL DB</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/hello-world/">Hello World Examples</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/c-programming/">C Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/c-plus-plus/">C++ Programming</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/dell-2/">DELL Server Tutorials</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/oracle/">Oracle Database</a></li>
+<li><a rel="nofollow" href="http://www.thegeekstuff.com/category/vmware/">VMware Tutorials</a></li>
+</ul></div>
+		</li><li class="widget widget_text" id="text-20">			<div class="textwidget"><div id="___person_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 106px;"><iframe title="+Badge" data-gapiattached="true" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/person.html" name="I2_1389171968534" id="I2_1389171968534" vspace="0" tabindex="0" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 106px;" marginwidth="0" marginheight="0" hspace="0" width="100%" frameborder="0" scrolling="no"></iframe></div></div>
+		</li>				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+<div class="col_footer1">
+	<ul class="sidebar_list">
+<li id="text-7" class="widget widget_text"><h3>About The Geek Stuff</h3>			<div class="textwidget"><br>
+<img class="float" title="Ramesh Natarajan" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/ramesh-small.gif" alt="Linux 101 Hacks Book">
+My name is <strong>Ramesh Natarajan</strong>. I will be posting 
+instruction guides, how-to, troubleshooting tips and tricks on Linux, 
+database, hardware, security and web. My focus is to write articles that
+ will either teach you or help you resolve a problem. Read more about <a href="http://www.thegeekstuff.com/about/">Ramesh Natarajan</a> and the blog.</div>
+		</li>
+<li id="text-8" class="widget widget_text"><h3>Support Us</h3>			<div class="textwidget"><br>
+Support this blog by purchasing one of my ebooks.
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a></div>
+		</li>
+<li id="text-9" class="widget widget_text"><h3>Contact Us</h3>			<div class="textwidget"><br>
+<strong>Email Me :</strong>
+Use this <a href="http://www.thegeekstuff.com/contact" rel="nofollow">Contact Form</a>
+ to get in touch me with your comments, questions or suggestions about 
+this site. You can also simply drop me a line to say hello!.
+<br><br>
+<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Follow us on Google+</a>
+<br><br>
+<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Follow us on Twitter</a>
+<br><br>
+<a href="http://www.facebook.com/thegeekstuff" rel="nofollow">Become a fan on Facebook</a>&nbsp;&nbsp;</div>
+		</li>
+	</ul>
+</div>
+
+<div class="cb"></div>
+	<p>Copyright © 2008–2013 Ramesh Natarajan. All rights reserved  | 
+<a href="http://www.thegeekstuff.com/copyright">Terms of Service</a> </p>	</div>
+</div>
+</div>
+<!--[if lte IE 8]>
+<div id="ie_clear"></div>
+<![endif]-->
+<script gapi_processed="true" type="text/javascript" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/plusone.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-5302569-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<iframe style="width: 1px; height: 1px; position: absolute; top: -100px;" src="How%20to%20Create%20Threads%20in%20Linux%20%28With%20a%20C%20Example%20Program%29_files/postmessageRelay.html" id="oauth2relay2032822813" name="oauth2relay2032822813"></iframe></body></html>
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Content Delivery Network via Amazon Web Services: CloudFront: static.thegeekstuff.com
+
+ Served from: www.thegeekstuff.com @ 2014-01-08 03:05:21 by W3 Total Cache -->
