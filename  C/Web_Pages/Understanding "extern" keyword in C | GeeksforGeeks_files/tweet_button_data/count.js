@@ -1,1 +1,0 @@
-twttr.receiveCount({"count":10,"url":"http:\/\/www.geeksforgeeks.org\/understanding-extern-keyword-in-c\/"});
