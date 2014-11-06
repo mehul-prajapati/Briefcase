@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ServerDebugging</title>
+
+<link rel="stylesheet" href="ServerDebugging_files/style.css" type="text/css">
+<link rel="stylesheet" href="ServerDebugging_files/xorg.css" type="text/css">
+
+<link rel="stylesheet" href="ServerDebugging_files/local.css" type="text/css">
+
+
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://secure.freedesktop.org/write/xorg/ikiwiki.cgi?page=Development%2FDocumentation%2FServerDebugging&amp;do=edit">
+
+
+
+
+
+</head>
+<body>
+
+<div class="page">
+<div class="pageheader">
+<div class="header">
+<span class="logo"><img src="ServerDebugging_files/logo.png"></span>
+
+
+<form method="get" action="http://www.google.com/search" id="searchform">
+ <div>
+  <input name="sitesearch" value="http://www.x.org/wiki/" type="hidden">
+  <input name="q" id="searchbox" size="16" maxlength="255" type="text">
+ </div>
+</form>
+
+
+<span class="headerpath">
+<span class="parentlinks">
+
+<a href="http://www.x.org/wiki/">xorg</a>/ 
+
+<a href="http://www.x.org/wiki/Development/">Development</a>/ 
+
+<a href="http://www.x.org/wiki/Development/Documentation/">Documentation</a>/ 
+
+</span>
+<span class="title">
+ServerDebugging
+
+</span>
+</span>
+</div>
+
+
+<span class="actions">
+<ul>
+
+<li><a href="https://secure.freedesktop.org/write/xorg/ikiwiki.cgi?page=Development%2FDocumentation%2FServerDebugging&amp;do=edit" rel="nofollow">Edit</a></li>
+
+
+
+<li><a href="https://secure.freedesktop.org/cgit/xorg/log/Development/Documentation/ServerDebugging.mdwn">Page History</a></li>
+
+
+<li><a href="https://secure.freedesktop.org/cgit/xorg/">Repo Info</a></li>
+
+
+
+
+</ul>
+</span>
+
+
+
+
+
+
+</div>
+
+
+
+<div id="pagebody">
+
+<div id="content">
+<h1 id="debuggingthexserver"><a name="index1h1"></a>Debugging the Xserver</h1>
+
+<div class="toc">
+	<ol>
+		<li class="L2"><a href="#index1h2">Prerequisites</a>
+		</li>
+		<li class="L2"><a href="#index2h2">The basics</a>
+		</li>
+		<li class="L2"><a href="#index3h2">All the gdb commands you'll ever need</a>
+		</li>
+		<li class="L2"><a href="#index4h2">Things that can go wrong</a>
+		</li>
+		<li class="L2"><a href="#index5h2">Further information</a>
+		</li>
+		<li class="L2"><a href="#index6h2">Debugging with one machine</a>
+		</li>
+		<li class="L2"><a href="#index7h2">Debugging with gdbserver</a>
+		</li>
+	</ol>
+</div>
+
+<p>This minihowto attempts to explain how to debug the X server, 
+particularly in the case where the server crashes.  It assumes a basic 
+familiarity with unix and a willingness to risk deadlocking the machine.</p>
+
+<p>Just as a warning, if you try this with a closed-source driver, the output is not likely to be very useful.</p>
+
+<h2 id="prerequisites"><a name="index1h2"></a>Prerequisites</h2>
+
+<p>You'll really want to have a second machine around.  It's very 
+difficult to debug the X server from within itself; when it stops and 
+returns control to the debugger, you won't be able to send events to the
+ xterm running your debugger.  ssh is your friend here.  If you don't 
+have a second machine, see the <a href="http://www.x.org/wiki/Development/Documentation/ServerDebugging/#OneMachine">Debugging with one machine section</a>, and good luck.</p>
+
+<p>Your gdb needs to be reasonably recent, 5.3 or better is probably good.</p>
+
+<p>And of course, you'll need a reproduceable way of crashing the X 
+server, but if you've read this far you've probably got that already.  
+This is your testcase.</p>
+
+<h3 id="debugsupport"><a name="index1h3"></a>Debug support</h3>
+
+<p>If you're debugging with a modern distribution, then they probably 
+already have 'debuginfo' packages available.  These packages (usually 
+quite large) include the debugging symbols for the software you have 
+installed, which makes tools like gdb much more useful.  Refer to your 
+distro's documentation for details on how to install these.  You'll 
+probably want at least the debuginfo for the X server itself, and for 
+the video driver you're using.  For example, on a Fedora machine, you'd 
+say:</p>
+
+<pre>debuginfo-install xorg-x11-server-Xorg xorg-x11-drv-ati</pre>
+
+<p>On Debian or Ubuntu you'd say</p>
+
+<pre>apt-get install xserver-xorg-core-dbg xserver-xorg-video-ati-dbg</pre>
+
+<p>Otherwise, if you're building X yourself, you'll need to have built X
+ with debugging information.  To pass compiler flags in at build time, 
+say:</p>
+
+<pre>  CFLAGS='-O0 -g3' ./configure --prefix=...</pre>
+
+<p>All the normal configure options should work as expected.  You may 
+want to put your debuggable server in a different prefix.  Be careful of
+ <code>ModulePath</code> and other such path statements in your <code>xorg.conf</code>.</p>
+
+<p>Remember that if you're trying to debug into a driver, you'll want to
+ repeat this step for the driver as well as for the server core.</p>
+
+<h2 id="thebasics"><a name="index2h2"></a>The basics</h2>
+
+<p>Start the server normally.  Go over to your second machine and ssh into the first one.  <code>su root</code>, and type</p>
+
+<pre>gdb /opt/xorg-debug/Xorg $(pidof Xorg)</pre>
+
+<p>or</p>
+
+<pre>gdb /usr/bin/Xorg $(pidof X)</pre>
+
+<p>depending on your setup.</p>
+
+<p>Note that even when running with a ssh, X might cripples the console. You can avoid this by passing this option:</p>
+
+<pre>  -keeptty         don't detach controlling tty (for debugging only)</pre>
+
+<p>gdb will attach to the running server and spin for a while reading in symbols from all the drivers.  Eventually you'll reach a <code>(gdb)</code> prompt. Notice that the X server has halted; type <code>cont</code> at the gdb prompt to continue executing.</p>
+
+<p>Go back to the machine running X, and run your testcase.  This time, 
+instead of the server crashing, it should freeze, and gdb should tell 
+you the server got a signal (usually SIGSEGV), as well as the function 
+and line of code where the problem happened.  An example looks like:</p>
+
+<pre>  Program received signal SIGSEGV, Segmentation fault.
+  0x403245a3 in fbBlt (srcLine=0xc1a1c180, srcStride=59742, srcX=0,
+                dstLine=0x4240cb6c, dstStride=1152, dstX=0, width=32960, height=764,
+                alu=-1046602744, pm=1111538028, bpp=32, reverse=0, upsidedown=0)
+                at fbblt.c:174
+  174     *dst++ = FbDoDestInvarientMergeRop(*src++);</pre>
+
+<p>This by itself is pretty helpful, but there's more info out there.  At the gdb prompt, type <code>bt f</code> for a full stack backtrace.  (Warning, this will be long!)  This dumps out the full call chain of functions from <code>main()</code>
+ on down, as well as the arguments they were called with and the value 
+of all local variables.  Keep hitting enter until you get back to the 
+gdb prompt.</p>
+
+<p>Get your mouse out, copy all the output from "Program received..." on
+ down, and paste it into a file on your second machine.  Type <code>detach</code> at the gdb prompt to detach gdb from the server and let it finish crashing.  Go to <a href="http://bugs.freedesktop.org/">http://bugs.freedesktop.org/</a>
+ and file a new bug describing the testcase.  Attach the gdb output to 
+the bug (please don't just paste it into the comments section).</p>
+
+<h2 id="allthegdbcommandsyoulleverneed"><a name="index3h2"></a>All the gdb commands you'll ever need</h2>
+
+<p>For any gdb command, you can say "help <command>" at the (gdb) prompt to get a (hopefully informative) explanation.</command></p>
+
+<ul>
+<li><code>bt</code> - Prints a stack backtrace.  This shows all the functions that you are currently inside, from <code>main()</code> on down to the point of the crash, along with their arguments.  Appending the word <code>full</code> (or just the letter <code>f</code>) also prints out the value of all the local variables within each function.</li>
+<li><code>list</code> - Prints the source around the current frame. When
+ invoked multiple times, it will print the next lines, making it useful 
+for quick code inspection. "<code>list -</code>" prints the source code 
+backwards (starting from the current frame). This is useful to inspect 
+the lines of code that led to an error.</li>
+<li><code>break</code> / <code>clear</code> - <code>break</code> sets a 
+breakpoint.  When execution reaches a breakpoint, the debugger will stop
+ the program and return you to the gdb prompt.  You can set breakpoints 
+on functions, lines of code, or individual instructions; see the help 
+text for details.  <code>clear</code>, naturally, clears a breakpoint.</li>
+<li><code>step</code> / <code>next</code> - <code>step</code> and <code>next</code> allow you to manually advance the program's execution.  <code>next</code> runs the program until you reach a different source line; <code>step</code> does the same thing, but also descends into called functions.</li>
+<li><code>continue</code> - continue the program normally until the next breakpoint is hit.</li>
+<li><code>print</code> - Prints the expression.  You can specify 
+variable names, registers, and absolute addresses, as well as more 
+complex expressions (<code>help print</code> for details).  Variable 
+names have to be resolveable, which means they either have to be local 
+variables within the current stack frame or global variables.  Register 
+names start with a <code>$</code> sign, like <code>print $eax</code>.  Addresses are specified as numbers, like <code>print 0xdeadbeef</code>.
+                     * Expressions can be fairly complex.  For example, if you have a pointer to a structure named <code>foo</code>, <code>print foo</code> will print the memory address that foo points to, <code>print *foo</code> will print the structure being pointed too, and <code>print foo-&gt;bar</code> will print the bar member of the foo structure.</li>
+<li><code>handle</code> - Tells the debugger how to handle various 
+signals.  The defaults are mostly sensible, but there are two you may 
+wish to change.  SIGPIPE is generated when a client dies, which you may 
+not always care about, and SIGUSR1 is generated on VT switch.  By 
+default, the debugger will halt the running process when it receives 
+these signals; to change this, say <code>handle SIGPIPE nostop</code> and <code>handle SIGUSR1 nostop</code>. (Note: Don't use <code>handle SIGUSR1 ignore</code>
+ or you can confuse things quite badly---for example, having multiple X 
+servers simultaneously active on the same VT can be very confusing.)</li>
+<li><code>set environment</code> - Sets environment variables.  The syntax is <code>set environment name value</code>; don't use an = sign like in bash, it won't do what you expect.</li>
+<li><code>run</code> - Runs the program.  If you only specify a program 
+name on the command line (and not a process ID or a core file), gdb will
+ load the program but not start running it until you say so.  Arguments 
+to <code>run</code> are passed verbatim to the child process, eg <code>run :0 -verbose -ac</code>.</li>
+<li><code>kill</code> - Kills the program being debugged.  Not always useful, you'd often rather say...</li>
+<li><code>detach</code> - which detaches the debugger from the running program, which can then shut down gracefully.</li>
+<li><code>disassemble</code> - Prints the assembly instructions being 
+executed, starting at the current source line.  You can also specify 
+absolute memory references or function names to start disassembly 
+somewhere other than the default.  Only useful if you can read the 
+assembly language of your CPU.</li>
+<li><code>finish</code> - Continue until exit of current function. Will also print the return value of the function (if applicable).</li>
+</ul>
+
+<p>Note that most commands can be used in an abbreviated version (e.g. <code>n</code> instead of <code>next</code>). Just try it yourself!</p>
+
+<h2 id="thingsthatcangowrong"><a name="index4h2"></a>Things that can go wrong</h2>
+
+<p>The biggest thing to watch out for is attempting to print memory 
+contents when that memory is located on the video card.  It won't work, 
+on x86 anyway, for some not-very-interesting reasons.  You'll know when 
+you did it because the machine will deadlock and you'll have to reboot. 
+ See the DebuggingHints file (below) for workarounds.</p>
+
+<p>Some issues with running X under gdb may be resolved by passing the <code>-dumbSched</code>
+ option to the X server. This worked for me to resolve crashes of gdb 
+6.3 and strange loops in gdb 5.3.  You'll know if you need this option 
+because gdb will get very confused by SIGALRM. Even if gdb isn't 
+misbehaving, the -dumbSched option can be very helpful to avoid the 
+SIGALRM peridocially interrupting your debugging session.</p>
+
+<p>Likewise, some gdb versions crash when starting the X server when 
+attempting to run xkbcomp.  This is, amazingly enough, a bug in the 
+kernel's DRM code for suppressing some signals; it should be fixed in 
+2.6.28 if not earlier.  You can disable XKB by passing the <code>-kb</code>
+ option on the server's command line; obviously if you're trying to 
+debug XKB this may cause you some problems and you're probably better 
+off attaching gdb to a running X instead.  Alternatively, disable DRI, 
+but again, if DRI is the thing you're trying to debug, that won't help.</p>
+
+<p>When you compile with optimization, the values printed by bt can 
+sometimes be confusing.  Some variables can get optimized out of 
+existance, some variables occupy the same position on the stack during 
+different parts of a function's execution, and some functions might not 
+show up on the stack at all.  Also, single-stepping can be confusing 
+because the function might get executed in a different order than listed
+ in the source if the compiler determines that's safe to do.  gcc 4.0 
+seems to be <strong>much</strong> more aggressive at confusing the 
+debugger than earlier versions, although it does emit more debugging 
+information such that you'll at least know when variables have been 
+optimized away.  As always, lowering the optimization level improves 
+debuggability.</p>
+
+<h2 id="furtherinformation"><a name="index5h2"></a>Further information</h2>
+
+<p>There is a DebuggingHints file available <a href="http://cgit.freedesktop.org/xorg/xserver/tree/hw/xfree86/doc/devel/DebuggingHints?id=9508a382f8a9f241dab097d921b6d290c1c3a776">online</a>.
+ It contains a lot of helpful (if very dated) information on how to 
+debug the server, including how to dump PCI memory without deadlocking 
+the machine.  In particular, you'll want to read this if you're trying 
+to debug a server older than 6.9.</p>
+
+<p><a name="OneMachine"></a></p>
+
+<h2 id="debuggingwithonemachine"><a name="index6h2"></a>Debugging with one machine</h2>
+
+<h3 id="version1"><a name="index2h3"></a>Version 1</h3>
+
+<p>The script below allows you to run the server in gdb and catch the 
+gdb output in a file. You cannot interactively control gdb, however the 
+Xserver should not hang gdb by stopping inside the debugger while you 
+cannot control it from a terminal. Store the following script in some 
+file (for example: <code>/tmp/Xdbg</code>:</p>
+
+<pre>#!/bin/sh
+
+#GDB=...
+#XSERVER=...
+
+ARGS=$*
+PID=$$
+
+test -z "$GDB" &amp;&amp; GDB=gdb
+test -z "$XSERVER" &amp;&amp; XSERVER=/usr/bin/Xorg
+
+cat &gt; /tmp/.dbgfile.$PID &lt;&lt; HERE
+file $XSERVER
+set confirm off
+set args $ARGS
+handle SIGUSR1 nostop
+handle SIGUSR2 nostop
+handle SIGPIPE nostop
+run
+bt full
+cont
+quit
+HERE
+
+$GDB --quiet --command=/tmp/.dbgfile.$PID &amp;&gt; /tmp/gdb_log.$PID
+
+rm -f /tmp/.dbgfile.$PID
+echo "Log written to: /tmp/gdb_log.$PID"</pre>
+
+<p>Then (as root) do:</p>
+
+<pre>chmod u+x /tmp/Xdbg
+mv /usr/X11R6/bin/X /usr/X11R6/bin/X.org
+ln -sf /tmp/Xdbg /usr/X11R6/bin/X</pre>
+
+<p>If you are using a module aware debugger you should remove the comment sign <code>#</code> form the line starting with <code>#GDB</code> and add the full path to your debugging gdb. You can now start your Xserver like normal. Note, that if you use <code>startx</code> you should do so as root. When the Xserver crashes the output of the server should have been written to <code>/tmp/gdb_log.&lt;number&gt;</code> together with a backtrace. If your Xserver resides at some other place you can use the <code>XSERVER</code> environment variable to specify the path. To restore the previous setup do:</p>
+
+<pre>mv /usr/X11R6/bin/X.org /usr/X11R6/bin/X</pre>
+
+<h3 id="version2"><a name="index3h3"></a>Version 2</h3>
+
+<p>If you only have one machine available, you might be able to pry some
+ useful information from the server when it crashes.  The downside is 
+that it will probably halt your machine entirely rather than just 
+crashing X.</p>
+
+<p>Edit your xorg.conf file and find the <span class="createlink"><a href="https://secure.freedesktop.org/write/xorg/ikiwiki.cgi?page=ServerFlags&amp;from=Development%2FDocumentation%2FServerDebugging&amp;do=create" rel="nofollow">?</a>ServerFlags</span> section.  Uncomment the</p>
+
+<pre>  Option "NoTrapSignals"</pre>
+
+<p>line (or add it if it doesn't exist).  This will prevent the server 
+from catching fatal signals, which should cause core dumps instead.  
+(You need to make sure you have core dumps enabled for the server by 
+removing the appropriate ulimit; see the <code>ulimit</code> command in the bash man page for details.)</p>
+
+<p>The problem here is the same as mentioned earlier; the core dump will
+ attempt to included mmap()'d sections of card memory, which will make 
+the machine freeze.  Usually the core dump is informative enough to at 
+least give a partial backtrace.</p>
+
+<p>Once you've crashed the machine, find the core file and load it in gdb:</p>
+
+<pre>  gdb `which Xorg` /path/to/core/file</pre>
+
+<p>and try to <code>bt f</code> like normal.  Fortunately at this point you can't make the machine crash again.</p>
+
+<p><a name="GdbServer"></a></p>
+
+<h2 id="debuggingwithgdbserver"><a name="index7h2"></a>Debugging with gdbserver</h2>
+
+<p>Run X on the target using gdbserver, listening on (for example) port 2500:</p>
+
+<pre>  gdbserver :2500 /usr/bin/X</pre>
+
+<p>Attach to the running process from gdb, running it from an 
+environment in which you have Xorg installed. In my case, this is a 
+chroot environment. If I try to debug the program from the host 
+environment, without chrooting into my Xorg build environment, gdb 
+cannot find the symbols correctly.</p>
+
+<pre>root:/usr/src/xc-build# gdb
+GNU gdb 6.3
+Copyright 2004 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i686-pc-linux-gnu".
+(gdb) file programs/Xserver/Xorg
+Reading symbols from /usr/src/xc-build/programs/Xserver/Xorg...done.Using host libthread_db library "/lib/libthread_db.so.1".
+(gdb) target remote 192.168.0.134:2401
+Remote debugging using 192.168.0.134:2401
+0xb7fed7b0 in ?? ()
+(gdb) c
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+0xb7a92524 in GXDisplayVideo (pScrni=0x828bd38, id=0xb7aa9490, offset=0x17,
+    width=0x82a, height=0xe730, pitch=0xb7aa946c, x1=0x8289920, y1=0x0,
+    x2=0x0, y2=0x0, dstBox=0x82ae680, src_w=0x82a, src_h=0xe794, drw_w=0x828,
+    drw_h=0x8638) at amd_gx_video.c:849
+849        GFX(set_video_enable(1));
+(gdb)</pre>
+
+<p>Note in this example that I specify the program to be debugged with a gdb command to read the Xorg symbols:</p>
+
+<pre>  (gdb) file programs/Xserver/Xorg</pre>
+
+<p>This is simply an alternative to running gdb like this:</p>
+
+<pre>  gdb programs/Xserver/Xorg</pre>
+
+</div>
+
+
+
+
+
+</div>
+
+<div id="footer" class="pagefooter">
+
+<div id="pageinfo">
+
+
+
+
+
+
+<div id="backlinks">
+Links:
+
+<a href="http://www.x.org/wiki/Development/">Development</a>
+
+
+</div>
+
+
+
+
+
+
+<div class="pagedate">
+Last edited <span class="date">Sun 25 Aug 2013 03:39:48 PM PDT</span>
+<!-- Created <span class="date">Mon 08 Jul 2013 12:19:54 AM PDT</span> -->
+</div>
+
+</div>
+
+
+<!-- from xorg -->
+</div>
+
+</div>
+
+
+
+</body></html>

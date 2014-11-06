@@ -1,0 +1,1408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-cn"><head><script src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/analytics.js" async=""></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Linux 2.2 Framebuffer Device Programming Tutorial  - 浙林龙哥 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/bundle-BlackSun.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/huqingyu/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/huqingyu/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/huqingyu/wlwmanifest.xml">
+<script src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/gpt.js" type="text/javascript" async=""></script><script src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'huqingyu', cb_enable_mathjax=false;</script>
+<script src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/blog-common.js" type="text/javascript"></script>
+<script src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/pubads_impl_52.html" type="text/javascript" async=""></script></head>
+<body>
+<a name="top"></a>
+
+<div id="top">
+	
+<div>
+	<table class="HeaderTitles">
+		<tbody><tr>
+			<td>
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/huqingyu/">浙林龙哥</a></h1>
+				<p id="tagline"></p>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+<div>
+	<table id="HeaderBar" class="HeaderBar">
+		<tbody><tr>
+			<td class="HeaderBarTab" nowrap="nowrap">
+				
+&nbsp;
+&nbsp;::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/huqingyu/">首页</a>&nbsp;::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e6%b5%99%e6%9e%97%e9%be%99%e5%93%a5">联系</a>&nbsp;::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/huqingyu/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/huqingyu/rss"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/xml.gif" alt="订阅"></a>&nbsp;::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://i.cnblogs.com/">管理</a>
+
+			</td>
+			
+			<td class="HeaderBarTabBack" width="100%" nowrap="nowrap">
+				
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+</div>
+<table id="maintable">
+	<tbody><tr><td id="leftmenu">
+	
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/huqingyu/">浙林龙哥</a><br>园龄：<a href="http://home.cnblogs.com/u/huqingyu/" title="入园时间：2004-06-11">10年4个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/huqingyu/followers/">70</a><br>关注：<a href="http://home.cnblogs.com/u/huqingyu/followees/">2</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('8c81310b-63cf-dd11-9e4d-001cf0cd104b')">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn">
+<div class="mainMenuBackground">
+
+		<h3>随笔分类<span style="font-size:11px;font-weight:normal">(1192)</span></h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/huqingyu/category/4262.html">.Text 0.958 安装&amp;问题解决方案(12)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/huqingyu/category/4813.html">ASP.NET&amp;JSP(107)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/huqingyu/category/4983.html">C/C++(116)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/huqingyu/category/6676.html">COM(7)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/huqingyu/category/5114.html">DNN&amp;dotText研究(7)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/huqingyu/category/14208.html">FC游戏回顾(1)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/huqingyu/category/192513.html">Flex(2)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/huqingyu/category/5569.html">Java&amp;C#(257)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/huqingyu/category/5673.html">Linux(185)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/huqingyu/category/6333.html">PHP &amp; MySql &amp; Apache(62)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/huqingyu/category/6821.html">UML(4)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/huqingyu/category/4413.html">Wix、VBScript、JavaScript脚本(93)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/huqingyu/category/6492.html">XP与敏捷开发(13)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/huqingyu/category/6678.html">泛型编程(4)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/huqingyu/category/16772.html">汇编(5)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/huqingyu/category/5730.html">精(5)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/huqingyu/category/18372.html">日文学习(9)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/huqingyu/category/11562.html">软件开发(25)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/huqingyu/category/18055.html">生老病死</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/huqingyu/category/5886.html">数据库(87)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/huqingyu/category/15911.html">我的歌(1)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/huqingyu/category/6659.html">系统/安全(44)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/huqingyu/category/6116.html">系统分析师(19)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/huqingyu/category/9701.html">线程(1)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/huqingyu/category/120810.html">邮件协议(7)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/huqingyu/category/31075.html">源码管理软件(14)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/huqingyu/category/4412.html">杂文(105)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>Agile</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_1_Link_0" href="http://www.qca.cn/" rel="nofollow">敏捷中国</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>C/C++</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_0" href="http://www.sleepycat.com/download/index.shtml" rel="nofollow">berkeleydb下载</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_1" href="http://www.programmershelp.co.uk/c++compilers.php" rel="nofollow">C++</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_2" href="http://www.allaboutprogram.com/" rel="nofollow">C++高手</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_3" href="http://comcamp.myrice.com/techarticles/" rel="nofollow">COM集中营</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_4" href="http://www.crazy-bit.com/history.htm" rel="nofollow">crazybit</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_5" href="http://www.bloodshed.net/dev/index.html" rel="nofollow">Dev-C++</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_6" href="http://www.viksoe.dk/" rel="nofollow">WTL</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_7" href="http://yellowcxx.blogchina.com/" rel="nofollow">WTL-blog</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_8" href="http://i18n.linux.net.cn/others/wxWindowstut/wxTutorial.html" rel="nofollow">wxWindows中文说明</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_9" href="http://blog.csdn.net/ZengMuAnSha/archive/2004/10/13/135477.aspx">ZengMuAnSha的blog</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_10" href="http://purec.binghua.com/" rel="nofollow">纯C网站</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_11" href="http://members.fortunecity.com/superjiang/" rel="nofollow">江的C++</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_2_Link_12" href="http://www.winmsg.com/cn/orbit.htm" rel="nofollow">星轨工作室</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>Linux</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_3_Link_0" href="http://www.jpackage.org/rpm.php?id=1885" rel="nofollow">Java的RPM</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_3_Link_1" href="http://www.linuxsir.org/" rel="nofollow">LinuxSir</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_3_Link_2" href="http://www.monstersoft.com/tutorial1/" rel="nofollow">VESA</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			<li class="c_b_p_link_desc">VESA</li>
+				<li class="menuItemList">
+					<a id="CatList_LinkList_3_Link_3" href="http://www.brackeen.com/home/vga/" rel="nofollow">VGA</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_3_Link_4" href="http://263.aka.org.cn/Lectures/index.html" rel="nofollow">阿卡系列讲座</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_3_Link_5" href="http://www.xtrj.org/" rel="nofollow">中国微内核小组</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>PostgresQL</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_0" href="http://bbs.chinaunix.net/forum/" rel="nofollow">ChinaUinx论坛</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_1" href="http://sources.redhat.com/cygwin/" rel="nofollow">CygWin</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_2" href="http://gborg.postgresql.org/project/npgsql/projdisplay.php" rel="nofollow">Npgsql</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_3" href="http://www.postgresql.org/" rel="nofollow">PostgresQL英文</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_4" href="http://www.pgsqldb.org/" rel="nofollow">PostgresQL中文</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_5" href="http://techdocs.postgresql.org/guides/Windows" rel="nofollow">windows中的PostgreSQL</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_6" href="http://gborg.postgresql.org/" rel="nofollow">开发PostgresQL站点</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_7" href="http://www.postgresql.idv.tw/" rel="nofollow">台湾的PostgreSQL</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_8" href="http://www.pgsql.com.tw/" rel="nofollow">台湾的PostgressQL</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_4_Link_9" href="http://www.pgsql.com.tw/" rel="nofollow">台湾的PostgressQL</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>UML</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_5_Link_0" href="http://www.iturls.com/SoftwareEngineering/SE_62.asp" rel="nofollow">IT之源</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_5_Link_1" href="http://www.sawin.com.cn/satech.asp?class=UML" rel="nofollow">sawin UML</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_5_Link_2" href="http://www.aspcool.com/lanmu/browse.asp?bbsuser=uml" rel="nofollow">UML教程</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_5_Link_3" href="http://www.uml.org.cn/" rel="nofollow">UML组织</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_5_Link_4" href="http://www.parlezuml.com/" rel="nofollow">国外UML(en)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>常用网址</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_0" href="http://blog.csdn.net/hqhe1982/" rel="nofollow">hqhe的blog</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_1" href="http://www.littleguru.net/opf/" rel="nofollow">OPF</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_2" href="http://www.cfarm.cn/" rel="nofollow">村营聚落</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_3" href="http://codechina.com/" rel="nofollow">代码中国</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_4" href="http://www.hzbus.com.cn/" rel="nofollow">杭州公交查询</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_5" href="http://218.75.24.94/view/list.exl" rel="nofollow">虹桥中学VOD</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_6" href="http://www.jhjxj.gov.cn/test/stand.aspx" rel="nofollow">驾照考</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_7" href="http://newdos.yginfo.net/dosart.htm" rel="nofollow">令人怀旧的DOS</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_8" href="http://www.w3schools.com/html/ref_color_tryit.asp?color=GhostWhite" rel="nofollow">配色网站</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_9" href="http://computer.mblogger.cn/wucountry" rel="nofollow">侠缘的blog</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_10" href="http://resource.gameres.com/" rel="nofollow">游戏</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_11" href="http://www.zjlib.net.cn/default.asp" rel="nofollow">浙江图书馆</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_12" href="http://www.microsoft.com/china/MSDN/library/default.mspx" rel="nofollow">中文MSDN</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_6_Link_13" href="http://leoboard.cpatch.org/cgi-bin/leoboard.cgi" rel="nofollow">中文化论坛</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>泛型编程</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_7_Link_0" href="http://www.c-view.org/" rel="nofollow">C-View</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>脚本</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_0" href="http://www.designdetector.com/tips.php" rel="nofollow">CSS Demo</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_1" href="http://www.onestab.net/a/pie/index.html" rel="nofollow">CSS网页布局</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_2" href="http://www.dynamicdrive.com/" rel="nofollow">DHTML</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_3" href="http://www.activewidgets.com/download/" rel="nofollow">DHTML网站</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_4" href="http://www.w3schools.com/" rel="nofollow">DOM学习</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_5" href="http://www.breakingpar.com/" rel="nofollow">javascript脚本</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_6" href="http://www.regular-expressions.info/javascript.html" rel="nofollow">javascript正则表达式</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_7" href="http://www.quirksmode.org/" rel="nofollow">quirksmode</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_8" href="http://alumni.sdau.edu.cn/" rel="nofollow">网页特效</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_8_Link_9" href="http://www.hprx.com/8/my/dw/xl1.htm" rel="nofollow">一个很好的网页代码站点(下拉框等)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>日文</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_9_Link_0" href="http://www.digital-lib.nttdocomo.co.jp/kikakuten/mukashi/mukashi4/index.html" rel="nofollow">日本图书馆</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>软件开发</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_0" href="http://www.reflectionit.nl/Downloads.aspx" rel="nofollow">ASP.NET1</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_1" href="http://www.isk.kth.se/kursinfo/6b2025/lectures/" rel="nofollow">C#&amp;java算法(not english)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			<li class="c_b_p_link_desc">C#&amp;java算法(not english)</li>
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_2" href="http://input.cpatch.org/" rel="nofollow">DOS下的文字</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_3" href="http://202.107.76.62/list.asp?boardid=5" rel="nofollow">DOS小游戏</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_4" href="http://msdnportal.csdn.net/dotnetsamples/default.html" rel="nofollow">dotNet范例</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_5" href="http://php.freehostingguru.com/" rel="nofollow">PHP帮助站点</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_6" href="http://www.openphp.cn/index.php" rel="nofollow">PHP中文站</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_7" href="http://svnbook.red-bean.com/" rel="nofollow">SubVersion</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_8" href="http://www.unet.univie.ac.at/aix/aixprggd/genprogc/toc.htm" rel="nofollow">Writing and Debugging Programs</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			<li class="c_b_p_link_desc">General Programming Concepts: Writing and Debugging Programs Second Edition (September 1999)
+</li>
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_9" href="http://www.tigris.org/" rel="nofollow">wxWindows开发团体</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_10" href="http://www.open-open.com/07.htm" rel="nofollow">开源大全</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			<li class="c_b_p_link_desc">有工作流、ＡＯＰ、ＩＯＣ等等</li>
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_11" href="http://visualwx.altervista.org/" rel="nofollow">可视化编程VisualWX</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_12" href="http://www.php5.idv.tw/" rel="nofollow">台湾的一个PHP站</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_10_Link_13" href="http://www.luocong.com/" rel="nofollow">一个较好的汇编个人网站（罗聪）</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>搜索</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_11_Link_0" href="http://www.cnblog.org/grassland/" rel="nofollow">cnblog</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>系统分析师</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_0" href="http://www.51cmm.com/" rel="nofollow">CMM</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_1" href="http://www.umlchina.com/" rel="nofollow">UML中国</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_2" href="http://www.csai.cn/xp/index.htm" rel="nofollow">XP与敏捷开发</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_3" href="http://www.csai.cn/std/index.htm" rel="nofollow">标准化知识</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_4" href="http://www.sawin.com.cn/" rel="nofollow">系统分析之窗</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_5" href="http://www.csai.cn/bqbh/index.htm" rel="nofollow">有关法律</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_6" href="http://www.csai.cn/" rel="nofollow">中国系统分析员</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_12_Link_7" href="http://www.csai.cn/aca/index.htm" rel="nofollow">专业英语</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+		<h3>下载</h3>
+		
+				<ul>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_0" href="http://www.asp.net/whitepaper/aspnethotfixes.html" rel="nofollow">.NET Hot Fix</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_1" href="http://doshome.com/soft/SoftView/SoftView_16.html" rel="nofollow">DOS之家</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_2" href="http://sourceforge.net/projects/maxvirtual/" rel="nofollow">Generic ADO.net Data Access: Summary </a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_3" href="http://www.lostinet.com/files/" rel="nofollow">Lostinet</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_4" href="http://aleron.dl.sourceforge.net/sourceforge/nunit/Nunit-V2.1.4.msi" rel="nofollow">Nunit</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_5" href="http://www.pdriver.com/pb03/12/objectspacesFor2003.msi" rel="nofollow">ObjectSpace(C#OR工具)</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_6" href="http://www.microsoft.com/downloads/search.aspx?displaylang=zh-cn&amp;categoryid=7" rel="nofollow">windows补丁</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				<li class="menuItemList">
+					<a id="CatList_LinkList_13_Link_7" href="http://www.qzcc.com/nalyc/down.htm" rel="nofollow">常有工具</a>
+					<span style="width:10px">
+						
+					</span> 
+				</li>
+			
+				</ul>
+			
+	
+</div>
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		1115668
+	</li><li>
+		排名 -
+		37
+	</li>
+</ul>
+<div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/huqingyu/archive/2007/07/01/801923.html">1. VC多线程编程(转)(3)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2009/02/07/1385772.html">2. 关于SqlServer服务无法启动的症状分析和解决方法(2)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2004/07/09/22721.html">3. 从C#的Singleton设计模式(2)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2004/07/09/22714.html">4. 整理了一些SQL数据库技巧(1)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2011/03/08/1977018.html">5. [javascript]数组去重(1)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2010/09/10/1823113.html">6. 中国国家授时中心的时间服务器IP地址及时间同步方法(1)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2010/05/24/1742741.html">7. oracle insert in ibatis3(1)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2008/04/16/1156471.html">8. Swt/Jface tableViewer入门教程三(加入在表格上直接编辑数据) (1)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2008/04/09/1145894.html">9. JTree树控件的使用 (1)</a></li><li><a href="http://www.cnblogs.com/huqingyu/archive/2005/07/29/202850.html">10. VC编译选项(1)</a></li></ul></div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</td><td id="main">
+	
+
+<div class="post">
+			<div class="postTitle">
+				<a id="cb_post_title_url" href="http://www.cnblogs.com/huqingyu/archive/2005/03/05/113634.html">Linux 2.2 Framebuffer Device Programming Tutorial </a>
+			</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>This is a quick document I produced 
+while figuring out how to use the framebuffer device to produce graphics
+ on the Linux console. I don't claim to be an expert in this area, but 
+when I looked for a general guide to doing this, I found absolutely 
+nothing, except the header file &lt;linux/fb.h&gt; </p>
+<p>Therefore, this is meant to be a jump-start guide for those who want 
+to begin using graphics in the linux console. Hopefully someone out 
+there will write a decent graphical browser, so I don't have to start up
+ X every time I want to surf! </p>
+<p>As always, no warranty, express or implied...etc. Give me a break, I 
+took my first look at this device less than 24 hours ago! Any 
+corrections, money, gifts, etc. (I wish!), just <a href="mailto:james.dabell@linuxstart.com">contact me</a> <br>You
+ may freely distribute this document, as long as you do not change it in
+ any way, and credit me as author. In particular, I encourage Linux 
+distributions to include this in their packages, as I feel there isn't 
+half as much programming information in most distributions as there 
+ought to be. Copyright James Dabell, May 1999. <br>This document was last updated June 11th, 1999. (Corrections from Joerg Beyer &amp; Ian Thompson-Bell) </p>
+<p><u><b>Part One:</b></u> </p>
+<p>First of all, configure your system for the framebuffer console 
+device. It may come in handy. Note that the device is only available for
+ graphics cards that implement VESA 2.0. Fortunately, virtually all 
+recent cards out there do this. </p>
+<p>When you have got high-res textmodes, then you can start 
+experimenting. You will have a device /dev/fb0 that you can look at like
+ any normal file. To take a screenshot, all you have to do is </p><pre>cat /dev/fb0 &gt; ~/sshot
+        </pre>
+<p>And you will have a pretty big file with the contents of your 
+graphics card's memory inside. Now, if you clear the screen, and type </p><pre>cat ~/sshot &gt; /dev/fb0
+        </pre>
+<p>You should have a display that looks exactly like before. Of course, the second you start typing the display reverts to normal. </p>
+<p><u><b>Part Two:</b></u> </p>
+<p>So now, we can move on to using the device in a C program. Take a look at the following code: </p><pre>#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;fcntl.h&gt;
+int main()
+{
+        int fbfd = 0;
+
+        fbfd = open("/dev/fb0", O_RDWR);
+        if (!fbfd) {
+                printf("Error: cannot open framebuffer device.\n");
+                exit(1);
+        }
+        printf("The framebuffer device was opened successfully.\n");
+
+        close(fbfd);
+        return 0;
+}
+        </pre>
+<p>All in all, a pretty simple program. We open the framebuffer device 
+file using the low-level open(), because the buffered, higher level 
+fopen() is unsuitable for our needs. <br>Next, we test the file 
+descriptor to make sure that we were successful, and print a message out
+ that tells the user what happened. <br>Note that if you #include 
+&lt;errno.h&gt;, then you will be able to find out exactly why the 
+open() call fails. Check the man page for open() for more information on
+ this <br>Finally, we clean up by closing the file descriptor and returning. </p>
+<p><u><b>Part Three:</b></u> </p>
+<p>Using the newly created file descriptor, we can perform operations on
+ the framebuffer with the ioctl() function. This function is used to 
+talk to special device files in ways that are particular to that device.
+ In this case, we can use it to obtain information on the video card. We
+ can also use the file descriptor to map the file into memory, and use a
+ pointer to access it, which is more efficient and easier on us. This is
+ done using the mmap() function. If you haven't used this before, here 
+is some sample code: </p><pre>#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;linux/fb.h&gt;
+#include &lt;sys/mman.h&gt;
+
+int main()
+{
+        int fbfd = 0;
+        struct fb_var_screeninfo vinfo;
+        struct fb_fix_screeninfo finfo;
+        long int screensize = 0;
+        char *fbp = 0;
+        
+        fbfd = open("/dev/fb0", O_RDWR);
+        if (!fbfd) {
+                printf("Error: cannot open framebuffer device.\n");
+                exit(1);
+        }
+        printf("The framebuffer device was opened successfully.\n");
+
+        if (ioctl(fbfd, FBIOGET_FSCREENINFO, &amp;finfo)) {
+                printf("Error reading fixed information.\n");
+                exit(2);
+        }
+
+        if (ioctl(fbfd, FBIOGET_VSCREENINFO, &amp;vinfo)) {
+                printf("Error reading variable information.\n");
+                exit(3);
+        }
+
+        screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
+        fbp = (char *)mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
+        if ((int)fbp == -1) {
+                printf("Error: failed to map framebuffer device to memory.\n");
+                exit(4);
+        }
+        printf("The framebuffer device was mapped to memory successfully.\n");
+
+        munmap(fbp, screensize);
+        close(fbfd);
+        return 0;
+}
+        </pre>
+<p>As you can see, we have to #include an extra header file to deal with
+ mmap(). We use the information returned by the ioctl()s to figure out 
+how much memory to map. The members of fb_var_screeninfo that are used 
+are xres, yres, and bits_per_pixel. <br>Note that there is also what is 
+known as the virtual screen size, which can be utilised for scrolling, 
+etc, but that is beyond the scope of this document. However, if you are 
+planning on using scrolling, you will probably want to use xres_virtual 
+and yres_virtual to calculate how much memory to map. <br>Finally, remember to munmap() the memory you have mapped for use with the framebuffer. </p>
+<p><u><b>Part Four:</b></u> </p>
+<p>In this section we finally get to plot a pixel on the screen. First 
+of all, we need to know in what format we should put the data. As it is 
+the most common, and also the only type I have access to, I will be 
+talking about the type of framebuffer that utilises packed pixels. All 
+that is necessary to put a pixel on the screen, is to put bytes 
+corresponding to the colours blue, green, red and transparency, in that 
+order, at the correct location in memory, starting at 0 for x = 0, y = 
+0, and increasing by four bytes for every x, and y * the length of the 
+line in bytes for every y. Standard graphics stuff; people used to the 
+good ol' days back in mode 13h programming in DOS will catch on quickly.
+ Anyway, here's the code: </p><pre>#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;linux/fb.h&gt;
+#include &lt;sys/mman.h&gt;
+
+int main()
+{
+        int fbfd = 0;
+        struct fb_var_screeninfo vinfo;
+        struct fb_fix_screeninfo finfo;
+        long int screensize = 0;
+        char *fbp = 0;
+        int x = 0, y = 0;
+        long int location = 0;
+
+        /* Open the file for reading and writing */
+        fbfd = open("/dev/fb0", O_RDWR);
+        if (!fbfd) {
+                printf("Error: cannot open framebuffer device.\n");
+                exit(1);
+        }
+        printf("The framebuffer device was opened successfully.\n");
+
+        /* Get fixed screen information */
+        if (ioctl(fbfd, FBIOGET_FSCREENINFO, &amp;finfo)) {
+                printf("Error reading fixed information.\n");
+                exit(2);
+        }
+
+        /* Get variable screen information */
+        if (ioctl(fbfd, FBIOGET_VSCREENINFO, &amp;vinfo)) {
+                printf("Error reading variable information.\n");
+                exit(3);
+        }
+
+        /* Figure out the size of the screen in bytes */
+        screensize = vinfo.xres * vinfo.yres * vinfo.bits_per_pixel / 8;
+        
+        /* Map the device to memory */
+        fbp = (char *)mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED,
+                fbfd, 0);       
+        if ((int)fbp == -1) { printf("Error: failed to map
+        framebuffer device to memory.\n"); exit(4);
+        }
+        printf("The framebuffer device was mapped to memory successfully.\n");
+
+        x = 100; y = 100;       /* Where we are going to put the pixel */
+
+        /* Figure out where in memory to put the pixel */
+	location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) +
+	        (y+vinfo.yoffset) * finfo.line_length;
+
+        *(fbp + location) = 100;	/* Some blue */
+        *(fbp + location + 1) = 15;     /* A little green */
+        *(fbp + location + 2) = 200;    /* A lot of red */
+        *(fbp + location + 3) = 0;      /* No transparency */
+
+        munmap(fbp, screensize);
+        close(fbfd);
+        return 0;
+}
+        </pre>
+<p>Now that you know how to plot a pixel, it becomes a trivial matter to
+ write functions to draw lines, boxes, windows, etc. Hopefully, by now 
+you are well on your way to writing that web browser for me - consider 
+it payment for this tutorial ;). </p>
+<p>&lt;SHAMELESS_MODE&gt; <br>Talking of payment, I get paid every time 
+somebody buys a book this way. Sorry, but I'm a poor student, and let's 
+face it, if you are reading this page, then you will probably be 
+interested in them, if you don't have them already. I have personally 
+read each of these, and can say with all honesty that they are great 
+books. </p>
+<p><b><u>Beginning Linux Programming:</u></b> <a href="http://www.amazon.co.uk/exec/obidos/ASIN/1874416680/jimslinuxprogram"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/we2.html" width="34" height="34"></a> <a href="http://www.amazon.com/exec/obidos/ASIN/1874416680/jimslinuxprogr0b"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/we2.html" width="34" height="34"></a> <br>This
+ book really has it all for getting to grips with Linux programming. If 
+you can already program in C, and want to know how to use some of the 
+more specific Linux stuff, then get this book. It covers all sorts, from
+ shell programming, through socket programming in C, to X programming 
+using tcl/tk. </p>
+<p><b><u>C: The Complete Reference:</u></b> <a href="http://www.amazon.co.uk/exec/obidos/ASIN/0078821010/jimslinuxprogram"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/we2.html" width="34" height="34"></a> <a href="http://www.amazon.com/exec/obidos/ASIN/0078821010/jimslinuxprogr0b"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/we2.html" width="34" height="34"></a> <br>This is the <u>only</u>
+ book you should consider getting if you want to learn C. This was all I
+ needed to get programming in C, and since it also doubles as a 
+reference book, you will keep coming back to it again and again. It's by
+ Herbert Schildt, one of the best authors on the planet when it comes to
+ C. Forget the "learn C in 14 days" cons, get this. Now. </p>
+<p><b><u>Genetic Algorithms in C++:</u></b> <a href="http://www.amazon.com/exec/obidos/ASIN/1558514597/jimslinuxprogr0b"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/we2.html" width="34" height="34"></a> <br>This
+ is all you need to understand the theory behind, and implement Genetic 
+Algorithms. Genetic Algorithms model themselves on nature, by "evolving"
+ solutions based upon how well they perform in an environment (your 
+program). It sounds complex, but I assure you that it is *really* easy 
+to get into. <br>One thing though. All of the sample code is targetted 
+at MS Windows, so if you are the kind of person who relies on the code 
+in a book to get through it, and you are developing for Linux, then this
+ book may not be for you. Personally, I didn't even need to look at the 
+code before implementing my own stuff, the text is more than sufficient.
+ </p>
+<p><b><u>Internet Programming With Python</u></b> <a href="http://www.amazon.com/exec/obidos/ASIN/1558514848/jimslinuxprogr0b"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/we2.html" width="34" height="34"></a> <br>This
+ book is co-authored by Guido Van Rossum, the guy who wrote the Python 
+language. It also comes with a CD containing Python for many different 
+platforms, as well as sample code. It covers CGI programs written in 
+Python, and also a couple of subjects not usually mentioned in books of 
+this kind, namely generating HTML (in a *very* nice way) and extending 
+the language. It also covers the basics in a way that makes this book 
+also good for learning the language from scratch. </p>
+<p>Thanks. <br>&lt;/SHAMELESS_MODE&gt; </p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/huqingyu/category/5673.html">Linux</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(113634,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e6%b5%99%e6%9e%97%e9%be%99%e5%93%a5" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/huqingyu/" target="_blank"><img src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/20140113190310.jpeg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/huqingyu/">浙林龙哥</a><br>
+<a href="http://home.cnblogs.com/u/huqingyu/followees">关注 - 2</a><br>
+<a href="http://home.cnblogs.com/u/huqingyu/followers">粉丝 - 70</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(113634,'Digg')">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+	<div class="buryit" onclick="votePost(113634,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/huqingyu/archive/2005/03/05/113632.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/huqingyu/archive/2005/03/05/113632.html" title="发布于2005-03-05 19:22">Linux驱动</a><br><a href="http://www.cnblogs.com/huqingyu/archive/2005/03/05/113653.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/huqingyu/archive/2005/03/05/113653.html" title="发布于2005-03-05 20:54">打开A20</a><br></div>
+</div>
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2005-03-05 19:27</span> <a href="http://www.cnblogs.com/huqingyu/">浙林龙哥</a> 阅读(<span id="post_view_count">6355</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=113634" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(113634);return false;">收藏</a>
+	</div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=2667,cb_entryId=113634,cb_blogApp=currentBlogApp,cb_blogUserGuid='8c81310b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2005/3/5 19:27:00';loadViewCount(cb_entryId);</script>
+
+<a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.imooc.com/view/146?from=cnblogs" target="_blank"><b>【免费课程】案例：模式的秘密---适配器模式</b></a><br><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态\工控、电力仿真CAD\GIS源码库</a><br><a href="http://www.rongcloud.cn/promotion/" target="_blank">融云，免费为你的App加入IM功能——让你的App“聊”起来！！</a><br><a href="http://zt.cnblogs.com/tingyun/" target="_blank">听云APP性能监测 —— 终结移动App性能黑洞</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
+    fixPostBodyFormat();
+</script>
+<div id="ad_under_post_holder">
+<script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        if (enableGoogleAd) {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        }
+    })();
+</script>
+<script type="text/javascript">
+    try {
+        if (enableGoogleAd) {
+            googletag.cmd.push(function () {
+                googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1346480159711-0').addService(googletag.pubads());
+                googletag.defineSlot('/1090369/cnblogs_blogpost_C2', [468, 60], 'div-gpt-ad-1410860226396-0').addService(googletag.pubads());
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        };
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    <script type="text/javascript">
+        try {
+            if (enableGoogleAd) {
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1346480159711-0'); });            
+            } else {
+                $('#div-gpt-ad-1346480159711-0').hide();
+            }
+    } catch (e) { }
+    </script>
+    </div>
+</div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/506407/" target="_blank">米时科技诉奇虎360案23日开庭</a><br> ·  <a href="http://news.cnblogs.com/n/506406/" target="_blank">扎克伯格访韩后暗示将与三星合推Facebook手机</a><br> ·  <a href="http://news.cnblogs.com/n/506405/" target="_blank">特斯拉无人驾驶技术短期内无法变革市场</a><br> ·  <a href="http://news.cnblogs.com/n/506404/" target="_blank">BroadLink推出SP mini插座：布局智能家居</a><br> ·  <a href="http://news.cnblogs.com/n/506403/" target="_blank">安德森宣布将辞去eBay董事 已服务6年</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block">
+<div id="div-gpt-ad-1410860226396-0" style="width:468px; height:60px;">
+<script type="text/javascript">
+try {
+    if (enableGoogleAd) {
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1410860226396-0'); });
+    } else {
+        $('#div-gpt-ad-1346480159711-0').hide();
+    }
+} catch (e) { }
+</script>
+</div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/506313/" target="_blank">写代码时应该反复问自己的10个问题</a><br> ·  <a href="http://kb.cnblogs.com/page/505815/" target="_blank">程序员如何参与创业</a><br> ·  <a href="http://kb.cnblogs.com/page/505538/" target="_blank">微观SOA：服务设计原则及其实践方式（下篇）</a><br> ·  <a href="http://kb.cnblogs.com/page/505537/" target="_blank">微观SOA：服务设计原则及其实践方式（上篇）</a><br> ·  <a href="http://kb.cnblogs.com/page/505583/" target="_blank">程序员如何写出杀手级的简历</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script><iframe style="visibility: hidden; display: none;" src="Linux%202.2%20Framebuffer%20Device%20Programming%20Tutorial%20-%20%E6%B5%99%E6%9E%97%E9%BE%99%E5%93%A5%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/container.html"></iframe>
+</div>
+
+</td></tr>
+</tbody></table>
+
+<p id="footer">
+	Copyright @
+	浙林龙哥<br>
+	Powered by:
+	<a href="http://scottwater.com/blog" target="_blank">.Text</a> and 
+	<a href="http://asp.net/" target="_blank">ASP.NET</a>
+	<br>
+	Theme by: <a href="http://www.dotnetmonster.com/" target="_blank">.NET Monster</a>
+</p>
+
+
+
+
+</body></html>

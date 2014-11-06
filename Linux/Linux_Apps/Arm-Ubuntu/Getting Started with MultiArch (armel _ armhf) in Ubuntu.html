@@ -1,0 +1,1087 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+ 
+<title> Getting Started with MultiArch (armel / armhf) in Ubuntu </title>
+<script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok2v=1613a3a185/"},atok:"f55c4cccc644e3d21cdef04ba15cf80a",petok:"cedec3ce9f05ff6242e438584178aedbc8cbb89e-1415082930-1800",zone:"cnx-software.com",rocket:"0",apps:{"abetterbrowser":{"ie":"7"}}}];CloudFlare.push({"apps":{"ape":"ff3f682779ca5c3971cc1f9194403383"}});!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok2v=919620257c/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - all posts" href="http://www.cnx-software.com/feed"/>
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0 - all comments" href="http://www.cnx-software.com/comments/feed/"/>
+<link rel="pingback" href="http://www.cnx-software.com/xmlrpc.php"/>
+ 
+ 
+<style type="text/css" media="screen">@import url(http://www.cnx-software.com/wp-content/themes/inove/style.css);</style>
+ 
+<!--[if IE]>
+		<link rel="stylesheet" href="http://www.cnx-software.com/wp-content/themes/inove/ie.css" type="text/css" media="screen" />
+	<![endif]-->
+ 
+ 
+<script type="text/javascript" src="http://www.cnx-software.com/wp-content/themes/inove/js/base.js"></script>
+<script type="text/javascript" src="http://www.cnx-software.com/wp-content/themes/inove/js/menu.js"></script>
+ 
+<link rel="alternate" type="application/rss+xml" title="CNXSoft - Embedded Software Development &raquo; Getting Started with MultiArch (armel / armhf) in Ubuntu Comments Feed" href="http://www.cnx-software.com/2012/05/02/getting-started-with-multiarch-armel-armhf-in-ubuntu/feed/"/>
+<link rel='stylesheet' id='yarppWidgetCss-css' href='http://www.cnx-software.com/wp-content/plugins/yet-another-related-posts-plugin/style/widget.css?ver=4.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='bwp-rc-css' href='http://www.cnx-software.com/wp-content/plugins/bwp-recent-comments/css/bwp-recent-comments-noava.css?ver=1.2.2' type='text/css' media='all'/>
+<link rel='stylesheet' id='contact-form-7-css' href='http://www.cnx-software.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=4.0.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='wp-pagenavi-css' href='http://www.cnx-software.com/wp-content/themes/inove/pagenavi-css.css?ver=2.70' type='text/css' media='all'/>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js?ver=1.9.1'></script>
+<script type='text/javascript' src='http://www.cnx-software.com/wp-content/plugins/adrotate/library/jquery.adrotate.dyngroup.js?ver=0.5.3'></script>
+<script type='text/javascript' src='http://www.cnx-software.com/wp-content/plugins/adrotate/library/jquery.adrotate.clicktracker.js?ver=0.6'></script>
+<script type='text/javascript' src='http://www.cnx-software.com/wp-content/plugins/wp-google-analytics/wp-google-analytics.js?ver=0.0.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.cnx-software.com/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.cnx-software.com/wp-includes/wlwmanifest.xml"/>
+<link rel='prev' title='Android NDK Revision 8 Adds MIPS Architecture Support' href='http://www.cnx-software.com/2012/05/02/android-ndk-revision-8-adds-mips-architecture-support/'/>
+<link rel='next' title='Xamarin Ported Android to C#. Results: Massive Performance Improvements over Dalvik' href='http://www.cnx-software.com/2012/05/02/xamarin-ported-android-to-c-with-massive-performance-improvement-over-dalvik/'/>
+<meta name="generator" content="WordPress 4.0"/>
+<link rel='canonical' href='http://www.cnx-software.com/2012/05/02/getting-started-with-multiarch-armel-armhf-in-ubuntu/'/>
+<link rel='shortlink' href='http://www.cnx-software.com/?p=5184'/>
+ 
+ 
+<style type="text/css" media="screen">.g{margin:0px;padding:0px;overflow:hidden;line-height:1;zoom:1;}.g-col{position:relative;float:left;}.g-col:first-child{margin-left:0;}.g-col:last-child{margin-right:0;}.g-1{margin:1px;}.g-2{margin:1px;}.g-3{margin:1px;}@media only screen and (max-width: 480px) {.g-col,.g-dyn,.g-single{width:100%;margin-left:0;margin-right:0;}}</style>
+ 
+ 
+<link rel="payment" type="text/html" title="Flattr this!" href="https://flattr.com/submit/auto?user_id=cnxsoft&amp;url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F&amp;language=en_GB&amp;category=text&amp;title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu&amp;description=Tweet+Tweet&amp;tags=arm%2Carmel%2Carmhf%2Cchromium%2Ccross-compilation%2Clinaro%2Ctutorial%2Cubuntu%2Cblog"/>
+<script type="text/javascript">
+	function addHandler(object, event, handler) {
+		if (typeof object.addEventListener != 'undefined') 
+			object.addEventListener(event, handler, false);
+		else
+			if (typeof object.attachEvent != 'undefined')
+				object.attachEvent('on' + event, handler);
+			else 
+				throw 'Incompatible browser';
+	}
+</script>
+ 
+<script type="text/javascript">
+
+	if (top != self) top.location.href = self.location.href
+
+</script>
+ 
+<link rel="stylesheet" href="http://www.cnx-software.com/wp-content/plugins/light-social/lightsocial.css" type="text/css" media="screen"/><!--[if lt IE 7]><script defer type="text/javascript" src="http://www.cnx-software.com/wp-content/plugins/light-social/pngfix.js"></script><![endif]--> 
+<script type="text/javascript">
+var tracker_url = 'http://www.cnx-software.com/wp-content/plugins/adrotate/library/clicktracker.php';
+</script>
+ 
+<script type="text/javascript">
+if(document.location.protocol=='http:'){
+ var Tynt=Tynt||[];Tynt.push('dBECnQq1er4Auwacwqm_6r');Tynt.i={"ap":"Read more:"};
+ (function(){var s=document.createElement('script');s.async="async";s.type="text/javascript";s.src='http://tcr.tynt.com/ti.js';var h=document.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);})();
+}
+</script>
+</head>
+<body><script type="text/javascript">
+//<![CDATA[
+try{(function(a){var b="http://",c="www.cnx-software.com",d="/cdn-cgi/cl/",e="img.gif",f=new a;f.src=[b,c,d,e].join("")})(Image)}catch(e){}
+//]]>
+</script>
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = 'http://s3.buysellads.com/ac/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+ 
+<div id="wrap">
+ 
+<div id="container">
+ 
+<div id="header">
+ 
+ 
+<div id="caption">
+<h1 id="title"><a href="http://www.cnx-software.com/">CNXSoft &#8211; Embedded Software Development</a></h1>
+<div id="tagline">Software development cycle, linux programming, hardware development&#8230;.</div>
+</div>
+<div class="fixed"></div>
+</div>
+ 
+ 
+<div id="navigation">
+ 
+<ul id="menus">
+<li class="page_item"><a class="home" title="Home" href="http://www.cnx-software.com/">Home</a></li>
+<li class="page_item page-item-2 page_item_has_children"><a href="http://www.cnx-software.com/about/">About</a>
+<ul class='children'>
+<li class="page_item page-item-5"><a href="http://www.cnx-software.com/about/resume/">Resume &#8211; Embedded Software Manager</a></li>
+</ul>
+</li>
+<li class="page_item page-item-6685 page_item_has_children"><a href="http://www.cnx-software.com/development-kits/">Development Kits</a>
+<ul class='children'>
+<li class="page_item page-item-6100"><a href="http://www.cnx-software.com/development-kits/mcu-development-kits/">MCU Development Kits</a></li>
+<li class="page_item page-item-6096"><a href="http://www.cnx-software.com/development-kits/linux-development-boards/">ARM Linux Development Boards</a></li>
+<li class="page_item page-item-6103"><a href="http://www.cnx-software.com/development-kits/hackable-gadgets/">Hackable Gadgets</a></li>
+<li class="page_item page-item-6105"><a href="http://www.cnx-software.com/development-kits/my-hardware/">My Hardware</a></li>
+</ul>
+</li>
+<li class="page_item page-item-6094 page_item_has_children"><a href="http://www.cnx-software.com/how-tos-training-materials/">How-Tos &#038; Training Materials</a>
+<ul class='children'>
+<li class="page_item page-item-13411"><a href="http://www.cnx-software.com/how-tos-training-materials/embedded-linux-development/">Embedded Linux Development</a></li>
+<li class="page_item page-item-13260"><a href="http://www.cnx-software.com/how-tos-training-materials/technical-glossary/">Technical Glossary</a></li>
+<li class="page_item page-item-13256"><a href="http://www.cnx-software.com/how-tos-training-materials/allwinner-how-tos/">AllWinner How-tos</a></li>
+<li class="page_item page-item-13271"><a href="http://www.cnx-software.com/how-tos-training-materials/amlogic-how-tos/">AMLogic How-tos</a></li>
+<li class="page_item page-item-13270"><a href="http://www.cnx-software.com/how-tos-training-materials/android-how-tos/">Android How-tos</a></li>
+<li class="page_item page-item-13258"><a href="http://www.cnx-software.com/how-tos-training-materials/freescale-i-mx-how-tos/">Freescale i.MX How-tos</a></li>
+<li class="page_item page-item-13268"><a href="http://www.cnx-software.com/how-tos-training-materials/raspberry-pi-how-tos/">Raspberry Pi How-tos</a></li>
+<li class="page_item page-item-13254"><a href="http://www.cnx-software.com/how-tos-training-materials/rockchip-how-tos/">Rockchip How-tos</a></li>
+</ul>
+</li>
+<li class="page_item page-item-4027"><a href="http://www.cnx-software.com/contact-us/">Contact Us</a></li>
+<li><a class="lastmenu" href="javascript:void(0);"></a></li>
+</ul>
+ 
+ 
+<div id="searchbox">
+<form action="http://www.google.com/cse" method="get">
+<div class="content">
+<input type="text" class="textfield" name="q" size="24"/>
+<input type="submit" class="button" name="sa" value=""/>
+<input type="hidden" name="cx" value="partner-pub-8120806476788575:3386820028"/>
+<input type="hidden" name="ie" value="UTF-8"/>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+	var searchbox = MGJS.$("searchbox");
+	var searchtxt = MGJS.getElementsByClassName("textfield", "input", searchbox)[0];
+	var searchbtn = MGJS.getElementsByClassName("button", "input", searchbox)[0];
+	var tiptext = "Type text to search here...";
+	if(searchtxt.value == "" || searchtxt.value == tiptext) {
+		searchtxt.className += " searchtip";
+		searchtxt.value = tiptext;
+	}
+	searchtxt.onfocus = function(e) {
+		if(searchtxt.value == tiptext) {
+			searchtxt.value = "";
+			searchtxt.className = searchtxt.className.replace(" searchtip", "");
+		}
+	}
+	searchtxt.onblur = function(e) {
+		if(searchtxt.value == "") {
+			searchtxt.className += " searchtip";
+			searchtxt.value = tiptext;
+		}
+	}
+	searchbtn.onclick = function(e) {
+		if(searchtxt.value == "" || searchtxt.value == tiptext) {
+			return false;
+		}
+	}
+//]]>
+</script>
+ 
+<div class="fixed"></div>
+</div>
+ 
+ 
+<div id="content">
+ 
+<div id="main">
+<div id="postpath">
+<a title="Go to homepage" href="http://www.cnx-software.com/">Home</a>
+&gt; <a href="http://www.cnx-software.com/category/os/linux/" rel="category tag">Linux</a>, <a href="http://www.cnx-software.com/category/software-management/" rel="category tag">Software management</a>, <a href="http://www.cnx-software.com/category/testing/" rel="category tag">Testing</a>
+&gt; Getting Started with MultiArch (armel / armhf) in Ubuntu
+</div>
+<div class="post" id="post-5184">
+<h2>Getting Started with MultiArch (armel / armhf) in Ubuntu</h2>
+<div class="info">
+<span class="date">May 2nd, 2012</span>
+<span class="author"><a href="http://www.cnx-software.com/author/cnxsoft/" title="Posts by cnxsoft" rel="author">cnxsoft</a></span>
+<span class="addcomment"><a href="#respond">Leave a comment</a></span>
+<span class="comments"><a href="#comments">Go to comments</a></span>
+<div class="fixed"></div>
+</div>
+ 
+<div class="g g-1"><div class="g-single a-3"><div align=center>
+<a data-track="MywxLDAsMQ==" class="gofollow" href=http://www.technexion.com/index.php/products/edm/edm-som/edm1-cf-imx6 rel="nofollow" target="_blank"><img src="http://www.cnx-software.com/pic/technexion/technexion-201401-728090.png"></a></div></div></div>
+<div class="content">
+<div style="float: right; margin-left: 10px;"><a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-url="http://www.cnx-software.com/2012/05/02/getting-started-with-multiarch-armel-armhf-in-ubuntu/">Tweet</a></div>
+<p>Until now, I used xapt and dpkg-cross to install cross libraries for armel, but since <a title="xapt Ubuntu 12.04" href="https://bugs.launchpad.net/ubuntu/+source/emdebian-crush/+bug/992503" target="_blank">I&#8217;ve upgraded to Ubuntu 12.04, it appears to be broken</a>. I&#8217;ve contacted Linaro about this issue, and the &#8220;cross-building&#8221; expert at Linaro (<a href="http://www.linaro.org/about/meet-the-team/wookey/" target="_blank">wookey</a>) recommended me to use multiarch instead, as xapt/dpkg-cross will be eventually deprecated.</p>
+<p>He provided me an example showing how-to use <a title="Cross-compile Chromium with Multiarch" href="https://wiki.linaro.org/Platform/DevPlatform/CrossCompile/ChromiumCrossCompile" target="_blank">multiarch to build Chromium</a>. I&#8217;ve been looking for a &#8220;How-to multiarch&#8221;, but haven&#8217;t been able to find something really clear and simple, so I thought I would post it here.</p>
+<p>In the example, they used a chroot for cross-building, which is probably a good idea to avoid messing up with the system. It&#8217;s also possible multiarch is not 100% reliable, and I&#8217;ve read stories where people messed up their system when using multiarch with i386 (32-bit) and amd64 (64-bit).</p>
+<h2>Preparing a chroot for cross-building</h2>
+<p>I&#8217;ll use a 32-bit Ubuntu precise chroot, but you can use an older distribution (e.g. oneric) and 64-bit if needed:</p>
+<pre>sudo debootstrap --arch=i386 --variant=buildd precise /srv/precise-i386
+sudo chroot /srv/precise-i386/
+mount -t proc proc /proc</pre>
+<p>Setup the /etc/apt/sources.list:</p>
+<pre>deb [arch=i386] http://archive.ubuntu.com/ubuntu precise main universe
+deb [arch=armel] http://ports.ubuntu.com/ubuntu-ports precise main universe
+deb-src http://archive.ubuntu.com/ubuntu precise main universe</pre>
+<p>The file above is setup for armel, but you could also set it up for armhf or both [arch=armel,armhf].</p>
+<p>Some packages might not be in precise, so it&#8217;s better to create /etc/apt/sources.list.d/linaro-maintainers.list to add Linaro ppas:</p>
+<pre>deb http://ppa.launchpad.net/linaro-maintainers/overlay/ubuntu precise main
+deb-src http://ppa.launchpad.net/linaro-maintainers/overlay/ubuntu precise main
+deb http://ppa.launchpad.net/linaro-maintainers/staging-overlay/ubuntu precise main
+deb-src http://ppa.launchpad.net/linaro-maintainers/staging-overlay/ubuntu precise main</pre>
+<p>Import the public key of the Overlay, to avoid the GPG error while accessing the PPA:</p>
+<pre>apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7BE1F97B</pre>
+<p><code>dpkg --add-architecture</code> is not available in the dpkg available in Ubuntu 12.04, so you&#8217;ll need to enable multiarch for dpkg manually in /etc/dpkg/dpkg.cfg.d/multiarch:</p>
+<pre>foreign-architecture armel</pre>
+<p>Create /etc/apt/apt.conf.d/10local to disable installing recommended and suggested packages:</p>
+<pre>APT::Install-Recommends "0";
+APT::Install-Suggests "0";</pre>
+<p>Create /usr/sbin/policy-rc.d file to prevent daemons to start in the chroot:</p>
+<pre>echo "exit 101" &gt; /usr/sbin/policy-rc.d
+chmod a+x /usr/sbin/policy-rc.d</pre>
+<p>Install linaro arm cross-toolchain and essentials:</p>
+<pre>apt-get update apt-get install g++-arm-linux-gnueabi build-essential</pre>
+<h2>Installing armel packages</h2>
+<p>Now that your chroot is ready, it&#8217;s pretty simple to install armel packages as you just need to append the architecture after the package name, for example:</p>
+<pre>apt-get install libjpeg-dev:armel libpng12-dev:armel</pre>
+<p>The libraries are installed in /usr/lib/arm-linux-gnueabi/ and the header files are shared among all architectures in /usr/include, except for armel specific bits which are in /usr/include/arm-linux-gnueabi. If you use armhf instead the libraries will be located in /usr/lib/arm-linux-gnueabihf/.</p>
+<p>If you are building your own software, you can just install the dependencies you need and set the CFLAGS, CXXFLAGS and LDFLAGS to the paths above.</p>
+<h2>Building known packages</h2>
+<p>Another great feature of multiarch is that you can build known packages with dpkg-buildpackage. When everything works perfectly, you&#8217;ll just need to run something like:</p>
+<pre>apt-get build-dep -aarmel chromium-browser
+apt-get source chromium-browser
+cd chromium*
+dpkg-buildpackage -b -B -aarmel 2&gt;&amp;1|tee ../chromium-browser.log</pre>
+<p>In the example above, once you&#8217;ve configured apt for multiarch, you just need to type 4 commands to retrieve the source and build the chromium-browser for ARM.</p>
+<p>I&#8217;ve already used this method when <a title="Ubuntu 12.04 ARM Linux Kernel Cross-compilation" href="http://www.cnx-software.com/2012/03/27/cross-compiling-the-arm-linux-kernel-in-ubuntu-12-04-lts/">building the Linux ARM kernel on Ubuntu 12.04</a>.</p>
+<div class="lightsocial_container"><div class="lightsocial_element"><a class="lightsocial_a" href="http://digg.com/submit?url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F&amp;title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/digg.png" alt="Digg This" title="Digg This"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.reddit.com/submit?url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F&amp;title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/reddit.png" alt="Reddit This" title="Reddit This"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F&amp;title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/stumbleupon.png" alt="Stumble Now!" title="Stumble Now!"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://buzz.yahoo.com/buzz?targetUrl=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F&amp;headline=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/yahoo_buzz.png" alt="Buzz This" title="Buzz This"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.dzone.com/links/add.html?title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu&amp;url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/dzone.png" alt="Vote on DZone" title="Vote on DZone"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.facebook.com/sharer.php?t=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu&amp;u=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/facebook.png" alt="Share on Facebook" title="Share on Facebook"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://delicious.com/save?title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu&amp;url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/delicious.png" alt="Bookmark this on Delicious" title="Bookmark this on Delicious"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.dotnetkicks.com/kick/?title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu&amp;url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/dotnetkicks.png" alt="Kick It on DotNetKicks.com" title="Kick It on DotNetKicks.com"/></a></div><div class="lightsocial_element">
+<a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F&amp;title=Getting+Started+with+MultiArch+%28armel+%2F+armhf%29+in+Ubuntu&amp;summary=&amp;source=" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/linkedin.png" alt="Share on LinkedIn" title="Share on LinkedIn"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://www.technorati.com/faves?add=http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/technorati.png" alt="Bookmark this on Technorati" title="Bookmark this on Technorati"/></a></div><div class="lightsocial_element"><a class="lightsocial_a" href="http://twitter.com/home?status=Reading+http%3A%2F%2Fwww.cnx-software.com%2F2012%2F05%2F02%2Fgetting-started-with-multiarch-armel-armhf-in-ubuntu%2F" rel="nofollow"><img class="lightsocial_img" src="http://www.cnx-software.com/wp-content/plugins/light-social/twitter.png" alt="Post on Twitter" title="Post on Twitter"/></a></div><div class="lightsocial_element">
+<g:plusone size="small"></g:plusone>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script></div></div><p class="wp-flattr-button"><a class="FlattrButton" style="display:none;" href="http://www.cnx-software.com/2012/05/02/getting-started-with-multiarch-armel-armhf-in-ubuntu/" title=" Getting Started with MultiArch (armel / armhf) in Ubuntu" rev="flattr;uid:cnxsoft;language:en_GB;category:text;tags:arm,armel,armhf,chromium,cross-compilation,linaro,tutorial,ubuntu,blog;popout:0;button:compact;">Tweet Until now, I used xapt and dpkg-cross to install cross libraries for armel, but since I&#8217;ve upgraded to Ubuntu 12.04, it appears to be broken. I&#8217;ve contacted Linaro about...</a></p>
+<div class="fixed"></div>
+</div>
+<div class="under">
+<table>
+<tr>
+<td>
+<div align="center">
+ 
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ 
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-8120806476788575" data-ad-slot="9624355701"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+ 
+</div>
+</td>
+<td valign="top">
+<div class='yarpp-related'>
+<p>Related posts:</p><ol>
+<li><a href="http://www.cnx-software.com/2012/01/16/installing-emdebian-arm-cross-toolchain-in-debian/" rel="bookmark" title="Installing Emdebian ARM Cross Toolchain in Debian">Installing Emdebian ARM Cross Toolchain in Debian </a></li>
+<li><a href="http://www.cnx-software.com/2012/03/27/cross-compiling-the-arm-linux-kernel-in-ubuntu-12-04-lts/" rel="bookmark" title="Cross-compiling the ARM Linux Kernel in Ubuntu 12.04 LTS">Cross-compiling the ARM Linux Kernel in Ubuntu 12.04 LTS </a></li>
+<li><a href="http://www.cnx-software.com/2011/03/28/installing-linaro-arm-cross-toolchain-on-ubuntu/" rel="bookmark" title="Installing Linaro ARM Cross Toolchain on Ubuntu">Installing Linaro ARM Cross Toolchain on Ubuntu </a></li>
+<li><a href="http://www.cnx-software.com/2012/01/18/cross-compiling-libavg-1-7-for-arm-on-debian/" rel="bookmark" title="Cross-compiling libavg 1.7 for ARM on Debian">Cross-compiling libavg 1.7 for ARM on Debian </a></li>
+<li><a href="http://www.cnx-software.com/2011/11/06/ubuntu-linaro-evaluation-builds-leb-tutorial/" rel="bookmark" title="Ubuntu Linaro Evaluation Builds (LEB) Tutorial">Ubuntu Linaro Evaluation Builds (LEB) Tutorial </a></li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+<span class="categories">Categories: </span><span><a href="http://www.cnx-software.com/category/os/linux/" rel="category tag">Linux</a>, <a href="http://www.cnx-software.com/category/software-management/" rel="category tag">Software management</a>, <a href="http://www.cnx-software.com/category/testing/" rel="category tag">Testing</a></span>
+<span class="tags">Tags: </span><span><a rel="nofollow" href="http://www.cnx-software.com/tag/arm/" rel="tag">arm</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/armel/" rel="tag">armel</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/armhf/" rel="tag">armhf</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/chromium/" rel="tag">chromium</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/cross-compilation/" rel="tag">cross-compilation</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/linaro/" rel="tag">linaro</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/tutorial/" rel="tag">tutorial</a>, <a rel="nofollow" href="http://www.cnx-software.com/tag/ubuntu/" rel="tag">ubuntu</a></span>
+</div>
+</div>
+ 
+ 
+<script type="text/javascript" src="http://www.cnx-software.com/wp-content/themes/inove/js/comment.js"></script>
+<div id="comments">
+<div id="cmtswitcher">
+<a id="commenttab" class="curtab" href="javascript:void(0);" onclick="MGJS.switchTab('thecomments,commentnavi', 'thetrackbacks', 'commenttab', 'curtab', 'trackbacktab', 'tab');">Comments (15)</a>
+<a id="trackbacktab" class="tab" href="javascript:void(0);" onclick="MGJS.switchTab('thetrackbacks', 'thecomments,commentnavi', 'trackbacktab', 'curtab', 'commenttab', 'tab');">Trackbacks (2)</a>
+<span class="addcomment"><a href="#respond">Leave a comment</a></span>
+<span class="addtrackback"><a href="http://www.cnx-software.com/2012/05/02/getting-started-with-multiarch-armel-armhf-in-ubuntu/trackback/">Trackback</a></span>
+<div class="fixed"></div>
+</div>
+<div id="commentlist">
+ 
+<ol id="thecomments">
+<li class="comment regularcomment" id="comment-7787">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/9590cb9e001a4955742d5e3a7e1946e0?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-7787">
+Nikolay Nikolaev
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 2nd, 2012 at 20:26 | <a href="#comment-7787">#1</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-7787', 'comment-7787', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-7787', 'comment-7787', 'commentbody-7787', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-7787">
+<p>That&#8217;s very useful, thanks for sharing the information.</p>
+<p>I use schroot for these things. It integrates perfectly in the environment (automatically mounts what&#8217;s needed &#8211; dev, proc etc.).<br/>
+Here&#8217;s an excerpt from my /etc/schroot/schroot.conf that shows 32bit chroot on my 64 bit box</p>
+<p>[precise32]<br/>
+description=Precise Pangolin 32<br/>
+directory=/chroots/precise32<br/>
+type=directory<br/>
+users=<br/>
+root-groups=root<br/>
+personality=linux32</p>
+<p>Then as a regular user:<br/>
+schroot -c precise32</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment admincomment" id="comment-7791">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/03a14f2ce2536736703c82885194317d?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<a id="commentauthor-7791" class="url" href="http://www.cnx-software.com" rel="external nofollow">
+cnxsoft
+</a>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 2nd, 2012 at 20:45 | <a href="#comment-7791">#2</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-7791', 'comment-7791', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-7791', 'comment-7791', 'commentbody-7791', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-7791">
+<p><a href="#comment-7787" rel="nofollow">@ Nikolay Nikolaev </a><br/>
+Thanks I did not know schroot.<br/>
+If somebody wants to know more, have a look at the manpage: <a href="http://manpages.ubuntu.com/manpages/hardy/man1/schroot.1.html" rel="nofollow">http://manpages.ubuntu.com/manpages/hardy/man1/schroot.1.html</a></p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-7792">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/9590cb9e001a4955742d5e3a7e1946e0?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-7792">
+Nikolay Nikolaev
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 2nd, 2012 at 22:12 | <a href="#comment-7792">#3</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-7792', 'comment-7792', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-7792', 'comment-7792', 'commentbody-7792', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-7792">
+<p><a href="#comment-7791" rel="nofollow">@ cnxsoft </a><br/>
+And this is the &#8216;Precise&#8221; manpage (you gave the &#8216;Hardy&#8217; one):</p>
+<p><a href="http://manpages.ubuntu.com/manpages/precise/man1/schroot.1.html" rel="nofollow">http://manpages.ubuntu.com/manpages/precise/man1/schroot.1.html</a></p>
+<p>cheers</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-13668">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/71de4155cad7e163071d7da31adbddf6?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-13668">
+Markus
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+October 3rd, 2012 at 17:17 | <a href="#comment-13668">#4</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-13668', 'comment-13668', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-13668', 'comment-13668', 'commentbody-13668', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-13668">
+<p>Small nits in the description:</p>
+<p>**<br/>
+deb-src <a href="http://archive.ubuntu.com/ubuntu" rel="nofollow">http://archive.ubuntu.com/ubuntu</a> price main universe<br/>
+-&gt;<br/>
+deb-src <a href="http://archive.ubuntu.com/ubuntu" rel="nofollow">http://archive.ubuntu.com/ubuntu</a> precise main universe</p>
+<p>**<br/>
+apt-get update apt-get install g++-arm-linux-gnueabi build-essential<br/>
+-&gt;<br/>
+apt-get update<br/>
+apt-get install g++-arm-linux-gnueabi build-essential</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-28854">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/656aabb577c3c245c916c3cdaa6b99cc?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-28854">
+Aline
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+April 30th, 2013 at 22:54 | <a href="#comment-28854">#5</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-28854', 'comment-28854', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-28854', 'comment-28854', 'commentbody-28854', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-28854">
+<p>Hello </p>
+<p>can i install some packages for arm like broser chromium and libxml2 and after can i transfer this to the arm machine ???</p>
+<p>thank you</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment admincomment" id="comment-28855">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/03a14f2ce2536736703c82885194317d?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<a id="commentauthor-28855" class="url" href="http://www.cnx-software.com" rel="external nofollow">
+cnxsoft
+</a>
+</div>
+</div>
+<div class="info">
+<div class="date">
+April 30th, 2013 at 22:57 | <a href="#comment-28855">#6</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-28855', 'comment-28855', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-28855', 'comment-28855', 'commentbody-28855', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-28855">
+<p><a href="#comment-28854" rel="nofollow">@Aline </a><br/>
+If your ARM machine runs the same distro I guess so, but then running apt-get install within the ARM device would be so much simpler.</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-29054">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/02eb9294fd8f9616fb60c4149d6fa835?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-29054">
+Aline
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 3rd, 2013 at 01:44 | <a href="#comment-29054">#7</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-29054', 'comment-29054', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-29054', 'comment-29054', 'commentbody-29054', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-29054">
+<p><a href="#comment-28855" rel="nofollow">@cnxsoft </a> </p>
+<p>i dont have a command apt-get to install in my machine ARM what is the solution ??</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment admincomment" id="comment-29094">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/03a14f2ce2536736703c82885194317d?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<a id="commentauthor-29094" class="url" href="http://www.cnx-software.com" rel="external nofollow">
+cnxsoft
+</a>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 3rd, 2013 at 12:44 | <a href="#comment-29094">#8</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-29094', 'comment-29094', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-29094', 'comment-29094', 'commentbody-29094', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-29094">
+<p><a href="#comment-29054" rel="nofollow">@Aline </a><br/>
+If you don&#8217;t have any package manager such as apt-get, ipkg, zypper, yum&#8230; then I suppose you may have to cross-compile the libraries you need. </p>
+<p>Using multiarch on your PC, and copying the required ARM binaries to the target board might also work, but it&#8217;s likely you&#8217;ll have version conflicts with the libs in your board.</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-30044">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/9f0948d59a4df66e8e9e2838e6f4f9d5?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-30044">
+Aline
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 7th, 2013 at 20:25 | <a href="#comment-30044">#9</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-30044', 'comment-30044', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-30044', 'comment-30044', 'commentbody-30044', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-30044">
+<p>Hello, </p>
+<p>when i execute apt-get build-dep -a armel chromium-browser</p>
+<p>i get an error didnt find chromium-browser package</p>
+<p>Reading state information&#8230; Done<br/>
+E: Unable to find a source package for chromium-brwoser</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment admincomment" id="comment-30047">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/03a14f2ce2536736703c82885194317d?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<a id="commentauthor-30047" class="url" href="http://www.cnx-software.com" rel="external nofollow">
+cnxsoft
+</a>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 7th, 2013 at 20:31 | <a href="#comment-30047">#10</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-30047', 'comment-30047', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-30047', 'comment-30047', 'commentbody-30047', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-30047">
+<p><a href="#comment-30044" rel="nofollow">@Aline </a><br/>
+Something weird in this log. Did you type &#8220;chromium-brwoser&#8221; or &#8220;chromium-browser&#8221; ? I can see both in the log&#8230;</p>
+<p>Do you really need to build chromium? You could just install it with something like: apt-get install chromium-browser:armel</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-30057">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/9f0948d59a4df66e8e9e2838e6f4f9d5?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-30057">
+Aline
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 7th, 2013 at 21:08 | <a href="#comment-30057">#11</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-30057', 'comment-30057', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-30057', 'comment-30057', 'commentbody-30057', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-30057">
+<p><a href="#comment-30047" rel="nofollow">@cnxsoft </a> </p>
+<p>My Problem is i need to compile and install the chromium-browser for arm architecture .<br/>
+when i run apt-get install chromium-browser:armel i dont have any output to make in the target arm<br/>
+if you have idea about haw can i run apt-get install chromium-browser:arme and befor haw i can make the chromium-browser in my target arm</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment admincomment" id="comment-30207">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/03a14f2ce2536736703c82885194317d?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<a id="commentauthor-30207" class="url" href="http://www.cnx-software.com" rel="external nofollow">
+cnxsoft
+</a>
+</div>
+</div>
+<div class="info">
+<div class="date">
+May 8th, 2013 at 09:57 | <a href="#comment-30207">#12</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-30207', 'comment-30207', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-30207', 'comment-30207', 'commentbody-30207', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-30207">
+<p><a href="#comment-30057" rel="nofollow">@Aline </a><br/>
+This will install the necessary files, but you&#8217;re right, it won&#8217;t show which files are necessary. Tools like ldd will help find out which libraries are used by chromium. </p>
+<p>You&#8217;d better just follow the cross-compilation instructions @ <a href="http://code.google.com/p/chromium/wiki/LinuxChromiumArm" rel="nofollow">http://code.google.com/p/chromium/wiki/LinuxChromiumArm</a></p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-83944">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/167cd0f2666046ad1c6f59fbeeffa9ff?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-83944">
+Byung Jang
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+August 13th, 2013 at 20:33 | <a href="#comment-83944">#13</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-83944', 'comment-83944', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-83944', 'comment-83944', 'commentbody-83944', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-83944">
+<p>There is a typo in &#8220;deb-src <a href="http://archive.ubuntu.com/ubuntu" rel="nofollow">http://archive.ubuntu.com/ubuntu</a> price main universe&#8221;. &#8220;price&#8221; should be &#8220;precise&#8221;, I think.</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment admincomment" id="comment-83973">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://0.gravatar.com/avatar/03a14f2ce2536736703c82885194317d?s=32&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<a id="commentauthor-83973" class="url" href="http://www.cnx-software.com" rel="external nofollow">
+cnxsoft
+</a>
+</div>
+</div>
+<div class="info">
+<div class="date">
+August 13th, 2013 at 21:30 | <a href="#comment-83973">#14</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-83973', 'comment-83973', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-83973', 'comment-83973', 'commentbody-83973', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-83973">
+<p><a href="#comment-83944" rel="nofollow">@Byung Jang </a><br/>
+Thanks for letting me know. I&#8217;ve updated the post.</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+<li class="comment regularcomment" id="comment-104732">
+<div class="author">
+<div class="pic">
+<img alt='' src='http://1.gravatar.com/avatar/530f1cc98407c40e80c826808fae1abb?s=32&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D32&amp;r=G' class='avatar avatar-32 photo' height='32' width='32'/> </div>
+<div class="name">
+<span id="commentauthor-104732">
+aravind
+</span>
+</div>
+</div>
+<div class="info">
+<div class="date">
+October 3rd, 2013 at 19:26 | <a href="#comment-104732">#15</a>
+</div>
+<div class="act">
+<a href="javascript:void(0);" onclick="MGJS_CMT.reply('commentauthor-104732', 'comment-104732', 'comment');">Reply</a> |
+<a href="javascript:void(0);" onclick="MGJS_CMT.quote('commentauthor-104732', 'comment-104732', 'commentbody-104732', 'comment');">Quote</a>
+</div>
+<div class="fixed"></div>
+<div class="content">
+<div id="commentbody-104732">
+<p>Hi , when i&#8217;m try install armel packages using apt-get install libjpeg-dev:armel libpng12-dev:armel<br/>
+its throwing following error, Can any one suggest me how to resolve those errors </p>
+<p>Reading package lists&#8230; Done<br/>
+Building dependency tree<br/>
+Reading state information&#8230; Done<br/>
+Note, selecting &#8216;libjpeg-turbo8-dev:armel&#8217; instead of &#8216;libjpeg-dev:armel&#8217;<br/>
+Some packages could not be installed. This may mean that you have<br/>
+requested an impossible situation or if you are using the unstable<br/>
+distribution that some required packages have not yet been created<br/>
+or been moved out of Incoming.<br/>
+The following information may help to resolve the situation:</p>
+<p>The following packages have unmet dependencies:<br/>
+libjpeg-turbo8-dev:armel : Depends: libjpeg-turbo8:armel (= 1.1.90+svn733-0ubuntu4) but it is not going to be installed<br/>
+Depends: libc-dev:armel<br/>
+libpng12-dev:armel : Depends: libpng12-0:armel (= 1.2.46-3ubuntu4) but it is not going to be installed<br/>
+Depends: zlib1g-dev:armel but it is not going to be installed<br/>
+openssh-client : Depends: libedit2 (&gt;= 2.11-20080614-1) but it is not going to be installed<br/>
+Recommends: xauth but it is not going to be installed<br/>
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.</p>
+</div>
+</div>
+</div>
+<div class="fixed"></div>
+</li> 
+</ol>
+ 
+ 
+<ol id="thetrackbacks">
+<li class="trackback">
+<div class="date">
+May 18th, 2012 at 21:35
+| <a href="#comment-8101">#1</a>
+</div>
+<div class="act">
+</div>
+<div class="fixed"></div>
+<div class="title">
+<a href="http://www.cnx-software.com/2012/05/18/getting-ubuntu-armelarmhf-rootfs-in-ubuntu-12-04/">
+Getting Ubuntu armel/armhf Rootfs in Ubuntu 12.04 | CNXSoft &#8211; Embedded Software Development
+</a>
+</div>
+</li>
+<li class="trackback">
+<div class="date">
+March 7th, 2014 at 08:06
+| <a href="#comment-165965">#2</a>
+</div>
+<div class="act">
+</div>
+<div class="fixed"></div>
+<div class="title">
+<a href="http://www.eonlinegratis.com/2014/can-one-install-an-armel-ubuntu-package-on-armhf-ubuntu-system/">
+Can One Install An Armel Ubuntu Package On Armhf Ubuntu System? | Click &amp; Find Answer !
+</a>
+</div>
+</li>
+</ol>
+<div class="fixed"></div>
+ 
+</div>
+</div>
+<form action="http://www.cnx-software.com/wp-comments-post.php" method="post" id="commentform">
+<div id="respond">
+<div id="author_info">
+<div class="row">
+<input type="text" name="author" id="author" class="textfield" value="" size="24" tabindex="1"/>
+<label for="author" class="small">Name (required)</label>
+</div>
+<div class="row">
+<input type="text" name="email" id="email" class="textfield" value="" size="24" tabindex="2"/>
+<label for="email" class="small">E-Mail (will not be published) (required)</label>
+</div>
+<div class="row">
+<input type="text" name="url" id="url" class="textfield" value="" size="24" tabindex="3"/>
+<label for="url" class="small">Website</label>
+</div>
+</div>
+ 
+<div class="row">
+<textarea name="comment" id="comment" tabindex="4" rows="8" cols="50"></textarea>
+</div>
+ 
+<div id="submitbox">
+<a class="feed" href="http://www.cnx-software.com/comments/feed/">Subscribe to comments feed</a>
+<div class="submitbutton">
+<input name="submit" type="submit" id="submit" class="button" tabindex="5" value="Submit Comment"/>
+</div>
+<input type="hidden" name="comment_post_ID" value="5184"/>
+<div class="fixed"></div>
+</div>
+</div>
+<noscript><strong><u><font color="red" size="5">To leave a comment please enable JavaScript in your browser settings!</font></u></strong></noscript>
+</form>
+ 
+<div class="g g-2"><div class="g-single a-4"><div align=center>
+<a data-track="NCwyLDAsMQ==" class="gofollow" href=http://www.wandboard.org rel="nofollow" target="_blank"><img src="http://www.cnx-software.com/pic/technexion/wbbanner.png"></a></div></div></div>
+<div id="postnavi">
+<span class="prev"><a href="http://www.cnx-software.com/2012/05/02/xamarin-ported-android-to-c-with-massive-performance-improvement-over-dalvik/" rel="next">Xamarin Ported Android to C#. Results: Massive Performance Improvements over Dalvik</a></span>
+<span class="next"><a href="http://www.cnx-software.com/2012/05/02/android-ndk-revision-8-adds-mips-architecture-support/" rel="prev">Android NDK Revision 8 Adds MIPS Architecture Support</a></span>
+<div class="fixed"></div>
+</div>
+<input type="hidden" name="oyVDkwvum3Zv" id="oyVDkwvum3Zv"/>
+<script type="text/javascript">
+function fMGzZgjkFKj3p() {
+	var o=document.getElementById("oyVDkwvum3Zv");
+	o.value="UT78t0TEiQyN";
+}
+var bsMkyEV1qd0M9 = document.getElementById("submit");
+if (bsMkyEV1qd0M9) {
+	var cBH96QL9NKKKY = document.getElementById("oyVDkwvum3Zv");
+	var p83oMHwBLd9ht = bsMkyEV1qd0M9.parentNode;
+	p83oMHwBLd9ht.appendChild(cBH96QL9NKKKY, bsMkyEV1qd0M9);
+	addHandler(bsMkyEV1qd0M9, "mousedown", fMGzZgjkFKj3p);
+	addHandler(bsMkyEV1qd0M9, "keypress", fMGzZgjkFKj3p);
+}
+</script>
+<script type='text/javascript'>
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-2022395-2']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</div>
+ 
+ 
+<div id="sidebar">
+ 
+<div id="northsidebar" class="sidebar">
+ 
+<div class="widget widget_feeds">
+<div class="content">
+<div id="subscribe">
+<a rel="external nofollow" id="feedrss" title="Subscribe to this blog..." href="http://www.cnx-software.com/feed"><abbr title="Really Simple Syndication">RSS</abbr></a>
+<ul id="feed_readers">
+<li id="google_reader"><a rel="external nofollow" class="reader" title="Subscribe with Google" href="http://fusion.google.com/add?feedurl=http://www.cnx-software.com/feed"><span>Google</span></a></li>
+<li id="youdao_reader"><a rel="external nofollow" class="reader" title="Subscribe with Youdao" href="http://reader.youdao.com/#url=http://www.cnx-software.com/feed"><span>Youdao</span></a></li>
+<li id="xianguo_reader"><a rel="external nofollow" class="reader" title="Subscribe with Xian Guo" href="http://www.xianguo.com/subscribe.php?url=http://www.cnx-software.com/feed"><span>Xian Guo</span></a></li>
+<li id="zhuaxia_reader"><a rel="external nofollow" class="reader" title="Subscribe with Zhua Xia" href="http://www.zhuaxia.com/add_channel.php?url=http://www.cnx-software.com/feed"><span>Zhua Xia</span></a></li>
+<li id="yahoo_reader"><a rel="external nofollow" class="reader" title="Subscribe with My Yahoo!" href="http://add.my.yahoo.com/rss?url=http://www.cnx-software.com/feed"><span>My Yahoo!</span></a></li>
+<li id="newsgator_reader"><a rel="external nofollow" class="reader" title="Subscribe with newsgator" href="http://www.newsgator.com/ngs/subscriber/subfext.aspx?url=http://www.cnx-software.com/feed"><span>newsgator</span></a></li>
+<li id="bloglines_reader"><a rel="external nofollow" class="reader" title="Subscribe with Bloglines" href="http://www.bloglines.com/sub/http://www.cnx-software.com/feed"><span>Bloglines</span></a></li>
+<li id="inezha_reader"><a rel="external nofollow" class="reader" title="Subscribe with iNezha" href="http://inezha.com/add?url=http://www.cnx-software.com/feed"><span>iNezha</span></a></li>
+</ul>
+</div>
+<a id="followme" title="Follow me!" href="http://twitter.com/cnxsoft/" rel="nofollow">Twitter</a>
+<table style="border:solid 1px #ffffff;" border="0">
+<tr><td>
+<a title="Follow me" href="https://plus.google.com/110719562692786994119"><img src="http://www.cnx-software.com/pic/google_plus_icon_24.png"></a>
+</td>
+<td><a title="Follow me" href="https://plus.google.com/110719562692786994119" style="" rel="nofollow">Google +</a>
+</td>
+</tr>
+</table>
+<div class="fixed"></div>
+</div>
+</div>
+ 
+<div id="text-12" class="widget widget_text"> <div class="textwidget"><div align=center>
+<a href="http://feedburner.google.com/fb/a/mailverify?uri=cnx-software/blog&amp;loc=en_US" rel="nofollow" target="_blank"><strong>Subscribe to CNXSoft Blog by Email</strong></a>
+</div></div>
+</div><div id="text-3" class="widget widget_text"><h3> </h3> <div class="textwidget"><iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FCNX-Software%2F288972614470137&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=false&amp;appId=110257875755738" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe></div>
+</div><div id="text-10" class="widget widget_text"> <div class="textwidget"> 
+<div id="bsap_1279800" class="bsarocks bsap_eea741eb119c48606895f67e02ad52d0"></div>
+ </div>
+</div><div id="bwp_recent_comments-2" class="widget bwp-rc-widget"><h3>Recent Comments</h3>
+<ul class="bwp-rc-ulist">
+<li class="recent-comment"><a href="http://Respectech.com">Bo</a> on <a href="http://www.cnx-software.com/2014/11/04/99-odroid-xu3-lite-development-board-powered-by-exynos-5422-octa-core-processor/#comment-286619" title="Comment on $99 ODROID-XU3 Lite Development Board Powered by Exynos 5422 Octa Core Processor">$99 ODROID-XU3 Lite Development Board Powered by Exynos 5422 Octa Core Processor</a></li>
+<li class="recent-comment"><a href="http://www.cnx-software.com">cnxsoft</a> on <a href="http://www.cnx-software.com/2014/08/24/linux-enlightenment-and-lubuntu-in-wetek-play-amlogic-tv-box/#comment-286582" title="Comment on Linux (Enlightenment and Lubuntu) in WeTek Play Amlogic TV Box">Linux (Enlightenment and Lubuntu) in WeTek Play Amlogic TV Box</a></li>
+<li class="recent-comment recent-comment-tb"><span class="recent-comment-single"><span class="recent-comment-author"><a href="http://www.cnx-software.com/2014/11/04/99-odroid-xu3-lite-development-board-powered-by-exynos-5422-octa-core-processor/"><strong>$99 ODROID-XU3 Lite Development Board Powered by Exynos 5422 Octa Core Processor</strong></a></span><span class="recent-comment-text"> { [&#8230;] based ODROID boards such as the $59 ODROID U3 board based on Exynos 4412 quad core SoC, and with ODROID-XU3, they also have a... } </span></span></li>
+<li class="recent-comment recent-comment-tb"><span class="recent-comment-single"><span class="recent-comment-author"><a href="http://www.cnx-software.com/2014/11/04/99-odroid-xu3-lite-development-board-powered-by-exynos-5422-octa-core-processor/"><strong>$99 ODROID-XU3 Lite Development Board Powered by Exynos 5422 Octa Core Processor</strong></a></span><span class="recent-comment-text"> { [&#8230;] is known for their low cost Exynos based ODROID boards such as the $59 ODROID U3 board based on Exynos 4412 quad core SoC,... } </span></span></li>
+<li class="recent-comment"><a href="http://wandboard.org">kervin henry</a> on <a href="http://www.cnx-software.com/2013/03/19/how-to-root-rockchip-rk3188-mini-pcs/#comment-286491" title="Comment on How to Root Rockchip RK3188 mini PCs">How to Root Rockchip RK3188 mini PCs</a></li>
+<li class="recent-comment"><a href="">Jibril</a> on <a href="http://www.cnx-software.com/2014/10/31/tronsmart-draco-aw80-is-an-allwinner-a80-android-mini-pc-with-up-to-4gb-ram/#comment-286482" title="Comment on Tronsmart Draco AW80 is an Allwinner A80 Android mini PC with Up to 4GB RAM">Tronsmart Draco AW80 is an Allwinner A80 Android mini PC with Up to 4GB RAM</a></li>
+</ul>
+</div><div id="text-9" class="widget widget_text"><h3>Sponsors</h3> <div class="textwidget"><div class="g g-3"><div class="g-single a-14"><div align=center>
+<a href="http://www.em.avnet.com/en-us/design/drc/Pages/Wandcam.aspx?cmp=avt-ext-wandcam-cnxsoft" rel="nofollow" target="_blank"><img src="http://www.cnx-software.com/pic/technexion/wandcam-300x250-v1b.jpg"></a></div></div></div>
+<div class="a-single a-15"><div align=center>
+<a href=http://www.gateworks.com/ rel="nofollow" target="_blank"><img src="http://www.cnx-software.com/pic/gateworks/Gateworks300x250.png"></a></div></div>
+<div align=center>
+<a href=http://www.cnx-software.com/contact-us/ rel=nofollow>Become a sponsor</a>
+</div>
+</div>
+</div><div id="text-8" class="widget widget_text"><h3>Buy Development Kits, Tablets and STB</h3> <div class="textwidget"><ul>
+<li>Buy <a href=http://shrsl.com/?~65l8 target="_blank" rel="nofollow">Raspberry Pi</a> & <a href=http://shrsl.com/?~65l9 target="_blank" rel="nofollow">Arduino Boards</a> and Accessories, and Other <a href=http://shrsl.com/?~65l7 target="_blank" rel="nofollow">Development Boards</a></li>
+<li><a href="http://dx.com/c/laptops-tablets-1499/tablets-1409?Utm_rid=93072394&Utm_source=affiliate" target="_blank" rel="nofollow" title="Buy a cheap tablet, set-top box and more">Low Cost Android Tablets and STBs on dx.com</a></li>
+<li><a href="http://shrsl.com/?~6vxp" target="_blank" rel="nofollow">Tinydeal.com</a></li>
+<li><a href="http://shrsl.com/?~4iaj" target="_blank" rel="nofollow">GeekBuying</a></li>
+<li><a href="http://www.dpbolvw.net/click-5741794-10956595" target="_blank" rel="nofollow" title="$5 discount for orders over 100 USD">Aliexpress ($5 discount with registerbuyer05 coupon)</a><img src="http://www.lduhtrp.net/image-5741794-10956595" width="1" height="1" border="0"/></a></li>
+</ul></div>
+</div><div id="tag_cloud-3" class="widget widget_tag_cloud"><h3>Tags</h3><div class="tagcloud"><a rel="nofollow" href='http://www.cnx-software.com/tag/android/' class='tag-link-19' title='1,084 topics' style='font-size: 22pt;'>Android</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/antutu/' class='tag-link-1017' title='65 topics' style='font-size: 8.5511811023622pt;'>antutu</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/arduino/' class='tag-link-620' title='87 topics' style='font-size: 9.8740157480315pt;'>arduino</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/arm/' class='tag-link-97' title='207 topics' style='font-size: 14.062992125984pt;'>arm</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/armv8/' class='tag-link-712' title='62 topics' style='font-size: 8.3307086614173pt;'>armv8</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/benchmark/' class='tag-link-715' title='110 topics' style='font-size: 11.086614173228pt;'>benchmark</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/big-little/' class='tag-link-1117' title='63 topics' style='font-size: 8.4409448818898pt;'>big little</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/bsp/' class='tag-link-122' title='60 topics' style='font-size: 8.2204724409449pt;'>bsp</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/debian/' class='tag-link-352' title='83 topics' style='font-size: 9.6535433070866pt;'>debian</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/development-board/' class='tag-link-590' title='280 topics' style='font-size: 15.496062992126pt;'>development board</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/development-kit/' class='tag-link-437' title='133 topics' style='font-size: 11.968503937008pt;'>development kit</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/devkit/' class='tag-link-315' title='159 topics' style='font-size: 12.740157480315pt;'>devkit</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/digital-signage/' class='tag-link-20' title='72 topics' style='font-size: 8.992125984252pt;'>digital signage</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/freescale/' class='tag-link-280' title='63 topics' style='font-size: 8.4409448818898pt;'>freescale</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/gpu/' class='tag-link-750' title='62 topics' style='font-size: 8.3307086614173pt;'>gpu</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/how-to/' class='tag-link-452' title='105 topics' style='font-size: 10.866141732283pt;'>how-to</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/ics/' class='tag-link-641' title='166 topics' style='font-size: 12.96062992126pt;'>ics</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/intel/' class='tag-link-146' title='90 topics' style='font-size: 10.094488188976pt;'>intel</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/iot/' class='tag-link-832' title='119 topics' style='font-size: 11.417322834646pt;'>IoT</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/jelly-bean/' class='tag-link-1162' title='190 topics' style='font-size: 13.622047244094pt;'>jelly bean</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/kernel/' class='tag-link-440' title='139 topics' style='font-size: 12.188976377953pt;'>kernel</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/kickstarter/' class='tag-link-1028' title='59 topics' style='font-size: 8.1102362204724pt;'>kickstarter</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/linaro/' class='tag-link-167' title='135 topics' style='font-size: 11.968503937008pt;'>linaro</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/linux/' class='tag-link-8' title='779 topics' style='font-size: 20.346456692913pt;'>Linux</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/mcu/' class='tag-link-718' title='75 topics' style='font-size: 9.2125984251969pt;'>mcu</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/media-player/' class='tag-link-82' title='254 topics' style='font-size: 15.055118110236pt;'>media player</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/mini-pc/' class='tag-link-355' title='211 topics' style='font-size: 14.173228346457pt;'>mini-pc</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/open-source/' class='tag-link-148' title='145 topics' style='font-size: 12.299212598425pt;'>open source</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/qualcomm/' class='tag-link-144' title='58 topics' style='font-size: 8pt;'>qualcomm</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/raspberry-pi/' class='tag-link-483' title='136 topics' style='font-size: 12.07874015748pt;'>raspberry pi</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/review/' class='tag-link-96' title='112 topics' style='font-size: 11.086614173228pt;'>review</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/samsung/' class='tag-link-69' title='91 topics' style='font-size: 10.094488188976pt;'>samsung</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/sdk/' class='tag-link-121' title='174 topics' style='font-size: 13.181102362205pt;'>sdk</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/set-top-box/' class='tag-link-76' title='167 topics' style='font-size: 13.070866141732pt;'>set-top box</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/smartphone/' class='tag-link-237' title='191 topics' style='font-size: 13.622047244094pt;'>smartphone</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/som/' class='tag-link-682' title='77 topics' style='font-size: 9.3228346456693pt;'>som</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/stb/' class='tag-link-23' title='188 topics' style='font-size: 13.622047244094pt;'>stb</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/tablet/' class='tag-link-29' title='258 topics' style='font-size: 15.055118110236pt;'>tablet</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/texas-instruments/' class='tag-link-190' title='94 topics' style='font-size: 10.314960629921pt;'>texas instruments</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/tutorial/' class='tag-link-172' title='128 topics' style='font-size: 11.748031496063pt;'>tutorial</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/ubuntu/' class='tag-link-215' title='266 topics' style='font-size: 15.275590551181pt;'>ubuntu</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/wifi/' class='tag-link-31' title='72 topics' style='font-size: 8.992125984252pt;'>wifi</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/windows-embedded/' class='tag-link-318' title='59 topics' style='font-size: 8.1102362204724pt;'>windows embedded</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/xbmc/' class='tag-link-825' title='114 topics' style='font-size: 11.196850393701pt;'>xbmc</a>
+<a rel="nofollow" href='http://www.cnx-software.com/tag/yocto/' class='tag-link-479' title='62 topics' style='font-size: 8.3307086614173pt;'>yocto</a></div>
+</div><div id="text-13" class="widget widget_text"> <div class="textwidget"><div align="center">
+ 
+<div id="bsap_1288680" class="bsarocks bsap_eea741eb119c48606895f67e02ad52d0"></div>
+ 
+</div></div>
+</div><div id="text-4" class="widget widget_text"> <div class="textwidget"><div align=center><a href="https://www.google.com/adplanner/site_profile?s=cnx-software.com&b=1" rel="nofollow"><img src="http://www.gstatic.com/ads/branding/adplanner/dcap180_60.gif" border=none width=180 height=60 title="Find my site on DoubleClick Ad Planner"></a></div>
+</div>
+</div><div id="linkcat-2" class="widget widget_links"><h3>Blogroll</h3>
+<ul class='xoxo blogroll'>
+<li><a href="http://cnx-software.tradepub.com/c/search.mpl?keyword=embedded&#038;x=0&#038;y=0" rel="nofollow" target="_blank">Free Embedded Development E-Books</a></li>
+<li><a href="http://etf-investment-ideas.blogspot.com" rel="me nofollow" title="Investments Ideas mainly thru ETF">Investment Ideas</a></li>
+<li><a href="http://mhl-tv.blogspot.com/" rel="nofollow" title="List and Description of Available MHL High Definition Televisions">MHL TV</a></li>
+<li><a href="http://www.cnx-translation.com" rel="spouse nofollow" title="Translation Services in Thai, English, Chinese and French" target="_blank">Thai Translation</a></li>
+</ul>
+</div>
+</div>
+ 
+<div id="centersidebar">
+ 
+<div id="eastsidebar" class="sidebar">
+ 
+</div>
+ 
+ 
+<div id="westsidebar" class="sidebar">
+ 
+</div>
+ 
+<div class="fixed"></div>
+</div>
+ 
+<div id="southsidebar" class="sidebar">
+<div id="text-11" class="widget widget_text"> <div class="textwidget"><div align=center>
+<a href="http://feeds.feedburner.com/cnx-software/blog" rel="nofollow" target="_blank"><img src="http://feeds.feedburner.com/~fc/cnx-software/blog?bg=33CCFF&amp;fg=000000&amp;anim=0" height="26" width="88" style="border:0" alt=""/></a>
+</div></div>
+</div><div id="text-6" class="widget widget_text"> <div class="textwidget"><div align=center>
+<a href="http://www.linode.com/?r=2fdf98325221384ba98d4280502479be6d778d60" rel="nofollow"><img src="http://www.cnx-software.com/wp-content/uploads/2013/05/hosted_by_linode.jpg"></a></div></div>
+</div>
+</div>
+ 
+</div>
+ 
+<div class="fixed"></div>
+</div>
+ 
+ 
+<div id="footer">
+<a id="gotop" href="#" rel="nofollow" onclick="MGJS.goTop();return false;">Top</a>
+<a id="powered" href="http://wordpress.org/">WordPress</a>
+<div id="copyright">
+Copyright &copy; 2009-2014 CNXSoft - <a href="http://www.cnx-software.com" title="CNXSoft &#8211; Embedded Software Development">Embedded Software Development</a>
+</div>
+<div id="themeinfo">
+Theme by <a href="http://www.neoease.com/" rel="nofollow">NeoEase</a>. Valid <a href="http://validator.w3.org/check?uri=referer" rel="nofollow">XHTML 1.1</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3" rel="nofollow">CSS 3</a>.
+</div>
+</div>
+ 
+</div>
+ 
+</div>
+ 
+<script>$("form#commentform").submit(function(e){var r=["ScrapeMediaTrack","payday loans","louis vuitton"];var s=$("#author").val()+" "+$("#email").val()+" "+$("#comment").val();var p=true;for(var i=0;i<=r.length-1;i++){var v = r[i];if(s.indexOf(v)!==-1){alert("Comment submissions cannot contain: "+v+". Please remove this and resubmit.");p=false;break;}}return p;});</script>
+<script type="text/javascript" src="http://s.skimresources.com/js/38249X983277.skimlinks.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><link rel='stylesheet' id='yarppRelatedCss-css' href='http://www.cnx-software.com/wp-content/plugins/yet-another-related-posts-plugin/style/related.css?ver=4.0' type='text/css' media='all'/>
+<script type='text/javascript' src='http://www.cnx-software.com/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.51.0-2014.06.20'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.cnx-software.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ...","cached":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.cnx-software.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.0.1'></script>
+<script type="text/javascript">
+          (function() {
+            var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+            t.parentNode.insertBefore(s, t);
+          })();
+        </script>
+ 
+<script type="text/javascript">
+(function(d){
+  var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+  p.type = 'text/javascript';
+  p.async = true;
+  p.src = '//assets.pinterest.com/js/pinit.js';
+  f.parentNode.insertBefore(p, f);
+}(document));
+</script>
+</body>
+</html>
+ 
+ 
+ 
+ 
+ 

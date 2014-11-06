@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Smallest x86 ELF Hello World</title>
+    <style>
+.screen, .programlisting { 
+	background-color:  #f0eee6; /* light salmon */
+	border: 1pt solid #C1B496; /* dark tan */
+  padding: 5px; 
+} 
+
+    </style>
+<script src="Smallest%20x86%20ELF%20Hello%20World_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30409248-1']);
+  _gaq.push(['_setDomainName', 'timelessname.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+  <body>
+    <h1>Smallest x86 ELF Hello World</h1>
+    <h2>(That I could achieve)</h2>
+    <h3>Final size: <span style="color: red; font-weight: bolder;">142 bytes</span></h3>
+    <h3>Intro</h3>
+
+    <p>
+      This page is a combination tutorial/documentary about my attempts 
+at creating the smallest x86 ELF binary that would execute saying Hello 
+World on Ubuntu Linux. My first attempts started with C then progressed 
+to x86 assembly and finally to a hexeditor. I ended up compromising and 
+switching to a "Hi World" app instead in order to fit the string data 
+into the elf magic number. The final result is a completely corrupted 
+x86 ELF Binary that still runs. 
+
+    </p>
+
+
+    <h3>From start to finish.</h3>
+    <ul>
+      <li>The first thing you need to do is get an a proper environment setup.
+        <ul>
+          <li>Install Ubuntu (or a distro of your choice)</li>
+          <li>run: <b>sudo apt-get install g++ gcc nasm</b></li>
+          <li>
+<fieldset class="screen">
+<legend class="screen">System versions</legend>
+<pre>user@computer:~$ <b>lsb_release -a</b>
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 8.04.1
+Release:	8.04
+Codename:	hardy
+user@computer:~$ <b>uname -a</b>
+Linux ryanh-desktop 2.6.24-19-generic #1 SMP Wed Jun 18 14:43:41 UTC 2008 i686 GNU/Linux
+user@computer:~$ <b>gcc --version</b>
+gcc (GCC) 4.2.3 (Ubuntu 4.2.3-2ubuntu7)
+Copyright (C) 2007 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+user@computer:~$ <b>nasm -version</b>
+NASM version 0.99.06-20071101 compiled on Nov 15 2007
+</pre>
+</fieldset>
+          </li>
+        </ul>
+      </li>
+      <li>
+My first attempts started with C, the following is what I used for chello.c
+<fieldset class="screen">
+<legend class="screen">Code: <b>chello.c</b></legend>
+<pre><span style="color: rgb(0, 128, 0);">#include &lt;stdio.h&gt;</span>
+<span style="color: rgb(128, 0, 0);">int</span><span style="color: rgb(0, 0, 0);"> main() {</span>
+<span style="color: rgb(0, 0, 0);">  printf (</span><span style="color: rgb(221, 0, 0);">"Hi World</span><span style="color: rgb(255, 0, 255);">\n</span><span style="color: rgb(221, 0, 0);">"</span><span style="color: rgb(0, 0, 0);">);</span>
+<span style="color: rgb(0, 0, 0);">  </span><span style="font-weight: bold; color: rgb(0, 0, 0);">return</span><span style="color: rgb(0, 0, 0);"> </span><span style="color: rgb(0, 0, 255);">0</span><span style="color: rgb(0, 0, 0);">;</span>
+<span style="color: rgb(0, 0, 0);">}</span>
+</pre>
+</fieldset>
+      </li>
+<li>
+<fieldset class="screen">
+<legend class="screen">Command: gcc</legend>
+<pre>user@computer:~$ <b>gcc -o chello chello.c</b>
+user@computer:~$ ./chello 
+Hi World
+</pre>
+</fieldset>
+</li>
+<li>
+My initial executable was <span style="color: red; font-weight: bolder;">6363 bytes</span>.
+</li>
+
+<li>
+You can use readelf to dump the ELF header from the executable.
+</li>
+<li>
+<fieldset class="screen">
+<legend class="screen">Command: readelf</legend>
+<pre>user@computer:~$ <b>readelf -h chello</b>
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Intel 80386
+  Version:                           0x1
+  Entry point address:               0x80482f0
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          3220 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         7
+  Size of section headers:           40 (bytes)
+  Number of section headers:         36
+  Section header string table index: 33
+
+</pre>
+</fieldset>
+</li>
+
+
+<li>
+ldd is useful for showing all the dynamic libraries an executable is linked to.
+</li>
+<li>
+<fieldset class="screen">
+<legend class="screen">Command: ldd</legend>
+<pre>user@computer:~$ <b>ldd chello</b>
+	linux-gate.so.1 =&gt;  (0xb7f77000)
+	libc.so.6 =&gt; /lib/tls/i686/cmov/libc.so.6 (0xb7e18000)
+	/lib/ld-linux.so.2 (0xb7f78000)
+</pre>
+</fieldset>
+</li>
+<li>
+file will give you a description of what a file is.
+</li>
+<li>
+<fieldset class="screen">
+<legend class="screen">Command: file</legend>
+<pre>user@computer:~$ <b>file chello</b>
+chello: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), for GNU/Linux 2.6.8, dynamically linked (uses shared libs), not stripped
+</pre>
+</fieldset>
+</li>
+<li>
+The "not stripped" returned from the file command means that the debugging symbols haven't been stripped from the excutable.
+</li>
+<li>
+<fieldset class="screen">
+<legend class="screen">Command: strip</legend>
+<pre>user@computer:~$ <b>strip -s chello</b>
+</pre>
+</fieldset>
+</li>
+<li>
+After stripping the executable was now <span style="color: red; font-weight: bolder;">2984 bytes</span>, still unacceptable! Time to take drastic measures...
+</li>
+<li>
+I scratched the C attempt and dropped using printf, instead opting for nasm x86 assembly.
+</li>
+<fieldset class="screen">
+<legend class="screen">file: hello.asm</legend>
+<pre><span style="color: rgb(0, 0, 0);">	SECTION </span><span style="font-weight: bold; color: rgb(0, 0, 0);">.data</span>
+<span style="color: rgb(0, 0, 0);">msg:	db </span><span style="color: rgb(221, 0, 0);">"Hi World"</span><span style="color: rgb(0, 0, 0);">,</span><span style="color: rgb(0, 0, 255);">10</span>
+<span style="color: rgb(0, 0, 0);">len:	equ $-msg</span>
+
+<span style="color: rgb(0, 0, 0);">	SECTION </span><span style="font-weight: bold; color: rgb(0, 0, 0);">.text</span>
+
+<span style="color: rgb(0, 0, 0);">        global main</span>
+<span style="color: rgb(0, 0, 0);">main:</span>
+<span style="color: rgb(0, 0, 0);">	mov	edx,len</span>
+<span style="color: rgb(0, 0, 0);">	mov	ecx,msg</span>
+<span style="color: rgb(0, 0, 0);">	mov	ebx,</span><span style="color: rgb(0, 0, 255);">1</span>
+<span style="color: rgb(0, 0, 0);">	mov	eax,</span><span style="color: rgb(0, 0, 255);">4</span>
+
+<span style="color: rgb(0, 0, 0);">	int	</span><span style="color: rgb(0, 128, 128);">0x80</span>
+<span style="color: rgb(0, 0, 0);">	mov	ebx,</span><span style="color: rgb(0, 0, 255);">0</span>
+<span style="color: rgb(0, 0, 0);">	mov	eax,</span><span style="color: rgb(0, 0, 255);">1</span>
+<span style="color: rgb(0, 0, 0);">	int	</span><span style="color: rgb(0, 128, 128);">0x80</span>
+
+</pre>
+</fieldset>
+
+<li>
+<fieldset class="screen">
+<legend class="screen">Compiling the asm</legend>
+<pre>user@computer:~$ <b>nasm -f elf hello.asm</b>
+user@computer:~$ <b>gcc -o hello hello.o -nostartfiles -nostdlib -nodefaultlibs</b>
+user@computer:~$ <b>strip -s hello</b>
+user@computer:~$ <b>./hello</b>
+Hi World
+</pre>
+</fieldset>
+</li>
+<li>
+Before stripping the file was <span style="color: red; font-weight: bolder;">770 bytes</span> after stripping <span style="color: red; font-weight: bolder;">448 bytes</span>. However there is still useless headers and sections to destroy.
+</li>
+<li>
+Open the binary in your favorite hex editor, I use the curses hexeditor and ghex2.
+</li>
+<li>
+<img src="Smallest%20x86%20ELF%20Hello%20World_files/screen1.png">
+</li>
+<li>
+Delete everything including and past offset 0xAD, this will drop it down to <span style="color: red; font-weight: bolder;">173 bytes</span>
+</li>
+<li>
+<img src="Smallest%20x86%20ELF%20Hello%20World_files/screen2.png">
+</li>
+<li>
+<img src="Smallest%20x86%20ELF%20Hello%20World_files/asmtobin.png">
+</li>
+<li>
+Move 0xA4-0xAC to 0x7 and Change offset 0x86 from 0xA4 to its new location 0x07. Delete 0xA2 and 0xA3
+</li>
+<li>
+<img src="Smallest%20x86%20ELF%20Hello%20World_files/screen3.png">
+</li>
+<li>
+The file should be <span style="color: red; font-weight: bolder;">164 bytes</span>
+ and now its time to enter the twilight zone... The rest is a lot to 
+explain, basically I attempted to find what I could change in the elf 
+head with out having it segfault on me.I added some jmps and completely 
+corrupted the executable, however it still runs :). Here is some useful 
+information: In x86 0xD9D0 is nop or no operation, useful for just 
+filling space if you need to. 0xEB followed by a single signed byte is a
+ relative jmp. Really you should read the <a href="http://www.intel.com/products/processor/manuals/">intel docs</a> on x86 instructions <a href="http://download.intel.com/design/processor/manuals/253666.pdf">A-M</a> <a href="http://download.intel.com/design/processor/manuals/253667.pdf">N-Z</a> .
+</li>
+<li>
+<pre>typedef struct {
+        unsigned char   e_ident[EI_NIDENT];
+        Elf32_Half      e_type;
+        Elf32_Half      e_machine;
+        Elf32_Word      e_version;
+        Elf32_Addr      e_entry;
+        Elf32_Off       e_phoff;
+        Elf32_Off       e_shoff;
+        Elf32_Word      e_flags;
+        Elf32_Half      e_ehsize;
+        Elf32_Half      e_phentsize;
+        Elf32_Half      e_phnum;
+        Elf32_Half      e_shentsize;
+        Elf32_Half      e_shnum;
+        Elf32_Half      e_shtrndx;
+} Elf32_Ehdr;
+</pre>
+</li>
+<li>
+<img src="Smallest%20x86%20ELF%20Hello%20World_files/screen4_path.gif">
+</li>
+
+
+    </ul>
+
+    <h1>Conclusion. </h1>
+    <h3>Final size: <span style="color: red; font-weight: bolder;">142 bytes</span></h3>
+    <a href="http://timelessname.com/elfbin/helloworld.tar.gz">helloworld.tar.gz</a>
+    <p>
+      I am certain that there are ways to get it even smaller. There may
+ also be more things that can be removed from the header to increase 
+size, but I didn't spend the enough time fully researching the ELF 
+header format. Another option might be to use the a.out format instead 
+of ELF may allow you to get even smaller. 
+    </p>
+    Comments, suggestions, and critical criticism accepted: <a href="mailto:henszey@gmail.com">henszey@gmail.com</a>
+
+    <br><br><br>
+    <a href="http://timelessname.com/">Home</a><br><br><br><br>
+  
+
+
+
+</body></html>

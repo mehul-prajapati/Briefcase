@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"> 
+
+<link rel="stylesheet" type="text/css" href="X%20server%20definition%20by%20The%20Linux%20Information%20Project%20%28LINFO%29%3C_h1%3E_files/belug1.css">
+
+<title>X server definition by The Linux Information Project (LINFO)&lt;/h1&gt;</title></head>
+
+<body bgcolor="#ffffff">
+
+<a href="http://www.linfo.org/index.html">LINFO</a>
+
+<br><center><h1>X Server Definition</h1></center><br>
+
+<table width="100%"><tbody><tr><td width="10%"></td><td width="80%">
+
+<br>
+
+<p>
+An <i>X server</i> is a <a href="http://www.linfo.org/program.html">program</a> in the <a href="http://www.linfo.org/x.html"><i>X Window System</i></a> that runs on <a href="http://www.linfo.org/local_machine.html"><i>local machines</i></a>
+ (i.e., the computers used directly by users) and  handles all access to
+ the graphics cards, display screens and input devices (typically a 
+keyboard and mouse) on those computers. 
+</p>
+
+<p>
+The X Window System, often referred to merely as <i>X</i>, is a complete, <a href="http://www.linfo.org/cross-platform.html">cross-platform</a> and <a href="http://www.linfo.org/free_software.html">free</a> <a href="http://www.linfo.org/client_server.html"><i>client-server</i></a> system for managing <a href="http://www.linfo.org/gui.html">GUIs</a> (graphical user interfaces) on single computers and on <a href="http://www.linfo.org/network.html">networks</a> of computers. The client-server model is an <i>architecture</i> (i.e., network design) that divides the work between two separate but linked applications, referred to as <a href="http://www.linfo.org/client.html"><i>clients</i></a> and <a href="http://www.linfo.org/server.html"><i>servers</i></a>.
+</p>
+
+<p>
+In the typical client-server relationship, the client application runs 
+on the local machine. It helps the user request data from the server and
+ displays the requested data appropriately on the user's display screen.
+ The server application, which processes the data as requested and 
+returns the results to the client, typically can run on either a <a href="http://www.linfo.org/remote_machine.html"><i>remote machine</i></a> (i.e., a computer located elsewhere on the network) or the local machine with no obvious difference to the user (so-called <a href="http://www.linfo.org/network_transparency.html"><i>network transparency</i></a>). When running on a remote machine, the server program can accommodate the requests of multiple clients.
+</p>
+
+<p>
+In X, however. the client-server relationship is inverted in that each 
+local machine contains X server server software and can access <a href="http://www.linfo.org/x_client.html"><i>X clients</i></a> (i.e., <a href="http://www.linfo.org/appslist.html">application programs</a>)
+ that run either on the same machine or on a remote machine. The X 
+server does the actual work of managing the input and display devices, 
+including performing the requested display operation. This has the 
+advantage of eliminating the need for the application programs to be 
+aware of these hardware details, thereby simplifying the development of 
+such programs and facilitating their servicing of multiple users on the 
+network simultaneously.   
+</p>
+
+<p>
+Communication between an X server and X clients is governed by the <a href="http://www.linfo.org/x_protocol.html"><i>X protocol</i></a>, which is sometimes termed <i>the <a href="http://www.linfo.org/message.html">message</a> format of the X Window System</i>. Such communication consists of: (1) requests by clients for <a href="http://www.linfo.org/information.html">information</a> or an action, (2) responses by the server, (3) the sending by the server of <i>events</i> to clients and (4) the sending by the server of error <a href="http://www.linfo.org/packet.html"><i>packets</i></a> if client requests are invalid. An event is typically an input from a keyboard or mouse, such as a <a href="http://www.linfo.org/window.html">window</a>
+ being moved, exposed, resized or closed. Packets are the fundamental 
+unit of information transport in all modern computer networks.
+</p>
+
+<p>
+The X server provides five basic types of services: input handling, 
+window services, graphics, text and fonts, and resource management. 
+Input handling services consist of passing keyboard and mouse inputs to 
+clients as events via the <i>window manager</i>, which X regards as just
+ another client. A window manager is a program that provides basic 
+management operations for windows, such as opening, closing, moving and 
+resizing windows.
+</p>
+
+<p>
+Window services are requests by clients to the X server to provide 
+information about windows or to create or destroy them. Graphics 
+services are the drawing of lines and shapes and performing <i>bitmap</i> (i.e., images made up of <a href="http://www.linfo.org/pixel.html">pixels</a>)
+ operations in response to client requests. Text and font services are 
+responses to clients' requests to draw text at specified locations in 
+specific fonts as well as responses to requests for information on 
+available fonts. Resource management includes the provision of a 
+content-addressable database for clients. 
+</p>
+
+
+
+
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+<p class="copy">Created December 19, 2005. Updated April 7, 2006.<br>
+Copyright © 2005 The Linux Information Project. All Rights Reserved.</p>
+
+</td><td width="10%"></td></tr></tbody></table>
+
+
+</body></html>

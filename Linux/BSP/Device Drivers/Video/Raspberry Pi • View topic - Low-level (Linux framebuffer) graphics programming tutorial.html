@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="">
+<meta name="viewport" content="width=device-width">
+
+
+<title>Raspberry Pi • View topic - Low-level (Linux framebuffer) graphics programming tutorial</title>
+
+<link rel="shortcut icon" href="http://www.raspberrypi.org/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="icon" href="http://www.raspberrypi.org/favicon.ico" type="image/x-ico">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+
+<link rel="stylesheet" type="text/css" media="all" href="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/style.css">
+<link rel="stylesheet" type="text/css" href="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/custom.css">
+<link rel="stylesheet" type="text/css" href="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/bootstrap-raspi.css">
+<!--[if lt IE 8]>
+<link rel="stylesheet" type="text/css" href="./styles/raspite/theme/css/ie7.css">
+<![endif]-->
+<link href="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/css.css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="./styles/raspite/theme/js/html5shiv.js"></script>
+<![endif]-->
+<link rel="pingback" href="">
+
+<link rel="alternate" type="application/atom+xml" title="Feed - Raspberry Pi" href="http://www.raspberrypi.org/forums/feed.php"><link rel="alternate" type="application/atom+xml" title="Feed - New Topics" href="http://www.raspberrypi.org/forums/feed.php?mode=topics"><link rel="alternate" type="application/atom+xml" title="Feed - Forum - Graphics programming" href="http://www.raspberrypi.org/forums/feed.php?f=67"><link rel="alternate" type="application/atom+xml" title="Feed - Topic - Low-level (Linux framebuffer) graphics programming tutorial" href="http://www.raspberrypi.org/forums/feed.php?f=67&amp;t=30720">
+
+
+<script src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/analytics.js" async=""></script><script type="text/javascript">
+// <![CDATA[
+	var jump_page = 'Enter the page number you wish to go to:';
+	var on_page = '1';
+	var per_page = '25';
+	var base_url = './viewtopic.php?f=67&amp;t=30720&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f';
+	var style_cookie = 'phpBBstyle';
+	var style_cookie_settings = '; path=/; domain=.raspberrypi.org';
+	var onload_functions = new Array();
+	var onunload_functions = new Array();
+
+	
+
+	/**
+	* Find a member
+	*/
+	function find_username(url)
+	{
+		popup(url, 760, 570, '_usersearch');
+		return false;
+	}
+
+	/**
+	* New function for handling multiple calls to window.onload and window.unload by pentapenguin
+	*/
+	window.onload = function()
+	{
+		for (var i = 0; i < onload_functions.length; i++)
+		{
+			eval(onload_functions[i]);
+		}
+	};
+
+	window.onunload = function()
+	{
+		for (var i = 0; i < onunload_functions.length; i++)
+		{
+			eval(onunload_functions[i]);
+		}
+	};
+
+// ]]>
+</script>
+<link href="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/stylesheet.css" rel="stylesheet" type="text/css" media="screen, projection">
+
+
+
+</head>
+
+<body>
+<a name="top"></a>
+
+<header class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<!-- Cross-site Navigation -->
+
+		<nav class="container" role="navigation">
+			<h3 class="assistive-text">Main menu</h3>
+
+			<div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+
+		  <a href="#" class="btn btn-navbar pull-right" data-toggle="collapse" data-target=".nav-collapse">
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+            <i class="icon-bar"></i>
+          </a>
+
+			<div class="nav-collapse">
+				<div class="nav pull-right">
+
+					<ul id="menu-test-menu" class="nav">
+						<li id="menu-item-1862" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1862"><a href="http://www.raspberrypi.org/quick-start-guide">Quick Start</a></li>
+						<li id="menu-item-1864" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1864"><a href="http://www.raspberrypi.org/downloads">Downloads</a></li>
+						<li id="menu-item-1870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1870"><a href="http://www.raspberrypi.com/" onclick="javascript:_gaq.push(['_trackEvent','outbound-menu','http://www.raspberrypi.com']);">Buy Codecs</a></li>
+						<li id="menu-item-1867" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1867"><a href="http://www.raspberrypi.org/phpBB3">Forum</a></li>
+						<li id="menu-item-1869" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1869"><a href="http://www.raspberrypi.org/faqs">FAQs</a></li>
+						<li id="menu-item-1861" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1861 dropdown"><a href="#" data-toggle="dropdown" data-target="#" class="dropdown-toggle">About <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li id="menu-item-1865" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1865"><a href="http://www.raspberrypi.org/about">About us</a></li>
+								<li id="menu-item-1866" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1866"><a href="http://www.raspberrypi.org/contact-us">Contact us</a></li>
+								<li id="menu-item-4662" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4662"><a href="http://www.raspberrypi.org/technical-help-and-resource-documents">Technical, help and resource documents</a></li>
+								<li id="menu-item-1863" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1863"><a href="http://www.raspberrypi.org/trademark-rules">Trademark rules</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<a class="nav-logo" href="http://www.raspberrypi.org/" title="Raspberry Pi" rel="home">Raspberry Pi</a>
+		</nav>
+
+
+
+	</div>
+</header>
+
+<div class="container">
+	
+	<div class="row-fluid searchbar">
+		<div class="span6">
+		<a href="http://www.raspberrypi.org/forums/faq.php?sid=36beccb118c9ea67d78f6cbf065b2e3f" title="Frequently Asked Questions">FAQ</a>
+		<a href="http://www.raspberrypi.org/forums/ucp.php?mode=register&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">Register</a>
+			<a href="http://www.raspberrypi.org/forums/ucp.php?mode=login&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f" title="Login" accesskey="x">Login</a>
+			
+		</div>
+		<div class="span6 text-right">
+			
+			<form action="./search.php?sid=36beccb118c9ea67d78f6cbf065b2e3f" method="get" id="search" class="form-search" style="display:inline-block; *display:inline; zoom:1;">
+				<input name="keywords" id="keywords" maxlength="128" title="Search for keywords" class="search-query input-small" value="Search…" onclick="if(this.value=='Search…')this.value='';" onblur="if(this.value=='')this.value='Search…';" type="text">
+				<button class="btn" value="Search" type="submit" title="Search"><i class="icon icon-search"></i></button>
+				<input name="sid" value="36beccb118c9ea67d78f6cbf065b2e3f" type="hidden">
+
+			</form>
+		
+		</div>
+	</div>
+	
+</div>
+
+<a name="content"></a>
+<div class="container" role="main">
+
+<div class="row-fluid">
+	<div class="span9">
+		<h2>Low-level (Linux framebuffer) graphics programming tutorial</h2>
+		
+		<!-- ICONS! -->
+			
+	</div>
+
+</div>
+
+<!-- NOTE: remove the style="display: none" when you want to have the forum description on the topic body -->
+
+<br>
+<div class="row-fluid">
+	<div class="topic-actions span8">
+	
+		<a href="http://www.raspberrypi.org/forums/posting.php?mode=reply&amp;f=67&amp;t=30720&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f" class="btn btn-info" title="Post a reply">Post a reply</a> 
+	&nbsp;</div>
+	
+	
+	<div class="paging span4 text-right">
+		43 posts
+		 &nbsp; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>2</strong></a> &nbsp; <span><strong>1</strong><span class="page-sep">, </span><a href="http://www.raspberrypi.org/forums/viewtopic.php?f=67&amp;t=30720&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f&amp;start=25">2</a></span>
+	</div>
+	
+	
+</div>
+	<div id="p267107" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Tue Jan 22, 2013 5:34 pm </div>
+
+			
+
+			<div class="content">Not sure how much there is need for this kind of stuff, but just in case...<br><br><blockquote class="uncited"><div>The
+ Raspberry Pi (RPi) comes built with hardware support - and supporting 
+software programming libraries - for all the current state of the art 
+standardised graphics goodies: OpenGL ES, OpenVG, EGL  etc. and 
+considering the performance gains of using the VideoCore GPU over the 
+ARM CPU, it definitely makes sense to utilise these libraries to their 
+full extent.<br><br>However, one of the main ideologies of the Raspberry
+ Pi Foundation - the people who conceived the crafty little appliance we
+ now know as RPi - was to introduce new generations to 'what goes behind
+ the scenes' of fancy applications and user-interfaces. In my opinion, 
+this goes as well for the 'fancy' graphics libraries and technologies. 
+Therefore I would like to think it makes sense to introduce also the 
+lower level interfaces for programming graphics on the RPi (most 
+principles and some of the code I will introduce apply to other systems 
+as well).<br></div></blockquote><br><br><!-- m --><a class="postlink" href="http://raspberrycompote.blogspot.com/2012/12/low-level-graphics-on-raspberry-pi-part_9509.html">http://raspberrycompote.blogspot.com/20 ... _9509.html</a><!-- m --><br><br>Basic command-line and file editing skills expected - some understanding of C programming would not hurt...<br><br>Constructive comments and critique welcome.</div>
+
+			<div id="sig267107" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile267107">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p283122" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=55713&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">r00x</a></strong> » Sat Feb 09, 2013 5:17 pm </div>
+
+			
+
+			<div class="content">Thanks for this - I've been looking for days for
+ concise info on the framebuffer and only found disjointed discussion by
+ people who already know what they're on about. <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_biggrin.gif" alt=":D" title="Very Happy"><br><br>What
+ other information on the framebuffer can we siphon from you? Do you 
+know how one might make a second framebuffer (fb1) for a second display?
+ <br><br>I'd like to get a few different colour TFTs of my own choosing 
+running via SPI/GPIO (one at a time, not all at once, haha) and it would
+ be nice to pipe videos, images etc to them, and optionally have it run 
+as the 'primary' display (so, pointing it to fb0 rather than a second 
+fb1 I suppose). There is precious little concise information on how to 
+go about this and I am getting lost.</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile283122">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 39</dd><dd><strong>Joined:</strong> Mon Feb 04, 2013 11:05 am</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p284753" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Mon Feb 11, 2013 2:56 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>r00x wrote:</cite>Thanks 
+for this - I've been looking for days for concise info on the 
+framebuffer and only found disjointed discussion by people who already 
+know what they're on about. <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_biggrin.gif" alt=":D" title="Very Happy"><br><br>What
+ other information on the framebuffer can we siphon from you? Do you 
+know how one might make a second framebuffer (fb1) for a second display?
+ <br><br>...</div></blockquote><br><br>Good to hear at least someone 
+reading it. Unfortunately I have no experience using multiple 
+framebuffers. I can take a rummage through my links and references, just
+ in case...</div>
+
+			<div id="sig284753" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile284753">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p285241" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">DexOS</a></strong> » Mon Feb 11, 2013 11:38 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>-rst- wrote:</cite>Good to hear at least someone reading it. </div></blockquote><br>I sure there are many coders that find it interesting, i been working on something simular, but coded it in assembly.<br>I hope to run it on a stripped down linux, so it will boot fast.<br>Its very interesting to see how the desktop is drawn.<br>Example:
+ when something is written to the terminal after filling the full 
+screen, it only up dates a small block, also how you can redraw the 
+desktop with the mouse cursor.<br>Anyway, great works.</div>
+
+			<div id="sig285241" class="signature"><span style="font-weight: bold">Batteries not included, Some assembly required.</span></div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile285241">
+			<dt>
+				<a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/file.jpeg" alt="User avatar" width="90" height="90"></a><br>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 863</dd><dd><strong>Joined:</strong> Wed May 16, 2012 6:32 pm</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://www.dex-os.com/" title="WWW: http://www.dex-os.com/" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p301991" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=60105&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">pinbot</a></strong> » Mon Mar 04, 2013 8:32 am </div>
+
+			
+
+			<div class="content">Truly -rst-, <span style="font-weight: bold">*THANK YOU*</span> for this! - ESPECIALLY SOME DEMO CODE!  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_surprised.gif" alt=":o" title="Surprised">  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_exclaim.gif" alt=":!:" title="Exclamation">  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_exclaim.gif" alt=":!:" title="Exclamation">  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_exclaim.gif" alt=":!:" title="Exclamation"><br><br>Right
+ off the bat, what are your thoughts on SDL 1.2 for direct interactions 
+w/ fbdev on Rpi? There are many features that stand out to me for trying
+ to approach Rpi w/ SDL, starting out with the obligatory display:<br><br><ul><li>fbdev</li><li>sound</li><li>network</li></ul><br>The Wikipedia Entry for SDL goes on to list out more, '<a href="http://en.wikipedia.org/wiki/Simple_DirectMedia_Layer#Design" class="postlink">including file access, event handling, timing, theading, and more</a>'<br><br>From
+ what I understand w/ SDL 1.2, it doesn't have the hardware support for 
+Rpi's GPU because it's bindings are to OpenGL, not OpenGL ES? Where as, 
+OpenGL ES is what is behind Rapsberry Pi along w/ OpenMax <a href="http://elinux.org/RPi_VideoCore_APIs" class="postlink">and 1-2 others</a>?<br><br>Meanwhile, SDL 2.0 looks promising because it's slated to have more support (OpenGL ES?) based upon my understanding?<br><br>I've
+ been trying to spend what free time I can reading the following for 
+trying to understand what I need, in order to accomplish varying goals 
+centered around Rpi:<br><br><ul><li><a href="http://www.amazon.com/Programming-Linux-Games-Loki-Software/dp/1886411492" class="postlink">Programming Linux Games</a></li><li><a href="http://www.linuxfromscratch.org/lfs/view/7.0/" class="postlink">Linux from Scratch</a></li><li><a href="http://www.amazon.com/GNU-Linux-Application-Programming-Series/dp/1584505680" class="postlink">GNU/Linux Application Programming</a></li></ul><br>and after finding this forum thread tonight, finally a light bulb or two is clicking on <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_idea.gif" alt=":idea:" title="Idea"> THANK YOU! THANK YOU! THANK YOU! <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_razz.gif" alt=":P" title="Razz"><br><br>Where
+ as Qt5 is handing my ass to me on Rpi, and I have't been this 
+frustrated in a long time (I've lost track of how many days I've spent 
+just trying to get fundamental basics accomplished for this,) in part 
+because I can barely even get it to compile, let alone something so 
+simple as displaying "Hello World" on the screen (deep breaths into a 
+paper sack)<br><br>I've truly considered posting up a bounty on the 
+forum for verbose, articulate, step-by-step instructions so that mere 
+mortals with &lt;= 140 IQ can jump into the <a href="http://qt-project.org/wiki/Qt-RaspberryPi#5384a2660d657829fabc5d926a38065c" class="postlink">razzle dazzle side of Rpi</a> instead of just NASA engineers and anyone else hovering at 180-200 IQ, if not higher <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_cry.gif" alt=":cry:" title="Crying or Very Sad"><br><br>With
+ that said, what are your thoughts on the ability of merging the two 
+together? E.g. if SDL is the /appropriate/ choice for covering many 
+bases (fbdev, peripheral i/o, sound, network, etc) is there a way to 
+marry the two together where a nice menu system can be built on top of 
+Qt5 (including perhaps picture in picture for example,) while as the 
+meat &amp; potatoes are just raw fbdev?<br><br>I'm *absolutely clueless*
+ when it comes to this, and coming from a decade+ in LAMP stack, where 
+as my first taste of EE was with Arduino boards, then multiple 
+processing capability w/ Propeller, and Rpi feels like the missing piece
+ of the puzzle for trying to chase down what I dream about on a nightly 
+basis (including some fbdev work in nursing homes, and as time 
+progresses, hopefully children's hospitals as well)<br><br>Best regards, and thank you once again <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_smile.gif" alt=":)" title="Smile"></div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile301991">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 1</dd><dd><strong>Joined:</strong> Mon Mar 04, 2013 4:50 am</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p302112" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Mon Mar 04, 2013 11:51 am </div>
+
+			
+
+			<div class="content">Glad to be of at least some help.<br><br>Hmm... at the brink of the depths to very elementary life choices <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"> I am not exactly an expert in all of the libraries mentioned here...<br><br>Yes, SDL <span style="font-style: italic">at the moment</span> is not the best choice <span style="font-style: italic">for performance on RPi</span>
+ - it lacks (afaik) all hw acceleration (due to the OpenGL vs OpenGL ES 
+gap, as you mention) and even such basic stuff as hw page flipping (with
+ vsync). This is partly due to lack of standard support in Linux (and an
+ oversight on 'nearly standard' stuff in SDL) - partly due to RPi fb 
+driver not implementing all features. However, SDL is so widely used and
+ somewhat portable, that I'd say it would still be a good contender and 
+the new version of SDL looks promising... There is a slightly modified 
+port of SDL that provides vsync by utilising the RPi hw exposed through 
+the dispmanx library: <!-- l --><a class="postlink-local" href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=78&amp;t=25146">viewtopic.php?f=78&amp;t=25146</a><!-- l --><br><br>Since you have got Qt5 compiled yourself, you might not want to see these ready compiled packages: <!-- m --><a class="postlink" href="http://twolife.be/raspbian/pool/main/qt5/">http://twolife.be/raspbian/pool/main/qt5/</a><!-- m --> <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_lol.gif" alt=":lol:" title="Laughing">
+ Qt5 is still work in progress, so might not provide a stable enough 
+platform at the moment - it looks very promising, and if it will fulfill
+ all the promises...<br><br>One option - unfortunately not so easily 
+portable (some advanced 'configure' scripting though...) - would be to 
+use SDL for input+sound+etc and the RPi provided libraries EGL/dispmanx 
+for display/window management and then straight on OpenGL ES etc.<br><br>Unfortunately
+ - for anything advanced - the 'pure framebuffer' option is not going to
+ give acceptable performance due to the somewhat weak CPU on RPi and the
+ lacking functionality in the fb driver (have written about some of this
+ on this forum <!-- l --><a class="postlink-local" href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=67&amp;t=19073">viewtopic.php?f=67&amp;t=19073</a><!-- l --> , <!-- l --><a class="postlink-local" href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=72&amp;t=11682">viewtopic.php?f=72&amp;t=11682</a><!-- l --> and <!-- l --><a class="postlink-local" href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=67&amp;t=23869">viewtopic.php?f=67&amp;t=23869</a><!-- l --> - was going to get into these in the blog as well...).<br><br>Not much of a help is it?   <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_rolleyes.gif" alt=":roll:" title="Rolling Eyes"></div>
+
+			<div id="sig302112" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile302112">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p305565" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Fri Mar 08, 2013 3:08 pm </div>
+
+			
+
+			<div class="content">Just in case anyone is interested...<br><br>Some new posts including an explanation of the most typical display modes (bit depths) <!-- m --><a class="postlink" href="http://raspberrycompote.blogspot.ie/2013/03/low-level-graphics-on-raspberry-pi-part_8.html">http://raspberrycompote.blogspot.ie/201 ... art_8.html</a><!-- m -->
+ (applicable to dispmanx etc, not just framebuffer...) - also full 
+source code examples available in github now (see blog sidebar 'Code 
+Repository').</div>
+
+			<div id="sig305565" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile305565">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p305889" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=59592&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">10robinho</a></strong> » Sat Mar 09, 2013 1:03 am </div>
+
+			
+
+			<div class="content">-rst- that is really great. Thanks a lot for your effort! This tutorial helps a lot to fill gaps in knowledge.</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile305889">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 22</dd><dd><strong>Joined:</strong> Thu Feb 28, 2013 7:42 pm</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p323430" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Wed Apr 03, 2013 10:43 am </div>
+
+			
+
+			<div class="content">Some more playing around with color depths <!-- m --><a class="postlink" href="http://raspberrycompote.blogspot.ie/2013/04/low-level-graphics-on-raspberry-pi-part.html">http://raspberrycompote.blogspot.ie/201 ... -part.html</a><!-- m --> and resolutions <!-- m --><a class="postlink" href="http://raspberrycompote.blogspot.ie/2013/04/low-level-graphics-on-raspberry-pi-part_3.html">http://raspberrycompote.blogspot.ie/201 ... art_3.html</a><!-- m --><br><br><br>...shameless
+ self-promotion yes - but hey, some have found the stuff useful ...and I
+ am not even signed-up for 'Earnings' with this blog (no ads) <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"></div>
+
+			<div id="sig323430" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile323430">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p323509" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">DexOS</a></strong> » Wed Apr 03, 2013 1:14 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>-rst- wrote:</cite>Some more playing around with color depths <!-- m --><a class="postlink" href="http://raspberrycompote.blogspot.ie/2013/04/low-level-graphics-on-raspberry-pi-part.html">http://raspberrycompote.blogspot.ie/201 ... -part.html</a><!-- m --> and resolutions <!-- m --><a class="postlink" href="http://raspberrycompote.blogspot.ie/2013/04/low-level-graphics-on-raspberry-pi-part_3.html">http://raspberrycompote.blogspot.ie/201 ... art_3.html</a><!-- m --><br><br><br>...shameless
+ self-promotion yes - but hey, some have found the stuff useful ...and I
+ am not even signed-up for 'Earnings' with this blog (no ads) <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"></div></blockquote><br>What
+ FPS are you getting in different modes ?, i am getting 100fps at 
+800x600 16bpp, using double buffering in bare metal, and i think about 
+the same under linux using asm (not tested fps under linux, just seems 
+about the same).</div>
+
+			<div id="sig323509" class="signature"><span style="font-weight: bold">Batteries not included, Some assembly required.</span></div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile323509">
+			<dt>
+				<a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/file.jpeg" alt="User avatar" width="90" height="90"></a><br>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 863</dd><dd><strong>Joined:</strong> Wed May 16, 2012 6:32 pm</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://www.dex-os.com/" title="WWW: http://www.dex-os.com/" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p323523" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Wed Apr 03, 2013 1:31 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>DexOS wrote:</cite>What 
+FPS are you getting in different modes ?, i am getting 100fps at 800x600
+ 16bpp, using double buffering in bare metal, and i think about the same
+ under linux using asm (not tested fps under linux, just seems about the
+ same).</div></blockquote><br><br>Obviously depends a lot of how 
+complicated 'animation' going on: simple 'bouncing sprites' in 960x540 
+8bpp seem to run around 100fps - 'the fire' runs only around 20fps in 
+448x256 8bpp (for every frame: 4 reads per every pixel with subsampling,
+ 2 writes per every pixel + 1 write for each pixel on the bottom row)...
+ All (so far) programmed in plain C - mostly not optimised.</div>
+
+			<div id="sig323523" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile323523">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p323533" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">DexOS</a></strong> » Wed Apr 03, 2013 1:53 pm </div>
+
+			
+
+			<div class="content">You could use DMA</div>
+
+			<div id="sig323533" class="signature"><span style="font-weight: bold">Batteries not included, Some assembly required.</span></div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile323533">
+			<dt>
+				<a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/file.jpeg" alt="User avatar" width="90" height="90"></a><br>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 863</dd><dd><strong>Joined:</strong> Wed May 16, 2012 6:32 pm</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://www.dex-os.com/" title="WWW: http://www.dex-os.com/" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p323536" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Wed Apr 03, 2013 1:57 pm </div>
+
+			
+
+			<div class="content">Sure, and could code shaders and... For now I just like to stick to the Linux frame buffer to keep things simple <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"></div>
+
+			<div id="sig323536" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile323536">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p323610" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">DexOS</a></strong> » Wed Apr 03, 2013 3:58 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>-rst- wrote:</cite>Sure, and could code shaders and... For now I just like to stick to the Linux frame buffer to keep things simple <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"></div></blockquote><br>I am the same, all my stuff is KISS.<br>Here's a fb menu sys i working on for the pi <!-- m --><a class="postlink" href="http://www.dex-os.com/MiniDos/fb.zip">http://www.dex-os.com/MiniDos/fb.zip</a><!-- m --></div>
+
+			<div id="sig323610" class="signature"><span style="font-weight: bold">Batteries not included, Some assembly required.</span></div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile323610">
+			<dt>
+				<a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/file.jpeg" alt="User avatar" width="90" height="90"></a><br>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 863</dd><dd><strong>Joined:</strong> Wed May 16, 2012 6:32 pm</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://www.dex-os.com/" title="WWW: http://www.dex-os.com/" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p329349" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=63546&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">HappyPiUser</a></strong> » Thu Apr 11, 2013 5:44 pm </div>
+
+			
+
+			<div class="content">This thread is excellent.  Thank you to the OP for all of your hard work!<br><br>And to those who were asking about SDL on the Pi, you might want to take a peek at<br><br><!-- m --><a class="postlink" href="https://github.com/vanfanel/SDL12-kms-dispmanx#readme">https://github.com/vanfanel/SDL12-kms-dispmanx#readme</a><!-- m --><br><br>That's is a Raspberry Pi-optimized backend for SDL 1.2, using the "dispmanx" approach.<br><br>It's been useful for some folks who are porting SDL games and emulators.</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile329349">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 16</dd><dd><strong>Joined:</strong> Thu Mar 28, 2013 7:47 pm</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p333985" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=66507&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">GrandAdmiral</a></strong> » Thu Apr 18, 2013 3:00 pm </div>
+
+			
+
+			<div class="content">I'll add my thanks for the tutorial!  I was 
+wondering if you (or somebody else) could help with a question.  Is it 
+possible to disable updates to the framebuffer from outside sources 
+(e.g. turn off the command prompt if you're just displaying a terminal 
+or turn off the GUI/mouse pointer if you've stated LXDE) prior to 
+manually drawing into the framebuffer?  When you are done, is it then 
+possible to cause the framebuffer to get redrawn from the previous 
+sources?<br><br>I think I can simulate this behavior when the terminal 
+is displayed by disabling the prompt, drawing my test pattern(s), then 
+blank the screen and re-enabling the prompt.  I'm not sure how to handle
+ the case when LXDE is running.  Maybe this is a strange request - I'm 
+just looking for a way to display a test pattern and then revert to the 
+previous display.  Finally, let me know if I should post this question 
+on it's own.  I figured the tutorial got me most of the way to where I 
+wanted to go, I would start here.   <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_smile.gif" alt=":)" title="Smile"></div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile333985">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 21</dd><dd><strong>Joined:</strong> Thu Apr 18, 2013 2:34 pm</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p334012" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">DexOS</a></strong> » Thu Apr 18, 2013 3:28 pm </div>
+
+			
+
+			<div class="content">You could copy the screen to a buffer and restore it after you have finished.</div>
+
+			<div id="sig334012" class="signature"><span style="font-weight: bold">Batteries not included, Some assembly required.</span></div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile334012">
+			<dt>
+				<a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/file.jpeg" alt="User avatar" width="90" height="90"></a><br>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 863</dd><dd><strong>Joined:</strong> Wed May 16, 2012 6:32 pm</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://www.dex-os.com/" title="WWW: http://www.dex-os.com/" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p334031" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=66507&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">GrandAdmiral</a></strong> » Thu Apr 18, 2013 3:49 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>DexOS wrote:</cite>You could copy the screen to a buffer and restore it after you have finished.</div></blockquote><br><br>Yeah,
+ I thought of that.  While I don't see a big problem with this when the 
+command prompt is displayed, it doesn't stop the mouse cursor from being
+ moved and causing parts of the Frame Buffer to be redrawn when LXDE is 
+running.  I'd also like to avoid the case where something changes on the
+ GUI and coming out of the test pattern the user sees the old view and 
+there is an inconsistency between the two.</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile334031">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 21</dd><dd><strong>Joined:</strong> Thu Apr 18, 2013 2:34 pm</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p334087" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">DexOS</a></strong> » Thu Apr 18, 2013 5:06 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>GrandAdmiral wrote:</cite><blockquote><div><cite>DexOS wrote:</cite>You could copy the screen to a buffer and restore it after you have finished.</div></blockquote><br><br>Yeah,
+ I thought of that.  While I don't see a big problem with this when the 
+command prompt is displayed, it doesn't stop the mouse cursor from being
+ moved and causing parts of the Frame Buffer to be redrawn when LXDE is 
+running.  I'd also like to avoid the case where something changes on the
+ GUI and coming out of the test pattern the user sees the old view and 
+there is an inconsistency between the two.</div></blockquote><br>Try the fb.zip i posted above and see if that stops the redraw, until you exit it.</div>
+
+			<div id="sig334087" class="signature"><span style="font-weight: bold">Batteries not included, Some assembly required.</span></div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile334087">
+			<dt>
+				<a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=17803&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/file.jpeg" alt="User avatar" width="90" height="90"></a><br>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 863</dd><dd><strong>Joined:</strong> Wed May 16, 2012 6:32 pm</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://www.dex-os.com/" title="WWW: http://www.dex-os.com/" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p334147" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=66507&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">GrandAdmiral</a></strong> » Thu Apr 18, 2013 6:23 pm </div>
+
+			
+
+			<div class="content">No, the program in the fb.zip program does not 
+work.  As soon as you move the mouse, it corrupts the image.  To the 
+point I wasn't able to cleanly exit the program and had to reboot the 
+system.</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile334147">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 21</dd><dd><strong>Joined:</strong> Thu Apr 18, 2013 2:34 pm</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p336080" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=26144&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">mrhobbeys</a></strong> » Mon Apr 22, 2013 12:22 am </div>
+
+			
+
+			<div class="content">I really enjoyed reading this and will be giving it a try tonight. <br><br>Thank you very much!</div>
+
+			<div id="sig336080" class="signature">www.betterpchealth.com<br>www.hektechnologies.com</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile336080">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 69</dd><dd><strong>Joined:</strong> Wed Jul 18, 2012 2:53 am</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p338964" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=65993&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">JamesLehman</a></strong> » Fri Apr 26, 2013 5:57 pm </div>
+
+			
+
+			<div class="content">This is perhaps a little OT, but I can tell you from personal experience that SDL kind-of works on RPi!<br><br>Take a look at the LaserBoy code!<br><!-- l --><a class="postlink-local" href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=38&amp;t=40587">viewtopic.php?f=38&amp;t=40587</a><!-- l --><br><br>It uses SDL to open a window in X and allows me to copy a bitmap into that area of the screen. It also reads the keyboard.<br><br>LaserBoy also uses a very limited set of functionality from Boost C++ for some file system information.<br><br>On
+ a regular PC, LaserBoy works in the console. SDL knows how to hook up 
+to the frame buffer and it works great. I cannot get these results on 
+the RPi. I get a black screen.<br><br>James.  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_smile.gif" alt=":)" title="Smile"></div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile338964">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 27</dd><dd><strong>Joined:</strong> Mon Apr 15, 2013 12:10 am</dd><dd><strong>Location:</strong> Akron, Ohio USA</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="http://laserboy.org/" title="WWW: http://laserboy.org" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p519917" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=40956&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">-rst-</a></strong> » Fri Mar 14, 2014 12:23 pm </div>
+
+			
+
+			<div class="content">Restart of the <a href="http://raspberrycompote.blogspot.com/2014/03/restart.html" class="postlink">blog</a>...  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_redface.gif" alt=":oops:" title="Embarrassed"> <br><br>And a new <a href="http://raspberrycompote.blogspot.com/2014/03/low-level-graphics-on-raspberry-pi-part_14.html" class="postlink">post</a> in 'Low-level Graphics on Raspberry Pi'  <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"></div>
+
+			<div id="sig519917" class="signature">http://raspberrycompote.blogspot.com/ - Low-level graphics and 'Coding Gold Dust'</div>
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile519917">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 900</dd><dd><strong>Joined:</strong> Thu Nov 01, 2012 12:12 pm</dd><dd><strong>Location:</strong> Dublin, Ireland</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p520322" class="post row-fluid odd">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=8609&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">AndyD</a></strong> » Sat Mar 15, 2014 5:47 am </div>
+
+			
+
+			<div class="content">Welcome back!</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile520322">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 973</dd><dd><strong>Joined:</strong> Sat Jan 21, 2012 8:13 am</dd><dd><strong>Location:</strong> Melbourne, Australia</dd>
+			<dd>
+				<ul class="profile-icons">
+					<li class="email-icon"><a href="https://github.com/AndrewFromMelbourne" title="WWW: https://github.com/AndrewFromMelbourne" class="btn btn-mini"><i class="icon icon-globe"></i></a></li>
+				</ul>
+			</dd>
+		
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div id="p520598" class="post row-fluid even">
+	
+		<div class="postbody span9">
+			
+
+			<div class="author">by <strong><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=viewprofile&amp;u=31514&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f">cleverca22</a></strong> » Sat Mar 15, 2014 9:34 pm </div>
+
+			
+
+			<div class="content"><blockquote><div><cite>-rst- wrote:</cite>Glad to be of at least some help.<br><br>Hmm... at the brink of the depths to very elementary life choices <img src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/icon_e_wink.gif" alt=";)" title="Wink"> I am not exactly an expert in all of the libraries mentioned here...<br><br>Yes, SDL <span style="font-style: italic">at the moment</span> is not the best choice <span style="font-style: italic">for performance on RPi</span>
+ - it lacks (afaik) all hw acceleration (due to the OpenGL vs OpenGL ES 
+gap, as you mention) and even such basic stuff as hw page flipping (with
+ vsync). This is partly due to lack of standard support in Linux (and an
+ oversight on 'nearly standard' stuff in SDL) - partly due to RPi fb 
+driver not implementing all features. However, SDL is so widely used and
+ somewhat portable, that I'd say it would still be a good contender and 
+the new version of SDL looks promising... There is a slightly modified 
+port of SDL that provides vsync by utilising the RPi hw exposed through 
+the dispmanx library: <!-- m --><a class="postlink" href="http://www.raspberrypi.org/phpBB3/viewtopic.php?f=78&amp;t=25146">http://www.raspberrypi.org/phpBB3/viewt ... 78&amp;t=25146</a><!-- m --><br><br></div></blockquote><br><br><br>i
+ happen to be working on a port of SDL with proper hardware 3d support, 
+so far all it can do is build a vertex list for a frame, but once i get a
+ texture shader working, i can start to render a frame</div>
+
+			
+
+		</div>
+
+		
+		<dl class="postprofile span3" id="profile520598">
+			<dt>
+				
+			</dt>
+		<dd><strong>Posts:</strong> 168</dd><dd><strong>Joined:</strong> Sat Aug 18, 2012 2:33 pm</dd>
+
+		</dl>
+	
+
+	
+	</div>
+
+
+	<div class="span4 text-right">
+		<form class="form-search" method="get" id="forum-search" action="./search.php?sid=36beccb118c9ea67d78f6cbf065b2e3f">
+		<fieldset>
+			<input class="search-query" name="keywords" id="search_keywords" size="20" value="Search This Topic" onclick="if (this.value == 'Search This Topic') this.value = '';" onblur="if (this.value == '') this.value = 'Search This Topic';" type="text">
+			<button class="btn" type="submit" value="Search"><i class="icon icon-search"></i></button>
+			<input name="t" value="30720" type="hidden">
+<input name="sf" value="msgonly" type="hidden">
+<input name="sid" value="36beccb118c9ea67d78f6cbf065b2e3f" type="hidden">
+
+		</fieldset>
+		</form>
+
+	</div>	
+	
+	</div>
+	
+
+	<hr class="crease">
+	<div class="container">
+
+<div class="row-fluid">
+	<div class="topic-actions span8">
+	
+		<a href="http://www.raspberrypi.org/forums/posting.php?mode=reply&amp;f=67&amp;t=30720&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f" class="btn btn-info" title="Post a reply">Post a reply</a> 
+	&nbsp;</div>
+	
+	
+	<div class="paging span4 text-right">
+		43 posts
+		 &nbsp; <a href="#" onclick="jumpto(); return false;" title="Click to jump to page…">Page <strong>1</strong> of <strong>2</strong></a> &nbsp; <span><strong>1</strong><span class="page-sep">, </span><a href="http://www.raspberrypi.org/forums/viewtopic.php?f=67&amp;t=30720&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f&amp;start=25">2</a></span>
+	</div>
+	
+	
+</div>
+<br>
+
+
+<div class="row-fluid">
+	<div class="span4">
+		
+		<a href="http://www.raspberrypi.org/forums/viewforum.php?f=67&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f" class="btn left" accesskey="r">Return to Graphics programming</a>
+		
+	</div>
+	<div class="span2">
+		&nbsp;
+	</div>
+	<div class="span6 text-right">
+		
+		<form method="post" id="jumpbox" action="./viewforum.php?sid=36beccb118c9ea67d78f6cbf065b2e3f" onsubmit="if(this.f.value == -1){return false;}" class="form-inline">
+
+		
+		<fieldset class="jumpbox">
+		
+		
+			<label for="f" accesskey="j">Jump to: 
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){ document.forms['jumpbox'].submit() }">
+			
+			
+				<option value="-1">Select a forum</option>
+			<option value="-1">------------------</option>
+				<option value="19">Community</option>
+			
+				<option value="63">&nbsp; &nbsp;General discussion</option>
+			
+				<option value="90">&nbsp; &nbsp;Other languages</option>
+			
+				<option value="75">&nbsp; &nbsp;&nbsp; &nbsp;Deutsch</option>
+			
+				<option value="76">&nbsp; &nbsp;&nbsp; &nbsp;Español</option>
+			
+				<option value="65">&nbsp; &nbsp;&nbsp; &nbsp;Français</option>
+			
+				<option value="79">&nbsp; &nbsp;&nbsp; &nbsp;Italiano</option>
+			
+				<option value="88">&nbsp; &nbsp;&nbsp; &nbsp;Nederlands</option>
+			
+				<option value="82">&nbsp; &nbsp;&nbsp; &nbsp;日本語</option>
+			
+				<option value="74">&nbsp; &nbsp;&nbsp; &nbsp;Português</option>
+			
+				<option value="84">&nbsp; &nbsp;&nbsp; &nbsp;Русский</option>
+			
+				<option value="89">&nbsp; &nbsp;&nbsp; &nbsp;Türkçe</option>
+			
+				<option value="57">&nbsp; &nbsp;User groups and events</option>
+			
+				<option value="83">&nbsp; &nbsp;The Pi Store</option>
+			
+				<option value="12">Using the Raspberry Pi</option>
+			
+				<option value="91">&nbsp; &nbsp;Beginners</option>
+			
+				<option value="28">&nbsp; &nbsp;Troubleshooting</option>
+			
+				<option value="29">&nbsp; &nbsp;Advanced users</option>
+			
+				<option value="17">Education</option>
+			
+				<option value="47">&nbsp; &nbsp;The Staffroom</option>
+			
+				<option value="49">&nbsp; &nbsp;Teaching and learning resources</option>
+			
+				<option value="48">&nbsp; &nbsp;Using Raspberry Pi in the classroom</option>
+			
+				<option value="99">&nbsp; &nbsp;Picademy</option>
+			
+				<option value="94">&nbsp; &nbsp;Mathematica</option>
+			
+				<option value="14">Programming</option>
+			
+				<option value="72">&nbsp; &nbsp;Bare metal</option>
+			
+				<option value="33">&nbsp; &nbsp;C/C++</option>
+			
+				<option value="67" selected="selected">&nbsp; &nbsp;Graphics programming</option>
+			
+				<option value="68">&nbsp; &nbsp;&nbsp; &nbsp;OpenGLES</option>
+			
+				<option value="69">&nbsp; &nbsp;&nbsp; &nbsp;OpenVG</option>
+			
+				<option value="70">&nbsp; &nbsp;&nbsp; &nbsp;OpenMAX</option>
+			
+				<option value="81">&nbsp; &nbsp;Java</option>
+			
+				<option value="32">&nbsp; &nbsp;Python</option>
+			
+				<option value="77">&nbsp; &nbsp;Scratch</option>
+			
+				<option value="95">&nbsp; &nbsp;Wolfram Language</option>
+			
+				<option value="34">&nbsp; &nbsp;Other languages</option>
+			
+				<option value="31">&nbsp; &nbsp;General programming discussion</option>
+			
+				<option value="15">Projects</option>
+			
+				<option value="37">&nbsp; &nbsp;Automation, sensing and robotics</option>
+			
+				<option value="40">&nbsp; &nbsp;Cases</option>
+			
+				<option value="78">&nbsp; &nbsp;Gaming</option>
+			
+				<option value="38">&nbsp; &nbsp;Graphics, sound and multimedia</option>
+			
+				<option value="39">&nbsp; &nbsp;Magazines and books</option>
+			
+				<option value="35">&nbsp; &nbsp;Media centres</option>
+			
+				<option value="36">&nbsp; &nbsp;Networking and servers</option>
+			
+				<option value="41">&nbsp; &nbsp;Other projects</option>
+			
+				<option value="16">Hardware and peripherals</option>
+			
+				<option value="43">&nbsp; &nbsp;Camera board</option>
+			
+				<option value="98">&nbsp; &nbsp;Compute Module</option>
+			
+				<option value="45">&nbsp; &nbsp;Add-ons</option>
+			
+				<option value="100">&nbsp; &nbsp;B+ addons</option>
+			
+				<option value="44">&nbsp; &nbsp;Interfacing (DSI, CSI, I2C, etc.)</option>
+			
+				<option value="42">&nbsp; &nbsp;Gertboard classic</option>
+			
+				<option value="96">&nbsp; &nbsp;GertDuino</option>
+			
+				<option value="46">&nbsp; &nbsp;Recommended peripherals</option>
+			
+				<option value="18">Operating system distributions</option>
+			
+				<option value="66">&nbsp; &nbsp;Raspbian</option>
+			
+				<option value="53">&nbsp; &nbsp;Arch</option>
+			
+				<option value="51">&nbsp; &nbsp;Pidora</option>
+			
+				<option value="55">&nbsp; &nbsp;RISCOS</option>
+			
+				<option value="56">&nbsp; &nbsp;Other</option>
+			
+				<option value="73">&nbsp; &nbsp;&nbsp; &nbsp;Android</option>
+			
+				<option value="50">&nbsp; &nbsp;&nbsp; &nbsp;Debian</option>
+			
+				<option value="85">&nbsp; &nbsp;&nbsp; &nbsp;FreeBSD</option>
+			
+				<option value="54">&nbsp; &nbsp;&nbsp; &nbsp;Gentoo</option>
+			
+				<option value="71">&nbsp; &nbsp;&nbsp; &nbsp;Linux Kernel</option>
+			
+				<option value="86">&nbsp; &nbsp;&nbsp; &nbsp;NetBSD</option>
+			
+				<option value="87">&nbsp; &nbsp;&nbsp; &nbsp;openSUSE</option>
+			
+				<option value="80">&nbsp; &nbsp;&nbsp; &nbsp;Plan 9</option>
+			
+				<option value="52">&nbsp; &nbsp;&nbsp; &nbsp;Puppy</option>
+			
+				<option value="20">Ye Olde Pi Shoppe</option>
+			
+				<option value="93">&nbsp; &nbsp;For sale</option>
+			
+				<option value="61">&nbsp; &nbsp;Wanted</option>
+			
+				<option value="21">Off topic</option>
+			
+				<option value="62">&nbsp; &nbsp;Off topic discussion</option>
+			
+			
+			</select>
+			<input value="Go" class="btn" type="submit">
+			</label>
+		</fieldset>
+		
+		</form>
+		
+	</div>
+</div>
+
+</div>
+<hr class="crease">
+<div class="container">
+
+<div class="row-fluid">
+	<div class="span8">
+		
+		<h5>Who is online</h5>
+		Users browsing this forum: No registered users and 1 guest
+		
+	</div>
+	<div class="span4">
+	&nbsp;
+	</div>
+</div>
+
+</div><!-- #main -->
+
+<footer id="colophon" role="contentinfo" class="wave">
+		<div class="container"><div class="row">
+			<aside class="footer1 span4">
+				<ul class="unstyled">
+					<li><a href="http://www.raspberrypi.org/forums/index.php?sid=36beccb118c9ea67d78f6cbf065b2e3f" accesskey="h"><i class="icon icon-home"></i> Board index</a></li>
+					
+					
+					
+					<li><a href="http://www.raspberrypi.org/forums/memberlist.php?mode=leaders&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><i class="icon icon-eye-open"></i> The team</a></li><li><a href="http://www.raspberrypi.org/forums/ucp.php?mode=delete_cookies&amp;sid=36beccb118c9ea67d78f6cbf065b2e3f"><i class="icon icon-trash"></i> Delete all board cookies</a></li>
+					
+					<li><i class="icon icon-time"></i> All times are UTC </li>
+				</ul>
+			</aside>
+				
+			<aside class="footer2 span4">
+				
+			</aside>
+				
+			<aside class="footer3 span4">
+				
+			</aside>
+	
+		</div></div>
+	</footer><!-- #colophon -->
+<!-- #page -->
+
+
+<script type="text/javascript" src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/jquery_002.js"></script>
+<script type="text/javascript" src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/jquery.js"></script>
+<script type="text/javascript" src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/forum_fn.js"></script>
+<script type="text/javascript" src="Raspberry%20Pi%20%E2%80%A2%20View%20topic%20-%20Low-level%20%28Linux%20framebuffer%29%20graphics%20programming%20tutorial_files/bootstrap.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+
+	jQuery("time.entry-date").timeago();
+	jQuery("time.date").timeago();
+  
+	jQuery('iframe').each( function() {
+		var url = jQuery(this).attr("src")
+		jQuery(this).attr("src",url+"&wmode=transparent")
+	});
+
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46270871-1', 'raspberrypi.org');
+  ga('send', 'pageview');
+
+</script>
+	
+
+</body></html>

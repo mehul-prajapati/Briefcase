@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DebuggingProgramCrash - Ubuntu Wiki</title>
+<script type="text/javascript" src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static192/edubuntu/css/msie.css">
+<![endif]-->
+
+
+
+
+
+<link rel="Start" href="https://wiki.edubuntu.org/Home">
+<link rel="Alternate" title="Wiki Markup" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=raw">
+<link rel="Alternate" media="print" title="Print View" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=print">
+<link rel="Appendix" title="apport-examine-locally.png" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=view&amp;target=apport-examine-locally.png">
+<link rel="Appendix" title="apport-retrace-gdb.png" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=view&amp;target=apport-retrace-gdb.png">
+<link rel="Appendix" title="apport-retrace-gui.png" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=view&amp;target=apport-retrace-gui.png">
+<link rel="Appendix" title="list-dbgsym-packages-v2.1.sh" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=view&amp;target=list-dbgsym-packages-v2.1.sh">
+<link rel="Appendix" title="list-dbgsym-packages.sh" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=view&amp;target=list-dbgsym-packages.sh">
+<link rel="Appendix" title="list-symbols-packages-v2.sh" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=view&amp;target=list-symbols-packages-v2.sh">
+<link rel="Search" href="https://wiki.edubuntu.org/FindPage">
+<link rel="Index" href="https://wiki.edubuntu.org/TitleIndex">
+<link rel="Glossary" href="https://wiki.edubuntu.org/WordIndex">
+<link rel="Help" href="https://wiki.edubuntu.org/HelpOnFormatting">
+</head>
+
+<body dir="ltr" lang="en">
+
+<div id="header">
+<div id="mastwrap">
+<a href="http://www.edubuntu.org/"><img src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/e-headerlogo.png"></a>
+</div>
+<div id="wikifield">
+<ul id="username"><li><a href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=login" id="login" rel="nofollow">Log In / Register</a></li></ul>
+
+<form id="searchform" method="get" action="/DebuggingProgramCrash">
+<div>
+<input name="action" value="fullsearch" type="hidden">
+<input name="context" value="180" type="hidden">
+<label style="display: none;" for="searchinput">Search:</label>
+<input class="disabled" id="searchinput" name="value" value="Search" size="20" onfocus="searchFocus(this)" onblur="searchBlur(this)" onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search" type="text">
+<input disabled="disabled" id="titlesearch" name="titlesearch" value="Titles" alt="Search Titles" type="submit">
+<input disabled="disabled" id="fullsearch" name="fullsearch" value="Text" alt="Search Full Text" type="submit">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<ul id="findrecent">
+<li><a href="https://wiki.edubuntu.org/RecentChanges">Recent Changes</a></li>&nbsp;&nbsp;
+<li><a href="https://wiki.edubuntu.org/FindPage">Find Page</a></li>&nbsp;&nbsp;
+<li><a href="https://wiki.edubuntu.org/HelpContents">Help</a></li>&nbsp;&nbsp;
+</ul>
+</div>
+
+<div id="mainpagenav">
+<a href="http://www.edubuntu.org/"><img src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/home.png"></a>&nbsp; <a href="http://www.edubuntu.org/">Home</a>&nbsp;&nbsp;
+<a href="http://wiki.edubuntu.org/DownloadEdubuntu"><img src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/download.png"></a>&nbsp;<a href="http://wiki.edubuntu.org/DownloadEdubuntu">Download</a>&nbsp;&nbsp;
+<a href="http://wiki.edubuntu.org/EdubuntuCommunity"><img src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/community.png"></a>&nbsp;<a href="http://wiki.edubuntu.org/EdubuntuCommunity">Community</a>
+</div>
+<div id="wikibutton"><a href="http://www.edubuntu.org/"><img src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/wikihome.png"></a></div>
+
+
+<ul id="pagetrail">
+<li><a href="https://wiki.edubuntu.org/DebuggingProgramCrash">DebuggingProgramCrash</a></li>
+</ul>
+<ul class="editbar">
+<li>Locked Page</li>
+<li><a href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=info">Get Info</a></li>
+<li>
+<form class="actionsmenu" method="GET" action="/DebuggingProgramCrash">
+<div>
+    
+    <select name="action" onchange="if ((this.selectedIndex != 0) &amp;&amp;
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option selected="selected" value="show">More Actions:</option><option value="raw">Raw Text</option>
+<option value="print">Print View</option>
+<option value="refresh">Delete Cache</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="SpellCheck">Check Spelling</option>
+<option value="LikePages">Like Pages</option>
+<option value="LocalSiteMap">Local Site Map</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="RenamePage" disabled="disabled" class="disabled">Rename Page</option>
+<option value="CopyPage">Copy Page</option>
+<option value="DeletePage" disabled="disabled" class="disabled">Delete Page</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Subscribe User</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Remove Spam</option>
+<option value="show" disabled="disabled" class="disabled">Revert to this revision</option>
+<option value="PackagePages">Package Pages</option>
+<option value="SyncPages">Sync Pages</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="Load">Load</option>
+<option value="Save">Save</option>
+<option value="SlideShow">SlideShow</option>
+    </select>
+    
+    
+</div>
+<script type="text/javascript">
+<!--// Init menu
+actionsMenuInit('More Actions:');
+//-->
+</script>
+</form>
+</li>
+</ul>
+
+
+</div>
+
+<div id="page" dir="ltr" lang="en">
+
+
+<ul id="pagelocation">
+<li>DebuggingProgramCrash</li>
+</ul>
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line862">Available languages: <a class="https" href="https://wiki.ubuntu.com/DebuggingProgramCrash_it">Italiano</a>, <span class="anchor" id="line-2"></span></p><div dir="ltr" id="Debugging.2BAC8-Header.content" lang="en"><span class="anchor" id="Debugging.2BAC8-Header.top"></span>
+<span class="anchor" id="Debugging.2BAC8-Header.line-1"></span><div><table style="font-size: 0.85em;  border:none;  width=100%;  background-color: #f1f1ed;  font-weight: bold"><tbody><tr>  <td><p class="line862"> <a href="https://wiki.edubuntu.org/DebuggingProcedures">Debugging Central</a> </p></td>
+  <td><p class="line862"> This page is part of the debugging series — pages with debugging details for a variety of Ubuntu packages. </p></td>
+</tr>
+</tbody></table></div><span class="anchor" id="Debugging.2BAC8-Header.line-2"></span><span class="anchor" id="Debugging.2BAC8-Header.bottom"></span></div> <span class="anchor" id="line-3"></span><div><table style="float:right;  font-size: 0.9em;  width:40%;  background:#F1F1ED;  margin: 0 0 1em 1em;"><tbody><tr>  <td style="padding:0.5em;"><p class="line891"></p><div class="table-of-contents"><p class="table-of-contents-heading">Contents</p><ol><li>
+<a href="#Using_apport-retrace">Using apport-retrace</a></li><li>
+<a href="#Debug_Symbol_Packages">Debug Symbol Packages</a><ol><li>
+<a href="#How_do_we_remove_all_this_stuff_after_getting_the_trace_and_get_back_to_a_normal_system.3F">How do we remove all this stuff after getting the trace and get back to a normal system?</a></li><li>
+<a href="#References">References</a></li></ol></li><li>
+<a href="#The_Xorg_server">The Xorg server</a></li><li>
+<a href="#Info_for_the_BugSquad">Info for the BugSquad</a></li></ol></div></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">This
+ document describes how to debug Ubuntu package crashes and install 
+debug packages on Ubuntu, which will aid in providing information for 
+bugs. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span></p><p class="line867">
+</p><h2 id="Using_apport-retrace">Using apport-retrace</h2>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">If you want to debug a crash in packaged Ubuntu software, <a class="https" href="https://wiki.ubuntu.com/Apport">Apport</a> will usually pick it up, create a <tt class="backtick">.crash</tt> report in <tt class="backtick">/var/crash/</tt> and report the crashed program. From there it is easiest to use <a class="http" href="http://manpages.ubuntu.com/apport-retrace">apport-retrace</a>. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span></p><p class="line867"><tt class="backtick">apport-retrace</tt>
+ regenerates  the  stack  traces  (both the simple and the threaded one)
+ from an apport crash report from the included core dump, or gives you a
+ Terminal window with gdb in an environment with debugging symbols, 
+reproducing the situation of the crash through the core dump. For this 
+it figures out the set of necessary packages  and their accompanying 
+debug symbol packages, so that the regenerated stack trace will be fully
+ symbolic and thus become much more useful for developers to fix the 
+problem. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></p><p class="line867"><tt class="backtick">apport-retrace</tt>
+ has two modes: By default it will just regenerate traces based on the 
+packages  which are  currently  installed  in  the system, i. e. it 
+assumes that all necessary debug symbols for the report are installed 
+(see the next paragraph for this). When specifying the <tt class="backtick">-S</tt>
+ option, it creates a temporary "sandbox" and  downloads and installs 
+all necessary packages and debug symbols there. It will not do any 
+changes to your system and does not require any special privileges. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></p><p class="line862">Please see the <a class="http" href="http://manpages.ubuntu.com/apport-retrace">apport-retrace manpage</a> for details and some examples how to run it. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span></p><p class="line874">You can also invoke this directly from the Apport crash notification, by clicking the "Examine locally" button: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span></p><ul><li style="list-style-type:none"><p class="line891"><img alt="apport-examine-locally.png" class="attachment" src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/DebuggingProgramCrash_002.png" title="apport-examine-locally.png"> <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span></p></li></ul><p class="line862">This will collect some package information and then ask you in which mode you want to run <tt class="backtick">apport-retrace</tt>: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span></p><ul><li style="list-style-type:none"><p class="line891"><img alt="apport-retrace-gui.png" class="attachment" src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/DebuggingProgramCrash_003.png" title="apport-retrace-gui.png"> <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span></p></li></ul><p class="line874">Normally you want to keep the first option, which will get you in a gdb session <span class="anchor" id="line-26"></span>in the sandbox: <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span></p><ul><li style="list-style-type:none"><p class="line891"><img alt="apport-retrace-gdb.png" class="attachment" src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/DebuggingProgramCrash.png" title="apport-retrace-gdb.png"> <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span></p></li></ul><p class="line862">If you do not want an interactive gdb session but just want it to update the already existing <tt class="backtick">.crash</tt> file with fully symbolic stack traces, you can select the third option. <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span></p><p class="line867">
+</p><h2 id="Debug_Symbol_Packages">Debug Symbol Packages</h2>
+<span class="anchor" id="line-33"></span><p class="line874">If you want 
+to debug a crash in a project you are developing yourself or from a 
+third-party package, or need the debug symbols for particular libraries 
+very often, it is helpful to install those permanently into your system.
+ <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span></p><p class="line874">First,
+ check if there is a package with a -dbg suffix in the main Ubuntu 
+repositories. These are the debug symbol packages, and are equivalent to
+ '-dbgsym' described below. You can safely use either one, but not both 
+at once. Try installing the package, adding -dbg to its name, for 
+example: <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span></p><pre><span class="anchor" id="line-1"></span>sudo apt-get install xserver-xorg-core-dbg</pre><span class="anchor" id="line-39"></span><p class="line862">if the package in question is the <em>xserver-xorg-core</em> package. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span></p><p class="line874">If there is no -dbg package: <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span></p><ol type="1"><li><p class="line862">Create an <tt class="backtick">/etc/apt/sources.list.d/ddebs.list</tt> by running the following line at a terminal: <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span></p><pre><span class="anchor" id="line-1-1"></span>echo "deb http://ddebs.ubuntu.com $(lsb_release -cs) main restricted universe multiverse" | \
+<span class="anchor" id="line-2"></span>sudo tee -a /etc/apt/sources.list.d/ddebs.list</pre><span class="anchor" id="line-48"></span></li><li>Stable
+ releases (not alphas and betas) require two more lines adding to the 
+same file, which is done by the following terminal command: <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><pre><span class="anchor" id="line-1-2"></span>echo "deb http://ddebs.ubuntu.com $(lsb_release -cs)-updates main restricted universe multiverse
+<span class="anchor" id="line-2-1"></span>deb http://ddebs.ubuntu.com $(lsb_release -cs)-proposed main restricted universe multiverse" | \
+<span class="anchor" id="line-3"></span>sudo tee -a /etc/apt/sources.list.d/ddebs.list</pre><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span>You may also add these lines using the Synaptic Package Manager: <span class="anchor" id="line-56"></span><ul><li><p class="line862">Choose <em>Synaptic</em> via the <em>System &gt; Administration</em> menu. <span class="anchor" id="line-57"></span></p></li><li><p class="line862">Choose <em>Software Sources</em> or <em>Repositories</em> via the <em>Settings</em> menu, and click on the <em>Third-Party Software</em> tab. <span class="anchor" id="line-58"></span></p></li><li><p class="line862">Click the <em>Add</em> button and enter each <em>deb ...</em> line as above one by one and click the <em>Add Source</em> button (you will have to add these lines one at a time). <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span></p></li></ul></li><li class="gap">Import the debug symbol archive signing key: <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><pre><span class="anchor" id="line-1-3"></span>sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 428D7C01</pre><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span></li><li class="gap">Then run <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><pre><span class="anchor" id="line-1-4"></span>sudo apt-get update</pre><span class="anchor" id="line-69"></span><p class="line862">to update your package list or click the <em>Reload</em> button if you used the Synaptic Package Manager. <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span></p></li><li class="gap">The
+ debug symbol packages have the '-dbgsym' suffix attached, so to install
+ the debug symbols for the package 'yelp', you first run: <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><pre><span class="anchor" id="line-1-5"></span>apt-cache policy yelp</pre><span class="anchor" id="line-75"></span>This will show you the version number currently installed (we'll use 2.22.1-0ubuntu2.8.04.1 in this example). <span class="anchor" id="line-76"></span><p class="line891"><strong>NOTE:</strong> 'yelp' [which is the package name of "Help and Support" located under the 'System' menu] is <em>just an example</em> and <strong>not</strong>
+ a part of the command: 'yelp' is only used to demonstrate the 
+procedure. You must replace 'yelp' with the name of the package you want
+ to debug. <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span></p></li><li class="gap">Install the debug symbols: <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><pre><span class="anchor" id="line-1-6"></span>sudo apt-get install yelp-dbgsym=2.22.1-0ubuntu2.8.04.1</pre><span class="anchor" id="line-82"></span></li></ol><p class="line874">You can also use the Synaptic Package Manager to search for 'yelp-dbgsym' and install it from there. <span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span></p><p class="line874">The
+ above procedure will install the debug symbol package for yelp only. 
+Chances are that yelp uses shared libraries in other packages and debug 
+symbols for them might be required in order to obtain a readable stack 
+trace or perform other debugging tasks.  <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span></p><p class="line862">You can download the following <a class="attachment nonexistent" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=upload_form&amp;ticket=0054531a36.ed591e4af181fedf2e2103ddad652a9424e45009&amp;target=list-symbols-packages-v2.1.sh" title="Upload new attachment &quot;list-symbols-packages-v2.1.sh&quot;">shell script (list-symbols-packages-v2.1.sh)</a>
+ to resolve all the dependencies. Attaching a debugger to an already 
+running process may require elevated privileges even if you own the 
+process. The following invocation will print out the list of files to 
+install. <span class="anchor" id="line-87"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-88"></span><div class="highlight bash"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c))
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        s.className = 'LineNumber'
+        s.appendChild(document.createTextNode(nformat(n,4,' ')));
+        n += nstep;
+        if (l.childNodes.length)
+          l.insertBefore(s, l.firstChild)
+        else
+          l.appendChild(s)
+      }
+      l = l.nextSibling;
+    }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c))
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="#" onclick="return togglenumber(\'CA-8a61c895040c646b1dd0f91e366e131abcaa4f7f\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script><a href="#" onclick="return togglenumber('CA-8a61c895040c646b1dd0f91e366e131abcaa4f7f', 1, 1);" class="codenumbers">Toggle line numbers</a>
+<pre dir="ltr" id="CA-8a61c895040c646b1dd0f91e366e131abcaa4f7f" lang="en"><span class="line"><span class="LineNumber">   1 </span><span class="anchor" id="line-1-1"></span>sudo bash ./list-symbols-packages-v2.sh -p <span class="ResWord">$(</span>pidof yelp<span class="ResWord">)</span></span>
+<span class="line"><span class="LineNumber">   2 </span></span>
+</pre></div></div><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span></li></ul><p class="line862">To automatically install them apt can be called with the input from the script. The script is invoked with <tt>-t</tt> for a terse output without the descriptions of the packages and error messages are suppressed. <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><div class="highlight bash"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="#" onclick="return togglenumber(\'CA-703905402f2ab7bfd9529c1e259328d4fc900549\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script><a href="#" onclick="return togglenumber('CA-703905402f2ab7bfd9529c1e259328d4fc900549', 1, 1);" class="codenumbers">Toggle line numbers</a>
+<pre dir="ltr" id="CA-703905402f2ab7bfd9529c1e259328d4fc900549" lang="en"><span class="line"><span class="LineNumber">   1 </span><span class="anchor" id="line-1-2"></span>sudo bash ./list-symbols-packages-v2.sh -t -p <span class="ResWord">$(</span>pidof yelp<span class="ResWord">)</span> 2&gt;/dev/null|<span class="SPChar">\</span></span>
+<span class="line"><span class="LineNumber">   2 </span><span class="anchor" id="line-2-2"></span><span class="SPChar"></span>xargs -d <span class="String">$'\n'</span> sudo apt-get install </span>
+<span class="line"><span class="LineNumber">   3 </span></span>
+</pre></div></div><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span></li></ul><p class="line867"><img alt="" src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/a.html" title="" height="" width="">
+ Version 2 of this script makes it compatible with the newer GDB (which 
+no longer loads all libraries at startup by default). -v2 currently only
+ works if you run it against a currently-executing binary (i.e., with 
+'-p $(pidof &lt;whatever&gt;'). The <a class="attachment nonexistent" href="https://wiki.edubuntu.org/DebuggingProgramCrash?action=AttachFile&amp;do=upload_form&amp;ticket=0054531a36.ed591e4af181fedf2e2103ddad652a9424e45009&amp;target=list-symbols-packages.sh" title="Upload new attachment &quot;list-symbols-packages.sh&quot;">older version</a> of the script is also available. <span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span></p><ol type="a"><li><p class="line862">Now you make a <a href="https://wiki.edubuntu.org/Backtrace">Backtrace</a>. <span class="anchor" id="line-99"></span></p></li><li><p class="line862">You can also run <a href="https://wiki.edubuntu.org/Valgrind">Valgrind</a>, if the program crashes with a "Segmentation fault" or "Bus error". <span class="anchor" id="line-100"></span></p></li><li><p class="line862">Optionally, you may be asked to produce an <a href="https://wiki.edubuntu.org/Strace">Strace</a>. <span class="anchor" id="line-101"></span></p></li><li><p class="line862">You can also provide this file : <strong>~/.xsession-errors</strong> <span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span></p></li></ol><p class="line867">
+</p><h3 id="How_do_we_remove_all_this_stuff_after_getting_the_trace_and_get_back_to_a_normal_system.3F">How do we remove all this stuff after getting the trace and get back to a normal system?</h3>
+<span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><p class="line874">You can remove all debug symbol packages and the ddebs repositories with the following commands: <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span></p><ul><li style="list-style-type:none"><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><pre><span class="anchor" id="line-1-7"></span>sudo apt-get remove \.*-dbgsym
+<span class="anchor" id="line-2-2"></span>sudo rm /etc/apt/sources.list.d/ddebs.list
+<span class="anchor" id="line-3-1"></span>sudo apt-get update</pre><span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span></li></ul><p class="line867">
+</p><h3 id="References">References</h3>
+<span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><ul><li><p class="line862">Announcement: <a class="https" href="https://lists.ubuntu.com/archives/ubuntu-devel-announce/2006-September/000195.html">https://lists.ubuntu.com/archives/ubuntu-devel-announce/2006-September/000195.html</a> <span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span></p></li></ul><p class="line867">
+</p><h2 id="The_Xorg_server">The Xorg server</h2>
+<span class="anchor" id="line-119"></span><p class="line862">The X 
+server will by default trap its own crashes and dump a stack trace in 
+/var/log/Xorg.0.log. However, this stack trace is modified by the signal
+ handler itself. To get a "normal" crash, which will trigger a core dump
+ (and <em>apport</em> reporting), add this to your /etc/X11/xorg.conf: <span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span></p><pre><span class="anchor" id="line-1-8"></span>Section "ServerFlags"
+<span class="anchor" id="line-2-3"></span>        Option "NoTrapSignals" "true"
+<span class="anchor" id="line-3-2"></span>EndSection</pre><span class="anchor" id="line-125"></span><p class="line862">Please see <a href="https://wiki.edubuntu.org/X/Debugging">X/Debugging</a> for how to debug Xorg server crashes. <span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span></p><p class="line867">
+</p><h2 id="Info_for_the_BugSquad">Info for the BugSquad</h2>
+<span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line862">If you're trying to <tt class="backtick">apport-retrace</tt> a crash report from a bug that didn't happen on the same Ubuntu release as the one you're running, do the following: <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span></p><p class="line862">Say that you're running <tt class="backtick">Gutsy</tt> and the crash happened on <tt class="backtick">Feisty</tt>: <span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span></p><ol type="0"><li><p class="line862">This will create a minimal <tt class="backtick">feisty</tt> system. <span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span></p><pre><span class="anchor" id="line-1-9"></span>sudo mkdir -p /chroots/feisty
+<span class="anchor" id="line-2-4"></span>sudo debootstrap feisty /chroots/feisty/</pre><span class="anchor" id="line-136"></span></li><li><p class="line862">Now you change into this minimal <tt class="backtick">feisty</tt> system. <span class="anchor" id="line-137"></span></p><pre><span class="anchor" id="line-1-10"></span>sudo chroot /chroots/feisty</pre><span class="anchor" id="line-138"></span></li><li><p class="line862">edit <tt class="backtick">/etc/apt/sources/list</tt> and all the repositories you need, especially Martin's ddeb repository. <span class="anchor" id="line-139"></span></p></li><li><span class="anchor" id="line-140"></span><pre><span class="anchor" id="line-1-11"></span>apt-get update; apt-get install gdb apport</pre><span class="anchor" id="line-141"></span></li><li><p class="line862">use <tt class="backtick">apport-retrace</tt> as you're used to. <span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span></p></li></ol><p class="line862">For more information on dealing with bug reports <a href="https://wiki.edubuntu.org/Apport">Apport</a> see <a href="https://wiki.edubuntu.org/Bugs/ApportRetraces">Bugs/ApportRetraces</a>. <span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span></p><p class="line867"></p><hr><p class="line874"> <span class="anchor" id="line-146"></span><a href="https://wiki.edubuntu.org/CategoryBugSquad">CategoryBugSquad</a> <a href="https://wiki.edubuntu.org/CategoryDebugging">CategoryDebugging</a> <span class="anchor" id="line-147"></span><span class="anchor" id="bottom"></span></p></div><p id="pageinfo" class="info" dir="ltr" lang="en">DebuggingProgramCrash  (last edited 2014-08-07 09:22:10 by <span title="pitti @ p4FD3461D.dip0.t-ipconnect.de[79.211.70.29]"><a class="interwiki" href="https://launchpad.net/%7Epitti" title="pitti @ p4FD3461D.dip0.t-ipconnect.de[79.211.70.29]">pitti</a></span>)</p>
+
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+
+  <div id="ubuntulinks">
+     © 2005 <a href="http://www.canonical.com/">Canonical Ltd</a>. Ubuntu, Edubuntu, Kubuntu and Canonical are trademarks of Canonical Ltd.<br>
+     <a href="https://www.ubuntu.com/feedback">Feedback</a> — 
+     <a href="https://www.ubuntu.com/legal">Legal</a> — 
+     <a href="https://wiki.ubuntu.com/credits">Credits</a> — 
+     <a href="https://www.ubuntu.com/sitemap">Site Map</a> —
+     <a href="http://moinmoin.wikiwikiweb.de/">Powered By the MoinMoin Wiki Engine</a>
+  </div>
+<script src="DebuggingProgramCrash%20-%20Ubuntu%20Wiki_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1018242-7";
+urchinTracker();
+__utmSetVar('EdbuntuWiki');
+</script>
+
+
+</div>
+
+
+
+</body></html>

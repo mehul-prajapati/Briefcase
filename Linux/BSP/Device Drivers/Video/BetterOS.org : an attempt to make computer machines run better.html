@@ -1,0 +1,1189 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+	<title>BetterOS.org : an attempt to make computer machines run better</title>
+</head><body><h4>BetterOS.org : An attempt to make computer machines run better</h4>
+<hr> <a href="http://betteros.org/index.php" class="menu">HOME</a> | <a href="http://betteros.org/linux/index.php" class="menu">BETTER LINUX</a> | <a href="http://betteros.org/games/index.php" class="menu">GAMES</a> | <a href="http://betteros.org/sw/index.php" class="menu">SOFTWARE</a> | <a href="http://betteros.org/tut/tut1.php" class="menu">TUTORIALS</a> | <a href="http://betteros.org/about/index.php" class="menu">ABOUT</a> | <a href="http://betteros.org/links/index.php" class="menu">LINKS</a> | <a href="http://betteros.org/board/index.php" class="menu">FORUM</a> | <a href="http://betteros.org/log/index.php" class="menu">WEB LOG</a> |<hr><link rel="stylesheet" href="BetterOS.org%20:%20an%20attempt%20to%20make%20computer%20machines%20run%20better_files/global.css">
+
+
+<hr><font class="dir">Tutorials:</font>
+ <a href="http://betteros.org/tut/index.php" class="menu">INDEX</a> | <a href="http://betteros.org/tut/tut1.php" class="menu">C TUTORIAL 1</a> | <a href="http://betteros.org/tut/tut2.php" class="menu"> 2</a> | <a href="http://betteros.org/tut/tut3.php" class="menu"> 3</a> | <a href="http://betteros.org/tut/tut4.php" class="menu"> 4</a> | <font class="menu">LOW-LEVEL GRAPHICS</font> |<hr><h2>Tutorials</h2>
+<font align="CENTER" class="title"><b>Graphics Tutorial<br><br>
+Low-Level Graphics on Linux<br><br>
+Tutorial 1: Intro to Low-Level Graphics on Linux</b></font><br><br><br>
+<font class="sub">Introduction</font><br>
+&#8195;This tutorial attempts to explain a few of the possible methods that 
+exist on Linux to access the graphics hardware from a low level. I am not 
+talking about using Xlib instead of GTK+ or QT5, nor am I talking about using 
+DirectFB, I want to go even lower than that; I'm talking about drawing graphics 
+to the screen without needing any external dependencies; I'm talking about 
+communicating directly with the Linux kernel. I will also provide information 
+about programming for newer graphal systems (Wayland/Mir) even though those do 
+not involve direct communication with the kernel drivers. The reason I want to 
+provide this information in this tutorial is that even though their APIs are 
+higher level, the programming techiques used in low-level graphics programming 
+can easily be adapted to work with Wayland and Mir. Also, similar to fbdev and 
+KMS/DRM APIs, good programming resources are hard to come by.<br>
+&#8195;Most Linux systems actually provide a few different methods for drawing 
+graphics to the screen; there are options. However, the problem is that 
+documentation is basically non-existant. So, I would like to explain here what 
+you need to know to get started.<br>
+&#8195;Please note that this tutorial assumes you have a basic knowledge of C, 
+this is not a beginner tutorial, this is for people who are interested in 
+something like learning more about how Linux works, or about programming for 
+embedded systems, or just doing weird experimental stuff for fun.<br>
+<br><br>
+<font class="sub">Contents</font><br>
+&#8195;<a href="#method">Rendering Methods</a><br>
+&#8195;&#8195;<a href="#fbdev">Linux Framebuffer Device (fbdev)</a><br>
+&#8195;&#8195;<a href="#dumb">Direct Rendering Manager (DRM) Dumb Buffers</a><br>
+&#8195;&#8195;<a href="#wl">Wayland</a> <sup>&lt;PLANNED&gt;</sup><br>
+&#8195;&#8195;<a href="#mir">Mir</a> <sup>&lt;PLANNED&gt;</sup><br>
+&#8195;<a href="#useful">Useful Drawing Concepts</a><br>
+&#8195;&#8195;<a href="#doublebuffer">Double Buffering</a><br>
+&#8195;&#8195;<a href="#primatives">Drawing Primatives</a><br>
+&#8195;&#8195;&#8195;<a href="#line">Lines</a><br>
+&#8195;&#8195;&#8195;<a href="#circle">Circles</a><br>
+<br><br>
+<font class="sub" id="methods">Methods for Rendering in Linux</font><br>
+&#8195;The most common graphics archetecture in Linux by far is X11. However, 
+this is not the only way that Linux has to display graphics. In addition, X11 
+has some disadvantages which are going to be different for everybody. For now, 
+we are going to say that using xlib or xcb for rendering is too high level. We 
+want to learn about lower level options, preferably communicating only with the 
+Linux kernel. There are a few options available, the two main options are the 
+Linux framebuffer device and DRM. Most other options are not feasible for a 
+single person to do by him/her self. In addition to these kernel options, there 
+are a few upcoming graphical systems which are interesting in the way that they 
+work, being programmed similarly to the kernel interfaces and providing a 
+hopefully easy path to port your low level application into a fully windowed 
+environment, in particular I am talking about freedesktop.org's Wayland, and 
+Ubuntu's Mir. Although these systems are not in use yet, they can be compiled 
+and installed, and you can write applications for them.<br>
+<br><br>
+<font class="sub" id="fbdev">Linux Framebuffer Device (fbdev)</font><br>
+&#8195;The Linux Framebuffer is often talked about, but rarely actually used. 
+One of the main reasons for this is that documentation is fairly hard to come 
+by. Like many things, the people that know how to program for the framebuffer 
+are few and far between, and for some reason, they aren't prone to share their 
+knowledge. However, it is possible and not too difficult to actually make it 
+work. So here's a little explanation of how to render to it.<br>
+<br>
+&#8195;First of all, the Linux kernel must be built with support for the correct 
+Framebuffer driver. If none is available for your graphics card, you can use 
+the generic VESA driver, but this requires an additional parameter to be passed 
+to the kernel at boot time. Other drivers shouldn't require this.<br>
+&#8195;If your kernel provides the framebuffer device, it will be called fb0 (or 
+fb1, fb2, etc.. if there is more than one active driver) and will be located in 
+/dev. This appears as a file, but in fact it is not a file, it is a file-like 
+interface to the device driver, part of the Unix Everything-is-a-file concept. 
+Although it is not a real file, we can still open it (and read to it and write 
+to it) like a file. This is the very first thing we want to do, open the device 
+file.<br>
+<pre>	int fb_fd = open("/dev/fb0",O_RDWR);
+</pre>
+&#8195;Once the file is open, we can actually start writing to it. However, this 
+would not be useful since we don't know the dimensions or color depth of the 
+screen yet, so we would not be able to accurately draw anything meaningful 
+inside the buffer. So the next thing that we should do it get some basic 
+information about the screen. We can do this with the ioctl function (or 
+syscall). There are two structures defined in linux/fb.h for storing info about 
+the screen. They are called fb_var_screeninfo and fb_fix_screeninfo. We should 
+create an instance of each of these structs. (also, remember to include 
+linux/fb.h)<br>
+<pre>#include &lt;linux/fb.h&gt;
+
+...
+
+	struct fb_fix_screeninfo finfo;
+	struct fb_var_screeninfo vinfo;
+</pre>
+&#8195;These structures are defined in linux/fb.h as follows:<br>
+<pre><font color="#4169E1"><a name="fb_fix_screeninfo"></a>struct fb_fix_screeninfo </font>{
+	char id[16];			/* identification string eg "TT Builtin" */
+	unsigned long smem_start;	/* Start of frame buffer mem */
+					/* (physical address) */
+	__u32 smem_len;			/* Length of frame buffer mem */
+	__u32 type;			/* see FB_TYPE_*		*/
+	__u32 type_aux;			/* Interleave for interleaved Planes */
+	__u32 visual;			/* see FB_VISUAL_*		*/ 
+	__u16 xpanstep;			/* zero if no hardware panning  */
+	__u16 ypanstep;			/* zero if no hardware panning  */
+	__u16 ywrapstep;		/* zero if no hardware ywrap    */
+	__u32 line_length;		/* length of a line in bytes    */
+	unsigned long mmio_start;	/* Start of Memory Mapped I/O   */
+					/* (physical address) */
+	__u32 mmio_len;			/* Length of Memory Mapped I/O  */
+	__u32 accel;			/* Indicate to driver which	*/
+					/*  specific chip/card we have	*/
+	__u16 capabilities;		/* see FB_CAP_*			*/
+	__u16 reserved[2];		/* Reserved for future compatibility */
+};
+
+...
+
+<font color="#4169E1"><a name="fb_var_screeninfo"></a>struct fb_var_screeninfo </font>{
+	__u32 xres;			/* visible resolution		*/
+	__u32 yres;
+	__u32 xres_virtual;		/* virtual resolution		*/
+	__u32 yres_virtual;
+	__u32 xoffset;			/* offset from virtual to visible */
+	__u32 yoffset;			/* resolution			*/
+
+	__u32 bits_per_pixel;		/* guess what			*/
+	__u32 grayscale;		/* 0 = color, 1 = grayscale,	*/
+					/* &gt;1 = FOURCC			*/
+	struct fb_bitfield red;		/* bitfield in fb mem if true color, */
+	struct fb_bitfield green;	/* else only length is significant */
+	struct fb_bitfield blue;
+	struct fb_bitfield transp;	/* transparency			*/	
+
+	__u32 nonstd;			/* != 0 Non standard pixel format */
+
+	__u32 activate;			/* see FB_ACTIVATE_*		*/
+
+	__u32 height;			/* height of picture in mm    */
+	__u32 width;			/* width of picture in mm     */
+
+	__u32 accel_flags;		/* (OBSOLETE) see fb_info.flags */
+
+	/* Timing: All values in pixclocks, except pixclock (of course) */
+	__u32 pixclock;			/* pixel clock in ps (pico seconds) */
+	__u32 left_margin;		/* time from sync to picture	*/
+	__u32 right_margin;		/* time from picture to sync	*/
+	__u32 upper_margin;		/* time from sync to picture	*/
+	__u32 lower_margin;
+	__u32 hsync_len;		/* length of horizontal sync	*/
+	__u32 vsync_len;		/* length of vertical sync	*/
+	__u32 sync;			/* see FB_SYNC_*		*/
+	__u32 vmode;			/* see FB_VMODE_*		*/
+	__u32 rotate;			/* angle we rotate counter clockwise */
+	__u32 colorspace;		/* colorspace for FOURCC-based modes */
+	__u32 reserved[4];		/* Reserved for future compatibility */
+};
+</pre>
+&#8195;Now that we know all about these structures, we can use ioctl on our open 
+file descriptor to fill these structures.<br>
+<pre>	//Get variable screen information
+	ioctl(fb_fd, FBIOGET_VSCREENINFO, &amp;vinfo);
+
+	//Get fixed screen information
+	ioctl(fb_fd, FBIOGET_FSCREENINFO, &amp;finfo);
+</pre>
+&#8195;Note that the fb_var_screeninfo structure is <i>variable</i> information. 
+This means, in addition to the FBIOGET_VSCREENINFO, we can also call ioctl with 
+FBIOPUT_VSCREENINFO to <i>change</i> the settings of the framebuffer. Most 
+importantly, we probably will want to set the bits_per_pixel field to something 
+reasonable, since by default it seems to be set to something like 8, and is not 
+enough to render in color. You might also need to set grayscale to 0, but in 
+practice, it seems to work even if you don't do that. After that, you should 
+get it again to make sure that your changes were successful.<br>
+<pre>	//Get variable screen information
+	ioctl(fb_fd, FBIOGET_VSCREENINFO, &amp;vinfo);
+	vinfo.grayscale=0;
+	vinfo.bits_per_pixel=32;
+	ioctl(fb_fd, FBIOPUT_VSCREENINFO, &amp;vinfo);
+	ioctl(fb_fd, FBIOGET_VSCREENINFO, &amp;vinfo);
+</pre>
+&#8195;Once that is done, we can calculate the total size of the screen (in 
+bytes). This is important because we will need to map exactly the right amount 
+of memory, and only draw into that memory, otherwise bad things will happen. To 
+calculate the size of the screen (the size of the buffer), we can use 
+vinfo.yres_virtual, which is the number of horizontal lines on the screen, 
+multiplied by finfo.line_length, the length of each line in bytes.<br>
+<pre>	long screensize = vinfo.yres_virtual * finfo.line_length;
+</pre>
+&#8195;Once we have the size of the screen, we can use mmap to map the buffer to 
+memory. mmap will return a pointer to the beginning of the memory.<br>
+<pre>	uint8_t *fbp = mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fb_fd, (off_t)0);
+</pre>
+&#8195;Now, you have your framebuffer mapped to memory. All that is left to do 
+is to draw on it. This we can do just by setting the memory at the right 
+location to the correct value of the pixel in the color you want. So next what 
+we need to do is calculate the correct location in the mapped memory of the 
+pixel that we want to set. For this, we can use the following algorithm:<br>
+<pre>	long x,y; //location we want to draw the pixel
+	uint32_t pixel; //The pixel we want to draw at that location
+
+	//Make sure you set x,y and pixel correctly (details later)
+
+	long location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (y+vinfo.yoffset) * finfo.line_length;
+	*((uint32_t*)(fbp + location)) = pixel;
+</pre>
+&#8195;<code>(y+vinfo.yoffset) * finfo.line_length</code> gets the beginning of 
+line y in memory, and <code>(x+vinfo.xoffset) * (vinfo.bits_per_pixel/8)</code> 
+gets the offset of x on that line. All we have to do is add those together and 
+we have the correct location in memory of the pixel we want to draw. Then we 
+just set that memory to the pixel we want to draw. So we need to decide what 
+color we want the pixel to be and then calculate what the value for a pixel of 
+that color would be. We can use the vinfo structure to figure out the pixel 
+format required for computing the correct pixel value, specifically the red, 
+green, and blue fields, which are also structures. I like to write a little 
+function that takes 8 bit values for each color and returns the pixel value, it 
+looks like this:<br>
+<pre>inline uint32_t pixel_color(uint8_t r, uint8_t g, uint8_t b, struct fb_var_screeninfo *vinfo)
+{
+	return (r&lt;&lt;vinfo-&gt;red.offset) | (g&lt;&lt;vinfo-&gt;green.offset) | (b&lt;&lt;vinfo-&gt;blue.offset);
+}
+</pre>
+&#8195;This function takes the 8 bit value and shifts it to the left the correct 
+offset of that color. Then combines it with the other colors using the OR 
+operator. So if we want to draw a pixel of color 0xFF,0x00,0xFF (purple), it 
+take the red value (0xFF), shift it over the correct offset or red (probably 
+16) and the result would be 0x00FF0000, then it would take the green value 
+(0x00) and shift that to the left (probably 8 bits) and then OR those together, 
+resulting in the same value since green was set to 0, and then take blue (0xFF) 
+and shift that the left (probably 0 bits) resulting in 0x000000FF, then OR that 
+value with the red and green to get the final pixel color of 0x00FF00FF.<br>
+&#8195;So you can see how easy it is to determine the correct pixel value. Now 
+one important thing you need to remember and be aware of at all time is that 
+you must never try to draw outside of the screen. This is because your program 
+has gotten permission to write into that buffer, but if you try to write 
+outside that buffer, you are essentially trying to modify somebody else's 
+memory. Linux probably won't allow this and your program will end with a 
+segfault. This is bad for your program, but if you have set the tty to graphics 
+mode (I will explain later), then you can cause the whole machine to lock up, 
+which is a very bad thing to do. To make sure we don't draw outside the screen, 
+we can use <code>vinfo.xres</code> (the width of the screen in pixels) and 
+<code>vinfo.yres</code> (the height of the screen in pixels). If you never draw 
+and pixels above vinfo.xres,vinfo.yres or below 0,0, then you should be fine. 
+Also, you should note that it is actually safe to draw X values past vinfo.xres 
+since the buffer is just one big block of memory, if you exceed vinfo.xres, you 
+will actually be drawing on the line below Y. So (1+vinfo.xres),14 is the same 
+as 1,15. Of course, this is probably not something that you would ever want to 
+do, so it's probably best to just never draw X greater than vinfo.xres.<br>
+&#8195;Now, as a final example, let's take a look at some code to set up the 
+framebuffer and then make the entire screen bright purple. The code looks like 
+this:<br>
+<pre>#include &lt;linux/fb.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;sys/mman.h&gt;
+#include &lt;sys/ioctl.h&gt;
+
+inline uint32_t pixel_color(uint8_t r, uint8_t g, uint8_t b, struct fb_var_screeninfo *vinfo)
+{
+	return (r&lt;&lt;vinfo-&gt;red.offset) | (g&lt;&lt;vinfo-&gt;green.offset) | (b&lt;&lt;vinfo-&gt;blue.offset);
+}
+
+int main()
+{
+	struct fb_fix_screeninfo finfo;
+	struct fb_var_screeninfo vinfo;
+
+	int fb_fd = open("/dev/fb0",O_RDWR);
+
+	//Get variable screen information
+	ioctl(fb_fd, FBIOGET_VSCREENINFO, &amp;vinfo);
+	vinfo.grayscale=0;
+	vinfo.bits_per_pixel=32;
+	ioctl(fb_fd, FBIOPUT_VSCREENINFO, &amp;vinfo);
+	ioctl(fb_fd, FBIOGET_VSCREENINFO, &amp;vinfo);
+
+	ioctl(fb_fd, FBIOGET_FSCREENINFO, &amp;finfo);
+
+	long screensize = vinfo.yres_virtual * finfo.line_length;
+
+	uint8_t *fbp = mmap(0, screensize, PROT_READ | PROT_WRITE, MAP_SHARED, fb_fd, (off_t)0);
+
+	int x,y;
+
+	for (x=0;x&lt;vinfo.xres;x++)
+		for (y=0;y&lt;vinfo.yres;y++)
+		{
+			long location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (y+vinfo.yoffset) * finfo.line_length;
+			*((uint32_t*)(fbp + location)) = pixel_color(0xFF,0x00,0xFF, &amp;vinfo);
+		}
+
+	return 0;
+}
+</pre>
+&#8195;Now if you run this code, you will probably see nothing, that doesn't 
+mean that it's not working, it just means your eyes aren't fast enough. If you 
+want to see it work, you should add a delay (nanosleep) after rendering.<br>
+<br>
+&#8195;I have one final thing to explain, as I promised earlier. However, you 
+need to be aware that this is dangerous and not strictly required. If you use 
+this and something goes wrong and your program doesn't clean up properly, then 
+you will lock up your computer (not really, but the screen will stop 
+responding). You have been warned.<br>
+&#8195;What I am talking about is claiming the tty for graphics only. This will 
+prevent the framebuffer console from trying to draw overtop of your graphics. 
+You will need to use ioctl again, but this time not on the framebuffer device, 
+instead you will have to use it on the tty device, probably /dev/tty0. You will 
+need to call KDSETMODE with KD_GRAPHICS to set up the tty for graphics only, 
+and then with KD_TEXT to undo it. You <i>MUST</i> set it back to KD_TEXT at 
+exit, or else. I recommend never using this until you are 100% sure that your 
+code will not cause a segfault, otherwise you are going to be rebooting your 
+computer a lot. You could probably also set something up so that you can press 
+some key combination or type some simple command that runs a program that just 
+sets KDSETMODE back to KD_TEXT, that's probably easier, but somehow I doubt you 
+will actually bother. Anyways, the code looks like this:<br>
+<pre>	int tty_fd = open("/dev/tty0", O_RDWR);
+	ioctl(tty_fd,KDSETMODE,KD_GRAPHICS);
+	
+	...
+	
+	//At exit:
+	ioctl(tty_fd,KDSETMODE,KD_TEXT);
+</pre>
+&#8195;That's all there is to it.<br>
+<br>
+&#8195;Now that you are all set up to render stuff, you probably want to start 
+actually drawing stuff besides single pixels or clearing the whole screen, and 
+you probably want to to do something about the flickering that will occur when 
+rendering directly to the framebuffer. If that's the case, have a look at the 
+sections on <a href="#doublebuffer">double buffering</a> and 
+<a href="#primatives">drawing primatives</a>.<br>
+<br><br>
+<font class="sub" id="dumb">Direct Rendering Manager (DRM) Dumb Buffers</font><br>
+&#8195;Supposedly, fbdev is the "old" way of doing things, and KMS/DRM is the 
+"new" way. I don't really get what all the fuss is about, I like fbdev for what 
+it is. KMS/DRM has certain obvious advantages, but that's no reason to throw 
+away fbdev (fortunately, fbdev will still be around for a long time though).<br>
+&#8195;Anyways, KMS/DRM is a much more featureful interface, and gives you a lot 
+more options (which means it's also a lot more complicated). KMS/DRM offers 
+much more control over the graphics hardware, which is great if you want to do 
+really fancy stuff like hardware acceleration. It also has it's own mechanism 
+for double buffering, which is nice.<br>
+&#8195;Anyways, let's get to it. DRM has a feature called "dumb buffers" which 
+is essentially a framebuffer. It's supposedly the easiest to set up, but really 
+still quite a pain. KMS/DRM is a kernel interface, however, most applications 
+using KMS/DRM use libdrm, which makes some parts of the process a lot easier. 
+However, this is a low-level tutorial, and in order to keep this as low-level 
+as possible, we are going to avoid using any user land library. Fortunately, 
+it isn't too difficult to bypass libdrm (thankfully everything is open source).
+<br>
+<br>
+&#8195;First of all, we need to discover and configure the hardware. For this, 
+we will use Kernel Mode Setting (KMS). This step is quite tedious, but bare 
+with me. A lot of this typically handled in libdrm, but we will not be using 
+libdrm at all. I learned a lot of this by reading the libdrm source code, I 
+have simplified a lot of it.<br>
+&#8195;The very first thing that needs to be done is to open the DRI device (DRI 
+stands for Direct Rendering Infrastructure). The DRI device is provided by the 
+kernel in /dev/dri/card0. This assumes you only have one graphics card of 
+course, if you have more than one graphics card, they will be called card1, 
+card2, card3, etc.... However, it is usually safe to assume that you can just 
+use card0. We can open it with a call to open, just like we did for fbdev.<br>
+<pre>	int dri_fd  = open("/dev/dri/card0",O_RDWR);
+</pre>
+<br>
+&#8195;We will need this file descriptor to do all our communication with the 
+DRM driver through ioctl calls. We will also need to have some structures and 
+preprocessor constants, all of which are defined in two header files provided 
+by the kernel. Include the headers drm/drm.h and drm/drm_mode.h. Do not include 
+xf86drm.h or xf86drmMode.h, these are part of libdrm, not the kernel interface.
+<br>
+<pre>#include &lt;drm/drm.h&gt;
+#include &lt;drm/drm_mode.h&gt;
+</pre>
+&#8195;The first thing we need to do is become the "master" of the dri device. 
+This we can do with the ioctl, DRM_IOCTL_SET_MASTER.<br>
+<pre>	ioctl(dri_fd, DRM_IOCTL_SET_MASTER, 0);
+</pre>
+&#8195;We only need to be "master" to do the actual KMS mode setting, so we can 
+drop it as soon as we are done with that.<br>
+&#8195;The first thing we need to do it find all the "connectors" the card 
+provides. "Connectors" seem to usually correspond to actual hardware connectors 
+on the graphics card. For instance, I have 3 on my laptop: The internal 
+connector to the LCD, the external VGA connector and the HDMI connector.<br>
+&#8195;To get this we need to create an instance of the structure 
+drm_mode_card_res. We can ask the kernel to fill this structure with the ioctl, 
+DRM_IOCTL_MODE_GETRESOURCES. Let's quick take a look at the structure's 
+definition<br>
+<pre>struct drm_mode_card_res {
+	__u64 fb_id_ptr;
+	__u64 crtc_id_ptr;
+	__u64 connector_id_ptr;
+	__u64 encoder_id_ptr;
+	__u32 count_fbs;
+	__u32 count_crtcs;
+	__u32 count_connectors;
+	__u32 count_encoders;
+	__u32 min_width, max_width;
+	__u32 min_height, max_height;
+};
+</pre>
+&#8195;However, the way that we have to do this is a little funky because we 
+don't actually know how many connectors there are yet. You may notice that the 
+structure contains a field called count_connectors, which will be used to 
+notify our program of how many connectors there are on the card. Then, once we 
+have this count, we will call ioctl again and get the actual connector ID, 
+which we can then use to get the actual connector information. First thing's 
+first, we need to make sure that the structure is zero'ed out, otherwise the 
+kernel will interpret the ioctl as a request for IDs instead of a request for 
+the resource counts. Then we use DRM_IOCTL_MODE_GETRESOURCES to fill in the 
+count fields of the structure.<br>
+&#8195;This is where there might be trouble, depending on your application. You 
+are supposed to allocate enough memory to store the IDs of the resources. I 
+would rather not allocate memory dynamically if I don't have to, although you 
+may feel free to do so if it suits your purposes. Instead, I am just going to 
+allocate more than enough space and assume that it will always be enough. This 
+might be considered bad form to some people, as it makes assumptions about the 
+user's hardware and wastes a tiny bit of memory, but I am happy with it. We 
+should allocate this memory as an array of 64 bit integers, and we will need 
+four of them since we have four types of resources to deal with (connectors, 
+encoders, framebuffers, and crtcs). The code will look something like this.<br>
+<pre>	uint64_t res_fb_buf[10]={0},
+			res_crtc_buf[10]={0},
+			res_conn_buf[10]={0},
+			res_enc_buf[10]={0};
+
+	struct drm_mode_card_res res={0};
+
+	//Get resource counts
+	ioctl(dri_fd, DRM_IOCTL_MODE_GETRESOURCES, &amp;res);
+	res.fb_id_ptr=(uint64_t)res_fb_buf;
+	res.crtc_id_ptr=(uint64_t)res_crtc_buf;
+	res.connector_id_ptr=(uint64_t)res_conn_buf;
+	res.encoder_id_ptr=(uint64_t)res_enc_buf;
+	//Get resource IDs
+	ioctl(dri_fd, DRM_IOCTL_MODE_GETRESOURCES, &amp;res);
+</pre>
+Note how we filled in the fields fb_id_ptr, crtc_id_ptr, connector_id_ptr, and 
+encoder_id_ptr with the respective memory addresses of the arrays we created.<br>
+<br>
+&#8195;Then, the next thing we need to do is iterate through all the connector 
+IDs we discovered and get the information about them. Once we get enough 
+information, we can actually do the mode setting to set the card up. 
+Fortunately, the kernel driver has already provided us with the number of 
+connectors on the graphics card, so we can set up our loop very easily.<br>
+<pre>	int i;
+	for (i=0;i&lt;res.count_connectors;i++)
+	{
+</pre>
+&#8195;Then, we can start to get information about the connector. For this we 
+will need a structure called drm_mode_get_connector, which is defined like this.
+<br>
+<pre>struct drm_mode_get_connector {
+	__u64 encoders_ptr;
+	__u64 modes_ptr;
+	__u64 props_ptr;
+	__u64 prop_values_ptr;
+
+	__u32 count_modes;
+	__u32 count_props;
+	__u32 count_encoders;
+
+	__u32 encoder_id; /** Current Encoder */
+	__u32 connector_id; /** Id */
+	__u32 connector_type;
+	__u32 connector_type_id;
+
+	__u32 connection;
+	__u32 mm_width, mm_height; /** HxW in millimeters */
+	__u32 subpixel;
+};
+</pre>
+&#8195;We will need to use ioctl DRM_IOCTL_MODE_GETCONNECTOR to fill in this 
+structure. Like DRM_IOCTL_MODE_GETRESOURCES, we will need to use this ioctl 
+twice, first to get the resource counts, then next to get the resources.<br>
+&#8195;It's important to know about the connector's resources, especially what 
+it calls "modes". "Modes", in this case, are the available resolutions for the 
+display you are using, starting with the current one. This will tell us how big 
+we can make our framebuffer. Notice here that the fields resource fields do not 
+include _id_ptr, but just _ptr. This time, the kernel will not fill in the 
+allocated memory with resource IDs, but with actual resource information, so we 
+need to actually create an array of structures for the modes_ptr field. This 
+structure should be of type drm_mode_modeinfo which is defined as follows.<br>
+<pre>struct drm_mode_modeinfo
+{
+	__u32 clock;
+	__u16 hdisplay, hsync_start, hsync_end, htotal, hskew;
+	__u16 vdisplay, vsync_start, vsync_end, vtotal, vscan;
+
+	__u32 vrefresh;
+
+	__u32 flags;
+	__u32 type;
+	char name[DRM_DISPLAY_MODE_LEN];
+};
+</pre>
+&#8195;The other resource fields can just be unsigned 64 bit integers, we 
+probably won't even need to look at them, but they do need to exist so that we 
+don't overwrite some memory somewhere else by accident. We can perform that 
+ioctl now.<br>
+<pre>		struct drm_mode_modeinfo conn_mode_buf[20]={0};
+		uint64_t	conn_prop_buf[20]={0},
+					conn_propval_buf[20]={0},
+					conn_enc_buf[20]={0};
+
+		struct drm_mode_get_connector conn={0};
+
+		conn.connector_id=res_conn_buf[i];
+
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETCONNECTOR, &amp;conn);	//get connector resource counts
+		conn.modes_ptr=(uint64_t)conn_mode_buf;
+		conn.props_ptr=(uint64_t)conn_prop_buf;
+		conn.prop_values_ptr=(uint64_t)conn_propval_buf;
+		conn.encoders_ptr=(uint64_t)conn_enc_buf;
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETCONNECTOR, &amp;conn);	//get connector resource IDs
+</pre>
+<br>
+&#8195;Now that we have our "modes", we can create our "dumb" framebuffer. We 
+don't want to try to create any framebuffers for non-connected connectors 
+though, so we can can do a few checks to see if it's valid. First, we can check 
+if there is at least 1 valid encoder, and one valid mode. We will need both a 
+valid mode and a valid encoder in order to make use of the connector, so if 
+there aren't any, then there is no need to mess with that connector further. In 
+addition, we can check if the connector is "connected", with the connection 
+field. We can also check if the connector has an active encoder. We could still 
+use it even if it has no active encoder, but it's a lot of work, and one 
+connector will have an active encoder. So we can check if there is an 
+encoder_id.<br>
+<pre>		if (conn.count_encoders&lt;1 || conn.count_modes&lt;1 || !conn.encoder_id || !conn.connection)
+			continue;
+</pre>
+This part is nice an easy compared with KMS, except for one small compilation, 
+which is what to do in the case that there is more than one connector active. 
+One thing we can do is create a framebuffer for each connector, but this could 
+lead to complications later when we want to draw to them. We might also just 
+assume that there is only one valid connector, but this is pretty ugly. It is 
+also possible to use KMS to set up the system with one framebuffer for all the 
+valid connectors. What you do here is really dependent on what your program 
+wants to do. For this example, we will create a framebuffer for each connector.
+<br>
+&#8195;So what we have to do is maintain a list of all the created framebuffers 
+and the mode that you want to set it to. I am going to do this with just three 
+arrays, all the same size as our maximum assumed number of connectors. The 
+first will store the base pointer for the framebuffer, and the other two will 
+hold the width and height for the buffers. It's an ugly solution, but this will 
+work.<br>
+<pre>	void *fb_base[10];
+	long fb_w[10];
+	long fb_h[10];
+</pre>
+&#8195;SIDE NOTE: You may notice that our code is becoming uglier and uglier. 
+The reason for this is because we are avoiding dealing with some fairly serious 
+issues. Namely how we should actually choose a mode, how to choose a connector, 
+what to do with more than one connector, and also avoiding dynamic memory 
+allocation whenever possible. There are elegant solutions to these problems, 
+but outside the scope of this document. However, the basic outline of the 
+elegant solution is as follows, check each connector for validity, build a list 
+of all valid connectors, find a mode valid for all valid connectors, create a 
+single framebuffer at this resolution, set up all connectors to use this 
+framebuffer. END SIDE NOTE<br>
+<br>
+&#8195;Next, let's create our "dumb" framebuffer. We need three structures, 
+drm_mode_create_dumb, drm_mode_map_dumb, and drm_mode_fb_cmd.<br>
+<pre>		struct drm_mode_create_dumb create_dumb={0};
+		struct drm_mode_map_dumb map_dumb={0};
+		struct drm_mode_fb_cmd cmd_dumb={0};
+</pre>
+&#8195;The first two are used to create and map the dumb buffer. The last one is 
+used to "add" the buffer, basically letting the DRM driver know that we created 
+it. The structures are defined as follows.<br>
+<pre>struct drm_mode_create_dumb {
+	__u32 height;
+	__u32 width;
+	__u32 bpp;
+	__u32 flags;
+
+	__u32 handle;
+	__u32 pitch;
+	__u64 size;
+};
+struct drm_mode_fb_cmd {
+	__u32 fb_id;
+	__u32 width, height;
+	__u32 pitch;
+	__u32 bpp;
+	__u32 depth;
+	/* driver specific handle */
+	__u32 handle;
+};
+struct drm_mode_map_dumb {
+	__u32 handle;
+	__u32 pad;
+
+	__u64 offset;
+};
+</pre>
+&#8195;The first thing we need to do is fill out the create structure with a 
+mode. Then we can call the ioctl, DRM_IOCTL_MODE_CREATE_DUMB. This will fill in 
+the handle field. This handle is a Graphics Execution Manager (GEM) handle, and 
+we will need to remember it. Second, we put the handle into the drm_mode_fb_cmd 
+structure (as well as other fields) and call the ioctl, DRM_IOCTL_MODE_ADDFB. 
+Then we prepare the framebuffer for mapping by filling in the drm_mode_map_dumb 
+structure's handle and using the ioctl, DRM_IOCTL_MODE_MAP_DUMB. Then we can 
+finally map the framebuffer using mmap.<br>
+<pre>		create_dumb.width = conn_mode_buf[0].hdisplay;
+		create_dumb.height = conn_mode_buf[0].vdisplay;
+		create_dumb.bpp = 32;
+		create_dumb.flags = 0;
+		create_dumb.pitch = 0;
+		create_dumb.size = 0;
+		create_dumb.handle = 0;
+		ioctl(dri_fd, DRM_IOCTL_MODE_CREATE_DUMB, &amp;create_dumb);
+
+		cmd_dumb.width=create_dumb.width;
+		cmd_dumb.height=create_dumb.height;
+		cmd_dumb.bpp=create_dumb.bpp;
+		cmd_dumb.pitch=create_dumb.pitch;
+		cmd_dumb.depth=24;
+		cmd_dumb.handle=create_dumb.handle;
+		ioctl(dri_fd,DRM_IOCTL_MODE_ADDFB,&amp;cmd_dumb);
+
+		map_dumb.handle=create_dumb.handle;
+		ioctl(dri_fd,DRM_IOCTL_MODE_MAP_DUMB,&amp;map_dumb);
+
+		fb_base[i] = mmap(0, create_dumb.size, PROT_READ | PROT_WRITE, MAP_SHARED, dri_fd, map_dumb.offset);
+		fb_w[i]=create_dumb.width;
+		fb_h[i]=create_dumb.height;
+</pre>
+&#8195;Note how I also filled out the arrays for the various connectors with the 
+base pointer to the mapped framebuffer and the corresponding dimension of them.
+<br>
+&#8195;Then we can be done with the dumb buffer creation. We now have our 
+framebuffer(s) mapped and once we finish our mode setting we can begin drawing 
+into them.<br>
+<br>
+&#8195;Back to mode setting. Next we need to get an encoder. In this context, an 
+encoder is what takes our framebuffer and gets it into the proper format for 
+"scanout" (that is, displaying it on the screen). Fortunately, our connector 
+structure has a great field called encoder_id, which is the ID of the active 
+encoder for that connector. We could search for other encoders, but we could 
+also just use this one, let's do that. We only have the ID of the encoder, but 
+we will need to get more information about it. For this, use the 
+drm_mode_get_encoder structure along with the ioctl, DRM_IOCTL_MODE_GETENCODER. 
+The structure looks like this.<br>
+<pre>struct drm_mode_get_encoder {
+	__u32 encoder_id;
+	__u32 encoder_type;
+
+	__u32 crtc_id; /** Id of crtc */
+
+	__u32 possible_crtcs;
+	__u32 possible_clones;
+};
+</pre>
+&#8195;Which gives us the ID of the current CRTC for this encoder. A CRTC is a 
+CRT (Cathode Ray Tube??) Controller. This is what we really need to set up. The 
+CRTC's structure looks like this.<br>
+<pre>struct drm_mode_crtc {
+	__u64 set_connectors_ptr;
+	__u32 count_connectors;
+
+	__u32 crtc_id; /** Id */
+	__u32 fb_id; /** Id of framebuffer */
+
+	__u32 x, y; /** Position on the frameuffer */
+
+	__u32 gamma_size;
+	__u32 mode_valid;
+	struct drm_mode_modeinfo mode;
+};
+</pre>
+&#8195;We can get information about it using the ioctl, DRM_IOCTL_MODE_GETCRTC. 
+Our code might look like this.<br>
+<pre>		struct drm_mode_get_encoder enc={0};
+
+		enc.encoder_id=conn.encoder_id;
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETENCODER, &amp;enc);	//get encoder
+
+		struct drm_mode_crtc crtc={0};
+
+		crtc.crtc_id=enc.crtc_id;
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETCRTC, &amp;crtc);
+</pre>
+&#8195;Then, finally, we can set up the CRTC and connect it to our newly created 
+dumb framebuffer using the ioctl, DRM_IOCTL_MODE_SETCRTC. Take note that 
+mode_valid must be set to 1, otherwise the DRM driver won't do anything.<br>
+<pre>		crtc.fb_id=cmd_dumb.fb_id;
+		crtc.set_connectors_ptr=(uint64_t)&amp;res_conn_buf[i];
+		crtc.count_connectors=1;
+		crtc.mode=conn_mode_buf[0];
+		crtc.mode_valid=1;
+		ioctl(dri_fd, DRM_IOCTL_MODE_SETCRTC, &amp;crtc);
+	}
+</pre>
+&#8195;I set up the connectors_ptr field with sort of a hack here. I just used 
+the original list, but instead of starting at the beginning, I start at the 
+current position in the list (the current connector) and hard coded the 
+connector count to always be one. At this point you can stop being the "master" 
+of the DRM device as this is no longer required. Use the ioctl, 
+DRM_IOCTL_DROP_MASTER.<br>
+<pre>	ioctl(dri_fd, DRM_IOCTL_DROP_MASTER, 0);
+</pre>
+<br>
+&#8195;Then we are finally done with our KMS. We can now draw on our framebuffer 
+and the DRM driver will deliver that data to the screen. For instance, to clear 
+the screen to the color purple, we might use the following code.<br>
+<pre>	int i;
+	for (i=0;i&lt;res.count_connectors;i++)
+		for (y=0;y&lt;fb_h[i];y++)
+			for (x=0;x&lt;fb_w[i];x++)
+			{
+				int location=y*(fb_w[i]) + x;
+				*(((uint32_t*)fb_base[i])+location)=0x00ff00ff;;
+			}
+</pre>
+<br>
+&#8195;That's all there is to it. A full working example follows.<br>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;stdint.h&lt;
+#include &lt;fcntl.h&lt;
+#include &lt;sys/mman.h&lt;
+#include &lt;sys/ioctl.h&lt;
+#include &lt;drm/drm.h&lt;
+#include &lt;drm/drm_mode.h&lt;
+
+int main()
+{
+//------------------------------------------------------------------------------
+//Opening the DRI device
+//------------------------------------------------------------------------------
+
+	int dri_fd  = open("/dev/dri/card0",O_RDWR | O_CLOEXEC);
+
+//------------------------------------------------------------------------------
+//Kernel Mode Setting (KMS)
+//------------------------------------------------------------------------------
+
+	uint64_t res_fb_buf[10]={0},
+			res_crtc_buf[10]={0},
+			res_conn_buf[10]={0},
+			res_enc_buf[10]={0};
+
+	struct drm_mode_card_res res={0};
+
+	//Become the "master" of the DRI device
+	ioctl(dri_fd, DRM_IOCTL_SET_MASTER, 0);
+
+	//Get resource counts
+	ioctl(dri_fd, DRM_IOCTL_MODE_GETRESOURCES, &amp;res);
+	res.fb_id_ptr=(uint64_t)res_fb_buf;
+	res.crtc_id_ptr=(uint64_t)res_crtc_buf;
+	res.connector_id_ptr=(uint64_t)res_conn_buf;
+	res.encoder_id_ptr=(uint64_t)res_enc_buf;
+	//Get resource IDs
+	ioctl(dri_fd, DRM_IOCTL_MODE_GETRESOURCES, &amp;res);
+
+	printf("fb: %d, crtc: %d, conn: %d, enc: %d\n",res.count_fbs,res.count_crtcs,res.count_connectors,res.count_encoders);
+
+	void *fb_base[10];
+	long fb_w[10];
+	long fb_h[10];
+
+	//Loop though all available connectors
+	int i;
+	for (i=0;i&lt;res.count_connectors;i++)
+	{
+		struct drm_mode_modeinfo conn_mode_buf[20]={0};
+		uint64_t	conn_prop_buf[20]={0},
+					conn_propval_buf[20]={0},
+					conn_enc_buf[20]={0};
+
+		struct drm_mode_get_connector conn={0};
+
+		conn.connector_id=res_conn_buf[i];
+
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETCONNECTOR, &amp;conn);	//get connector resource counts
+		conn.modes_ptr=(uint64_t)conn_mode_buf;
+		conn.props_ptr=(uint64_t)conn_prop_buf;
+		conn.prop_values_ptr=(uint64_t)conn_propval_buf;
+		conn.encoders_ptr=(uint64_t)conn_enc_buf;
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETCONNECTOR, &amp;conn);	//get connector resources
+
+		//Check if the connector is OK to use (connected to something)
+		if (conn.count_encoders&lt;1 || conn.count_modes&lt;1 || !conn.encoder_id || !conn.connection)
+		{
+			printf("Not connected\n");
+			continue;
+		}
+
+//------------------------------------------------------------------------------
+//Creating a dumb buffer
+//------------------------------------------------------------------------------
+		struct drm_mode_create_dumb create_dumb={0};
+		struct drm_mode_map_dumb map_dumb={0};
+		struct drm_mode_fb_cmd cmd_dumb={0};
+
+		//If we create the buffer later, we can get the size of the screen first.
+		//This must be a valid mode, so it's probably best to do this after we find
+		//a valid crtc with modes.
+		create_dumb.width = conn_mode_buf[0].hdisplay;
+		create_dumb.height = conn_mode_buf[0].vdisplay;
+		create_dumb.bpp = 32;
+		create_dumb.flags = 0;
+		create_dumb.pitch = 0;
+		create_dumb.size = 0;
+		create_dumb.handle = 0;
+		ioctl(dri_fd, DRM_IOCTL_MODE_CREATE_DUMB, &amp;create_dumb);
+
+		cmd_dumb.width=create_dumb.width;
+		cmd_dumb.height=create_dumb.height;
+		cmd_dumb.bpp=create_dumb.bpp;
+		cmd_dumb.pitch=create_dumb.pitch;
+		cmd_dumb.depth=24;
+		cmd_dumb.handle=create_dumb.handle;
+		ioctl(dri_fd,DRM_IOCTL_MODE_ADDFB,&amp;cmd_dumb);
+
+		map_dumb.handle=create_dumb.handle;
+		ioctl(dri_fd,DRM_IOCTL_MODE_MAP_DUMB,&amp;map_dumb);
+
+		fb_base[i] = mmap(0, create_dumb.size, PROT_READ | PROT_WRITE, MAP_SHARED, dri_fd, map_dumb.offset);
+		fb_w[i]=create_dumb.width;
+		fb_h[i]=create_dumb.height;
+
+//------------------------------------------------------------------------------
+//Kernel Mode Setting (KMS)
+//------------------------------------------------------------------------------
+
+		printf("%d : mode: %d, prop: %d, enc: %d\n",conn.connection,conn.count_modes,conn.count_props,conn.count_encoders);
+		printf("modes: %dx%d FB: %d\n",conn_mode_buf[0].hdisplay,conn_mode_buf[0].vdisplay,fb_base[i]);
+
+		struct drm_mode_get_encoder enc={0};
+
+		enc.encoder_id=conn.encoder_id;
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETENCODER, &amp;enc);	//get encoder
+
+		struct drm_mode_crtc crtc={0};
+
+		crtc.crtc_id=enc.crtc_id;
+		ioctl(dri_fd, DRM_IOCTL_MODE_GETCRTC, &amp;crtc);
+
+		crtc.fb_id=cmd_dumb.fb_id;
+		crtc.set_connectors_ptr=(uint64_t)&amp;res_conn_buf[i];
+		crtc.count_connectors=1;
+		crtc.mode=conn_mode_buf[0];
+		crtc.mode_valid=1;
+		ioctl(dri_fd, DRM_IOCTL_MODE_SETCRTC, &amp;crtc);
+	}
+
+	//Stop being the "master" of the DRI device
+	ioctl(dri_fd, DRM_IOCTL_DROP_MASTER, 0);
+
+	int x,y;
+	for (i=0;i&lt;100;i++)
+	{
+		int j;
+		for (j=0;j&lt;res.count_connectors;j++)
+		{
+			int col=(rand()%0x00ffffff)&amp;0x00ff00ff;
+			for (y=0;y&lt;fb_h[j];y++)
+				for (x=0;x&lt;fb_w[j];x++)
+				{
+					int location=y*(fb_w[j]) + x;
+					*(((uint32_t*)fb_base[j])+location)=col;
+				}
+		}
+		usleep(100000);
+	}
+
+	return 0;
+}
+</pre>
+&#8195;Now you should be able to get graphics drawn on the screen using KMS/DRM 
+dumb buffers. For further information, you should check out the sections on 
+<a href="#doublebuffer">double buffering</a> and <a href="#primatives">drawing 
+primatives</a>.<br>
+<br>
+<br>
+&#8195;PLEASE NOTE: This section provides a working example, but it still needs 
+a significant amount of work to improve it. It shows many less than beautiful 
+solutions for the problems faced. If you have a better solution, please email 
+me at prushik@betteros.org and I will update the tutorial (and include your 
+name). However, solutions must follow the following constraints: no libdrm, no 
+standard libc functions that do not map 1-1 to Linux system calls, no 3rd party 
+libraries.<br>
+<br><br>
+<font class="sub" id="wl">Wayland (Coming Soon)</font><br>
+&#8195;I have been working on this, but it will take time, be patient.<br>
+<br><br>
+<font class="sub" id="mir">Mir (Coming Soon)</font><br>
+&#8195;Once I get Mir actually compiled and running on my computer, then I will 
+start work on actually developing native Mir applications. This will probably 
+take the longest.<br>
+<br><br>
+<font class="sub" id="useful">Useful Drawing Concepts</font><br>
+&#8195;Now that you have learned how to actually draw on the screen. You will 
+probably want to learn how to do more interesting and useful things with your 
+new knowledge. Because we are working with such low level graphics systems, we 
+do not automatically get things like double buffering and primatives, you have 
+to implement that stuff on your own. This section may help.<br>
+<br><br>
+<font class="sub" id="doublebuffer">Double Buffering</font><br>
+&#8195;Double buffering is very simple, and can have a profound impact on your 
+graphics. With only a single video buffer, the contents of the buffer might be 
+displayed at a bad time, such as right after you have cleared the screen, but 
+before anything has been redrawn. This makes your graphics look pretty ugly. It 
+will look like your screen is flickering and probably isn't great for your eyes.
+<br>
+&#8195;Double buffering solves this problem by never presenting anything to the 
+screen until it is fully drawn. The basic idea is that instead of having only 
+one buffer, there are two buffers of equal size: a front buffer, and a back 
+buffer. The front buffer is the one being drawn on the screen. Nothing should 
+be drawn onto the front buffer. The back buffer is not displayed, it is just 
+memory. Everything that should be displayed is first drawn into the back 
+buffer. Then, once the entire frame is ready, the buffers are swapped, and the 
+back buffer becomes the new front buffer. This way, the front buffer always 
+contains a complete frame.<br>
+<br>
+&#8195;Implementing double buffering is easy. The first thing you need to do is 
+allocate a second buffer, the exact same size as your front buffer. For 
+instance, if we are working with the Linux framebuffer device, we might use the 
+following code.<br>
+<pre>static uint32_t *back_buffer;
+
+void init_back_buffer()
+{
+	back_buffer = (uint8_t*)mmap(0, vinfo.yres_virtual * finfo.line_length, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, (off_t)0);
+}
+</pre>
+&#8195;Then, instead of drawing into the front buffer, all your drawing 
+functions must draw into the back buffer instead. So, if we wanted to make the 
+whole screen purple, we might use the following code (compare to example in 
+<a href="#fbdev">fbdev</a> section).<br>
+<pre>	for (x=0;x&lt;vinfo.xres;x++)
+		for (y=0;y&lt;vinfo.yres;y++)
+		{
+			long location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (y+vinfo.yoffset) * finfo.line_length;
+			*((uint32_t*)(back_buffer + location)) = pixel_color(0xFF,0x00,0xFF, &amp;vinfo);
+		}
+</pre>
+&#8195;We can draw as much as we want into the back buffer, but it will never be 
+displayed on the screen, until we swap it with the front buffer that is.<br>
+&#8195;The way we swap buffers is going to be dependent on the method we are 
+using to render to the screen. For instance, DRM/KMS provides it's own method 
+of swapping buffers. You might be able to just tell your video driver to use 
+your back buffer as the front buffer. If all else fails, you can just copy the 
+contents of the entire back buffer onto the front buffer. In this case, we do 
+not need to actually "swap" the buffers since we do not really care about 
+moving to contents of the front buffer into the back buffer, so we only need to 
+copy the back buffer to the front buffer and be done with it. We can use this 
+method of swapping buffers using the fbdev rendering method. The code to swap 
+buffers might look like this.<br>
+<pre>inline void swap_buffers()
+{
+	int i;
+	for (i=0;i&lt;(vinfo.yres_virtual * finfo.line_length)/4;i++)
+	{
+		((uint32_t*)(fbp))[i] = back_buffer[i];
+	}
+}
+</pre>
+&#8195;Please note that there is a lot of room for optimization in this code. 
+On systems with SIMD instructions, such x86_64 (SSE, SSE2, SSE3, SSE4.1, etc..) 
+multiple bytes of the buffer can be copied at once. Writing this routine in 
+assembly language might be helpful.<br>
+<br>
+&#8195;However, there is even a better way to do double buffer using fbdev. 
+Although the interface does not provide a way to switch buffers, we can use a 
+little trick to simulate this behavior.<br>
+&#8195;The fbdev driver allows for what it calls "panning", where the 
+framebuffer can be bigger than the screen and then the driver can be instructed 
+to draw the correct portion of the buffer on the screen. To simulate buffer 
+switching behavior, we can allocate both buffers as one big buffer and then 
+draw in the one that is off the screen (our back buffer), and then tell the 
+device to "pan" to the offscreen portion of the buffer. We tell the device to 
+pan with the FBIOPAN_DISPLAY ioctl.<br>
+<pre>uint8_t *fbp,	//Front buffer base pointer
+		*bbp;	//back buffer base pointer
+
+void init_fbdev()
+{
+	...
+
+	fbp = mmap(0, screensize*2, PROT_READ | PROT_WRITE, MAP_SHARED, fb_fd, (off_t)0);
+	bbp = fbp + screensize;
+}
+
+void clear()
+{
+	for (x=0;x&lt;vinfo.xres;x++)
+		for (y=0;y&lt;vinfo.yres;y++)
+		{
+			long location = (x+vinfo.xoffset) * (vinfo.bits_per_pixel/8) + (y+vinfo.yoffset) * finfo.line_length;
+			*((uint32_t*)(bbp + location)) = pixel_color(0xFF,0x00,0xFF, &amp;vinfo);
+		}
+}
+
+inline void swap_buffers()
+{
+	if (vinfo.yoffset==0)
+		vinfo.yoffset = screensize;
+	else
+		vinfo.yoffset=0;
+
+	//"Pan" to the back buffer
+	ioctl(fb_fd, FBIOPAN_DISPLAY, &amp;vinfo);
+
+	//Update the pointer to the back buffer so we don't draw on the front buffer
+	long tmp;
+	tmp=fbp;
+	fbp=bbp;
+	bbp=tmp;
+}
+</pre>
+<br>
+&#8195;That's all you need to know to do double buffering. Make sure you 
+remember to swap your buffers when you want your next frame to be displayed.<br>
+<br><br>
+<font class="sub" id="primatives">Drawing Primatives</font><br>
+&#8195;You will probably need to draw shapes on the screen if you are going to 
+do graphics. Drawing single pixels isn't all that useful for most applications. 
+Here I describe a few common shape drawing algorithms that execute very quickly 
+and do what you need. I have used most of these in my own code.<br>
+However, I can't cover everything, but there are lots of other resources online 
+that can help. Here is one very good one: 
+<a href="http://www.brackeen.com/vga/shapes.html">Primitive Shapes &amp; Lines</a>.
+<br><br>
+<font class="sub" id="line">Lines</font><br>
+&#8195;Drawing lines is very important. Probably every single graphical 
+application draws lines for something or another. Many programs might only need 
+to draw horizontal and vertical lines, while other applications, such as games, 
+will need to draw lines of an arbitrary angle.<br>
+&#8195;Drawing horizontal lines and vertical lines is by far the simplest. You 
+can draw these types of lines just by iterating over the x or y values and 
+plotting each pixel. The following code shows these two functions. Please note 
+that these functions make the assumption that x1 is less than x2 and y1 is less 
+than y2.<br>
+<pre>void draw_horizontal_line(int x1, int x2, int y, uint32_t pixel)
+{
+	int i;
+	for (i=x1;i&lt;x2;i++)
+		draw(i,y,pixel);
+}
+void draw_vertical_line(int x, int y1, int y2, uint32_t pixel)
+{
+	int i;
+	for (i=y1;i&lt;y2;i++)
+		draw(x,i,pixel);
+}
+</pre>
+&#8195;These functions are very simple, about as simple as possible. However, it 
+should be noted that there is still room for optimization, especially in the 
+horizontal line version. If we are using a framebuffer stored as a contiguous 
+block of main memory, then we know that our horizontal line is also stored as 
+a contiguous block of memory, and we can determine it's size by subtracting x1 
+from x2. We can then copy memory into that block instead of changing each pixel 
+one at a time. Machines with SIMD instructions (e.g. SSE, SSE2, etc...) will be 
+particularly adept at this type of operation, it might be useful to write this 
+portion of your code in assembly. However, your compiler's optimizer should 
+also be able to do a pretty good job of optimizing this code on it's own.<br>
+<br>
+&#8195;For more complicated lines, we can use an algorithm known as Bresenham's 
+line algorithm. It's basically the fastest one available, and it works great. 
+You aren't going to get any super fancy features like anti-aliasing, but in 
+most cases, this is exactly what you want. This code has been adapted from 
+code found on this page: <a href="http://www.brackeen.com/vga/shapes.html">
+Primative Shapes &amp; Lines</a> written in 1996.<br>
+<pre>void draw_line(int x1, int y1, int x2, int y2, uint32_t pixel)
+{
+	int i,dx,dy,sdx,sdy,dxabs,dyabs,x,y,px,py;
+
+	dx=x2-x1;			//Delta x
+	dy=y2-y1;			//Delta y
+	dxabs=abs(dx);		//Absolute delta
+	dyabs=abs(dy);		//Absolute delta
+	sdx=(dx&gt;0)?1:-1; //signum function
+	sdy=(dy&gt;0)?1:-1; //signum function
+	x=dyabs&gt;&gt;1;
+	y=dxabs&gt;&gt;1;
+	px=x1;
+	py=y1;
+
+	if (dxabs&gt;=dyabs)
+	{
+		for(i=0;i&lt;dxabs;i++)
+		{
+			y+=dyabs;
+			if (y&gt;=dxabs)
+			{
+				y-=dxabs;
+				py+=sdy;
+			}
+			px+=sdx;
+			draw(px,py,pixel);
+		}
+	}
+	else
+	{
+		for(i=0;i&lt;dyabs;i++)
+		{
+			x+=dxabs;
+			if (x&gt;=dyabs)
+			{
+				x-=dyabs;
+				px+=sdx;
+			}
+			py+=sdy;
+			draw(px,py,pixel);
+		}
+	}
+}
+</pre>
+<br><br>
+<font class="sub" id="circle">Circles</font><br>
+&#8195;Drawing a circle is pretty easy. Circles are fun because they are very 
+uniform. If you divide a circle in half down the middle, each side is just a 
+mirror of the other side. so for any point on the circle (x,y), the other side 
+is just (-x,y). The same can be said if you divide in half across the center. 
+Top and bottom are also just mirrors of each other. So for any one point on a 
+circle, we actually know 4 points: (x,y) (-x,y) (x,-y) and (-x,-y). Then if we 
+divide the circle again diagonally, we can calculate 4 more points by just 
+exchanging x and y. So for every point we calculate, we can draw 8 points on 
+the circle, which means we only need to find 1/8th of the circle in order to 
+draw the whole thing.<br>
+&#8195;The following code is an implementation of what is called the "midpoint 
+circle algorithm".<br>
+<pre>//Draw a circle at (cx,cy)
+void draw_circle(double cx, double cy, int radius, uint32_t pixel)
+{
+	inline void plot4points(double cx, double cy, double x, double y, uint32_t pixel)
+	{
+		draw(cx + x, cy + y,pixel);
+		draw(cx - x, cy + y,pixel);
+		draw(cx + x, cy - y,pixel);
+		draw(cx - x, cy - y,pixel);
+	}
+
+	inline void plot8points(double cx, double cy, double x, double y, uint32_t pixel)
+	{
+		plot4points(cx, cy, x, y,pixel);
+		plot4points(cx, cy, y, x,pixel);
+	}
+
+	int error = -radius;
+	double x = radius;
+	double y = 0;
+
+	while (x &gt;= y)
+	{
+		plot8points(cx, cy, x, y, pixel);
+
+		error += y;
+		y++;
+		error += y;
+
+		if (error &gt;= 0)
+		{
+			error += -x;
+			x--;
+			error += -x;
+		}
+	}
+}
+</pre>
+<br>
+&#8195;This algorithm is wonderful and simple and also very fast. I recommend 
+using this algorithm any time you want to draw a circle. However, this 
+algorithm only draws the outline of the circle, it does not fill the circle in. 
+Fortunately, if you want to draw a filled circle instead, the modification is 
+very easy. All you need to do is instead of plotting points (x,y) and (-x,y), 
+draw a line between those points. This line drawing will always be horizontal, 
+so the line drawing algorithm can be optimized accordingly (described in 
+previous section). Here is the code (this code replaces plot4points function in 
+the circle drawing algorithm above).<br>
+<pre>	inline void plot4points(double cx, double cy, double x, double y, uint32_t pixel)
+	{
+		draw_horizontal_line(cx + x, cx - x, cy + y,pixel);
+		draw_horizontal_line(cx + x, cx - x, cy - y,pixel);
+	}
+</pre>
+<br><br>
+
+
+</body></html>
