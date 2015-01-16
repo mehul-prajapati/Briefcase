@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html itemscope="" itemtype="http://schema.org/Article"><head>
+<meta charset="UTF-8">
+<link href="https://plus.google.com/100292833634918081724" rel="publisher">
+<meta name="pocket-site-verification" content="c9d41bc0af66842431541dad88464e">
+<title>How to Install the Lightweight LXDE Desktop on Ubuntu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="fb:page_id" content="65878196434">
+<meta name="verify-v1" content="WiU7236KQY8e6jcxePbZscPXDuMvJ3b9ydseGd4G5AE=">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta name="REVISIT-AFTER" content="1 DAYS">
+<link rel="alternate" type="application/rss+xml" title="How-To Geek RSS Feed" href="http://feeds.howtogeek.com/HowToGeek">
+<meta property="og:title" itemprop="name" name="title" content="How to Install the Lightweight LXDE Desktop on Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:description" name="og:description" itemprop="og:description" content="LXDE is a lightweight desktop alternative to Unity, GNOME and KDE. It’s ideal for old computers or anyone looking for a fast, lightweight system. It’s even lighter than Xubuntu’s XFCE.">
+<meta property="og:image" content="http://cdn5.howtogeek.com/thumbcache/140/160/55d93cc7bfb1ffb29747b946911fb35b/wp-content/uploads/2012/03/lxde-header.png">
+<link rel="image_src" href="http://cdn5.howtogeek.com/thumbcache/140/160/55d93cc7bfb1ffb29747b946911fb35b/wp-content/uploads/2012/03/lxde-header.png">
+<link rel="stylesheet" href="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/A.css" type="text/css">
+<link href="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/css.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://cdn5.howtogeek.com/public/favicon.ico" type="image/x-icon">
+<script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/beacon.html" async=""></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/cross-check.js" async=""></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/impl.js" type="text/javascript" charset="UTF-8"></script><script type="text/javascript">/* Adroll */
+adroll_adv_id = 'LUPCT5CAU5BYVHRJM2RKAU'; 
+adroll_pix_id = 'TANGANKPQJFAXD655NREJ4';
+if (adroll_adv_id!='' && adroll_adv_id.indexOf('$')!=0
+ && adroll_pix_id!='' && adroll_pix_id.indexOf('$')!=0) {
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+}
+/* /Adroll */</script><script type="text/javascript">/* Qualtrics */
+var _qualtricsID = '${PAGE_DOMAIN:QUALTRICS_ID}';
+if (_qualtricsID!='' && _qualtricsID.indexOf('$')!=0) {
+   (function () {
+           var g = function (e, h, f, g) {
+               this.get = function (a) { for (var a = a + "=", c = document.cookie.split(";"), b = 0, e = c.length; b < e; b++) { for (var d = c[b]; " " == d.charAt(0); ) d = d.substring(1, d.length); if (0 == d.indexOf(a)) return d.substring(a.length, d.length) } return null };
+               this.set = function (a, c) { var b = "", b = new Date; b.setTime(b.getTime() + 6048E5); b = "; expires=" + b.toGMTString(); document.cookie = a + "=" + c + b + "; path=/; " };
+               this.check = function () { var a = this.get(f); if (a) a = a.split(":"); else if (100 != e) "v" == h && (e = Math.random() >= e / 100 ? 0 : 100), a = [h, e, 0], this.set(f, a.join(":")); else return !0; var c = a[1]; if (100 == c) return !0; switch (a[0]) { case "v": return !1; case "r": return c = a[2] % Math.floor(100 / c), a[2]++, this.set(f, a.join(":")), !c } return !0 };
+               this.go = function () { if (this.check()) { var a = document.createElement("script"); a.type = "text/javascript"; a.src = g + "&t=" + (new Date()).getTime(); document.body && document.body.appendChild(a) } };
+               this.start = function () { var a = this; window.addEventListener ? window.addEventListener("load", function () { a.go() }, !1) : window.attachEvent && window.attachEvent("onload", function () { a.go() }) } 
+           };
+           try { (new g(100, "r", "QSI_S_"+_qualtricsID, "//"+_qualtricsID.toLowerCase()+"-techmedianetwork.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID="+_qualtricsID+"&Q_LOC=" + encodeURIComponent(window.location.href))).start() } catch (i) { } 
+   })();
+   var d = document.createElement('div');
+   d.id = _qualtricsID;
+   d.innerHMTL='<!--DO NOT REMOVE-CONTENTS PLACED HERE-->';
+   document.body.appendChild(d);
+}
+/* /Qualtrics */</script><script type="text/javascript">/* Linksmart */
+var _linksmartID = '${PAGE_DOMAIN:LINKSMART_ID}';
+if (_linksmartID!='' && _linksmartID.indexOf('$')!=0) {
+  var _ls_pub_id = _linksmartID;
+  (function(d, t){
+  var mb = d.createElement(t), s = d.getElementsByTagName(t)[0];
+  mb.async = mb.src = '//cdn.linksmart.com/linksmart_2.3.0.min.js';
+  s.parentNode.insertBefore(mb, s);
+  }(document, 'script'));
+}
+/* /Linksmart */</script><script type="text/javascript" async="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/quant.js"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/analytics.js" async=""></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/sdk.html" id="facebook-jssdk"></script><script async="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/cbgapi.loaded_1"></script><script async="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/plusone.js" async="" type="text/javascript"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/widgets.html" id="twitter-wjs"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/loader.js" async=""></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/bk-coretag.html" async=""></script><script type="text/javascript" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/jquery.js"></script>
+<script type="text/javascript">var statsUrl='/public/stats.php?id=107368&1415962614';</script>	<script type="text/javascript" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/howtogeek.js"></script>
+<link rel="shortlink" href="http://www.howtogeek.com/?p=107368">
+<link rel="canonical" href="http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/">
+<meta property="og:url" content="http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/"><script type="text/javascript" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/tmnhead.js"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/gpt.js"></script><iframe style="visibility: hidden; display: none;" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/container.html"></iframe><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/jstag.html"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/amzn_ads.html"></script><script>if(typeof amznads!='undefined')amznads.getAds(aaxID);</script>
+<script type="text/javascript">tmntag.account('/10518929/tmnp.howtogeek/linux');tmntag.adunit({'sizes':[[300,250],[300,600],[300,1050]],'div':'div-gpt-ad-1342044737928-1'});tmntag.adunit({'sizes':[[728,90]],'div':'div-gpt-ad-1342044737928-2'});tmntag.adunit({'account':'/10518929/tmnp.howtogeek-btf/linux','sizes':[[160,600],[120,600]],'div':'div-gpt-ad-1342044737928-12'});tmntag.adunit({'account':'/10518929/tmnp.howtogeek-btf/linux','sizes':[[728,90],[970,66],[970,90],[970,250]],'div':'div-gpt-ad-1342044737928-14'});tmntag.adunit({'sizes':[650,141],'div':'div-1342-1','targeting':{'adsense1':'adsense1'}});tmntag.adunit({'sizes':[650,140],'div':'div-1342-2','targeting':{'adsense2':'adsense2'}});tmntag.adunit({'sizes':[300,300],'div':'div-1342-3','targeting':{'adsense3':'adsense3'}});var isiPad=navigator.userAgent.match(/iPad/i)!=null;if(isiPad){}else{tmntag.adunit({'account':'/10518929/tmnp.howtogeek','div':'div-gpt-ad-1342044737928-5'});}
+tmntag.start();</script><script type="text/javascript" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/tmntag.js"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/pubads_impl_54.html" type="text/javascript" async=""></script>
+<script type="text/javascript">window._taboola=window._taboola||[];_taboola.push({article:'auto'});!function(e,f,u){e.async=1;e.src=u;f.parentNode.insertBefore(e,f);}(document.createElement('script'),document.getElementsByTagName('script')[0],'http://cdn.taboola.com/libtrc/howtogeek-howtogeek/loader.js');</script>
+<style type="text/css">.trc_rbox_container{direction:ltr;text-align:left}.trc_rbox_header{border-style:solid;border-width:0}.in_trc_header{position:relative!important;float:right;margin:0}#trc_rbox_css_loaded{overflow:hidden;width:0;height:0}.trc_rbox{margin-top:0}.trc_rbox_div{margin:0 0 3px;direction:ltr;padding:0;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;overflow:auto;position:relative;width:auto;*width:auto;border:solid #CCC 1px}.loading-animation span{display:block}.videoCube{zoom:1;cursor:pointer;float:none;overflow:hidden;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box}div.videoCube:hover,.videoCube_hover{cursor:pointer}.videoCube span.video-title:hover,.videoCube_hover span.video-title{text-decoration:underline}.videoCube a{text-decoration:none;border:0;color:#000;cursor:pointer}.videoCube a:hover,.videoCube_hover a,.videoCube a:link,.videoCube a{text-decoration:none!important;outline:0}.videoCube a .thumbBlock{float:left;display:block;overflow:hidden!important}.videoCube a img,.videoCube img{border:0;_border:0;display:block;margin:0;height:auto;width:auto}.videoCube .video-label{display:block;overflow:hidden}.videoCube .video-title{width:auto!important;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.videoCube .video-duration a{}.videoCube .video-duration{height:0;float:left;position:relative;color:#fff;font-size:11px}.videoCube .video-duration dt{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;background-color:#000;opacity:.6;filter:alpha(opacity=60)}.videoCube span.video-label.trc_ellipsis{position:relative;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical}.sponsored-default .video-description{font-weight:400;color:#000;font-size:9px;max-height:22px;*height:22px;overflow:hidden;line-height:9px}.video-duration.video-duration-detail div{color:#fff}.sponsored-default{background-color:#f7f6c6;padding-bottom:0!important}.trc_rbox .sponsored{position:relative;display:block;overflow:visible;height:auto;width:auto;padding-right:0;text-align:right;font-size:9px}.sponsored-url{white-space:nowrap;float:left;overflow:hidden;width:98%;height:auto;margin-top:0;margin-left:1px;padding-bottom:2px;color:green;font-size:9px;text-decoration:underline}.sponsored-default .video-title{height:26px;font-size:11px;line-height:13px;max-height:26px;*height:26px}.sponsored-default .thumbBlock img{}.sponsored-default .thumbBlock{text-align:center;background-color:transparent}.trc_rbox_div{height:410px}.videoCube{direction:ltr;font-size:11px;margin:0;color:#000;border-width:0}.videoCube.vertical:first-child{border-top:0;margin-top:0}.videoCube.horizontal:first-child{border-left:0;margin-left:0}.trc_rbox .trc_rbox_div .videoCube.vertical{_margin-top:expression(this.previousSibling==null?'0':'default')}.trc_rbox .trc_rbox_div .videoCube.horizontal{_margin-left:expression(this.previousSibling==null?'0':'default')}div.videoCube:hover,.videoCube_hover{background-color:#EBF0FF;color:#000}.videoCube .thumbBlock{margin-right:5px;margin-left:1px;border-style:solid}.videoCube a img,.videoCube img{border-color:#ececec}.videoCube .overlayImg{}.videoCube .video-label-box{margin-left:81px}.videoCube .video-label dt{font-weight:700}.videoCube .video-title{height:auto;margin-bottom:3px;white-space:normal}.videoCube .trc_inline_detail_spacer{display:inline-block;white-space:pre}.sponsored-default{padding-bottom:0}.loading-animation{font-family:sans;font-size:1.5em;text-align:center;color:gray;height:100%}.trc_rbox_header{font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;text-decoration:none;color:#000}.trc_header_right_part{position:absolute;left:50%;top:0}.branding_div{overflow:visible;float:right}.branding_div img{height:20px}.trc_pager div{float:left;font-family:sans;cursor:pointer;margin-left:2px;margin-right:2px}.trc_pager_prev,.trc_pager_next{}.trc_pager{font-weight:400}.trc_pager_pages{display:block!important}.trc_related_container div.horizontal{float:left;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box}.trc_related_container div.vertical{}.trc_related_container DIV.videoCube.thumbnail_top .thumbBlock,.trc_related_container DIV.videoCube.thumbnail_bottom .thumbBlock{float:none}@media screen and (-webkit-min-device-pixel-ratio:0){.sponsored-url{margin-top:2px}}.vidiscovery-note{display:none}.pager_disabled{cursor:auto}.videoCube .thumbBlock .trc_sponsored_overlay_base{display:block;width:auto;margin-left:0;position:absolute;color:#fff!important}.videoCube .thumbBlock .trc_sponsored_overlay{filter:alpha(opacity=60);opacity:.6;display:block;position:absolute;*left:0}.videoCube .thumbBlock .trc_sponsored_overlay_base .sponsored{position:relative;display:block;overflow:visible;width:auto;text-align:center;padding:0 5px;margin-top:0}.videoCube .thumbBlock .trc_sponsored_overlay_base.round .trc_sponsored_overlay{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px}.videoCube .thumbBlock .trc_sponsored_overlay_base.round{margin-left:4px}.thumbnail-emblem{background-color:transparent;background-repeat:no-repeat;position:absolute;z-index:50}.playerCube .thumbnail-overlay,.videoCube .thumbnail-overlay{position:absolute;background-color:transparent;background-repeat:no-repeat;z-index:50}.videoCube:hover .thumbnail-overlay,.videoCube_hover .thumbnail-overlay{position:absolute;background-color:transparent;background-repeat:no-repeat;z-index:50}.thumbnail_bottom{padding-bottom:8px}.trc_pager_next img,trc_pager_next pager_disabled img,trc_pager_next:hover img{-moz-transform:scaleX(-1);-o-transform:scaleX(-1);-webkit-transform:scaleX(-1);transform:scaleX(-1);filter:FlipH;-ms-filter:"FlipH"}.trc_cover_iframe{position:absolute;z-index:100000;top:0;left:0;background:#000;opacity:.4;filter:alpha(opacity=40);border:0}.trc_lightbox_base{z-index:100001;position:fixed}.trc_lightbox_overlay{background-color:transparent;position:absolute;z-index:100002}.trc_lightbox_transparent{position:absolute;z-index:100003}#trc_lightbox_header{font-family:"Trebuchet MS",Helvetica,sans-serif}.trc_whitebox{background-color:#fff;position:relative;z-index:100004;padding:0 20px 20px;margin:0 auto;border:2px solid #000;-moz-box-shadow:3px 3px 20px #000;-webkit-box-shadow:3px 3px 20px #000;box-shadow:3px 3px 20px #000;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px}.trc_whiteboxCloseButton{width:32px;height:32px;border:0;position:absolute;right:-16px;top:-14px;cursor:pointer;background:url(//cdn.taboola.com/taboola-generic/close.png) no-repeat top left transparent;color:#fff;color:transparent;font-size:0}.trc_related_container .logoDiv{font-family:Arial,Helvetica,sans-serif;white-space:nowrap;font-size:9px}.trc_related_container .logoDiv a{font-size:9px;text-decoration:none!important;color:#000;margin-right:1px;vertical-align:text-bottom}.logoDiv a span:hover{text-decoration:underline}.trc_rbox_header .logoDiv{font-size:1em}.trc_related_container .vertical-start-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-down.png);height:10px;width:auto;position:absolute;z-index:5}.trc_related_container .vertical-end-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-up.png);height:10px;width:auto;position:absolute;z-index:5}.trc_related_container .horizontal-start-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-right.png);height:auto;width:10px;position:absolute;z-index:5}.trc_related_container .horizontal-end-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-left.png);height:auto;width:10px;position:absolute;z-index:5}DIV.trc_autoplaylist-box{margin:6px auto 0;border:0;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;padding:4px;font-family:"Trebuchet MS",Helvetica,sans-serif;width:320px;background:#191919;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#191919', endColorstr='#393939');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#191919, endColorstr=#393939)";background:-webkit-gradient(linear,left top,left bottom,from(#191919),to(#393939));background:-moz-linear-gradient(top,#191919,#393939);background:linear-gradient(top,#191919,#393939)}DIV.trc_autoplaylist-box .trc-next-up-header{font-size:14px;color:#CCC;float:left;line-height:31px;margin:0 4px 0 6px;overflow:hidden;white-space:nowrap}DIV.trc_autoplaylist-box .trc-next-up-countdown{color:#fff;font-weight:700;font-size:15px;padding-left:4px}DIV.trc_autoplaylist-box .nextup{cursor:pointer}DIV.trc_autoplaylist-box .nextup .thumbblock{border:solid #FEFEFE 1px;margin-right:10px}DIV.trc_autoplaylist-box:hover .nextup .thumbblock SPAN.thumbnail-overlay{background-image:url(//cdn.taboola.com/taboola-generic/lightbox-overlay.png)}DIV.trc_autoplaylist-box .nextup .video-label-box{color:#fff;font-weight:700;font-size:12px;line-height:14px}.trc-syndication-link{text-decoration:none;color:inherit}.playerCube{width:100%;height:100%;position:relative;cursor:pointer}.playerCube .thumbnail-overlay{width:100%;height:100%;top:0;left:0;position:absolute}.trc_related_container .whatsThisSyndicated{position:absolute;cursor:pointer}.trc_related_container .whatsThisSyndicated.a-bottom-right,.trc_related_container .static-text.bottom-right{bottom:0;right:0}.trc_related_container .whatsThisSyndicated.a-top-right,.trc_related_container .static-text.top-right{top:0;right:0}.trc_related_container .whatsThisSyndicated.a-bottom-left,.trc_related_container .static-text.bottom-left{bottom:0;left:0}.trc_related_container .whatsThisSyndicated.a-top-left,.trc_related_container .static-text.top-left{top:0;left:0}.trc_related_container .videoCube .thumbBlock .branding{position:absolute;bottom:0;z-index:1;width:100%;margin:0;padding:5px 0;text-align:center}.trc_related_container .videoCube .thumbBlock .static-text{position:absolute;z-index:1;margin:0;padding:5px;background-color:#000;color:#fff;display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:400;text-align:left;text-decoration:none;opacity:.7}.trc_related_container .static-text.top{width:100%;top:0;padding:5px 0}.trc_related_container .static-text.bottom{width:100%;bottom:0;padding:2px 0}.trc-inplayer-rbox{background:#333;background:rgba(30,30,30,.9);*background:#333;bottom:0;position:absolute;height:300px;text-align:center}.trc-inplayer-rbox .trc_rbox_container{margin:50px auto 0;width:640px}.trc_rbox.trc-auto-size{width:100%;height:100%}.videoCube.thumbnail_under .thumbBlock{margin-left:0;margin-right:0}.videoCube.thumbnail_under .label-box-overlay{width:100%;height:100%;position:absolute;background:#000;opacity:.75;filter:alpha(opacity=75);top:0;_display:none}.videoCube.thumbnail_under .video-labels-anchor{width:100%;height:auto;position:absolute;z-index:1;left:0;bottom:0;min-height:2.58em;max-height:2.58em;padding-top:2px;padding-bottom:2px;_background-color:#CECECE;-webkit-transition:all .2s linear;-moz-transition:all .2s linear;-ms-transition:all .2s linear;-o-transition:all .2s linear;transition:all .2s linear;line-height:1.25em}.videoCube.thumbnail_under .video-labels-anchor span.video-title,.videoCube.thumbnail_under .video-labels-anchor span.branding{position:relative;z-index:1;padding:0 3px;margin:0}.videoCube.thumbnail_under .video-title{min-height:2.58em}.videoCube.thumbnail_under:hover .video-labels-anchor{opacity:1;max-height:6.45em}.trc-auto-size .trc_rbox_outer .trc_rbox_div{height:auto;width:auto}.trc-auto-size .trc_rbox_div .videoCube{height:auto}.trc-auto-size .trc_rbox_div .videoCube.trc-first-recommendation{margin-top:0}.trc_rbox .trc_rbox_outer .trc_rbox_div .videoCube.trc-first-in-row{margin-left:0}.trc_related_container .trc_elastic{font-size:13px;line-height:18px;color:#333;background-color:#fff;box-shadow:#666 0 0 0 4px;margin:20px}.trc_elastic .trc_rbox{width:auto}.trc_elastic .videoCube{overflow:hidden}.trc_elastic .videoCube .thumbBlock{display:block;background-color:transparent;background-position:center center;background-repeat:no-repeat;background-size:cover;position:absolute;display:inline-block;top:0;right:0;bottom:0;left:0;margin-left:0;margin-right:0}.trc_elastic .thumbBlock_holder{position:relative;width:100%}.trc_elastic .videoCube_aspect{width:1px}.trc_elastic .trc_rbox .trc_rbox_div{height:auto}.trc_elastic .video-label-box{display:block}.trc_user_exclude_btn{background:url(//cdn.taboola.com/libtrc/static/thumbnails/f539211219b796ffbb49949997c764f0.png) no-repeat scroll 0 0 transparent;width:12px;height:12px;position:absolute;right:2px;top:2px;z-index:9000;cursor:pointer;visibility:hidden}.trc_undo_btn{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:14px;font-weight:400;color:#36C;text-decoration:underline;cursor:pointer;position:absolute;right:2px;top:2px;padding:0 1px;z-index:11000;visibility:hidden}.videoCube:hover .trc_user_exclude_btn,.videoCube_hover .trc_user_exclude_btn,.trc_user_excluded.videoCube:hover .trc_undo_btn,.trc_user_excluded.videoCube_hover .trc_undo_btn,.trc_undo_btn.trc_anchor{visibility:visible}.videoCube.trc_user_excluded .trc_user_exclude_btn{visibility:hidden}.trc_fade{opacity:0;filter:alpha(opacity=0);visibility:hidden;transition:opacity 500ms 0s,visibility 0s 500ms;-webkit-transition:opacity 500ms 0s,visibility 0s 500ms;-moz-transition:opacity 500ms 0s,visibility 0s 500ms;-o-transition:opacity 500ms 0s,visibility 0s 500ms;-ms-transition:opacity 500ms 0s,visibility 0s 500ms}.trc_fade.trc_in,.trc_user_excluded .trc_exclude_overlay{visibility:visible;opacity:1;filter:alpha(opacity=100);transition-delay:0s,0s;-moz-transition-delay:0s,0s;-webkit-transition-delay:0s,0s;-o-transition-delay:0s,0s;-ms-transition-delay:0s,0s}.trc_excludable .trc_exclude_overlay{position:absolute;z-index:10000;top:0;left:0;width:100%;height:100%;cursor:default;background-color:#fff}.videoCube.trc_excludable .trc_exclude_overlay.trc_fade{filter:alpha(opacity=80)\9}.videoCube.trc_user_excluded .trc_exclude_overlay{visibility:visible;opacity:.8;filter:alpha(opacity=80)}.videoCube.trc_user_excluded .thumbBlock{filter:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0' /></filter></svg>#grayscale");filter:gray;-webkit-filter:grayscale(100%)}.videoCube.trc_user_excluded:hover a .video-label-box .video-title,.videoCube_hover.trc_user_excluded a .video-label-box .video-title{text-decoration:none}.videoCube.trc_user_excluded a .video-label-box *,.videoCube.trc_user_excluded:hover a .video-label-box *,.videoCube_hover.trc_user_excluded a .video-label-box *{color:#000;overflow:hidden;-webkit-transition:color 500ms 0s;-moz-transition:color 500ms 0s;-ms-transition:color 500ms 0s;-o-transition:color 500ms 0s;transition:color 500ms 0s}.videoCube.trc_user_excluded a .video-label-box .label-box-overlay{background-color:#BBB;-webkit-transition:background-color 500ms 0s;-moz-transition:background-color 500ms 0s;-ms-transition:background-color 500ms 0s;-o-transition:background-color 500ms 0s;transition:background-color 500ms 0s}.videoCube.thumbnail_under.trc_user_excluded .video-labels-anchor,.videoCube.thumbnail_under.trc_user_excluded:hover .video-labels-anchor{max-height:none;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none}.trc_related_container .trc_clearer{clear:both;height:0;overflow:hidden;font-size:0;line-height:0;visibility:hidden}.trc_mobile_disclosure_link,.trc_mobile_attribution_link{display:none}.trc_desktop_disclosure_link,.trc_desktop_attribution_link{display:inline}@media screen and (max-width:767px){.trc_mobile_disclosure_link{display:inline}.trc_mobile_attribution_link{display:inline}.trc_desktop_disclosure_link{display:none}.trc_desktop_attribution_link{display:none}}.trc_related_container .logoDiv,.trc_related_container .trc_header_ext .logoDiv{float:right}.trc_related_container .logoDiv+.logoDiv{margin-right:2px}.trc_related_container .attribution-disclosure-link-sponsored,.trc_related_container .attribution-disclosure-link-hybrid{display:none}.trc_related_container .trc-content-sponsored .attribution-disclosure-link-sponsored{display:block}.trc_related_container .trc-content-hybrid .attribution-disclosure-link-hybrid{display:block}.trc_related_container .trc-widget-footer:hover a span,.trc_related_container .trc_header_ext:hover a span{text-decoration:underline!important}.trc_related_container{clear:both}.rbox-blended .video-title{font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;text-decoration:none;}.rbox-blended .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;max-height:2.2em;*height:2.2em;color:black;text-decoration:none;}.rbox-blended .trc_rbox_div{width:auto;_width:99%;height:410px;border-width:1px;padding:0;}.rbox-blended .videoCube .video-duration{left:36px;display:block;}.rbox-blended .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.rbox-blended .video-label,.rbox-blended .sponsored,.rbox-blended .sponsored-url{font-family:Arial, Helvetica, sans-serif;}.rbox-blended .trc_rbox_header{font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:bold;text-decoration:none;color:black;border-width:0;background:transparent;border-style:none none solid none;border-color:#D6D5D3;padding:0;}.rbox-blended .sponsored-url{font-size:9px;font-weight:bold;text-decoration:underline;color:green;}.rbox-blended .sponsored{font-size:9px;font-weight:normal;text-decoration:none;color:#9C9A9C;}.rbox-blended .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .sponsored-default .video-title{max-height:2.58em;*height:2.58em;}.rbox-blended .sponsored-default .video-description{max-height:2.2em;*height:2.2em;}.rbox-blended .videoCube{width:auto;_width:auto;background-color:transparent;border-width:1px;border-color:#D6D5D3;padding:3px;height:auto;margin-left:0px;margin-top:0px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}.rbox-blended div.videoCube:hover,.rbox-blended  div.videoCube_hover{background-color:transparent;}.rbox-blended .sponsored-default{background-color:#F7F6C6;}.rbox-blended div.sponsored-default:hover,.rbox-blended  div.sponsored-default.videoCube_hover{background-color:inherit;}.rbox-blended .videoCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.rbox-blended .videoCube:hover .thumbnail-overlay,.rbox-blended  .videoCube_hover .thumbnail-overlay{background-image:null;}.rbox-blended .trc_rbox_border_elm{border-color:darkgray;}.rbox-blended .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.rbox-blended div.videoCube:hover .thumbBlock{border-color:inherit;}.rbox-blended .pager_enabled{color:#0056b3;}.rbox-blended .trc_pager_counter{color:#000000;}.rbox-blended .pager_disabled{color:#7d898f;}.rbox-blended .trc_pager_prev:hover,.rbox-blended  .trc_pager_next:hover{color:#6497ED;}.rbox-blended .trc_pager_selected{color:#0056b3;}.rbox-blended .trc_pager_unselected{color:#7d898f;}.rbox-blended div.trc_pager_pages div:hover{color:#6497ED;}.rbox-blended .trc_lightbox_overlay{background-color:#000000;opacity:0.70;filter:alpha(opacity=70);}.rbox-blended .video-label-box{text-align:left;}.rbox-blended .trc_sponsored_overlay{background-color:black;}.rbox-blended .thumbnail-emblem{background-position:5% 5%;}.rbox-blended .videoCube .sponsored{margin-top:-7px;}.rbox-blended{width:300px;_width:300px;border-width:0px;border-style:solid solid solid solid;border-color:#000000;padding:0;}.rbox-blended .videoCube.vertical{border-style:solid none none none;}.rbox-blended .videoCube.horizontal{border-style:none none none solid;}.rbox-blended .trc_pager_prev,.rbox-blended .trc_pager_next{font-size:12px;font-weight:normal;text-decoration:none;}.rbox-blended .trc_pager_pages div{font-size:12px;font-weight:normal;text-decoration:none;}.rbox-blended .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .trc_pager div{font-family:serif;}.rbox-blended .playerCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.rbox-blended .playerCube:hover .thumbnail-overlay,.rbox-blended  .playerCube_hover .thumbnail-overlay{background-image:null;}.rbox-blended .playerCube .videoCube{background-color:transparent;border-color:#D6D5D3;border-width:1px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;margin-left:0px;margin-top:0px;padding:3px;}.rbox-blended .playerCube .videoCube.horizontal{border-style:none none none none;}.rbox-blended .playerCube .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.rbox-blended .playerCube .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-label-box{text-align:left;}.rbox-blended .playerCube .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;text-decoration:none;max-height:2.2em;*height:2.2em;color:black;}.rbox-blended .playerCube .videoCube .video-duration{display:block;left:36px;}.rbox-blended .playerCube .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.rbox-blended .playerCube .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-title{font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;}.rbox-blended .playerCube div.videoCube:hover,.rbox-blended  div.videoCube_hover{background-color:transparent;}.rbox-blended .whatsThisSyndicated{font-family:Arial, Verdana, sans-serif;font-size:9px;font-weight:normal;color:black;text-decoration:none;padding:0;}.rbox-blended div.syndicatedItem:hover,.rbox-blended  div.syndicatedItem.videoCube_hover{background-color:transparent;}.rbox-blended div.syndicatedItem:hover .thumbBlock{border-color:inherit;}.rbox-blended .videoCube.syndicatedItem{background-color:transparent;border-color:#D6D5D3;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-width:1px;}.rbox-blended .videoCube.syndicatedItem.horizontal{border-style:none none none solid;}.rbox-blended .videoCube.syndicatedItem .thumbBlock{border-color:darkgray;border-width:0px;}.rbox-blended .videoCube.syndicatedItem .thumbnail-overlay{background-image:null;background-position:5% 5%;}.rbox-blended .videoCube.syndicatedItem.vertical{border-style:solid none none none;}.rbox-blended .videoCube.syndicatedItem .video-duration{display:block;left:36px;}.rbox-blended .videoCube.syndicatedItem .video-label-box{margin-left:0px;}.rbox-blended .syndicatedItem{background-color:transparent;}.rbox-blended .syndicatedItem .video-description{max-height:2.2em;*height:2.2em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:10px;font-weight:normal;line-height:11px;text-decoration:none;}.rbox-blended .syndicatedItem .video-title{max-height:2.58em;*height:2.58em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:17.5px;font-weight:bold;text-decoration:none;}.rbox-blended .syndicatedItem .sponsored{color:#9C9A9C;font-size:9px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .sponsored-url{color:green;font-size:9px;font-weight:bold;text-decoration:underline;}.rbox-blended .syndicatedItem .video-category{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-duration-detail{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-external-data{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-published-date{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-rating{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-uploader{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-views{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .branding{color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;text-align:left;}.rbox-blended .videoCube.syndicatedItem .thumbBlock .branding{text-align:left;background-color:transparent;display:block;left:0px;color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;}.rbox-blended .videoCube.syndicatedItem .thumbBlock .static-text{text-align:left;background-color:black;display:block;color:white;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;}.rbox-blended .videoCube.syndicatedItem:hover .thumbnail-overlay,.rbox-blended  .videoCube_hover.syndicatedItem .thumbnail-overl{:null;}.thumbs-2r .video-title{font-family:Arial, Helvetica, sans-serif;font-size:14.0px;line-height:19.0px;font-weight:bold;max-height:76.0px;*height:76.0px;color:#172232;text-decoration:none;}.thumbs-2r .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;max-height:2.2em;*height:2.2em;color:black;text-decoration:none;}.thumbs-2r .trc_rbox_div{width:auto;_width:99%;height:410px;border-width:0;padding:0;}.thumbs-2r .videoCube .video-duration{left:36px;display:none;}.thumbs-2r .videoCube .video-label-box{margin-left:0;margin-right:0px;}.thumbs-2r .video-label,.thumbs-2r .sponsored,.thumbs-2r .sponsored-url{font-family:Arial, Helvetica, sans-serif;}.thumbs-2r .trc_rbox_header{font-family:Tahoma, Geneva, sans-serif;font-size:16.0px;font-weight:bold;text-decoration:none;color:#666;border-width:0;background:transparent;border-style:none;border-color:#D6D5D3;padding:0 0 6px 0;}.thumbs-2r .sponsored-url{font-size:9px;font-weight:bold;text-decoration:underline;color:green;}.thumbs-2r .sponsored{font-size:9px;font-weight:normal;text-decoration:none;color:#9C9A9C;}.thumbs-2r .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .sponsored-default .video-title{max-height:2.58em;*height:2.58em;}.thumbs-2r .sponsored-default .video-description{max-height:2.2em;*height:2.2em;}.thumbs-2r .videoCube{width:auto;_width:auto;background-color:transparent;border-width:1px;border-color:#D6D5D3;padding:0;height:auto;margin-left:0px;margin-top:0px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}.thumbs-2r div.videoCube:hover,.thumbs-2r  div.videoCube_hover{background-color:transparent;}.thumbs-2r .sponsored-default{background-color:#F7F6C6;}.thumbs-2r div.sponsored-default:hover,.thumbs-2r  div.sponsored-default.videoCube_hover{background-color:inherit;}.thumbs-2r .videoCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-2r .videoCube:hover .thumbnail-overlay,.thumbs-2r  .videoCube_hover .thumbnail-overlay{background-image:null;}.thumbs-2r .trc_rbox_border_elm{border-color:darkgray;}.thumbs-2r .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-2r div.videoCube:hover .thumbBlock{border-color:inherit;}.thumbs-2r .pager_enabled{color:#0056b3;}.thumbs-2r .trc_pager_counter{color:#000000;}.thumbs-2r .pager_disabled{color:#7d898f;}.thumbs-2r .trc_pager_prev:hover,.thumbs-2r  .trc_pager_next:hover{color:#6497ED;}.thumbs-2r .trc_pager_selected{color:#0056b3;}.thumbs-2r .trc_pager_unselected{color:#7d898f;}.thumbs-2r div.trc_pager_pages div:hover{color:#6497ED;}.thumbs-2r .trc_lightbox_overlay{background-color:#000000;opacity:0.70;filter:alpha(opacity=70);}.thumbs-2r .video-label-box{text-align:left;}.thumbs-2r .trc_sponsored_overlay{background-color:black;}.thumbs-2r .thumbnail-emblem{background-position:5% 5%;}.thumbs-2r .videoCube .sponsored{margin-top:-7px;}.thumbs-2r{width:300px;_width:300px;border-width:0px;border-style:none;border-color:#000000;padding:0;}.thumbs-2r .videoCube.vertical{border-style:solid none none none;}.thumbs-2r .videoCube.horizontal{border-style:none;}.thumbs-2r .trc_pager_prev,.thumbs-2r .trc_pager_next{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-2r .trc_pager_pages div{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-2r .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .trc_pager div{font-family:serif;}.thumbs-2r .playerCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-2r .playerCube:hover .thumbnail-overlay,.thumbs-2r  .playerCube_hover .thumbnail-overlay{background-image:null;}.thumbs-2r .playerCube .videoCube{background-color:transparent;border-color:#D6D5D3;border-width:1px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;margin-left:0px;margin-top:0px;padding:3px;}.thumbs-2r .playerCube .videoCube.horizontal{border-style:none none none none;}.thumbs-2r .playerCube .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.thumbs-2r .playerCube .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-label-box{text-align:left;}.thumbs-2r .playerCube .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;text-decoration:none;max-height:2.2em;*height:2.2em;color:black;}.thumbs-2r .playerCube .videoCube .video-duration{display:block;left:36px;}.thumbs-2r .playerCube .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-2r .playerCube .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-title{font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;}.thumbs-2r .playerCube div.videoCube:hover,.thumbs-2r  div.videoCube_hover{background-color:transparent;}.thumbs-2r .whatsThisSyndicated{font-family:Arial, Verdana, sans-serif;font-size:9px;font-weight:normal;color:black;text-decoration:none;padding:0;}.thumbs-2r div.syndicatedItem:hover,.thumbs-2r  div.syndicatedItem.videoCube_hover{background-color:transparent;}.thumbs-2r div.syndicatedItem:hover .thumbBlock{border-color:inherit;}.thumbs-2r .videoCube.syndicatedItem{background-color:transparent;border-color:#D6D5D3;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-width:1px;}.thumbs-2r .videoCube.syndicatedItem.horizontal{border-style:none;}.thumbs-2r .videoCube.syndicatedItem .thumbBlock{border-color:darkgray;border-width:0px;}.thumbs-2r .videoCube.syndicatedItem .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-2r .videoCube.syndicatedItem.vertical{border-style:solid none none none;}.thumbs-2r .videoCube.syndicatedItem .video-duration{display:none;left:36px;}.thumbs-2r .videoCube.syndicatedItem .video-label-box{margin-left:0px;}.thumbs-2r .syndicatedItem{background-color:transparent;}.thumbs-2r .syndicatedItem .video-description{max-height:2.2em;*height:2.2em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:10px;font-weight:normal;line-height:11px;text-decoration:none;}.thumbs-2r .syndicatedItem .video-title{max-height:57.0px;*height:57.0px;color:#172232;font-family:Arial, Helvetica, sans-serif;font-size:14.0px;line-height:19.0px;font-weight:bold;text-decoration:none;}.thumbs-2r .syndicatedItem .sponsored{color:#9C9A9C;font-size:9px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .sponsored-url{color:green;font-size:9px;font-weight:bold;text-decoration:underline;}.thumbs-2r .syndicatedItem .video-category{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-duration-detail{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-external-data{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-published-date{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-rating{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-uploader{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-views{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .branding{color:#999999;font-size:11.0px;font-weight:bold;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;text-align:left;}.thumbs-2r .videoCube.syndicatedItem .thumbBlock .branding{text-align:left;background-color:transparent;display:none;left:0px;color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;}.thumbs-2r .videoCube.syndicatedItem .thumbBlock .static-text{text-align:left;background-color:black;display:none;color:white;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;}.thumbs-2r .videoCube.syndicatedItem:hover .thumbnail-overlay,.thumbs-2r  .videoCube_hover.syndicatedItem .thumbnail-overl{:null;}.thumbs-mobile-2r .video-title{font-family:Arial, Helvetica, sans-serif;font-size:12.0px;line-height:16.0px;font-weight:bold;max-height:64.0px;*height:64.0px;color:#333;text-decoration:none;}.thumbs-mobile-2r .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;max-height:2.2em;*height:2.2em;color:black;text-decoration:none;}.thumbs-mobile-2r .trc_rbox_div{width:auto;_width:99%;height:410px;border-width:0;padding:0;}.thumbs-mobile-2r .videoCube .video-duration{left:36px;display:none;}.thumbs-mobile-2r .videoCube .video-label-box{margin-left:0;margin-right:0px;}.thumbs-mobile-2r .video-label,.thumbs-mobile-2r .sponsored,.thumbs-mobile-2r .sponsored-url{font-family:Arial, Helvetica, sans-serif;}.thumbs-mobile-2r .trc_rbox_header{font-family:helvetica, arial, sans-serif;font-size:16.0px;font-weight:bold;text-decoration:none;color:#333;border-width:0;background:transparent;border-style:none;border-color:#D6D5D3;padding:0 0 6px 0;}.thumbs-mobile-2r .sponsored-url{font-size:9px;font-weight:bold;text-decoration:underline;color:green;}.thumbs-mobile-2r .sponsored{font-size:9px;font-weight:normal;text-decoration:none;color:#9C9A9C;}.thumbs-mobile-2r .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .sponsored-default .video-title{max-height:2.58em;*height:2.58em;}.thumbs-mobile-2r .sponsored-default .video-description{max-height:2.2em;*height:2.2em;}.thumbs-mobile-2r .videoCube{width:auto;_width:auto;background-color:transparent;border-width:1px;border-color:#D6D5D3;padding:0;height:auto;margin-left:0px;margin-top:0px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}.thumbs-mobile-2r div.videoCube:hover,.thumbs-mobile-2r  div.videoCube_hover{background-color:transparent;}.thumbs-mobile-2r .sponsored-default{background-color:#F7F6C6;}.thumbs-mobile-2r div.sponsored-default:hover,.thumbs-mobile-2r  div.sponsored-default.videoCube_hover{background-color:inherit;}.thumbs-mobile-2r .videoCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-mobile-2r .videoCube:hover .thumbnail-overlay,.thumbs-mobile-2r  .videoCube_hover .thumbnail-overlay{background-image:null;}.thumbs-mobile-2r .trc_rbox_border_elm{border-color:darkgray;}.thumbs-mobile-2r .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-mobile-2r div.videoCube:hover .thumbBlock{border-color:inherit;}.thumbs-mobile-2r .pager_enabled{color:#0056b3;}.thumbs-mobile-2r .trc_pager_counter{color:#000000;}.thumbs-mobile-2r .pager_disabled{color:#7d898f;}.thumbs-mobile-2r .trc_pager_prev:hover,.thumbs-mobile-2r  .trc_pager_next:hover{color:#6497ED;}.thumbs-mobile-2r .trc_pager_selected{color:#0056b3;}.thumbs-mobile-2r .trc_pager_unselected{color:#7d898f;}.thumbs-mobile-2r div.trc_pager_pages div:hover{color:#6497ED;}.thumbs-mobile-2r .trc_lightbox_overlay{background-color:#000000;opacity:0.70;filter:alpha(opacity=70);}.thumbs-mobile-2r .video-label-box{text-align:left;}.thumbs-mobile-2r .trc_sponsored_overlay{background-color:black;}.thumbs-mobile-2r .thumbnail-emblem{background-position:5% 5%;}.thumbs-mobile-2r .videoCube .sponsored{margin-top:-7px;}.thumbs-mobile-2r{width:300px;_width:300px;border-width:0px;border-style:none;border-color:#000000;padding:0;}.thumbs-mobile-2r .videoCube.vertical{border-style:solid none none none;}.thumbs-mobile-2r .videoCube.horizontal{border-style:none;}.thumbs-mobile-2r .trc_pager_prev,.thumbs-mobile-2r .trc_pager_next{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .trc_pager_pages div{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .trc_pager div{font-family:serif;}.thumbs-mobile-2r .playerCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-mobile-2r .playerCube:hover .thumbnail-overlay,.thumbs-mobile-2r  .playerCube_hover .thumbnail-overlay{background-image:null;}.thumbs-mobile-2r .playerCube .videoCube{background-color:transparent;border-color:#D6D5D3;border-width:1px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;margin-left:0px;margin-top:0px;padding:3px;}.thumbs-mobile-2r .playerCube .videoCube.horizontal{border-style:none none none none;}.thumbs-mobile-2r .playerCube .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.thumbs-mobile-2r .playerCube .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-label-box{text-align:left;}.thumbs-mobile-2r .playerCube .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;text-decoration:none;max-height:2.2em;*height:2.2em;color:black;}.thumbs-mobile-2r .playerCube .videoCube .video-duration{display:block;left:36px;}.thumbs-mobile-2r .playerCube .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-mobile-2r .playerCube .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-title{font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;}.thumbs-mobile-2r .playerCube div.videoCube:hover,.thumbs-mobile-2r  div.videoCube_hover{background-color:transparent;}.thumbs-mobile-2r .whatsThisSyndicated{font-family:Arial, Verdana, sans-serif;font-size:9px;font-weight:normal;color:black;text-decoration:none;padding:0;}.thumbs-mobile-2r div.syndicatedItem:hover,.thumbs-mobile-2r  div.syndicatedItem.videoCube_hover{background-color:transparent;}.thumbs-mobile-2r div.syndicatedItem:hover .thumbBlock{border-color:inherit;}.thumbs-mobile-2r .videoCube.syndicatedItem{background-color:transparent;border-color:#D6D5D3;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-width:1px;}.thumbs-mobile-2r .videoCube.syndicatedItem.horizontal{border-style:none;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbBlock{border-color:darkgray;border-width:0px;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-mobile-2r .videoCube.syndicatedItem.vertical{border-style:solid none none none;}.thumbs-mobile-2r .videoCube.syndicatedItem .video-duration{display:none;left:36px;}.thumbs-mobile-2r .videoCube.syndicatedItem .video-label-box{margin-left:0px;}.thumbs-mobile-2r .syndicatedItem{background-color:transparent;}.thumbs-mobile-2r .syndicatedItem .video-description{max-height:2.2em;*height:2.2em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:10px;font-weight:normal;line-height:11px;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-title{max-height:48.0px;*height:48.0px;color:#333;font-family:Arial, Helvetica, sans-serif;font-size:12.0px;line-height:16.0px;font-weight:bold;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .sponsored{color:#9C9A9C;font-size:9px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .sponsored-url{color:green;font-size:9px;font-weight:bold;text-decoration:underline;}.thumbs-mobile-2r .syndicatedItem .video-category{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-duration-detail{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-external-data{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-published-date{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-rating{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-uploader{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-views{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .branding{color:#999999;font-size:11.0px;font-weight:bold;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;text-align:left;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbBlock .branding{text-align:left;background-color:transparent;display:none;left:0px;color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbBlock .static-text{text-align:left;background-color:black;display:none;color:white;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;}.thumbs-mobile-2r .videoCube.syndicatedItem:hover .thumbnail-overlay,.thumbs-mobile-2r  .videoCube_hover.syndicatedItem .thumbnail-overl{:null;}.thumbs-2r img {
+	max-width: none;
+}
+
+/* override bootstrap default span definitions */
+.thumbs-2r [class*="span"] {
+    float:none;
+    margin-left:0px;
+}
+
+
+.thumbs-2r .trc_rbox_header {
+	line-height: 1.2em;
+	position: relative;
+	height: auto;
+}
+
+.thumbs-2r .trc_rbox_header_span .trc_header_right_column {
+	display: none;
+	background: transparent;
+	height: auto;
+}
+
+.thumbs-2r .trc_rbox_header .logoDiv {
+        font-size: inherit;
+	line-height: 1.2em;
+}
+
+.thumbs-2r .logoDiv a {
+    vertical-align: baseline;
+}
+
+.thumbs-2r .logoDiv a span {
+    display: inline;
+    color: #000000;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.thumbs-2r .videoCube a {
+    padding: 0;
+}
+
+.thumbs-2r .thumbBlock {
+    margin: 0;
+}
+
+.trc_elastic .thumbs-2r .video-label-box {
+    height: 76.0px;
+}
+
+.thumbs-2r .videoCube .video-label-box {
+    margin-top: 5px;
+}
+
+.thumbs-2r .videoCube .video-label-box .video-title {
+    text-decoration: none;
+    margin: 0;
+}
+
+.thumbs-2r .videoCube:hover .video-label-box .video-title {
+    text-decoration: underline;
+}
+
+.thumbs-2r .video-label-box .branding {
+    display: block;
+}
+
+.thumbs-2r .syndicatedItem .branding {
+    line-height: 19.0px;
+}
+.thumbs-2r .trc_header_left_column {
+	background: transparent;
+	display: inline;
+	height: auto;
+}
+
+.thumbs-2r .trc_rbox_header .trc_header_ext {
+	position: relative;
+	top: auto;
+	right: auto;
+}
+.thumbs-mobile-2r img {
+	max-width: none;
+}
+
+/* override bootstrap default span definitions */
+.thumbs-mobile-2r [class*="span"] {
+    float:none;
+    margin-left:0px;
+}
+
+
+.thumbs-mobile-2r .trc_rbox_header {
+	line-height: 1.2em;
+	position: relative;
+	height: auto;
+}
+
+.thumbs-mobile-2r .trc_rbox_header_span .trc_header_right_column {
+	display: none;
+	background: transparent;
+	height: auto;
+}
+
+.thumbs-mobile-2r .trc_rbox_header .logoDiv {
+        font-size: inherit;
+	line-height: 1.2em;
+}
+
+.thumbs-mobile-2r .logoDiv a {
+    vertical-align: baseline;
+}
+
+.thumbs-mobile-2r .logoDiv a span {
+    display: inline;
+    color: #000000;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.thumbs-mobile-2r .videoCube a {
+    padding: 0;
+}
+
+.thumbs-mobile-2r .thumbBlock {
+    margin: 0;
+}
+
+.trc_elastic .thumbs-mobile-2r .video-label-box {
+    height: 64.0px;
+}
+
+.thumbs-mobile-2r .videoCube .video-label-box {
+    margin-top: 5px;
+}
+
+.thumbs-mobile-2r .videoCube .video-label-box .video-title {
+    text-decoration: none;
+    margin: 0;
+}
+
+.thumbs-mobile-2r .videoCube:hover .video-label-box .video-title {
+    text-decoration: underline;
+}
+
+.thumbs-mobile-2r .video-label-box .branding {
+    display: block;
+}
+
+.thumbs-mobile-2r .syndicatedItem .branding {
+    line-height: 16.0px;
+}
+.thumbs-mobile-2r .trc_header_left_column {
+	background: transparent;
+	display: inline;
+	height: auto;
+}
+
+.thumbs-mobile-2r .trc_rbox_header .trc_header_ext {
+	position: relative;
+	top: auto;
+	right: auto;
+}
+</style><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/roundtrip.js" type="text/javascript" async="true"></script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/TANGANKPQJFAXD655NREJ4" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline;"><img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out_005.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out_003.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out_002" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out_004.html" height="1" width="1">
+<img alt="" style="display:none" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/tr" height="1" width="1"><img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/a.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/out_002.html" height="1" width="1">
+<img src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/seg.html" height="1" width="1">
+</div></head>
+<body class="v3"><noscript><meta HTTP-EQUIV="refresh" content="0;url='http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/?PageSpeed=noscript'" /><style><!--table,div,span,font,p{display:none} --></style><div style="display:block">Please click <a href="http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/?PageSpeed=noscript">here</a> if you are not redirected within a few seconds.</div></noscript>
+<div id="doc4" class="yui-t7">
+<div id="hd">
+<div id="htgHeader">
+<div class="logo">
+<h1 id="printH1">How-To Geek</h1><a href="http://www.howtogeek.com/" class="home"><script pagespeed_no_defer="">(function(){var g=encodeURIComponent,h=window,k=document,l="width",m="documentElement",n="height",p="length",q=this,r=function(b,d){var a=b.split("."),c=q;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var e;a[p]&&(e=a.shift());)a[p]||void 0===d?c[e]?c=c[e]:c=c[e]={}:c[e]=d};var t=function(b){var d=b[p];if(0<d){for(var a=Array(d),c=0;c<d;c++)a[c]=b[c];return a}return[]};var u=function(b){var d=h;if(d.addEventListener)d.addEventListener("load",b,!1);else if(d.attachEvent)d.attachEvent("onload",b);else{var a=d.onload;d.onload=function(){b.call(this);a&&a.call(this)}}};var v,w=function(b,d,a,c,e){this.f=b;this.h=d;this.i=a;this.c=e;this.e={height:h.innerHeight||k[m].clientHeight||k.body.clientHeight,width:h.innerWidth||k[m].clientWidth||k.body.clientWidth};this.g=c;this.b={};this.a=[];this.d={}},x=function(b,d){var a,c,e=d.getAttribute("pagespeed_url_hash");if(a=e)if(a=!(e in b.d))if(0>=d.offsetWidth&&0>=d.offsetHeight)a=!1;else{c=d.getBoundingClientRect();var f=k.body;a=c.top+("pageYOffset"in h?h.pageYOffset:(k[m]||f.parentNode||f).scrollTop);c=c.left+("pageXOffset"in
+h?h.pageXOffset:(k[m]||f.parentNode||f).scrollLeft);f=a.toString()+","+c;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.e[n]&&c<=b.e[l])}a&&(b.a.push(e),b.d[e]=!0)};w.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&x(this,b)};r("pagespeed.CriticalImages.checkImageForCriticality",function(b){v.checkImageForCriticality(b)});r("pagespeed.CriticalImages.checkCriticalImages",function(){y(v)});var y=function(b){b.b={};for(var d=["IMG","INPUT"],a=[],c=0;c<d[p];++c)a=a.concat(t(k.getElementsByTagName(d[c])));if(0!=a[p]&&a[0].getBoundingClientRect){for(c=0;d=a[c];++c)x(b,d);a="oh="+b.i;b.c&&(a+="&n="+b.c);if(d=0!=b.a[p])for(a+="&ci="+g(b.a[0]),c=1;c<b.a[p];++c){var e=","+g(b.a[c]);131072>=a[p]+e[p]&&(a+=e)}b.g&&(e="&rd="+g(JSON.stringify(z())),131072>=a[p]+e[p]&&(a+=e),d=!0);A=a;if(d){c=b.f;b=b.h;var f;if(h.XMLHttpRequest)f=new XMLHttpRequest;else if(h.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(s){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(B){}}f&&(f.open("POST",c+(-1==c.indexOf("?")?"?":"&")+"url="+g(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}},z=function(){var b={},d=k.getElementsByTagName("IMG");if(0==d[p])return{};var a=d[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var c=0;a=d[c];++c){var e=a.getAttribute("pagespeed_url_hash");e&&(!(e in b)&&0<a[l]&&0<a[n]&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a[l]>=b[a.src].k&&a[n]>=b[a.src].j)&&(b[e]={rw:a[l],rh:a[n],ow:a.naturalWidth,oh:a.naturalHeight})}return b},A="";r("pagespeed.CriticalImages.getBeaconData",function(){return A});r("pagespeed.CriticalImages.Run",function(b,d,a,c,e,f){var s=new w(b,d,a,e,f);v=s;c&&u(function(){h.setTimeout(function(){y(s)},0)})});})();pagespeed.CriticalImages.Run('/ngx_pagespeed_beacon','http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/','yKZXXdyZ7t',true,false,'G-i9cFDjbFc');</script><img src="data:image/gif;base64,R0lGODlhAQABAIAAADoSLQAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="How-To Geek" pagespeed_url_hash="1811801075" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>
+<div class="logo2">
+<div id="div-gpt-ad-1342044737928-2">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-2');</script><div id="div-gpt-ad-1342044737928-2"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="bd">
+<div class="yui-g" id="htgNavBar2" style="min-height:37px;">
+<div id="htgNavBar">
+<a href="http://www.howtogeek.com/" title="How-To Geek Home" id="home"></a>
+<ul id="mnuMainul">
+<li>
+<a id="mnuMainMenu" href="#" class="arrow">ARTICLES</a>
+<div class="subMenu">
+<div class="subMenuSection">
+<h4>SECTIONS</h4>
+<ul style="width:100px;">
+<li><h2><a href="http://www.howtogeek.com/t/windows/">WINDOWS</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/linux/">LINUX</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/office/">OFFICE</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/wallpaper/">WALLPAPER</a></h2></li>
+</ul>
+<ul>
+<li><h2><a href="http://www.howtogeek.com/t/mobile/">MOBILE</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/hardware/">HARDWARE</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/infotech/">IT TECH</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/news/">NEWS</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:20px;">
+<div class="submenudetail sm300" onclick="window.location='/t/features'">
+<div id="ftquest"></div>
+<span>FEATURED ARTICLES</span>
+<p>Read just our best, feature-length articles without all the extra stuff.</p><div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+<div onclick="window.location='http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/'" class="submenudetail sm300">
+<div id="gtquest"></div>
+<span>GEEK TRIVIA</span>
+<p>How to Install the Lightweight LXDE Desktop on Ubuntu</p>
+<div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="subMenuSection" style="margin-left:30px;">
+<!--<div class="submenudetail sm330" onclick="window.location='/books/windows-8/'">
+								<img src="http://www.howtogeek.com/geekers/up/sshot51103afc72508.png">
+								<span>HOW-TO GEEK BOOKS</span><p>Read our first book, the HTG Guide to Windows 8, or check our upcoming books.</p>
+								<div style="clear:both;"></div>
+							</div>-->
+<ul style="margin-top:0px;">
+<li><h2><a style="color:#CCC;" href="http://www.howtogeek.com/about/" rel="nofollow">ABOUT</a></h2></li>
+<li><h2><a style="color:#CCC;" href="http://www.howtogeek.com/contact/" rel="nofollow">CONTACT</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+<ul>
+<li><a class="mnuMainItem" href="http://discuss.howtogeek.com/">DISCUSSION</a></li>
+</ul>
+<ul id="mnuMainul2">
+<li><a id="mnuSubNow" class="mnuMainItem arrow" href="#">SUBSCRIBE</a>
+<div class="subMenu" style="padding-bottom:10px">
+<div class="subMenuSection" style="margin-left:20px;">
+<h4>FOLLOW US</h4>
+<ul style="width:100px;">
+<li><h2><a class="icon-twitter" href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeeksite&amp;tw_p=followbutton&amp;variant=2.0" target="_blank">TWITTER</a></h2></li>
+<li><h2><a class="icon-google-plus" href="http://plus.google.com/+howtogeek">GOOGLE+</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:0px;">
+<h4>&nbsp;</h4>
+<ul style="width:100px;">
+<li><h2><a class="icon-facebook" href="http://facebook.com/thehowtogeek" rel="nofollow">FACEBOOK</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:20px;">
+<div id="subemsub" class="submenudetail sm400 noclick" style="padding-bottom:20px">
+<div id="emquest"><div class="fs1" aria-hidden="true" data-icon=""></div></div>
+<span>GET UPDATES BY EMAIL</span>
+<form action="/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="topmenu" type="hidden">
+<input id="fromaddress" name="emailaddress" style="z-index:-9;left:-1500;top:-1500;height:1px;width:1px;position:absolute;" type="text">
+<p>Enter your email below to get exclusive access to our best articles and tips before everybody else.</p>
+<p><input id="from" name="email" value="Enter Your Email Here" style="width:200px;color:#BBB;margin-left:59px;" type="text"><input id="sub1" name="sub1" value="Get Your Newsletter Now" style="background:#55A8DF;margin-left:59px;width:212px;margin-top:6px;" type="submit"></p>
+<div style="clear:both;"></div>
+</form>
+</div>
+</div>
+<div class="subMenuSection" style="margin-left:20px;">
+<h4>RSS</h4>
+<ul style="width:130px;">
+<li><h2><a class="icon-feed" href="http://feeds.howtogeek.com/howtogeek">ALL ARTICLES</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/features/feed/" rel="nofollow">FEATURES ONLY</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:0px;">
+<h4>&nbsp;</h4>
+<ul style="width:150px;">
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/reviews/feed/" rel="nofollow">GADGET REVIEWS</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/trivia/feed/" rel="nofollow">TRIVIA</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+<ul>
+<li><a class="mnuMainItem" href="http://www.howtogeek.com/t/gadgets">GADGETS</a></li>
+</ul>
+<ul>
+<li><a class="mnuMainItem" href="http://www.howtogeek.com/school/">GEEK SCHOOL</a></li>
+</ul>
+<ul>
+<li>
+<a href="https://twitter.com/howtogeeksite" class="twitter-follow-button mnuTwitterButton" data-show-count="false">Follow @howtogeeksite</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>
+</li>
+</ul>
+<div id="searchwrapper" class="searchinactive">
+<span id="searchhover">SEARCH</span>
+<form action="/search/" method="get" id="sea">
+<input name="q" id="s" type="text">
+<input id="searchsubmit" value="" style="" type="submit">
+</form>
+</div>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both"></div>
+</div>
+<div class="yui-g" id="headerpanel"></div>
+<div class="yui-ge">
+<div class="yui-u first">
+<div class="content" id="htgArticle">
+<h1 id="printHeader" style="display:none">How-To Geek</h1>
+<!-- abovepost -->
+<div class="thepost" id="post-107368">
+<div style="width:650px;margin-bottom:0px;margin-top:-10px;min-height:24px;">
+<div style="clear:both;"></div>
+</div>
+<h2><a href="http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/" rel="bookmark" title="How to Install the Lightweight LXDE Desktop on Ubuntu">How to Install the Lightweight LXDE Desktop on Ubuntu</a></h2>
+<div class="thecontent">
+<!-- google_ad_section_start -->
+<p><img class="alignnone size-full wp-image-107371" title="lxde header" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lxde-header.png" alt="" pagespeed_url_hash="1720351918" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="250" width="650"></p>
+<p>LXDE is a lightweight desktop alternative to Unity, GNOME and KDE. 
+It’s ideal for old computers or anyone looking for a fast, lightweight 
+system. It’s even lighter than <a href="http://www.howtogeek.com/howto/ubuntu/install-xfce-xubuntu-on-ubuntu-linux/">Xubuntu’s XFCE</a>.</p>
+<p>LXDE contains the basic features for a stripped-down, yet 
+approachable, desktop environment. It doesn’t have a lot of shiny 
+graphical effects or unnecessary features that get in your way.</p>
+<div id="div-1342-1" style="margin-top:10px;padding-top:10px;border-top:1px solid #CCC;margin-bottom:10px;border-bottom:1px solid #CCC;"><script type="text/javascript">tmntag.adTag('div-1342-1');</script><div id="div-1342-1"></div></div><h3>Installation</h3>
+<p>Run the following command to install both Lubuntu’s customized LXDE and vanilla LXDE on Ubuntu:</p>
+<blockquote><p>sudo apt-get install lubuntu-desktop</p></blockquote>
+<p><img class="alignnone size-full wp-image-107372" title="installation" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/installation.png" alt="" pagespeed_url_hash="2270587379" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="140" width="535"></p>
+<p>Use this command instead to install only vanilla LXDE:</p>
+<blockquote><p>sudo apt-get install lxde</p></blockquote>
+<p>You can also give LXDE a spin by downloading a&nbsp;<a href="https://help.ubuntu.com/community/Lubuntu/GetLubuntu" class="external" rel="nofollow">Lubuntu live CD</a>. &nbsp;Lubuntu is a Ubuntu derivative that has LXDE installed by default.</p>
+<h3>Starting LXDE</h3>
+<p>Log out after installing either package and select either the Lubuntu or LXDE session from the login screen.</p>
+<p><img class="alignnone size-full wp-image-107373" title="lubuntu login" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lubuntu-login.png" alt="" pagespeed_url_hash="735741000" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="339" width="482"></p>
+<p>Each environment differs only in its default settings. They come with
+ different themes, wallpapers and panel layouts. For example, the 
+Chromium browser is the default on Lubuntu, while Mozilla Firefox is the
+ default on vanilla XFCE. Of course, you can use any browser you like 
+with either.</p>
+<p>Here’s what Lubuntu’s customized version looks like:</p>
+<p><img class="alignnone size-full wp-image-107377" title="lubuntu" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lubuntu.jpg" alt="" pagespeed_url_hash="1688554240" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="488" width="650">t</p>
+<p>And here’s the vanilla LXDE environment:</p>
+<p><img class="alignnone size-full wp-image-107376" title="lxde" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lxde.jpg" alt="" pagespeed_url_hash="1339907342" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="488" width="650"></p>
+<p>There’s also a Lubuntu-netbook environment, which uses LXDE’s 
+LxLauncher. It replaces the desktop with an applciation launcher 
+designed for netbooks.</p>
+<p><img class="alignnone size-full wp-image-107375" title="lubuntu-netbook" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lubuntu-netbook.png" alt="" pagespeed_url_hash="1973487253" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="488" width="650"></p>
+<h3>A Tour</h3>
+<p>At the bottom left corner, you’ll find the typical menu button, 
+launcher area, and a workspace switcher. At the right side, you’ll find 
+the typical notification area, clock and a logout button.</p>
+<p><img class="alignnone size-full wp-image-107383" title="lubuntu menu" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lubuntu-menu.png" alt="" pagespeed_url_hash="3310803666" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="369" width="493"></p>
+<p>LXDE uses the PCManFM file manager, a lightweight replacement for the Nautilus file manager found in GNOME.</p>
+<p><img class="alignnone size-full wp-image-107381" title="pcmanfm" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/pcmanfm.png" alt="" pagespeed_url_hash="2365785115" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="520" width="649"></p>
+<p>The “<em>Customize Look and Feel</em>” utility, found under Preferences in the menu, allows you to customize LXDE’s theme and appearance settings.</p>
+<p><img class="alignnone size-full wp-image-107382" title="lxappearance" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lxappearance.png" alt="" pagespeed_url_hash="2888227337" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="509" width="618"></p>
+<p>You can also right-click the desktop and select “<em>Desktop Preferences</em>” to customize your desktop wallpaper and appearance settings.</p>
+<p><img class="alignnone size-full wp-image-107379" title="customize desktop" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/customize-desktop.png" alt="" pagespeed_url_hash="570863999" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="434" width="572"></p>
+<p>Right-click LXDE’s panel and and select “<em>Panel Settings</em>” to 
+customize it. From the Panel Preferences window, you can change its 
+location on the scren, size, and appearance. You can also toggle panel 
+applets and reorder them to your liking.</p>
+<p><img class="alignnone size-full wp-image-107380" title="panel prefs" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/panel-prefs.png" alt="" pagespeed_url_hash="2802918288" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="433" width="478"></p>
+<p>There’s also a basic Task Manager, found under System Tools in the 
+menu. It displays total CPU and memory usage and a list of processes. 
+Right-click a process to kill it or change its priority level.</p>
+<p><img class="alignnone size-full wp-image-107378" title="lxtask" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lxtask.png" alt="" pagespeed_url_hash="890576678" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="499" width="558"></p>
+<p>Click the logout button at the bottom-right corner of the screen when you’re done.</p>
+<p><img class="alignnone size-full wp-image-107374" title="lubuntu logout" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/lubuntu-logout.png" alt="" pagespeed_url_hash="1367853649" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="483" width="445"></p>
+<hr>
+<p>If you’re looking for a desktop environment that’s more forward-looking without abandoning traditional desktop conventions, try <a href="http://www.howtogeek.com/103691/install-linux-mints-new-cinnamon-desktop-on-ubuntu/">Cinnamon</a>.</p>
+<!-- google_ad_section_end -->
+</div>
+<div style="clear:both;height:0px;"></div>
+<!-- discourse comments begin -->
+<style>#discusslink{color:#585858;text-decoration:none}#discusslink:hover{color:#00f;text-decoration:none}.commenttext img{max-width:618px}</style>
+<div style="width:650px;padding-top:10px;"><span style="font-family:bebas_neueregular;font-size:19px;position:relative;top:-9px;padding-right: 10px;float: left;background-color:#FFF;font-weight:normal;color: #868686;"><a id="discusslink" href="http://discuss.howtogeek.com/">JOIN THE DISCUSSION</a></span><div style="border-top:4px solid #CCC;"></div></div>
+<div style="clear:both;height:0px;"></div>
+<div style="margin-top:0px;/* margin-bottom:10px; */padding: 10px;background: #DDD;width: 630px;border: 1px solid #CCC;border-bottom: none;">
+<div id="pdfdownload" style="display:none;float: right;padding: 2px 6px;font-size: 11px;line-height: 22px;color: #333;font-weight: bold;font-weight: bold;margin-top: -2px;">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAABGdBTUEAALGOfPtRkwAAAvdQTFRFDAwMDQ0NFRUVFhYWFxcX////Dg4OEBAQGRkZCQkJDw8PAQAABgYCCwEBDAAADAICDQAADgAADgEBDwEBEAEBEAIBCwEBEwsBTExMRQUFbW1teHh4enp6goKCYwYGZjAwaW5ua2trb29vcnJydHR0dXV1dnZ2d3d3ZggIdnZ2jo6OgUcNsrKypjgIp29Mqampqqqqqqqsq6urrKysr6+vsbGxsrKys7Ozq0AJxsbG2tra3NzctgICtwICuAICuQEBvQcHwAAAwAEBwAwMxAEBxQICxgICxiAgxiIiyAICyBAQy8vLzMzMzs7O0dHR08TC1hUB1+Ti2IZ82L242gAA2lRB2tra2wAA29vb3AAA3JiL3Nzc3QAA3Uo43WRV3Y6E3lJB3lRF3lhH3oBz3t7e3vDy4Ew44Fpb4Ftb4Gdp4Glr4VE/4VdX4VlG4Vtb4V5e4eHh4gAA4l5f4l9f4mJi4sXA4wAA41xL42Vl42Zm4+Pj4/b14/z85AAA5E485Kmc5OTk5O7w5Pn55Pv75Pz85P7+5gAA5kAr5kAu5kUz5svF5uTk5vb55y8e50w955qQ5+Tk5+bm5+fn6Cgo6MvI6Ojo6Onp6O3u6enp6ff46zUj6z4+611J68nA6+nr6+vp6/P16/n87BwJ7Do67EJC7Ovr7Ozs7O3t7PPz7PP17PXz7QAA7UdH7WdU7e3t7ff37g8D7hEA7hgG7hoI7hwN7ioq7kMt7vDw7vHx7vLz7v7+8J6R8KCT8PDw8PHx8P7+8QAA8Q0A8TU18Ucy8VlZ8fHx8fv78f7+8gsA8l9e8pGE8vLy8vLz8vf48vz98wAA8wgA85aJ88rD8/Pz8/7+9U1N9VZW9aui9fX19ff39f7+9hwN9h0N9mFh9srF9vPx9vb29v7+91pG93xs95mL98S8+AAA+F1L+Kqf+Pj4+P7++ZGE+bmu+fn5+f39+f7++3Nz+7mv+9vV++3r+/n5+/v7+/z8+/7+/Pz8/P7+/fv7/f39/v7+dYGD4AAAADx0Uk5TAAAAAAAACQkKCwsqOVhYWFhYWFhYWFxdiaKnqaurrKysrKysrKysrK6wscnQ0tLS0tLS0tLS0tLV4/b5r4ygEgAAAX9JREFUGNNNkU9LAkEYxt9Z3V13NVSsCKWLpSIdJIkiRCKICII+QZ+gS9+la0QdOnWpiA4d6lJ0C0IQkdQyKxXdWHR31f0z06yu5HMYmB/PPM87M4iFFYaAo+2LioEIdgNiIfE6puQbstIAKHYDeGFAEcKKxT6U3hbaBt0x1DN0ov7HeV6ouMozbjKBwfQQOajdNC6nBbBDHIne2kZ09vQEbd5L/27M8qGQ/3A3Jh4EJ93Aph/3wzux5prl4L7d7S6VUTXCT5mAnEqTysBP1t6tqqHhScZeerY6haw/ltPlL7tsHIK4PBKvceLlaik1nltSNKNv8kfFgPDcmXfcFul4QkXuLLXu6xaiy6aDkd6MHKvdULaqAWIka5ytKnXZpadzMJxCx467V29ZymqLUkKr+paT3Wgzgblf+vRdX4+A/jPC5FPygLSVbNSD5I5evDbC3sUoD0rmPSlkcmFekOMi2J8Wj2kuk3A9DhkWoeIKbRvzXtpNMMIYGIIBBFWHP0uksdW4JD6xAAAAAElFTkSuQmCC" style="
+					    padding-right: 6px;
+					    width: 16px;
+					    height: 16px;
+					    margin-top: 2px;
+					    float: left;" pagespeed_url_hash="1692130506" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+<a href="http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/?format=pdf" rel="nofollow" id="pdfdownloadlink">Download PDF</a></div>
+<!-- Place this tag where you want the +1 button to render. -->
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/fastbutton.html" name="I0_1415962614654" id="I0_1415962614654" vspace="0" tabindex="0" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div>
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/plusone.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();</script>
+<div style="clear:both;"></div>
+</div>
+<div id="postiddiv" post="107368"></div>
+<div style="clear:both;"></div>
+<div class="articleExtras" style="background: #FEFEFE;border-top:none;">
+<div style="width:450px;float:left;" id="authorinfobox">
+<p style="font-weight:normal;color:#333;"><a href="http://www.howtogeek.com/author/chrishoffman/"><strong>Chris Hoffman</strong></a>
+ is a technology writer and all-around computer geek. He's as at home 
+using the Linux terminal as he is digging into the Windows registry.
+Connect with him on <a href="https://plus.google.com/107865379603964146316?rel=author">Google+</a>.</p>
+</div>
+<div style="width:130px;float:right;">
+<ul class="normul" style="margin-bottom:6px;">
+<li>Published 03/7/12</li>
+<li><span id="pv3">124,214 Views</span></li>
+</ul>
+<div style="margin-left:-14px;"><a href="https://twitter.com/chrisbhoffman" class="twitter-follow-button" data-show-count="false"></a></div>
+</div>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both;"></div>
+<div style="width:650px;margin-bottom:0px;">
+<div id="div-1342-2">
+<script type="text/javascript">tmntag.adTag('div-1342-2');</script><div id="div-1342-2"></div>
+</div>	<div style="clear:both;"></div>
+</div>
+<div class="below-post-features" style="height:528px;overflow:hidden;">
+<div class=" trc_related_container trc_spotlight_widget" id="taboola-below-article" style="height:500px;"><div style="display: none;" class="trc_rbox_container"><div><div style="overflow: hidden; display: none;" class="trc_rbox thumbs-2r" id="trc_wrapper_37232"></div></div></div></div>
+<script type="text/javascript">window._taboola=window._taboola||[];_taboola.push({mode:'thumbs-2r',container:'taboola-below-article',placement:'below-article'});</script>
+<script>window._taboola=window._taboola||[];_taboola.push({flush:true});</script>
+</div>
+<div style="clear:both;"></div>
+<div id="showcomments" class="showcomments" style="">
+<a id="sc1" href="http://www.howtogeek.com/107368/how-to-install-the-lightweight-lxde-desktop-on-ubuntu/?showcomments=1#comments">SHOW ARCHIVED READER COMMENTS (11)</a>
+</div>
+<div id="commentsWrap" post="107368" replyto="0">
+<div id="sc2">
+<!-- You can start editing here. -->
+<h3 id="comments">Comments <span id="commentnumber">(11)</span></h3>
+<ol class="commentlist">
+<li class="comment-def" id="comment-176365">
+<div class="commentmetadata date"><a href="#comment-176365" title="">March 8, 2012</a></div>
+<div class="commentauthor"><div class="ca2">James</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Good to know about the How to Install the Lightweight LXDE Desktop on Ubuntu</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-176387">
+<div class="commentmetadata date"><a href="#comment-176387" title="">March 8, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Jack</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Is that wallpaper available anywhere?</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-176438">
+<div class="commentmetadata date"><a href="#comment-176438" title="">March 8, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Erwin</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>I just used the install-command on my mother’s old laptop, it really speeds up this old buddy (the laptop I mean &gt;&gt;&gt;;-)<br>
+Thanks, you make my life always a bit better !!!</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-176439">
+<div class="commentmetadata date"><a href="#comment-176439" title="">March 8, 2012</a></div>
+<div class="commentauthor"><div class="ca2">jon_hill987</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Much nicer than that train crash of a UI on the default Ubuntu these days.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-176462">
+<div class="commentmetadata date"><a href="#comment-176462" title="">March 8, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Pig</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>I installed last night on a old dell . Works
+ Well . Chromium is much more responsive than firefox on that old 
+machine. Now it can be used just as browsing machine.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-176490">
+<div class="commentmetadata date"><a href="#comment-176490" title="">March 9, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Chris Hoffman</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>@Jack</p>
+<p>I Googled it up and found this link: <a href="http://images2.wikia.nocookie.net/__cb20110925035509/slate/zh/images/2/21/Lubuntu_11.10_wallpaper.png" rel="nofollow" class="external">http://images2.wikia.nocookie.net/__cb20110925035509/slate/zh/images/2/21/Lubuntu_11.10_wallpaper.png</a></p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-176495">
+<div class="commentmetadata date"><a href="#comment-176495" title="">March 9, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Jack</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Thanks Chris.Pity the resolution isn’t big enough.I’m on 1600×900.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-176498">
+<div class="commentmetadata date"><a href="#comment-176498" title="">March 9, 2012</a></div>
+<div class="commentauthor"><div class="ca2">kenedy123</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Thanks for giving the information about How to Install the Lightweight LXDE Desktop on Ubuntu</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-176600">
+<div class="commentmetadata date"><a href="#comment-176600" title="">March 10, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Murk</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>nice lightweight slim does what it says on the tin apps etc work for me, bring back text only internet for all! ok maybe not. :)</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-176604">
+<div class="commentmetadata date"><a href="#comment-176604" title="">March 10, 2012</a></div>
+<div class="commentauthor"><div class="ca2">zapper067</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>just download lubuntu directly</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-177929">
+<div class="commentmetadata date"><a href="#comment-177929" title="">March 24, 2012</a></div>
+<div class="commentauthor"><div class="ca2">David</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Thank you! This worked great for installing LXDE on Ubuntu.</p>
+<p>Here’s a tip of my own. I installed Ubunto 11.10 on a bare machine, 
+and it worked great, detecting my wireless USB and loading development 
+tools like gcc, but the Unity desktop was so sluggish it was painful to 
+use.</p>
+<p>I tried a full new lubuntu installation, and got the fast desktop, 
+but it didn’t install gcc and couldn’t get my wireless working.</p>
+<p>But a fresh new ubuntu installation, followed by “sudo apt-get 
+install lubuntu-desktop”, then a switch to LXDE looks good – now the 
+system can compile my c code, it connects to the internet, and it is 
+FAST! Perfect.</p>
+</div>
+</li><!-- #comment-## -->
+</ol>
+<div style="clear:both;"></div>
+</div>
+<div id="respond"></div>
+</div>
+<div style="clear:both;"></div>
+<div class="contsep"></div>
+<div class="contsep"></div>
+</div>
+<div style="clear:both;"></div>
+<img src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/stats.png" alt="" id="htgstats" style="display:none"></div>
+</div>
+<div class="yui-u">
+<div class="sidebar">	<div onclick="window.location='http://www.howtogeek.com/trivia/ibms-natural-language-supercomputer-watson-was-named-after/'" class="triviahomebox" style="margin-top:20px;">
+<h4>GEEK TRIVIA</h4>
+<a href="http://www.howtogeek.com/trivia/ibms-natural-language-supercomputer-watson-was-named-after/" class="title" rel="bookmark">IBM’s Natural Language Supercomputer Watson Was Named After?</a>
+</div>
+<div class="sidebar-glossary">
+<h4 class="sidebarh4">DID YOU KNOW?</h4><div class="glossaryhomebox" style="padding:10px;"><p>According to data collected by BitDefender, Trojan infections account for 83% of malware on the Internet.</p>
+</div>
+</div>
+<div id="side78"><!-- tmnp.howtogeek 300x250 ATF -->
+<div id="div-gpt-ad-1342044737928-1">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-1');</script><div id="div-gpt-ad-1342044737928-1"></div>
+</div></div>	<div class="sidebar-glossary lazyloaddiv">
+<h4 class="sidebarh4">BEST OF HOW-TO GEEK</h4>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/195256/a-short-history-of-netbooks-a-technology-before-their-time/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwABAAIDAQEAAAAAAAAAAAAABwAGBAUIAgP/xAAzEAABAwIEBAMGBgMAAAAAAAABAgMEBREABiExBxJBURMiYRQyQmJxgQgVUnKRwSMkof/EABkBAAIDAQAAAAAAAAAAAAAAAAACAwQFAf/EAB4RAAICAwEBAQEAAAAAAAAAAAECAAMEESExEiJB/9oADAMBAAIRAxEAPwA+kNLU8GkIUtSzZKUi5J6Ywa/lUNltFdqDNKuQTH5C9LX2CWU6gn5ygeuN7nifXKZlNqfQHDCaQstT3WEBLygr3VeJ7wT8JAIG298WDh/RKEimxKzTQl519IdD73+RxX602+Eg6dcVkLeiDaErWW8lFtHtVGy43DsL/mNbSJEjTqhi3Ij7pUofqwe5+h1Ga7MkVErdrNNXyTFquVPsE2Q7rqeUkD9qkaeU46wWloU4FIsdwSbkXwLcRYC5+bIC6JG9uq9yy5EaSVl9lQIUlQGwsSNbaE9sKpbZZowO+AQBKbb487mwOEbibwmzPk3/AHJkJ0012ykOAhRaB2S5bQEbXGhOxwe+F4R233xOGBE589mdBeIWl1pSm5DZ5gUmxuOoww5U4ySoFFaiTkqcdb05ggG4/kW+mBHYgg69CMfdMgcvmCgfTrhHAPo3HGx5OqqDLZzDlWQ1OjhUaSlDKWLWDbXICSex1Vr3t2GDrKFVdyDmSdl2qFx2FcuxXEoKiq+xSPmFgexFu+F6mUumZWyqIVUlIXMeZAf5D5QrlAIT6fXFa4SOMUTNvsNQgw6owCoUqprcSXIqSb8i7i41vYja5F9cPa4B0vsKsVin0RLZlei5rzMtuZV46cv0KxPgvX9rkAjQkAjwx11PTYjF/wAp5aoWXIpj0KnIipXq6+sczz3qpR1P30HQY2EVsvpS8twPEi4Kfd+oH9742bLSUjVQT0v1Jv09f53xGmOWO3ivcE4sq2fqzQ6HQ1t1VmPIMkKSGpKr8/e+6jvsO/bHPU/hXQc0tvqpcc0V0hTqHi06lr9pC1EEa/DbClxpiSo1YRNZjtxz4XK5KdJU4hN78qEq8qD1uPv2wP5qkNssNrpc2tyXnFXUl0hSEp9SAMTW1FRz+SzitWV/Q2TB/NeXKnlmpKgVJsd23UG7bg7pP9b40pJBsRrhvXUqZOpimK4wh+OhJUsODUWG4O4OCBbEBxRW3JDaSbhJ6YrUubAdjyPmULSwKnYMeeLNVfYKX232X3FoS4jkXzJsb6eh0waCo1KetS2pSmnNgE7fxiYmAVr7A5Fh5uK/4f8AiQ5lyrroWb3/AAY8tQDEpSrtIV2UNSkG++3fuOv6VGittJlpcQ+paQoOg+W1tx9uuJiY0agAsyr2LNsmcz/iz4wZWkQJGTqCw3WKmfJIlJWQ1GIOwKTdSwegNh1vqMA+TMl51q8f2tyoGmQBqp2SSBa29sTExJTWtvWi2XPSNIdS5wOHtPlxbvyajU21/Hq2l39iR5in5iQPrixQOF9DZjBDdNZZF9ULiJfIPqtZJP8AwemJiY0Kcav58mZk5Vpbpn//2Q==" pagespeed_url_hash="1540600160" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/195256/a-short-history-of-netbooks-a-technology-before-their-time/" class="title" rel="bookmark">A Short History of Netbooks, a Technology Before Their Time</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/201007/how-to-find-and-remove-duplicate-files-on-mac-os-x/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAwADAQEAAAAAAAAAAAAAAAUGAwcIBAL/xAA8EAABAgQEAwUDCAsAAAAAAAABAgMABAURBgcSITFBURMUInGBCBVhJTJCkZKhwfAjM0NyoqOxs8LR0//EABoBAQADAAMAAAAAAAAAAAAAAAQBAwYAAgX/xAAsEQABBAADBwEJAAAAAAAAAAABAAIDEQQhMQUSIkFRgZFhExUycaHB0eHw/9oADAMBAAIRAxEAPwDon3dJ6lKYbcm0qO5Goafhxj4nJR1MqoylGemngPAz2qkaj0uTtGeVDiloQlx1saU2Lrq+OkcbLt+ecPVuusNOPMoDjraFKQg/SUASBAI4oiQ0MHhek98rWl3tDl6lT6cPNztMCJ2kzLK32bPMpccJQSBqTqBHC5Fx0idmMpMJzDKWThx9Da1KDiS6+dhchXz972H2onaVmCqdxL72l5aYL6rPplghRDgItsAo258TfY7RVVqfxRijsEM092WQhRUO9MmW1XH0fETb640HucRkH4RzJG7R+Rq1nBtyaZjqtzhoN67HWxdd1gZyVy/ZdDrWG3wtAuk9rMnf1cj0IypwfNsKYnMOPNtXCgO0fVcjyX5Q1wviSuPUkUt/Dtg00pgvifQdSwSn5p3HA73h7giivUhbxfXMa3W0kodKbIPMCyzfj0EUTYRjAS9wJGlUb8E13SItoTuc1rGkA66ivIz7KZlctMLS4S01SJlKE8yp88OF7r39Yzu5cYVdUC5S3lECw8D3D7UO69h56dxI1U0OzqQ2UeFvRoVbrdYP3fXFZB5IYQAW5k65aflIixmKc5wfYA04rsdfRQEt+iKFuS6nPCCq7KyDsN/1V+fX8YfyLmqfZHInn5Qlal225ZBFHk1WCShSAi1rC1vLr8IZUtRNUZ8/wg0beabM7Klxjg+tLwHnVNST75YYlK6thajfwpDmk/w6h6x0xX8XyyWRPS06h0rUNCkq1WFuQ/PGNBe0Vl/XpXMStYllJPtpOdqDTrSGrqXqtdRItYC+rnHpYqbk1TqWwwFuOMyiGtKE3JUBY/0H3xup8LHtB8c+9lXF4WXwz3YcuhquisJnG4drJlRU0SjzyissC6Vnltfr13vv0Nr/AC/ZmqvPdm1NzAQsBT6w4oeAdY0+3lzUsUpR39numk3be/ao8v8AR26iNp5HSeYGEMQjC1XpLdWocylTjVbbOlTQSNkuA872AHVRIJAsA4nFR4WN0UYB6Eff9fRNbCZCCVsSsSVdGI5b3dVO7SCQ2DL2WQQNuISQOHWKyCCM/JK6QAHl/ZpEWHbE5zmk8RvM346LnCn5+ZaNrCFYleDGhKdTsjNEkhI4FRUfPb1PGHNLz2ywRPMvKxA7oHiuKfMHa37kEEVtjDRQSnSF5JKePZ1ZPVaWLj1XU+3wKlU2YH+ES7WPcjJN5Rp1YVLAquUClzFt/j2fxggiwOcwUCuu4DmUxk88skZBXZrxI4XE8fkyZt/bh9J5/ZUzLd5TELziBtdFNmSB/LggiK3jmoIpZVZ85XJSpRr0wAk2PybM/wDOF7vtJ5ONkBWKXfENQtTJk7ejcEEcLAotf//Z" pagespeed_url_hash="1676763386" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/201007/how-to-find-and-remove-duplicate-files-on-mac-os-x/" class="title" rel="bookmark">How to Find and Remove Duplicate Files on Mac OS X</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/170880/how-to-send-text-messages-from-your-pc-with-your-android-phone/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHQAAAQUBAAMAAAAAAAAAAAAAAAQFBgcIAwECCf/EADQQAAEDAwIEBAMGBwAAAAAAAAECAwQFBhEAIQcSMWETQVFxCBQiFRYjQoGhQ1NykZLB8f/EABkBAAMBAQEAAAAAAAAAAAAAAAMEBQECAP/EAB8RAAICAgMBAQEAAAAAAAAAAAEDAAIRIQQSMVEiQf/aAAwDAQACEQMRAD8Agsdy0eLD8ab88LIvNv6WXmjysyFDzJGMb+x99WFbvF3iJwmks0bivRHanRyQhmtRBzgp8iSNj+x7aztTYiZ0VpKEpLjqwsOZy5ycvLgAHBGQO+rbsLiNVrepaKRXEM16kvpQhdLljxPDRnlODg8vnsc+2neTwlv2ffsngms2LYV123eVGbq1t1SPPjLG/hqBKD6KHUHsdSLlGc7jGsu8N7Tsx+4lXNwnrUmiTyT8zRHXuQLPnyg7Edtx7atc8WqfQpzdMvJh+nOkY+YLR5c9x/sZGo112QSLefY4uoYPz7LMWtKEZP8A3XJKCpXiLH1eQ9NI6VKhV2JHq1MntyYq08zSmlBST399Li5yHDowfXS4bm3a+q/yd2XrE8417ADGgYO431zelRWFBD8phpRGeVbgBx+uqFDnYi/WZcvn4YoIkv1qw1KhrcPM5SX3MMrxvhC8Eoyce3bVLTqdUKVUJlJmU5dNml9bLlNSlTsh3OSFBWMLRkeRzvtnfX0GbGNNF12tTLkaYMvxY8qM6l6NLjqCXWVp6EHBBG52II7apBnWDAJmKqWFszWH44TBlpKPBjxAUqaKtiVrUfpUFjodWnQeIsGqwlWzxIhtV2E02eaWG/x2CDjHMPMHz/fXfixw/rP3pcnVj7HotMlNqj/blPYWFOOHdK5jfIUlJwATlIyc5Gw0vsngpXKlA5bnq1OgstyFFMajoJbfTgDmK1YO+M436+WvXcq1cMmLS0nNIijWRdNpOferg5cq6nS3AHXqatQUsJO+FNnZW3srUvs74gqG8W6ZfsF+3Z6jyB51pXy7ihsdyMpPvt31FnbMuLh27Ursq/Eek25TW2/ACmY5WtXKQUAIUN1KH5U5/XVY8TL/AL243SI1Bte35JoLLow+IgMmWobc6lD6UDskgepPTU1vGV6s6Mbqxlji43LE4/8AxOU62kv0Lhy8xVqsUkOTz9ceL/R/MUP8R33GsT3DWKrX6xIq9eqMqo1CSrndkPOlSlH9fL0HQa0fTvhmv+tKaZnxYVGjdC69IStSB6hKM79thqe074RbEZiIRVLgrUuX/EdaU20knsnlOP7nQqBaB1EOtF2bxNIWvXKTcdIaqtEnNTIjg2Wg7pPoodUnsdOjrjTDZcedQ0gfmWoJH76NGmatsVC59gLLFWGojTVKzCfiPRIclLzziSnKN0pB889NKKQ2GYiG09ANGjSFG2bu0o1WKL1ENw21btclRZFbotPqLsUkx1So6XPDJ6kcw26DS1KY8OOG47KGm0jCUISAAOwGjRrbnE7WM4jbOqyEIypYQMdTqPP1ouOc7SQUHoSeujRqNyXX7YzLKlUqNCf/2Q==" pagespeed_url_hash="2245643340" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/170880/how-to-send-text-messages-from-your-pc-with-your-android-phone/" class="title" rel="bookmark">How To Send Text Messages From Your PC With Your Android Phone</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/178519/how-to-work-offline-on-a-chromebook/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUEBgcDAv/EADQQAAECBAMFBQYHAAAAAAAAAAECAwAEESEFEjEGFEFRkRMiVGHRFTJxkqHwFiMkQ3KBsv/EABgBAAMBAQAAAAAAAAAAAAAAAAABAgME/8QAIBEAAgICAgIDAAAAAAAAAAAAAAECEgMRMUETIlFhsf/aAAwDAQACEQMRAD8A3VvC0rWps4bRygKUb8CSOJoEVpwhsnZuQAzJbngPIGn+YsjezMi3MiZQ68HQjswaj3eWkcpnZDCph1br4dWtxSVKJVqUhIH9USm2hpfUwD2yszuzrIbIZkZhylKFQVU61tQeXWIn4aStqpw+YQvlkXF2ldmcPlXm3pfM240MqFAJ7opSgtyifuKvGPdE+kHHA7fJmLmzDlSBhz6h/BUcF7LvnTC5j5FRqu4r8Y90T6Qbivxj3RPpFqbRLMmOy0zwwmY+RURZjZmczjscMbCafuFQNesbHuKvFvdE+kRTgMvQATDwA5EekF2LQYbhK5TDZWUViU4ssMhvOHPe8zWt/SJ0qyWFKJmX3goAUcUDSlbi3n9IrSsJnC626JVOZJ9321MBNKDhkvxj2cLmVJ70k2Fa2xiZFwCAK5dOfW9ImGJQiorhBKdntlpzCDMIq2HYGjM+mckw026nKoN4rMO5r8QqgH3zhth0lK4elSZUOpSqlQt9awPgFE014RVBWGalpSkqUQALkkwuncXlWmc6JhsJDiUrWTYA1v8ASOz6W32i06kKQrUV1hUiSaY7OWbWh1kkt5FAUTat+Zsdeca44R7M8k5dEzBJghlDOdt5vMrK4gkC6lEAVrUWIrbSGmYRXJNlMlOoZl2w0hsjMmtR3iQCOHPQA35Q6DgVcEHhYwZYK20LFJ10xG3hu1gSc+JYSo5bESzova5/Mvx5axJwqRx5t5XtKbkHm6DL2Da0GvGuZShBBGCkzbSGe7u80wbu7zT1ggivIxURxnSmTlVzEy8hppNKqudTQcLmpAhU3KKEw2426p9lKsjlbgk8SKVFKi/l8YII6cbdLfevw58i96gF/q32wXCtKe4CSoGlwbitaGv2I8uYNNTIQ8w60yFIGYKQbq56W4Wggip5Hj00TCCm9M//2Q==" pagespeed_url_hash="4178040842" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/178519/how-to-work-offline-on-a-chromebook/" class="title" rel="bookmark">How to Work Offline on a Chromebook</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/124218/why-does-chrome-have-so-many-open-processes/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUEBgcIA//EADcQAAECBAMFBAkDBQAAAAAAAAECAwAEBREGEiETIjFBgQcyQlEUFSNDUmGRobEzcfAIJKLB0f/EABoBAAIDAQEAAAAAAAAAAAAAAAUGAAECBAf/xAAkEQABBAEDAwUAAAAAAAAAAAABAAIDBBEFEiEGExQHFTFhkf/aAAwDAQACEQMRAD8A6sqrrbmFEuIVuFCLHM+3zHAo9oPz5xNw+b0Zg5irjqVOK8R5ubx6/iFczZvBiATlCUgfrTCPH8Y9r1/1DTDpzUZghRVx1LjjniPic3j1/EUqUSRzJoEyWi2N5y5UHrWvr3t/hfh0hXQQ365QEKBACeU0fdK5r3P+cDvAQ1pygKBNKSU6baxzO25/Fv8A06QroiwqsN3W2pZIJyOzKhq2fi3eXA/mIoliVtB2YzOpCEsXIL88oJ3hrlOg6eWnAxn3aHiSvTtLlpXDdTep0lNVViVmJxD7riltKUUkjaElKbkCwtfnDDtUrpplHVLMPnPNgtkCdml5UA3O45ZIBOUaX48oomH59yYkvV77pXLKBBQeGpv9b635coG27fbkDP1DLN/sztYFlFZptWqNbmaDKtWlac6sb1kIbSCRncUdOHM9Igmk4bZOzmcXyodHe2Em86jooCx6RcO1FLq8StYbVNoTd8mdCEZS8QhtSFrI71kqAtwuD8rOaFhiUdpjS2mUpTbTMdftYQUoaC+1H3N2Anu/6hivsirs5wMrqecUE4PCw5kGm8X30eP4wNoPp9oZYeOajMKzZ7312q3L7x8S949fxC2acCMHIcEwkAJT7QzTqB3x7zKVj97faGWHl7SjsLz5731263b7x8SwFHqIyldRaetIw/NLzJUBtiTmdUOfxDN9OkLKI9tKu0CpvSwCUPPkW2Z4BSQnz1+Q5gCGlNUDQZpRdBALt1BxxVuPNQzDoP2hTQntpWkf3Da9E6Jmn1X9kfCUhP8ALnWIrWHdvs0v1pJt7XOhEspQs+64BdwA/qAFPBOg0inUKdyKSQqL/wBvsmZuUlJ1t5t0s5mHMs248UpWbpJC0jIM6UjieMY5Tpwtqym4INiDygFfjJeSlTU2ls5Kl9t0u/KYyYxQyCqTqTKVpWBolYQlCkk+e7/kI8KRjdcvIIZSsWT5m0WmSr1OVSHaXXZZuepjm8ptZsps27yTyP8AOcKpHsTnK8z6zpNF9FkXlEsCeni04tHJWUINgeWgvxtaxLBpXUPhQ7ZcY++OV1R0PcmiQEtI4XXU27s8GocE0kWCfaqnHEA7w97lK+tvtDLDq9pRmF5wu994PqeB3j41AE/QeUEEYTAvCkLQqizCnplWQKdzOJeWspFzwUoAgj5cOUK6I8HKnLH0wO3SBb055dxkV4SkJPC9zrzOoggiK0gqTctV5Sepc9NMTDDsvZaFVV5wd4a5C1odOOttLc45vx9hCeoVVcDakPpvcONElDg8wSAb+ekEEcltgLdyHajC18e4/IVq/p8odArCJmoVgImavT5iwk3DdtAsCh7L4tbgX0Fr2vYjclvkqvxggjyTq21MLxZu4GMBM2lMb4zThf/Z" pagespeed_url_hash="3113673265" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/124218/why-does-chrome-have-so-many-open-processes/" class="title" rel="bookmark">Why Does Chrome Have So Many Open Processes?</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/174939/8-reasons-why-even-microsoft-agrees-the-windows-desktop-is-a-nightmare/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAwACAwEAAAAAAAAAAAAAAAYHBAUBAggD/8QAMxAAAgEDAgMGAwcFAAAAAAAAAQIDBAURAAYSITEHE0FRYXEUIiQIFUKCkaHBMjNygbH/xAAaAQACAwEBAAAAAAAAAAAAAAAEBQIGBwMB/8QAJhEAAgEDAwMEAwAAAAAAAAAAAQIDAAQRBRIxFCEiBhNhcSNBgf/aAAwDAQACEQMRAD8AlHboXukNl3GEfuRB8HO/F8qyAlgufMgsR5ga9D9ntVBU7NtNZT0QoYp6NHWDIPCCBjn4jHT015rrYams2ZV2V8yLS1KShCeqqT09QpYe2rHtC6Xd9lWZDX0sTrRQqESnLEYQDrxY/TUdWUWpCtx+q90+Q3K5H9qjtVRIDl1AAyTnoNJO+9/UdosU0tsqKSeqCkhZAzKVHXHCQc618r3wzTcV5lKSKQVECDHLHLlnSi96vVnlZIaWhmjde4dJZnVZBjoyqByyOmfAaUJdxbxk9qYNbOVOOazbHfqK47iptxz0V8hr5KThEBt/08r9yeauGLEeI+Xy69dMe4Z6/cmzqiyrtG9S3RoQqSGjlCE5UE44APPln/ekOivN4tVVS3GltW3aV4G+meR6iRU5EAKHlK4xnljTIN29p9xqI4BV0xlnI4FWCVs56Yy+AP20fLfQZHt9/uh0tJuX7U19jK3amgu9uuVHJSRW5xQU3GnD3vA8jM/n0dB+X31898WSzXK8LNcqKarlWEIrxkclBY4Prkn9tS/7RMdRabLt7bHxyS1zd9X3BoiQrSu3/AeMD21EXpZgefEfUHUgnueVRZtniRVfeWGKZ5EIc4PfIuWzy6ZHLpq32EUqUyBIkMaDC4Hh4aiNI8NLAwjAXHi3JUXwJ9T4DVL7Pdz0Elm4bjOsLRnCvICO8UdG0w9W2Mk0SyoM7ecUn9OXiRu0bnGeM0010yBxwwKM8umpluympam410FVDGVwzoHXIVhzB1SKmrpKjhennimUt1RgfPSHvYxpfjkhVkpiBkYySCBrOo3IcVetviak8sNEsr8VHT8ecEmMZzq19knautpoYLLuZm+7Vi4aaqZcmFRy4W805YB/D0PLpLtoWJtw3BKp+EUcQ+pJOOJh+EepGDn3013Cgt8EcYq1puBFKQxIC5VfIZ6+51ZupQYU0DBYNNk7sVz20T9mO40e42K4SffKgJHHTqe7cZOQc8lAyTkeWPHSLBZEkgj7t6IKqhQXXJPrkD10w3O22isp+4ajjp8jKleFXHqMDlpJq7HuCjnaCiD1cHVZBPwE+4z10606e2A/KSK46ho12QHi881sKup7+dTGeKnU5/qzx+ZPr/PtpjpqsKIoyAV8fXln+NGjT2/lbpJPqqdZRL1UY+ay1usER58iOmDjXDbgRj/cLcsfM2c/ro0azURrzWiFzWJY9xR2/wCIoh3aoXMiqMAAHlgD8v7609633SuSkdWCfEoBnHkCOmjRpokCPISfigHuHjj7Voo93SqWeGlQgnqzHn766tvK6A/LDSAf4Mf50aNHCNV4Fc11O6VQFbAr/9k=" pagespeed_url_hash="1703700400" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/174939/8-reasons-why-even-microsoft-agrees-the-windows-desktop-is-a-nightmare/" class="title" rel="bookmark">8 Reasons Why Even Microsoft Agrees the Windows Desktop is a Nightmare</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/177469/what-parents-need-to-know-about-web-filtering-and-parental-controls/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgMAAwEAAAAAAAAAAAAAAAcEBQYBAggD/8QAMRAAAQMDAwMDAgUEAwAAAAAAAQIDBAUGEQASIQcxURNBgRRhFSIjcZEIJDKhQlKx/8QAGQEAAwEBAQAAAAAAAAAAAAAABAUGAAID/8QAJBEAAgICAgICAgMAAAAAAAAAAQIAAwQREjEhQQUyEyJhccH/2gAMAwEAAhEDEQA/AH71NmqotlzaihG4tlsEAckFaQcffB0rxWblfblJg0lJabALbpcynbkfmOOcc+3PB41v6zVk1mOI8+JGdZBCvTUklJI8gnB+dZm9J9BpT0JtsLiBstuqixUhCFtf9SO2M5HHjGkWYvEc266lJ8DkVqTWy7PcW99VyQPQhVB9qLLXwhtlKllayCAntwB/lu4/kDOd6m2nUqtWoFUhSY7aJ8f1UsuuYORgqKR7jkZ/cedbHqvdlrv0VSlGPCa2hLG+PgpdKhhQUOcgbz/OlLCvGQ3eMan3AlMqnpCS0W1JWsJxkEYJAyPbPHGgqGZORq6hvyVtb2JzGlkCv23WafEWGJDLzgPKWl+wHJPjTwgWC0rpFTZdLQtVW+lRMW2k5Dy1IBKcH3HtpYVWt0mFGdcpMFpHrKJTuVlR+xHt99Ojoo7HesmkVOfU/qZyWnEPBoqS0nLhUhvHGShOE67psezYY+BM9GLzCVnZI9RLx6/JCHY0qOWJCF7VtOAhQPbBB7e2ojdzrTuBwQDwR41sP6g46FX1BrEbaC7G2vAe/pncCfjj4GlY9R307A26kJ255/c66P49+YJZS1bcZ6+abdVDVKGChCglXkZ1UXjTGKjS01AoSp+Ow4zk+CCpP+92pkOpLbblxEp3IdG0g+xB4OuXir8DqKFgkfTqcA+6QT/5kfOve51vqKg9xThOab1eJjrpaT860YTtEZU7/dNrW2nnckpIB+N3+9LS/bMjWdTqROgvSpi320vOyCja2gqAKRgds89zzjTx6RXLEuTpvDEp5IejpMZzJ5BQcJP77dp1g7lVU7hnMWTFltLpj7ziX0bQfysKy2pJ75AcKQB40vxLbK3NJ+q7J/qUGfj1XUiwfZ9ARfQprUlCHwoDn8wP/E6ZXTC5G6XWEMmA3KcqDiI0RAwPTeWdoIPg5+ANVVydJXLbos2VGqrT5aO9tBjqQpR4ykqJweAfkDzqd0/psSrdG6jJp09hu4YNUTNaQlz9RCWkYSCO4zuUoHtlIHnB9NSWNtD4k0tV+Dk6B0f8nz6mJuWbXZVOFOkBxl4tqdcGBwedvkH2850LsWsx2mfxmqR4EpxoLLHpFZQk9gTnvxr0hYU+3LzoUC62IcRcuU0hx5QVuKHkpCVDHsQU4+BpJXyzedw9QLkm26zHfp7U/wCmQp04wW2m0kD7cfyTopcOmnbWnY9RpZkWZBHAefcb6YUmmLfmV1UcOPvKWBFC3G2knsCSkEY8njVgwIz7SXWVNvMrHdJCkqHv20aNSuHaytoeupshQ2213M/b3QWg0KA+iiSJbbcohag7IKgeOPGODqVE6c0SiRlNMWY7LUnIDrctJeVnBJCy4nbyOwx2B0aNWLY1TAtrye4tpzbVIXfgdfxLyFZ9BjNOvItZtS3k/qiQEOrcHhRWokn9zqBPpdl0lsVCfaFJpxAwXVRGQpIPtlGdGjSbJUUglI0pyGucc/M70KTZ9Pa9OiQ6bCQSTiM2lAye/bU2O/RY6VJjw2W0qUVqDaAAVE5J49z50aNBJczj9o8WlR1P/9k=" pagespeed_url_hash="3963517801" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/177469/what-parents-need-to-know-about-web-filtering-and-parental-controls/" class="title" rel="bookmark">What Parents Need to Know About Web Filtering and Parental Controls</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/120599/6-things-you-dont-have-to-root-android-to-do-anymore/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgMBAAMAAAAAAAAAAAAAAAUDBAYCAQcI/8QAMRAAAQMDAgIHBwUAAAAAAAAAAQACAwQFERIhIjEGE0FRcYGRBxQyUlNhwTQ1QqGx/8QAGQEAAwEBAQAAAAAAAAAAAAAAAgMEBQEG/8QAKBEAAQQBAwIFBQAAAAAAAAAAAQACAxEEITFBE5ESYYGx8FFx0eHx/9oADAMBAAIRAxEAPwD5UQhTUsTXOc+XPVxjU4Dme4eZ/KtJoWsuKMyODR8/i5hgllaXMZwjYuJAaPM7KT3Oc7N6t5+VkrXE+QOSnNgstV0lvtHSUcU0sEkjWytiH6dmRq+wGNwe3xymlz6AXO39G7jc6ijqmSU1YImNJbgxYJLz293qusZI9viCbkPxMaTpOsnTWwLvYgUff8LFOBaS1wII2IKFajJqmGKTeVrcxvPM4/ie/bl6KtpKEOvQoZYg0BzDbT8o+f6XhC7EZ7kdU7uRWk0VyrDP2+XH1WZ9HY/KhVijLXa4ZDhkgxn5XDkfx4EoX7KjErqV9QR3BATb2fV0Nv6WUEs4AjdOxpkdJoEWXDjPYcc99lqbvfbNP0GroIrRTGSoueto96kJzodl+NWdjtjluFj7YIaOaVtbb2VYc0N0ueW43ByCPD+05dWW2SOWGmsEFLFJj4Znvc3ng5dnfB+3JAZ/ALamx4YlPSmsVtvoQefI8jjccg5yghd75AWjcSNx6qVlHl50jbOyeUtv6p3WfF9M9/38kwo7ZnHCpDkC7C0ZsJ0MTY3jWyfTSu9dqOxWditzj2K021ux8JWwpLQCRwptFZQWDhSnZSzpIg1elGNJKuU0JJGyEK+RxASoWglOKON+kMcGvYOQcM48O0eSbUlO3bTCweRP+lCFlynVelgle1oF+xI+x3Hom9JR6jl2SU7oKHOOFCFK5xS5STZKf0NvG3CnMNAOrGyEKZzisifdf//Z" pagespeed_url_hash="3909126526" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/120599/6-things-you-dont-have-to-root-android-to-do-anymore/" class="title" rel="bookmark">6 Things You Don’t Have to Root Android to Do Anymore</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/183176/how-to-collaborate-on-documents-over-the-internet/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAABgcABAUCAwj/xAAzEAABBAEDAgQEBQMFAAAAAAABAgMEBREABhIhMQcTQVEVImGBFCMyQnFSobFygqLB8P/EABkBAAMBAQEAAAAAAAAAAAAAAAIDBAEGBf/EACERAAICAgEFAQEAAAAAAAAAAAECAAMEERIFEyExQVEi/9oADAMBAAIRAxEAPwBrQLbbW8tvTaND6p0J4qZ5KGSrgsgLBwQTlIUD/B0r5G0LupvpNSzUUzkJAIamTUFfnkjkn5R1BHYnt7ZOBq7Aj7k2fWS2qdiiaupJZajwo83zVsMgEqKAoAcynjj09dEqLD4kuXLjplKnsM+WtJQpTjYwleOJ6cjySfU9sabl2drQC73Nw8ZbyS7a1D7w7nGw2TXqmhhl1hn8O7xVhBU2SjKc9geOfvrBes66FuewrpTiErWQ82SkdQR6H10vNq3Nmi7o9trTKcjtqkvvrkJDbjrx+ZKyjplI5LHTPXBPYaaUugp75hPxKI3KeYOWsLKFA4zgLHUA6Bsvs2hGEdXi9yruKZWkXzTEVRkSwhjKU+Z0yOvYYJ0sfHrxBqUbHk0cFQV+LKIzh6gJSojln68c6Nn66pjvNIbp2YcgnlyMhUpASBnOSeIOPftnPUa5XDrbKY25GoB+J80pjPiJxKlAZ5csfJ64JwTgkdMHW25yo/BVJm14Zsr5lgBB7wBfvWtnLhWdVKgQYBAiTZQ4B1gpBHEHqoDqM9sY66GfESnh7q3GuymRIquCAy0VtIKigEkE5B7kk40xHmd22jbkG/f+FsR1rSPIWHXnR8pRkkEHA5Z75+XOcEG7Aqq16G09BnILDiQpKlxGHuYP7gpSCcH27e2k3dQRfEdV021xseoQOLi1UcyXG4dZCaQebrrgSQkDv2xgD66x6642pZNTp+2G5e55bawpxqEweCnDgD8wgNhWAOvIHAGte2QpSHktphobW0UqeeSVqUSMcQn1H3+2kdHjWW3rQXWz1JrrFsfmNIRxakpHXgtA6H6HvoumbsVgTFdV1WykCMG/PjBcPeTWbJrKaJjIkWNg244g++G1K/60QRo9mxUFp62gw7JcZQXJjLS8iOvHRzgruAfQ++M+urXh9vTb/iVXpr7NhcK4i/NIr1vKQc4xyTgjmn/GilVBRRF+UKpThUMfMSsKHr+o9f476O7EY2DkPX2IozOKHj6PyDNRFs3WG2070bnSWwVuJZq2m1OdP2gnoe51eS7BgOh2x3ZZgO8UFp5DTSG1DJzgN8hn3JI6d9FEWOtlHGJCYj4SOwwD9Og/97a4sKlqwZCJzLL4IwpC0D+x9P76osZm/IlOI/YM3G37CRMTYVk1l9r9QSok8jjvyz11h0+3beqgphRkOtMoUooRyBCASTxH0GcD+PbGjejo/gsiQYzuYj2FFtxRPlkZ7enr11edsa5pfF2XHSr2Lg1MmKhYkrLTn2hQob1PiWt3xvDcdsl24tGmAJKXWEsNgKZx+1Kj1wfX30za5RcGXHC44TnPc51NTXadZ6bjYLqKF1sTmaM/IzN95t6nrI2Zbz5SLOoiWEexYIXGksNqBSR9cdtN/ZW494fAwxuvaM5dg0QlLsctcHx/UQVDidTU14DWcv5YbEsSvieQM1JdhviWgiroamCD2XPmKWof7G0kf8tY0vbXidZ9JXiJEqkHuirpkBQH+t1a/wDGpqalezXgACVKm/JM8Y/hNRy0Y3LuDcu5nQTyVNt3UoH08tkoRj7a0mPCrw6jthtGx6B0D9z0Jt1Z/lSwSfudTU0s2OfsPgo+T//Z" pagespeed_url_hash="1079566979" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/183176/how-to-collaborate-on-documents-over-the-internet/" class="title" rel="bookmark">How to Collaborate on Documents Over the Internet</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/119458/htg-explains-whats-a-browser-cookie/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAABgcAAwUEAQL/xAAyEAACAQMDAwIFAwIHAAAAAAABAgMEBREABiESMUETUSJhcYGRBxQVI1IyQmLB0eHw/8QAGQEAAgMBAAAAAAAAAAAAAAAAAgMAAQQF/8QAKBEAAgIBAwIEBwAAAAAAAAAAAQIAEQMSISIEMRMjUWEzQnGRobHw/9oADAMBAAIRAxEAPwAG3J+/2/m6WBFmr6ZjHVGXEoTK4JCuikfXk8+Nd0d/pNzbFaw7gkRRUyiSYRMy9DBgQFwDkZAz49uMaL7xRw7wpRPJb5qSnlQSMvpqrjI/uB5H0Gl9dNi1dNUrLQ1BqKZzlZVUFUPsSDwfqBriP5gFGj6zrIdF2LEO9hfwe3rPJaLVQxiBmLH+s7vN1AD6+3A/HfRI1vmvNuFHX0US0qEPDHK5DdXg5A4I5799LfZ9NSW+SaC5V8aSuQvqBxlAMcDzn7a4K+q39at1s9qzcaYqRFUSVQSB0wef8a9JxngnPtoEU66Y39Y0kFLA+0P7tbd6Wudp7MGrIcBF9Op+NeOAeoDq+xPbQnX/AKsGzTvb9yWSeesjHRIsyFWKnw3YMPIz/vrBue7987ev0FOlNT1dMj+p6saCcTBv9Y5HJIyMcg/TRBK1v3FdXnudvWqjmiJVc9KQvjktyPJ4OffRLhVyCx/MBshUEL+pgUm8bJcdxRXmC21tGijoamjcxRzr/a4UYYDPc863I7ddr3JLcLG0NroXfCUzh/gOBkDCnjOuOjs8lBXmeCwvUQOAf6arKI/owLYPbjVlRvv+KnkoWSWMRselc9Bx9PzqZMWncbiUmS/Yzet1yutRJWp/K0tXViNpaIJM0auCOAVCjOD5JOrrJdN5zxOIqKmhC46emrVcnzxz358edIut3Dda27yXiC6TW1J+lpI4ZMfGoxnA/POjXa+/KmszRijqrxcnABkUKq4Hk4HwjHknHvqsivSn0h42Q2IU/qla5q2FK+nq43VgEl6GY9LeMnuR4z40s46DdNDLmhjlmA/yqOoYzjt+dNesWptsEdTuWnjNJMo6k9TqQL3Azj4m+nA99fO3LDt27QNcrbVV8MULdTiVoyuM8AZTkcEf86cmRDxbvFMjqbXtF1tmzXSvu8cNdSV1ujJ63ZAyCNfkW9z2HudOOw01ooas28x10z9OVeaf1DhhweTgcHwNcV72rc5IJKuzXWCZnAAp+gIWA5wCV4OfcY0qL5u6upa40sk1RJLTko6MnS6sMgj7fbVZAb4CFjI+cxvXKgs1uvIuFPX1BRiqSQZkV4pAO6+ngfFxnIPbjOqhdb3Wu89tSrNMWIQrIkqn5qwcZGlLTPuKooWvVfff2KyEcLJmT0uOfn9jq5dyVG30WhWsqq1WHqipWiVxN1HPVyykHORjnkZyc6BVc8QRf97SFlG5G0zEsNqdsSLOPkHABGPHJ9vfRDTvfJ9vTUlglstgogvSY2hHq1TeWyAT8gSc6mpp3VMU3ETg5WDBy93StqLJRzXGCQ3IygPF1sYigHT1tnySCeP+tFG1ay+UFNP/ACMUczlgsUcEQkiRe2QV4XOc41NTQMQUuoxbDVCq13auWoSaWZomjPQkUXV1yZA7qPGP/DS+/VyxtXblkqIUdJquNZXTyrkkHPPyH51NTU6QnXL6n4czIYqmCztZ7vQ1pp2wC6LgrjnjXhjVFVYKWYR9IwJmPUPwRqamtpxLdzJ4zVP/2Q==" pagespeed_url_hash="2309213675" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/119458/htg-explains-whats-a-browser-cookie/" class="title" rel="bookmark">HTG Explains: What’s a Browser Cookie?</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div style="clear:both;"></div>	<div style="width:300px;min-height:20px;margin-top:30px;">
+<div style="width:160px;text-align:center;margin-left:auto;margin-right:auto;">
+<!-- tmnp.howtogeek 160x600 BTF -->
+<div id="div-gpt-ad-1342044737928-12">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-12');</script><div id="div-gpt-ad-1342044737928-12"></div>
+</div>	<div style="padding-top:10px;"></div>
+</div>
+<div style="clear:both;"></div>
+<div id="div-1342-3" style="margin-left:14px;">
+<script type="text/javascript">tmntag.adTag('div-1342-3',false);</script>
+</div>	<div style="clear:both;"></div>
+<div style="top: 0px; position: relative;" id="sidebar-float-widget">
+<div class="sidebar-float-widget-internal">
+<div class="adSystem_ads">
+<div class="html"><div style="margin-bottom:0px"></div>
+<div id="___page_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 320px; height: 106px;"><iframe title="+Badge" data-gapiattached="true" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/page.html" name="I1_1415962614657" id="I1_1415962614657" vspace="0" tabindex="0" style="position: static; top: 0px; width: 320px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 106px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div>
+<div style="margin-top:8px;">
+<a href="https://twitter.com/howtogeeksite" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @howtogeeksite</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>
+</div>
+<div id="fb-root"></div>
+<script>(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=391129387654171&version=v2.0";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>
+<div style="margin-bottom:10px"></div>
+<div class="fb-like" data-href="https://www.facebook.com/thehowtogeek" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div style="margin-bottom:15px"></div></div>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both;margin-bottom:20px;"></div>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="yui-g" id="sb2">
+<div id="sb3">
+<div id="ns_ad8">
+<div id="sb4">
+<!-- tmnp.howtogeek 728x90 BTF -->
+<div id="div-gpt-ad-1342044737928-14">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-14');</script><div id="div-gpt-ad-1342044737928-14"></div>
+</div>	</div>
+<div style="clear:both;"></div>
+</div>
+</div>
+</div>
+<div class="yui-g" style=""></div>
+</div>
+<div class="footer" id="ft">
+<div style="width:18%;" class="ftdiv">
+<div class="ftsection" style="">ABOUT</div>
+<ul class="bottomul">
+<li><a href="http://www.howtogeek.com/about/" rel="nofollow">About Us</a></li>
+<li><a href="http://www.howtogeek.com/contact/" rel="nofollow">Contact Us</a></li>
+<li><a href="http://purch.com/" rel="nofollow">Advertising</a></li>
+<li><a href="http://www.howtogeek.com/privacy-policy/" rel="nofollow">Privacy Policy</a></li>
+</ul>
+</div>
+<div style="width: 45%;" class="ftdiv">
+<div class="ftsection" style="color:#FF9854">GET ARTICLES BY EMAIL</div>
+<p id="ftemp">Enter your email address to get our daily newsletter.</p>
+<p>
+</p><form action="/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="footer" type="hidden">
+<input id="fromaddress2" name="emailaddress" style="z-index:-9;left:-1500;top:-1500;height:1px;width:1px;position:absolute;" type="text">
+<input name="email" id="ftemtxt" style="color:#BBB" value="Enter Your Email Here" type="text">
+<input id="ftemsub" value="Get Articles by Email" style="background:#55A8DF;" type="submit">
+</form>
+<p></p>
+<div style="clear:both;"></div>
+</div>
+<div style="width:280px;float:left;">
+<div class="ftsection">FOLLOW US</div>
+<ul class="ftsub" style="float: left;">
+<li class="icon-twitter"><a href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeeksite&amp;tw_p=followbutton&amp;variant=2.0">Twitter</a></li>
+<li class="icon-facebook"><a href="http://facebook.com/thehowtogeek" rel="nofollow">Facebook</a></li>
+</ul>
+<ul class="ftsub" style="float: left;margin-left: 20px;">
+<li class="icon-google-plus"><a href="http://plus.google.com/+howtogeek">Google+</a></li>
+<li class="icon-feed"><a href="http://feeds.howtogeek.com/howtogeek">RSS Feed</a></li>
+</ul>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both"></div><br>
+<div class="copyright" style="font-size: 11px;">Copyright © 2006-2014 How-To Geek, LLC&nbsp; All Rights Reserved.</div>
+</div>
+</div>
+<style>#subscribeoverlay{background:url(/public/images/xemailoverlay4.jpg.pagespeed.ic.bdAMUqnBuz.jpg) no-repeat}#emailoverlaylist{color:#222}#emailoverlayformbutton{background:#6fc6ff}#emailoverlayformbutton:hover{background:#29a7fa}#emfh2{color:#000;top:100px}</style>
+<div class="overlay-bg">
+<div id="subscribeoverlay">
+<a href="#" id="ovclose"></a>
+<h2 id="emfh2"></h2>
+<div id="emftag"></div>
+<ul id="emailoverlaylist">
+<li>Get exclusive articles before everybody else.</li>
+<li>Get downloadable ebooks for free!</li>
+<li>Get geeky trivia, fun facts, and much more.</li>
+</ul>
+<form id="emailoverlayform" method="GET" action="/em/subscribe">
+<p>
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="overlay1" type="hidden">
+</p><p id="emoflbl" style="
+            position: absolute;
+            left: 20px;
+            top: 240px;font-weight:bold;font-size:120%;
+            color: #000;
+        ">Enter Your Email Here to Get Access for Free:</p>
+<input style="color:#BBB;" id="overlayfrom" name="email" value="Enter Your Email Here" type="text">
+<input id="emailoverlayformbutton" value="Get Free Content Now" style="" type="submit">
+<p></p>
+</form>
+<div id="overlayformsuccess">Go check your email!</div>
+<img id="overlayimage" style="position:absolute;left:-9000px;top:-9000px;" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/xemailoverlay4.jpg" pagespeed_url_hash="998281452" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+</div>
+</div>
+<!-- Begin comScore Tag -->
+<script>var csDocDomain=document.location.href;document.write(unescape("%3Cscript src='"+(document.location.protocol=="https:"?"https://sb":"http://b")+".scorecardresearch.com/beacon.js' %3E%3C/script%3E"));</script><script src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/beacon.html"></script>
+<script>COMSCORE.beacon({c1:2,c2:"6035753",c3:"6035753",c4:csDocDomain,c5:"Technology - News",c6:"",c15:""});</script>
+<noscript>
+<img src="http://b.scorecardresearch.com/b?c1=2&c2=6035753&c3=6035753&c4=http://www.howtogeek.com&c5=Technology - News&c6=&c15=&cv=1.3&cj=1" style="display:none" width="0" height="0" alt="" pagespeed_url_hash="4059409117"/>
+</noscript>
+<!-- End comScore Tag -->
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-1113647-1','howtogeek.com');ga('send','pageview');</script>
+<!-- tmnp.howtogeek 1x1 ATF -->
+<div id="div-gpt-ad-1342044737928-5">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-5');</script><div id="div-gpt-ad-1342044737928-5"></div>
+</div>
+<!-- Quantcast Tag -->
+<script type="text/javascript">var _qevents=_qevents||[];(function(){var elem=document.createElement('script');elem.src=(document.location.protocol=="https:"?"https://secure":"http://edge")+".quantserve.com/quant.js";elem.async=true;elem.type="text/javascript";var scpt=document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem,scpt);})();_qevents.push({qacct:"p-e1gWzoEHleH1I"});</script>
+<noscript>
+<div style="display:none;">
+<img src="//pixel.quantserve.com/pixel/p-e1gWzoEHleH1I.gif" height="1" width="1" alt="Quantcast" pagespeed_url_hash="2976081341"/>
+</div>
+</noscript>
+<!-- End Quantcast tag -->
+
+<span style="display: none;"><iframe style="display:none" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/usermatch.html"></iframe></span><span style="display: none;"><iframe style="display:none" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/user_sync.html"></iframe></span><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="How%20to%20Install%20the%20Lightweight%20LXDE%20Desktop%20on%20Ubuntu_files/postmessageRelay.html" id="oauth2relay2037147726" name="oauth2relay2037147726"></iframe></body></html>

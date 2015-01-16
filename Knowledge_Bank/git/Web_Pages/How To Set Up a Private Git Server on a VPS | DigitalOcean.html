@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html class="wf-proximanova-i4-inactive wf-proximanova-i6-inactive wf-proximanova-i7-inactive wf-proximanova-n4-inactive wf-proximanova-n6-inactive wf-proximanova-n7-inactive wf-inactive m-pikabu-transitions m-pikabu-translate3d"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>How To Set Up a Private Git Server on a VPS | DigitalOcean</title>
+
+<meta name="description" content="Introduction This tutorial will show you how to set up a fully fledged Git server using SSH keys for authentication. It will not have a web interface, this will just cover getting Git installed and your access to it set up. We'll use the host 'git.dro">
+<meta name="keywords" content="CentOS Getting Started Git">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="How To Set Up a Private Git Server on a VPS | DigitalOcean">
+<meta name="twitter:description" content="Introduction This tutorial will show you how to set up a fully fledged Git server using SSH keys for authentication. It will not have a web interface, this will just cover getting Git installed and your access to it set up. We'll use the host 'git.dro">
+
+<meta name="og:title" content="How To Set Up a Private Git Server on a VPS | DigitalOcean">
+<meta name="og:description" content="Introduction This tutorial will show you how to set up a fully fledged Git server using SSH keys for authentication. It will not have a web interface, this will just cover getting Git installed and your access to it set up. We'll use the host 'git.dro">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/centos-4d2d3a612684d3d0a4df1766bfac379e.png">
+
+    <link href="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/application-53294d16018fb2cfbd4584ae21829689.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="+pq5oTEc71Kpw35vsBQmkFIrWFJ/Yoi9lrgEMuLREMU=" name="csrf-token">
+    <script async="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/cbgapi.loaded_1"></script><script async="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/cbgapi.loaded_0"></script><script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/hn-button.js" id="hn-button.js" async=""></script><script gapi_processed="true" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/plusone.js" async="" type="text/javascript"></script><script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/all.js" async="" id="facebook-jssdk"></script><script type="text/javascript" async="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/5850.js"></script><script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/widgets.js" async="" id="twitter-wjs"></script><script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link href="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/d.css" rel="stylesheet"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26573244-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  /* <![CDATA[ */
+  var google_conversion_id = 1010666955;
+  var google_conversion_language = "en";
+  var google_conversion_format = "3";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "g5d3CM2C9QIQy5v24QM";
+  var google_conversion_value = 0;
+  /* ]]> */
+</script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 80%;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 80%;
+}</style><script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/roundtrip.js" type="text/javascript" async="true"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,.fb_connect_bar_container span,.fb_connect_bar_container a,.fb_connect_bar_container img,.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}.fb_connect_bar a:hover{color:#fff}.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}.fb_connect_bar div a,.fb_connect_bar span,.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style><script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/4IDGVTPEAFC4TM2QKYNQ53" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline;"><img style="border-style:none;" alt="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/out_002.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/out_003.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/out_004.gif" height="1" width="1">
+<img alt="" style="display:none" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/tr.gif" height="1" width="1"><img style="border-style:none;" alt="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/a.gif" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/out.gif" height="1" width="1">
+<img src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/seg.gif" height="1" width="1">
+</div></head>
+  <body data-twttr-rendered="true" class="">
+      <div style="display: block; bottom: 0px; position: fixed;" id="table-of-contents" class="hide-on-pikabu tocify">
+  <h3 id="toc-trigger">
+    <a href="#">
+      Contents
+      <span class="icon-navicon"></span>
+    </a>
+  </h3>
+<ul style="display: none;" class="tocify-header" id="tocify-header0"><li data-unique="CreatetheSSHKeyPair" class="tocify-item"><a>Create the SSH Key Pair</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header1"><li data-unique="SetupaGitUserandInstallGitonyourVPS" class="tocify-item"><a>Setup a Git User and Install Git on your VPS</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header2"><li data-unique="AddyourSSHKeytotheAccessList" class="tocify-item"><a>Add your SSH Key to the Access List</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header3"><li data-unique="SetupaLocalRepository" class="tocify-item tocify-focus"><a>Setup a Local Repository</a></li></ul><ul style="display: none;" class="tocify-header" id="tocify-header4"><li data-unique="UsingyourGitServerfromyourLocalComputer" class="tocify-item"><a>Using your Git Server from your Local Computer</a></li></ul></div>
+
+
+
+    <div style="width: auto; height: 702px;" class="m-pikabu-viewport">
+      <div class="mobile-nav">
+  <div style="height: 702px;" class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    <div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="/community/search" id="search" method="get"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>    
+    
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+    <form accept-charset="UTF-8" action="/community/search" data-remote="true" id="search" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+  <input id="query" name="query" placeholder="Search the community" type="text">
+  <input id="dropdown" name="dropdown" value="true" type="hidden">
+
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button></form>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          
+          
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+
+    <p class="sidebar-date">August  2, 2013</p>
+    <p class="sidebar-difficulty">
+      <span class="difficulty-level Beginner">Beginner</span>
+    </p>
+
+    <div class="sidebar-button">
+    </div>
+
+  </div>
+
+  <div class="section-content content">
+
+    <h1 class="content-title">How To Set Up a Private Git Server on a VPS</h1>
+
+      <div class="content-tags">
+        <span>Tagged In: </span>
+        <a href="https://www.digitalocean.com/community/tags/centos">CentOS</a>, <a href="https://www.digitalocean.com/community/tags/getting-started">Getting Started</a>, <a href="https://www.digitalocean.com/community/tags/git">Git</a>
+      </div>
+
+    <div class="feedable-info">
+
+      <span>Date:</span>
+      June 13, 2014
+    </div>
+
+    <div class="content-body tutorial-content">
+        <h3>Introduction</h3>
+
+<p>This tutorial will show you how to set up a fully fledged Git server 
+using SSH keys for authentication. It will not have a web interface, 
+this will just cover getting Git installed and your access to it set up.
+ We'll use the host "git.droplet.com" in place of the domain you will 
+use for your VPS.</p>
+
+<p>This can be a great option if you want to keep your code private 
+while you work. While open-souce tends to be the status quo, there are 
+some times when you don't want to have your code freely available. An 
+example would be if you are developing a mobile app, especially a paid 
+one. Keep in mind this code can be read by anyone if they know the URL 
+address to use for a clone, but that is only if they know it.</p>
+
+<p>There is one major concern for many and that is a web interface to 
+your repositories. GitHub accomplishes this amazingly well. There are 
+applications that you can install such as <a href="https://wiki.archlinux.org/index.php/Gitosis">Gitosis</a>, <a href="http://gofedora.com/insanely-awesome-web-interface-git-repos/">GitList</a>, and <a href="http://git.kaarsemaker.net/">Goblet</a>.
+ We don't go over those in this tutorial, but if you rely heavily on a 
+graphic interface then you may want to look over those and think about 
+installing one of them as soon as you done installing your Git server.</p>
+
+
+<div data-unique="CreatetheSSHKeyPair" name="CreatetheSSHKeyPair"></div><h2>Create the SSH Key Pair</h2>
+
+<p>First, we need to generate a SSH key pair. If you are using Mac or 
+Linux, you can simply issue the following command in a terminal, but 
+replace the email address with your own:</p>
+
+<pre>ssh-keygen -C "youremail@mailprovider.com<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/flynn/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again: 
+Your identification has been saved in foo_rsa.
+Your public key has been saved in foo_rsa.pub.
+The key fingerprint is:
+ab:cd:ef:01:23:45:67:89:0a:bc:de:f0:12:34:56:78 flynn@en.com<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>
+The key's randomart image is:
++--[ RSA 2048]----+
+|    o+-+  ..     |
+|  E o            |
+|   . ++.o..      |
+|    o o H .      |
+|   . .   =       |
+|    . =o.o=      |
+| o .             |
+|  .              |
+|     = o  .      |
++-----------------+
+</pre>
+
+<p>I highly recommend putting a password on the key files, it is one 
+more layer of security and has a very minimal impact. If you are using 
+Windows based operating system, there are tools available to generate 
+key pairs, such as PuTTY Gen, though it does come with a disclaimer that
+ you need to check with your local laws before using it as some 
+countries have banned it's use. If that isn't the case, you may log into
+ your VPS, create the key pair, and download both id_rsa and id_rsa.pub 
+for your use.</p>
+
+<p>Next, the VPS will need a user specifically for Git. Most people will
+ simply create a user called "Git", and that is what we'll do for this 
+tutorial but feel free to name this user whatever you'd like.</p>
+
+<div data-unique="SetupaGitUserandInstallGitonyourVPS" name="SetupaGitUserandInstallGitonyourVPS"></div><h2>Setup a Git User and Install Git on your VPS</h2>
+
+<p>Log into your VPS, and gain root*:</p>
+
+<pre>su -</pre>
+
+<p>*Some people feel uncomfortable using root in this manner. If your VPS is set up to use sudo, then do so.</p>
+
+<p>Add the Unix user (not necessarily Git user names) to handle the repositories:</p>
+
+<pre>useradd git</pre>
+
+<p>Then give your Git user a password:</p>
+
+<pre>passwd git</pre>
+
+
+<p>Now it's as easy as:</p>
+
+<ul>
+<li>CentOS/Fedora: <code>yum install git</code></li>
+ <li>Ubuntu/Debian: <code>apt-get install git</code></li>
+</ul>
+
+<div data-unique="AddyourSSHKeytotheAccessList" name="AddyourSSHKeytotheAccessList"></div><h2>Add your SSH Key to the Access List</h2>
+
+<p>At this point, you'll want to be logged in as the Git user. If you 
+haven't already logged in to that user, use this command to switch to 
+it:</p>
+
+<pre>su git</pre>
+
+<p>Now you need to upload your id_rsa.pub file to your Git user's home 
+directory. Once you have done that, we need let the SSH daemon know what
+ SSH keys to accept. This is done using the authorized keys file, and it
+ resides in the dot folder "ssh". To create this, input:</p>
+
+<pre>mkdir ~/.ssh &amp;&amp; touch ~/.ssh/authorized_keys</pre>
+
+<p>Note: Using the double '&amp;' in your command chains them, so it 
+tells the system to execute the first command and then the second. Using
+ the 'tilde' at the beginning of the path will tell the system to use 
+your home directory, so '~' becomes /home/git/ to your VPS.</p>
+
+<p>We are going to use the 'cat' command, which will take the contents 
+of a file and return them to the command line. We then use the 
+'&gt;&gt;' modifier to do something with that output rather than just 
+print it in your console. Be careful with this, as a single '&gt;' will 
+overwrite all the contents of the second file you specify. A double 
+'&gt;' will append it, so make sure you know what you want to do and in 
+most cases it will be easier to just use "&gt;&gt;" so that you can 
+always delete what you append rather than looking to restore what you 
+mashed over.</p>
+
+<p>Each line in this file is an entry for a key that you wish to have 
+access to this account. To add the key that you just uploaded, type the 
+following, replacing :</p>
+
+<pre>cat .ssh/id_rsa.pub | ssh user@123.45.56.78<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script> "cat &gt;&gt; ~/.ssh/authorized_keys"</pre>
+
+<p>Now you can see the key there if you use cat on the authorized key file:</p>
+
+<pre>cat ~/.ssh/authorized_keys</pre>
+
+<p>If you want to add others to your access list, they simply need to 
+give you their id_rsa.pub key and you append it to the authorized keys 
+file.</p>
+
+<div data-unique="SetupaLocalRepository" name="SetupaLocalRepository"></div><h2>Setup a Local Repository</h2>
+
+<p>This is a pretty simple process, you just call the Git command and 
+initialize a bare repository in whichever directory you'd like. Let's 
+say I want to use "My Project" as the project title. When creating the 
+folder, I'd use all lower case, replace any spaces with hyphens, and 
+append ".git" to the name. So "My Project" becomes "my-project.git".</p>
+
+<p>To create that folder as an empty Git repository:</p>
+
+<pre>git init --bare my-project.git</pre>
+
+<p>Thats it! You now have a Git repository set up on your VPS. Let's move on to how to use it with your local computer.</p>
+
+<div data-unique="UsingyourGitServerfromyourLocalComputer" name="UsingyourGitServerfromyourLocalComputer"></div><h2>Using your Git Server from your Local Computer</h2>
+
+<p>On Linux or Mac OS, you need to change the remote origin to your 
+newly created server. If you already have a local repo that you want to 
+push to the server, change the remote using this command:</p>
+
+<pre>git remote set-url origin git@git.droplet.com<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:my-project.git</pre>
+
+<p>If this is a new repository you are setting up, use this:</p>
+
+<pre>git init &amp;&amp; git remote add origin git@git.droplet.com<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:my-project.git</pre>
+
+<p>Now you may add, push, pull, and even clone away knowing that your code is only accessible to yourself.</p>
+
+<p>But what if you want a few trusted people to have access to this 
+server and you want to keep things simple by sorting them by the names 
+of your users? A simple and effective way to do that is to create a 
+folder named after each person, so in the home folder for your Git user 
+list, input:</p>
+
+<pre>mkdir user1 user2</pre>
+
+<p>Now when you specify the remote repository, it would look like this:</p>
+
+<pre>git remote add origin git@git.droplet.com<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l,b=document.getElementsByTagName("script");l=b[b.length-1].previousSibling;a=l.getAttribute('data-cfemail');if(a){s='';r=parseInt(a.substr(0,2),16);for(j=2;a.length-j;j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}s=document.createTextNode(s);l.parentNode.replaceChild(s,l);}}catch(e){}})();
+/* ]]> */
+</script>:user1/user-project.git</pre>
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+      <div class="related">
+    <h2>Related Tutorials</h2>
+
+    <ul>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-git-on-a-centos-6-4-vps">How To Install Git on a CentOS 6.4 VPS</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application">5 Common Server Setups For Your Web Application</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/linux-apache-mysql-php-lamp-centos-6">Как установить Linux, Apache, MySQL, PHP (LAMP) на CentOS 6</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-nginx-on-ubuntu-14-04">How To Install WordPress with Nginx on Ubuntu 14.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-launch-your-site-on-a-new-ubuntu-14-04-server-with-lamp-sftp-and-dns">How To Launch Your Site on a New Ubuntu 14.04 Server with LAMP, SFTP, and DNS</a></li>
+    </ul>
+  </div>
+
+    <div id="sharing-is-caring">
+  <h2>Share this Tutorial</h2>
+  <iframe style="width: 106px; height: 20px;" data-twttr-rendered="true" title="Twitter Tweet Button" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/tweet_button.html" allowtransparency="true" id="twitter-widget-0" frameborder="0" scrolling="no"></iframe>
+  <div class=" fb_reset" id="fb-root">
+    <div class="fb-link" data-href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-private-git-server-on-a-vps" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+  <div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/V80PAcvrynR.html" style="border: medium none;" tabindex="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/ping.html" style="display: none;" allowtransparency="true" name="f292609b68d26f4" frameborder="0" scrolling="no"></iframe></div></div></div>
+  <div id="___plus_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 88px; height: 20px;"><iframe title="+Share" data-gapiattached="true" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/sharebutton.html" name="I0_1402910321253" id="I0_1402910321253" vspace="0" tabindex="0" style="position: static; top: 0px; width: 88px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div>
+  <iframe title="Hacker News Button" data-count="horizontal" data-url="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-private-git-server-on-a-vps" data-title="Tutorial: How To Set Up a Private Git Server on a VPS" class="hn-button" id="hn-button-1u02e08" name="hn-button-1u02e08" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/a.html" frameborder="0" height="20" width="84"></iframe>
+</div>
+
+
+
+    <div class="content-comments">
+      <div class="comments-header">
+        <h4><span class="Comments">21 Comments</span></h4>
+
+      </div>
+      <div class="tutorial commentable" id="tutorial_434">
+  <div class="comments">
+  <ul class="response-list">
+      <li class="response " id="comment_3539">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3539" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="digitalocean" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/257f5015f595ffb8f8dad1969cc27ecf.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">digitalocean</span>
+  
+  <span class="response-time">August 15, 2013</span>
+
+  <div class="response-body content-body">How I can configure apache to access /home/git/repo.git ?
+
+I have configured it like that
+/etc/apache2/sites-enabled/git.x.xxx
+
+ 
+  ServerAdmin webmaster@server 
+  DocumentRoot /home/git/
+  
+        Options ExecCGI +FollowSymLinks +SymLinksIfOwnerMatch
+        AllowOverride All
+        order allow,deny
+        Allow from all
+   
+  Servername x.xxx
+  ServerAlias www.x.xxx
+
+
+But I.ve got 403 error (also via $git clone git.x.xxx/repo.git ). 
+What I.m doing wrong?</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3539_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_3544">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3544" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="kamal" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">kamal</span>
+  
+  <span class="response-time">August 16, 2013</span>
+
+  <div class="response-body content-body">@Leo: repo.git doesn't contain your code -- it only contains info useful to git.
+
+Clone it somewhere else:
+
+<pre># as user git:
+cd ~
+git clone repo.git
+</pre>
+
+That should clone it to /home/git/repo - set DocumentRoot to /home/git/repo</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3544_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_3567">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3567" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="blacey" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/f6254feda428f3aadb82a3ddafed2100.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">blacey</span>
+  
+  <span class="response-time">August 16, 2013</span>
+
+  <div class="response-body content-body">Very nice tutorial! I love 
+using GIT and currently have a few repositories hosted over at 
+bitbucket. Its always nice learning how to do things like this yourself 
+though.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3567_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_3569">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3569" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="digitalocean" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/ed81f04fd64dd80dd3db09e8b1bdd935.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">digitalocean</span>
+  
+  <span class="response-time">August 16, 2013</span>
+
+  <div class="response-body content-body">@Leo
+
+Along with the response of Kamal Nasser above. If you want to turn this 
+into a continuous deployment solution, all you need to do (as user git)
+
+    cd ~/my-project.git/hooks
+
+In that folder:
+
+    touch post-receive &amp;&amp; nano post-receive
+
+In that file, add the following script
+
+    #!/bin/sh
+    cd /var/www/whatever
+    git pull my-project.git
+
+Done. Instant deployment when you commit to the repository.
+    </div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3569_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_3659">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_3659" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="jason" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/9194c03f11cfe634558f26d759a28936.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">jason</span>
+  
+  <span class="response-time">August 20, 2013</span>
+
+  <div class="response-body content-body">I'm curious, how many other 
+people are using (or have heard) of gitolite? I have a 
+git+gitolite+deploy environment setup. Curious if people would be 
+interested in an article about that. </div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_3659_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_5006">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_5006" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="shyandsy" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/f00d94531f55f8747d7d064ed10e9884.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">shyandsy</span>
+  
+  <span class="response-time">September 25, 2013</span>
+
+  <div class="response-body content-body">cat .ssh/id_rsa.pub | ssh user@123.45.56.78 "cat &gt;&gt; ~/.ssh/authorized_keys"
+could you explain this sentence,please?
+
+if it run in root mode:
+      '~' becomes /home/root/    so I will cat&gt;&gt; run file
+if it run in git user mode
+     I cant access ssh/id_rsa.pub because it in root mode
+
+I am freshman for linux, I am not sure is that true for my desciption</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_5006_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_5052">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_5052" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="kamal" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">kamal</span>
+  
+  <span class="response-time">September 27, 2013</span>
+
+  <div class="response-body content-body">@shyandsy: <strong>cat .ssh/id_rsa.pub | ssh user@123.45.56.78 "cat &gt;&gt; ~/.ssh/authorized_keys"</strong> is split into two parts:
+
+<ol><li><strong>cat .ssh/id_rsa.pub</strong> reads the id_rsa.pub file and outputs its contents</li><li><strong>ssh user@123.45.56.78 "cat &gt;&gt; ~/.ssh/authorized_keys"</strong> appends the input text to the authorized_keys file in your user's home directory</li></ol></div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_5052_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_6211">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_6211" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="stevejbayer" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/61f0a764872833dda51fc08e73521ee5.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">stevejbayer</span>
+  
+  <span class="response-time">November  3, 2013</span>
+
+  <div class="response-body content-body">No home/git directory was created when I used "useradd git"
+
+Is it safe to use "adduser git" ?</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_6211_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_6223">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_6223" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="kamal" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">kamal</span>
+  
+  <span class="response-time">November  3, 2013</span>
+
+  <div class="response-body content-body">@stevejbayer: Yes, it is safe to user adduser instead of useradd.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_6223_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_6749">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_6749" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="tolga" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/5749c464f4fe2eea8a5e8f6ee0f49b36.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">tolga</span>
+  
+  <span class="response-time">November 21, 2013</span>
+
+  <div class="response-body content-body">@stevejbayer: You should use -m switch to create home directory.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_6749_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_7227">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_7227" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="baghery.farhad" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/7ef7514e282fbdc1357a699df163fba9.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">baghery.farhad</span>
+  
+  <span class="response-time">December  7, 2013</span>
+
+  <div class="response-body content-body">you can use ssh-copy-id command it's clean and sharp:
+     
+     ssh-copy-id git@gitserver
+
+it asks git password and it automatically copy your public to authorized_keys' of git 
+</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_7227_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_7779">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_7779" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="patrick" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/edf4fa440b71ab2f4ca444e48893c80c.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">patrick</span>
+  
+  <span class="response-time">December 25, 2013</span>
+
+  <div class="response-body content-body">In this line:
+cat .ssh/id_rsa.pub | ssh user@123.45.56.78 "cat &gt;&gt; ~/.ssh/authorized_keys"
+
+Does "user@123.45.56.78" refer to the username of the newly created git account and the IP address of the git server?</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_7779_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_7847">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_7847" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="wd.a.kamal" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/ecfb25fc8fa8617f43129f84d7b90cc5.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">wd.a.kamal</span>
+  
+  <span class="response-time">December 28, 2013</span>
+
+  <div class="response-body content-body">@patrick Yes it is.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_7847_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_8179">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_8179" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="aptadvisory" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/f42e1749478b8692a27950c5ec7d8e36.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">aptadvisory</span>
+  
+  <span class="response-time">January  9, 2014</span>
+
+  <div class="response-body content-body">This tutorial is way too 
+confusing.
+1. I got a directory error because 'useradd' didn't make the proper 
+folders. mkdir: cannot create directory `/home/git/.ssh': No such file 
+or directory
+2. Why the heck am I using a separate user for my repositories?
+3. Am I supposed to use my usual user on this command or the recently 
+created git user? cat .ssh/id_rsa.pub | ssh user@123.45.56.78 "cat 
+&gt;&gt; ~/.ssh/authorized_keys" 
+4. Is the git@git.droplet.com supposed to be the named URL or the 
+droplet IP address? git remote set-url origin 
+git@git.droplet.com:my-project.git
+</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_8179_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_9610">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_9610" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="stephen" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/8afbb2aca76b5fd98f88b35ca9d40690.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">stephen</span>
+  
+  <span class="response-time">January 31, 2014</span>
+
+  <div class="response-body content-body">some small snags that may help others:
+
+you need to follow the steps EXACTLY.
+
+From beginning of tutorial "Create the SSH Key Pair" - you cannot be root - you are copying a id_rsa from a regular user.
+
+I was unable to do this line logged in as user git
+cat .ssh/id_rsa.pub | ssh user@123.45.56.78 "cat &gt;&gt; ~/.ssh/authorized_keys"
+
+but if you go back to your non-git and non-root user...
+
+you can run it as ~/.ssh/authorized_keys | ssh git@DOMAIN.com "cat &gt;&gt; ~/.ssh/authorized_keys"
+</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_9610_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_9646">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_9646" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="stephen" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/8afbb2aca76b5fd98f88b35ca9d40690.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">stephen</span>
+  
+  <span class="response-time">January 31, 2014</span>
+
+  <div class="response-body content-body">@matthew_gall  Thank you for that time-saving suggestion.
+
+A small tweak is suggested at   http://toroid.org/ams/git-website-howto
+
+The post-receive file would be:
+#!/bin/sh
+GIT_WORK_TREE=/var/www/www.example.org git checkout -f
+
+make sure the post-receive file is executable by the git user
+chmod +x hooks/post-receive
+
+and that the web directory is writable
+
+This worked like a charm for me.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_9646_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_10684">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_10684" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="nicholas.nuing" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/a37085b4b20bcb20e6d3d1e7b3b7110e.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">nicholas.nuing</span>
+  
+  <span class="response-time">March  7, 2014</span>
+
+  <div class="response-body content-body">Yea, this tutorial is not as 
+the clear as the other DigitalOcean tutorials, and I am quite 
+disappointed about it. Had to finish setting up the Git server by 
+reading this tutorial: 
+http://ofjamescole.com/blog/2013/05/11/setup-a-private-git-server-on-digital-ocean/.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_10684_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_12849">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_12849" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="ac" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/610668235e73166c764d8b6503bf6d8d.jpeg" height="80" width="80">
+  </div>
+
+  <span class="response-name">ac</span>
+  
+  <span class="response-time">May  6, 2014</span>
+
+  <div class="response-body content-body">I created a script using 
+Overcast to fully automate the process of spinning up and configuring a 
+Git server on DigitalOcean: 
+https://github.com/andrewchilds/overcast/tree/master/recipes/git-server
+</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_12849_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_12948">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_12948" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="bstaruk" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/019494b83013f8dd833cf61e59ca1a99.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">bstaruk</span>
+  
+  <span class="response-time">May  9, 2014</span>
+
+  <div class="response-body content-body">&lt;3 Digital Ocean</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_12948_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_13327">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_13327" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="kache2k" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/ef0d64fc717691666e28716f4bc1688e.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">kache2k</span>
+  
+  <span class="response-time">May 25, 2014</span>
+
+  <div class="response-body content-body">I've read else where that the command is now
+apt-get install git-core
+because git is now some other package.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_13327_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+      <li class="response " id="comment_13380">
+  <div class="moderation-actions small comment-moderation">
+    <ul id="moderate_13380" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="response-avatar">
+    <img alt="astarr" class="avatar avatar-small" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/a6051c05ce7dca251d644a1404210973.png" height="80" width="80">
+  </div>
+
+  <span class="response-name">astarr</span>
+  
+  <span class="response-time">May 27, 2014</span>
+
+  <div class="response-body content-body">@kache2k: Installing the <code>git-core</code>
+ package will install git, but it's not needed anymore. It exists to 
+provide backwards compatibility. These days, you can just install the <code>git</code> package itself.</div>
+
+  <div class="content-actions">
+    <!-- 
+      #Todo: Waiting for threaded comments
+      <a href="#reply_anchor_tutorial_434">Reply</a> 
+    -->
+
+  </div>
+
+  <div class="moderation-actions comment-moderation icons">
+    <ul id="comment_13380_icons" class="">
+      
+
+
+
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+</li>
+<script>toggle();</script>
+  </ul>
+</div>
+  <div id="reply_anchor_tutorial_434"></div>
+    <div class="response no-avatar response-form">
+    <div class="flash notice log-in-notice"><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a> to comment</div>
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="/community/tutorials/how-to-set-up-a-private-git-server-on-a-vps/comments" class="content-form disabled-form" data-remote="true" method="post"><div style="display:none"><input disabled="disabled" name="utf8" value="✓" type="hidden"></div>
+    <textarea style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;" disabled="disabled" class="js-comment-content" id="comment_content" name="comment[content]" placeholder="Leave a comment..."></textarea>
+
+    <button disabled="disabled" type="submit" id="submit-comment">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+</div>
+    </div>
+
+    <div id="creative-commons">
+      <div class="inner">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/88x31.png"></a><br>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+      </div>
+    </div>
+  </div>
+</div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://digitalocean.com/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/overview">Overview</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">1,860,628</span> Droplets Launched
+    </div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+    <script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/application-25f7f0c791e3f1858aea3b96574a7682.js"></script>
+    
+  <script>
+    $(function() { init_sharing() });
+  </script>
+
+    <script type="text/javascript" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/conversion.js">
+</script><img alt="" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/a_002.gif" border="0" height="1" width="1">
+<noscript>
+<div style="display:hidden;position:absolute;top:-1000px;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/1010666955/?value=0&amp;label=g5d3CM2C9QIQy5v24QM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<script src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid('l4etp');</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l4etp&p_id=Twitter" />
+<img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l4etp&p_id=Twitter" />
+</noscript>
+
+<script>
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.async=true;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+</script>
+<script type="text/javascript">
+  adroll_adv_id = "S4BPDI4QWNB57PEKEZSLIP";
+  adroll_pix_id = "4IDGVTPEAFC4TM2QKYNQ53";
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+</script>
+<script>
+  setTimeout(function(){var a=document.createElement("script");
+  var b=document.getElementsByTagName("script")[0];
+  a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0020/5850.js?"+Math.floor(new Date().getTime()/3600000);
+  a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+  
+<textarea id="autosizejs" class="autosizejs" tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px none; padding: 0px; -moz-box-sizing: content-box; word-wrap: break-word; height: 0px ! important; min-height: 0px ! important; overflow: hidden; transition: none 0s ease 0s ; font-family: 'proxima-nova',sans-serif; font-size: 18px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 22px; width: 683px;">Leave a comment...
+</textarea><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="How%20To%20Set%20Up%20a%20Private%20Git%20Server%20on%20a%20VPS%20%7C%20DigitalOcean_files/postmessageRelay.html" id="oauth2relay1132098905" name="oauth2relay1132098905"></iframe></body><iframe src="" style="display: none;"></iframe></html>

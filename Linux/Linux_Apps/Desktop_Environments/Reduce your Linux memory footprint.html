@@ -1,0 +1,660 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0073)http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" class="dj_webkit dj_chrome dj_contentbox"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Reduce your Linux memory footprint</title>
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2007">
+<meta name="Keywords" content="Linux, physical memory, performance, reduce, footprint, ubuntu, Martyn Honeyford, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2007-01-31">
+<meta name="Source" content="v17 delivery:developerWorks">
+<meta name="Security" content="Public">
+<meta name="Abstract" content="A lack of physical memory can severely hamper Linux performance. In this article, learn how to accurately measure the amount of memory your Linux system uses. You also get practical advice on reducing your memory requirements using an Ubuntu system as an example.">
+<meta name="Description" content="A lack of physical memory can severely hamper Linux performance. In this article, learn how to accurately measure the amount of memory your Linux system uses. You also get practical advice on reducing your memory requirements using an Ubuntu system as an example.">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2007-01-31">
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="en">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.Country" content="ZZ">
+<meta name="Robots" content="index,follow">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWGC0">
+<meta name="dW.ContentArea" content="2">
+<meta name="dW.Topic" content="80,87,183,11">
+
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCLNXZZ">
+
+<!-- SITE MON : START (DO NOT DELETE) -->
+<!-- developerWorks monitoring token -->
+<!-- SITE MON : END (DO NOT DELETE) -->
+<link rel="canonical" href="http://www.ibm.com/developerworks/library/l-linux-memory/index.html">
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="./Reduce your Linux memory footprint_files/www.css" rel="stylesheet" title="www" type="text/css">
+<!--  Masthead/footer  -->
+<link href="./Reduce your Linux memory footprint_files/dw-mfN2014-05.css" rel="stylesheet" title="www" type="text/css">
+<link href="./Reduce your Linux memory footprint_files/dw-article-6.css" rel="stylesheet" title="www" type="text/css">
+<link href="./Reduce your Linux memory footprint_files/dw-common-features.css" rel="stylesheet" title="www" type="text/css">
+<script type="text/javascript" async="" src="./Reduce your Linux memory footprint_files/linkid.js"></script><script async="" src="./Reduce your Linux memory footprint_files/analytics.js"></script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/www.js">//</script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/eluminate.js"></script><script src="./Reduce your Linux memory footprint_files/head.js"></script><script language="javascript" type="text/javascript" src="./Reduce your Linux memory footprint_files/50200000.js"></script><script language="javascript" type="text/javascript" src="./Reduce your Linux memory footprint_files/cookie-id.js"></script><script language="javascript" type="text/javascript" src="./Reduce your Linux memory footprint_files/rules_50200000.js"></script><script language="javascript" type="text/javascript" src="./Reduce your Linux memory footprint_files/dispatcher-v3.js"></script>
+<script type="text/javascript" src="./Reduce your Linux memory footprint_files/dw-www.js">//</script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/Dialog.xd.js"></script>
+<script type="text/javascript">
+//  ibmweb.config.set({ sbs: { enabled: false }});
+</script>
+<!-- Exp -->
+<script type="text/javascript">dojo.addOnLoad(function(){var dw_source="dw";var dw_register="Sign up for a free Bluemix trial";var dw_connect="Connect with Bluemix developers";var dw_vp="Develop and deploy your next<br/>app on the IBM Bluemix<br/>cloud platform.";var dw_cta="Start building for free";var dw_tile_alt="Develop and deploy your next app on the IBM Bluemix cloud platform. Start building for free.";var dw_campaign="bluemix";var dw_content=window.location.pathname.split("/")[window.location.pathname.split("/").length-2];if(dw_content=="library"){dw_content=window.location.pathname.split("/")[window.location.pathname.split("/").length-1];dw_content=window.location.pathname.split("/")[window.location.pathname.split("/").length-3]+"-"+dw_content.substring(0,dw_content.indexOf(".html"))}var dw_medium="article";var bluDevComURL="https://developer.ibm.com/bluemix/";var bluLink="https://www.bluemix.net/";var watsonLink="https://www.bluemix.net/#/solutions/solution=watson";var lnkID;var lnkIDd;var lnkIDt;var bLinkEnd;var bLinkTemp;var idTrkr=[];var idCnt;var artTop=dojo.query("div.ibm-col-1-1")[0];var artChildren=dojo.query(artTop).children();var edgy=false;if(dojo.hasClass(artChildren[0],"ibm-inset"))edgy=true;if((artChildren[0].nodeName=="H2")&&(dojo.hasClass(artChildren[1],"ibm-inset")))edgy=true;if(dojo.hasClass(artChildren[0],"codesection"))edgy=true;if((artChildren[0].nodeName=="H5")&&(dojo.hasClass(artChildren[1],"codesection")))edgy=true;if((artChildren[0].nodeName=="H5")&&(artChildren[1].width>=701))edgy=true;if(artChildren[1].width>=701)edgy=true;if(dojo.hasClass(artChildren[0],"ibm-data-table"))edgy=true;if((artChildren[0].nodeName=="H5")&&(dojo.hasClass(artChildren[1],"ibm-data-table")))edgy=true;if(!(edgy)){var sBarAB='<div class="dw-article-sidebar dw-bluemix" id="dwc-exp-c">'+'<img src="//dw1.s81c.com/developerworks/i/bluemix-graphic.png" height="64" width="64" alt=""/>'+'<p>'+dw_vp+'</p>'+'<p class="ibm-button-link-alternate dw-button-green">'+'<a id="tutc-sbar-bmix-home-btn-ABc" href="'+bluLink+'" class="dw-button-large">'+dw_cta+'</a></p></div>';dojo.place(sBarAB,artTop,"first");}dojo.forEach(dojo.query("#ibm-content-main a"),function(item,index){var bLink=dojo.attr(item,"href");if(bLink&&(bLink.indexOf("//bluemix.net")>-1))bLink=bLink.replace("//bluemix.net","//www.bluemix.net");if(bLink&&(bLink.indexOf("//ace.ng.bluemix.net")>-1))bLink=bLink.replace("//ace.ng.bluemix.net","//www.bluemix.net");if(bLink&&(bLink.indexOf("//console.ng.bluemix.net")>-1))bLink=bLink.replace("//console.ng.bluemix.net","//www.bluemix.net");if(bLink&&((bLink.indexOf("//www.bluemix.net")>-1)||(bLink.indexOf("//www.ng.bluemix.net")>-1)||(bLink.indexOf("//hub.jazz.net")>-1))){bLinkEnd="";bLink=bLink.split("?");if((bLink[1])&&(bLink[1].indexOf("/")!=-1))bLinkEnd=bLink[1].substring(bLink[1].indexOf("/"));if(dojo.attr(item,"id")==null){bLinkTemp=bLink[0]+bLinkEnd;if(bLinkTemp.indexOf("bluemix")!=-1){lnkIDd="bmix";if(bLinkTemp.indexOf("/#/solutions")!=-1){lnkIDd=lnkIDd+"-solution"}else if(bLinkTemp.indexOf("/#/store")!=-1){lnkIDd=lnkIDd+"-service"}else if(bLinkTemp.indexOf("/docs")!=-1){lnkIDd=lnkIDd+"-docs"}else{lnkIDd=lnkIDd+"-home"}}else{if((bLinkTemp.indexOf("//hub.jazz.net/git")>-1)||(bLinkTemp.indexOf("//hub.jazz.net/project")>-1)){lnkIDd="devops-code"}else{lnkIDd=bLinkTemp.substring(bLinkTemp.indexOf("hub.jazz.net/")+13);if(lnkIDd==""){lnkIDd="devops-home"}else{lnkIDd="devops-"+lnkIDd.split("/")[0]}}}if(dojo.attr(dojo.query(item).parent()[0],"class").indexOf("ibm-button")!=-1){lnkIDt="btn"}else{lnkIDt="txt"}}bLink=bLink[0];if(bLink.indexOf("//hub.jazz.net")>-1){if((bLink.indexOf("//hub.jazz.net/git")>-1)||(bLink.indexOf("//hub.jazz.net/project")>-1)){bLink="https://login.jazz.net/psso/proxy/jazzregister?utm_source="+dw_source+"&utm_medium="+dw_medium+"&utm_content="+dw_content+"&utm_campaign="+dw_campaign+"&redirect_uri="+bLink}else{bLink=bLink+"?utm_source="+dw_source+"&utm_campaign="+dw_campaign+"&utm_content="+dw_content+"&utm_medium="+dw_medium}}else{if(bLink.indexOf("/#/")==-1){if(bLink.substring(bLink.length-7)=="/docs/#"){bLink=bLink.replace("/docs/#","/docs/"+"?cm_mmc="+dw_source+"-_-"+dw_campaign+"-_-"+dw_content+"-_-"+dw_medium+"#")}else{bLink=bLink+"?cm_mmc="+dw_source+"-_-"+dw_campaign+"-_-"+dw_content+"-_-"+dw_medium}}else{bLink=bLink.substring(0,bLink.indexOf("#"))+"?cm_mmc="+dw_source+"-_-"+dw_campaign+"-_-"+dw_content+"-_-"+dw_medium+bLink.substring(bLink.indexOf("#")-1)}}if(bLinkEnd)bLink=bLink+bLinkEnd;if(dojo.attr(item,"id")==null){lnkID="tutc-main-"+lnkIDd+"-"+lnkIDt;idCnt=0;dojo.forEach(idTrkr,function(item,index){if(item.indexOf(lnkID)!=-1){idCnt++}});if(idCnt>0){lnkID=lnkID+"-"+idCnt}dojo.attr(item,"id",lnkID);idTrkr.push(lnkID)}else{lnkID=dojo.attr(item,"id")}dojo.attr(item,"href",bLink);dojo.attr(item,"onclick","trkOBL('"+bLink+"','"+lnkID+"'); return false;");}})});</script><!-- LEADSPACE_STYLES -->
+
+<script type="text/javascript" src="./Reduce your Linux memory footprint_files/usen-utf8.js" id="dojoIoScript2" charset="utf-8"></script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/saved_resource" id="dojoIoScript3" charset="utf-8"></script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/profiling.js" id="dojoIoScript4" charset="utf-8"></script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/mmcore.js"></script><script src="./Reduce your Linux memory footprint_files/yahoo-min.js" type="text/javascript"></script><script src="./Reduce your Linux memory footprint_files/cp-v3.js" type="text/javascript"></script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/blackwhite_lists.json" id="dojoIoScript5" charset="utf-8"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/move.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/TimedMoveable.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/_CssStateMixin.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/_FormMixin.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/_DialogMixin.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/DialogUnderlay.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/ContentPane.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/common.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/TooltipDialog.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/Mover.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/Moveable.xd.js"></script><script src="./Reduce your Linux memory footprint_files/json-min.js" type="text/javascript"></script><script id="mmcore.1" src="./Reduce your Linux memory footprint_files/saved_resource(1)" type="text/javascript" charset="utf-8"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/_ContentPaneResizeMixin.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/html.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/loading.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/common.xd(1).js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/autoscroll.xd.js"></script><script type="text/javascript" charset="utf-8" src="./Reduce your Linux memory footprint_files/_LayoutWidget.xd.js"></script><script type="text/javascript" src="./Reduce your Linux memory footprint_files/shorten" id="dojoIoScript6" charset="utf-8"></script></head>
+
+<body id="ibm-com" class="v17" aria-busy="false">
+
+	<div id="ibm-top" class="ibm-landing-page ibm-no-scroll"><img src="./Reduce your Linux memory footprint_files/ibm_logo_print.png" width="43" height="15" id="ibm-print-masthead" alt="IBM Print">
+
+<!-- MASTHEAD_BEGIN -->
+<div id="ibm-masthead" role="banner">
+
+    <!-- TOP ROW -->    
+	<div id="dw-masthead-top-row">
+		<ul id="ibm-mast-options-dw" role="toolbar">
+			<li role="presentation" id="dw-mast-top-4">
+				<a href="http://www.ibm.com/developerworks/" tabindex="0"><img src="./Reduce your Linux memory footprint_files/dwn-dw-badge.png" width="43" height="22" alt="dW" aria-label="dW"></a>
+			</li>
+			<li role="presentation" id="dw-mast-top-0">
+				<div><a class="" href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&lang=en&d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-memory%2Findex.html" title="" role="button" tabindex="0">Sign in (or register)</a></div>
+			</li>
+			<li role="presentation" id="dw-mast-top-1">
+				<div><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#SELECTLANG" role="button">English</a></div>
+			</li>
+			<li role="presentation" id="dw-mast-top-3">
+				<a href="http://www.ibm.com/" role="button">IBM</a>
+			</li>
+			<li role="presentation" id="dw-mast-top-2" class="dw-mf-hide">
+				<a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#">[userid]</a>
+			</li>
+		</ul>
+	</div>
+
+    <!-- TOP ROW SLIDER -->
+	<div id="ibm-my-menu-dw" style="display: none;">
+        <!-- Sign-in -->
+		
+        <!-- Language selector --> 
+		
+		<div id="empty_div" class="dw-mast-columns" role="group"><!-- Authenticated --></div>		
+		<!-- IBM -->
+				
+	<div class="ibm-container-body" dojoattachpoint="ribbonContainer" id="ibmweb_ribbon_0" widgetid="ibmweb_ribbon_0"><a class="ibm-ribbon-prev ibm-disabled" dojoattachpoint="scrollLeftButton" role="button" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" title="Previous" style="margin-top: -12px;">Previous</a><div class="ibm-ribbon-pane" dojoattachpoint="scrollContainer" style="height: 0px;"><div class="ibm-ribbon-section" dojoattachpoint="scrollableNode" role="listbox" id="ibmweb_ribbon_0_scrollable"><div class="ibm-columns" dojoattachpoint="containerNode" role="dialog" id="ibmweb_ribbonSlide_0" widgetid="ibmweb_ribbonSlide_0" aria-labelledby="ibm-rib-menu-0"><h2 class="ibm-access" id="ibm-rib-menu-0">Sign in (or register)</h2><div id="ibmweb_ribbonItemAbstract_0" class="dw-mast-columns" role="group" tabindex="0" widgetid="ibmweb_ribbonItemAbstract_0">
+			<div class="dw-mast-col-1-1">
+				<div id="dw-mast-sso">
+					<div id="signin_error_mf" class="no-display"></div>
+					<div id="dw-mast-sso-form">
+						<form id="sForm_mf" action="" method="post" name="sForm_name_mf" onsubmit="return false;">
+							<div id="dw-mast-sso-id" class="dw-mast-sso-id-en">
+								<label for="ibmid_mf">IBM ID:</label>
+								<input id="ibmid_mf" value="" name="ibmid_name_mf" maxlength="100" onkeypress="dwsi.siInst.handleEP(event,this.form,&#39;mf&#39;);" type="text">
+							</div>
+							<div id="dw-mast-sso-pw" class="dw-mast-sso-pw-en">
+								<label for="pw_mf">Password:</label>
+								<input id="pw_mf" value="" name="pw_name_mf" maxlength="100" onkeypress="dwsi.siInst.handleEP(event,this.form,&#39;mf&#39;);" type="password">
+							</div>
+							<div id="dw-mast-sso-target" class="dw-mast-sso-target-en">
+								<p class="dw-mf-perm-box">
+									<input id="perm_mf" name="perm_name_mf" type="checkbox"><label for="perm_mf"> Keep me signed in.</label>
+								</p>
+							</div>					
+							<div id="dw-mast-sso-terms">
+								<p class="dw-mast-sso-terms-en">By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+							</div>
+							<div>
+								<input class="dw-mf-submit-btn" name="ibm_submit_name_mf" value="Submit" onclick="dwsi.siInst.signin(&#39;mf&#39;);return false;" type="submit">
+							</div>
+						</form>
+					</div>
+					<div id="dw-mast-sso-update">
+						<div id="dw-mast-sso-update-id">
+							<ul>
+								<li><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="(function () {window.location=&#39;/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=en&amp;d=&#39;+encodeURIComponent(location.href);})();">Need an IBM ID?</a></li>
+								<li><a href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></li>
+							</ul>
+						</div>
+						<div id="dw-mast-sso-update-pw">
+							<ul class="dw-mf-pwupdate">
+								<li><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(dwsi.siInst.getAuthUrl())+&#39;%3Fm%3Dloginpage%26lang%3Den_US%26d%3D&#39;+encodeURIComponent(location.href);})();">Forgot your password?</a></li>
+								<li><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(location.href);})();">Change your password</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="dw-mast-sso-text">
+						<p>The first time you sign into developerWorks, a profile is created for you.  <strong>Information in your profile (your name, country/region, and company name) is displayed to the public and will accompany any content you post, unless you opt to hide your company name</strong>.  You may update your IBM account at any time.</p>
+						<p class="dw-mf-secure">All information submitted is secure.</p>
+					</div>
+				</div>
+				<div id="dw-mast-dname" class="dw-mf-hide">
+					<p>The first time you sign in to developerWorks, a profile is created for you, so you need to choose a display name.  Your display name accompanies the content you post on developerworks.</p><p><strong>Please choose a display name between 3-31 characters</strong>.  Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+					<div id="signin_dname_error_mf" class="no-display"></div>
+					<div id="dw-mast-dname-form">
+						<form id="dForm_mf" action="" method="post" name="dForm_name_mf" onsubmit="return false;">
+							<div id="dw-mast-dname-mf">
+								<label for="dname_mf">Display name:</label>
+								<input id="dname_mf" name="dname_name_mf" maxlength="31" size="25" value="" onkeypress="dwsi.siInst.handleEP(event,this.form,&#39;mf&#39;);" type="text">
+							</div>
+							<div id="dw-mast-dname-terms">
+								<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+							</div>
+							<div>
+								<input class="dw-mf-submit-btn" name="dname_submit_name_mf" value="Submit" onclick="dwsi.siInst.signin(&#39;mf&#39;);return false;" type="submit">
+							</div>
+						</form>								
+					</div>
+					<div id="dw-mast-dname-secure">
+						<p class="dw-mf-secure">All information submitted is secure.</p>
+					</div>
+				</div>
+				<div id="dw-mast-auth" class="dw-mf-hide">
+					<div>
+						<h2>developerWorks Community:</h2>
+						<ul>
+							<li><a id="dw-mast-top-0-0" href="http://www.ibm.com/developerworks/community/homepage/web/updates/?lang=en">My home</a></li>
+							<li><a href="http://www.ibm.com/developerworks/community/profiles/html/myProfileView.do?lang=en">My profile</a></li>
+							<li><a href="http://www.ibm.com/developerworks/community/groups/service/html/mycommunities?lang=en">My communities</a></li>
+							<li><a href="http://www.ibm.com/developerworks/community/news">Settings</a></li>
+						</ul>     
+					</div>
+					<div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="dwsi.siInst.signOut(); return false;"><strong>Sign out</strong></a></li>
+						</ul>
+					</div>
+				</div>								
+			</div>		
+		</div></div><div class="ibm-columns" dojoattachpoint="containerNode" role="dialog" id="ibmweb_ribbonSlide_1" widgetid="ibmweb_ribbonSlide_1" aria-labelledby="ibm-rib-menu-1"><h2 class="ibm-access" id="ibm-rib-menu-1">English</h2><div id="ibmweb_ribbonItemAbstract_1" class="dw-mast-columns" role="group" tabindex="0" widgetid="ibmweb_ribbonItemAbstract_1">
+			<div class="dw-mast-col-2-1">
+				<h2>Select a language:</h2>
+				<ul>
+					<li><a id="dw-mast-top-1-0" href="http://www.ibm.com/developerworks/">English</a></li>
+					<li><a href="http://www.ibm.com/developerworks/cn/" lang="zh">中文</a></li>
+					<li><a href="http://www.ibm.com/developerworks/jp/" lang="ja">日本語</a></li>
+					<li><a href="http://www.ibm.com/developerworks/ru/" lang="ru">Русский</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-2-2">
+				<ul>
+					<li><a href="http://www.ibm.com/developerworks/br/" lang="pt">Português (Brasil)</a></li>
+					<li><a href="http://www.ibm.com/developerworks/ssa/" lang="es">Español</a></li>
+					<li><a href="http://www.ibm.com/developerworks/vn/" lang="vi">Việt</a></li>
+				</ul>
+			</div>
+		</div></div><div class="ibm-columns" dojoattachpoint="containerNode" role="dialog" id="ibmweb_ribbonSlide_2" widgetid="ibmweb_ribbonSlide_2" aria-labelledby="ibm-rib-menu-2"><h2 class="ibm-access" id="ibm-rib-menu-2">IBM</h2><div id="ibmweb_ribbonItemAbstract_2" class="dw-mast-columns" role="group" tabindex="0" widgetid="ibmweb_ribbonItemAbstract_2">
+			<div class="dw-mast-col-2-1">
+				<ul>
+					<li><a id="dw-mast-top-3-0" href="http://www.ibm.com/">IBM home</a></li>
+					<li><a href="http://www.ibm.com/solutions/">Industries &amp; solutions</a></li>
+					<li><a href="http://www.ibm.com/technologyservices/">Services</a></li>
+					<li><a href="http://www.ibm.com/products/">Products</a></li>
+					<li><a href="http://www.ibm.com/support/">Support &amp; downloads</a></li>
+				</ul>
+			</div>
+			<div class="dw-mast-col-2-2 dw-mast-ibm">
+				<ul>
+					<li><a href="http://www.ibm.com/support/publications/us/library/index.shtml">Product information</a></li>
+					<li><a href="http://www.ibm.com/redbooks/">Redbooks</a></li>
+					<li><a href="http://www.ibm.com/software/">Software</a></li>
+					<li><a href="http://www.ibm.com/software/sw-services/">Software services</a></li>
+				</ul>
+			</div>	
+		</div></div></div></div><a class="ibm-ribbon-next" dojoattachpoint="scrollRightButton" role="button" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" title="Next" style="margin-top: -12px;">Next</a><div class="ibm-mm-close"><span tabindex="0" aria-label="Close" role="button" title="Close"></span></div></div></div>
+		
+    <!-- BOTTOM ROW -->
+	<div id="ibm-universal-nav-dw" aria-label="Site map">
+		<ul id="ibm-unav-links-dw">
+			<li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerworks/"><img src="./Reduce your Linux memory footprint_files/dwn-dw-wordmark.png" width="225" height="28" alt="developerWorks®"></a>
+			</li>
+		</ul>
+		<ul id="ibm-menu-links-dw" role="toolbar" aria-label="Site map">
+			<li id="dw-mast-nav-0" role="presentation"><a href="http://www.ibm.com/developerworks/topics/" tabindex="0">Technical topics</a></li>
+			<li id="dw-mast-nav-1" role="presentation"><a href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></li>
+			<li id="dw-mast-nav-2" role="presentation"><a href="http://www.ibm.com/developerworks/community/index.html">Community</a></li>
+			<li id="dw-mast-nav-3" role="presentation"><a href="http://www.ibm.com/developerworks/events/">Events</a></li>
+		</ul>
+		<form id="ibm-search-form" action="http://www.ibm.com/search/csass/search/" method="get" name="form1" aria-label="IBM developerWorks Search" role="search">
+			<p>
+				<label for="q"><span class="ibm-access">Search developerWorks</span></label>
+				<input id="q" type="text" name="q" value="Search developerWorks" maxlength="100">
+				<input type="hidden" name="sn" value="dw">
+				<input type="hidden" name="lang" value="en">
+				<input type="hidden" name="cc" value="US">
+				<input type="hidden" name="en" value="utf">
+				<input type="hidden" name="hpp" value="20">
+				<input type="hidden" name="dws" value="dw">
+				<input id="ibm-search" class="ibm-btn-search" type="submit" value="Submit">
+			</p>
+		</form>
+	</div>	
+  
+<div id="ibm-social-tools" role="navigation" aria-label="Social tools" style="display: block;"><ul role="toolbar" aria-label="Social tool list"><li><a class="ibm-share-print" title="Print this page" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" rel="print" dojoattrid="1" role="button" tabindex="0">Print this page</a></li><li><a class="ibm-share-email" title="E-mail this page" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" rel="email" dojoattrid="2" role="button" tabindex="-1">E-mail this page</a></li><li><a class="ibm-share-digg" title="Digg" href="http://digg.com/submit?phase=2&url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="digg" dojoattrid="3" role="button" tabindex="-1">Digg</a></li><li><a class="ibm-share-facebook" title="Facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&t=Reduce%20your%20Linux%20memory%20footprint" rel="facebook" dojoattrid="4" role="button" tabindex="-1">Facebook</a></li><li><a class="ibm-share-twitter" title="Twitter" href="http://twitter.com/?status=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html%20-%20Reduce%20your%20Linux%20memory%20footprint" rel="twitter" dojoattrid="5" role="button" tabindex="-1">Twitter</a></li><li><a class="ibm-share-delicious" title="Delicious" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="delicious" dojoattrid="6" role="button" tabindex="-1">Delicious</a></li><li><a class="ibm-share-linkedin" title="Linked In" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="linkedin" dojoattrid="7" role="button" tabindex="-1">Linked In</a></li><li><a class="ibm-share-stumble" title="Stumbleupon" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="stumble" dojoattrid="8" role="button" tabindex="-1">Stumbleupon</a></li><li><a class="ibm-share-googleplus" title="Google+" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&t=Reduce%20your%20Linux%20memory%20footprint" rel="googleplus" dojoattrid="9" role="button" tabindex="-1">Google+</a></li></ul></div></div>
+<div id="fdiv" class="ibm-access"></div><!-- MASTHEAD_END -->
+	    
+<!-- LAYOUT -->
+<!-- LEADSPACE_BEGIN --> 
+<div id="ibm-access-cntr" role="main"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+      <ul id="ibm-navigation-trail" role="navigation" aria-label="Bread Crumbs"><li><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></li><li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li><li><a href="http://www.ibm.com/developerworks/linux/library/">Technical library</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>Reduce your Linux memory footprint</h1><p><em><span>A few tweaks can boost performance</span></em></p>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>A lack of physical memory can severely hamper Linux® performance.  In this
+      article, learn how to accurately measure the amount of memory your Linux system
+      uses. You also get practical advice on reducing your memory requirements using an Ubuntu system as an example.</p>
+		<p class="ibm-no-print ibm-ind-link">
+
+			
+			<span id="nCmts"><span>0</span><img class="dw-cmts-arrow" alt="" src="./Reduce your Linux memory footprint_files/dw-cmts-arrow.png" height="7" width="7"> <a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#icomments" class="dw-cmt-link">Comments</a></span>
+		<span id="relatedDownloads"></span></p>
+		    <div id="dw-social-tools-container" aria-hidden="true"><span class="dw-social-lead-in">Share:</span><div id="dw-ibm-social-tools" style="display: block;"><ul role="toolbar" aria-label="Social tool list"><li style="display: none;"><a class="ibm-share-print" title="Print this page" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" rel="print" dojoattrid="1" role="button" tabindex="0">Print this page</a></li><li style="display: none;"><a class="ibm-share-email" title="E-mail this page" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" rel="email" dojoattrid="2" role="button" tabindex="-1">E-mail this page</a></li><li style="display: none;"><a class="ibm-share-digg" title="Digg" href="http://digg.com/submit?phase=2&url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="digg" dojoattrid="3" role="button" tabindex="-1">Digg</a></li><li><a class="ibm-share-facebook" title="Facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&t=Reduce%20your%20Linux%20memory%20footprint" rel="facebook" dojoattrid="4" role="button" tabindex="-1" target="_blank">Facebook</a></li><li><a class="ibm-share-twitter" title="Twitter" href="http://twitter.com/?status=http://ibm.co/Yb1aMl%20-%20Reduce%20your%20Linux%20memory%20footprint" rel="twitter" dojoattrid="5" role="button" tabindex="-1" target="_blank">Twitter</a></li><li style="display: none;"><a class="ibm-share-delicious" title="Delicious" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="delicious" dojoattrid="6" role="button" tabindex="-1">Delicious</a></li><li><a class="ibm-share-linkedin" title="Linked In" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="linkedin" dojoattrid="7" role="button" tabindex="-1" target="_blank">Linked In</a></li><li style="display: none;"><a class="ibm-share-stumble" title="Stumbleupon" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&title=Reduce%20your%20Linux%20memory%20footprint" rel="stumble" dojoattrid="8" role="button" tabindex="-1">Stumbleupon</a></li><li><a class="ibm-share-googleplus" title="Google+" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-memory%2Findex.html&t=Reduce%20your%20Linux%20memory%20footprint" rel="googleplus" dojoattrid="9" role="button" tabindex="-1" target="_blank">Google+</a></li></ul></div></div>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#authorN1001B" class="ibm-popup-link" onclick="ibmweb.overlay.show(&#39;authorN1001B&#39;,this);return false;">Martyn Honeyford</a>, Software Engineer, IBM, Software Group</p>
+<div id="authorN1001B" class="ibm-common-overlay"><div class="ibm-head"><p><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#close" class="ibm-common-overlay-close">Close [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually
+                                    goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+Martyn Honeyford graduated from Nottingham University with a BSc in Computer Science in 1996.  He has worked as a software engineer at IBM UK Labs in Hursley, England, ever since. He has given all hope of learning to play the guitar and instead spends his rare moments of free time playing video games until his hands stop working.  Until his international snowboarding career takes off, his day job is as a developer in the WebSphere Message Broker development team.</p><br><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">31 January 2007</p>
+			
+				<p>Also available in&nbsp;<a href="http://www.ibm.com/developerworks/cn/linux/l-linux-memory.html">Chinese</a>&nbsp;<a href="http://www.ibm.com/developerworks/ru/library/l-linux-memory/">Russian</a>&nbsp;<a href="http://www.ibm.com/developerworks/jp/linux/library/l-linux-memory.html">Japanese</a></p>
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="./Reduce your Linux memory footprint_files/c.gif" alt="+"></a><span class="ibm-twisty-head">Table of contents</span><div class="ibm-twisty-body" style="display: none;"><ul style="font-size:0.8em" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N10046">Thanks for the memory</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N10053">Step 1: Choose the right desktop environment</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N100D6">Step 2:  Choose appropriate apps</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N101DB">Step 3: Remove unwanted services and settings</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N10204">Step 4: Have appropriate expectations</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N1020B">Step 5: Optimize your system </a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#N10228">Conclusion</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#resources">Resources</a></li>
+<li><a class="ibm-anchor-down-em-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#icomments">Comments</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1"><div class="dw-article-sidebar dw-bluemix" id="dwc-exp-c"><img src="./Reduce your Linux memory footprint_files/bluemix-graphic.png" height="64" width="64" alt=""><p>Develop and deploy your next<br>app on the IBM Bluemix<br>cloud platform.</p><p class="ibm-button-link-alternate dw-button-green"><a id="tutc-sbar-bmix-home-btn-ABc" href="https://www.bluemix.net/?cm_mmc=dw-_-bluemix-_-l-linux-memory-_-article" class="dw-button-large" onclick="trkOBL(&#39;https://www.bluemix.net/?cm_mmc=dw-_-bluemix-_-l-linux-memory-_-article&#39;,&#39;tutc-sbar-bmix-home-btn-ABc&#39;); return false;">Start building for free</a></p></div>
+
+<p>A much-touted benefit of Linux is that it is more efficient than Microsoft®
+  Windows®, and will therefore perform better on less than cutting-edge hardware. 
+  This performance makes Linux a very attractive upgrade for the many people who have old Windows 98-era boxes still sitting around that are no longer being treated to the latest and greatest software (particularly security patches).</p><p>The truth of the matter, however, is that while the Linux kernel can still be
+  configured to be reasonably small and efficient, as new computers have increased in
+  power, many Linux desktop environments (such as KDE and GNOME) have added lots of
+  features. Consequently, the default install of most distributions offer a less than stellar level of performance when installed on older hardware.  The same is true of many modern applications also -- Web browsers such as Firefox and office suites such as OpenOffice are fully featured, but trying to run them on a machine with 128MB of RAM can be a painful experience!</p><p>So what is the answer?  Throw away all of your old hardware and upgrade?  Install a Linux distribution from circa 1995? (If you decide to go that route, I recall having a good experience with Linux-FT.) </p><p>Never fear: as those in the Linux community have known for years, a great strength
+  (some would say <em>the</em> great strength) of the Linux kernel and Linux distributions
+  in general lies in their ability to be customized. This article delves into how you can
+  tailor your Linux systems for better performance on modest hardware.</p><h2 id="N10046">Thanks for the memory</h2><p>In most cases, the single most important factor in desktop operating system performance is the amount of system memory available.  It's all well and good to have a fast processor, but if there isn't enough physical memory to keep that processor utilized, the system will spend all its time shuffling data between physical memory and swap space (a condition known as <em>thrashing</em>) and the CPU will spend most of its time idle.  For older systems, therefore, adding extra memory is usually the easiest way to improve performance. There are a number of reasons why this may not be possible, however, ranging from a lack of free slots, to a scarcity of affordable RAM for some systems (particularly laptops or RAMBUS-based systems), to an understandable reluctance to spend more money on an aging system.</p><p>If you are unable or unwilling to upgrade your RAM, the next best thing is to reduce
+  the RAM requirements on your system.  This article shows you five simple steps to memory nirvana for your Linux machine.</p><h2 id="N10053">Step 1: Choose the right desktop environment</h2><p>Your single most important choice is the Linux distribution and desktop environment (DE) you're going to install.  While these are two distinct choices, the choice of distribution can affect the choice of DE.  There is nothing stopping you from installing, say, Fluxbox on Ubuntu; however, you'll find that life is a lot easier if you simply use the default DE that comes with your distribution.</p><p>In the scenario in this article, the goal is to find a simple desktop-oriented
+  distribution that is easy for new users.  I have started off with Ubuntu 6.10, which comes with GNOME 2.16.</p><p>For my base system, I have chosen an old machine with an 800MHz processor and 256MB of
+  RAM. I will execute each of my tests twice, once booting as normal with the full 256MB
+  of RAM and once with <code>mem=128M</code> appended to the kernel line,
+  which forces the kernel to only recognize 128MB of the physical memory.  This
+  effectively allows me to examine both a 256MB machine and a 128MB machine without
+  actually using a second physical machine (or repeatedly physically removing the RAM
+  chips from my machine and then putting them back in). This kernel-line option provides a close enough approximation of how a 128MB machine will behave; note, however that if you really have only 128MB, you may experience additional complications -- for instance, with Ubuntu you must use an install disk different from the common one for machines with less than 192MB of RAM.</p><p>To get a base level of memory usage, I booted the system, logged in to the desktop, and started a terminal (in the rest of this article, I'll refer to this setup as my <em>base level</em>); then I checked the amount of free memory using the <code>free</code> command, with the results as shown in Listing 1.</p><h5 id="listing1">Listing 1. Base level for Ubuntu on a 256MB machine</h5><div class="codesection"><pre class="displaycode">ubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        255988     231704      24284          0       6432     139292
+-/+ buffers/cache:      85980     170008
+Swap:       746980          0     746980</pre></div><p>The first line indicates that, out of 256MB of RAM, 231MB is "in use."  The next line shows us that while 231MB is being used, only 86MB of this is actually being used by applications; the rest is being used for buffers and cache.</p><p>The most important part of this listing for assessing performance is the <code>Swap</code> line; this shows us that we aren't currently using any swap, which suggests that we don't really have any memory problems at the moment. The system is able to fit everything into physical memory without having to resort to slow, disk-based swap space.</p><p>Next, to get an idea of what the system would look like under normal day-to-day use, I fired up a Web browser (Firefox 2.0) and pointed it to developerWorks, connected an instant messaging client (Gaim) to MSN, and used the file manager to browse to a folder and open a reasonably sized Microsoft Word-formatted document in OpenOffice. (In the rest of this article, I'll refer to this setup as my <em>light usage level.</em>)</p><p>Once everything had loaded, the output of the <code>free</code> command looked like Listing 2.</p><h5 id="listing2">Listing 2. Light usage level for Ubuntu on a 256MB machine</h5><div class="codesection"><pre class="displaycode">ubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        255988     252196       3792          0      21276      87500
+-/+ buffers/cache:     143420     112568
+Swap:       746980      18676     728304</pre></div><p>You can see that things are getting a little leaner in the memory department. Now
+  applications have used 143MB of physical memory, with the rest of being used for buffers; in addition, the system now needs to make use of 18MB of swap.  The system generally seemed quite usable under these light office task conditions, but there isn't much head room, and I wouldn't like to start doing anything more demanding, such as editing large digital photos or video, as the system would soon begin to crawl.</p><p>To get an idea of how the system would perform with only 128MB, I then rebooted and added <code>mem=128M</code> to the kernel line, as I described above.  At the same base level state illustrated in Listing 1, with 128MB of RAM I got the results shown in Listing 3.</p><h5 id="listing3">Listing 3. Base level for Ubuntu on a 128MB machine</h5><div class="codesection"><pre class="displaycode">ubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        126100     121464       4636          0       1636      37000
+-/+ buffers/cache:      82828      43272
+Swap:       746980      17924     729056</pre></div><p>You can see now that with 128MB, I am already eating into swap, and I haven't actually started doing anything yet.</p><p>Starting my simple set of applications produced the results shown in Listing 4.</p><h5 id="listing4">Listing 4. Light usage for Ubuntu on a 128MB machine</h5><div class="codesection"><pre class="displaycode">ubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        126100     123608       2492          0        392      51208
+-/+ buffers/cache:      72008      54092
+Swap:       746980      98452     648528</pre></div><p>As you can probably predict from these numbers, the machine is now a lot less
+  responsive under normal use -- it is still just about usable for these simple tasks,
+  but the disk is being accessed very frequently and I certainly wouldn't like to use it
+  as my main machine.  You can see that the total amount of application memory required is
+  approximately 170MB, but only 72MB will fit into physical memory, and so 98MB is
+  relegated to swap.  This helps explain the lack of system responsiveness!</p><p>For my next set of tests, I decided to use Xubuntu, a distro from a Ubuntu-associated project.  This distribution is quite similar to Ubuntu, but uses the Xfce 4.4 Beta 2 DE instead of GNOME.  Unlike the more popular GNOME and KDE projects, which concentrate on maximum functionality, Xfce is designed to be lightweight, so it should hopefully be a better match for aging hardware. We'll perform the same tests with this distribution that we performed with Ubuntu.</p><p>You can see in Listing 5 that the base DE uses approximately 25MB less application memory, and also eats significantly less into buffers and cache (which may imply that there is less file activity) than Ubuntu.</p><h5 id="listing5">Listing 5. Base level for Xubuntu on a 256MB machine</h5><div class="codesection"><pre class="displaycode">xubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        255988     170964      85024          0       6004     104700
+-/+ buffers/cache:      60260     195728
+Swap:       746980          0     746980</pre></div><p>In Listing 6, we start up our suite of test applications again (Web browser, IM client, and word processor). You can see that the memory use appears to be around 20MB less than Ubuntu required for the same set of apps (126 in physical memory and 17 in swap for a total of 143 versus 143 + 18 for a total of 161).</p><h5 id="listing6">Listing 6. Light usage level for Xubuntu on a 256MB machine</h5><div class="codesection"><pre class="displaycode">xubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        255988     252180       3808          0       1972     124008
+-/+ buffers/cache:     126200     129788
+Swap:       746980      16956     730024</pre></div><p>Listing 7 illustrates base level usage with only 128MB of RAM.  My memory-limited system is much happier this time around, with no swap being used yet.</p><h5 id="listing7">Listing 7. Base level for Xubuntu on a 128MB machine</h5><div class="codesection"><pre class="displaycode">xubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        126100     123228       2872          0       4252      60484
+-/+ buffers/cache:      58492      67608
+Swap:       746980          0     746980</pre></div><p>In Listing 8, we start the apps up again. The system is still much better off here than
+  with Ubuntu, but it is still using significant amounts of swap, and the machine is still a bit sluggish (albeit less so than under Ubuntu).</p><h5 id="listing8">Listing 8. Light usage level for Xubuntu on a 128MB machine</h5><div class="codesection"><pre class="displaycode">xubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        126100     123980       2120          0        468      56276
+-/+ buffers/cache:      67236      58864
+Swap:       746980      64516     682464</pre></div><p>As you can see from these numbers, Xubuntu generally used less memory across the board; so if you only have 128MB (or less) to work with, it is probably a good choice for your system.</p><p>One great thing about Linux distributions is that they generally don't cost anything,
+  so it's easy to download several and try them out for a while to see which you prefer
+  and how they all perform on your hardware.  If you have very limited hardware, you may
+  wan to look at a distribution like Damn Small Linux, which claims to run on systems with specs as low as a 486DX processor with 16MB of RAM.</p><p>As I have a little more breathing room in my 256MB system, and am generally a KDE kind of guy, I have gone with another Ubuntu derivative, called Kubuntu, which is KDE based and seems to sit somewhere in between Xubuntu and Ubuntu in terms of memory use.  For reference, Listing 9 illustrates the base usage for Kubuntu.</p><h5 id="listing9">Listing 9. Base level for Kubuntu on a 256MB machine</h5><div class="codesection"><pre class="displaycode">kubuntu # free
+             total       used       free     shared    buffers     cached
+Mem:        255988     244736      11252          0       7612     160008
+-/+ buffers/cache:      77116     178872
+Swap:       746980          0     746980</pre></div><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="N100D6">Step 2:  Choose appropriate apps</h2><p>Once you have settled on a distribution, the next thing you can streamline is the set of applications you are going to use.  The memory requirements of different applications can vary greatly; sometimes you face a trade-off between size and functionality, but in other cases even functionally equivalent applications can have vastly different memory requirements.</p><p>In order to measure memory usage for the purpose of this article, I will used the tool <code>exmap</code>.  This tool is more accurate than <code>ps</code> or <code>top</code> because it takes into account shared libraries in use by multiple applications. For example, if two applications are using the same shared library, which takes up 1MB of memory, <code>ps</code> will show both apps using 1MB of extra memory, whereas <code>exmap</code> more correctly shows each app using 500 KB. This greater accuracy is particularly important for assessing desktop environments such as KDE and GNOME, which make very heavy use of libraries shared between applications.</p><p>For each application I discuss in the following sections, I measured the <em>resident</em> and <em>effective resident</em> values produced by <code>exmap</code>.  The resident value represents the total amount of physical memory in use by the process, including shared libraries that are in use by other processes, and is typical of the sort of value you would expect from <code>ps</code> or <code>top</code>.  The effective resident value is the value with shared library allocations shared evenly among all the processes that are using them; this is a much more accurate view of the system memory being consumed by a given process.</p><p>Note also that, when determining the total memory footprint of a process, you should also take into account the <em>mapped</em> and <em>effective mapped</em> values, which are parts of the process that have been placed in swap. The mapped values are analogous to the resident values, but for pages in swap rather than in physical memory, So for a view that doesn't compensate for shared libraries, you would add the resident and mapped values together; for a view compensating for shared libraries, you would add the effective resident and effective mapped values together.  I did <em>not</em> record these values in the ensuing tables because, for all of my tests, none of the processes were in swap, and so the output of the <code>exmap</code> command had a value of zero for those columns.</p><h3 id="N1010D">Web browsers</h3><p>For each browser in Table 1, I launched the application, opened the developerWorks homepage, and waited for it to fully render.  The results are shown in Table 1.</p><h5 id="table1">Table 1. Comparison of Web browser memory usage
+
+</h5><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Comparison of Web browser memory usage  " width="80%"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th>Application</th><th>Effective resident memory (KB)</th><th>Resident memory (KB)</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td class="tb-row">Firefox</td><td>27708</td><td>35068</td></tr><tr><td class="tb-row">Opera</td><td>20477</td><td>27816</td></tr><tr><td class="tb-row">Konqueror</td><td>13479</td><td>29748</td></tr><tr><td class="tb-row">Dillo</td><td>2776</td><td>6888</td></tr><tr><td class="tb-row">Lynx</td><td>1101</td><td>1540</td></tr></tbody></table><p>From this table, you can see that there is a very large range in memory usage, with the most memory-hungry browser (Firefox) using approximately 27 times more memory than the most frugal (Lynx).  This isn't really a fair comparison, as Lynx is not really functionally equivalent (it does not even display graphics, for instance), but it does show that, depending upon your requirements, you can vastly reduce your memory usage.  Even among the first three browsers listed in Table 1, which are more or less functionally equivalent to one another, Opera uses approximately two-thirds the amount of memory of Firefox, and Konqueror uses less than half of Firefox's memory.</p><p>For modest use requirements, Dillo may provide a good compromise between a fully featured browser and the austerity of Lynx. Dillo provides a GUI; it is fairly limited in its default state, however, and doesn't even support SSL without an additional plugin!</p><p>Note also that when we compare the shared memory use, Konqueror performs much better than Firefox, using around 14MB less memory; if we look at the total use, however, while Konqueror still does better than Firefox, it doesn't do so by such a wide margin -- only by 5MB or so. This is because Konqueror makes heavy use of shared KDE libraries that are loaded into lots of applications, as I am using the KDE desktop.  If I were not using any other KDE apps, however, Opera would be a better choice than KDE.  We'll discuss this issue in more detail later.</p><h3 id="N10157">Word processors</h3><p>To test word processors, I loaded the same Microsoft Word-formatted document I used in my first test into the word processors listed in Table 2.</p><h5 id="table2">Table 2. Comparison of word processor memory usage
+
+</h5><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Comparison of Web browser memory usage  " width="80%"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th>Application</th><th>Effective resident memory (KB)</th><th>Resident memory (KB)</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td class="tb-row">OpenOffice Writer</td><td>70114</td><td>81960</td></tr><tr><td class="tb-row">AbiWord</td><td>58029</td><td>65224</td></tr><tr><td class="tb-row">KWord (from KOffice)</td><td>46512</td><td>60096</td></tr></tbody></table><p>You can clearly see from these numbers that OpenOffice Writer uses much more memory than KWord or AbiWord.  After OpenOffice,  KWord did the best job of rendering the Microsoft Word-formatted document correctly.  While AbiWord was able to open the document successfully, there were a few problems rendering it correctly, so if interoperability with Microsoft Office is important to you, you may be better off sticking to OpenOffice.</p><h3 id="N1018D">Instant messaging clients</h3><p>To test instant messaging, I logged into my MSN Messenger account using the IM clients outlined in Table 3.</p><h5 id="table3">Table 3. Comparison of IM client memory usage
+
+</h5><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Comparison of Web browser memory usage" width="80%"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th>Application</th><th>Effective resident memory (KB)</th><th>Resident memory (KB)</th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td class="tb-row">aMSN</td><td>18455</td><td>20344</td></tr><tr><td class="tb-row">Gaim</td><td>13456</td><td>21464</td></tr><tr><td class="tb-row">Kopete</td><td>10988</td><td>24176</td></tr><tr><td class="tb-row">KMess</td><td>7154</td><td>19660</td></tr></tbody></table><p>Here, Kmess came out best for me and was a reasonable choice, as I was only interested in connecting to MSN.  If you need to use other services, then Kopete looks like the best choice. Note, however, that the application's memory usage may increase if you're using a different IM protocols; also, Kmess is an integrated KDE app, so if you aren't using KDE, then Gaim may be a better choice for you.</p><h3 id="N101CB">Lather, rinse, repeat</h3><p>Now that you know how to analyze the memory use of your applications, you can simply repeat the process for all the application types you're interested in, trying out the various options available until you find the choice with the lowest memory requirements that still meets your needs functionally.</p><p>As you will have noticed in the Web-browsing section above, it is often the case that the best memory savings come from using an app that is tightly integrated with your desktop environment.  This is because such apps make heavy use of shared libraries that are embedded into the DE and are most likely already loaded.  For instance, Konqueror is the file manager for KDE as well as a Web browser; hence, it uses much less memory than Firefox when run on a KDE system, because much of its functionality is already loaded by other apps.  Similarly, if you then wanted to use an RSS aggregator, Akregator may be a good choice, as it will most likely use those same libraries again.  </p><p>Thus, if you are concerned about memory usage, it is important that you perform these tests on your <em>own</em> system, because it is generally hard to get a sense of which application will use less memory on your system by looking at other people's benchmarks.</p><p>This fact may have implications for your choice of DE.  If you really want to use Konqueror, for instance, it is probably most efficient to use KDE as your DE. Similarly, if you are a GNOME user, you may want to think twice before you use that simple little KDE app you've had your eye on, as it is likely to load a whole host of libraries that only it will make use of.</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="N101DB">Step 3: Remove unwanted services and settings</h2><p>Once you have chosen a distribution, desktop environment, and selection of apps, what else can you do to further reduce your memory use? To answer this question, you will need to dig down a little deeper and configure your system. Armed with <code>exmap</code>, you can analyze what is running on the system and try to remove the things you don't need and configure the things you do.</p><p>A good place to begin is with the services that are started automatically when the system boots -- though you need to be careful here so as to not remove anything that is necessary for your system to run.  You will need to do some research into what is required by your particular distribution, and on how services are configured, as this will vary by distribution.  Some distributions are worse than others, starting by default lots of unneeded services such as Web servers and so on that eat up memory.</p><p>Beyond system services, you may also wish to look at how the DE is configured, as it may well be starting services which are not needed. </p><p>My Kubuntu box didn't seem to be starting too many unneeded services, but a quick look at the process list did show a few obvious things, which I was able to remove:</p><ul class="ibm-bullet-list"><li><strong>HPLIP</strong> (4.4MB): Services for HP printers and scanners. Unneeded as no such devices are connected to this computer.</li><li><strong>cupsd</strong> (1.1MB): A printer daemon. Not needed as no printer is attached to this computer.</li><li><strong>kbluetoothd</strong> (3.2MB): The KDE Bluetooth daemon. Not needed because this computer doesn't have Bluetooth connectivity.</li><li><strong>klipper</strong> (1.7MB): The KDE clipboard tool. I don't care for this particular tool, so I disabled it.</li><li><strong>KMix</strong> (4.1MB): The KDE audio mixer. Doesn't need to be running all the time, as  I adjust volume via external speakers.</li></ul><p>Just five minutes of configuration yielded memory savings of around 14MB -- not bad from a starting point of around 77MB!</p><p>It is worth digging around in the settings of your DE as well as the larger apps you use, as some may have settings that will affect the amount of memory they use.  For instance, by reducing the number of virtual desktops, you have may save some memory, particularly if you are using large bitmaps as backdrops.  Turning off some of the fancy eye-candy effects may help too.</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="N10204">Step 4: Have appropriate expectations</h2><p>When running older hardware, it is important to be appreciative of the limitations of the machine and work appropriately.  For instance, if you want to edit a collection of photos, don't open them all at the same time.  This will only eat up memory unnecessarily. You would have a much easier time of it opening them one by one and closing them afterwards. Similarly, if you are trying to capture and edit some video, consider capturing individual scenes rather than the whole lot at once; and if you are creating a large document that will contain illustrations, don't add them in until you have finished with the text.</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="N1020B">Step 5: Optimize your system </h2><p>The final step is to look at the deep guts of your system and see if you can shave any memory off anywhere. There are lots of opportunities, but the law of diminishing returns will start to apply, and for most people the amount of pain and work will not be worth it. Still, here are some of the things that you might consider:</p><ul class="ibm-bullet-list"><li><p>Recompile the kernel with only the specific drivers for your hardware. Most mainstream distributions are tailored for a wide range of hardware, so they often include support for vast swathes of hardware that you aren't using.  This may yield some benefit, though it is likely that most of the hardware support is in the form of modules that won't be loaded if they are not required.</p></li><li><p>Recompiling certain apps or libraries so that they are optimized for size and targeted to the specific CPU you are using can yield some memory gains.  The Gentoo distribution is perfect for this, as you can easily recompile some or all of your system with the precise compilation flags you choose.  Unfortunately, this is likely to be quite a lengthy process on an old machine.</p></li><li><p>Recompiling apps and libraries with specific features removed can also reduce their memory requirement.  Gentoo is again a good idea here because it includes the concept of <code>USE</code> flags, which allow you to easily build your system with application features disabled.  The size of applications can be significantly reduced in this way -- apps are generally released with support for a large number of file formats, codecs, and so on, which often pull in libraries to provide the actual support.  If you know that you never want to read, say, JPEG files, you can specify this in Gentoo (via <code>USE="-jpeg"</code>), and any applications that deal with graphics will be compiled without JPEG support and will most likely have a smaller memory overhead.</p></li><li><p>Recent 2.6 kernels have a <em>swappiness</em> parameter that can be tuned at runtime. This parameter determines the likelihood that applications will be moved to swap instead of the cache or buffers being reduced -- we saw in our early tests that it is common for applications to be swapped out while large chunks of physical memory are still reserved for caches.  By reducing the tendency to swap out, the cache will be reduced and more apps are likely to stay in memory.  Whether or not this move will actually make your machine run faster will very much depend on what apps you are running, however.  It may make the machine seem more responsive if you are constantly swapping between applications, because they are more likely to be resident in memory; however, if you have a task that reads and writes to disk a lot, then it is likely to be slower.  In general, reducing swappiness will make your system more responsive for interactive apps but will slow down overall throughput.</p></li></ul><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#ibm-content" class="ibm-anchor-up-link">Back to top</a></p><h2 id="N10228">Conclusion</h2><p>The ideas in this article may help you breathe life (and some additional security)
+   into your old machines and make better use of Linux on aging hardware. The measurements
+   show that an 800-MHz/256-MB machine can house a perfectly usable Linux desktop for
+   light office and home tasks such as e-mail, browsing the Web, word processing, and so
+   on.  With a little tweaking and experimentation, even a 128MB machine can serve as a reasonably comfortable desktop computer.</p><p>While the main focus of this article has been to achieve a functional desktop on
+  reasonably limited hardware, you can also apply the same principles to most sectors of
+  Linux use.  No matter how much memory your latest super machine has, you will soon find new apps to fill it with.  By applying these techniques, you may be able to squeeze that little extra performance out of your overloaded servers or gain some insight into the memory use within your own applications.</p><!--CMA ID: true--><!--Site ID: 1--><!--XSLT stylesheet used to transform this file:
+        dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">Resources</h2><h3 class="dw-resources-category-heading">Learn</h3><ul class="ibm-bullet-list"><li>
+Read about <a href="http://ktown.kde.org/~seli/memory/">memory usage</a> in a pair of useful articles from Lubos Lunak.
+</li><li>
+In the <a href="http://www.ibm.com/developerworks/linux/">developerWorks Linux zone</a>, find more resources for Linux developers.
+</li><li>
+Stay current with <a href="http://www.ibm.com/developerworks/offers/techbriefings/?S_TACT=105AGX03&S_CMP=art">developerWorks technical events and Webcasts</a>.
+</li></ul><h3 class="dw-resources-category-heading">Get products and technologies</h3><ul class="ibm-bullet-list"><li>
+Learn more about the <a href="http://www.berthels.co.uk/exmap/">Exmap</a> memory analysis
+  tool.
+</li><li>
+Learn more about the distributions discussed in this article:
+<ul><li><a href="http://www.ubuntu.com/">Ubuntu</a></li><li><a href="http://www.kubuntu.org/">Kubuntu</a></li><li><a href="http://www.xubuntu.org/">Xubuntu</a></li><li><a href="http://www.damnsmalllinux.org/">Damn Small Linux</a></li></ul></li><li>
+With <a href="http://www.ibm.com/developerworks/downloads/?S_TACT=105AGX03&S_CMP=art">IBM trial software</a>, available for download directly from developerWorks, build your next development project on Linux.
+</li></ul><h3 class="dw-resources-category-heading">Discuss</h3><ul class="ibm-bullet-list"><li>
+Check out <a href="http://www.ibm.com/developerworks/blogs/">developerWorks
+blogs</a> and get involved in the <a href="http://www.ibm.com/developerworks/community">developerWorks community</a>.
+</li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">Comments</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img id="imgPlHdr" src="./Reduce your Linux memory footprint_files/animated-progress-38x38c.gif" alt="" style="display: none;"><div id="cmtTog"><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect"> <a onclick="var e=arguments[0] || window.event; dwsi.siInst &amp;&amp; dwsi.siInst.showSignIn(); if (e.stopPropagation){ e.stopPropagation();} else { e.cancelBubble = true; } e.preventDefault &amp;&amp; e.preventDefault(); return false;" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#">Sign in</a> or <a href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=register&lang=en&d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-memory%2Findex.html%23icomments">register</a>  to leave a comment.</p><p id="cmtHead"><label for="newCmt"><strong>Add comment:</strong></label></p><p>Note: HTML elements are not supported within comments.</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><span class="ibm-input-group"><input type="checkbox" value="1" name="comment_notification" id="comment_notification" disabled="disabled"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">Notify me when a comment is added</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount"><span id="charCount">1000</span> characters left</span><p class="ibm-buttons-row"><input type="button" value="Submit" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts">0</span>)</strong></span><span class="dw-how-many-comments-label" style="display:none" id="dropdownCmts"><label for="howManyComments"><strong>Show:</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input type="image" class="ibm-btn-go" name="ibm-go" value="Go" src="./Reduce your Linux memory footprint_files/short-btn.gif" alt="Go"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>Be the first to add a comment.</p></td></tr></tbody></table></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts2">0</span>)</strong></span><span class="dw-how-many-comments-label" style="display:none" id="dropdownCmts2"><label for="howManyComments2"><strong>Show:</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input type="image" class="ibm-btn-go" name="ibm-go" value="Go" src="./Reduce your Linux memory footprint_files/short-btn.gif" alt="Go"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="dwsi.siInst.clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+ <div class="ibm-title">
+<h2>developerWorks: Sign in</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">Required fields are indicated with an asterisk (<span class="ibm-required">*</span>).</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm" onsubmit="return false;">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*</span></label><span><input name="ibm-id" id="ibmid" size="25" value="" class="required" type="text" onkeypress="dwsi.siInst.handleEP(event,this.form);"><br><a onclick="window.location=&#39;/developerworks/dwwi/DWAuthRouter?m=reg&amp;d=&#39;+encodeURIComponent(location.protocol + &#39;//&#39; + location.hostname + location.pathname + &#39;#icomments&#39;); return false;" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" class="ibm-forward-link">Need an IBM ID?</a> <br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></span>   
+</p> 
+<p><label for="password">Password:<span class="ibm-required">*</span></label><span><input name="password" id="password" size="25" value="" class="required" type="password" onkeypress="dwsi.siInst.handleEP(event,this.form);"><br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(dwsi.siInst.getAuthUrl())+&#39;%3Fm%3Dloginpage%26lang%3Den_US%26d%3D&#39;+encodeURIComponent(location.href);})();">Forgot your password?</a><br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(location.href);})();">Change your password</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" type="checkbox" name="perm_name"><label for="perm"> Keep me signed in.</label></span>
+</p>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="dwsi.siInst.signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="dwsi.siInst.clearForm();ibmweb.overlay.hide(&#39;signin_overlay&#39;);return false;"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<p>The first time you sign into developerWorks, a profile is created for you.  <strong>Information in your profile (your name, country/region, and company name) is displayed to the public and will accompany any content you post, unless you opt to hide your company name</strong>.  You may update your IBM account at any time.</p>
+<div><p class="dw-c-overlay-secure">All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#" onclick="dwsi.siInst.clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>Choose your display name</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">The first time you sign in to developerWorks, a profile is created for you, so you need to choose a display name.  Your display name accompanies the content you post on developerWorks.</p>
+<p><strong>Please choose a display name between 3-31 characters</strong>. Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+<p class="ibm-overlay-intro">Required fields are indicated with an asterisk (<span class="ibm-required">*</span>).</p> 
+<form id="dFormId" method="post" action="" name="dForm" onsubmit="return false;" class="ibm-column-form">
+<p><label for="displayname">Display name:<span class="ibm-required">*</span></label><span><input name="displayname" id="displayname" size="25" value="" type="text" onkeypress="dwsi.siInst.handleEP(event,this.form);"></span><span class="ibm-form-note">(Must be between 3 – 31 characters.)</span>
+</p>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="dwsi.siInst.signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="dwsi.siInst.clearForm();ibmweb.overlay.hide(&#39;displayname_overlay&#39;);return false;"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+<!-- DIG_DEEPER_START -->
+<h2 class="ibm-rule">Dig deeper into Linux on developerWorks</h2>
+<ul class="ibm-link-list">
+	<li class="ibm-first"><a href="http://www.ibm.com/developerworks/linux/" class="ibm-forward-link">Overview</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/newto/" class="ibm-forward-link">New to Linux</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/library/" class="ibm-forward-link">Technical library (tutorials and more)</a></li>
+	<li><a href="https://www.ibm.com/developerworks/community/forums/html/category?id=33333333-0000-0000-0000-000000000005" class="ibm-forward-link">Forums</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/find/projects/" class="ibm-forward-link">Open source projects</a></li>
+	<li><a href="http://www.ibm.com/developerworks/linux/find/events/" class="ibm-forward-link">Events</a></li>
+</ul>
+<!-- DIG_DEEPER_END -->
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+
+<li><a class="" href="https://www.ibmdw.net/bluemix/" tabindex="-1" role="presentation"><img height="60" width="60" src="./Reduce your Linux memory footprint_files/sm-f-bluemixdev60.png" alt=""></a>
+<h3><a class="ibm-feature-link" href="https://www.ibmdw.net/bluemix/">Bluemix Developers Community</a></h3>
+<p>Get samples, articles, product docs, and community resources to help build, deploy, and manage your cloud apps.</p>
+</li>  
+
+<!-- <li><img height="60" width="60" src="//www.ibm.com/developerworks/i/sm-f-dwnewsletters60.png" alt=""/>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/newsletter/index.html">developerWorks newsletters</a></h3>
+<p>Read and subscribe for the best and latest technical info to help you deal with your development challenges.</p></li> -->
+<li><a class="" href="http://www.ibm.com/developerworks/labs/?ca=dti-tiles-labs" tabindex="-1" role="presentation"><img height="60" width="60" src="./Reduce your Linux memory footprint_files/sm-f-dwlabs60.png" alt=""></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/labs/?ca=dti-tiles-labs">developerWorks Labs</a></h3>
+<p>Experiment with new directions in software development.</p></li>      
+<li><a class="" href="https://hub.jazz.net/?utm_source=dw&utm_campaign=bluemix&utm_content=l-linux-memory&utm_medium=article" tabindex="-1" role="presentation" id="tutc-main-devops-home-txt" onclick="trkOBL(&#39;https://hub.jazz.net/?utm_source=dw&amp;utm_campaign=bluemix&amp;utm_content=l-linux-memory&amp;utm_medium=article&#39;,&#39;tutc-main-devops-home-txt&#39;); return false;"><img height="60" width="60" src="./Reduce your Linux memory footprint_files/sm-f-jazzhub2.png" alt=""></a>
+<h3><a class="ibm-feature-link" href="https://hub.jazz.net/?utm_source=dw&utm_campaign=bluemix&utm_content=l-linux-memory&utm_medium=article" id="tutc-main-devops-home-txt-1" onclick="trkOBL(&#39;https://hub.jazz.net/?utm_source=dw&amp;utm_campaign=bluemix&amp;utm_content=l-linux-memory&amp;utm_medium=article&#39;,&#39;tutc-main-devops-home-txt-1&#39;); return false;">DevOps Services</a></h3>
+<p>Software development in the cloud.  Register today to create a project.</p></li>
+<li><a class="" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tiles-evaluate" tabindex="-1" role="presentation"><img height="60" width="60" src="./Reduce your Linux memory footprint_files/sm-f-evaluationsoftware60.png" alt=""></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tiles-evaluate">IBM evaluation software</a></h3>
+<p>Evaluate IBM software and solutions, and transform challenges into opportunities.</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html#ibm-content" class="ibm-anchor-up-link">Back to top</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Linux</div><div class="metavalue">ArticleID=193343</div><div class="metavalue">ArticleTitle=Reduce your Linux memory footprint</div><div class="metavalue">publish-date=01312007</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace(/</g,  '%3C')+'</div>');</script><div class="metavalue">url=http://www.ibm.com/developerworks/linux/library/l-linux-memory/index.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>
+<!-- LEADSPACE_END -->
+
+
+<!-- END_IBM_PCON -->
+<!-- FOOTER_BEGIN -->
+<div id="ibm-footer" aria-label="Footer"><!-- IBM footer container; disabled --></div>
+
+<div id="ibm-footer-module-dwwrapper" role="contentinfo" aria-label="developerWorks Footer">
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-5-1">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/">About</a></li>
+				<li><a href="https://www.ibm.com/developerworks/feedback">Help</a></li>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/contacts.html">Contact us</a></li>
+				<li><a href="https://www.ibm.com/developerworks/ideas">Submit content</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-2">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/feeds/">Feeds</a></li>
+				<li><a href="http://www.ibm.com/developerworks/newsletter/">Newsletters</a></li>
+				<li><a class="ibm-twitter-link" href="http://twitter.com/developerWorks" target="_blank">Follow</a></li>
+				<li><a class="ibm-facebook-link" href="http://www.facebook.com/developerworks" target="_blank">Like</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-3">
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/community/report/">Report abuse</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/use/">Terms of use</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/thirdparty/">Third party notice</a></li>
+				<li><a href="http://www.ibm.com/privacy/">IBM privacy</a></li>
+				<li><a href="http://www.ibm.com/accessibility/">IBM accessibility</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-4">
+			<ul>
+				<li><a href="http://www.ibm.com/ibm/university/academic/pub/page/academic_initiative">Faculty</a></li>
+				<li><a href="http://asmarterplanet.com/studentsfor/">Students</a></li>
+				<li><a href="http://www.ibm.com/isv/">Business Partners</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-5-5">
+			<img src="./Reduce your Linux memory footprint_files/dwn-ibm-logo-v17.png" alt="IBM®" width="223" height="46">
+			<img class="dw-preload" src="./Reduce your Linux memory footprint_files/ibm_sprite_social_blue_ON.png" alt="" width="1" height="1">
+			<img class="dw-preload" src="./Reduce your Linux memory footprint_files/arrow-down-active.gif" alt="" width="1" height="1">			
+		</div>
+	</div>
+	<!-- Language selector no-script -->
+	<noscript>
+	&lt;div id="dw-footer-selectlang"&gt;
+		&lt;h2&gt;&lt;a name="SELECTLANG"&gt;Select a language:&lt;/a&gt;&lt;/h2&gt;
+		&lt;ul&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/"&gt;English&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/cn/" lang="zh"&gt;中文&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/jp/" lang="ja"&gt;日本語&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/ru/" lang="ru"&gt;Русский&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/br/" lang="pt"&gt;Português (Brasil)&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/ssa/" lang="es"&gt;Español&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/vn/" lang="vi"&gt;Việt&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+	</noscript>
+</div>
+
+</div><!-- FOOTER_END -->
+
+<!-- END_IBM-TOP -->
+</div>
+
+<!-- SCRIPTS_INCLUDE_BEGIN -->
+<script type="text/javascript" src="./Reduce your Linux memory footprint_files/dw-comments.js">//</script>
+<script type="text/javascript" language="JavaScript">
+		dojo.ready(function(){
+		rBHash = null;
+		rBHash = new Object();
+		rBHash['viperLang'] = 'en';
+		rBHash['urlLang'] = 'en';
+		
+		dwsi.siInst = new dwweb.dynnav.dwsi();
+		dwsi.siInst.initSI();		
+
+		// construct the comment widget
+		dwc && new dwc.comments('threadShow','95%',5,'nCmts','icomments');
+		});
+</script>
+<script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-41146412-3','auto');ga('require','linkid','linkid.js');var dw_canonical="http://www.ibm.com/developerworks/library/l-linux-memory/index.html";dw_canonical=dw_canonical.substring(dw_canonical.indexOf(".ibm.com")+8);ga('send','pageview',{'page':dw_canonical});var trkOBL=function(url,id){id=id.split("-");var cat="Rich tutorial";if(id[0]=="tutc")cat="Classic tutorial";if(id[0]=="lpzone")cat="Zone landing";if(id[0]=="lptrial")cat="Trial landing";if(id[0]=="lpgen")cat="Generic landing";var act="Bluemix";if(id[2]=="devops")act="Devops";act=act+' '+id[3];if(id[4]){var label=id[4];if(label=="btn")label="button";if(label=="txt")label="text link";if(label=="bnr")label="banner";if(label=="tl")label="tile"}var ab=0;if(id[5]){if(id[5]=="ABa")ab=1;if(id[5]=="ABb")ab=2;if(id[5]=="ABc")ab=3;if(id[5]=="ABd")ab=4;if(id[5]=="ABe")ab=5;if(id[5]=="ABf")ab=6;if(id[5]=="ABg")ab=7;if(id[5]=="ABh")ab=8}ga('send','event',cat,act,label,ab,{'page':dw_canonical,'hitCallback':function(){document.location=url}})}</script>
+
+
+<script type="text/javascript" src="./Reduce your Linux memory footprint_files/dw-event-tagging.js">//</script>
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=3&ibmCmaId=193343&ibmContentAreas=linux";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="./Reduce your Linux memory footprint_files/stats.js" type="text/javascript">//</script>
+</div>
+
+
+
+</body></html>

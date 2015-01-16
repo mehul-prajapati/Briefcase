@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html itemscope="" itemtype="http://schema.org/Article"><head>
+<meta charset="UTF-8">
+<link href="https://plus.google.com/100292833634918081724" rel="publisher">
+<meta name="pocket-site-verification" content="c9d41bc0af66842431541dad88464e">
+<title>How to Add Screensavers to Ubuntu 12.04</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta property="fb:page_id" content="65878196434">
+<meta name="verify-v1" content="WiU7236KQY8e6jcxePbZscPXDuMvJ3b9ydseGd4G5AE=">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta name="REVISIT-AFTER" content="1 DAYS">
+<link rel="alternate" type="application/rss+xml" title="How-To Geek RSS Feed" href="http://feeds.howtogeek.com/HowToGeek">
+<meta property="og:title" itemprop="name" name="title" content="How to Add Screensavers to Ubuntu 12.04">
+<meta property="og:type" content="article">
+<meta property="og:description" name="og:description" itemprop="og:description" content="Ubuntu 12.04 doesn’t ship with any screen savers, just a black screen that appears when your system is idle. If you’d rather have screensavers, you can swap gnome-screensaver for XScreenSaver.">
+<meta property="og:image" content="http://cdn3.howtogeek.com/thumbcache/140/160/82d6ddd053599342945110d0a99d460d/wp-content/uploads/2012/05/image264.png">
+<link rel="image_src" href="http://cdn3.howtogeek.com/thumbcache/140/160/82d6ddd053599342945110d0a99d460d/wp-content/uploads/2012/05/image264.png">
+<link rel="stylesheet" href="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/A.css" type="text/css">
+<link href="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/css.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="http://cdn3.howtogeek.com/public/favicon.ico" type="image/x-icon">
+<script type="text/javascript">/* Adroll */
+adroll_adv_id = 'LUPCT5CAU5BYVHRJM2RKAU'; 
+adroll_pix_id = 'TANGANKPQJFAXD655NREJ4';
+if (adroll_adv_id!='' && adroll_adv_id.indexOf('$')!=0
+ && adroll_pix_id!='' && adroll_pix_id.indexOf('$')!=0) {
+  (function () {
+  var oldonload = window.onload;
+  window.onload = function(){
+     __adroll_loaded=true;
+     var scr = document.createElement("script");
+     var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+     scr.setAttribute('async', 'true');
+     scr.type = "text/javascript";
+     scr.src = host + "/j/roundtrip.js";
+     ((document.getElementsByTagName('head') || [null])[0] ||
+      document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+     if(oldonload){oldonload()}};
+  }());
+}
+/* /Adroll */</script><script type="text/javascript">/* Qualtrics */
+var _qualtricsID = '${PAGE_DOMAIN:QUALTRICS_ID}';
+if (_qualtricsID!='' && _qualtricsID.indexOf('$')!=0) {
+   (function () {
+           var g = function (e, h, f, g) {
+               this.get = function (a) { for (var a = a + "=", c = document.cookie.split(";"), b = 0, e = c.length; b < e; b++) { for (var d = c[b]; " " == d.charAt(0); ) d = d.substring(1, d.length); if (0 == d.indexOf(a)) return d.substring(a.length, d.length) } return null };
+               this.set = function (a, c) { var b = "", b = new Date; b.setTime(b.getTime() + 6048E5); b = "; expires=" + b.toGMTString(); document.cookie = a + "=" + c + b + "; path=/; " };
+               this.check = function () { var a = this.get(f); if (a) a = a.split(":"); else if (100 != e) "v" == h && (e = Math.random() >= e / 100 ? 0 : 100), a = [h, e, 0], this.set(f, a.join(":")); else return !0; var c = a[1]; if (100 == c) return !0; switch (a[0]) { case "v": return !1; case "r": return c = a[2] % Math.floor(100 / c), a[2]++, this.set(f, a.join(":")), !c } return !0 };
+               this.go = function () { if (this.check()) { var a = document.createElement("script"); a.type = "text/javascript"; a.src = g + "&t=" + (new Date()).getTime(); document.body && document.body.appendChild(a) } };
+               this.start = function () { var a = this; window.addEventListener ? window.addEventListener("load", function () { a.go() }, !1) : window.attachEvent && window.attachEvent("onload", function () { a.go() }) } 
+           };
+           try { (new g(100, "r", "QSI_S_"+_qualtricsID, "//"+_qualtricsID.toLowerCase()+"-techmedianetwork.siteintercept.qualtrics.com/WRSiteInterceptEngine/?Q_ZID="+_qualtricsID+"&Q_LOC=" + encodeURIComponent(window.location.href))).start() } catch (i) { } 
+   })();
+   var d = document.createElement('div');
+   d.id = _qualtricsID;
+   d.innerHMTL='<!--DO NOT REMOVE-CONTENTS PLACED HERE-->';
+   document.body.appendChild(d);
+}
+/* /Qualtrics */</script><script type="text/javascript">/* Linksmart */
+var _linksmartID = '${PAGE_DOMAIN:LINKSMART_ID}';
+if (_linksmartID!='' && _linksmartID.indexOf('$')!=0) {
+  var _ls_pub_id = _linksmartID;
+  (function(d, t){
+  var mb = d.createElement(t), s = d.getElementsByTagName(t)[0];
+  mb.async = mb.src = '//cdn.linksmart.com/linksmart_2.3.0.min.js';
+  s.parentNode.insertBefore(mb, s);
+  }(document, 'script'));
+}
+/* /Linksmart */</script><script type="text/javascript" async="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/quant.js"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/analytics.js" async=""></script><script async="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/cbgapi.loaded_1"></script><script async="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/cbgapi.loaded_0"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/sdk.html" id="facebook-jssdk"></script><script gapi_processed="true" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/plusone.js" async="" type="text/javascript"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/widgets.html" id="twitter-wjs"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/beacon.html" async=""></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/cross-check.js" async=""></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/impl.js" type="text/javascript" charset="UTF-8"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/loader.js" async=""></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/bk-coretag.html" async=""></script><script type="text/javascript" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/jquery.js"></script>
+<script type="text/javascript">var statsUrl='/public/stats.php?id=114027&1415439263';</script>	<script type="text/javascript" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/howtogeek.js"></script>
+<link rel="shortlink" href="http://www.howtogeek.com/?p=114027">
+<link rel="canonical" href="http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/">
+<meta property="og:url" content="http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/"><script type="text/javascript" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/tmnhead.js"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/gpt.js"></script><iframe style="visibility: hidden; display: none;" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/container.html"></iframe><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/jstag.html"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/amzn_ads.html"></script><script>if(typeof amznads!='undefined')amznads.getAds(aaxID);</script>
+<script type="text/javascript">tmntag.account('/10518929/tmnp.howtogeek/linux');tmntag.adunit({'sizes':[[300,250],[300,600],[300,1050]],'div':'div-gpt-ad-1342044737928-1'});tmntag.adunit({'sizes':[[728,90]],'div':'div-gpt-ad-1342044737928-2'});tmntag.adunit({'account':'/10518929/tmnp.howtogeek-btf/linux','sizes':[[160,600],[120,600]],'div':'div-gpt-ad-1342044737928-12'});tmntag.adunit({'account':'/10518929/tmnp.howtogeek-btf/linux','sizes':[[728,90],[970,66],[970,90],[970,250]],'div':'div-gpt-ad-1342044737928-14'});tmntag.adunit({'sizes':[650,141],'div':'div-1342-1','targeting':{'adsense1':'adsense1'}});tmntag.adunit({'sizes':[650,140],'div':'div-1342-2','targeting':{'adsense2':'adsense2'}});tmntag.adunit({'sizes':[300,300],'div':'div-1342-3','targeting':{'adsense3':'adsense3'}});var isiPad=navigator.userAgent.match(/iPad/i)!=null;if(isiPad){}else{tmntag.adunit({'account':'/10518929/tmnp.howtogeek','div':'div-gpt-ad-1342044737928-5'});}
+tmntag.start();</script><script type="text/javascript" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/tmntag.js"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/pubads_impl_53g.html" type="text/javascript" async=""></script>
+<script type="text/javascript">window._taboola=window._taboola||[];_taboola.push({article:'auto'});!function(e,f,u){e.async=1;e.src=u;f.parentNode.insertBefore(e,f);}(document.createElement('script'),document.getElementsByTagName('script')[0],'http://cdn.taboola.com/libtrc/howtogeek-howtogeek/loader.js');</script>
+<style type="text/css">.trc_rbox_container{direction:ltr;text-align:left}.trc_rbox_header{border-style:solid;border-width:0}.in_trc_header{position:relative!important;float:right;margin:0}#trc_rbox_css_loaded{overflow:hidden;width:0;height:0}.trc_rbox{margin-top:0}.trc_rbox_div{margin:0 0 3px;direction:ltr;padding:0;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;overflow:auto;position:relative;width:auto;*width:auto;border:solid #CCC 1px}.loading-animation span{display:block}.videoCube{zoom:1;cursor:pointer;float:none;overflow:hidden;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box}div.videoCube:hover,.videoCube_hover{cursor:pointer}.videoCube span.video-title:hover,.videoCube_hover span.video-title{text-decoration:underline}.videoCube a{text-decoration:none;border:0;color:#000;cursor:pointer}.videoCube a:hover,.videoCube_hover a,.videoCube a:link,.videoCube a{text-decoration:none!important;outline:0}.videoCube a .thumbBlock{float:left;display:block;overflow:hidden!important}.videoCube a img,.videoCube img{border:0;_border:0;display:block;margin:0;height:auto;width:auto}.videoCube .video-label{display:block;overflow:hidden}.videoCube .video-title{width:auto!important;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.videoCube .video-duration a{}.videoCube .video-duration{height:0;float:left;position:relative;color:#fff;font-size:11px}.videoCube .video-duration dt{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;background-color:#000;opacity:.6;filter:alpha(opacity=60)}.sponsored-default .video-description{font-weight:400;color:#000;font-size:9px;max-height:22px;*height:22px;overflow:hidden;line-height:9px}.video-duration.video-duration-detail div{color:#fff}.sponsored-default{background-color:#f7f6c6;padding-bottom:0!important}.trc_rbox .sponsored{position:relative;display:block;overflow:visible;height:auto;width:auto;padding-right:0;text-align:right;font-size:9px}.sponsored-url{white-space:nowrap;float:left;overflow:hidden;width:98%;height:auto;margin-top:0;margin-left:1px;padding-bottom:2px;color:green;font-size:9px;text-decoration:underline}.sponsored-default .video-title{height:26px;font-size:11px;line-height:13px;max-height:26px;*height:26px}.sponsored-default .thumbBlock img{}.sponsored-default .thumbBlock{text-align:center;background-color:transparent}.trc_rbox_div{height:410px}.videoCube{direction:ltr;font-size:11px;margin:0;color:#000;border-width:0}.videoCube.vertical:first-child{border-top:0;margin-top:0}.videoCube.horizontal:first-child{border-left:0;margin-left:0}.trc_rbox .trc_rbox_div .videoCube.vertical{_margin-top:expression(this.previousSibling==null?'0':'default')}.trc_rbox .trc_rbox_div .videoCube.horizontal{_margin-left:expression(this.previousSibling==null?'0':'default')}div.videoCube:hover,.videoCube_hover{background-color:#EBF0FF;color:#000}.videoCube .thumbBlock{margin-right:5px;margin-left:1px;border-style:solid}.videoCube a img,.videoCube img{border-color:#ececec}.videoCube .overlayImg{}.videoCube .video-label-box{margin-left:81px}.videoCube .video-label dt{font-weight:700}.videoCube .video-title{height:auto;margin-bottom:3px;white-space:normal}.videoCube .trc_inline_detail_spacer{display:inline-block;white-space:pre}.sponsored-default{padding-bottom:0}.loading-animation{font-family:sans;font-size:1.5em;text-align:center;color:gray;height:100%}.trc_rbox_header{font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:700;text-decoration:none;color:#000}.trc_header_right_part{position:absolute;left:50%;top:0}.branding_div{overflow:visible;float:right}.branding_div img{height:20px}.trc_pager div{float:left;font-family:sans;cursor:pointer;margin-left:2px;margin-right:2px}.trc_pager_prev,.trc_pager_next{}.trc_pager{font-weight:400}.trc_pager_pages{display:block!important}.trc_related_container div.horizontal{float:left;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box}.trc_related_container div.vertical{}.trc_related_container DIV.videoCube.thumbnail_top .thumbBlock,.trc_related_container DIV.videoCube.thumbnail_bottom .thumbBlock{float:none}@media screen and (-webkit-min-device-pixel-ratio:0){.sponsored-url{margin-top:2px}}.vidiscovery-note{display:none}.pager_disabled{cursor:auto}.videoCube .thumbBlock .trc_sponsored_overlay_base{display:block;width:auto;margin-left:0;position:absolute;color:#fff!important}.videoCube .thumbBlock .trc_sponsored_overlay{filter:alpha(opacity=60);opacity:.6;display:block;position:absolute;*left:0}.videoCube .thumbBlock .trc_sponsored_overlay_base .sponsored{position:relative;display:block;overflow:visible;width:auto;text-align:center;padding:0 5px;margin-top:0}.videoCube .thumbBlock .trc_sponsored_overlay_base.round .trc_sponsored_overlay{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px}.videoCube .thumbBlock .trc_sponsored_overlay_base.round{margin-left:4px}.thumbnail-emblem{background-color:transparent;background-repeat:no-repeat;position:absolute;z-index:50}.playerCube .thumbnail-overlay,.videoCube .thumbnail-overlay{position:absolute;background-color:transparent;background-repeat:no-repeat;z-index:50}.videoCube:hover .thumbnail-overlay,.videoCube_hover .thumbnail-overlay{position:absolute;background-color:transparent;background-repeat:no-repeat;z-index:50}.thumbnail_bottom{padding-bottom:8px}.trc_pager_next img,trc_pager_next pager_disabled img,trc_pager_next:hover img{-moz-transform:scaleX(-1);-o-transform:scaleX(-1);-webkit-transform:scaleX(-1);transform:scaleX(-1);filter:FlipH;-ms-filter:"FlipH"}.trc_cover_iframe{position:absolute;z-index:100000;top:0;left:0;background:#000;opacity:.4;filter:alpha(opacity=40);border:0}.trc_lightbox_base{z-index:100001;position:fixed}.trc_lightbox_overlay{background-color:transparent;position:absolute;z-index:100002}.trc_lightbox_transparent{position:absolute;z-index:100003}#trc_lightbox_header{font-family:"Trebuchet MS",Helvetica,sans-serif}.trc_whitebox{background-color:#fff;position:relative;z-index:100004;padding:0 20px 20px;margin:0 auto;border:2px solid #000;-moz-box-shadow:3px 3px 20px #000;-webkit-box-shadow:3px 3px 20px #000;box-shadow:3px 3px 20px #000;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px}.trc_whiteboxCloseButton{width:32px;height:32px;border:0;position:absolute;right:-16px;top:-14px;cursor:pointer;background:url(//cdn.taboola.com/taboola-generic/close.png) no-repeat top left transparent;color:#fff;color:transparent;font-size:0}.trc_related_container .logoDiv{font-family:Arial,Helvetica,sans-serif;white-space:nowrap;font-size:9px}.trc_related_container .logoDiv a{font-size:9px;text-decoration:none!important;color:#000;margin-right:1px;vertical-align:text-bottom}.logoDiv a span:hover{text-decoration:underline}.trc_rbox_header .logoDiv{font-size:1em}.trc_related_container .vertical-start-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-down.png);height:10px;width:auto;position:absolute;z-index:5}.trc_related_container .vertical-end-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-up.png);height:10px;width:auto;position:absolute;z-index:5}.trc_related_container .horizontal-start-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-right.png);height:auto;width:10px;position:absolute;z-index:5}.trc_related_container .horizontal-end-shade{background-image:url(//cdn.taboola.com/taboola-generic/shade-left.png);height:auto;width:10px;position:absolute;z-index:5}DIV.trc_autoplaylist-box{margin:6px auto 0;border:0;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;padding:4px;font-family:"Trebuchet MS",Helvetica,sans-serif;width:320px;background:#191919;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#191919', endColorstr='#393939');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#191919, endColorstr=#393939)";background:-webkit-gradient(linear,left top,left bottom,from(#191919),to(#393939));background:-moz-linear-gradient(top,#191919,#393939);background:linear-gradient(top,#191919,#393939)}DIV.trc_autoplaylist-box .trc-next-up-header{font-size:14px;color:#CCC;float:left;line-height:31px;margin:0 4px 0 6px;overflow:hidden;white-space:nowrap}DIV.trc_autoplaylist-box .trc-next-up-countdown{color:#fff;font-weight:700;font-size:15px;padding-left:4px}DIV.trc_autoplaylist-box .nextup{cursor:pointer}DIV.trc_autoplaylist-box .nextup .thumbblock{border:solid #FEFEFE 1px;margin-right:10px}DIV.trc_autoplaylist-box:hover .nextup .thumbblock SPAN.thumbnail-overlay{background-image:url(//cdn.taboola.com/taboola-generic/lightbox-overlay.png)}DIV.trc_autoplaylist-box .nextup .video-label-box{color:#fff;font-weight:700;font-size:12px;line-height:14px}.trc-syndication-link{text-decoration:none;color:inherit}.playerCube{width:100%;height:100%;position:relative;cursor:pointer}.playerCube .thumbnail-overlay{width:100%;height:100%;top:0;left:0;position:absolute}.trc_related_container .whatsThisSyndicated{position:absolute;cursor:pointer}.trc_related_container .whatsThisSyndicated.a-bottom-right,.trc_related_container .static-text.bottom-right{bottom:0;right:0}.trc_related_container .whatsThisSyndicated.a-top-right,.trc_related_container .static-text.top-right{top:0;right:0}.trc_related_container .whatsThisSyndicated.a-bottom-left,.trc_related_container .static-text.bottom-left{bottom:0;left:0}.trc_related_container .whatsThisSyndicated.a-top-left,.trc_related_container .static-text.top-left{top:0;left:0}.trc_related_container .videoCube .thumbBlock .branding{position:absolute;bottom:0;z-index:1;width:100%;margin:0;padding:5px 0;text-align:center}.trc_related_container .videoCube .thumbBlock .static-text{position:absolute;z-index:1;margin:0;padding:5px;background-color:#000;color:#fff;display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:400;text-align:left;text-decoration:none;opacity:.7}.trc_related_container .static-text.top{width:100%;top:0;padding:5px 0}.trc_related_container .static-text.bottom{width:100%;bottom:0;padding:2px 0}.trc-inplayer-rbox{background:#333;background:rgba(30,30,30,.9);*background:#333;bottom:0;position:absolute;height:300px;text-align:center}.trc-inplayer-rbox .trc_rbox_container{margin:50px auto 0;width:640px}.trc_rbox.trc-auto-size{width:100%;height:100%}.videoCube.thumbnail_under .thumbBlock{margin-left:0;margin-right:0}.videoCube.thumbnail_under .label-box-overlay{width:100%;height:100%;position:absolute;background:#000;opacity:.75;filter:alpha(opacity=75);top:0;_display:none}.videoCube.thumbnail_under .video-labels-anchor{width:100%;height:auto;position:absolute;z-index:1;left:0;bottom:0;min-height:2.58em;max-height:2.58em;padding-top:2px;padding-bottom:2px;_background-color:#CECECE;-webkit-transition:all .2s linear;-moz-transition:all .2s linear;-ms-transition:all .2s linear;-o-transition:all .2s linear;transition:all .2s linear;line-height:1.25em}.videoCube.thumbnail_under .video-labels-anchor span.video-title,.videoCube.thumbnail_under .video-labels-anchor span.branding{position:relative;z-index:1;padding:0 3px;margin:0}.videoCube.thumbnail_under .video-title{min-height:2.58em}.videoCube.thumbnail_under:hover .video-labels-anchor{opacity:1;max-height:6.45em}.trc-auto-size .trc_rbox_outer .trc_rbox_div{height:auto;width:auto}.trc-auto-size .trc_rbox_div .videoCube{height:auto}.trc-auto-size .trc_rbox_div .videoCube.trc-first-recommendation{margin-top:0}.trc_rbox .trc_rbox_outer .trc_rbox_div .videoCube.trc-first-in-row{margin-left:0}.trc_related_container .trc_elastic{font-size:13px;line-height:18px;color:#333;background-color:#fff;box-shadow:#666 0 0 0 4px;margin:20px}.trc_elastic .trc_rbox{width:auto}.trc_elastic .videoCube{overflow:hidden}.trc_elastic .videoCube .thumbBlock{display:block;background-color:transparent;background-position:center center;background-repeat:no-repeat;background-size:cover;position:absolute;display:inline-block;top:0;right:0;bottom:0;left:0;margin-left:0;margin-right:0}.trc_elastic .thumbBlock_holder{position:relative;width:100%}.trc_elastic .videoCube_aspect{width:1px}.trc_elastic .trc_rbox .trc_rbox_div{height:auto}.trc_elastic .video-label-box{display:block}.trc_user_exclude_btn{background:url(//cdn.taboola.com/libtrc/static/thumbnails/f539211219b796ffbb49949997c764f0.png) no-repeat scroll 0 0 transparent;width:12px;height:12px;position:absolute;right:2px;top:2px;z-index:9000;cursor:pointer;visibility:hidden}.trc_undo_btn{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:14px;font-weight:400;color:#36C;text-decoration:underline;cursor:pointer;position:absolute;right:2px;top:2px;padding:0 1px;z-index:11000;visibility:hidden}.videoCube:hover .trc_user_exclude_btn,.videoCube_hover .trc_user_exclude_btn,.trc_user_excluded.videoCube:hover .trc_undo_btn,.trc_user_excluded.videoCube_hover .trc_undo_btn,.trc_undo_btn.trc_anchor{visibility:visible}.videoCube.trc_user_excluded .trc_user_exclude_btn{visibility:hidden}.trc_fade{opacity:0;filter:alpha(opacity=0);visibility:hidden;transition:opacity 500ms 0s,visibility 0s 500ms;-webkit-transition:opacity 500ms 0s,visibility 0s 500ms;-moz-transition:opacity 500ms 0s,visibility 0s 500ms;-o-transition:opacity 500ms 0s,visibility 0s 500ms;-ms-transition:opacity 500ms 0s,visibility 0s 500ms}.trc_fade.trc_in,.trc_user_excluded .trc_exclude_overlay{visibility:visible;opacity:1;filter:alpha(opacity=100);transition-delay:0s,0s;-moz-transition-delay:0s,0s;-webkit-transition-delay:0s,0s;-o-transition-delay:0s,0s;-ms-transition-delay:0s,0s}.trc_excludable .trc_exclude_overlay{position:absolute;z-index:10000;top:0;left:0;width:100%;height:100%;cursor:default;background-color:#fff}.videoCube.trc_excludable .trc_exclude_overlay.trc_fade{filter:alpha(opacity=80)\9}.videoCube.trc_user_excluded .trc_exclude_overlay{visibility:visible;opacity:.8;filter:alpha(opacity=80)}.videoCube.trc_user_excluded .thumbBlock{filter:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0' /></filter></svg>#grayscale");filter:gray;-webkit-filter:grayscale(100%)}.videoCube.trc_user_excluded:hover a .video-label-box .video-title,.videoCube_hover.trc_user_excluded a .video-label-box .video-title{text-decoration:none}.videoCube.trc_user_excluded a .video-label-box *,.videoCube.trc_user_excluded:hover a .video-label-box *,.videoCube_hover.trc_user_excluded a .video-label-box *{color:#000;overflow:hidden;-webkit-transition:color 500ms 0s;-moz-transition:color 500ms 0s;-ms-transition:color 500ms 0s;-o-transition:color 500ms 0s;transition:color 500ms 0s}.videoCube.trc_user_excluded a .video-label-box .label-box-overlay{background-color:#BBB;-webkit-transition:background-color 500ms 0s;-moz-transition:background-color 500ms 0s;-ms-transition:background-color 500ms 0s;-o-transition:background-color 500ms 0s;transition:background-color 500ms 0s}.videoCube.thumbnail_under.trc_user_excluded .video-labels-anchor,.videoCube.thumbnail_under.trc_user_excluded:hover .video-labels-anchor{max-height:none;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none}.trc_related_container .trc_clearer{clear:both;height:0;overflow:hidden;font-size:0;line-height:0;visibility:hidden}.trc_mobile_disclosure_link,.trc_mobile_attribution_link{display:none}.trc_desktop_disclosure_link,.trc_desktop_attribution_link{display:inline}@media screen and (max-width:767px){.trc_mobile_disclosure_link{display:inline}.trc_mobile_attribution_link{display:inline}.trc_desktop_disclosure_link{display:none}.trc_desktop_attribution_link{display:none}}.trc_related_container .logoDiv,.trc_related_container .trc_header_ext .logoDiv{float:right}.trc_related_container .logoDiv+.logoDiv{margin-right:2px}.trc_related_container .attribution-disclosure-link-sponsored,.trc_related_container .attribution-disclosure-link-hybrid{display:none}.trc_related_container .trc-content-sponsored .attribution-disclosure-link-sponsored{display:block}.trc_related_container .trc-content-hybrid .attribution-disclosure-link-hybrid{display:block}.trc_related_container .trc-widget-footer:hover a span,.trc_related_container .trc_header_ext:hover a span{text-decoration:underline!important}.trc_related_container{clear:both}.rbox-blended .video-title{font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;text-decoration:none;}.rbox-blended .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;max-height:2.2em;*height:2.2em;color:black;text-decoration:none;}.rbox-blended .trc_rbox_div{width:auto;_width:99%;height:410px;border-width:1px;padding:0;}.rbox-blended .videoCube .video-duration{left:36px;display:block;}.rbox-blended .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.rbox-blended .video-label,.rbox-blended .sponsored,.rbox-blended .sponsored-url{font-family:Arial, Helvetica, sans-serif;}.rbox-blended .trc_rbox_header{font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:bold;text-decoration:none;color:black;border-width:0;background:transparent;border-style:none none solid none;border-color:#D6D5D3;padding:0;}.rbox-blended .sponsored-url{font-size:9px;font-weight:bold;text-decoration:underline;color:green;}.rbox-blended .sponsored{font-size:9px;font-weight:normal;text-decoration:none;color:#9C9A9C;}.rbox-blended .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .sponsored-default .video-title{max-height:2.58em;*height:2.58em;}.rbox-blended .sponsored-default .video-description{max-height:2.2em;*height:2.2em;}.rbox-blended .videoCube{width:auto;_width:auto;background-color:transparent;border-width:1px;border-color:#D6D5D3;padding:3px;height:auto;margin-left:0px;margin-top:0px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}.rbox-blended div.videoCube:hover,.rbox-blended  div.videoCube_hover{background-color:transparent;}.rbox-blended .sponsored-default{background-color:#F7F6C6;}.rbox-blended div.sponsored-default:hover,.rbox-blended  div.sponsored-default.videoCube_hover{background-color:inherit;}.rbox-blended .videoCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.rbox-blended .videoCube:hover .thumbnail-overlay,.rbox-blended  .videoCube_hover .thumbnail-overlay{background-image:null;}.rbox-blended .trc_rbox_border_elm{border-color:darkgray;}.rbox-blended .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.rbox-blended div.videoCube:hover .thumbBlock{border-color:inherit;}.rbox-blended .pager_enabled{color:#0056b3;}.rbox-blended .trc_pager_counter{color:#000000;}.rbox-blended .pager_disabled{color:#7d898f;}.rbox-blended .trc_pager_prev:hover,.rbox-blended  .trc_pager_next:hover{color:#6497ED;}.rbox-blended .trc_pager_selected{color:#0056b3;}.rbox-blended .trc_pager_unselected{color:#7d898f;}.rbox-blended div.trc_pager_pages div:hover{color:#6497ED;}.rbox-blended .trc_lightbox_overlay{background-color:#000000;opacity:0.70;filter:alpha(opacity=70);}.rbox-blended .video-label-box{text-align:left;}.rbox-blended .trc_sponsored_overlay{background-color:black;}.rbox-blended .thumbnail-emblem{background-position:5% 5%;}.rbox-blended .videoCube .sponsored{margin-top:-7px;}.rbox-blended{width:300px;_width:300px;border-width:0px;border-style:solid solid solid solid;border-color:#000000;padding:0;}.rbox-blended .videoCube.vertical{border-style:solid none none none;}.rbox-blended .videoCube.horizontal{border-style:none none none solid;}.rbox-blended .trc_pager_prev,.rbox-blended .trc_pager_next{font-size:12px;font-weight:normal;text-decoration:none;}.rbox-blended .trc_pager_pages div{font-size:12px;font-weight:normal;text-decoration:none;}.rbox-blended .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .trc_pager div{font-family:serif;}.rbox-blended .playerCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.rbox-blended .playerCube:hover .thumbnail-overlay,.rbox-blended  .playerCube_hover .thumbnail-overlay{background-image:null;}.rbox-blended .playerCube .videoCube{background-color:transparent;border-color:#D6D5D3;border-width:1px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;margin-left:0px;margin-top:0px;padding:3px;}.rbox-blended .playerCube .videoCube.horizontal{border-style:none none none none;}.rbox-blended .playerCube .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.rbox-blended .playerCube .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-label-box{text-align:left;}.rbox-blended .playerCube .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;text-decoration:none;max-height:2.2em;*height:2.2em;color:black;}.rbox-blended .playerCube .videoCube .video-duration{display:block;left:36px;}.rbox-blended .playerCube .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.rbox-blended .playerCube .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.rbox-blended .playerCube .video-title{font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;}.rbox-blended .playerCube div.videoCube:hover,.rbox-blended  div.videoCube_hover{background-color:transparent;}.rbox-blended .whatsThisSyndicated{font-family:Arial, Verdana, sans-serif;font-size:9px;font-weight:normal;color:black;text-decoration:none;padding:0;}.rbox-blended div.syndicatedItem:hover,.rbox-blended  div.syndicatedItem.videoCube_hover{background-color:transparent;}.rbox-blended div.syndicatedItem:hover .thumbBlock{border-color:inherit;}.rbox-blended .videoCube.syndicatedItem{background-color:transparent;border-color:#D6D5D3;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-width:1px;}.rbox-blended .videoCube.syndicatedItem.horizontal{border-style:none none none solid;}.rbox-blended .videoCube.syndicatedItem .thumbBlock{border-color:darkgray;border-width:0px;}.rbox-blended .videoCube.syndicatedItem .thumbnail-overlay{background-image:null;background-position:5% 5%;}.rbox-blended .videoCube.syndicatedItem.vertical{border-style:solid none none none;}.rbox-blended .videoCube.syndicatedItem .video-duration{display:block;left:36px;}.rbox-blended .videoCube.syndicatedItem .video-label-box{margin-left:0px;}.rbox-blended .syndicatedItem{background-color:transparent;}.rbox-blended .syndicatedItem .video-description{max-height:2.2em;*height:2.2em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:10px;font-weight:normal;line-height:11px;text-decoration:none;}.rbox-blended .syndicatedItem .video-title{max-height:2.58em;*height:2.58em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:14px;line-height:17.5px;font-weight:bold;text-decoration:none;}.rbox-blended .syndicatedItem .sponsored{color:#9C9A9C;font-size:9px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .sponsored-url{color:green;font-size:9px;font-weight:bold;text-decoration:underline;}.rbox-blended .syndicatedItem .video-category{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-duration-detail{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-external-data{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-published-date{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-rating{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-uploader{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .video-views{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.rbox-blended .syndicatedItem .branding{color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;text-align:left;}.rbox-blended .videoCube.syndicatedItem .thumbBlock .branding{text-align:left;background-color:transparent;display:block;left:0px;color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;}.rbox-blended .videoCube.syndicatedItem .thumbBlock .static-text{text-align:left;background-color:black;display:block;color:white;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;}.rbox-blended .videoCube.syndicatedItem:hover .thumbnail-overlay,.rbox-blended  .videoCube_hover.syndicatedItem .thumbnail-overl{:null;}.thumbs-2r .video-title{font-family:Arial, Helvetica, sans-serif;font-size:14.0px;line-height:19.0px;font-weight:bold;max-height:76.0px;*height:76.0px;color:#172232;text-decoration:none;}.thumbs-2r .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;max-height:2.2em;*height:2.2em;color:black;text-decoration:none;}.thumbs-2r .trc_rbox_div{width:auto;_width:99%;height:410px;border-width:0;padding:0;}.thumbs-2r .videoCube .video-duration{left:36px;display:none;}.thumbs-2r .videoCube .video-label-box{margin-left:0;margin-right:0px;}.thumbs-2r .video-label,.thumbs-2r .sponsored,.thumbs-2r .sponsored-url{font-family:Arial, Helvetica, sans-serif;}.thumbs-2r .trc_rbox_header{font-family:Tahoma, Geneva, sans-serif;font-size:16.0px;font-weight:bold;text-decoration:none;color:#666;border-width:0;background:transparent;border-style:none;border-color:#D6D5D3;padding:0 0 6px 0;}.thumbs-2r .sponsored-url{font-size:9px;font-weight:bold;text-decoration:underline;color:green;}.thumbs-2r .sponsored{font-size:9px;font-weight:normal;text-decoration:none;color:#9C9A9C;}.thumbs-2r .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .sponsored-default .video-title{max-height:2.58em;*height:2.58em;}.thumbs-2r .sponsored-default .video-description{max-height:2.2em;*height:2.2em;}.thumbs-2r .videoCube{width:auto;_width:auto;background-color:transparent;border-width:1px;border-color:#D6D5D3;padding:0;height:auto;margin-left:0px;margin-top:0px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}.thumbs-2r div.videoCube:hover,.thumbs-2r  div.videoCube_hover{background-color:transparent;}.thumbs-2r .sponsored-default{background-color:#F7F6C6;}.thumbs-2r div.sponsored-default:hover,.thumbs-2r  div.sponsored-default.videoCube_hover{background-color:inherit;}.thumbs-2r .videoCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-2r .videoCube:hover .thumbnail-overlay,.thumbs-2r  .videoCube_hover .thumbnail-overlay{background-image:null;}.thumbs-2r .trc_rbox_border_elm{border-color:darkgray;}.thumbs-2r .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-2r div.videoCube:hover .thumbBlock{border-color:inherit;}.thumbs-2r .pager_enabled{color:#0056b3;}.thumbs-2r .trc_pager_counter{color:#000000;}.thumbs-2r .pager_disabled{color:#7d898f;}.thumbs-2r .trc_pager_prev:hover,.thumbs-2r  .trc_pager_next:hover{color:#6497ED;}.thumbs-2r .trc_pager_selected{color:#0056b3;}.thumbs-2r .trc_pager_unselected{color:#7d898f;}.thumbs-2r div.trc_pager_pages div:hover{color:#6497ED;}.thumbs-2r .trc_lightbox_overlay{background-color:#000000;opacity:0.70;filter:alpha(opacity=70);}.thumbs-2r .video-label-box{text-align:left;}.thumbs-2r .trc_sponsored_overlay{background-color:black;}.thumbs-2r .thumbnail-emblem{background-position:5% 5%;}.thumbs-2r .videoCube .sponsored{margin-top:-7px;}.thumbs-2r{width:300px;_width:300px;border-width:0px;border-style:none;border-color:#000000;padding:0;}.thumbs-2r .videoCube.vertical{border-style:solid none none none;}.thumbs-2r .videoCube.horizontal{border-style:none;}.thumbs-2r .trc_pager_prev,.thumbs-2r .trc_pager_next{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-2r .trc_pager_pages div{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-2r .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .trc_pager div{font-family:serif;}.thumbs-2r .playerCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-2r .playerCube:hover .thumbnail-overlay,.thumbs-2r  .playerCube_hover .thumbnail-overlay{background-image:null;}.thumbs-2r .playerCube .videoCube{background-color:transparent;border-color:#D6D5D3;border-width:1px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;margin-left:0px;margin-top:0px;padding:3px;}.thumbs-2r .playerCube .videoCube.horizontal{border-style:none none none none;}.thumbs-2r .playerCube .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.thumbs-2r .playerCube .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-label-box{text-align:left;}.thumbs-2r .playerCube .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;text-decoration:none;max-height:2.2em;*height:2.2em;color:black;}.thumbs-2r .playerCube .videoCube .video-duration{display:block;left:36px;}.thumbs-2r .playerCube .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-2r .playerCube .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-2r .playerCube .video-title{font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;}.thumbs-2r .playerCube div.videoCube:hover,.thumbs-2r  div.videoCube_hover{background-color:transparent;}.thumbs-2r .whatsThisSyndicated{font-family:Arial, Verdana, sans-serif;font-size:9px;font-weight:normal;color:black;text-decoration:none;padding:0;}.thumbs-2r div.syndicatedItem:hover,.thumbs-2r  div.syndicatedItem.videoCube_hover{background-color:transparent;}.thumbs-2r div.syndicatedItem:hover .thumbBlock{border-color:inherit;}.thumbs-2r .videoCube.syndicatedItem{background-color:transparent;border-color:#D6D5D3;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-width:1px;}.thumbs-2r .videoCube.syndicatedItem.horizontal{border-style:none;}.thumbs-2r .videoCube.syndicatedItem .thumbBlock{border-color:darkgray;border-width:0px;}.thumbs-2r .videoCube.syndicatedItem .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-2r .videoCube.syndicatedItem.vertical{border-style:solid none none none;}.thumbs-2r .videoCube.syndicatedItem .video-duration{display:none;left:36px;}.thumbs-2r .videoCube.syndicatedItem .video-label-box{margin-left:0px;}.thumbs-2r .syndicatedItem{background-color:transparent;}.thumbs-2r .syndicatedItem .video-description{max-height:2.2em;*height:2.2em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:10px;font-weight:normal;line-height:11px;text-decoration:none;}.thumbs-2r .syndicatedItem .video-title{max-height:57.0px;*height:57.0px;color:#172232;font-family:Arial, Helvetica, sans-serif;font-size:14.0px;line-height:19.0px;font-weight:bold;text-decoration:none;}.thumbs-2r .syndicatedItem .sponsored{color:#9C9A9C;font-size:9px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .sponsored-url{color:green;font-size:9px;font-weight:bold;text-decoration:underline;}.thumbs-2r .syndicatedItem .video-category{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-duration-detail{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-external-data{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-published-date{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-rating{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-uploader{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .video-views{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-2r .syndicatedItem .branding{color:#999999;font-size:11.0px;font-weight:bold;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;text-align:left;}.thumbs-2r .videoCube.syndicatedItem .thumbBlock .branding{text-align:left;background-color:transparent;display:none;left:0px;color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;}.thumbs-2r .videoCube.syndicatedItem .thumbBlock .static-text{text-align:left;background-color:black;display:none;color:white;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;}.thumbs-2r .videoCube.syndicatedItem:hover .thumbnail-overlay,.thumbs-2r  .videoCube_hover.syndicatedItem .thumbnail-overl{:null;}.thumbs-mobile-2r .video-title{font-family:Arial, Helvetica, sans-serif;font-size:12.0px;line-height:16.0px;font-weight:bold;max-height:64.0px;*height:64.0px;color:#333;text-decoration:none;}.thumbs-mobile-2r .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;max-height:2.2em;*height:2.2em;color:black;text-decoration:none;}.thumbs-mobile-2r .trc_rbox_div{width:auto;_width:99%;height:410px;border-width:0;padding:0;}.thumbs-mobile-2r .videoCube .video-duration{left:36px;display:none;}.thumbs-mobile-2r .videoCube .video-label-box{margin-left:0;margin-right:0px;}.thumbs-mobile-2r .video-label,.thumbs-mobile-2r .sponsored,.thumbs-mobile-2r .sponsored-url{font-family:Arial, Helvetica, sans-serif;}.thumbs-mobile-2r .trc_rbox_header{font-family:helvetica, arial, sans-serif;font-size:16.0px;font-weight:bold;text-decoration:none;color:#333;border-width:0;background:transparent;border-style:none;border-color:#D6D5D3;padding:0 0 6px 0;}.thumbs-mobile-2r .sponsored-url{font-size:9px;font-weight:bold;text-decoration:underline;color:green;}.thumbs-mobile-2r .sponsored{font-size:9px;font-weight:normal;text-decoration:none;color:#9C9A9C;}.thumbs-mobile-2r .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .sponsored-default .video-title{max-height:2.58em;*height:2.58em;}.thumbs-mobile-2r .sponsored-default .video-description{max-height:2.2em;*height:2.2em;}.thumbs-mobile-2r .videoCube{width:auto;_width:auto;background-color:transparent;border-width:1px;border-color:#D6D5D3;padding:0;height:auto;margin-left:0px;margin-top:0px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;}.thumbs-mobile-2r div.videoCube:hover,.thumbs-mobile-2r  div.videoCube_hover{background-color:transparent;}.thumbs-mobile-2r .sponsored-default{background-color:#F7F6C6;}.thumbs-mobile-2r div.sponsored-default:hover,.thumbs-mobile-2r  div.sponsored-default.videoCube_hover{background-color:inherit;}.thumbs-mobile-2r .videoCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-mobile-2r .videoCube:hover .thumbnail-overlay,.thumbs-mobile-2r  .videoCube_hover .thumbnail-overlay{background-image:null;}.thumbs-mobile-2r .trc_rbox_border_elm{border-color:darkgray;}.thumbs-mobile-2r .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-mobile-2r div.videoCube:hover .thumbBlock{border-color:inherit;}.thumbs-mobile-2r .pager_enabled{color:#0056b3;}.thumbs-mobile-2r .trc_pager_counter{color:#000000;}.thumbs-mobile-2r .pager_disabled{color:#7d898f;}.thumbs-mobile-2r .trc_pager_prev:hover,.thumbs-mobile-2r  .trc_pager_next:hover{color:#6497ED;}.thumbs-mobile-2r .trc_pager_selected{color:#0056b3;}.thumbs-mobile-2r .trc_pager_unselected{color:#7d898f;}.thumbs-mobile-2r div.trc_pager_pages div:hover{color:#6497ED;}.thumbs-mobile-2r .trc_lightbox_overlay{background-color:#000000;opacity:0.70;filter:alpha(opacity=70);}.thumbs-mobile-2r .video-label-box{text-align:left;}.thumbs-mobile-2r .trc_sponsored_overlay{background-color:black;}.thumbs-mobile-2r .thumbnail-emblem{background-position:5% 5%;}.thumbs-mobile-2r .videoCube .sponsored{margin-top:-7px;}.thumbs-mobile-2r{width:300px;_width:300px;border-width:0px;border-style:none;border-color:#000000;padding:0;}.thumbs-mobile-2r .videoCube.vertical{border-style:solid none none none;}.thumbs-mobile-2r .videoCube.horizontal{border-style:none;}.thumbs-mobile-2r .trc_pager_prev,.thumbs-mobile-2r .trc_pager_next{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .trc_pager_pages div{font-size:12px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .trc_pager div{font-family:serif;}.thumbs-mobile-2r .playerCube .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-mobile-2r .playerCube:hover .thumbnail-overlay,.thumbs-mobile-2r  .playerCube_hover .thumbnail-overlay{background-image:null;}.thumbs-mobile-2r .playerCube .videoCube{background-color:transparent;border-color:#D6D5D3;border-width:1px;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;margin-left:0px;margin-top:0px;padding:3px;}.thumbs-mobile-2r .playerCube .videoCube.horizontal{border-style:none none none none;}.thumbs-mobile-2r .playerCube .videoCube .video-label-box{margin-left:81px;margin-right:0px;}.thumbs-mobile-2r .playerCube .video-duration-detail{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-external-data{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-label-box{text-align:left;}.thumbs-mobile-2r .playerCube .video-published-date{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-category{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-description{font-family:Arial, Helvetica, sans-serif;font-size:10px;line-height:11px;font-weight:normal;text-decoration:none;max-height:2.2em;*height:2.2em;color:black;}.thumbs-mobile-2r .playerCube .videoCube .video-duration{display:block;left:36px;}.thumbs-mobile-2r .playerCube .videoCube .thumbBlock{border-width:0px;border-color:darkgray;}.thumbs-mobile-2r .playerCube .video-rating{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-uploader{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-views{font-size:10px;font-weight:normal;text-decoration:none;color:black;}.thumbs-mobile-2r .playerCube .video-title{font-family:Arial, Helvetica, sans-serif;text-decoration:none;font-size:14px;line-height:17.5px;font-weight:bold;max-height:2.58em;*height:2.58em;color:black;}.thumbs-mobile-2r .playerCube div.videoCube:hover,.thumbs-mobile-2r  div.videoCube_hover{background-color:transparent;}.thumbs-mobile-2r .whatsThisSyndicated{font-family:Arial, Verdana, sans-serif;font-size:9px;font-weight:normal;color:black;text-decoration:none;padding:0;}.thumbs-mobile-2r div.syndicatedItem:hover,.thumbs-mobile-2r  div.syndicatedItem.videoCube_hover{background-color:transparent;}.thumbs-mobile-2r div.syndicatedItem:hover .thumbBlock{border-color:inherit;}.thumbs-mobile-2r .videoCube.syndicatedItem{background-color:transparent;border-color:#D6D5D3;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-width:1px;}.thumbs-mobile-2r .videoCube.syndicatedItem.horizontal{border-style:none;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbBlock{border-color:darkgray;border-width:0px;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbnail-overlay{background-image:null;background-position:5% 5%;}.thumbs-mobile-2r .videoCube.syndicatedItem.vertical{border-style:solid none none none;}.thumbs-mobile-2r .videoCube.syndicatedItem .video-duration{display:none;left:36px;}.thumbs-mobile-2r .videoCube.syndicatedItem .video-label-box{margin-left:0px;}.thumbs-mobile-2r .syndicatedItem{background-color:transparent;}.thumbs-mobile-2r .syndicatedItem .video-description{max-height:2.2em;*height:2.2em;color:black;font-family:Arial, Helvetica, sans-serif;font-size:10px;font-weight:normal;line-height:11px;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-title{max-height:48.0px;*height:48.0px;color:#333;font-family:Arial, Helvetica, sans-serif;font-size:12.0px;line-height:16.0px;font-weight:bold;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .sponsored{color:#9C9A9C;font-size:9px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .sponsored-url{color:green;font-size:9px;font-weight:bold;text-decoration:underline;}.thumbs-mobile-2r .syndicatedItem .video-category{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-duration-detail{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-external-data{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-published-date{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-rating{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-uploader{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .video-views{color:black;font-size:10px;font-weight:normal;text-decoration:none;}.thumbs-mobile-2r .syndicatedItem .branding{color:#999999;font-size:11.0px;font-weight:bold;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;text-align:left;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbBlock .branding{text-align:left;background-color:transparent;display:none;left:0px;color:black;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;background-image:null;}.thumbs-mobile-2r .videoCube.syndicatedItem .thumbBlock .static-text{text-align:left;background-color:black;display:none;color:white;font-size:10px;font-weight:normal;text-decoration:none;font-family:Arial, Helvetica, sans-serif;}.thumbs-mobile-2r .videoCube.syndicatedItem:hover .thumbnail-overlay,.thumbs-mobile-2r  .videoCube_hover.syndicatedItem .thumbnail-overl{:null;}.thumbs-2r img {
+	max-width: none;
+}
+
+/* override bootstrap default span definitions */
+.thumbs-2r [class*="span"] {
+    float:none;
+    margin-left:0px;
+}
+
+
+.thumbs-2r .trc_rbox_header {
+	line-height: 1.2em;
+	position: relative;
+	height: auto;
+}
+
+.thumbs-2r .trc_rbox_header_span .trc_header_right_column {
+	display: none;
+	background: transparent;
+	height: auto;
+}
+
+.thumbs-2r .trc_rbox_header .logoDiv {
+        font-size: inherit;
+	line-height: 1.2em;
+}
+
+.thumbs-2r .logoDiv a {
+    vertical-align: baseline;
+}
+
+.thumbs-2r .logoDiv a span {
+    display: inline;
+    color: #000000;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.thumbs-2r .videoCube a {
+    padding: 0;
+}
+
+.thumbs-2r .thumbBlock {
+    margin: 0;
+}
+
+.trc_elastic .thumbs-2r .video-label-box {
+    height: 76.0px;
+}
+
+.thumbs-2r .videoCube .video-label-box {
+    margin-top: 5px;
+}
+
+.thumbs-2r .videoCube .video-label-box .video-title {
+    text-decoration: none;
+    margin: 0;
+}
+
+.thumbs-2r .videoCube:hover .video-label-box .video-title {
+    text-decoration: underline;
+}
+
+.thumbs-2r .video-label-box .branding {
+    display: block;
+}
+
+.thumbs-2r .syndicatedItem .branding {
+    line-height: 19.0px;
+}
+.thumbs-2r .trc_header_left_column {
+	background: transparent;
+	display: inline;
+	height: auto;
+}
+
+.thumbs-2r .trc_rbox_header .trc_header_ext {
+	position: relative;
+	top: auto;
+	right: auto;
+}
+.thumbs-mobile-2r img {
+	max-width: none;
+}
+
+/* override bootstrap default span definitions */
+.thumbs-mobile-2r [class*="span"] {
+    float:none;
+    margin-left:0px;
+}
+
+
+.thumbs-mobile-2r .trc_rbox_header {
+	line-height: 1.2em;
+	position: relative;
+	height: auto;
+}
+
+.thumbs-mobile-2r .trc_rbox_header_span .trc_header_right_column {
+	display: none;
+	background: transparent;
+	height: auto;
+}
+
+.thumbs-mobile-2r .trc_rbox_header .logoDiv {
+        font-size: inherit;
+	line-height: 1.2em;
+}
+
+.thumbs-mobile-2r .logoDiv a {
+    vertical-align: baseline;
+}
+
+.thumbs-mobile-2r .logoDiv a span {
+    display: inline;
+    color: #000000;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+.thumbs-mobile-2r .videoCube a {
+    padding: 0;
+}
+
+.thumbs-mobile-2r .thumbBlock {
+    margin: 0;
+}
+
+.trc_elastic .thumbs-mobile-2r .video-label-box {
+    height: 64.0px;
+}
+
+.thumbs-mobile-2r .videoCube .video-label-box {
+    margin-top: 5px;
+}
+
+.thumbs-mobile-2r .videoCube .video-label-box .video-title {
+    text-decoration: none;
+    margin: 0;
+}
+
+.thumbs-mobile-2r .videoCube:hover .video-label-box .video-title {
+    text-decoration: underline;
+}
+
+.thumbs-mobile-2r .video-label-box .branding {
+    display: block;
+}
+
+.thumbs-mobile-2r .syndicatedItem .branding {
+    line-height: 16.0px;
+}
+.thumbs-mobile-2r .trc_header_left_column {
+	background: transparent;
+	display: inline;
+	height: auto;
+}
+
+.thumbs-mobile-2r .trc_rbox_header .trc_header_ext {
+	position: relative;
+	top: auto;
+	right: auto;
+}
+</style><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/roundtrip.js" type="text/javascript" async="true"></script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/TANGANKPQJFAXD655NREJ4" type="text/javascript" async="true"></script><div style="width: 1px; height: 1px; display: inline;"><img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out_005.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out_002" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out_003.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out_002.html" height="1" width="1">
+<img alt="" style="display:none" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/tr" height="1" width="1"><img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/a.html" height="1" width="1">
+<img style="border-style:none;" alt="" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/out_004.html" height="1" width="1">
+<img src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/seg.html" height="1" width="1">
+</div></head>
+<body class="v3"><noscript><meta HTTP-EQUIV="refresh" content="0;url='http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/?PageSpeed=noscript'" /><style><!--table,div,span,font,p{display:none} --></style><div style="display:block">Please click <a href="http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/?PageSpeed=noscript">here</a> if you are not redirected within a few seconds.</div></noscript>
+<div id="doc4" class="yui-t7">
+<div id="hd">
+<div id="htgHeader">
+<div class="logo">
+<h1 id="printH1">How-To Geek</h1><a href="http://www.howtogeek.com/" class="home"><script pagespeed_no_defer="">(function(){var g=encodeURIComponent,h=window,k=document,l="width",m="documentElement",n="height",p="length",q=this,r=function(b,d){var a=b.split("."),c=q;a[0]in c||!c.execScript||c.execScript("var "+a[0]);for(var e;a[p]&&(e=a.shift());)a[p]||void 0===d?c[e]?c=c[e]:c=c[e]={}:c[e]=d};var t=function(b){var d=b[p];if(0<d){for(var a=Array(d),c=0;c<d;c++)a[c]=b[c];return a}return[]};var u=function(b){var d=h;if(d.addEventListener)d.addEventListener("load",b,!1);else if(d.attachEvent)d.attachEvent("onload",b);else{var a=d.onload;d.onload=function(){b.call(this);a&&a.call(this)}}};var v,w=function(b,d,a,c,e){this.f=b;this.h=d;this.i=a;this.c=e;this.e={height:h.innerHeight||k[m].clientHeight||k.body.clientHeight,width:h.innerWidth||k[m].clientWidth||k.body.clientWidth};this.g=c;this.b={};this.a=[];this.d={}},x=function(b,d){var a,c,e=d.getAttribute("pagespeed_url_hash");if(a=e)if(a=!(e in b.d))if(0>=d.offsetWidth&&0>=d.offsetHeight)a=!1;else{c=d.getBoundingClientRect();var f=k.body;a=c.top+("pageYOffset"in h?h.pageYOffset:(k[m]||f.parentNode||f).scrollTop);c=c.left+("pageXOffset"in
+h?h.pageXOffset:(k[m]||f.parentNode||f).scrollLeft);f=a.toString()+","+c;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.e[n]&&c<=b.e[l])}a&&(b.a.push(e),b.d[e]=!0)};w.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&x(this,b)};r("pagespeed.CriticalImages.checkImageForCriticality",function(b){v.checkImageForCriticality(b)});r("pagespeed.CriticalImages.checkCriticalImages",function(){y(v)});var y=function(b){b.b={};for(var d=["IMG","INPUT"],a=[],c=0;c<d[p];++c)a=a.concat(t(k.getElementsByTagName(d[c])));if(0!=a[p]&&a[0].getBoundingClientRect){for(c=0;d=a[c];++c)x(b,d);a="oh="+b.i;b.c&&(a+="&n="+b.c);if(d=0!=b.a[p])for(a+="&ci="+g(b.a[0]),c=1;c<b.a[p];++c){var e=","+g(b.a[c]);131072>=a[p]+e[p]&&(a+=e)}b.g&&(e="&rd="+g(JSON.stringify(z())),131072>=a[p]+e[p]&&(a+=e),d=!0);A=a;if(d){c=b.f;b=b.h;var f;if(h.XMLHttpRequest)f=new XMLHttpRequest;else if(h.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(s){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(B){}}f&&(f.open("POST",c+(-1==c.indexOf("?")?"?":"&")+"url="+g(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}},z=function(){var b={},d=k.getElementsByTagName("IMG");if(0==d[p])return{};var a=d[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var c=0;a=d[c];++c){var e=a.getAttribute("pagespeed_url_hash");e&&(!(e in b)&&0<a[l]&&0<a[n]&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a[l]>=b[a.src].k&&a[n]>=b[a.src].j)&&(b[e]={rw:a[l],rh:a[n],ow:a.naturalWidth,oh:a.naturalHeight})}return b},A="";r("pagespeed.CriticalImages.getBeaconData",function(){return A});r("pagespeed.CriticalImages.Run",function(b,d,a,c,e,f){var s=new w(b,d,a,e,f);v=s;c&&u(function(){h.setTimeout(function(){y(s)},0)})});})();pagespeed.CriticalImages.Run('/ngx_pagespeed_beacon','http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/','_73-CRQL3k',true,false,'kzHTjYkZh4k');</script><img src="data:image/gif;base64,R0lGODlhAQABAIAAADoSLQAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="How-To Geek" pagespeed_url_hash="1811801075" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></a>
+<div class="logo2">
+<div id="div-gpt-ad-1342044737928-2">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-2');</script><div id="div-gpt-ad-1342044737928-2"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="bd">
+<div class="yui-g" id="htgNavBar2" style="min-height:37px;">
+<div id="htgNavBar">
+<a href="http://www.howtogeek.com/" title="How-To Geek Home" id="home"></a>
+<ul id="mnuMainul">
+<li>
+<a id="mnuMainMenu" href="#" class="arrow">ARTICLES</a>
+<div class="subMenu">
+<div class="subMenuSection">
+<h4>SECTIONS</h4>
+<ul style="width:100px;">
+<li><h2><a href="http://www.howtogeek.com/t/windows/">WINDOWS</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/linux/">LINUX</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/office/">OFFICE</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/wallpaper/">WALLPAPER</a></h2></li>
+</ul>
+<ul>
+<li><h2><a href="http://www.howtogeek.com/t/mobile/">MOBILE</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/hardware/">HARDWARE</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/infotech/">IT TECH</a></h2></li>
+<li><h2><a href="http://www.howtogeek.com/t/news/">NEWS</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:20px;">
+<div class="submenudetail sm300" onclick="window.location='/t/features'">
+<div id="ftquest"></div>
+<span>FEATURED ARTICLES</span>
+<p>Read just our best, feature-length articles without all the extra stuff.</p><div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+<div onclick="window.location='http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/'" class="submenudetail sm300">
+<div id="gtquest"></div>
+<span>GEEK TRIVIA</span>
+<p>How to Add Screensavers to Ubuntu 12.04</p>
+<div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="subMenuSection" style="margin-left:30px;">
+<!--<div class="submenudetail sm330" onclick="window.location='/books/windows-8/'">
+								<img src="http://www.howtogeek.com/geekers/up/sshot51103afc72508.png">
+								<span>HOW-TO GEEK BOOKS</span><p>Read our first book, the HTG Guide to Windows 8, or check our upcoming books.</p>
+								<div style="clear:both;"></div>
+							</div>-->
+<ul style="margin-top:0px;">
+<li><h2><a style="color:#CCC;" href="http://www.howtogeek.com/about/" rel="nofollow">ABOUT</a></h2></li>
+<li><h2><a style="color:#CCC;" href="http://www.howtogeek.com/contact/" rel="nofollow">CONTACT</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+<ul>
+<li><a class="mnuMainItem" href="http://discuss.howtogeek.com/">DISCUSSION</a></li>
+</ul>
+<ul id="mnuMainul2">
+<li><a id="mnuSubNow" class="mnuMainItem arrow" href="#">SUBSCRIBE</a>
+<div class="subMenu" style="padding-bottom:10px">
+<div class="subMenuSection" style="margin-left:20px;">
+<h4>FOLLOW US</h4>
+<ul style="width:100px;">
+<li><h2><a class="icon-twitter" href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeeksite&amp;tw_p=followbutton&amp;variant=2.0" target="_blank">TWITTER</a></h2></li>
+<li><h2><a class="icon-google-plus" href="http://plus.google.com/+howtogeek">GOOGLE+</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:0px;">
+<h4>&nbsp;</h4>
+<ul style="width:100px;">
+<li><h2><a class="icon-facebook" href="http://facebook.com/thehowtogeek" rel="nofollow">FACEBOOK</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:20px;">
+<div id="subemsub" class="submenudetail sm400 noclick" style="padding-bottom:20px">
+<div id="emquest"><div class="fs1" aria-hidden="true" data-icon=""></div></div>
+<span>GET UPDATES BY EMAIL</span>
+<form action="/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="topmenu" type="hidden">
+<input id="fromaddress" name="emailaddress" style="z-index:-9;left:-1500;top:-1500;height:1px;width:1px;position:absolute;" type="text">
+<p>Enter your email below to get exclusive access to our best articles and tips before everybody else.</p>
+<p><input id="from" name="email" value="Enter Your Email Here" style="width:200px;color:#BBB;margin-left:59px;" type="text"><input id="sub1" name="sub1" value="Get Your Newsletter Now" style="background:#55A8DF;margin-left:59px;width:212px;margin-top:6px;" type="submit"></p>
+<div style="clear:both;"></div>
+</form>
+</div>
+</div>
+<div class="subMenuSection" style="margin-left:20px;">
+<h4>RSS</h4>
+<ul style="width:130px;">
+<li><h2><a class="icon-feed" href="http://feeds.howtogeek.com/howtogeek">ALL ARTICLES</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/features/feed/" rel="nofollow">FEATURES ONLY</a></h2></li>
+</ul>
+</div>
+<div class="subMenuSection" style="margin-left:0px;">
+<h4>&nbsp;</h4>
+<ul style="width:150px;">
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/t/reviews/feed/" rel="nofollow">GADGET REVIEWS</a></h2></li>
+<li><h2><a class="icon-feed" href="http://www.howtogeek.com/trivia/feed/" rel="nofollow">TRIVIA</a></h2></li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+<ul>
+<li><a class="mnuMainItem" href="http://www.howtogeek.com/t/gadgets">GADGETS</a></li>
+</ul>
+<ul>
+<li><a class="mnuMainItem" href="http://www.howtogeek.com/school/">GEEK SCHOOL</a></li>
+</ul>
+<ul>
+<li>
+<a href="https://twitter.com/howtogeeksite" class="twitter-follow-button mnuTwitterButton" data-show-count="false">Follow @howtogeeksite</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>
+</li>
+</ul>
+<div id="searchwrapper" class="searchinactive">
+<span id="searchhover">SEARCH</span>
+<form action="/search/" method="get" id="sea">
+<input name="q" id="s" type="text">
+<input id="searchsubmit" value="" style="" type="submit">
+</form>
+</div>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both"></div>
+</div>
+<div class="yui-g" id="headerpanel"></div>
+<div class="yui-ge">
+<div class="yui-u first">
+<div class="content" id="htgArticle">
+<h1 id="printHeader" style="display:none">How-To Geek</h1>
+<!-- abovepost -->
+<div class="thepost" id="post-114027">
+<div style="width:650px;margin-bottom:0px;margin-top:-10px;min-height:24px;">
+<div style="clear:both;"></div>
+</div>
+<h2><a href="http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/" rel="bookmark" title="How to Add Screensavers to Ubuntu 12.04">How to Add Screensavers to Ubuntu 12.04</a></h2>
+<div class="thecontent">
+<!-- google_ad_section_start -->
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image264.png" alt="image" pagespeed_url_hash="3984890486" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="277" width="650" border="0"></p>
+<p>Ubuntu 12.04 doesn’t ship with any screen savers, just a black screen
+ that appears when your system is idle. If you’d rather have 
+screensavers, you can swap gnome-screensaver for XScreenSaver.</p>
+<p>Screensavers were actually removed back in Ubuntu 11.10. Ubuntu uses 
+gnome-screensaver and inherited the change from upstream GNOME. The 
+GNOME developers think a black screen that puts your monitor into 
+lower-power mode is optimal.</p>
+<div id="div-1342-1" style="margin-top:10px;padding-top:10px;border-top:1px solid #CCC;margin-bottom:10px;border-bottom:1px solid #CCC;"><script type="text/javascript">tmntag.adTag('div-1342-1');</script><div id="div-1342-1"></div></div><h3>Installing XScreenSaver</h3>
+<p>First, fire up a terminal from Ubuntu’s Dash.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image265.png" alt="image" pagespeed_url_hash="4279390407" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="243" width="650" border="0"></p>
+<p>Next, run the following command to uninstall gnome-screensaver:</p>
+<blockquote><p>sudo apt-get remove gnome-screensaver</p></blockquote>
+<p>Install XScreenSaver and some additional screensaver packages with the following command:</p>
+<blockquote><p>sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra</p></blockquote>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image266.png" alt="image" pagespeed_url_hash="278923032" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="200" width="650" border="0"></p>
+<h3>Configuring Your Screensaver</h3>
+<p>After installation, perform a search in the Dash for Screensaver. 
+Launch the Screensaver utility and use it to configure XScreenSaver and 
+select your screensaver settings.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image267.png" alt="image" pagespeed_url_hash="573422953" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="225" width="650" border="0"></p>
+<p>The Screensaver utility will prompt you to stop the gnome-screensaver
+ process and launch the xscreensaver background process when you start 
+it.</p>
+<p>By default, XScreenSaver will choose a random screensaver each time 
+it starts. You can specify the screensavers it chooses from or enable 
+“Only One Screensaver” mode to always use your favorite screensaver.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image268.png" alt="image" pagespeed_url_hash="867922874" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="529" width="650" border="0"></p>
+<p>XScreenSaver doesn’t embrace gnome-screensaver’s minimalism — many 
+XScreenSaver screensavers offer a large amount of options you can tweak 
+by clicking the Settings button.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image269.png" alt="image" pagespeed_url_hash="1162422795" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="661" width="650" border="0"></p>
+<h3>Adding to Startup</h3>
+<p>To actually use the screensavers, you’ll want XScreenSaver to start 
+in the background each time you log in. If it doesn’t start, it can’t 
+notice your system is idle and launch screensavers.</p>
+<p>Get started by launching the Startup Applications utility from the Dash.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image270.png" alt="image" pagespeed_url_hash="2731674789" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="224" width="650" border="0"></p>
+<p>Add a startup program with the following command. The name and comment here can be anything you like.</p>
+<blockquote><p>xscreensaver -nosplash</p></blockquote>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image271.png" alt="image" pagespeed_url_hash="3026174710" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="350" width="650" border="0"></p>
+<h3>Replacing Lock Screen</h3>
+<p>Unity calls gnome-screensaver when you click the Lock Screen option 
+in the system menu or use the Ctrl+Alt+L keyboard shortcut. To lock your
+ screen with XScreenSaver, you can create a custom keyboard shortcut 
+that calls XScreenSaver instead.</p>
+<p>First, open the Keyboard utility from the Dash.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image272.png" alt="image" pagespeed_url_hash="3320674631" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="248" width="650" border="0"></p>
+<p>Click the Shortcuts tab, select the Custom shortcuts section, and 
+click the + button. Specify the following command for your custom 
+shortcut:</p>
+<blockquote><p>xscreensaver-command -lock</p></blockquote>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image273.png" alt="image" pagespeed_url_hash="3615174552" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="382" width="650" border="0"></p>
+<p>Click the word “disabled” after creating your custom shortcut and key
+ in your desired keyboard shortcut when the words “new accelerator” 
+appear – Ctrl+Alt+L is the default shortcut that locks your computer. If
+ you use the default combination, you’ll be prompted to reassign it away
+ from the default gnome-screensaver shortcut.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image274.png" alt="image" pagespeed_url_hash="3909674473" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="342" width="650" border="0"></p>
+<p>Use the keyboard shortcut whenever you want to lock your system. 
+Unfortunately, the Lock Screen option in Unity’s system menu doesn’t 
+work with XScreenSaver.</p>
+<h3>Reverting Your Changes</h3>
+<p>Reverting these changes is simple. Just run these commands to uninstall XScreenSaver and reinstall gnome-screensaver:</p>
+<blockquote><p>sudo apt-get remove xscreensaver xscreensaver-data-extra xscreensaver-gl-extra<br>
+sudo apt-get install gnome-screensaver</p></blockquote>
+<p>If you reassigned the Ctrl+Alt+L keyboard shortcut, go back into the 
+Keyboard configuration window, delete your custom shortcut, and reassign
+ Ctrl+Alt+L to the Lock screen option under System.</p>
+<p><img style="background-image: none; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; padding-top: 0px; border: 0px;" title="image" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/image275.png" alt="image" pagespeed_url_hash="4204174394" onload="pagespeed.CriticalImages.checkImageForCriticality(this);" height="342" width="650" border="0"></p>
+<hr>
+<p>Ubuntu’s developers plan on writing a new screensaver system to 
+replace gnome-screensaver and adding it to Ubuntu by default. In the 
+future, installing XScreenSaver will not be necessary.</p>
+<!-- google_ad_section_end -->
+</div>
+<div style="clear:both;height:0px;"></div>
+<!-- discourse comments begin -->
+<style>#discusslink{color:#585858;text-decoration:none}#discusslink:hover{color:#00f;text-decoration:none}.commenttext img{max-width:618px}</style>
+<div style="width:650px;padding-top:10px;"><span style="font-family:bebas_neueregular;font-size:19px;position:relative;top:-9px;padding-right: 10px;float: left;background-color:#FFF;font-weight:normal;color: #868686;"><a id="discusslink" href="http://discuss.howtogeek.com/">JOIN THE DISCUSSION</a></span><div style="border-top:4px solid #CCC;"></div></div>
+<div style="clear:both;height:0px;"></div>
+<div style="margin-top:0px;/* margin-bottom:10px; */padding: 10px;background: #DDD;width: 630px;border: 1px solid #CCC;border-bottom: none;">
+<div id="pdfdownload" style="display:none;float: right;padding: 2px 6px;font-size: 11px;line-height: 22px;color: #333;font-weight: bold;font-weight: bold;margin-top: -2px;">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAABGdBTUEAALGOfPtRkwAAAvdQTFRFDAwMDQ0NFRUVFhYWFxcX////Dg4OEBAQGRkZCQkJDw8PAQAABgYCCwEBDAAADAICDQAADgAADgEBDwEBEAEBEAIBCwEBEwsBTExMRQUFbW1teHh4enp6goKCYwYGZjAwaW5ua2trb29vcnJydHR0dXV1dnZ2d3d3ZggIdnZ2jo6OgUcNsrKypjgIp29Mqampqqqqqqqsq6urrKysr6+vsbGxsrKys7Ozq0AJxsbG2tra3NzctgICtwICuAICuQEBvQcHwAAAwAEBwAwMxAEBxQICxgICxiAgxiIiyAICyBAQy8vLzMzMzs7O0dHR08TC1hUB1+Ti2IZ82L242gAA2lRB2tra2wAA29vb3AAA3JiL3Nzc3QAA3Uo43WRV3Y6E3lJB3lRF3lhH3oBz3t7e3vDy4Ew44Fpb4Ftb4Gdp4Glr4VE/4VdX4VlG4Vtb4V5e4eHh4gAA4l5f4l9f4mJi4sXA4wAA41xL42Vl42Zm4+Pj4/b14/z85AAA5E485Kmc5OTk5O7w5Pn55Pv75Pz85P7+5gAA5kAr5kAu5kUz5svF5uTk5vb55y8e50w955qQ5+Tk5+bm5+fn6Cgo6MvI6Ojo6Onp6O3u6enp6ff46zUj6z4+611J68nA6+nr6+vp6/P16/n87BwJ7Do67EJC7Ovr7Ozs7O3t7PPz7PP17PXz7QAA7UdH7WdU7e3t7ff37g8D7hEA7hgG7hoI7hwN7ioq7kMt7vDw7vHx7vLz7v7+8J6R8KCT8PDw8PHx8P7+8QAA8Q0A8TU18Ucy8VlZ8fHx8fv78f7+8gsA8l9e8pGE8vLy8vLz8vf48vz98wAA8wgA85aJ88rD8/Pz8/7+9U1N9VZW9aui9fX19ff39f7+9hwN9h0N9mFh9srF9vPx9vb29v7+91pG93xs95mL98S8+AAA+F1L+Kqf+Pj4+P7++ZGE+bmu+fn5+f39+f7++3Nz+7mv+9vV++3r+/n5+/v7+/z8+/7+/Pz8/P7+/fv7/f39/v7+dYGD4AAAADx0Uk5TAAAAAAAACQkKCwsqOVhYWFhYWFhYWFxdiaKnqaurrKysrKysrKysrK6wscnQ0tLS0tLS0tLS0tLV4/b5r4ygEgAAAX9JREFUGNNNkU9LAkEYxt9Z3V13NVSsCKWLpSIdJIkiRCKICII+QZ+gS9+la0QdOnWpiA4d6lJ0C0IQkdQyKxXdWHR31f0z06yu5HMYmB/PPM87M4iFFYaAo+2LioEIdgNiIfE6puQbstIAKHYDeGFAEcKKxT6U3hbaBt0x1DN0ov7HeV6ouMozbjKBwfQQOajdNC6nBbBDHIne2kZ09vQEbd5L/27M8qGQ/3A3Jh4EJ93Aph/3wzux5prl4L7d7S6VUTXCT5mAnEqTysBP1t6tqqHhScZeerY6haw/ltPlL7tsHIK4PBKvceLlaik1nltSNKNv8kfFgPDcmXfcFul4QkXuLLXu6xaiy6aDkd6MHKvdULaqAWIka5ytKnXZpadzMJxCx467V29ZymqLUkKr+paT3Wgzgblf+vRdX4+A/jPC5FPygLSVbNSD5I5evDbC3sUoD0rmPSlkcmFekOMi2J8Wj2kuk3A9DhkWoeIKbRvzXtpNMMIYGIIBBFWHP0uksdW4JD6xAAAAAElFTkSuQmCC" style="
+					    padding-right: 6px;
+					    width: 16px;
+					    height: 16px;
+					    margin-top: 2px;
+					    float: left;" pagespeed_url_hash="1692130506" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+<a href="http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/?format=pdf" rel="nofollow" id="pdfdownloadlink">Download PDF</a></div>
+<!-- Place this tag where you want the +1 button to render. -->
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 300px; height: 24px;"><iframe title="+1" data-gapiattached="true" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/fastbutton.html" name="I0_1415440467678" id="I0_1415440467678" vspace="0" tabindex="0" style="position: static; top: 0px; width: 300px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div>
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">(function(){var po=document.createElement('script');po.type='text/javascript';po.async=true;po.src='https://apis.google.com/js/plusone.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(po,s);})();</script>
+<div style="clear:both;"></div>
+</div>
+<div id="postiddiv" post="114027"></div>
+<div style="clear:both;"></div>
+<div class="articleExtras" style="background: #FEFEFE;border-top:none;">
+<div style="width:450px;float:left;" id="authorinfobox">
+<p style="font-weight:normal;color:#333;"><a href="http://www.howtogeek.com/author/chrishoffman/"><strong>Chris Hoffman</strong></a>
+ is a technology writer and all-around computer geek. He's as at home 
+using the Linux terminal as he is digging into the Windows registry.
+Connect with him on <a href="https://plus.google.com/107865379603964146316?rel=author">Google+</a>.</p>
+</div>
+<div style="width:130px;float:right;">
+<ul class="normul" style="margin-bottom:6px;">
+<li>Published 05/16/12</li>
+<li><span id="pv3">135,104 Views</span></li>
+</ul>
+<div style="margin-left:-14px;"><a href="https://twitter.com/chrisbhoffman" class="twitter-follow-button" data-show-count="false"></a></div>
+</div>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both;"></div>
+<div style="width:650px;margin-bottom:0px;">
+<div id="div-1342-2">
+<script type="text/javascript">tmntag.adTag('div-1342-2');</script><div id="div-1342-2"></div>
+</div>	<div style="clear:both;"></div>
+</div>
+<div class="below-post-features" style="height:528px;overflow:hidden;">
+<div class=" trc_related_container trc_spotlight_widget" id="taboola-below-article" style="height:500px;"><div style="display: none;" class="trc_rbox_container"><div><div style="overflow: hidden; display: none;" class="trc_rbox thumbs-2r" id="trc_wrapper_52597"></div></div></div></div>
+<script type="text/javascript">window._taboola=window._taboola||[];_taboola.push({mode:'thumbs-2r',container:'taboola-below-article',placement:'below-article'});</script>
+<script>window._taboola=window._taboola||[];_taboola.push({flush:true});</script>
+</div>
+<div style="clear:both;"></div>
+<div id="showcomments" class="showcomments" style="">
+<a id="sc1" href="http://www.howtogeek.com/114027/how-to-add-screensavers-to-ubuntu-12.04/?showcomments=1#comments">SHOW ARCHIVED READER COMMENTS (10)</a>
+</div>
+<div id="commentsWrap" post="114027" replyto="0">
+<div id="sc2">
+<!-- You can start editing here. -->
+<h3 id="comments">Comments <span id="commentnumber">(10)</span></h3>
+<ol class="commentlist">
+<li class="comment-def" id="comment-182217">
+<div class="commentmetadata date"><a href="#comment-182217" title="">May 16, 2012</a></div>
+<div class="commentauthor"><div class="ca2">cam2644</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>The GNOME developers think a black screen 
+that puts your monitor into lower-power mode is optimal……….but a 
+screensaver does have a purpose for many users. Ubuntu 12.04 is a good 
+OS but it is generally more streamlined making individual preferences 
+less important. That’s why articles like yours save us a lot of time and
+ effort.<br>
+I’m using Mint Debian on another machine and find it more user friendly for individual preferences.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-182391">
+<div class="commentmetadata date"><a href="#comment-182391" title="">May 18, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Diego A.</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>I’m using Ubuntu since the 7.04 version, 
+each time I want to upgrade to a newer version, I finish reinstalling 
+everything again…, I have to start over enabling Compiz, The Cube, 
+looking for themes, installing the TV card, why a wonderfull OS like 
+Ubuntu wants to avoid that users desire to upgrade or even reinstall the
+ OS?, why everything was easier before, and now Ubuntu has less 
+customization and more upgrade issues?. Well, even you could think other
+ thing about my comments, I love Ubuntu….</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-182496">
+<div class="commentmetadata date"><a href="#comment-182496" title="">May 19, 2012</a></div>
+<div class="commentauthor"><div class="ca2">KeithTheMoth</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>VERY IMPORTANT – Once you have created your 
+custom shortcut and clicked Apply, in order to be able assign the actual
+ shortcut keys to it, you must click on the word “disabled” and wait for
+ “disabled” to change to “new accelerator”. If you click on the name of 
+your custom shortcut or anywhere else, the edit dialog for the custom 
+shortcut will just keep popping up and you won’t be able to make the key
+ assignment.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-182810">
+<div class="commentmetadata date"><a href="#comment-182810" title="">May 24, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Willie</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Thank you very much. It works!</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-183264">
+<div class="commentmetadata date"><a href="#comment-183264" title="">May 30, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Brian</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>@KeithTheMoth – dude, THANK YOU FOR THAT COMMENT!!</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-183562">
+<div class="commentmetadata date"><a href="#comment-183562" title="">June 3, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Chris Hoffman</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>@KeithTheMoth, Brian</p>
+<p>Thanks for adding that! I’ve clarified this in the post.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-185400">
+<div class="commentmetadata date"><a href="#comment-185400" title="">June 26, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Brian Smith</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>I’m trying to get around the Ubuntu 12.04 
+requirement of having to enter my password when I wake the laptop up. 
+There’s one answer out there refering to System -&gt; Preferences, but 
+that seems to be gone. Will setting up the screensaver as you’ve 
+described override the password requirement? I’m pretty sure it won’t, 
+but thought I’d ask :)</p>
+<p>I don’t need a password because this is an almost empty laptop used only for web access.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-185652">
+<div class="commentmetadata date"><a href="#comment-185652" title="">June 29, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Damian Mann</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Someone needs to create some screensavers 
+for Ubuntu 12 + that actually look good. Electricsheep seems to be the 
+only option. It’s a great screensaver. But, I like to switch things up 
+once in a while.<br>
+I tried the screensavers from the software centre. They are terrible. They look like they were created in the 80’s or something.<br>
+I’d even use the bubbles one from windows if it was available for 
+Ubuntu. It’s kind of weird how little goes into things looking cool on 
+Ubuntu. They need some graphic designers on the team. People who spend 
+all daywriting code have little or no talent when it comes to 
+eye-popping graphics and screensavers.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-def" id="comment-186254">
+<div class="commentmetadata date"><a href="#comment-186254" title="">July 7, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Aleen</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>ubuntu can be modified alot ive found adding
+ the mint cinnamon or mate, on top of this screensaver and Cairo dock 
+change makes 12.04 personalize able to an extreme.</p>
+</div>
+</li><!-- #comment-## -->
+<li class="comment-alt" id="comment-186407">
+<div class="commentmetadata date"><a href="#comment-186407" title="">July 9, 2012</a></div>
+<div class="commentauthor"><div class="ca2">Wes</div></div>
+<div style="clear:both;"></div>
+<div class="commenttext"><p>Any way to use my own photos as a screensaver in Ubuntu? Windows has allowed that since the 1800’s.</p>
+</div>
+</li><!-- #comment-## -->
+</ol>
+<div style="clear:both;"></div>
+</div>
+<div id="respond"></div>
+</div>
+<div style="clear:both;"></div>
+<div class="contsep"></div>
+<div class="contsep"></div>
+</div>
+<div style="clear:both;"></div>
+<img src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/stats.png" alt="" id="htgstats" style="display:none"></div>
+</div>
+<div class="yui-u">
+<div class="sidebar">	<div onclick="window.location='http://www.howtogeek.com/trivia/which-game-company-gave-away-sport-gloves-as-part-of-a-legal-settlement/'" class="triviahomebox" style="margin-top:20px;">
+<h4>GEEK TRIVIA</h4>
+<a href="http://www.howtogeek.com/trivia/which-game-company-gave-away-sport-gloves-as-part-of-a-legal-settlement/" class="title" rel="bookmark">Which Game Company Gave Away Sport Gloves As Part Of A Legal Settlement?</a>
+</div>
+<div class="sidebar-glossary">
+<h4 class="sidebarh4">DID YOU KNOW?</h4><div class="glossaryhomebox" style="padding:10px;"><p>Unlike
+ dogs, coyotes’ rear paws land in the foot prints of their front paws 
+when running, leaving a very uniform and distinguishable trail in the 
+process.</p>
+</div>
+</div>
+<div id="side78"><!-- tmnp.howtogeek 300x250 ATF -->
+<div id="div-gpt-ad-1342044737928-1">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-1');</script><div id="div-gpt-ad-1342044737928-1"></div>
+</div></div>	<div class="sidebar-glossary lazyloaddiv">
+<h4 class="sidebarh4">BEST OF HOW-TO GEEK</h4>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/172258/htg-reviews-the-doxie-go-simple-computerless-scanning/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHQAAAgICAwEAAAAAAAAAAAAAAAYEBQIIAQMHCf/EADYQAAIABQICBwYEBwAAAAAAAAECAAMEBREGEiExBxNBUXGRoQgiQoGx0RRhksEVIzJDUqKy/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AGRKIjG1nQjlhiPpEhJdzU/yq6oBHH3ZjfeGeXRSduerwMe7uIGT5RLprfLmzAnVjlngx+0AvUE+5TyZcypZyBwDornzIi0pplbLXG9T+XVKPpF9TacrZuDKoZ5B7dhA8zFpSaMuDkF5Ik57Wmj9swCjMn15PulF78Aj94lUVXWSkYTVRx3DgYdqfREzIM6tRR2hVLfXEWMnSFslKWnzZr44niFEB5uLxOkMN9OSM9jcI5N1lszNLkEAnJB74YL0ul3uJo7VdaCpnqpMyllVSTJqAHG7bnOOI8D4xC/hlMDwRyDx5CAta3VfRdYpnVXC42WjVCQTVVkrIx27GcufksLt59pDoZsSMsi/fi2X+3Q0TnPgSFX1j5+0dEa2cyUtJWVrHJCKWZgPBeflDbYujPW9z2NQaQqVD8pk+WJPzy5Xh+cBs7ePbG0spZbBpG9XFhyM6Ykkf674SL17XGvqvctl0nZ7evY1Q7TXHmy/8wmWroH13WorVtTbqKX/AImduYfpBHrDZa/ZzpxhrtqOrm4/qWTShCPmzN9IBNvnT50yXfcs3WUq3yz8FHKSWV+aqG9YRb5qDUl83NetYXu5k8+tnO48mYxszZehPQVGw/EW6orWX4qioceiFR6Q6WPSOk7M6vbtK2mU68pgp13/AKjkwHgvsq0c1ukUVVLaZ6UaUU1airdmPA4wB8OS2PkDG2iGSV91xgcBkZivpqtgpChE7srwHrGQm1fZsPgB9oBWpLfRSk6qTTpTqRgrLQKDy7vAeUWMmTjHvqw3K3HvU5B9YIICTTyds1H7UAAzyxg4+sTETMtUwGIGM558MQQQEyQwVmZlxvBBI4H5d0Z9VLLbl2ty4EYgggO5ZEjGeqRwRjiB94BTSuxQB+ZgggP/2Q==" pagespeed_url_hash="2869969005" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/172258/htg-reviews-the-doxie-go-simple-computerless-scanning/" class="title" rel="bookmark">HTG Reviews the Doxie Go: Simple Computerless Scanning</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/109709/how-to-be-your-own-personal-clone-army-with-a-few-pics-and-some-photoshop/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAABgcABAUIAv/EADIQAAIBAwMDAwIFAgcAAAAAAAECAwQFEQAGIRITMSJBUQehCBRhcYEVQhcjMlKR0fD/xAAYAQADAQEAAAAAAAAAAAAAAAACBAUGAP/EACoRAAEDAgUCBgMBAAAAAAAAAAECAxEABAUSIUFRE2EGMXGhsfAUI4Hh/9oADAMBAAIRAxEAPwBg0O4KNpe20qhgcedbsNXDKoKsp/Y65U/rm4qmvlgp64NSrKsEbJ0ockHByefbVW0/UPc9qu8cUlxmeKOUdyNgGyoPI+fGp6bdYTJInjeqSwAQYMHyOx9DvXWlZ3Go5vywUzdtu2D46scZ/nSG31ZqC20S3mxVl1kvywpNUTyu6sjtknzgEZDcc/Gs9PqbfbvVNFae/ToqdUjTTsQv6YB+f117r9zvd7SaSpgK3CNuxM3s6dQYHOfPj58n50upZSCCINWrHBri4R1W05kzH305p7bUrZ7hte219WgSonpkeRR46iBnWrCQz4Ix8aQS12+LHaBcJ7pdgkwf8vNUEsjlR1FVD5HjH/hqlta/b+3FvFLRLuKpp4Ix3Z5o1UFYxjxgeSSAP3zomHUO6JocUwC5sG+uVBSN41g961t12+suU1+nFfXx11Nd5o6YpUMI6derqRegcesnOT/uUaZX023C269l2+7yhBUsrRVKoMASIxU8e2cA49s6XO6aGup9zTV9sli71Shpqj81mQh1X0vkkYbpXIbwer450NWTZz2+leKLcZj7khlcJKE9TAHkdXB8fbR3DrTJ/YoD1MfNR0J6iQEjWh+8VVqjmpZFp2eNJ+6sZIjCkDhePJJz7nxoTmc96SocDrlJc/y3I1e3s9Eu5Jhbp4yjBXMcT9SK7Akhf0wfudUIaOumn7Rp5O668BhjgYx59vGn0MoySideaK8xFy4cAdyiOBH+++m1Ff0zjSZLpFwzZjx+o9WNE+16hbXvNZ6ljTtSVELOXU9QxyrYxk/H8DQDtpdwbc3PQ1SI9OO6jGTIZPQeoZI4zwODroasqNnb/slPdL5AtuuadYiq6aQrJ1rjHSenBznOCfb51LvLIvZ0Hce3lWyw/wAQt22GttqRKJKSQRMmToN9DRH+Iyrtlz+nVLcZK6GGahlWYQr6u67YTpHPHDHOfbOln9K7VUxWqm3ZUV1KIa6B0kgLDuSLHgM45GCrKPvoZ3t9RqG42dNuy0c6igmVS7ztIkoVSvU4IGT1c4ONB8+8IFkiioWHbTp9ZwCxzk9I9h/A/YaU8P4O/Z22W5cBUDpHHt/agP4+W7P8FlMpJMzwdh3+ijnee86LuXE09BJWpMvZ65nwCMMMqFGR/qPv/dz7AYdHvDa9Pb6WJtt26aZY8TPWdx5C2T7hvGMaat7qtk/4a2doUt0dx/JoW61HeLFR5Hu2c/fSPvVmnuVweqpljSM4XDKVyRxnGn7hKFmFiBzJHxSDVvKJSZPEbUQ7t21Dt2zwNR0yRMeS6jlh75/60FbfuC018VZXAMvpQNwF8ZP2HGpqa0DoCHgE1mWSXGCVUxZJFr7XPSRqMYCrj3JCkf8AIb7awbBvCpko5rDVyP25pFki7fh3PjK+M8ef21NTRXRhae9dZpzIX21FVrvtRrfQVdwFQZmLF5D8+rBP3B/bW/8Ah/8AotHvavqdw32tWl23RS/5wicBpZOD2w39oAILHzggDzkTU0pdoS24kJpuxcU40oq1M06fqZty0QbCr6e1Ui01BSzGGjWEnEYj6WBJOeCT588/rrn6WvkmkaR5gGJ9WBwT86mppe5ZSVVRtLlwNxPlX//Z" pagespeed_url_hash="216691401" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/109709/how-to-be-your-own-personal-clone-army-with-a-few-pics-and-some-photoshop/" class="title" rel="bookmark">How To Be Your Own Personal Clone Army (With a Little Photoshop)</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/129178/why-does-64-bit-windows-need-a-separate-program-files-x86-folder/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAABAABAgMFBgf/xAAwEAACAQIEBQIEBgMAAAAAAAABAgMEEQAFEiEGEyIxQVFxFDKBkRYjYaGxwTNiwv/EABkBAAMBAQEAAAAAAAAAAAAAAAABAwIEBf/EAB8RAAICAgIDAQAAAAAAAAAAAAABAhEDIRIxEyJxUf/aAAwDAQACEQMRAD8A9taUq4gfVG0jHW+o/MDsfQ9x3xB0E6GFFW8jHUyqTpktvtf+PTtjBm4poYI150VQzSAdToNaExrJyyA27hbEgDax3wLLxTRR5XLUyU1dArKZmiMaGQBgXUBQ5sSngkfUG+O3yRPNeGR0jI3NSSLU0UbMOoGwvYWPodz9sCyJGwlaQFGQsAV23UD+d8BHiGiqKmvplieM08c0rvING8cskTWK6jp1RsexNj2vtjIouJMwr1pllp4IUrpEClUcAAywJq6gpIPPO5C9wLbbjnEIwmjplnrIDvpqQUEml9yPF/oRh0qaSoQLP+RJH2Ui4JF7e1r+cYVBxRl1bUrJQpOVkdVZSE0wo1hd7MQblwOgtba+nUL7L6HE5qY76SVDeLqBsD+tjhqV9A4K9ovmo5E6Y5B1zBiAQRpJv/yMRqcxqqVxG0Y1EXb3G39YHSKohXTSzsObGGZL7EGw7+5t/eLDVtYfE0M7SAWLK5AP7HByXwy4P6czNkvDc9QaWkq5RC5kkkpIY1tIVktIryW1XDAXUt3AuNxe2ui4Vqc1mjqaE0s0cvLjWobRIr65BugcgKVjke5t0kE2vuZlPC9HC8c2X1lRE8Sm8PSOY5DAuzAanbqb5ibXOI0XD+W0pjUiaOZHeR2AUc2Ri13bbv1t+m/bGEmy8qRCmj4YFJyIxSA10axiQObSo7oFuD2Bapjuf99+xxTN+E8wgTM5BDLQCExxzSBlQxqskhsTa4CwsfN9HtdqzhGuV44qXMgYXq1nklmhUzIY9AUoAAqkLEqiwsFJ2N9p1nBVNUCCOCtmipIo+QIjywJECSRC76dW6yyCxNhrNrYdS/CfPHfZPK6HhqozCGBFSaqSZ7uJy/KlVtJJu1mI1KN/HkYhT8XUuZUwaClkSOoYJGRy21NzqeM/45HHepHYkbfYnLcgoYqqSZK2pWpl5i6Xtqjd316xtYm4X7dsDfhel+BpY1mqqaCnjKoISoKrqQknb5vyo2v3BUEWO+D2ofpezTkzGgiqmbnGISFI410E3Dsw7eBqVrE2vpJF8ZGbcZjJav4QUlTNI682QxrcBmJIH20n64bKeDctpXinWraEzSLzRBSQRiQ6ldVOhAQt1FwCL6d74qz/AINzbOcxatpqk08ZAULGgI29bnwLD2AwqlQ7hdM3qeZkYSobMD4xtyRRZjSiVbLJbv8Ar6YWFhXqy1bAIKiWknCTA3U7MdyB59xbBQCNFEsBDjUCy+CBuf3GFhYtF2jkzRS2iuZBNqjHSIipDW61Jvvf0+XFEkjlpEqJ3kgkW4qAna48j2NjhYWFLqxY9uh5IhK8UkF0isW1gbeAPqLnAtTHU1NRIyo40NoITcAjv+98LCxmS0UxvdM//9k=" pagespeed_url_hash="1987905680" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/129178/why-does-64-bit-windows-need-a-separate-program-files-x86-folder/" class="title" rel="bookmark">Why Does 64-Bit Windows Need a Separate “Program Files (x86)” Folder?</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/107965/how-to-add-any-application-shortcut-to-windows-explorers-context-menu/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAQQDAQAAAAAAAAAAAAAAAAMEBQYBAgcI/8QANxAAAgEDAgMEBQsFAAAAAAAAAQIDAAQRBSEGEjETFEFRIjJCcYEHFSMzQ1RhkZKToVKxstHh/8QAGgEAAQUBAAAAAAAAAAAAAAAABQABBAYHAv/EACYRAAEEAQMDBAMAAAAAAAAAAAEAAgMRBAUSMSFBUWFxgfATFCL/2gAMAwEAAhEDEQA/APTzarMAx+ab/AGfVj33Gfb64Ofgadi7TuXepFeIcnMUdfSX34PWmmlQ3Amzc6clsEGUZbtpMncYwQPA1KMAylWAIIwQfGurHhNRSccsckayJIrIwDKQNiD8a25x/WPy/wC1lQqqFUBVAwAOgFaXTzJAzW8ayyDGFLcoO/nSseE1FQnygjteCdYiVsl7R1GB5iuJ6TwzLPfRRJKIHkVlWVlyEOOuK7lrhuZ+Hb1buBImaIDlR+cb4zvgf2qEs9GWK9tTun0gwygZGSOmRigWoT5Dc6FkTyG9wCaPVGcI44w5hLG1zjwSASPY8j4VQi4NvYLWJm1qJlwqNmAlmYKBzYMJO+MnqN6xe8F3YnwdbSMgDIjiyCfP6k11q/05zIyqLsL2sjc6TpGN0BA2HTIwNiRuaiGgti2bu+lt3IBVPnlV9HGx2UfzvVmx9SlaNtm/X71Vem06CV27aB7dE/bW7JW5ezvjg8pxZTdf0/h1qRRg6K6g4YZGQQfyPSo/S9Sgng5ZBLAYwFzcOnM/47E/Gnfe7X7zD+4KiKVaXopDvdp96h/cFYF7Z/e4P3BSStN9djRtOldiRhOX1jy4LDOR08Ovhv5mi5jZXtCQhXtlwR7xTTiw297w3f2aXMfNNCYxhgTvtVT0XhXXtB1vTpk1DttOeYCSMMVxuNyp2+Ip26bHkO/O6Ta5vAI5+VCn1CSCVsLYy5ruSDx8Lqd+MwSjBPrZ9Dm9g+FV2SG6aOHs7a5KiFBlLeAD1R4MwI91T19LZiZIrqN3JZymEYkEJuRjfOCRt51VNRlDzgW1n9EiKi9tpNwzbDz7M+7r4VEkdtk3gXXShz59ERaLFKlXFtAPsY/0imUltCfsY/0iiitBjWOvJtVX5RpIbLhe65Y41efECeiPa6/xmqvwFp1qlzCZI48Z8VFFFG8do/XJQrPlcxraPdejeE7WxSFJDFEMAYPKKmtYu0D6ei9GukGeblxuPHwooqhZjAXlaNpUzgxld6SN/JCshMk0CHvcoBe/lhPRdgY/8T/ulbfWGtYu7xXOmFIyQDJeTTP1zuzKTnfoScUUUCxOsQ+91cnD+l//2Q==" pagespeed_url_hash="1172069765" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/107965/how-to-add-any-application-shortcut-to-windows-explorers-context-menu/" class="title" rel="bookmark">How to Add Any Application Shortcut to Windows Explorer’s Context Menu</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/97242/how-to-migrate-windows-7-to-a-solid-state-drive/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAAAAIFBgcIBAMB/8QAMxAAAQMCBAQFAgQHAAAAAAAAAQIDBAURAAYSIQcTMVEUQWFxgSJCFXKRoSMyNENiksH/xAAaAQACAgMAAAAAAAAAAAAAAAAEBQIDAAEG/8QAIREAAgICAgIDAQAAAAAAAAAAAQIAAwQRBSEiMRITMmH/2gAMAwEAAhEDEQA/AHCg8Qs5iY4iFkyq1qnl1Suclp0keiVEHb3/AGxOKdnunvJtV6VWaCvz/EIS20f72ti4HVwYrKTKeaaCh96gL2Hl3wzU1iFVoy32X2nFKUTpQoEpF9rjyxLF5K9VL2jYgmbh450tI0ZHIkmLNYD8OSzIaPRbSwofqMfVpw35tyZAbWuZTXFUuoEEeIi/Te/XUkWB9+vriuGs85io012DUkNyywvQtDosvuLKHW4sQSDscOMLNXL2UHQie2o1dGSPjDW6llvIkyr0laESmVthKloCgApYSdj74qvLPG+dFWmNmaCVnYlwJ0KsfPYf8+cS/irmGLmPhhmhmKloiGiIsrbc1fzOpNjsLEaT8Ee2Kfr1FcZoEarQZxmsONpW7DlJDrKVKCdQQsG6DdXQWPrgLkstse5QD7h+GqPX5CaEy7nfLVfaSqFUmkrV/bdISb9uxPscSAjtbGPKjTHKRK0S2p2Xpv2h0FbDn5XE7gellDurHUjPmcKTqp4qro5J0/Q+oJ+NKgLYynkw47EuOID+TNWV2rO0RdUY8fIp1WfeW1GedVdlTK7aNidJ2FvMgk9LnHdSMyPrj0+OWVv1GO41z6ihA0LSFWWm6ev0C1vUHrgp9URV5DTcxhC2mlFSkOpBFwOx+MP6ZsWIzy4rTLCB9raAkfoMCZ2TXjj4WdmRxENvmnU8MwVoPsqHhiEE2StSdO/p3xQ3FtxYzLGeiuqU8uOlvw6EBReWVKCfW4/fYYsnPWZGkLINjyEFSkp6i/fsMMPDLLLtVrQzrWLLBB8EyU7JNyNdvQAW9+4w24lFGOHA1vuLc0n7SN71E5wy1GoPA+txWo4bkPRUvSiTcqcGm9z8frfGfstw6JUHpkOfmB+iz3hETFcP9OtJSnXzR2GyrkgbHqbDGw8x0uNW6LMpMwrEeWyppwoNlAEdQe+M25/4SZioLfOisHMdKa3SpkaJbCe2wJIHpqHU6Rirk8d3YOBsQvj7kUFWMc6jmio0GAqkZ/okaVDltfwJ8TS6y6OgUps7j32PYYqDOSopzTUjCt4UvqLFgQNH29d+lsLfbnyKYuJBmOzYrYJ8Kr6XWbG5PL3v53KL9zbHHW7fibvsny/xGENNFdb7Tr+RoFUHYmh2+NMJUgpco6W0qJRzisuOJSOh+rzNzf47YQzxAotbqcd5qZUqVy30lTBmamnEjrcEXtt0v54MGH+Xg494LWLszn6Mm2sgKeoinUp7MufFwoEl1cR90SpiuYVtob1FRtfzVe1un74vhllqOwhhhAQ22kJQkdABgwYZ0qEQKvoQZ2JYkxCseS8GDF02vuQPiBwxyzm0qkuxzAqXVM2KAlZPdQ6K+d/UYo/MPBXPbdWe5CWashR1eKEhKSv8wWQb9+vucGDAN+JVYdkdw+nJsQaBn//Z" pagespeed_url_hash="2372124770" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/97242/how-to-migrate-windows-7-to-a-solid-state-drive/" class="title" rel="bookmark">How To Migrate Windows 7 to a Solid State Drive</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/169847/how-attackers-actually-hack-accounts-online-and-how-to-protect-yourself/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAAAAIDBggEBQcBCf/EADMQAAIBAwMCAwUGBwAAAAAAAAECAwAEEQUGIQcSEzFRIjJBYYEIFFJxobEjJDNCcpGy/8QAFwEBAQEBAAAAAAAAAAAAAAAAAwIBAP/EABwRAAMBAQEAAwAAAAAAAAAAAAABEQIDIRIxMv/aAAwDAQACEQMRAD8A7naRitjCgwK19q+RnNZ8T8edUiTKRB6U6qj0plH4pavVGFfOq/RnZsu5dT3RrW4dTh+9zG4+4QRRIZMle4rLI3aAGYZJHGR8qgfUO66Mab09fR9uaZCdxPInhTQ3TXDR4YdzSSe6QRkdq55PwqW/bS17bl9o1jt+K+EmvWV0JmiRciKNkOQ58gT7BA5PHwzVVo5hC49/I+GMVHwb1Wx89EsSFj/s5b80/a5k0fUlJg1Gde2aPB8Jgp5Yfh/Ly9KsrHPDPGs0EscsTDKujAgj5EV8/wDb99cpKl20YVI+VBOMkjj963Z1q9V2xczZJye2RgM/Q0uktegpQsJ1Avb7TNzrPa3tzAs8Kv8Aw5WUZGQRgH5CnNH31rcXar3vjL6Sxq36jB/WsXq0O6ysL0f2SNEx/MZH/JqDWt3jHtU3KNeh6pZvQdT+/wCmQ3DFe9kHf2jC5IB45PrWxWbiud9LNTFxoXhd39I4+uSf2IqYm5VELMwCgZJJwAKLammjcuoov1fvJrzqjuiSf3xqs6gH4BZGUD/QFSnY2o7d0/pBrEd9oFhdatd338vez26vJFEEUuEYjI5Cjj8eagG8L8a/vfXdXtiiW93qE00ZIIDKzsQR9KTFJeHS5bOO4R17gQhcjA8zjj4nFQmJBIlywA5C/vXjan4R7ER3x5kDzNYZhu1jYLGGYHB9oeeCa8treaOELKEL+Z9uuNLa7yhl1Tbc9vbr4k6lZI1z5kHn9M1x29luNPu4JJGxE57JFJOV9wA4/wAnx8KKKTmw2iR229NR2xti+1CwIZreRCyEe8rcEfLkLzXNtY6q713Q89nc609vZz8G3jk8NAvoW88fmefSiiu7fo3H0Qa4uHW4KySJwMdytkH607bXQLe+Bj0NFFDSx1p2wVDkc5VvQ0kXX4vZPpRRW04//9k=" pagespeed_url_hash="2611170520" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/169847/how-attackers-actually-hack-accounts-online-and-how-to-protect-yourself/" class="title" rel="bookmark">How Attackers Actually “Hack Accounts” Online and How to Protect Yourself</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/162683/pc-cleaning-apps-are-a-scam-heres-why-and-how-to-speed-up-your-pc/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAcEBQEGCAIJ/8QAMhAAAQMDAwMCAwYHAAAAAAAAAQIDBAAFEQYSIRMxUQciQWGBFTJCYpGhCBQWJHHC0f/EABkBAAIDAQAAAAAAAAAAAAAAAAIDAAEFBP/EACARAAIBBAIDAQAAAAAAAAAAAAABAgMREiEFEwQiMVH/2gAMAwEAAhEDEQA/ALz1c9S9RXjVn2bpC7SYUOG6UAx/aX1g4Kie5GeMZA5Hzp2+kt0ut50ml+8SWZMtl0suOtp25ISkkEdsgkjI74Fc6PWT7IeamW7rSi6sb+sBuAJOcbU4OMnjH/K6t0hp+Pp6xtW9l11453uOOfeWogZOPgMAAD4AChjCtTq+4UuqdJYEzpnzR0z5qZsFQI92tj89+CzKSqTHSpTiNp4CTgnOMHB44ro7Dm6j30z5o6Z80urQnVrT6SnVNsKeuFLbXJceUGyo7929vuMIwAEDlWNnxn2+bqZWlrjFu99srtzkMERZMV1TTTZWDjnaVZHuwrH4UnGc0WQGJu3TPmjpnzS1kr1XGtcxyLqyESy51GGmnus4U8LDRU6j3EBKkhWUlYO5RFWdyvGosx0w75p9DiWf7pMh1be14qUVJRhBygApAPc45qZEUUKnQtzci60hsrG6MsNLSpQ9oWF4UCTwOMfsa6Qdu1rabK3LjDQlIySXk8fvXJXpmpeotTQrVIlSWy8Ql1LZSyrkgAgHcrHIPIGfNMH1BslqsTsawXT+o0PXAdSG7bkGQ4stjK0DA4xwTlI4I570PlTnKe1YfRjThHTuPKz3q03gPG13CNM6JCXek4FFBPbP6H9DWp+nt5i3/VN3kRNqmoUdpreDnLjjjrjg+mEilXbluRUOIYuHqojd7lH+S27iBgfh74AH0q60HqG36OhSY9u0prR9cp3qPPPWxW9ZxgdiAAPkB3paklFp/SN3krfB60AAAAAAUuonqFKkIStOl9RN7s8OQikj/I3VMb1rPUMjTl5+sUD/AGpeQWSN5rBQknJSkn5iqTSd9Xe0yupBkw1x1pSpD7exXIz2yavKvJF3R8pra1rS2R3p9vF9iyXFpQhTKXUuDHJWMcjGAM/mPzpyfw06s17qP1Ys8LV14utwj29iSuOLgpSloK0YOFK9x+6O5PaiiuiUnJbFvR1/uPmsbj5oopBRYW9CVkZpVSNYSI13kwpVtuKnWX3EZ27UHCzgknnlOKKKwuak0oW/TJ5ZtKFjyxqyQhkh2K+XCMqU2QM4B/N80+e2KkNauWoEuxJiTxgJdGBwPKvOaKKx9mXdn//Z" pagespeed_url_hash="3775171935" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/162683/pc-cleaning-apps-are-a-scam-heres-why-and-how-to-speed-up-your-pc/" class="title" rel="bookmark">PC Cleaning Apps are a Scam: Here’s Why (and How to Speed Up Your PC)</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/169823/beginner-geek-what-every-windows-user-needs-to-know-about-using-the-windows-task-manager/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAGgABAAMBAQEAAAAAAAAAAAAABAACAwUHAf/EACwQAAEDAwIDBwUBAAAAAAAAAAEAAgMEESESMUFRYRQiJIGRofAyQkNScdH/xAAaAQACAwEBAAAAAAAAAAAAAAADBAIFBwEG/8QAJBEAAwACAAQHAQAAAAAAAAAAAAECAxExUaHRBBIhMkFCYZH/2gAMAwEAAhEDEQA/ABwtI4lMhDhgONuWFjGBySogFsNymYfsVBFE5oLnkHo26VFCzUdM2AeMe/uq0TZNILWMdg/UPnzySo9Q3EeRwAx/iq6W20q5/P6Mykp210fcs2Kw7veN+ASI49RzgqRN6JkTb2UGnP2fTsDbVP0WjJkPArUQu5FJjYNiFu2LGyC6rmS8p5vGwpULDyKwid0CZC4fq1X97FTo0lDM6Nr+zTOBGCBunRUE12+EqAOPyyJTV07GNY12kAWFsYT4a+c2vI8eaqMk51vux/HXh9JPf8RvDRVAA8NKD86JDYZIzpewtdyIVYauY/mf5pEZfIdT3tc7pew9c+6W3kXuRO1ia3DLRsvwSWx43XyJh3ISmNGlCtnJk8kiS4SVFF6eyuGRXIxutqU1IbZ4a833A049SookM0KuIbFlePgdCg7QHuMzgW/aALW911oFFEla0tBVTp7YyF5BuDZKbKbZsf6FFEpSQaWz/9k=" pagespeed_url_hash="4193674272" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/169823/beginner-geek-what-every-windows-user-needs-to-know-about-using-the-windows-task-manager/" class="title" rel="bookmark">Beginner Geek: What Every Windows User Needs to Know About Using the Windows Task Manager</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/191299/6-ways-to-free-up-space-on-a-chromebook/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAYEBwIDBQEI/8QAPRAAAQIFAAYGBQoHAAAAAAAAAQIDAAQFBhEIEiExYXEHFEFEUdETFiKRwRUXMzU2QkOBhPBGc4KDkqHS/8QAGAEAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAcEQEBAQEAAgMAAAAAAAAAAAABAAIRITEDElH/2gAMAwEAAhEDEQA/AOpbek6x6g0unSkj6GelpJth99462stCQklKeOM7fdFU1et1i/KnOTsxOPiUQohbpOSpZ3ISN3E+A5jNN21JT1RqLNPkwouOqxs3AdpPAR9E0iitSNMlpFhGq0wjAHaSd6j4knafICJ18niec+ZIlrGp6jrOuTSyd+VjyjoM2RRxjLDqubp+EPTMhjsiSiRwN0czlbc2EjN2XRE9xzzcUfjEti0qGk7aYyeeT8YcRJDwjLqmOyGZk7m20bqm7csiUkqM+tgU1z0yJVGxDiASVt44gqxxxFgfOHWnWmpmRdkH5SYQHWHFMEkoVuzhQ2jceIilm0KbGE7MRAlbur9ppcpUhLNzEoXC8zro1tQK3pHgAc7OMdWNB7sNHfUtdD9h/I9M6/ONpE88jWWVfhp7E/vtiwG5QD7sNLFCqpkUyzdKWML1isJ2nwHKN7Nq1o7qc97oyB/JrKzcoPCItaD0tLt9X2OuOBI2Z2fvEPjVoV0n6ud90bXLFrb6m1GSfTqHI1VYzzigl2T+q8IxVK8Ie02RXj3Ej8499Q6+ruYHNUHIq+VLcI0rlsq2j/UWMej6vq7sgf1Rgeji4CfoUf5Q+RULL6Wd6jGrbFOVwD7sTmtLO9xvtKRVymnPKCCKNtP1KU1pY3wo+zZsif1S/KJrOlTfa/4Jkj+oX/zBBFCyQpTWk/fix9h5I/3l+UDuk30g49mxpEHitwwQRZ6pbmzWkx0lnIRaFOR+SzHNXpKdKZVstmnY/lOecEELrMC//9k=" pagespeed_url_hash="2671862470" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/191299/6-ways-to-free-up-space-on-a-chromebook/" class="title" rel="bookmark">6 Ways to Free Up Space on a Chromebook</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+<div class="sfpost">
+<div class="sfp2">
+<a href="http://www.howtogeek.com/169986/how-to-prevent-people-from-viewing-your-browsers-saved-passwords/" class="title" rel="bookmark"><span><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoADwDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAAAAEDBAYHAgUI/8QAOBAAAQMCAwQFCAsAAAAAAAAAAQACAwQRBQYhEhSR0SIxQVRhExYyUVWBk6ElQkVScYOiscHS4v/EABcBAAMBAAAAAAAAAAAAAAAAAAACAwH/xAAkEQACAQIFBAMAAAAAAAAAAAAAAQIDBBESEzFSBRQVUTJBYf/aAAwDAQACEQMRAD8A+j25So5ZmGWMtbtdIsqnE27bDyY1TeO5Sw6Ojc6hdN5UWIEkltrpAEagDqv29dlbjhpPpPa7W/SAP7hNyYLDJsiSOB4bfZ2omG1+u3R0V1cVU/kSdGD+jMqjKeLylwhonOj7C6Rl/kVB8ysybZa3D7/ms5rWYcDp4G7MMUDG3Js2NoFz1n0U/DhzoXbUT2Rm1rta0acPBXXUKq9EnaUzIxkrMw+zHfEZzXQyXmX2Y74jea1/d6rvT+I5I3eq70/iOS3yNX0g7On+mSR5QzQw3GHO+I3mpzMuZlLBt4dLcaaTNH8rTd3qu9P4jkjd6rvTuI5JZX1SW6RqtYLZscpKk1BeDTVEOyBrK217+rVSFSHZOxQjTG5G/gG/1XTMn4o1wJxlzwDcgga+GjVHThyKZ5cS6oVNnyniMkeyzExEfvM1PzBCZbkzFhb6dkNvBuv6UaUOQZ5cS8JHEhpI1IGip0OU8RY0h+JiUk3u7Qjw0AXsU+EyxwMjdHTvc1oBd0dfHWMn5pZQitpYjRlJ7o9DeJ7XNLLf1WHNIaioB0pJT7hzTLKENYGnD6F5H1iRc8GJdzb7MoOP+EmCGxJ6X3IQlNESoQgBEqEIAEiEIA//2Q==" pagespeed_url_hash="3328204147" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></span></a>
+</div>
+<div class="sfp3">
+<a href="http://www.howtogeek.com/169986/how-to-prevent-people-from-viewing-your-browsers-saved-passwords/" class="title" rel="bookmark">How to Prevent People From Viewing Your Browser’s Saved Passwords</a>
+</div>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div style="clear:both;"></div>	<div style="width:300px;min-height:20px;margin-top:30px;">
+<div style="width:160px;text-align:center;margin-left:auto;margin-right:auto;">
+<!-- tmnp.howtogeek 160x600 BTF -->
+<div id="div-gpt-ad-1342044737928-12">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-12');</script><div id="div-gpt-ad-1342044737928-12"></div>
+</div>	<div style="padding-top:10px;"></div>
+</div>
+<div style="clear:both;"></div>
+<div style="top: 10px; position: fixed;" id="sidebar-float-widget">
+<div class="sidebar-float-widget-internal">
+<div class="adSystem_ads">
+<div class="html"><div style="margin-bottom:0px"></div>
+<div id="___page_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 320px; height: 106px;"><iframe title="+Badge" data-gapiattached="true" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/page.html" name="I1_1415440467682" id="I1_1415440467682" vspace="0" tabindex="0" style="position: static; top: 0px; width: 320px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 106px;" scrolling="no" marginwidth="0" marginheight="0" hspace="0" frameborder="0" width="100%"></iframe></div>
+<div style="margin-top:8px;">
+<a href="https://twitter.com/howtogeeksite" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @howtogeeksite</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>
+</div>
+<div id="fb-root"></div>
+<script>(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=391129387654171&version=v2.0";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>
+<div style="margin-bottom:10px"></div>
+<div class="fb-like" data-href="https://www.facebook.com/thehowtogeek" data-width="300" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+<div style="margin-bottom:15px"></div></div>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both;margin-bottom:20px;"></div>
+</div>
+<div style="clear:both;"></div>
+<div id="div-1342-3" style="margin-left:14px;">
+<script type="text/javascript">tmntag.adTag('div-1342-3',false);</script>
+</div>	</div>
+<div style="clear:both;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="yui-g" id="sb2">
+<div id="sb3">
+<div id="ns_ad8">
+<div id="sb4">
+<!-- tmnp.howtogeek 728x90 BTF -->
+<div id="div-gpt-ad-1342044737928-14">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-14');</script><div id="div-gpt-ad-1342044737928-14"></div>
+</div>	</div>
+<div style="clear:both;"></div>
+</div>
+</div>
+</div>
+<div class="yui-g" style=""></div>
+</div>
+<div class="footer" id="ft">
+<div style="width:18%;" class="ftdiv">
+<div class="ftsection" style="">ABOUT</div>
+<ul class="bottomul">
+<li><a href="http://www.howtogeek.com/about/" rel="nofollow">About Us</a></li>
+<li><a href="http://www.howtogeek.com/contact/" rel="nofollow">Contact Us</a></li>
+<li><a href="http://purch.com/" rel="nofollow">Advertising</a></li>
+<li><a href="http://www.howtogeek.com/privacy-policy/" rel="nofollow">Privacy Policy</a></li>
+</ul>
+</div>
+<div style="width: 45%;" class="ftdiv">
+<div class="ftsection" style="color:#FF9854">GET ARTICLES BY EMAIL</div>
+<p id="ftemp">Enter your email address to get our daily newsletter.</p>
+<p>
+</p><form action="/em/subscribe" method="get">
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="footer" type="hidden">
+<input id="fromaddress2" name="emailaddress" style="z-index:-9;left:-1500;top:-1500;height:1px;width:1px;position:absolute;" type="text">
+<input name="email" id="ftemtxt" style="color:#BBB" value="Enter Your Email Here" type="text">
+<input id="ftemsub" value="Get Articles by Email" style="background:#55A8DF;" type="submit">
+</form>
+<p></p>
+<div style="clear:both;"></div>
+</div>
+<div style="width:280px;float:left;">
+<div class="ftsection">FOLLOW US</div>
+<ul class="ftsub" style="float: left;">
+<li class="icon-twitter"><a href="https://twitter.com/intent/user?original_referer=http://www.howtogeek.com&amp;region=following&amp;screen_name=howtogeeksite&amp;tw_p=followbutton&amp;variant=2.0">Twitter</a></li>
+<li class="icon-facebook"><a href="http://facebook.com/thehowtogeek" rel="nofollow">Facebook</a></li>
+</ul>
+<ul class="ftsub" style="float: left;margin-left: 20px;">
+<li class="icon-google-plus"><a href="http://plus.google.com/+howtogeek">Google+</a></li>
+<li class="icon-feed"><a href="http://feeds.howtogeek.com/howtogeek">RSS Feed</a></li>
+</ul>
+<div style="clear:both"></div>
+</div>
+<div style="clear:both"></div><br>
+<div class="copyright" style="font-size: 11px;">Copyright © 2006-2014 How-To Geek, LLC&nbsp; All Rights Reserved.</div>
+</div>
+</div>
+<style>#subscribeoverlay{background:url(/public/images/xemailoverlay4.jpg.pagespeed.ic.bdAMUqnBuz.jpg) no-repeat}#emailoverlaylist{color:#222}#emailoverlayformbutton{background:#6fc6ff}#emailoverlayformbutton:hover{background:#29a7fa}#emfh2{color:#000;top:100px}</style>
+<div class="overlay-bg">
+<div id="subscribeoverlay">
+<a href="#" id="ovclose"></a>
+<h2 id="emfh2"></h2>
+<div id="emftag"></div>
+<ul id="emailoverlaylist">
+<li>Get exclusive articles before everybody else.</li>
+<li>Get downloadable ebooks for free!</li>
+<li>Get geeky trivia, fun facts, and much more.</li>
+</ul>
+<form id="emailoverlayform" method="GET" action="/em/subscribe">
+<p>
+<input name="list" value="weekday" type="hidden">
+<input name="tr" value="overlay1" type="hidden">
+</p><p id="emoflbl" style="
+            position: absolute;
+            left: 20px;
+            top: 240px;font-weight:bold;font-size:120%;
+            color: #000;
+        ">Enter Your Email Here to Get Access for Free:</p>
+<input style="color:#BBB;" id="overlayfrom" name="email" value="Enter Your Email Here" type="text">
+<input id="emailoverlayformbutton" value="Get Free Content Now" style="" type="submit">
+<p></p>
+</form>
+<div id="overlayformsuccess">Go check your email!</div>
+<img id="overlayimage" style="position:absolute;left:-9000px;top:-9000px;" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/xemailoverlay4.jpg" pagespeed_url_hash="998281452" onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+</div>
+</div>
+<!-- Begin comScore Tag -->
+<script>var csDocDomain=document.location.href;document.write(unescape("%3Cscript src='"+(document.location.protocol=="https:"?"https://sb":"http://b")+".scorecardresearch.com/beacon.js' %3E%3C/script%3E"));</script><script src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/beacon.html"></script><iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/postmessageRelay.html" id="oauth2relay449901945" name="oauth2relay449901945"></iframe>
+<script>COMSCORE.beacon({c1:2,c2:"6035753",c3:"6035753",c4:csDocDomain,c5:"Technology - News",c6:"",c15:""});</script>
+<noscript>
+<img src="http://b.scorecardresearch.com/b?c1=2&c2=6035753&c3=6035753&c4=http://www.howtogeek.com&c5=Technology - News&c6=&c15=&cv=1.3&cj=1" style="display:none" width="0" height="0" alt="" pagespeed_url_hash="4059409117"/>
+</noscript>
+<!-- End comScore Tag -->
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-1113647-1','howtogeek.com');ga('send','pageview');</script>
+<!-- tmnp.howtogeek 1x1 ATF -->
+<div id="div-gpt-ad-1342044737928-5">
+<script type="text/javascript">tmntag.adTag('div-gpt-ad-1342044737928-5');</script><div id="div-gpt-ad-1342044737928-5"></div>
+</div>
+<!-- Quantcast Tag -->
+<script type="text/javascript">var _qevents=_qevents||[];(function(){var elem=document.createElement('script');elem.src=(document.location.protocol=="https:"?"https://secure":"http://edge")+".quantserve.com/quant.js";elem.async=true;elem.type="text/javascript";var scpt=document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem,scpt);})();_qevents.push({qacct:"p-e1gWzoEHleH1I"});</script>
+<noscript>
+<div style="display:none;">
+<img src="//pixel.quantserve.com/pixel/p-e1gWzoEHleH1I.gif" height="1" width="1" alt="Quantcast" pagespeed_url_hash="2976081341"/>
+</div>
+</noscript>
+<!-- End Quantcast tag -->
+
+<span style="display: none;"><iframe style="display:none" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/usermatch.html"></iframe></span><span style="display: none;"><iframe style="display:none" src="How%20to%20Add%20Screensavers%20to%20Ubuntu%2012.04_files/user_sync.html"></iframe></span></body></html>

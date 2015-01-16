@@ -1,0 +1,973 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0097)http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--<base href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell">--><base href=".">
+  
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content=",,How,create,swap,partition,Linux,command,shell?">
+  <meta name="description" content="Linux.com - For the community, by the community, Linux.com is the central source for Linux information, software, documentation, how-tos and answers across the server, desktop/netbook, mobile, and embedded areas.">
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management; Joomla jQuery plugin by http://www.corejoomla.com">
+  <title>How to create swap partition in Linux at command shell? | Linux.com</title>
+  <link href="http://www.linux.com/templates/linuxcom_v2/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/jquery-ui.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/answers.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.tagit.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/system.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/general.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/editor.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/typo.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/ja.moomenu.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/template.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/default.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/universe_nav.css" type="text/css">
+  <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/communityanswers.css" type="text/css">
+  <script src="./How to create swap partition in Linux at command shell    Linux.com_files/cb=gapi.loaded_1" async=""></script><script src="./How to create swap partition in Linux at command shell    Linux.com_files/cb=gapi.loaded_0" async=""></script><script id="facebook-jssdk" src="./How to create swap partition in Linux at command shell    Linux.com_files/sdk.js"></script><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/pd.js"></script><script id="twitter-wjs" src="./How to create swap partition in Linux at command shell    Linux.com_files/widgets.js"></script><script type="text/javascript" async="" src="./How to create swap partition in Linux at command shell    Linux.com_files/ados.js"></script><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.min.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.noconflict.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.form.min.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.validate.min.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.inlineFieldLabel.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/jquery.scrollTo-min.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/tag-it.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/answers.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/mootools.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/ja.script.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/ja.moomenu.js"></script>
+  <script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/universe_nav.js"></script><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/getAllAppDefault.esi"></script><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/checkOAuth.esi"></script><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/analytics"></script><link rel="stylesheet" type="text/css" href="./How to create swap partition in Linux at command shell    Linux.com_files/buttons.3e9d8da4f20b5842426ebd434fbd1b1b.css"><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/getCount2.php"></script><script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/plusone.js" gapi_processed="true"></script></head><body id="bd" class="leftlayout wide fs3"><div id="dropmenudiv" style="visibility:hidden;width:165px;background-color:#f5f5f5" onmouseover="clearhidemenu()" onmouseout="dynamichide(event)"></div>
+  <script type="text/javascript">
+	var siteurl = 'http://www.linux.com/';
+										var tmplurl = 'http://www.linux.com/templates/linuxcom_v2';
+var p = "http", d = "static";
+if (document.location.protocol == "https:") {
+	p += "s";
+	d = "engine";
+}
+var z = document.createElement("script");
+z.type = "text/javascript";
+z.async = true;
+z.src = p + "://" + d + ".adzerk.net/ados.js";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(z, s);
+
+var ados_keywords = ados_keywords || [];
+if (location.protocol == "https:") {
+	ados_keywords.push("T:SSL");
+} else {
+	ados_keywords.push("T:HTTP");
+}
+
+var ados = ados || {};
+ados.run = ados.run || [];
+ados.run.push(function () {
+	ados_add_placement(4669, 20981, "azk59340_tracking", 20).setZone(20876);
+	ados_add_placement(4669, 20981, "azk85217_rectangle", 5).setZone(16024);
+	ados_setKeywords(ados_keywords.join(", "));
+	ados_load();
+});
+
+  </script>
+
+
+
+<!--[if lte IE 6]>
+<style type="text/css">
+.clearfix {height: 1%;}
+img {border: none;}
+#ja-cpanel-tools{
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src=../images/ja-cpanel-switcher.png, sizingMethod=image);
+}
+</style>
+<![endif]-->
+
+<!--[if lte IE 7.0]>
+<style type="text/css">
+#login-linux-top-wrap {position:relative; top:-60px} /* to properly position the login bar */
+</style>
+<![endif]-->
+
+
+<!--[if gt IE 7]>
+<link href="http://www.linux.com/templates/linuxcom_v2/css/ie8.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+
+
+
+
+
+<a name="Top" id="Top"></a>
+<ul class="accessibility">
+	<li><a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#ja-content" title="Skip to content">Skip to content</a></li>
+	<li><a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#ja-mainnav" title="Skip to main navigation">Skip to main navigation</a></li>
+	<li><a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#ja-col1" title="Skip to 1st column">Skip to 1st column</a></li>
+	<li><a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#ja-col2" title="Skip to 2nd column">Skip to 2nd column</a></li>
+</ul>
+
+<!-- BEGIN: HEADER -->
+
+<div id="linux-header-wrap-bottom">
+	<div id="linux-header" class="clearfix">
+		<div id="linux-header-left">
+			<ul>
+				<li><a href="http://www.linuxfoundation.org/" class="header-link">Linux Foundation</a></li>
+				<li><a href="http://training.linuxfoundation.org/" class="header-link">Training</a></li>
+				<li><a href="http://events.linuxfoundation.org/" class="header-link">Events</a></li>
+				<li><a href="http://video.linux.com/" class="header-link">Video</a></li> 
+				<!-- <li><a href="#" class="header-link" onClick="return dropdownmenu(this, event, menu2, '100px')" onMouseout="delayhidemenu()">More</a> <img src="http://www.linux.com//includes/js/custom/down.gif" border="0" align="absmiddle" /></li>-->
+			</ul>
+		</div>
+		<div id="linux-header-right">
+					 <div style="margin-top:2px;">
+<a href="http://twitter.com/linuxfoundation" target="_blank"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/icon-twitter-trans.png" border="0" title="Follow Linux.com on Twitter"></a>
+¬†
+<a href="http://identi.ca/linuxfoundation" target="_blank"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/icon-identica-trans.png" border="0" title="Follow us on Identi.ca"></a>
+¬†
+<a href="http://www.facebook.com/pages/The-Linux-Foundation/41911143546" target="_blank"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/icon-facebook-trans.png" border="0" title="Become a Facebook Fan of Linux.com"></a>
+¬†
+<a href="http://www.linkedin.com/groups?gid=48682" target="_blank"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/icon-linkedin-trans.png" border="0" title="Join our LinkedIn Group"></a>
+¬†
+<a href="http://www.linux.com/newsletter"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/icon-newsletter-trans.png" border="0" title="Get the Linux.com Newsletter"></a>
+¬†
+<a href="http://www.linux.com/news/rss-feeds"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/icon-rss-trans.png" border="0" title="RSS Feeds"></a>
+</div>
+
+				</div>
+	</div>
+</div>
+	
+<div id="ja-headerwrap">
+<div id="ja-header" class="clearfix">
+
+      
+		<h1 class="logo">
+		<a href="http://www.linux.com/" title="Linux.com"><span>Linux.com</span></a>
+	</h1>
+	
+		
+		<div id="search-linux-top-wrap">
+	<div id="search-linux-top">
+		<form action="http://www.linux.com/search" method="post">
+	<div class="search">
+		<input name="searchword" id="mod_search_searchword" maxlength="30" alt="Search" class="inputbox" type="text" size="30" value="search linux.com" onblur="if(this.value==&#39;&#39;) this.value=&#39;search linux.com&#39;;" onfocus="if(this.value==&#39;search linux.com&#39;) this.value=&#39;&#39;;">	</div>
+	<input type="hidden" name="task" value="search">
+	<input type="hidden" name="option" value="com_search">
+	<input type="hidden" name="Itemid" value="962">
+</form>
+	</div>
+	</div>
+		
+		<div id="login-linux-top-wrap">
+	<div id="login-linux-top">
+		 <a href="https://www.linux.com/community"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/login.png" border="0"></a><a href="https://identity.linuxfoundation.org/user/register"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/register.png" border="0"></a><a href="http://www.linux.com/submit-an-article"><img src="./How to create swap partition in Linux at command shell    Linux.com_files/submit_article.png" border="0"></a>
+	</div>
+	</div>
+	
+</div>
+</div>
+<!-- END: HEADER -->
+
+<!-- BEGIN: MAIN NAVIGATION -->
+<div id="ja-mainnavwrap">
+<div id="ja-mainnav" class="clearfix">
+	<ul id="ja-cssmenu" class="clearfix">
+<li><a href="http://www.linux.com/" class="menu-item0 first-item" id="menu1" title="Home"><span class="menu-title">Home</span></a></li> 
+<li class="havechild"><a href="http://www.linux.com/news" class="menu-item1" id="menu858" title="News"><span class="menu-title">News</span></a><ul style="height: 0px; left: -999em;"><li class="havesubchild"><a href="http://www.linux.com/news/software" class=" first-item" id="menu670" title="Software"><span class="menu-title">Software</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/software/applications" class=" first-item" id="menu811" title="Applications"><span class="menu-title">Applications</span></a></li> 
+<li><a href="http://www.linux.com/news/software/multimedia" id="menu814" title="Multimedia"><span class="menu-title">Multimedia</span></a></li> 
+<li><a href="http://www.linux.com/news/software/linux-kernel" id="menu815" title="Linux Kernel Development"><span class="menu-title">Linux Kernel Development</span></a></li> 
+<li><a href="http://www.linux.com/news/software/developer" class=" last-item" id="menu816" title="Developer"><span class="menu-title">Developer</span></a></li> 
+</ul></li> 
+<li class="havesubchild"><a href="http://www.linux.com/news/hardware" id="menu672" title="Hardware"><span class="menu-title">Hardware</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/hardware/desktops" class=" first-item" id="menu817" title="Desktops"><span class="menu-title">Desktops</span></a></li> 
+<li><a href="http://www.linux.com/news/hardware/laptops" id="menu818" title="Laptops"><span class="menu-title">Laptops</span></a></li> 
+<li><a href="http://www.linux.com/news/hardware/peripherals" id="menu819" title="Peripherals"><span class="menu-title">Peripherals</span></a></li> 
+<li><a href="http://www.linux.com/news/hardware/servers" id="menu820" title="Servers"><span class="menu-title">Servers</span></a></li> 
+<li><a href="http://www.linux.com/news/hardware/drivers" class=" last-item" id="menu821" title="Drivers"><span class="menu-title">Drivers</span></a></li> 
+</ul></li> 
+<li class="havesubchild"><a href="http://www.linux.com/news/embedded-mobile" id="menu810" title="Embedded /  Mobile"><span class="menu-title">Embedded /  Mobile</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/embedded-mobile/mobile-linux" class=" first-item" id="menu823" title="Mobile Linux"><span class="menu-title">Mobile Linux</span></a></li> 
+<li><a href="http://www.linux.com/news/embedded-mobile/netbooks" id="menu822" title="Netbooks"><span class="menu-title">Netbooks</span></a></li> 
+<li><a href="http://www.linux.com/news/embedded-mobile/mids" id="menu824" title="MIDs"><span class="menu-title">MIDs</span></a></li> 
+<li><a href="http://www.linux.com/news/embedded-mobile/phones" class=" last-item" id="menu826" title="Phones"><span class="menu-title">Phones</span></a></li> 
+</ul></li> 
+<li class="havesubchild"><a href="http://www.linux.com/news/biz-os" id="menu849" title="Business of Open Source"><span class="menu-title">Business of Open Source</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/biz-os/governance" class=" first-item" id="menu850" title="Governance"><span class="menu-title">Governance</span></a></li> 
+<li><a href="http://www.linux.com/news/biz-os/legal" class=" last-item" id="menu880" title="Legal"><span class="menu-title">Legal</span></a></li> 
+</ul></li> 
+<li class="havesubchild"><a href="http://www.linux.com/news/enterprise" id="menu809" title="Enterprise Computing"><span class="menu-title">Enterprise Computing</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/enterprise/biz-enterprise" class=" first-item" id="menu881" title="Enterprise Business"><span class="menu-title">Enterprise Business</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/cloud-computing" id="menu827" title="Cloud Computing"><span class="menu-title">Cloud Computing</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/clustering" id="menu832" title="Clustering"><span class="menu-title">Clustering</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/storage" id="menu833" title="Linux Storage"><span class="menu-title">Linux Storage</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/high-performance" id="menu825" title="High Performance"><span class="menu-title">High Performance</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/networking" id="menu834" title="Networking"><span class="menu-title">Networking</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/systems-management" id="menu835" title="Systems Management"><span class="menu-title">Systems Management</span></a></li> 
+<li><a href="http://www.linux.com/news/enterprise/case-studies" class=" last-item" id="menu836" title="Case Studies"><span class="menu-title">Case Studies</span></a></li> 
+</ul></li> 
+<li><a href="http://www.linux.com/news/featured-blogs" id="menu839" title="Featured Blogs"><span class="menu-title">Featured Blogs</span></a></li> 
+<li class="havesubchild"><a href="http://www.linux.com/news/technology-feature" id="menu922" title="Technology Feature"><span class="menu-title">Technology Feature</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/technology-feature/security" class=" first-item" id="menu944" title="Security"><span class="menu-title">Security</span></a></li> 
+</ul></li> 
+<li class="havesubchild"><a href="http://www.linux.com/news/special-feature" id="menu971" title="Special Feature"><span class="menu-title">Special Feature</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/news/special-feature/stories-of-linux" class=" first-item" id="menu972" title="Stories of Linux"><span class="menu-title">Stories of Linux</span></a></li> 
+<li><a href="http://www.linux.com/news/special-feature/linux-developers" class=" last-item" id="menu1000" title="Linux Developers"><span class="menu-title">Linux Developers</span></a></li> 
+</ul></li> 
+<li><a href="http://www.linux.com/news/rss-feeds" id="menu905" title="RSS Feeds"><span class="menu-title">RSS Feeds</span></a></li> 
+<li><a href="http://www.linux.com/news/galleries" id="menu973" title="Galleries"><span class="menu-title">Galleries</span></a></li> 
+<li><a href="http://www.linux.com/news/friday-funnies" class=" last-item" id="menu974" title="Friday Funnies"><span class="menu-title">Friday Funnies</span></a></li> 
+</ul></li> 
+<li class="havechild"><a href="https://www.linux.com/community" class="menu-item2" id="menu328" title="Linux Community"><span class="menu-title">Linux Community</span></a><ul style="height: 0px; left: -999em;"><li class=""><a href="http://www.linux.com/community/forums" class=" first-item" id="menu657" title="Forums"><span class="menu-title">Forums</span></a></li> 
+<li class="havesubchild"><a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#" id="menu914" title="Contests and Polls"><span class="menu-title">Contests and Polls</span></a><ul style="width: 0px; left: -999em;"><li class="havesubchild"><a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#" class=" first-item" id="menu916" title="Contests"><span class="menu-title">Contests</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/community/contests-and-polls/contests/2011-tshirt-design-content-finalists" class=" first-item" id="menu970" title="2011 Tshirt Design Content Finalists"><span class="menu-title">2011 Tshirt Design Content Finalists</span></a></li> 
+<li><a href="http://www.linux.com/community/contests-and-polls/contests/tshirt-design-contest-2012" id="menu999" title="2012 T-shirt Design Contest"><span class="menu-title">2012 T-shirt Design Contest</span></a></li> 
+<li><a href="http://www.linux.com/community/contests-and-polls/contests/2012-t-shirt-design-contest-finalists" class=" last-item" id="menu1002" title="2012 T-shirt Design Contest Finalists"><span class="menu-title">2012 T-shirt Design Contest Finalists</span></a></li> 
+</ul></li> 
+</ul></li> 
+<li class=""><a href="http://www.linux.com/community/join-lf" id="menu837" title="Join the Linux Foundation"><span class="menu-title">Join the Linux Foundation</span></a></li> 
+<li><a href="http://www.linux.com/community/carry-card-support-community" id="menu891" title="Carry the Linux Credit Card"><span class="menu-title">Carry the Linux Credit Card</span></a></li> 
+<li><a href="http://www.linux.com/community/blogs" id="menu995" title="Community Blogs"><span class="menu-title">Community Blogs</span></a></li> 
+<li><a href="http://www.linux.com/community/100-linux-tutorials-video-campaign" class=" last-item" id="menu1003" title="100 Linux Tutorials Video Campaign"><span class="menu-title">100 Linux Tutorials Video Campaign</span></a></li> 
+</ul></li> 
+<li class="havechild active"><a href="http://www.linux.com/learn" class="menu-item3 active" id="menu736" title="Learn Linux"><span class="menu-title">Learn Linux</span></a><ul style="height: 0px; left: -999em;"><li class="active"><a href="http://www.linux.com/learn/answers" class=" active first-item" id="menu962" title="Linux Answers"><span class="menu-title">Linux Answers</span></a></li> 
+<li class="havesubchild"><a href="http://www.linux.com/learn/docs" id="menu737" title="Linux Documentation"><span class="menu-title">Linux Documentation</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/learn/docs/ldp" class=" first-item" id="menu738" title="Linux How Tos"><span class="menu-title">Linux How Tos</span></a></li> 
+<li><a href="http://www.linux.com/learn/docs/man" class=" last-item" id="menu863" title="Linux Man Pages"><span class="menu-title">Linux Man Pages</span></a></li> 
+</ul></li> 
+<li><a href="http://www.linux.com/learn/tutorials" id="menu864" title="Linux Tutorials"><span class="menu-title">Linux Tutorials</span></a></li> 
+<li><a href="http://www.linux.com/learn/whitepapers" id="menu681" title="Whitepapers"><span class="menu-title">Whitepapers</span></a></li> 
+<li><a href="http://www.linux.com/learn/videos" id="menu890" title="Linux Videos"><span class="menu-title">Linux Videos</span></a></li> 
+<li><a href="http://www.linux.com/learn/new-user-guides" id="menu799" title="Linux New User Guides"><span class="menu-title">Linux New User Guides</span></a></li> 
+<li><a href="http://www.linux.com/learn/linux-career-center" id="menu800" title="Linux Career Center"><span class="menu-title">Linux Career Center</span></a></li> 
+<li class="havesubchild"><a href="http://www.linux.com/learn/linux-training-program-and-classes" id="menu898" title="Linux Training Program and Classes"><span class="menu-title">Linux Training Program and Classes</span></a><ul style="width: 0px; left: -999em;"><li><a href="http://www.linux.com/learn/android-training" class=" first-item" id="menu955" title="Android Training"><span class="menu-title">Android Training</span></a></li> 
+</ul></li> 
+<li><a href="http://www.linux.com/learn/linux-certifications" class=" last-item" id="menu1004" title="Linux Certifications"><span class="menu-title">Linux Certifications</span></a></li> 
+</ul></li> 
+<li class="havechild"><a href="http://www.linux.com/directory" class="menu-item4" id="menu732" title="Directory"><span class="menu-title">Directory</span></a><ul style="height: 0px; left: -999em;"><li><a href="http://www.linux.com/directory/Distributions" class=" first-item" id="menu892" title="Download Linux"><span class="menu-title">Download Linux</span></a></li> 
+<li><a href="http://www.linux.com/directory/Books" id="menu882" title="Books"><span class="menu-title">Books</span></a></li> 
+<li><a href="http://www.linux.com/directory/Mobile" id="menu883" title="Mobile"><span class="menu-title">Mobile</span></a></li> 
+<li><a href="http://www.linux.com/directory/Components" id="menu884" title="Components"><span class="menu-title">Components</span></a></li> 
+<li><a href="http://www.linux.com/directory/Peripherals" id="menu885" title="Peripherals"><span class="menu-title">Peripherals</span></a></li> 
+<li><a href="http://www.linux.com/directory/Software" id="menu886" title="Software"><span class="menu-title">Software</span></a></li> 
+<li><a href="http://www.linux.com/directory/Software/applications" class=" last-item" id="menu867" title="Linux Applications"><span class="menu-title">Linux Applications</span></a></li> 
+</ul></li> 
+<li><a href="http://jobs.linux.com/" class="menu-item5 last-item" id="menu906" title="Jobs"><span class="menu-title">Jobs</span></a></li> 
+</ul>
+	
+		
+</div>
+</div>
+
+<!-- END: MAIN NAVIGATION -->
+
+
+<div id="ja-containerwrap-cm" class="clearfix">
+<div id="ja-container" class="clearfix">
+
+	<!-- BEGIN: CONTENT -->
+	<div id="ja-content">
+		
+			<div id="ja-current-content">
+
+												
+				<div id="ja-pathway">
+					<span class="breadcrumbs pathway">
+<a href="http://www.linux.com/" class="pathway">Home</a> <img src="./How to create swap partition in Linux at command shell    Linux.com_files/arrow.png" alt=""> <a href="http://www.linux.com/learn" class="pathway">Learn Linux</a> <img src="./How to create swap partition in Linux at command shell    Linux.com_files/arrow.png" alt=""> <a href="http://www.linux.com/learn/answers" class="pathway">Linux Answers</a> <img src="./How to create swap partition in Linux at command shell    Linux.com_files/arrow.png" alt=""> <a href="http://www.linux.com/learn/answers/list/25-systems-management" class="pathway">Systems Management</a> <img src="./How to create swap partition in Linux at command shell    Linux.com_files/arrow.png" alt=""> How to create swap partition in Linux at command shell?</span>
+
+				</div>
+				
+				 				 
+				 				
+			  	 
+	           				
+			  <div class="ja-wrap-center"><div class="ja-wrap-top"><div class="ja-wrap-bot">
+			
+			  				
+					
+					<div id="cawrapper"><script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: '89c90366-5bfa-4fd9-af14-8eb9ee3946a2'});</script>
+<div class="navigation_table">
+	<div class="ca_ask" style="margin-bottom: 10px;">
+		<form id="askform" action="http://www.linux.com/learn/answers/ask" method="post">
+        	<input name="question_title" id="question_title" type="text" class="intra-field-label">
+        	<a href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell#" onclick="javascript: return false;" id="continuebutton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Ask It</span></a>
+        	<input type="hidden" name="option" value="com_communityanswers">
+        	<input type="hidden" name="view" value="answers">
+        	<input type="hidden" name="task" value="ask">
+        	<input type="hidden" name="catid" value="25">
+    		<input type="hidden" name="Itemid" value="">
+		</form>
+	</div>
+</div>
+<div class="toolbar">
+	<ul class="submenu">
+		<li><a href="http://www.linux.com/learn/answers/index" class="active" style="border-right: 0px;">Home</a></li>
+			</ul>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function($){AnswersFactory.initAnswerView();});
+</script>
+<div class="navigation_table">
+    <div class="avatar"></div>
+    <div class="title">How to create swap partition in Linux at command shell?</div>
+    <div class="description"><p></p><p>I want to create a swap partition at command shell. What are the different step to create it and how I can use this partition?</p><p></p></div>
+    <div class="clear"></div>
+    <div class="meta-info">
+        In <a href="http://www.linux.com/learn/answers/list/25-systems-management">Systems Management</a> - Asked by rangi - 2 years ago    </div>
+    
+        <div class="tags">
+		<span class="tags-title">Tags:&nbsp;</span>
+				<span class="quote-tag"><a href="http://www.linux.com/learn/answers/tag/1-" class="question-tag"></a></span>
+		    </div>
+        
+        
+    	<div class="social-share">
+				<div class="sharethis_help">Sharing this question on Twitter or Facebook, or by asking someone to answer can improve results.</div>
+			    <span>
+	        	    </span>
+				<span class="st_email_hcount" displaytext="Email" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-email-counter" style="background-image: url(http://w.sharethis.com/images/email_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">0</span></span></span></span></span></span>
+		<span class="st_sharethis_hcount" displaytext="ShareThis" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-sharethis-counter" style="background-image: url(http://w.sharethis.com/images/sharethis_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">12K</span></span></span></span></span></span>
+		<span class="st_twitter_hcount" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-twitter-counter" style="background-image: url(http://w.sharethis.com/images/twitter_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">2</span></span></span></span></span></span>
+		<span class="st_plusone_hcount" st_processed="yes"><div style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:0px;width:75px; height:21px;">&nbsp;<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1417679102076" name="I0_1417679102076" src="./How to create swap partition in Linux at command shell    Linux.com_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div></span>
+		<span class="st_fblike_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;position:relative;margin:3px 3px 0;padding:0px;font-size:11px;line-height:0px;vertical-align:bottom;overflow:visible;"><div data-action="" data-send="false" data-layout="button_count" data-show-faces="false" class="fb-like" data-href="http://www.linux.com/learn/answers/view/1317-how-to-create-swap-partion-in-linux-at-command-shell"></div></span></span>
+			</div>
+	</div>
+<div class="answers_wrapper">
+        <div class="subtitle">Answers</div>
+    <ul class="answers">
+                <li id="answer-2320" class="noalt">
+            <table class="answer_table">
+                                <tbody><tr>
+                    <td valign="top">
+                    	<div id="description-2320"><p>U may use hard disk partition for additional swap space. 1st see how much space it is used like free -k command. If u have an additional hard disk, (or space available in an existing disk), create a partition using fdisk command. Now setup newly created partition as swap area using the mkswap command like mkswap /dev/sdaX (here X is no of partition). To make this swap space partition available even after the reboot, add the following line to the /etc/fstab file like <br>
+# cat /etc/fstab<br>
+/dev/sdaX           swap                    swap    defaults        0 0<br>
+to verify run command as: swapon -s</p><p>But remember this is an expert area job, do at ur own risk. Better take bkup of ur necessary files/ folders.</p></div>
+                    	                    </td>
+				</tr>
+								<tr>
+					<td valign="top">
+						<table class="question-meta">
+							<tbody><tr>
+								<td valign="top">
+																	</td>
+								<td valign="top" width="100%" align="left">
+									Answered by rechil_colin <br> 2 years ago									
+								</td>
+								<td valign="bottom" nowrap="nowrap">
+																		 
+									 
+									<a class="moderate_tools thumb_down" onclick="javascript: return false;" href="http://www.linux.com/learn/answers/thumbdown/2320">
+										<span>0</span> 
+									</a> 
+									<a class="moderate_tools thumb_up" onclick="javascript: return false;" href="http://www.linux.com/learn/answers/thumbup/2320">
+										<span>0</span> 
+									</a> 
+									 
+									<img id="progress-2320" alt="..." src="./How to create swap partition in Linux at command shell    Linux.com_files/ui-anim_basic_16x16.gif" style="display: none;">
+								</td>
+							</tr>
+						</tbody></table>
+					</td>
+                </tr>
+            </tbody></table>
+        </li>
+            </ul>
+        
+        
+	    <div id="answer_form_wrapper" class="answer_form_wrapper" style="margin-top: 20px;">
+    	 
+	            Please register/login to answer this question.&nbsp;<a href="http://www.linux.com/" id="btn_login" onclick="return false;">Click here to login</a>
+      	      	    </div>
+        
+        
+	<div class="toolbar">
+		<ul class="submenu">
+			<li><a href="http://www.linux.com/learn/answers/index" class="active" style="border-right: 0px;">Home</a></li>
+					</ul>
+	</div>
+	
+        <div class="subtitle" style="margin: 10px 0 0 0;">Similar Questions Found</div>
+    <ul class="data_table">
+    	    <li class="alt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">5</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/10-how-do-i-add-skype-to-my-version-of-ubuntu-">How do I add Skype to my version of Ubuntu? </a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/17-hardware">Hardware</a>, asked by amcpherson 6 years ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="noalt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">10</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/11-how-do-i-start-working-with-amazon-ec2">How do I start working with Amazon EC2?</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/1-root">Root</a>, asked by bproffitt 6 years ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="alt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">10</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/11-how-do-i-start-working-with-amazon-ec2">How do I start working with Amazon EC2?</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/14-drivers">Drivers</a>, asked by bproffitt 6 years ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="noalt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">4</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/12-getting-a-dlink-driver-to-work">Getting a Dlink Driver to Work</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/17-hardware">Hardware</a>, asked by bproffitt 6 years ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="alt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">29</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/13-how-do-i-upgrade-firefox-without-upgrading-my-distro-">How do I upgrade Firefox without upgrading my distro? </a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/8-audiovideo">Audio/Video</a>, asked by amcpherson 6 years ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+            </ul>
+            
+        <div class="subtitle" style="margin: 10px 0 0 0;">Questions from category Systems Management</div>
+    <ul class="data_table">
+    	    <li class="alt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">0</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/1909-how-to-fit-os-on-cd">How to fit os on cd</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/25-systems-management">Systems Management</a>, asked by harrya 3 weeks ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="noalt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">1</div>
+	        					<div class="answerdesc">Answer</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/1905-how-will-all-my-programs-be-deleted-after-installing-linux">How will all my programs be deleted after installing Linux?</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/25-systems-management">Systems Management</a>, asked by kelsomottis 3 weeks ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="alt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">1</div>
+	        					<div class="answerdesc">Answer</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/1902-how-to-install-linux-on-a-cd">How to install linux on a cd?</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/25-systems-management">Systems Management</a>, asked by cocais 4 weeks ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="noalt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">2</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/1898-which-is-latest-linux-vesion">Which is latest linux version?</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/25-systems-management">Systems Management</a>, asked by kiran Lanke 4 weeks ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+        	    <li class="alt">
+	        <div class="avatar">
+	        	<table border="0" cellpadding="2" cellspacing="0">
+	        		<tbody><tr>
+	        			<td></td>
+	        			<td align="center" valign="top">
+	        				<div class="answerbox">
+	        					<div class="answercount">3</div>
+	        					<div class="answerdesc">Answers</div>
+	        				</div>
+	        			</td>
+	        		</tr>
+	        	</tbody></table>
+	        </div>
+	        <div class="question_title">
+	            <a href="http://www.linux.com/learn/answers/view/1897-what-version-of-linux-do-i-have">What version of linux do i have?</a>
+	            	        </div>
+	        <div class="question_meta">
+	        	In <a href="http://www.linux.com/learn/answers/list/25-systems-management">Systems Management</a>, asked by jap503 4 weeks ago	        </div>
+	        <div class="clear"></div>
+	    </li>
+            </ul>
+        </div>
+<div id="dialog-confirm" style="display:none;">
+    <div id="error-msg-wrapper" style="display: none;" class="ui-widget">
+        <div class="ui-state-highlight ui-corner-all" style="margin-top: 10px; margin-bottom: 10px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong id="error-msg"></strong></p>
+        </div>
+    </div>
+    <div id="msg-confirm">Are you sure you want to perform this operation?</div>
+    <img id="progress-confirm" alt="..." src="./How to create swap partition in Linux at command shell    Linux.com_files/ui-anim_basic_16x16.gif" style="display: none;">
+</div>
+<span style="display: none" id="url_home"><a href="http://www.linux.com/learn/answers/index">Click here</a></span>
+<span style="display: none" id="url_ajax_captcha_check">/learn/answers/verify_captcha</span>
+<span style="display: none" id="lbl_submit_answer">Submit Answer</span>
+<span style="display: none" id="lbl_cancel">Cancel</span>
+<span style="display: none" id="lbl_yes">Yes</span>
+<span style="display: none" id="lbl_no">No</span>
+<span style="display: none" id="lbl_error">Error!</span>
+<span style="display: none" id="lbl_confirm">Confirm</span>
+<span style="display: none" id="lbl_question_deleted">The operation is successful.</span>
+<span style="display: none" id="lbl_click_here">Click here</span>
+<span style="display: none" id="lbl_ask_question">What do you want to ask?</span>
+<span style="display: none" id="html_answer-temp"><li class="noalt">
+<table class="answer_table">
+	<tbody><tr><td valign="top"><div class="description-temp"></div></td></tr>
+	<tr>
+		<td valign="top">
+			<table class="question-meta">
+				<tbody><tr>
+										<td valign="top"></td>
+					<td valign="top" width="100%" align="left">Answered by Guest <br> Just now</td>
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+</tbody></table>
+</li></span>
+<span style="display: none" id="url_subscribe">/learn/answers/subscribe_qn/1317-how-to-create-swap-partion-in-linux-at-command-shell</span>
+<span style="display: none" id="url_unsubscribe">/learn/answers/unsubscribe_qn/1317-how-to-create-swap-partion-in-linux-at-command-shell</span>
+<span style="display: none" id="msg_subscribe">You have subscribed to this question.</span>
+<span style="display: none" id="msg_unsubscribe">You have unsubscribed to this question.</span>
+<span style="display: none" id="lbl_subscribe">Subscribe</span>
+<span style="display: none" id="lbl_unsubscribe">Unsubscribe</span>
+<span style="display: none" id="url_get_answer">/learn/answers/get_answer</span>
+<span style="display: none" id="lbl_report_this">Report This</span>
+<span style="display: none" id="lbl_submit">Submit</span>
+<span style="display: none" id="lbl_info">Information!</span>
+<form style="display: none;" id="dlg_report" action="http://www.linux.com/learn/answers/report/1317" method="post">
+	<strong><label for="report_reason">Reason:</label></strong><br>
+	<input type="text" size="40" id="report_reason" name="report_reason"><br><br>
+	<strong><label for="report_description">Description:</label></strong><br>
+	<textarea rows="4" cols="40" id="report_description" name="report_description"></textarea><br><br>
+	<input type="hidden" id="report_answer_id" name="report_answer_id" value="0">
+</form>
+<form action="http://www.linux.com/learn/answers" method="post" name="login" id="ca-form-login" style="display: none;" title="Login">
+	<fieldset class="input">
+	<p id="form-login-username">
+		<label for="modlgn_username">Username</label><br>
+		<input id="modlgn_username" type="text" name="username" class="inputbox" alt="username" size="18">
+	</p>
+	<p id="form-login-password">
+		<label for="modlgn_passwd">Password</label><br>
+		<input id="modlgn_passwd" type="password" name="passwd" class="inputbox" size="18" alt="password">
+	</p>
+		<p id="form-login-remember">
+		<label for="modlgn_remember">Remember Me</label>
+		<input id="modlgn_remember" type="checkbox" name="remember" class="inputbox" value="yes" alt="Remember Me">
+	</p>
+		<input type="submit" name="Submit" class="button" value="Login">
+	</fieldset>
+	<ul>
+			<li>
+			<a href="http://www.linux.com/component/user/reset">
+			Forgot your password?</a>
+		</li>
+		<li>
+			<a href="http://www.linux.com/component/user/remind">
+			Forgot your username?</a>
+		</li>
+				</ul>
+
+	<input type="hidden" name="option" value="com_user">
+	<input type="hidden" name="task" value="login">
+	<input type="hidden" name="return" value="L2xlYXJuL2Fuc3dlcnMvdmlldy8xMzE3LWhvdy10by1jcmVhdGUtc3dhcC1wYXJ0aW9uLWluLWxpbnV4LWF0LWNvbW1hbmQtc2hlbGw=">
+	<input type="hidden" name="dfca14ff3bc7b2a448c1f0f9d76b4c7d" value="1"></form></div>
+					
+				  
+					
+		        
+									
+				</div></div></div>
+				
+				  						
+		        			        						
+								
+				
+			
+			
+        <!-- BEGIN: JAZIN -->
+                <!-- END: JAZIN -->
+      </div>
+      		
+  		          
+	</div>
+	<!-- END: CONTENT -->
+	
+		<!-- BEGIN: COLUMNS -->
+	<div id="ja-colwrap">
+
+				<!-- BEGIN: MASSCOL -->
+		<div id="ja-colmass" class="clearfix">
+		  		<div class="module">
+			<div>
+				<div>
+					<div>
+											<div id="azk59340_tracking" style="border: none;"></div>
+<div style="border: none; margin: 18px auto; min-height: 250px; text-align: center;">
+	<div id="azk85217_rectangle" style="border: none;"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		</div>
+		<!-- END: MASSCOL -->
+		
+		<div id="ja-cols" class="clearfix">
+		
+						<div id="ja-col1">
+				<div class="ja-innerpad clearfix ja-movable-container" id="ja-movable1">
+							<div class="module">
+			<div>
+				<div>
+					<div>
+													<h3>Latest Questions</h3>
+											<table border="0" cellpadding="5" cellspacing="0" width="100%" class="sectiontable">
+		<tbody>
+				<tr class="alt">
+						
+			<td align="left"><a href="http://www.linux.com/learn/answers/view/1925-boot-gave-up-waiting-for-root-device"> Boot gave up waiting for root device</a></td>
+			
+						<td align="left">Desktop</td>
+						
+						
+					</tr>
+				<tr class="noalt">
+						
+			<td align="left"><a href="http://www.linux.com/learn/answers/view/1924-download-linux"> Do I download Linux for my Laptop?</a></td>
+			
+						<td align="left">Netbooks</td>
+						
+						
+					</tr>
+				<tr class="alt">
+						
+			<td align="left"><a href="http://www.linux.com/learn/answers/view/1923-ubuntu-14041-battery-indicator-unresponsive"> Ubuntu 14.04.1 battery indicator unresponsive</a></td>
+			
+						<td align="left">Desktop</td>
+						
+						
+					</tr>
+				<tr class="noalt">
+						
+			<td align="left"><a href="http://www.linux.com/learn/answers/view/1922-what-is-the-best-linux-os-to-replace-my-current-system"> What is the best linux os to replace my current system?</a></td>
+			
+						<td align="left">Desktop</td>
+						
+						
+					</tr>
+				<tr class="alt">
+						
+			<td align="left"><a href="http://www.linux.com/learn/answers/view/1921-game"> How to play games from windows to linux?</a></td>
+			
+						<td align="left">Applications</td>
+						
+						
+					</tr>
+			</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module">
+			<div>
+				<div>
+					<div>
+													<h3>Upcoming Linux Foundation Courses</h3>
+											<ol class="upcomingcourses">
+			<li class="upcomingcourses">
+			<a class="title" target="_blank" href="http://training.linuxfoundation.org/index.php?option=com_lfcoursemanager&view=course&id=42" title="See the course details for LFD331 Developing Linux Device Drivers">LFD331 Developing Linux Device Drivers</a><br>
+			<span>15 Dec <strong>»</strong> 19 Dec - Virtual</span><br>
+			<a href="http://training.linuxfoundation.org/index.php?option=com_lfcoursemanager&view=course&id=42" title="See the course details for LFD331 Developing Linux Device Drivers" class="orange button">Details</a>
+		</li>
+			<li class="upcomingcourses">
+			<a class="title" target="_blank" href="http://training.linuxfoundation.org/index.php?option=com_lfcoursemanager&view=course&id=51" title="See the course details for LFD411 Embedded Linux Development">LFD411 Embedded Linux Development</a><br>
+			<span>15 Dec <strong>»</strong> 19 Dec - San Jose, CA</span><br>
+			<a href="http://training.linuxfoundation.org/index.php?option=com_lfcoursemanager&view=course&id=51" title="See the course details for LFD411 Embedded Linux Development" class="orange button">Details</a>
+		</li>
+			<li class="upcomingcourses">
+			<a class="title" target="_blank" href="http://training.linuxfoundation.org/index.php?option=com_lfcoursemanager&view=course&id=46" title="See the course details for LFS230 Linux Network Management">LFS230 Linux Network Management</a><br>
+			<span>15 Dec <strong>»</strong> 18 Dec - Virtual</span><br>
+			<a href="http://training.linuxfoundation.org/index.php?option=com_lfcoursemanager&view=course&id=46" title="See the course details for LFS230 Linux Network Management" class="orange button">Details</a>
+		</li>
+	</ol>
+<p style="font-weight: bold;"><a href="http://training.linuxfoundation.org/linux-courses/find-linux-training-courses" target="_blank">View All Upcoming Courses</a></p>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module">
+			<div>
+				<div>
+					<div>
+											<a class="twitter-timeline" href="https://twitter.com/search?q=%40linuxfoundation+OR+%40lf_training+OR+%23linux" data-widget-id="307555146915774464">Tweets about "@linuxfoundation OR @lf_training OR #linux"</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module">
+			<div>
+				<div>
+					<div>
+													<h3>Community Answers - Search</h3>
+											
+<!-- /mod_php version 1.0.0.Alpha1-J1.5 (c) www.fijiwebdesign.com -->
+ <link rel="stylesheet" href="./How to create swap partition in Linux at command shell    Linux.com_files/answers.css-" type="text/css">
+
+ 
+<form id="searchform" action="http://www.linux.com/learn/answers/search" method="post">
+                <input name="searchkey" id="ca_search" type="text" size="50">
+                <input type="hidden" name="option" value="com_communityanswers">
+                <input type="hidden" name="view" value="answers">
+                <input type="hidden" name="task" value="search">
+                <input type="hidden" name="Itemid" value="962">
+            </form>
+
+<!-- mod_php version 1.0.0.Alpha1-J1.5/ -->
+					</div>
+				</div>
+			</div>
+		</div>
+	
+				</div>
+			</div>
+				
+						
+		</div>
+
+	</div><br>
+	<!-- END: COLUMNS -->
+	
+</div></div>
+
+	<!-- BEGIN: BOTTOM SPOTLIGHT -->
+	<div id="ja-botslwrap">	
+	<div id="ja-botsl" class="clearfix">
+
+    <div id="ja-cpanel-bottom">
+    
+            <div class="ja-box-left" style="width: 24.98%;">
+        		<div class="moduletable" style="height: 179px;">
+					<h3>Who we are ?</h3>
+					<p>
+	The Linux Foundation is a non-profit consortium dedicated to the growth of Linux.</p>
+<p>
+	<a href="http://www.linuxfoundation.org/about">More About the foundation... </a></p>
+<p>
+	<a href="http://www.linuxfoundation.org/about/faq" target="_blank" title="Frequent Questions">Frequent Questions</a></p>
+<p>
+	<a href="http://www.linuxfoundation.org/about/join" target="_blank" title="Join the Linux Foundation">Join</a> / <a href="http://training.linuxfoundation.org/">Linux Training</a> / <a href="http://www.linuxfoundation.org/about/board-members" target="_blank" title="Board Members">Board </a></p>		</div>
+	
+      </div>
+            
+            <div class="ja-box-center" style="width: 24.98%;">
+        		<div class="moduletable" style="height: 179px;">
+					<h3>Explore</h3>
+					<p><a href="http://www.linux.com/learn/answers">Answers</a></p><p><a href="http://www.linux.com/community/blogs">Blogs</a></p><p><a href="http://www.linux.com/community/forums">Forums</a></p><p><a href="http://www.linux.com/directory">Directory</a> </p>		</div>
+	
+      </div>
+            
+            <div class="ja-box-center" style="width: 24.98%;">
+        		<div class="moduletable" style="height: 179px;">
+					<h3>Stay Current</h3>
+					<p>
+	<a href="http://www.linux.com/news/embedded-mobile/netbooks" title="Netbooks">Netbooks</a></p>
+<p>
+	<a href="http://www.linux.com/news/enterprise/cloud-computing">Cloud Computing</a></p>
+<p>
+	<a href="http://www.linux.com/news/enterprise">Enterprise</a></p>
+<p>
+	<a href="http://www.linux.com/news/embedded-mobile">Embedded &amp; Mobile</a></p>		</div>
+	
+      </div>
+            
+            <div class="ja-box-right" style="width: 24.98%;">
+        		<div class="moduletable" style="height: 179px;">
+					<h3>About Linux.com</h3>
+					<p>
+	<a href="http://www.linux.com/tour" title="Linux.com Site Tour">How to Participate</a></p>
+<p>
+	<a href="http://www.linux.com/contact">Contact</a> / <a href="http://www.linux.com/about">About</a></p>
+<p>
+	<a href="http://www.linux.com/advertise">Advertise</a></p>
+<p>
+	<a href="http://www.linux.com/privacy">Privacy</a> / <a href="http://www.linux.com/terms">Terms</a> / <a href="http://www.linux.com/editorial">Editorial Policy</a></p>		</div>
+	
+      </div>
+      
+    </div>
+
+	</div></div>
+	<!-- END: BOTTOM SPOTLIGHT -->
+
+
+<!-- BEGIN: FOOTER -->
+<div id="ja-footerwrap" class="clearfix">
+<div id="ja-footer">
+	
+<!-- /mod_php version 1.0.0.Alpha1-J1.5 (c) www.fijiwebdesign.com -->
+ <table>
+<tbody><tr>
+<td><h1 class="footer-logo"><span>The Linux Foundation</span></h1></td>
+<td><small><a href="http://linux.com/" target="blank" title="Linux.com - All Matters Linux">Linux.com</a> © 2012 Linux.com. All rights reserved.<br>
+ The Linux Foundation Symbol is a trademark of the Linux Foundation.<br>
+Linux is a registered <a href="http://www.linuxfoundation.org/programs/legal/trademark" title="Linux Mark Institute">trademark</a> of Linus Torvalds.</small>
+</td>
+</tr>
+</tbody></table>
+
+<!-- mod_php version 1.0.0.Alpha1-J1.5/ -->
+
+	<script type="text/javascript">
+piAId = '7342';
+piCId = '7201';
+
+(function() {
+        function async_load(){
+            var s = document.createElement('script'); s.type = 'text/javascript';
+            s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js';
+            var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c);
+        }
+        if(window.attachEvent) { window.attachEvent('onload', async_load); }
+        else { window.addEventListener('load', async_load, false); }
+    })();
+</script>
+</div>
+</div>
+<!-- END: FOOTER -->
+
+	
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./How to create swap partition in Linux at command shell    Linux.com_files/ga.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-831873-8");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript">
+_qoptions={
+qacct:"p-81r-qu3bH9XSY"
+};
+</script>
+<script type="text/javascript" src="./How to create swap partition in Linux at command shell    Linux.com_files/quant.js"></script>
+<noscript>
+&lt;img src="//pixel.quantserve.com/pixel/p-81r-qu3bH9XSY.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/&gt;
+</noscript>
+<!-- End Quantcast tag -->
+
+
+<div id="stcpDiv" style="position: absolute; top: -1999px; left: -1988px;">ShareThis Copy and Paste</div><iframe id="stSegmentFrame" name="stSegmentFrame" src="./How to create swap partition in Linux at command shell    Linux.com_files/getSegment.html" frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe><div id="stwrapper" class="stwrapper stwrapper5x" style="display: none; z-index: 89999999;"><iframe allowtransparency="true" id="stLframe" class="stLframe stframe5x" name="stLframe" frameborder="0" scrolling="no" width="514px" height="419px" src="./How to create swap partition in Linux at command shell    Linux.com_files/index.ebf31df8d92fd30e9f72286d9fe3828b.html" style="top: 0px; left: 0px;"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();" style="height: 100%; width: 100%; opacity: 0.6; position: fixed; display: none; left: 0px; top: 0px; z-index: 89999990; background-color: rgb(0, 0, 0);"></div><div id="fb-root"></div><iframe name="oauth2relay870488414" id="oauth2relay870488414" src="./How to create swap partition in Linux at command shell    Linux.com_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

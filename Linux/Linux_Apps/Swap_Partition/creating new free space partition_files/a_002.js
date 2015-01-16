@@ -1,0 +1,1 @@
+skimwordsSettingsCallback({"nc":1,"includes":["body"],"excludes":[],"memcache":"127.0.0.1","guid":"182b140288c5587acebad78140fbe758","sessid":"59af42df82675d79aa32a914dc34631f","fc":0,"nocache":1,"read_onlys":["title","h1","h2","h3","h4","h5","h6"]});
