@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Toolbar</title>
+ 
+<style type="text/css">
+
+/* need this one for Mozilla */
+HTML { 
+	margin:0px;
+	padding:0px;
+}
+ 
+BODY {
+	background:white;
+}
+
+#titleText {
+	font-weight:bold;
+	color:WindowText;
+}
+ 
+.buttonOn a { 
+	display:block;
+	margin-left:2px;
+	margin-right:2px;
+	width:18px;
+	height:18px;
+	border:1px solid Highlight;
+ 
+	vertical-align:middle;
+	background: white;
+}
+
+.button a { 
+	display:block;
+	margin-left:2px;
+	margin-right:2px;
+	width:18px;
+	height:18px;
+	border:1px solid white;
+ 
+	vertical-align:middle;
+}
+
+.button a:hover { 
+	border-top:1px solid ButtonHighlight; 
+	border-left:1px solid ButtonHighlight; 
+	border-right:1px solid ButtonShadow; 
+	border-bottom:1px solid ButtonShadow;
+}
+
+
+#b4:hover{
+	border:1px solid white;
+}
+
+
+.separator {
+	background-color: ThreeDShadow;
+	height:100%;
+	width: 1px;
+	border-top:2px solid white;
+	border-bottom:2px solid white;
+	border-left:3px solid white;
+	border-right:3px solid white;
+	
+}
+
+#container {
+	border-bottom:1px solid ThreeDShadow;
+
+	border-top:1px solid ThreeDShadow;
+	height:24px;
+
+}
+
+
+
+</style>
+
+<script language="JavaScript" type="text/javascript">
+
+var bRestore = false;
+// Preload images
+
+	var rss = new Image();
+	rss.src = "images\u002Fe\u005Frss\u002Egif";
+
+	var rss_off = new Image();
+	rss_off.src = "images\u002Frss\u002Egif";
+
+	var survey = new Image();
+	survey.src = "images\u002Fe\u005Fpencil\u002Egif";
+
+	var errata = new Image();
+	errata.src = "images\u002Fe\u005Ferrata\u002Egif";
+
+	var maximize\u005Frestore = new Image();
+	maximize\u005Frestore.src = "images\u002Fe\u005Fmaximize\u002Egif";
+
+
+function setTitle(label)
+{
+	if( label == null) label = "";
+	var title = document.getElementById("titleText");
+	if (title == null) return;
+	var text = title.lastChild;
+	if (text == null) return;
+	text.nodeValue = label;
+}
+
+
+function registerMaximizedChangedListener(){
+	// get to the frameset
+	var p = parent;
+	while (p && !p.registerMaximizeListener)
+		p = p.parent;
+	
+	if (p!= null){
+		p.registerMaximizeListener('linkbarToolbar', maximizedChanged);
+	}
+}
+registerMaximizedChangedListener();
+
+/**
+ * Handler for double click: maximize/restore this view
+ * Note: Mozilla browsers prior to 1.2.1 do not support programmatic frame resizing well.
+ */
+function mouseDblClickHandler(e) {
+	// ignore double click on buttons and form inputs
+	var node=e.target;
+	while (node && node.tagName) {
+		if (node.tagName == "A" || node.tagName == "IMG" || node.tagName == "INPUT" || node.tagName == "SELECT")
+				return;
+		node = node.parentNode;
+	}
+	toggleFrame();
+	return false;
+}		
+function restore_maximize(button)
+{
+	toggleFrame();
+	if (isIE && button && document.getElementById(button)){
+		document.getElementById(button).blur();
+	}
+}
+function toggleFrame(){
+	// get to the frameset
+	var p = parent;
+	while (p && !p.toggleFrame)
+		p = p.parent;
+	
+	if (p!= null){
+		p.toggleFrame('Feedback');
+	}
+
+
+}
+
+function maximizedChanged(maximizedNotRestored){
+	if(maximizedNotRestored){
+		document.getElementById("maximize_restore").src="images/e_restore.gif";
+		document.getElementById("maximize_restore").setAttribute("title",
+			"Restore");
+		document.getElementById("maximize_restore").setAttribute("alt",
+			"Restore");
+		bRestore = true;
+	}else{
+		document.getElementById("maximize_restore").src="images/e_maximize.gif";
+		document.getElementById("maximize_restore").setAttribute("title",
+			"Maximize");
+		document.getElementById("maximize_restore").setAttribute("alt",
+			"Maximize");
+		bRestore = false;
+	}
+}
+
+document.addEventListener('dblclick', mouseDblClickHandler, true);
+
+
+function setButtonState(buttonName, pressed) {
+	if(!document.getElementById("tdb_"+buttonName))
+		return;
+	if(pressed){
+		document.getElementById("tdb_"+buttonName).className="buttonOn";
+	}else{
+		document.getElementById("tdb_"+buttonName).className="button";
+	}
+}
+
+function setWindowStatus(buttonName){
+	
+			if (buttonName == "rss"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "RSS\u0020feed\u0020of\u0020changes\u0020to\u0020site";
+				}
+			}
+		
+			if (buttonName == "survey"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Visitor\u0020survey";
+				}
+			}
+		
+			if (buttonName == "errata"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Report\u0020error";
+				}
+			}
+		
+			if (buttonName == "maximize\u005Frestore"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Maximize";
+				}
+			}
+		
+}
+</script>
+
+
+<script language="JavaScript" type="text/javascript" src="contentLinkbar_data/linkbarActions.js"></script>
+
+
+</head>
+ 
+
+	<body dir="ltr">
+
+
+<table id="container" style="padding-left:8px;" width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+
+	<tbody><tr>
+		<td style="font: 9pt Verdana, Tahoma, Arial, Helvetica, sans-serif" valign="middle" nowrap="nowrap">
+			<div id="titleTextTableDiv" style="overflow:hidden; height:22px;"><table><tbody><tr><td style="font:9pt Verdana, Tahoma, Arial, Helvetica, sans-serif" nowrap="nowrap"><div id="titleText">&nbsp;Feedback</div></td></tr></tbody></table>
+			</div>
+		
+		
+		<div style="position:absolute; top:1px; right:0px;">
+		<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="1">
+			<tbody><tr>
+				<td align="right">
+					<table style="background:white" height="100%" align="right" border="0" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+
+						<td id="tdb_rss" class="button" height="18" align="center">
+							<a href="javascript:goLocation('b0',%20'../topic/com.arm.doc.rss/docsrss.xml');" onmouseover="javascript:setWindowStatus('rss');return true;" onmouseout="window.status='';" id="b0">
+							   <img src="contentLinkbar_data/e_rss.gif" alt="RSS feed of changes to site" title="RSS feed of changes to site" id="rss" border="0">
+							</a>
+						</td>
+
+						<td class="separator" valign="middle" align="center">
+						</td>
+
+						<td id="tdb_survey" class="button" height="18" align="center">
+							<a href="javascript:goFormWithRef('b2',%20'../topic/com.arm.doc.feedback/survey.html');" onmouseover="javascript:setWindowStatus('survey');return true;" onmouseout="window.status='';" id="b2">
+							   <img src="contentLinkbar_data/e_pencil.gif" alt="Visitor survey" title="Visitor survey" id="survey" border="0">
+							</a>
+						</td>
+
+						<td id="tdb_errata" class="button" height="18" align="center">
+							<a href="javascript:goFormWithRef('b3',%20'../topic/com.arm.doc.feedback/errata.html');" onmouseover="javascript:setWindowStatus('errata');return true;" onmouseout="window.status='';" id="b3">
+							   <img src="contentLinkbar_data/e_errata.gif" alt="Report error" title="Report error" id="errata" border="0">
+							</a>
+						</td>
+
+						<td id="tdb_maximize_restore" class="button" height="18" align="center">
+							<a href="javascript:restore_maximize('b4',%20'null');" onmouseover="javascript:setWindowStatus('maximize_restore');return true;" onmouseout="window.status='';" id="b4">
+							   <img src="search_data/e_maximize.gif" alt="Maximize" title="Maximize" id="maximize_restore" border="0">
+							</a>
+						</td>
+				
+					</tr>
+					</tbody></table>
+				</td>
+			</tr>
+		</tbody></table> 
+		</div>
+		</td>
+	</tr>
+</tbody></table>
+
+
+
+     
+
+
+
+</body></html>

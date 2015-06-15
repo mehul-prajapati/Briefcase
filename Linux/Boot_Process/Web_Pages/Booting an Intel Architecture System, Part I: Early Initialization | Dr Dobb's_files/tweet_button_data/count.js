@@ -1,1 +1,0 @@
-twttr.receiveCount({"count":1,"url":"http:\/\/www.drdobbs.com\/parallel\/booting-an-intel-architecture-system-par\/232300699\/"});

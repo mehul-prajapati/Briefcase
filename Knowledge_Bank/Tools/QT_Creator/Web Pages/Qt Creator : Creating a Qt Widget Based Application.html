@@ -1,0 +1,341 @@
+<!--?xml version="1.0" encoding="ISO-8859-1"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- qtcreator.qdoc -->
+  <title>Qt Creator : Creating a Qt Widget Based Application</title>
+  <link rel="stylesheet" type="text/css" href="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/style.css">
+  <script src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/ga.js" async="" type="text/javascript"></script><script src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/jquery.js" type="text/javascript"></script>
+  <script src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/functions.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/superfish.css">
+  <link rel="stylesheet" type="text/css" href="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/narrow.css">
+  <!--[if IE]>
+<meta name="MSSmartTagsPreventParsing" content="true">
+<meta http-equiv="imagetoolbar" content="no">
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/css" href="style/style_ie6.css">
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="style/style_ie7.css">
+<![endif]-->
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="style/style_ie8.css">
+<![endif]-->
+
+<script src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/superfish.js" type="text/javascript"></script>
+<script src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/narrow.js" type="text/javascript"></script>
+
+</head>
+<body class="" onload="CheckEmptyAndLoadList();">
+ <div class="header" id="qtdocheader">
+    <div class="content"> 
+    <div id="nav-logo">
+      <a href="http://doc.qt.digia.com/qtcreator-2.3/index.html">Home</a></div>
+    <a href="http://doc.qt.digia.com/qtcreator-2.3/index.html" class="qtref"><span>Qt Creator Manual</span></a>
+    <div id="narrowsearch"></div>
+    <div id="nav-topright">
+      <ul>
+        <li class="nav-topright-home"><a href="http://qt.nokia.com/">Qt HOME</a></li>
+        <li class="nav-topright-dev"><a href="http://developer.qt.nokia.com/">DEV</a></li>
+        <li class="nav-topright-labs"><a href="http://labs.qt.nokia.com/blogs/">LABS</a></li>
+        <li class="nav-topright-doc nav-topright-doc-active"><a href="http://doc.qt.nokia.com/">
+          DOC</a></li>
+        <li class="nav-topright-blog"><a href="http://blog.qt.nokia.com/">BLOG</a></li>
+      </ul>
+    </div>
+    <div id="shortCut">
+      <ul>
+        <li class="shortCut-topleft-inactive"><span><a href="http://doc.qt.digia.com/qtcreator-2.3/index.html">Qt Creator</a></span></li>
+        
+      </ul>
+     </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="hd">
+      <span></span>
+    </div>
+    <div class="bd group">
+      <div class="sidebar">
+        <div class="box first bottombar" id="lookup">
+          <h2 title="API Lookup">
+            API Lookup</h2>
+          <div id="list001" class="list">
+          <ul id="ul001">
+              <li><a href="http://doc.qt.nokia.com/4.7/classes.html">Class index</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/functions.html">Function index</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/modules.html">Modules</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/namespaces.html">Namespaces</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/qtglobal.html">Global Declarations</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/qdeclarativeelements.html">QML elements</a></li>
+            </ul> 
+          </div>
+        </div>
+        <div class="box bottombar" id="topics">
+          <h2 title="Qt Topics"><span></span>
+            Qt Topics</h2>
+          <div id="list002" class="list">
+            <ul id="ul002">
+               <li><a href="http://doc.qt.nokia.com/4.7/qt-basic-concepts.html">Programming with Qt</a></li> 
+               <li><a href="http://doc.qt.nokia.com/4.7/qtquick.html">Device UIs &amp; Qt Quick</a></li> 
+               <li><a href="http://doc.qt.nokia.com/4.7/qt-gui-concepts.html">UI Design with Qt</a></li> 
+               <li><a href="http://doc.qt.nokia.com/4.7/developing-with-qt.html">Cross-platform and Platform-specific</a></li> 
+               <li><a href="http://doc.qt.nokia.com/4.7/platform-specific.html">Platform-specific info</a></li> 
+               <li><a href="http://doc.qt.nokia.com/4.7/technology-apis.html">Qt and Key Technologies</a></li> 
+               <li><a href="http://doc.qt.nokia.com/4.7/best-practices.html">How-To's and Best Practices</a></li> 
+            </ul>  
+          </div>
+        </div>
+        <div class="box" id="examples">
+          <h2 title="Examples"><span></span>
+            Examples</h2>
+          <div id="list003" class="list">
+        <ul id="ul003">
+              <li><a href="http://doc.qt.nokia.com/4.7/all-examples.html">Examples</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/tutorials.html">Tutorials</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/demos.html">Demos</a></li>
+              <li><a href="http://doc.qt.nokia.com/4.7/qdeclarativeexamples.html">QML Examples</a></li>
+            </ul> 
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="toolbar">
+          <div class="breadcrumb toolblock">
+            <ul>
+              <li class="first"><a href="http://doc.qt.digia.com/qtcreator-2.3/index.html">Home</a></li>
+              <!--  Breadcrumbs go here -->
+<li>Creating a Qt Widget Based Application</li>
+            </ul>
+          </div>
+          <div class="toolbuttons toolblock">
+            <ul>
+              <li id="smallA" class="t_button">A</li>
+              <li id="medA" class="t_button active">A</li>
+              <li id="bigA" class="t_button">A</li>
+              <li id="print" class="t_button"><a href="javascript:this.print();">
+                <span>Print</span></a></li>
+            </ul>
+        </div>
+        </div>
+        <div class="content mainContent">
+  <link rel="prev" href="http://doc.qt.digia.com/qtcreator-2.3/creator-qml-components-example.html">
+  <link rel="next" href="http://doc.qt.digia.com/qtcreator-2.3/creator-mobile-example.html">
+<p class="naviNextPrevious headerNavi">
+[Previous: <a href="http://doc.qt.digia.com/qtcreator-2.3/creator-qml-components-example.html">Creating a Qt Quick Application Using Qt Quick Components</a>]
+[Next: <a href="http://doc.qt.digia.com/qtcreator-2.3/creator-mobile-example.html">Creating a Qt Widget Based Mobile Application</a>]
+</p><p>
+</p><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#creating-the-text-finder-project">Creating the Text Finder Project</a></li>
+<li class="level1"><a href="#filling-in-the-missing-pieces">Filling in the Missing Pieces</a></li>
+<li class="level2"><a href="#designing-the-user-interface">Designing the User Interface</a></li>
+<li class="level2"><a href="#completing-the-header-file">Completing the Header File</a></li>
+<li class="level2"><a href="#completing-the-source-file">Completing the Source File</a></li>
+<li class="level2"><a href="#creating-a-resource-file">Creating a Resource File</a></li>
+<li class="level1"><a href="#compiling-and-running-your-program">Compiling and Running Your Program</a></li>
+</ul>
+</div>
+<h1 class="title">Creating a Qt Widget Based Application</h1>
+<span class="subtitle"></span>
+<!-- $$$creator-writing-program.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>This tutorial describes how to use Qt Creator to create a small Qt application, Text Finder. It is a simplified version of the <a href="http://qt.nokia.com/doc/4.7/qtuitools.html">QtUiTools</a> <a href="http://doc.qt.nokia.com/4.7/uitools-textfinder.html">Text Finder</a> example. The application user interface is constructed from Qt widgets by using <i>Qt Designer</i>. The application logic is written in C++ by using the code editor.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-textfinder-screenshot.png"></p><a name="creating-the-text-finder-project"></a>
+<h2>Creating the Text Finder Project</h2>
+<p><b>Note:</b> Create the project with two instances of Qt Creator open and the <b>Help</b> mode active in one of them so that you can follow these instructions while you work.</p>
+<ol class="1">
+<li>Select <b>File &gt; New File or Project &gt; Qt Widget Project &gt; Qt Gui Application &gt; Choose</b>.<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-new-qt-gui-application.png" alt="&quot;New File or Project dialog&quot;"></p><p>The <b>Introduction and Project Location</b> dialog opens.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-intro-and-location-qt-gui.png" alt="&quot;Introduction and Project Location dialog&quot;"></p></li>
+<li>In the <b>Name</b> field, type <b>TextFinder</b>.</li>
+<li>In the <b>Create in</b> field, enter the path for the project files. For example, <tt>C:\Qt\examples</tt>, and then click <b>Next</b>.<p>The <b>Target Setup</b> dialog opens.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-new-project-qt-versions-qt-gui.png" alt="&quot;Target Setup dialog&quot;"></p></li>
+<li>Select the Qt versions to use as build targets for your project, and click <b>Next</b>.<p><b>Note:</b> If you have only one Qt version installed, this dialog is skipped.</p>
+<p>The <b>Class Information</b> dialog opens.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-class-info-qt-gui.png" alt="&quot;Class Information dialog&quot;"></p></li>
+<li>In the <b>Class name</b> field, type <b>TextFinder</b> as the class name.</li>
+<li>In the <b>Base class</b> list, select <b><a href="http://qt.nokia.com/doc/4.7/qwidget.html">QWidget</a></b> as the base class type.<p><b>Note:</b> The <b>Header file</b>, <b>Source file</b> and <b>Form file</b> fields are automatically updated to match the name of the class.</p>
+</li>
+<li>Click <b>Next</b>.<p>The <b>Project Management</b> dialog opens.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-new-project-summary-qt-gui.png" alt="&quot;Project Management dialog&quot;"></p></li>
+<li>Review the project settings, and click <b>Finish</b> to create the project.</li>
+</ol>
+<p>The TextFinder project now contains the following files:</p>
+<ul>
+<li>textfinder.h</li>
+<li>textfinder.cpp</li>
+<li>main.cpp</li>
+<li>textfinder.ui</li>
+<li>textfinder.pro</li>
+</ul>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-textfinder-contents.png" alt="&quot;TextFinder project contents&quot;"></p><p>The .h and .cpp files come with the necessary boiler plate code. The .pro file is complete.</p>
+<a name="filling-in-the-missing-pieces"></a>
+<h2>Filling in the Missing Pieces</h2>
+<p>Begin by designing the user interface and then move on to filling in the missing code. Finally, add the find functionality.</p>
+<a name="designing-the-user-interface"></a>
+<h3>Designing the User Interface</h3>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-textfinder-ui.png" alt="&quot;Text Finder UI&quot;"></p><ol class="1">
+<li>In the <b>Editor</b> mode, double-click the textfinder.ui file in the <b>Projects</b> view to launch the integrated <i>Qt Designer</i>.</li>
+<li>Drag and drop the following widgets to the form:<ul>
+<li><b>Label</b> (<a href="http://qt.nokia.com/doc/4.7/qlabel.html">QLabel</a>)</li>
+<li><b>Line Edit</b> (<a href="http://qt.nokia.com/doc/4.7/qlineedit.html">QLineEdit</a>)</li>
+<li><b>Push Button</b> (<a href="http://qt.nokia.com/doc/4.7/qpushbutton.html">QPushButton</a>)</li>
+</ul>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-textfinder-ui-widgets.png" alt="&quot;Adding widgets to Text Finder UI&quot;"></p><p><b>Note:</b> To easily locate the widgets, use the search box at the top of the <b>Sidebar</b>. For example, to find the <b>Label</b> widget, start typing the word <b>label</b>.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-texfinder-filter.png" alt="&quot;Filter field&quot;"></p></li>
+<li>Double-click the <b>Label</b> widget and enter the text <b>Keyword</b>.</li>
+<li>Double-click the <b>Push Button</b> widget and enter the text <b>Find</b>.</li>
+<li>In the <b>Properties</b> pane, change the <b>objectName</b> to <b>findButton</b>.<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-textfinder-objectname.png" alt="&quot;Changing object names&quot;"></p></li>
+<li>Press <b>Ctrl+A</b> to select the widgets and click <b>Lay out Horizontally</b> (or press <b>Ctrl+H</b>) to apply a horizontal layout (<a href="http://qt.nokia.com/doc/4.7/qhboxlayout.html">QHBoxLayout</a>).<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-texfinder-ui-horizontal-layout.png" alt="&quot;Applying horizontal layout&quot;"></p></li>
+<li>Drag and drop a <b>Text Edit</b> widget (<a href="http://qt.nokia.com/doc/4.7/qtextedit.html">QTextEdit</a>) to the form.</li>
+<li>Select the screen area and click <b>Lay out Vertically</b> (or press <b>Ctrl+L</b>) to apply a vertical layout (<a href="http://qt.nokia.com/doc/4.7/qvboxlayout.html">QVBoxLayout</a>).<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-textfinder-ui.png" alt="&quot;Text Finder UI&quot;"></p><p>Applying the horizontal and vertical layouts ensures that the application UI scales to different screen sizes.</p>
+</li>
+<li>To call a find function when users press the <b>Find</b> button, you
+ use the Qt signals and slots mechanism. A signal is emitted when a 
+particular event occurs and a slot is a function that is called in 
+response to a particular signal. Qt widgets have predefined signals and 
+slots that you can use directly from <i>Qt Designer</i>. To add a slot for the find function:<ul>
+<li>Right-click the <b>Find</b> button to open a context-menu.</li>
+<li>Select <b>Go to Slot &gt; clicked()</b>, and then select <b>OK</b>.<p>A private slot, <tt>on_findButton_clicked()</tt>, is added to the header file, textfinder.h and a private function, <tt>TextFinder::on_findButton_clicked()</tt>, is added to the source file, textfinder.cpp.</p>
+</li>
+</ul>
+</li>
+<li>Press <b>Ctrl+S</b> to save your changes.</li>
+</ol>
+<p>For more information about designing forms with <i>Qt Designer</i>, see the <a href="http://doc.qt.nokia.com/4.7/designer-manual.html">Qt Designer Manual</a>.</p>
+<a name="completing-the-header-file"></a>
+<h3>Completing the Header File</h3>
+<p>The textfinder.h file already has the necessary #includes, a constructor, a destructor, and the <tt>Ui</tt> object. You need to add a private function, <tt>loadTextFile()</tt>, to read and display the contents of the input text file in the <a href="http://qt.nokia.com/doc/4.7/qtextedit.html">QTextEdit</a>.</p>
+<ol class="1">
+<li>In the <b>Projects</b> pane in the <b>Edit view</b>, double-click the <tt>textfinder.h</tt> file to open it for editing.</li>
+<li>Add a private function to the <tt>private</tt> section, after the <tt>Ui::TextFinder</tt> pointer, as illustrated by the following code snippet:<pre class="cpp"> <span class="keyword">private</span> <span class="keyword">slots</span>:
+     <span class="type">void</span> on_findButton_clicked();
+
+ <span class="keyword">private</span>:
+     Ui<span class="operator">::</span>TextFinder <span class="operator">*</span>ui;
+     <span class="type">void</span> loadTextFile();</pre>
+</li>
+</ol>
+<a name="completing-the-source-file"></a>
+<h3>Completing the Source File</h3>
+<p>Now that the header file is complete, move on to the source file, textfinder.cpp.</p>
+<ol class="1">
+<li>In the <b>Projects</b> pane in the <b>Edit</b> view, double-click the textfinder.cpp file to open it for editing.</li>
+<li>Add code to load a text file using <a href="http://qt.nokia.com/doc/4.7/qfile.html">QFile</a>, read it with <a href="http://qt.nokia.com/doc/4.7/qtextstream.html">QTextStream</a>, and then display it on <tt>textEdit</tt> with <a href="http://doc.qt.nokia.com/4.7/qtextedit.html#plainText-prop">setPlainText()</a>. This is illustrated by the following code snippet:<pre class="cpp"> <span class="type">void</span> TextFinder<span class="operator">::</span>loadTextFile()
+ {
+     <span class="type"><a href="http://qt.nokia.com/doc/4.7/qfile.html">QFile</a></span> inputFile(<span class="string">":/input.txt"</span>);
+     inputFile<span class="operator">.</span>open(<span class="type"><a href="http://qt.nokia.com/doc/4.7/qiodevice.html">QIODevice</a></span><span class="operator">::</span>ReadOnly);
+
+     <span class="type"><a href="http://qt.nokia.com/doc/4.7/qtextstream.html">QTextStream</a></span> in(<span class="operator">&amp;</span>inputFile);
+     <span class="type"><a href="http://qt.nokia.com/doc/4.7/qstring.html">QString</a></span> line <span class="operator">=</span> in<span class="operator">.</span>readAll();
+     inputFile<span class="operator">.</span>close();
+
+     ui<span class="operator">-</span><span class="operator">&gt;</span>textEdit<span class="operator">-</span><span class="operator">&gt;</span>setPlainText(line);
+     <span class="type"><a href="http://qt.nokia.com/doc/4.7/qtextcursor.html">QTextCursor</a></span> cursor <span class="operator">=</span> ui<span class="operator">-</span><span class="operator">&gt;</span>textEdit<span class="operator">-</span><span class="operator">&gt;</span>textCursor();
+     cursor<span class="operator">.</span>movePosition(<span class="type"><a href="http://qt.nokia.com/doc/4.7/qtextcursor.html">QTextCursor</a></span><span class="operator">::</span>Start<span class="operator">,</span> <span class="type"><a href="http://qt.nokia.com/doc/4.7/qtextcursor.html">QTextCursor</a></span><span class="operator">::</span>MoveAnchor<span class="operator">,</span> <span class="number">1</span>);
+ }</pre>
+</li>
+<li>To use <a href="http://qt.nokia.com/doc/4.7/qfile.html">QFile</a> and <a href="http://qt.nokia.com/doc/4.7/qtextstream.html">QTextStream</a>, add the following #includes to textfinder.cpp:<pre class="cpp"> <span class="preprocessor">#include &lt;QtCore/QFile&gt;</span>
+ <span class="preprocessor">#include &lt;QtCore/QTextStream&gt;</span></pre>
+</li>
+<li>For the <tt>on_findButton_clicked()</tt> slot, add code to extract the search string and use the <a href="http://doc.qt.nokia.com/4.7/qtextedit.html#find">find()</a> function to look for the search string within the text file. This is illustrated by the following code snippet:<pre class="cpp"> <span class="type">void</span> TextFinder<span class="operator">::</span>on_findButton_clicked()
+ {
+     <span class="type"><a href="http://qt.nokia.com/doc/4.7/qstring.html">QString</a></span> searchString <span class="operator">=</span> ui<span class="operator">-</span><span class="operator">&gt;</span>lineEdit<span class="operator">-</span><span class="operator">&gt;</span>text();
+     ui<span class="operator">-</span><span class="operator">&gt;</span>textEdit<span class="operator">-</span><span class="operator">&gt;</span>find(searchString<span class="operator">,</span> <span class="type"><a href="http://qt.nokia.com/doc/4.7/qtextdocument.html">QTextDocument</a></span><span class="operator">::</span>FindWholeWords);
+ }</pre>
+</li>
+<li>Once both of these functions are complete, add a line to call <tt>loadTextFile()</tt> in the constructor, as illustrated by the following code snippet:<pre class="cpp"> TextFinder<span class="operator">::</span>TextFinder(<span class="type"><a href="http://qt.nokia.com/doc/4.7/qwidget.html">QWidget</a></span> <span class="operator">*</span>parent)
+     : <span class="type"><a href="http://qt.nokia.com/doc/4.7/qwidget.html">QWidget</a></span>(parent)<span class="operator">,</span> ui(<span class="keyword">new</span> Ui<span class="operator">::</span>TextFinder)
+ {
+     ui<span class="operator">-</span><span class="operator">&gt;</span>setupUi(<span class="keyword">this</span>);
+     loadTextFile();
+ }</pre>
+</li>
+</ol>
+<p>The <tt>on_findButton_clicked()</tt> slot is called automatically in the uic generated ui_textfinder.h file by this line of code:</p>
+<pre class="cpp"> <span class="type"><a href="http://qt.nokia.com/doc/4.7/qmetaobject.html">QMetaObject</a></span><span class="operator">::</span>connectSlotsByName(TextFinder);</pre>
+<a name="creating-a-resource-file"></a>
+<h3>Creating a Resource File</h3>
+<p>You need a resource file (.qrc) within which you embed the input text
+ file. The input file can be any .txt file with a paragraph of text. 
+Create a text file called input.txt and store it in the textfinder 
+folder.</p>
+<p>To add a resource file:</p>
+<ol class="1">
+<li>Select <b>File &gt; New File or Project &gt; Qt &gt; Qt Resource File &gt; Choose</b>.<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-add-resource-wizard.png" alt="&quot;New File or Project dialog&quot;"></p><p>The <b>Choose the Location</b> dialog opens.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-add-resource-wizard2.png" alt="&quot;Choose the Location dialog&quot;"></p></li>
+<li>In the <b>Name</b> field, enter <b>textfinder</b>.</li>
+<li>In the <b>Path</b> field, enter <tt>C:\Qt\examples\TextFinder</tt>, and click <b>Next</b>.<p>The <b>Project Management</b> dialog opens.</p>
+<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-add-resource-wizard3.png" alt="&quot;Project Management dialog&quot;"></p></li>
+<li>In the <b>Add to project</b> field, select <b>TextFinder.pro</b> and click <b>Finish</b> to open the file in the code editor.</li>
+<li>Select <b>Add &gt; Add Prefix</b>.</li>
+<li>In the <b>Prefix</b> field, replace the default prefix with a slash (/).</li>
+<li>Select <b>Add &gt; Add Files</b>, to locate and add input.txt.<p class="centerAlign"><img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-add-resource.png" alt="&quot;Editing resource files&quot;"></p></li>
+</ol>
+<a name="compiling-and-running-your-program"></a>
+<h2>Compiling and Running Your Program</h2>
+<p>Now that you have all the necessary files, click the <img src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/qtcreator-run.png"> button to compile and run your program.</p>
+</div>
+<!-- @@@creator-writing-program.html -->
+<p class="naviNextPrevious footerNavi">
+[Previous: <a href="http://doc.qt.digia.com/qtcreator-2.3/creator-qml-components-example.html">Creating a Qt Quick Application Using Qt Quick Components</a>]
+[Next: <a href="http://doc.qt.digia.com/qtcreator-2.3/creator-mobile-example.html">Creating a Qt Widget Based Mobile Application</a>]
+</p>
+              </div>
+    </div>
+    </div> 
+    <div class="ft">
+      <span></span>
+    </div>
+  </div> 
+  <div class="footer">
+    <p>
+      <acronym title="Copyright">©</acronym> 2008-2011 Nokia Corporation and/or its
+      subsidiaries. Nokia, Qt and their respective logos are trademarks of Nokia Corporation 
+      in Finland and/or other countries worldwide.</p>
+    <p>
+      All other trademarks are property of their respective owners. <a title="Privacy Policy" href="http://qt.nokia.com/about/privacy-policy">Privacy Policy</a></p>
+    <br>
+    <p>
+      Licensees holding valid Qt Commercial licenses may use this 
+document in accordance with the      Qt Commercial License Agreement 
+provided with the Software or, alternatively, in accordance      with 
+the terms contained in a written agreement between you and Nokia.</p>
+    <p>
+      Alternatively, this document may be used under the terms of the <a href="http://www.gnu.org/licenses/fdl.html">GNU
+      Free Documentation License version 1.3</a>
+      as published by the Free Software Foundation.</p>
+  </div>
+  <div id="feedbackBox">
+      <div id="feedcloseX" class="feedclose t_button">X</div>
+    <form id="feedform" action="http://doc.qt.nokia.com/docFeedbck/feedback.php" method="get">
+      <p id="noteHead">Thank you for giving your feedback.</p> <p class="note">Make sure it is related to this specific page. For more general bugs and 
+      requests, please use the <a href="http://bugreports.qt.nokia.com/secure/Dashboard.jspa">Qt Bug Tracker</a>.</p>
+      <p><textarea id="feedbox" name="feedText" rows="5" cols="40"></textarea></p>
+      <p><input id="feedsubmit" class="feedclose" name="feedback" type="submit"></p>
+    </form>
+  </div>
+  <div id="blurpage">
+  </div>
+
+  <script src="Qt%20Creator%20:%20Creating%20a%20Qt%20Widget%20Based%20Application_files/functions.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4457116-5']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+
+
+[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  
+
+
+</body></html>

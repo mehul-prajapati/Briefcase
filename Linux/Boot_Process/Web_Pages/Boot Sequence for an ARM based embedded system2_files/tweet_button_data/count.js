@@ -1,1 +1,0 @@
-twttr.receiveCount({"count":0,"url":"http:\/\/www.embeddedrelated.com\/showarticle\/118.php\/"});

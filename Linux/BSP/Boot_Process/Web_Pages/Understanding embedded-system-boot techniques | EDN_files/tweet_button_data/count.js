@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":0,"url":"http:\/\/www.edn.com\/design\/systems-design\/4363984\/Understanding-embedded-system-boot-techniques-4363984\/"});

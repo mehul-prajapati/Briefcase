@@ -1,0 +1,1003 @@
+<html dir="ltr" class="client-js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load_003.php" async=""></script><script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load_004.php" async=""></script></head>
+
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-AM335x_board_bringup_tips skin-titwo action-view vector-animateLayout"><div class="layout">
+    <div class="layout-header"></div>
+    <div class="layout-content header-top-split-content-footer" id="ctl00_header_ctl00_layout">
+      <div class="layout-region header" id="ctl00_header_ctl00_header">
+        <div class="layout-region-inner header">
+          <div class="content-fragment header-fragment t-i-header no-wrapper" id="header-492">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content"> </div>
+              <div class="content-fragment-footer"></div>
+              <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-fragment site-user-navigation no-wrapper" id="header-493">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content">
+                <div class="navigation-list-header"></div>
+                
+                <div class="navigation-list-footer"></div>
+              </div>
+              <div class="content-fragment-footer"></div>
+              <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-fragment header-fragment t-i-header no-wrapper" id="header-494">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content">
+                <div class="ticom-top-header-container"><a href="http://www.ti.com/" title="Texas Instruments"><img src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/ticom-header-logo.gif" alt="Texas Instruments" width="228" height="46" align="left" border="0"></a>
+                  <div class="ticom-top-header-links">
+                    <ul>
+                      <li><a href="http://www.ti.com/general/docs/prod.tsp" title="Products">Products</a></li>
+                      <li><a href="http://www.ti.com/lsds/ti/apps/appshomepage.page" title="Applications">Applications</a></li>
+                      <li><a href="http://www.ti.com/lsds/ti/tools-software/sw_portal.page" title="Tools &amp; Software">Tools &amp; Software</a></li>
+                      <li><a href="http://e2e.ti.com/" title="Support &amp; Community">Support &amp; Community</a></li>
+                      <li><a href="http://www.ti.com/general/docs/buy.tsp" title="Sample &amp; Buy">Sample &amp; Buy</a></li>
+                      <li><a href="http://www.ti.com/corp/docs/aboutti.shtml" title="About TI">About TI</a></li>
+					  <li class="ti-purchase-cart"><a href="http://www.ti.com/general/docs/usercart.tsp?action=display" name="&amp;lid=EN_US_header_purchasecart"><img src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/icon_shoppingcart.gif" alt="Samples Cart - Add Samples"> Sample &amp; Purchase Cart</a></li>                    
+					</ul>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="content-fragment-footer"></div>
+              <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-fragment header-fragment search no-wrapper" id="header-495">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content">
+                <div class="field-list-header"></div>
+                <div class="field-list-footer"></div>
+                <div class="menu search-content options" id="e2e_header_search_root">
+                  <ul id="header-495_filterList">
+                    <li class="field-item advanced-search-link"> <a class="aslink" id="header-495_advancedSearchLink">Advanced</a> </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="content-fragment-footer"></div>
+              <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-fragment header-fragment t-i-site-banner no-wrapper" id="header-496">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content">
+                <div class="e2e-top-header-container"> <p><a style="color: black;" href="http://processors.wiki.ti.com/index.php/Main_Page">Texas Instruments Wiki</a></p> </div>
+              </div>
+              <div class="content-fragment-footer"></div>
+              <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+            </div>
+          </div>
+          <div class="content-fragment header-mainnav no-wrapper" id="header-497">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content">
+                <div id="header-497_parentGroupListContainer" class="e2e-top-header-dropdown-bar">
+                  <ul style="display:none;" id="e2enav_main" class="e2e-header-dropdown-level1">
+                    <li id="e2enav_support_forums" class="navigation-item with-children entry"><a href="http://e2e-uat.ti.com/support/default.aspx" class="internal-link view-group" groupid="4" navtype="group" title="Support Forums"><span></span>Support Forums</a></li>
+                    <li id="e2enav_blogs" class="navigation-item with-children entry"><a href="http://e2e-uat.ti.com/blogs_/default.aspx" class="internal-link view-group" groupid="145" navtype="blog" title="Blogs"><span></span>Blogs</a></li>
+                    <li id="e2enav_groups" class="navigation-item with-children entry"><a href="http://e2e-uat.ti.com/group/default.aspx" class="internal-link view-group" groupid="168" navtype="group" title="Groups"><span></span>Groups</a></li>
+                    <li class="navigation-item"><a href="http://videos.ti.com/" class="internal-link" title="Videos">Videos</a></li>
+                    <li class="navigation-item last" style="display:none;"><a class="internal-link view-more" href="#" id="Group-More">More ...</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="content-fragment-footer"></div>
+              <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+            </div>
+          </div>
+          <div id="header-498"></div>
+          <div class="content-fragment header-fragment t-i-bread-crumbs no-wrapper" id="header-499">
+            <div class="content-fragment-inner fiji-content-fragment-inner">
+              <div class="content-fragment-top fiji-content-fragment-top">
+                <div class="r1 fiji-r1"></div>
+                <div class="r2 fiji-r2"></div>
+                <div class="r3 fiji-r3"></div>
+                <div class="r4 fiji-r4"></div>
+              </div>
+              <div class="content-fragment-content">
+                <div class="content-fragment-footer"></div>
+                <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                  <div class="r1 fiji-r1"></div>
+                  <div class="r2 fiji-r2"></div>
+                  <div class="r3 fiji-r3"></div>
+                  <div class="r4 fiji-r4"></div>
+                </div>
+              </div>
+            </div>
+            <div class="content-fragment AddThis no-wrapper" id="header-500">
+              <div class="content-fragment-inner fiji-content-fragment-inner">
+                <div class="content-fragment-top fiji-content-fragment-top">
+                  <div class="r1 fiji-r1"></div>
+                  <div class="r2 fiji-r2"></div>
+                  <div class="r3 fiji-r3"></div>
+                  <div class="r4 fiji-r4"></div>
+                </div>
+                <div class="content-fragment-content"> </div>
+                <div class="content-fragment-footer"></div>
+                <div class="content-fragment-bottom fiji-content-fragment-bottom">
+                  <div class="r1 fiji-r1"></div>
+                  <div class="r2 fiji-r2"></div>
+                  <div class="r3 fiji-r3"></div>
+                  <div class="r4 fiji-r4"></div>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+<meta charset="UTF-8"><title>AM335x board bringup tips - Texas Instruments Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.3">
+<link rel="stylesheet" href="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/CategorySuggest.css">
+<link rel="shortcut icon" href="http://processors.wiki.ti.com/images/ti32.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://processors.wiki.ti.com/opensearch_desc.php" title="Texas Instruments Wiki (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://processors.wiki.ti.com/api.php?action=rsd">
+<link rel="copyright" href="http://processors.wiki.ti.com/index.php/Texas_Instruments_Wiki:Copyrights">
+<link rel="alternate" type="application/atom+xml" title="Texas Instruments Wiki Atom feed" href="http://processors.wiki.ti.com/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="alternate" type="application/rss+xml" title="Texas Instruments Wiki RSS feed" href="http://processors.wiki.ti.com/index.php?title=Special:RecentChanges&amp;feed=rss">
+<link rel="stylesheet" href="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load_002.css">
+<link rel="stylesheet" href="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/screen.css" media="screen">
+<link rel="stylesheet" href="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/BreadCrumbs.css"><style>
+.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */
+.suggestions{overflow:hidden;position:absolute;top:0;left:0;width:0;border:none;z-index:1099;padding:0;margin:-1px -1px 0 0} html > body .suggestions{margin:-1px 0 0 0}.suggestions-special{position:relative;background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0;margin-top:-2px;display:none;padding:0.25em 0.25em;line-height:1.25em}.suggestions-results{background-color:white;cursor:pointer;border:solid 1px #aaaaaa;padding:0;margin:0}.suggestions-result{color:black;margin:0;line-height:1.5em;padding:0.01em 0.25em;text-align:left}.suggestions-result-current{background-color:#4C59A6;color:white}.suggestions-special .special-label{color:gray;text-align:left}.suggestions-special .special-query{color:black;font-style:italic;text-align:left}.suggestions-special .special-hover{background-color:silver}.suggestions-result-current .special-label,.suggestions-result-current .special-query{color:white}.autoellipsis-matched,.highlight{font-weight:bold}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:9780324491b653a3780e2d029bdc140c */
+.postedit-container{margin:0 auto;position:fixed;top:0;height:0;left:50%;z-index:1000;font-size:13px}.postedit-container:hover{cursor:pointer}.postedit{position:relative;top:0.6em;left:-50%;padding:.6em 3.6em .6em 1.1em;line-height:1.5625em;color:#626465;background-color:#f4f4f4;border:1px solid #dcd9d9;text-shadow:0 0.0625em 0 rgba(255,255,255,0.5);border-radius:5px;-webkit-box-shadow:0 2px 5px 0 #ccc;box-shadow:0 2px 5px 0 #ccc;-webkit-transition:all 0.25s ease-in-out;-moz-transition:all 0.25s ease-in-out;-ms-transition:all 0.25s ease-in-out;-o-transition:all 0.25s ease-in-out;transition:all 0.25s ease-in-out}.skin-monobook .postedit{top:6em !important}.postedit-faded{opacity:0}.postedit-icon{padding-left:41px;  line-height:25px;background-repeat:no-repeat;background-position:8px 50%}.postedit-icon-checkmark{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABblBMVEUAAAD///////9PfTf///80aRdTgjn///9Feij///////////9Rfzf///////////9PfjZRgDh1o1xOfTb///////+bwYqLtnj///////9PfTa82K////9WhT6YxIL///9QgDdTgzr////////j7uDl7eLq8efi693k7OH///////9UhjuBr2rp9uRUhjr///9YljVKgir///9WiTlYjT3////9/v57vFlbkT5PjC9dlD/5/fhuq09stUTs9uhxuElctCpfnT1huDFloEZloUZmpENmvDZpvDxpvTxqvjxrvT5rvT9rwTxsqktswD5uwkBvuUdxw0NztFBztU9ztVBzwkp0tlJ1xkd2t1R3uVR4w1F4xk54x014yE15uVZ5v1R5xVB6v1R7yFJ8wVh9xVl9yFR9yVd9ylN+xVh+yFd/x1l/yFeAylmEx1+Ny2uY0Hqe04Wj1Ymv3Ze33qLD47TJ5L3O6cPU7Mrq9eb2+/Q4j37OAAAAQHRSTlMAAQIEBAUFBQwPFB4fJCUoKiosQEhJS01RUlZZXmdydXaChYuSlJSWmJmoq6uur8LExcvM19fg5ejt8fX2+Pr7SljgewAAAKpJREFUGBkFwQNCAwAAAMDLtl3LtrG4rWXbtvX77gAgZ6grFwC0bhwNVgKgdPZx8b0dgLi+s7Wn0VoAqpfOI9+BNADZI7fLrz2pSEwGHZuH+78lSK8ZLkLezF3ooyUG3VPXq2USei9WngeyoG195yBYWDF3E/2pAhl1e9Gr8bGT+bfOFCC2fnvh4X7rcqIAQNNu+HT6sxkAjceTL/2ZAIhv+PorBwBJxfkA//dFHSCBy/UTAAAAAElFTkSuQmCC);background-image:url(http://processors.wiki.ti.com/resources/mediawiki.action/images/green-checkmark.png?2014-02-11T03:21:40Z)!ie;background-position:left}.postedit-close{position:absolute;padding:0 .8em;right:0;top:0;font-size:1.25em;font-weight:bold;line-height:2.3em;color:black;text-shadow:0 0.0625em 0 white;text-decoration:none;opacity:0.2;filter:alpha(opacity=20)}.postedit-close:hover{color:black;text-decoration:none;opacity:0.4;filter:alpha(opacity=40)}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:85a29286efab656b097aaa68462a0767 */</style><style>
+.suggestions a.mw-searchSuggest-link,.suggestions a.mw-searchSuggest-link:hover,.suggestions a.mw-searchSuggest-link:active,.suggestions a.mw-searchSuggest-link:focus{text-decoration:none;color:black}.suggestions-result-current a.mw-searchSuggest-link,.suggestions-result-current a.mw-searchSuggest-link:hover,.suggestions-result-current a.mw-searchSuggest-link:active,.suggestions-result-current a.mw-searchSuggest-link:focus{color:white}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:52b1797f70c7e4094dfa4191101944e8 */</style><meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: davincid_wikidb:resourceloader:filter:minify-css:7:934e2b9f128ece599b2ae85736dd4120 */</style>
+
+<script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load_006.php"></script><script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load.php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"AM335x_board_bringup_tips","wgTitle":"AM335x board bringup tips","wgCurRevisionId":163647,"wgRevisionId":163647,"wgArticleId":15447,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["AM335x"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"AM335x_board_bringup_tips","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false},"wgJSBreadCrumbsMaxCrumbs":5,"wgJSBreadCrumbsSeparator":"\u0026rarr;","wgJSBreadCrumbsCookiePath":"/","wgJSBreadCrumbsLeadingDescription":"Navigation trail","wgJSBreadCrumbsShowSiteName":false,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":false,\"namespaces\":false}"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"titwo","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"jsbreadcrumbs-showcrumbs":true,"jsbreadcrumbs-showsite":false,"jsbreadcrumbs-numberofcrumbs":5,"lqtnotifytalk":false,"lqtdisplaydepth":5,"lqtdisplaycount":25,"lqtcustomsignatures":true,"lqt-watch-threads":true,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs20":false,"searchNs21":false,"searchNs22":false,"searchNs23"
+:false,"searchNs90":false,"searchNs91":false,"searchNs92":false,"searchNs93":false,"searchNs274":false,"searchNs275":false,"searchNs828":false,"searchNs829":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: davincid_wikidb:resourceloader:filter:minify-js:7:b8dbaacef27bacedcbad75de1db13625 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script><script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load_002.php"></script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("http://processors.wiki.ti.com/skins/titwo/csshover.min.htc")}</style><![endif]-->
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<span id="mwext-bc" class="noprint plainlinks breadcrumbs">Navigation trail: <a href="http://processors.wiki.ti.com/index.php/Boot_Sequence">Boot Sequence</a> → <a href="http://processors.wiki.ti.com/index.php/Sitara_Linux_Software_Developer%E2%80%99s_Guide">Sitara Linux Software Developer’s Guide</a> → <a href="http://processors.wiki.ti.com/index.php/Understanding_u-boot-min_startup_for_DM814x">Understanding u-boot-min startup for DM814x</a> → <a href="http://processors.wiki.ti.com/index.php/AM335x_board_bringup_tips">AM335x board bringup tips</a> </span><a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="localNotice" dir="ltr" lang="en"></div></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">AM335x board bringup tips</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Texas Instruments Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><div id="livetranslatediv" sourcelang="en" languages="cs|cs - česky||de|de - Deutsch||es|es - español||fi|fi - suomi||fr|fr - français||hu|hu - magyar||it|it - italiano||ja|ja - 日本語||ko|ko - 한국어||nl|nl - Nederlands||pl|pl - polski||pt|pt - português||ru|ru - русский||sv|sv - svenska||vi|vi - Tiếng Việt||zh-cn|zh-CN - 中文（中国大陆）‎" autolang="en"></div><div class="hf-nsheader"><script language="Javascript">
+var tiContentGroup;
+tiContentGroup = "/DSP/wiki/Ext";
+var tiPageName;
+tiPageName = 'AM335x_board_bringup_tips';
+</script></div><div class="hf-header"></div><p>This page provides tips on debugging initialization and bring-up issues with the AM335x devices. 
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Power_sequencing"><span class="tocnumber">1</span> <span class="toctext">Power sequencing</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Is_the_device_alive"><span class="tocnumber">2</span> <span class="toctext">Is the device alive</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Boot_sequence"><span class="tocnumber">3</span> <span class="toctext">Boot sequence</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Peripheral.2FMemory_Booting_Issues"><span class="tocnumber">4</span> <span class="toctext">Peripheral/Memory Booting Issues</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#DDR_configuration"><span class="tocnumber">5</span> <span class="toctext">DDR configuration</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Still_having_booting_issues..."><span class="tocnumber">6</span> <span class="toctext">Still having booting issues...</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Further_Information"><span class="tocnumber">7</span> <span class="toctext">Further Information</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Tracing_vectors"><span class="tocnumber">7.1</span> <span class="toctext">Tracing vectors</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Tracing_Example_1"><span class="tocnumber">7.2</span> <span class="toctext">Tracing Example 1</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Tracing_Example_2"><span class="tocnumber">7.3</span> <span class="toctext">Tracing Example 2</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Power_sequencing">Power sequencing</span></h2>
+<ul>
+<li>Ensure that correct power sequencing is occurring on your board. 
+Power sequencing specifications can be found in the data manual. In 
+general there are no timing related specs, only that each voltage rail 
+in the sequence must ramp individually and reach 90% of its voltage 
+before the following rail can start ramping up. For TPS65910 devices, 
+this is done automatically as long as the boot signals of the TPS65910 
+are set correctly: BOOT0=0 and BOOT1=1. For TPS65217, this is also done 
+automatically.  You may need to verify correct connections between the 
+PMIC and AM335x.  Application notes are available for each PMIC device 
+on the appropriate product page:  <a href="http://focus.ti.com/docs/prod/folders/print/TPS65910.html" class="extiw" title="tifolder:TPS65910">TPS65910</a> <a href="http://focus.ti.com/docs/prod/folders/print/TPS65217.html" class="extiw" title="tifolder:TPS65217">TPS65217</a>
+</li>
+<li>Ensure correct voltage levels on each voltage rail from the PMIC.  
+Check for stable voltage on all rails.  Unstable voltage on MPU rail may
+ be a consequence of not connecting VDDS_MPU_MON correctly.  Check our 
+reference EVMs or other boards to ensure this is properly connected.  
+Double check that VDDS_SRAM_CORE_BG and VDDS_SRAM_MPU_BB are powered by a
+ 1.8V source.  
+</li>
+<li>You can also check certain output voltages from internal LDOs.  Note that these are <b>outputs</b>
+ from internal LDOs, they are not to be powered from an external supply,
+ or to be used to power other devices on the board.  These outputs are 
+typically signals called CAP_xxx.  If these outputs are not at the 
+following voltages, it may indicate that some of the input power rails 
+are not correct:
+<ul>
+<li>CAP_VDD_SRAM_CORE = 1.2V
+</li>
+<li>CAP_VDD_SRAM_MPU = 1.2V
+</li>
+<li>CAP_VBB_MPU = 1.1V
+</li>
+<li>CAP_VDD_RTC = 1.1V (Note: this signal is an LDO output when 
+RTC_KALDO_ENn is low.  When RTC_KALDO_ENn=1, it is an input power 
+supply, which needs to be powered by a 1.1V supply.  See <a rel="nofollow" target="_blank" class="external text" href="http://processors.wiki.ti.com/index.php/AM335x_Schematic_Checklist#RTC">AM335x Schematic Checklist - RTC Section</a> for more info)
+</li>
+</ul>
+</li>
+<li>Check the system clock (ie, the high frequency clock 19.2, 24, 25, 
+26 MHz).  Ensure this is outputting the expected frequency and the 
+signal is swinging rail to rail (should be a 1.8V signal).  If you have 
+an external oscillator, it should be outputting a square wave at the 
+desired frequency.  If you are using a crystal (ie, using the internal 
+oscillator of the AM335x), you should have a sine wave at the desired 
+frequency at XTALIN.  XTALOUT should be similar (may be distorted a 
+little).  If using a crystal connected directly to AM335x (XTALIN and 
+XTALOUT), ensure capacitor values are correct.  
+</li>
+<li>Check the power on reset signal PORZ.  This signal should stay low 
+throughout the power sequencing and go high when the power AND high 
+frequency clock are stable.
+</li>
+</ul>
+<h2><span class="mw-headline" id="Is_the_device_alive">Is the device alive</span></h2>
+<p>If you have gone through the power sequencing check list above, there are a couple of things to try:
+</p>
+<ul>
+<li>If you connect a UART cable to your debug port (which should be 
+connected to UART0), you should see a steady stream of 'C' characters 
+output on a terminal window (such as Teraterm).  This means that the ROM
+ is executing and is attempting to boot.  If you see this you can move 
+on to the next section.  Note that you will only see this output if 
+UART0 in in your boot sequence.  If you don't have the ability to change
+ the boot sequence, then try the JTAG method below.
+</li>
+<li>If you don't see the 'C' output with UART0 in the boot sequence, you
+ may have something wrong with your device.  However, you may have an 
+issue with the UART0 data path, or you may have a bad cable.  Probe the 
+UART0_TXD signal and see if you observe any toggling on the signal.  If 
+you do, there is most likely a problem with your UART transceiver or 
+cable.  
+</li>
+<li>Another way to check is to connect a JTAG cable and see if you can connect using <a rel="nofollow" target="_blank" class="external text" href="http://processors.wiki.ti.com/index.php/Category:Code_Composer_Studio_v5">Code Composer Studio</a> or other JTAG debugger.  If you can successfully connect through JTAG, you can move on to the next section
+</li>
+<li>Setting SYSBOOT[5] = 1 will output the system clock on CLKOUT1.  You
+ should see a square wave clock of the same frequency as the system 
+input clock.  This will give you a good indication that the clock is 
+propagating correctly through the device.
+</li>
+</ul>
+<h2><span class="mw-headline" id="Boot_sequence">Boot sequence</span></h2>
+<p>Read through this section if your device does not produce any console
+ output (especially when trying to boot linux), or is otherwise not 
+booting as expected.  Boot issues can be quite involved depending on 
+what source you are booting from.
+</p>
+<ul>
+<li>First check your SYS_BOOT signals to ensure that you have the 
+correct boot sequence. Boot sequence tables can be found in the 
+initialization chapter of the TRM. These define which sources the device
+ will potentially boot from, and in what order. If you have access to 
+memory (via JTAG, for example), you can see what the processor read from
+ the SYS_BOOT signals by reading the following registers (check the TRM 
+for more details):
+<ul>
+<li>CONTROL_STATUS register (0x44E10040) 
+<ul>
+<li>Bits 7:0 will reflect what the processor read on SYSBOOT[7:0]
+</li>
+<li>Bit 16:23 will reflect what the processor read on SYSBOOT[15:8]
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The ROM will attempt to boot from each boot source in the defined 
+boot sequence. If the first boot source fails to boot, the ROM will move
+ on to the next one in the sequence. Keep in mind that some boot sources
+ take some time to timeout if that boot source isn't avaiable (for 
+example, USB or Ethernet). Thus, your bootup make take several seconds 
+longer if your typical boot source is further down in the boot sequence.
+ This is particularly evident on the AM335x EVM, where you will see that
+ MMC boot takes a few seconds because MMC0 is fourth in the boot list.
+</li>
+<li>ensure that the SYSBOOT[15:14] indicates the correct input frequency that you are using.
+</li>
+<li>If you can connect through JTAG, bring up a disassembly window to 
+see where the program counter (PC) is.  It should be somewhere in 
+0x20000-0x2C000 (ie, somewhere in ROM code).  If you are in the 
+interrupt table vectors (0x20080-0x200BC), the code is stuck in a dead 
+loop.  Refer to the Initialization chapter of the TRM to determine which
+ dead loop is it.  This will give you a clue on what went wrong.  
+Typically it will be a data abort, which means the processor attempted 
+to access a bad address.
+</li>
+</ul>
+<p>If the above is confirmed, move on to the next section for tips on determining why your boot source is not working properly
+</p>
+<h2><span class="mw-headline" id="Peripheral.2FMemory_Booting_Issues">Peripheral/Memory Booting Issues</span></h2>
+<p>If you are trying to boot Linux, and you get no console output (other
+ than a series of 'C' characters), then the boot ROM could not 
+successfully boot from any of the boot sources dictated by the SYS_BOOT 
+sequence.  Check the hardware signaling between the AM335x and the 
+device you are booting from.  For example, if you are booting from NAND,
+ simple checks that the chip enable (CE) signal or read (RD) signal are 
+toggling during boot will help determine if you have an interface issue.
+  If booting from MMC/SD card, you can check to see if you get a MMC_CLK
+ during boot.  You can check the signals of other interfaces to 
+determine if you at least have some activity.
+</p><p>If you see proper activity and signal levels on the interfaces 
+you are trying to boot from, here are some further tips to identify boot
+ problems:
+</p>
+<ul>
+<li>NAND - you may have software related issues.  Ensure that you are 
+using the correct ECC scheme when programming the NAND.  Also ensure 
+that the initial boot header is correct (check the Initialization 
+chapter of the TRM for specific header information).  The  <a rel="nofollow" target="_blank" class="external text" href="http://processors.wiki.ti.com/index.php/AM335x_CCS_Flashing_Tools_Guide">AM335x CCS Flashing Tools Guide wiki</a> has information on how to use a CCS tool to program the NAND on the EVM.
+</li>
+<li>MMC/SD card - you may have software related issues.  Ensure that 
+your card is formatted correctly and that a file names MLO is present on
+ the FAT file partition of the card.  More info can be found here:  <a rel="nofollow" target="_blank" class="external free" href="http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide">http://processors.wiki.ti.com/index.php/AM335x_U-Boot_User%27s_Guide</a>.
+  Also be aware of some of the restrictions on certain MMC ports with 
+respect to booting that are outlined in the TRM in section 26.1.7.5:
+<ul>
+<li>MMC0 supports booting from the MMC/SD card cage and also supports 
+booting from eMMC/eSD/managed NAND memory devices with less than 4GB 
+capacity.
+</li>
+<li>MMC1 supports booting from eMMC/eSD/managed NAND memory device with 4GB capacity or greater.
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>UART - ensure the UART signals are toggling and the transceiver is 
+connected correctly.  Ensure proper voltage is powering the transceiver.
+  Also ensure that you are using UART0
+</li>
+<li>USB - refer to the AM335x errata for silicon issues concerning USB 
+boot.  Ensure proper signaling (USB0_DP/DM) and USB0_ID is set up for 
+peripheral mode (USB0_ID should be unconnected).  You may need to 
+connect a USB protocol analyzer to ensure proper USB transactions are 
+being performed
+</li>
+<li>EMAC - refer to the AM335x errata for silicon issues concerning 
+Ethernet boot.  Ensure that the Ethernet PHY is properly powered up 
+before the ROM attempts to access it.  The Ethernet PHY may require some
+ time for power sequencing and reset signaling before it can be 
+accesses.  Depending on the boot sequence chosen, the ROM may access the
+ Ethernet PHY before it is ready.
+</li>
+<li>SPI - Make sure the MISO/MOSI signals are connected according to the
+ details outlined in the Initialization chapter of the TRM (see section 
+26.1.7.6 for details on SPI boot)
+</li>
+</ul>
+<p>You may also be able to use the Tracing Vectors (see section below) to determine which boot sources the ROM attempted.
+</p><p><br>
+If you see some console messages, then the ROM successfully found a boot
+ source with a valid image.  If the boot still fails in uboot or kernel 
+boot, see the next section on DDR configuration.  You most likely have 
+configuration issues with your DDR memory.
+</p>
+<h2><span class="mw-headline" id="DDR_configuration">DDR configuration</span></h2>
+<p>If you are trying to boot linux and are getting stuck in the uboot or
+ the kernel boot, double check that your DDR configuration is correct.  
+This wiki has more details on configuring the DDR controller and DDR PHY
+ registers:  <a rel="nofollow" target="_blank" class="external free" href="http://processors.wiki.ti.com/index.php/AM335x_EMIF_Configuration_tips">http://processors.wiki.ti.com/index.php/AM335x_EMIF_Configuration_tips</a>
+</p><p>For every custom board design, you must configure the DDR AC 
+timings specific to the DDR that you are using.  Check the AC timings 
+spreadsheet on the above wiki to help determine these register values.  
+Furthermore, you must perform the DDR PHY leveling procedure to tune the
+ DDR PHY timings for your layout.  More details for this can be found in
+ the <a rel="nofollow" target="_blank" class="external text" href="http://processors.wiki.ti.com/index.php/AM335x_EMIF_Configuration_tips#DDR_PHY_Registers">DDR PHY Registers section</a> in the above mentioned wiki.
+</p><p>If you believe that you have the correct configuration, but are 
+still getting stuck in u-boot, you can double check your configuration 
+by connecting with JTAG.  After a boot failure, connect your JTAG pod, 
+launch CCS, and connect the target (make sure a loaded GEL file is not 
+doing any initialization upon connect).  Open a memory window at 
+0x80000000 (this is the beginning of DDR), and see if you can 
+successfully peek and poke values.  If you see unstable results in the 
+window (eg, other values changing after writing a value), then your DDR 
+configuration is still not correct.  Double check the above procedure 
+and the above mentioned wiki.
+</p><p>If you are getting stuck in the kernel boot (a lot of times 
+heaving DDR loading can occur during the initial kernel decompression), 
+you can still try to break in with JTAG as described above, but you will
+ need to disable MMU in CCS to be able to access the DDR at 0x80000000 
+(When connected to the target, go to Tools-&gt;ARM Advanced Features, 
+and uncheck MMU Enabled).
+</p><p>You may also want to check any hardware issues.  If you are 
+seeing single bits that are incorrect, sometimes this can occur with an 
+improper VREF.  VREF should be half of the VDDS_DDR voltage and needs to
+ be precise.  This is the reason that 1% resistors are required for the 
+voltage divider (or your design may have VREF being generated from the 
+VTT regulator).  Ensure this voltage is at the correct level and stable 
+throughout the boot up sequence.
+</p>
+<h2><span class="mw-headline" id="Still_having_booting_issues...">Still having booting issues...</span></h2>
+<p>If you have gotten to this point and still cannot boot correctly, you
+ most likely have software issues which goes beyond the intent of this 
+wiki.  Here are some resources which can provide further help:
+</p>
+<ul>
+<li><a rel="nofollow" target="_blank" class="external text" href="http://e2e.ti.com/support/dsp/sitara_arm174_microprocessors/f/791.aspx">Texas Instruments AM335x E2E forum</a>
+</li>
+<li><a rel="nofollow" target="_blank" class="external text" href="http://processors.wiki.ti.com/index.php/Sitara_Linux_Software_Developer%E2%80%99s_Guide">Sitara Linux Software Developer's Guide</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Further_Information">Further Information</span></h2>
+<h3><span class="mw-headline" id="Tracing_vectors">Tracing vectors</span></h3>
+<ul>
+<li>Tracing vectors give you some indication what the ROM code executed 
+in its attempt to boot. This can help you determine how far the ROM got 
+before failing to boot, and can give you some idea as to why it failed. 
+Information on the tracing vector can be found in the Initialization 
+chapter of the TRM. Here are some tips:
+</li>
+</ul>
+<ul>
+<li>These are the pertinent registes for tracing data. The first 3 
+(0x40, 0x44, and 0x48) contain the tracing data from the last boot 
+sequence. The tracing vector is generally around 96 bits of information,
+ spread across 3 32-bit words.
+</li>
+</ul>
+<ul>
+<li><ul>
+<li>0x4030CE40 Current tracing vector, word 1 
+</li>
+<li>0x4030CE44 Current tracing vector, word 2
+</li>
+<li>0x4030CE48 Current tracing vector, word 3
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>This register contains a copy of the reset status register 
+(PRM_RSTST), which will give you an indication of why the processor got 
+reset (for example, External warm reset, MPU watchdog reset, Global 
+software reset,  Global cold reset)
+<ul>
+<li>0x4030CE4C Current copy of the PRM_RSTST register (reset reasons)
+</li>
+</ul>
+</li>
+</ul>
+<p><br>
+Here are some examples on how to interpret the tracing vectors: 
+</p>
+<h3><span class="mw-headline" id="Tracing_Example_1">Tracing Example 1</span></h3>
+<p>SYSBOOT = 0x4021 (boot from UART0,XIP w/ WAIT, MMC0, SPI0) After failed boot, cold reset tracing vector reads: 
+</p>
+<ul>
+<li>0x4030CE40 = 0x0000907F 
+</li>
+<li>0x4030CE44 = 0x00001000 
+</li>
+<li>0x4030CE48 = 0x00011004
+</li>
+</ul>
+<p><br>Comparing this to the tracing vector table in the Initialization Chapter of the TRM, we see that the following bits are set: 
+</p><p><br> 
+</p>
+<table width="800" border="1" cellpadding="3" cellspacing="3">
+
+<tbody><tr>
+<td> <b>Bit</b>
+</td>
+<td> <b>Meaning</b>
+</td>
+<td> <b>Comment</b>
+</td></tr>
+<tr>
+<td colspan="3"> <i>Trace Vector 1</i>
+</td></tr>
+<tr>
+<td> 0
+</td>
+<td> Passed the public reset vector<br>
+</td>
+<td> Reset occurred
+</td></tr>
+<tr>
+<td> 1
+</td>
+<td> Entered main function
+</td>
+<td> ROM code hit the main() function in the C code
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> Running after cold reset
+</td>
+<td> &nbsp;
+</td></tr>
+<tr>
+<td> 3
+</td>
+<td> Main booting routine entered<br>
+</td>
+<td> &nbsp;
+</td></tr>
+<tr>
+<td> 4
+</td>
+<td> Memory booting started
+</td>
+<td> Indicates that the ROM attempted to boot from a memory source
+</td></tr>
+<tr>
+<td> 5
+</td>
+<td> Peripheral booting started<br>
+</td>
+<td> Indicates that the ROM attempted to boot from a peripheral source<br>
+</td></tr>
+<tr>
+<td> 6
+</td>
+<td> Booting loop reached last device
+</td>
+<td> Indicates that the ROM tried all boot sources in the booting list<br>
+</td></tr>
+<tr>
+<td> 12
+</td>
+<td> Device Initialized<br>
+</td>
+<td> Indicates ROM tried initialized a peripheral boot source
+</td></tr>
+<tr>
+<td> 15
+</td>
+<td> Peripheral booting failed<br>
+</td>
+<td> Indicates that booting from the peripheral device failed.&nbsp; (in this case, UART0)
+</td></tr>
+<tr>
+<td colspan="3"> <i>Trace Vector 2</i>
+</td></tr>
+<tr>
+<td> 12
+</td>
+<td> Memory booting trial 0<br>
+</td>
+<td> Indicates the ROM&nbsp;started memory booting<br>
+</td></tr>
+<tr>
+<td colspan="3"> <i>Trace Vector 3</i>
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> Memory booting device XIPWAIT
+</td>
+<td> Indicates boot was attempted from XIPWAIT (in this case, that is second in our list)<br>
+</td></tr>
+<tr>
+<td> 16
+</td>
+<td> Peripheral booting device UART0
+</td>
+<td> Indicates UART booting was attempted
+</td></tr></tbody></table>
+<h3><span class="mw-headline" id="Tracing_Example_2">Tracing Example 2</span></h3>
+<p>SYSBOOT = 0x4021 (boot from UART0,XIP w/ WAIT, MMC0, SPI0) After failed boot, cold reset tracing vector reads: 
+</p>
+<ul>
+<li>0x4030CE40 = 0x001090BE 
+</li>
+<li>0x4030CE44 = 0x00011000 
+</li>
+<li>0x4030CE48 = 0x00011004
+</li>
+</ul>
+<p><br>Comparing this to the tracing vector table in the Initialization Chapter of the TRM, we see that the following bits are set: 
+</p><p><br> 
+</p>
+<table width="800" border="1" cellpadding="3" cellspacing="3">
+
+<tbody><tr>
+<td> <b>Bit</b>
+</td>
+<td> <b>Meaning</b>
+</td>
+<td> <b>Comment</b>
+</td></tr>
+<tr>
+<td colspan="3"> <i>Trace Vector 1</i>
+</td></tr>
+<tr>
+<td> 0
+</td>
+<td> Passed the public reset vector<br>
+</td>
+<td> Reset occurred
+</td></tr>
+<tr>
+<td> 1
+</td>
+<td> Entered main function
+</td>
+<td> ROM code hit the main() function in the C code
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> Running after cold reset
+</td>
+<td> &nbsp;
+</td></tr>
+<tr>
+<td> 3
+</td>
+<td> Main booting routine entered<br>
+</td>
+<td> &nbsp;
+</td></tr>
+<tr>
+<td> 4
+</td>
+<td> Memory booting started
+</td>
+<td> Indicates that the ROM attempted to boot from a memory source
+</td></tr>
+<tr>
+<td> 5
+</td>
+<td> Peripheral booting started<br>
+</td>
+<td> Indicates that the ROM attempted to boot from a peripheral source<br>
+</td></tr>
+<tr>
+<td> 6
+</td>
+<td> Booting loop reached last device
+</td>
+<td> Indicates that the ROM tried all boot sources in the booting list<br>
+</td></tr>
+<tr>
+<td> 12
+</td>
+<td> Device Initialized<br>
+</td>
+<td> Indicates ROM tried initialized a peripheral boot source
+</td></tr>
+<tr>
+<td> 15
+</td>
+<td> Peripheral booting failed<br>
+</td>
+<td> Indicates that booting from the peripheral device failed.&nbsp; (in this case, UART0)
+</td></tr>
+<tr>
+<td colspan="3"> <i>Trace Vector 2</i>
+</td></tr>
+<tr>
+<td> 12
+</td>
+<td> Memory booting trial 0<br>
+</td>
+<td> Indicates the ROM&nbsp;started memory booting<br>
+</td></tr>
+<tr>
+<td colspan="3"> <i>Trace Vector 3</i>
+</td></tr>
+<tr>
+<td> 2
+</td>
+<td> Memory booting device XIPWAIT
+</td>
+<td> Indicates boot was attempted from XIPWAIT (in this case, that is second in our list)<br>
+</td></tr>
+<tr>
+<td> 16
+</td>
+<td> Peripheral booting device UART0
+</td>
+<td> Indicates UART booting was attempted
+</td></tr></tbody></table>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.081 seconds
+Real time usage: 0.085 seconds
+Preprocessor visited node count: 39/1000000
+Preprocessor generated node count: 44/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key davincid_wikidb:pcache:idhash:15447-0!*!*!!en!*!* and timestamp 20140317201530
+ -->
+<div class="hf-footer"></div><div class="hf-nsfooter"><table style="text-align:center; background:white; width:100%; text-align:left; height: 65px border-top: 1px solid; border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid; border-width: 1px; border-style: solid;">
+<tbody><tr>
+<td width="305px"><a href="http://processors.wiki.ti.com/index.php/File:E2e.jpg" class="image"><img alt="E2e.jpg" src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/E2e.jpg" width="305" height="63"></a>
+</td>
+<td><i>For technical support please post your questions at <a rel="nofollow" target="_blank" class="external free" href="http://e2e.ti.com/">http://e2e.ti.com</a>. Please post only comments about the article <b>AM335x board bringup tips</b> here.</i>
+</td></tr></tbody></table>
+<table style="border-style:solid; border-width:1px; text-align:center; width:100%;">
+
+<tbody><tr style="font-size:150%;">
+<td rowspan="2"> <a href="http://processors.wiki.ti.com/index.php/File:Hyperlink_blue.png" class="image"><img alt="Hyperlink blue.png" src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/96px-Hyperlink_blue.png" srcset="http://processors.wiki.ti.com/images/9/9f/Hyperlink_blue.png 1.5x, http://processors.wiki.ti.com/images/9/9f/Hyperlink_blue.png 2x" width="96" height="96"></a>
+</td>
+<td><b>Links</b>
+</td></tr>
+<tr>
+<td>
+<table style="text-align: left;">
+<tbody><tr>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/amplifier_and_linear.page">Amplifiers &amp; Linear</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/audio/audio_overview.page">Audio</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/rfif.page">Broadband RF/IF &amp; Digital Radio</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/clocksandtimers/clocks_and_timers.page">Clocks &amp; Timers</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/dataconverters/data_converter.page">Data Converters</a>
+</p>
+</td>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/mems/mems.page">DLP &amp; MEMS</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/high_reliability.page">High-Reliability</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/interface/interface.page">Interface</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/logic/home_overview.page">Logic</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/powermanagement/power_portal.page">Power Management</a>
+</p>
+</td>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/dsp/embedded_processor.page">Processors</a>
+</p>
+<ul>
+<li> <a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/dsp/arm.page">ARM Processors</a>
+</li>
+<li> <a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/dsp/home.page">Digital Signal Processors (DSP)</a>
+</li>
+<li> <a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/microcontroller/home.page">Microcontrollers (MCU)</a>
+</li>
+<li> <a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/omap-applications-processors/the-omap-experience.page">OMAP Applications Processors</a>
+</li>
+</ul>
+</td>
+<td style="padding-right: 10px; vertical-align: top;">
+<p><a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/switches_and_multiplexers.page">Switches &amp; Multiplexers</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://www.ti.com/lsds/ti/analog/temperature_sensor.page">Temperature Sensors &amp; Control ICs</a><br>
+<a rel="nofollow" target="_blank" class="external text" href="http://focus.ti.com/wireless/docs/wirelessoverview.tsp?familyId=2003&amp;sectionId=646&amp;tabId=2735">Wireless Connectivity</a>
+</p>
+</td></tr></tbody></table>
+</td></tr></tbody></table>
+<p><!-- HitBox Sub accounts Code START -->
+<script language="JavaScript" src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/metrics-min.js" type="text/javascript"></script>
+<!-- HitBox Sub accounts Code END -->
+</p></div></div>								<div class="printfooter">
+				Retrieved from "<a href="http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;oldid=163647">http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;oldid=163647</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://processors.wiki.ti.com/index.php/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://processors.wiki.ti.com/index.php/Category:AM335x" title="Category:AM335x">AM335x</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://processors.wiki.ti.com/index.php?title=Special:UserLogin&amp;returnto=AM335x+board+bringup+tips&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://processors.wiki.ti.com/index.php?title=Special:UserLogin&amp;returnto=AM335x+board+bringup+tips" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a>	</li></ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://processors.wiki.ti.com/index.php/AM335x_board_bringup_tips" title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li id="ca-talk" class="new"><span><a href="http://processors.wiki.ti.com/index.php?title=Talk:AM335x_board_bringup_tips&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 tabindex="0" id="p-variants-label"><span>Variants</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://processors.wiki.ti.com/index.php/AM335x_board_bringup_tips">View</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;action=edit" title="This page is protected.
+You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 tabindex="0" id="p-cactions-label"><span>Actions</span><a tabindex="-1" href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="http://processors.wiki.ti.com/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Texas Instruments Wiki [f]" accesskey="f" id="searchInput">						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/search-ltr.png" alt="Search" width="12" height="13"></button>								<input name="title" value="Special:Search" type="hidden">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(/images/tiexpres.png);" href="http://processors.wiki.ti.com/index.php/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="http://processors.wiki.ti.com/index.php/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a>
+			</li><li id="n-All-pages"><a href="http://processors.wiki.ti.com/index.php/Special:AllPages">All pages</a>
+			</li><li id="n-All-categories"><a href="http://processors.wiki.ti.com/index.php/Special:Categories">All categories</a>
+			</li><li id="n-Popular-pages"><a href="http://processors.wiki.ti.com/index.php/Special:PopularPages">Popular pages</a>
+			</li><li id="n-Popular-authors"><a href="http://processors.wiki.ti.com/index.php/Special:MostPopularAuthors">Popular authors</a>
+			</li><li id="n-Popular-categories"><a href="http://processors.wiki.ti.com/index.php/Special:CategoryHits">Popular categories</a>
+			</li><li id="n-recentchanges"><a href="http://processors.wiki.ti.com/index.php/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a>
+			</li><li id="n-randompage"><a href="http://processors.wiki.ti.com/index.php/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a>
+			</li><li id="n-help"><a href="http://processors.wiki.ti.com/index.php/Help:Contents" title="The place to find out">Help</a>
+		</li></ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 id="p-coll-print_export-label">Print/export</h3>
+	<div class="body">
+		<ul>
+			<li id="coll-create_a_book"><a href="http://processors.wiki.ti.com/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=AM335x+board+bringup+tips">Create a book</a>
+			</li><li id="coll-download-as-rl"><a href="http://processors.wiki.ti.com/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=AM335x+board+bringup+tips&amp;oldid=163647&amp;writer=rl">Download as PDF</a>
+			</li><li id="t-print"><a href="http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a>
+		</li></ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 id="p-tb-label">Toolbox</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://processors.wiki.ti.com/index.php/Special:WhatLinksHere/AM335x_board_bringup_tips" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a>
+			</li><li id="t-recentchangeslinked"><a href="http://processors.wiki.ti.com/index.php/Special:RecentChangesLinked/AM335x_board_bringup_tips" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a>
+			</li><li id="t-specialpages"><a href="http://processors.wiki.ti.com/index.php/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a>
+			</li><li id="t-permalink"><a href="http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;oldid=163647" title="Permanent link to this revision of the page">Permanent link</a>
+			</li><li id="t-info"><a href="http://processors.wiki.ti.com/index.php?title=AM335x_board_bringup_tips&amp;action=info">Page information</a>
+		</li></ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 25 October 2013, at 11:17.</li>
+											<li id="footer-info-viewcount">This page has been accessed 16,513 times.</li>
+											<li id="footer-info-copyright">Content is available under <a href="http://processors.wiki.ti.com/index.php/Texas_Instruments_Wiki:Copyrights" title="Texas Instruments Wiki:Copyrights">Creative Commons Attribution-Share Alike 3.0 license</a> unless otherwise noted.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://processors.wiki.ti.com/index.php/Texas_Instruments_Wiki:Privacy_policy" title="Texas Instruments Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://processors.wiki.ti.com/index.php/Texas_Instruments_Wiki:About" title="Texas Instruments Wiki:About">About Texas Instruments Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="http://processors.wiki.ti.com/index.php/Texas_Instruments_Wiki:General_disclaimer" title="Texas Instruments Wiki:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/us/"><img src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/88x31.png" alt="Creative Commons Attribution-Share Alike 3.0 license" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>window.jQuery && jQuery.ready();</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.slideshow.main","ext.livetranslate","ext.lt.ms","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script>var ltDebugMessages = false;</script>
+<script>var ltMsAppId = "Bearer http%3a%2f%2fschemas.xmlsoap.org%2fws%2f2005%2f05%2fidentity%2fclaims%2fnameidentifier=tiwiki\u0026http%3a%2f%2fschemas.microsoft.com%2faccesscontrolservice%2f2010%2f07%2fclaims%2fidentityprovider=https%3a%2f%2fdatamarket.accesscontrol.windows.net%2f\u0026Audience=http%3a%2f%2fapi.microsofttranslator.com\u0026ExpiresOn=1395152885\u0026Issuer=https%3a%2f%2fdatamarket.accesscontrol.windows.net%2f\u0026HMACSHA256=jhT%2b3wuj8Tbm2KPWG%2btSaYFjFTQK5LGMKwKXycO9W%2bA%3d";</script>
+<script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/BreadCrumbs.js"></script>
+<script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/load_005.php"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="AM335x%20board%20bringup%20tips%20-%20Texas%20Instruments%20Wiki_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-3008403-2");
+pageTracker._trackPageview();
+} catch(err) {}
+</script><!-- Served in 1.685 secs. -->
+	
+
+</div></div></div></div></body></html>

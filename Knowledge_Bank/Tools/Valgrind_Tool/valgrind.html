@@ -1,0 +1,653 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<title>valgrind</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1>valgrind</h1>
+<hr>
+<pre><!-- Manpage converted by man2html 3.0.1 -->
+<b>VALGRIND(1)</b>                                                        <b>VALGRIND(1)</b>
+
+
+
+
+</pre>
+<h2>NAME</h2><pre>       <b>valgrind</b> - a memory debugger for x86-linux
+
+
+
+</pre>
+<h2>SYNOPSIS</h2><pre>       <i>valgrind</i> [<i>valgrind</i> <i>options</i>] <i>your-program</i> [<i>your-program</i> <i>options</i>]
+
+
+
+</pre>
+<h2>DESCRIPTION</h2><pre>       <b>valgrind</b>  is  a  flexible program for debugging and profiling Linux-x86
+       executables. It consists of a core, which provides a synthetic x86  CPU
+       in  software,  and a series of "tools", each of which is a debugging or
+       profiling tool. The architecture is modular, so that new tools  can  be
+       created easily and without disturbing the existing structure.
+
+
+       This  manual  page covers only basic usage and options.  Please see the
+       HTML documentation for more comprehensive information.
+
+
+
+</pre>
+<h2>INVOCATION</h2><pre>       <b>valgrind</b> is typically invoked as follows:
+
+           valgrind program args
+
+       This runs <b>program</b> (with arguments <b>args</b>) under valgrind using  the  <b>mem-</b>
+       <b>check</b>  tool.   <b>memcheck</b>  performs a range of memory-checking functions,
+       including detecting accesses to uninitialized memory, misuse  of  allo-
+       cated memory (double frees, access after free, etc.) and detecting mem-
+       ory leaks.
+
+       To use a different tool, use the <b>--tool</b> option:
+
+           valgrind --tool=toolname program args
+
+       The following tools are available:
+
+
+              <b>-</b> <b>addrcheck</b>
+                     <b>addrcheck</b> is similar to memcheck, but  does  not  perform
+                     the  same  granularity of memory checking.  This will run
+                     faster and use less memory, but may  miss  some  problems
+                     that <b>memcheck</b> would catch.
+
+              <b>-</b> <b>cachegrind</b>
+                     <b>cachegrind</b> is a cache simulator.
+
+              <b>-</b> <b>lackey</b>
+                     <b>lackey</b>  is  a  sample tool that can be used as a template
+                     for generating your own tools. After the  program  termi-
+                     nates, it prints out some basic statistics about the pro-
+                     gram execution.
+
+              <b>-</b> <b>massif</b>
+                     <b>massif</b> is a heap profiler.  It  measures  how  much  heap
+                     memory your program uses.
+
+              <b>-</b> <b>memcheck</b>
+                     <b>memcheck</b> is a fine-grained memory checker.
+
+              <b>-</b> <b>none</b> <b>none</b>  performs  no  function - it simply runs the program
+                     under <b>valgrind</b>.  This is typically used for debugging and
+                     benchmarking <b>valgrind</b>.
+
+
+
+</pre>
+<h2>COMMON CORE OPTIONS</h2><pre>       <b>--db-attach=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When  enabled,  <b>valgrind</b>  will pause after every error shown and
+              print the line:
+
+
+              ---- Attach to debugger ? --- [Return/N/n/Y/y/C/c] ----
+
+
+              Pressing Ret, or N Ret or n Ret, causes <b>valgrind</b> not to start  a
+              debugger for this error.
+
+
+              Pressing  Y  Ret  or y Ret causes <b>valgrind</b> to start the debugger
+              (specified by the <b>--db-command</b> option) for the program  at  this
+              point.  When  you have finished with the debugger, quit from it,
+              and the program will continue. Trying to  continue  from  inside
+              the debugger doesn’t work.
+
+
+              Pressing  C Ret or c Ret causes <b>valgrind</b> not to start the debug-
+              ger and <b>valgrind</b> will not ask again.
+
+
+              --db-attach=yes conflicts with --trace-children=yes.  You  can’t
+              use  them  together. <b>valgrind</b> refuses to start up in this situa-
+              tion. 1 May 2002: this is a historical relic which could be eas-
+              ily  fixed  if it gets in your way. Mail me and complain if this
+              is a problem for you.
+
+
+              Nov 2002: if you’re sending output to a logfile or to a  network
+              socket,  I guess this option doesn’t make any sense. Caveat emp-
+              tor.
+
+
+       <b>--db-command=&lt;command&gt;</b> <b>[default:</b> <b>gdb</b> <b>-nw</b> <b>%f</b> <b>%p]</b>
+              Specify the debugger to use with the  --db-attach  command.  The
+              default  debugger  is  gdb.  This  option  is a template that is
+              expanded by <b>valgrind</b> at runtime.  <b>%f</b> is replaced with  the  exe-
+              cutable’s  file name and <b>%p</b> is replaced by the process ID of the
+              executable.
+
+
+       <b>--error-limit=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              When enabled, <b>valgrind</b> stops reporting  errors  after  30000  in
+              total,  or  300  different ones, have been seen. This is to stop
+              the error tracking machinery from becoming  a  huge  performance
+              overhead in programs with many errors.
+
+
+       <b>--gen-suppressions=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When  enabled,  <b>valgrind</b>  will pause after every error shown and
+              print the line:
+
+
+              ---- Print suppression ? --- [Return/N/n/Y/y/C/c] ----
+
+
+              Pressing Y Ret or y Ret will cause a suppression for this  error
+              to be printed. This suppression can be cut-and-paste into a cus-
+              tom suppressions file and used to suppress this error in  subse-
+              quent runs.
+
+
+              Pressing  Ret  or n Ret or N Ret will cause no suppression to be
+              printed.
+
+
+              Pressing C Ret or c Ret will cause no suppression to be  printed
+              and <b>valgrind</b> will not ask again.
+
+
+       <b>-h</b> <b>--help</b>
+              Show  help  for  all  options,  both  for  the  core and for the
+              selected tool.
+
+
+       <b>--help-debug</b>
+              Show help for all  options,  both  for  the  core  and  for  the
+              selected tool, including options for debugging <b>valgrind</b>.
+
+
+       <b>--log-file=&lt;filename&gt;</b>
+              Specifies  that  <b>valgrind</b> should send all of its messages to the
+              specified file. In fact, the file name used is created  by  con-
+              catenating  the  text filename, ".pid" and the process ID, so as
+              to create a file per process.  The specified file name  may  not
+              be the empty string.
+
+
+       <b>--num-callers=&lt;number&gt;</b> <b>[default=12]</b>
+              By  default,  <b>valgrind</b> shows 12 levels of function call names to
+              help you identify program locations. You can change that  number
+              with  this  option.  This  can help in determining the program’s
+              location in deeply-nested call chains. Note that errors are com-
+              moned  up using only the top three function locations (the place
+              in the current function, and that of its two immediate callers).
+              So this doesn’t affect the total number of errors reported.
+
+
+              The maximum value for this is 50. Note that higher settings will
+              make <b>valgrind</b> run a bit more slowly and take a bit more  memory,
+              but  can be useful when working with programs with deeply-nested
+              call chains.
+
+
+       <b>-q</b> <b>--quiet</b>
+              Run silently, and only print error messages. Useful if  you  are
+              running  regression  tests  or  have  some  other automated test
+              machinery.
+
+
+       <b>--suppressions=&lt;filename&gt;</b> <b>[default:</b> <b>$PREFIX/lib/valgrind/default.supp]</b>
+              Specifies an extra file  from  which  to  read  descriptions  of
+              errors to suppress. You may specify up to 10 additional suppres-
+              sion files.
+
+
+       <b>--tool=&lt;toolname&gt;</b> <b>[default:</b> <b>memcheck]</b>
+              Specify which tool to use. The default tool is memcheck.
+
+
+       <b>--trace-children=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When enabled, <b>valgrind</b> will trace into child processes. This  is
+              confusing  and  usually  not  what  you  want, so is disabled by
+              default.
+
+
+       <b>--track-fds=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Track file descriptor creation and deletion and produce  a  sum-
+              mary  at  the  end  of the program execution of file descriptors
+              that are still in use.
+
+
+       <b>-v</b> <b>--verbose</b>
+              Be more verbose. Gives extra information on various  aspects  of
+              your  program,  such as: the shared objects loaded, the suppres-
+              sions used, the progress of the  instrumentation  and  execution
+              engines,  and  warnings  about  unusual behaviour. Repeating the
+              flag increases the verbosity level.
+
+
+       <b>--version</b>
+              Show the version number of the <b>valgrind</b>  core.  Tools  can  have
+              their  own version numbers. There is a scheme in place to ensure
+              that tools only execute when the core version is  one  they  are
+              known  to  work  with.  This was done to minimise the chances of
+              strange problems arising from tool-vs-core version incompatibil-
+              ities.
+
+
+
+</pre>
+<h2>ADDRCHECK OPTIONS</h2><pre>       <b>--freelist-vol=&lt;number&gt;</b> <b>[default:</b> <b>1000000]</b>
+              When  the  client  program  releases memory using free (in C) or
+              delete (C++), that memory is not immediately made available  for
+              re-allocation.   Instead it is marked inaccessible and placed in
+              a queue of freed blocks.  The purpose is to delay the  point  at
+              which   freed-up  memory  comes  back  into  circulation.   This
+              increases the chance that  <b>addrcheck</b>  will  be  able  to  detect
+              invalid  accesses  to blocks for some significant period of time
+              after they have been freed.
+
+              This flag specifies the maximum total size,  in  bytes,  of  the
+              blocks  in  the  queue.  The default value is one million bytes.
+              Increasing this increases the total amount  of  memory  used  by
+              <b>addrcheck</b>  but  may  detect  invalid  uses of freed blocks which
+              would otherwise go undetected.
+
+
+       <b>--leak-check=&lt;yes|no|summary|full&gt;</b> <b>[default:</b> <b>summary]</b>
+              Enables full, summary or no leak checking.  When full  (<b>full</b>  or
+              <b>yes</b> options) checking is performed, details on all leaked blocks
+              are printed after the program finishes executing.  When  summary
+              checking  is enabled, a summary of all leaked memory is printed.
+              When no leak checking is performed, no leaked memory details are
+              produced.   Disabling  leak  checking  can speed up your program
+              execution.
+
+
+       <b>--leak-resolution=&lt;low|med|high&gt;</b> <b>[default:</b> <b>low]</b>
+              When doing leak checking, determines how willing <b>addrcheck</b> is to
+              consider  different backtraces to be the same.  When set to <b>low</b>,
+              the default, only the first two entries need match.   When  <b>med</b>,
+              four  entries  have  to  match.   When <b>high</b>, all entries need to
+              match.
+
+
+       <b>--partial-loads-ok=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              Controls  how  <b>addrcheck</b>  handles  word  (4-byte)   loads   from
+              addresses  for  which  some bytes are addressible and others are
+              not.  When enabled, such loads do not elicit an  address  error.
+              Instead,  <b>addrcheck</b>  considers  the  bytes  corresponding to the
+              illegal addresses as undefined, and those corresponding to legal
+              addresses are considered defined.
+
+              When  disabled,  loads  from  partially  invalid  addresses  are
+              treated the same as loads from completely invalid addresses:  an
+              illegal-address error is issued, and the <b>addrcheck</b> considers all
+              bytes as invalid data.
+
+
+       <b>--show-reachable=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When performing full leak checking, print out details of  blocks
+              that  are  leaked  but  still  reachable.  For details of what a
+              reachable block is, see the HTML documentation.
+
+
+       <b>--workaround-gcc296-bugs=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When enabled, assume that reads and writes some  small  distance
+              below  the  stack  pointer <b>%esp</b> are due to bugs in gcc 2.96, and
+              does not report them.  The "small  distance"  is  256  bytes  by
+              default.   Note  that  gcc  2.96 is the default compiler on some
+              older Linux distributions (RedHat 7.X, Mandrake) and so you  may
+              well  need  to  use this flag.  Do not use it if you do not have
+              to, as it can cause  real  errors  to  be  overlooked.   Another
+              option  is  to  use  a  gcc/g++ which does not generate accesses
+              below the stack pointer.  2.95.3 seems to be a  good  choice  in
+              this respect.
+
+
+
+</pre>
+<h2>MEMCHECK OPTIONS</h2><pre>       <b>memcheck</b> understands the same options as <b>addrcheck</b>, along with the fol-
+       lowing options:
+
+
+       <b>--avoid-strlen-errors=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              Enable or disable a heuristic for dealing with  highly-optimized
+              versions of <b>strlen</b>.  These versions of <b>strlen</b> can cause spurious
+              errors to be reported by <b>memcheck</b>, so it’s usually a  good  idea
+              to leave this enabled.
+
+
+       <b>--cleanup=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              <b>This</b>  <b>is</b>  <b>a</b> <b>flag</b> <b>to</b> <b>help</b> <b>debug</b> <b>valgrind</b> <b>itself.</b>  <b>It</b> <b>is</b> <b>of</b> <b>no</b> <b>use</b>
+              <b>to</b> <b>end-users</b>. When enabled, various improvments are  applied  to
+              the  post-instrumented  intermediate  code,  aimed  at  removing
+              redundant value checks.
+
+
+
+</pre>
+<h2>CACHEGRIND OPTIONS</h2><pre>       <b>--D1=&lt;size&gt;,&lt;associativity&gt;,&lt;line</b> <b>size&gt;</b>
+              Specify the size, associativity and line size  of  the  level  1
+              data  cache.  All values are measured in bytes.  If this options
+              is not specified, the system value (as retrieved  by  the  <b>CPUID</b>
+              instruction) is used.
+
+
+       <b>--I1=&lt;size&gt;,&lt;associativity&gt;,&lt;line</b> <b>size&gt;</b>
+              Specify  the  size,  associativity  and line size of the level 1
+              instruction cache.  All values are measured in bytes.   If  this
+              options  is not specified, the system value (as retrieved by the
+              <b>CPUID</b> instruction) is used.
+
+
+       <b>--L2=&lt;size&gt;,&lt;associativity&gt;,&lt;line</b> <b>size&gt;</b>
+              Specify the size, associativity and line size  of  the  level  2
+              cache.   All  values  are measured in bytes.  If this options is
+              not specified, the system  value  (as  retrieved  by  the  <b>CPUID</b>
+              instruction) is used.
+
+
+
+</pre>
+<h2>MASSIF OPTIONS</h2><pre>       <b>--alloc-fn=&lt;name&gt;</b>
+              Specify  a  function  that allocates memory.  This is useful for
+              functions that are wrappers to <b>malloc()</b>, which can fill  up  the
+              context information uselessly (and give very uninformative bands
+              on the graph).  Functions specified will be ignored in contexts,
+              i.e.  treated  as though they were <b>malloc()</b>.  This option can be
+              specified multiple times on the command line, to  name  multiple
+              functions.
+
+
+       <b>--depth=&lt;number&gt;</b> <b>[default:</b> <b>3]</b>
+              Depth  of  call  chains to present in the detailed heap informa-
+              tion.  Increasing it will give more information, but <b>massif</b> will
+              run  the  program  more slowly, using more memory, and produce a
+              bigger <b>.txt</b> or <b>.hp</b> file.
+
+
+       <b>--format=&lt;text|html&gt;</b> <b>[default:</b> <b>text]</b>
+              Produce the detailed heap information in text  or  HTML  format.
+              The file suffix used will be either <b>.txt</b> or <b>.html</b>.
+
+
+       <b>--heap=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              When  enabled,  profile  heap  usage in detail.  Without it, the
+              <b>.txt</b> or <b>.html</b> file will be very short.
+
+
+       <b>--heap-admin=&lt;number&gt;</b> <b>[default:</b> <b>8]</b>
+              The number of admin bytes per block to use.  This can only be an
+              estimate  of the average, since it may vary.  The allocator used
+              by <b>glibc</b> requires somewhere between 4 to  15  bytes  per  block,
+              depending  on various factors.  It also requires admin space for
+              freed blocks, although <b>massif</b> does not count this.
+
+
+       <b>--stacks=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              When enabled, include stack(s) in the  profile.   Threaded  pro-
+              grams can have multiple stacks.
+
+
+
+
+
+
+</pre>
+<h2>LESS FREQUENTLY USED CORE OPTIONS</h2><pre>       <b>--alignment=&lt;number&gt;</b> <b>[default:</b> <b>8]</b>
+              By  default  <b>valgrind</b>’s  malloc,  realloc,  etc,  return  8-byte
+              aligned addresses. These are suitable for any  accesses  on  x86
+              processors. Some programs might however assume that malloc et al
+              return 16- or more aligned memory. These programs are broken and
+              should  be  fixed, but if this is impossible for whatever reason
+              the alignment can be increased using this  parameter.  The  sup-
+              plied  value must be between 8 and 4096 inclusive, and must be a
+              power of two.
+
+
+       <b>--branchpred=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              This option enables the generation of static  branch  prediction
+              hints.  In theory this allows the real CPU to do a better job of
+              running the generated code, but in practice it makes  almost  no
+              measurable  difference.   It may have a large effect on some x86
+              implementations.
+
+
+       <b>--chain-bb=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              Enables basic-block chaining.  If basic-block chaining  is  dis-
+              abled,   the  synthetic  CPU  returns  to  the  scheduler  after
+              interpreting  each  basic  block.   With  basic  block  chaining
+              enabled,  it  can  immediately  proceed to the next basic block.
+              This almost always results in  a  performance  gain,  so  it  is
+              enabled by default.
+
+
+       <b>--command-line-only=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Normally,  <b>valgrind</b>  will  look  for command-line options in the
+              following locations:
+
+              - The <b>valgrind</b> command line
+
+              - The <b>.valgrindrc</b> file in the invocation directory
+
+              - The <b>.valgrindrc</b> file in users home directory
+
+              - The <b>$VALGRIND_OPTS</b> environment variable
+
+
+              When this option is enabled, <b>valgrind</b> will only look at the com-
+              mand line for options.
+
+
+       <b>--demangle=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              Enable  or disable automatic demangling (decoding) of C++ names.
+              Enabled by default.  When  enabled,  <b>valgrind</b>  will  attempt  to
+              translate   encoded   C++  procedure  names  back  to  something
+              approaching the original. The demangler handles symbols  mangled
+              by g++ versions 2.X and 3.X.
+
+
+       <b>--dump-error=&lt;number&gt;</b>
+              After  the program has exited, show gory details of the transla-
+              tion of the basic block containing the  <b>&lt;number&gt;</b>’th  error  con-
+              text.  When  used with --single-step=yes, can show the exact x86
+              instruction causing an error.  This  is  all  fairly  dodgy  and
+              doesn’t work at all if threads are involved.
+
+
+       <b>--exec=&lt;filename&gt;</b>
+              Specify  the  executable  to run. If this is specified, it takes
+              precedence over the <b>your-program</b> executable  from  the  command-
+              line.   If this is not specified, <b>valgrind</b> searches the path for
+              the <b>your-program</b> executable, just like a regular shell would.
+
+
+       <b>--input-fd=&lt;number&gt;</b> <b>[default:</b> <b>0,</b> <b>stdin]</b>
+              Specify the file descriptor to use for reading  input  from  the
+              user.  This  is  used whenever <b>valgrind</b> needs to prompt the user
+              for a decision.
+
+
+       <b>--log-fd=&lt;number&gt;</b> <b>[default:</b> <b>2,</b> <b>stderr]</b>
+              Specifies that <b>valgrind</b> should send all of its messages  to  the
+              specified file descriptor. The default, 2, is the standard error
+              channel  (stderr).   Note  that  this  may  interfere  with  the
+              client’s own use of stderr.
+
+
+       <b>--log-socket=&lt;ip-address:port-number&gt;</b>
+              Specifies  that  <b>valgrind</b> should send all of its messages to the
+              specified port at the specified IP  address.  The  port  may  be
+              omitted, in which case port 1500 is used. If a connection cannot
+              be made to the specified socket, <b>valgrind</b> falls back to  writing
+              output  to the standard error (stderr).  This option is intended
+              to be used in conjunction with  the  <b>valgrind-listener</b>  program.
+              For further details, see section 2.3 of the user manual.
+
+
+       <b>--optimise=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              When enabled, various improvements are applied to the intermedi-
+              ate code, mainly aimed at allowing the simulated CPU’s registers
+              to  be cached in the real CPU’s registers over several simulated
+              instructions.
+
+
+       <b>--pointercheck=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              When enabled, enforces client  address  space  limits.  If  this
+              option  is  disabled, the client program has full and unfettered
+              access to the part of the address space used internally by  <b>val-</b>
+              <b>grind</b>.   This  can  cause  unexplained  crashes  and false error
+              reports, so it is best left enabled.
+
+
+       <b>--run-libc-freeres=&lt;yes|no&gt;</b> <b>[default:</b> <b>yes]</b>
+              The GNU C library (libc.so), which is used by all programs,  may
+              allocate  memory  for its own uses. Usually it doesn’t bother to
+              free that memory when the program  ends  -  there  would  be  no
+              point,  since  the  Linux  kernel reclaims all process resources
+              when a process exits anyway, so it would just slow things  down.
+
+
+              The  glibc  authors  realised  that  this  behaviour causes leak
+              checkers, such as <b>valgrind</b>, to falsely report  leaks  in  glibc,
+              when a leak check is done at exit.  In order to avoid this, they
+              provided a routine called __libc_freeres  specifically  to  make
+              glibc  release  all  memory  it  has allocated. The MemCheck and
+              AddrCheck tools therefore try and run __libc_freeres at exit.
+
+
+              Unfortunately, in some versions of glibc, __libc_freeres is suf-
+              ficiently  buggy  to cause segmentation faults. This is particu-
+              larly noticeable on Red Hat 7.1. So this  flag  is  provided  in
+              order  to  inhibit  the  run  of __libc_freeres. If your program
+              seems to run fine on <b>valgrind</b>, but segfaults at  exit,  you  may
+              find that --run-libc-freeres=no fixes that, although at the cost
+              of possibly falsely reporting space leaks in libc.so.
+
+
+       <b>--show-below-main=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When enabled, this option causes full  stack  backtraces  to  be
+              emited,  including the part before <b>main</b> in your program (subject
+              to the <b>--num-callers</b> option.)  When disabled, only the  part  of
+              the stack backtrace up to and including main is printed.
+
+
+       <b>--single-step=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When  enabled,  each  x86  insn  is  translated  separately into
+              instrumented code.  When disabled, translation is done on a per-
+              basic-block  basis,  giving  much  better  translations. This is
+              needed when running <b>valgrind</b> under <b>valgrind</b>.
+
+
+       <b>--sloppy-malloc=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When enabled, <b>valgrind</b>  rounds  all  memory  allocation  request
+              sizes up to 4 bytes.
+
+
+       <b>--time-stamp=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When enabled, a time-stamp is added to all log messages.
+
+
+       <b>--weird-hacks=hack1,hack2,...</b>
+              Pass  miscellaneous  hints to <b>valgrind</b> which slightly modify the
+              simulated behaviour in nonstandard or dangerous  ways,  possibly
+              to  help the simulation of strange features. By default no hacks
+              are enabled. Use with caution!  Currently known hacks are:
+
+
+              <b>-</b> <b>lax-ioctls</b>
+                     If <b>valgrind</b> encounters an <b>ioctl</b> that  it  doesn’t  under-
+                     stand,  it  normally prints a warning message before con-
+                     tinuing.  Specifying the lax-ioctls hack  tells  <b>valgrind</b>
+                     to  be  very  lax  about  ioctl  handling and assume that
+                     unknown ioctls just behave correctly.
+
+              <b>-</b> <b>ioctl-mmap</b>
+                     Tell <b>valgrind</b> to search for new memory mappings after  an
+                     unknown <b>ioctl</b> call.
+
+
+
+</pre>
+<h2>CORE DEBUGGING OPTIONS</h2><pre>       <b>--profile=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              When  enabled, does crude internal profiling of <b>valgrind</b> itself.
+              This is not for profiling your programs. Rather it is  to  allow
+              the  developers  to  assess where <b>valgrind</b> is spending its time.
+              The tools must be built for profiling for this to work.
+
+
+       <b>--sanity-level=&lt;number&gt;</b> <b>[default:</b> <b>1]</b>
+              Set the level of sanity checking to perform. This  is  used  for
+              debugging  <b>valgrind</b>.  Setting this to 2 or higher can cause more
+              internal sanity checks to be performed, but can slow  your  pro-
+              gram down appreciably. Setting this to 0 disables sanity checks.
+
+
+       <b>--trace-codegen=&lt;bitmask&gt;</b>
+              Produce lots of output showing exactly how <b>valgrind</b> is translat-
+              ing  each  basic  block.  The argument to this option is a 5-bit
+              wide bitmask.  Each bit refers to a specific feature  to  trace.
+              If the bit is 1, the feature is traced.  If it is 0, the feature
+              is not traced.
+
+              The traced features are:
+
+              Bit 1: basic-block disassembly
+
+              Bit 2: optimization phase
+
+              Bit 3: tool instrumentation
+
+              Bit 4: register allocation
+
+              Bit 5: final code generation
+
+
+       <b>--trace-malloc=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Enable or disable tracing of malloc, free and other  memory-man-
+              ager calls.
+
+
+       <b>--trace-redir=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Enable or disable tracing of function redirection.
+
+
+       <b>--trace-sched=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Enable or disable tracing of thread scheduling events.
+
+
+       <b>--trace-signals=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Enable or disable tracing of signal handling.
+
+
+       <b>--trace-syscalls=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Enable or disable tracing of system call intercepts.
+
+
+       <b>--trace-symtab=&lt;yes|no&gt;</b> <b>[default:</b> <b>no]</b>
+              Enable or disable tracing of symbol table reading.
+
+
+
+</pre>
+<h2>SEE ALSO</h2><pre>       /usr/share/doc/<b>valgrind</b>/html/manual.html
+
+
+
+</pre>
+<h2>AUTHOR</h2><pre>       This manpage has been written by Andres Roldan &lt;aroldan@debian.org&gt; for
+       the Debian Project,  but  can  be  used  for  any  other  distribution.
+       Updated, rearranged and expanded by Robert Walsh &lt;rjwalsh@durables.org&gt;
+       for the 2.4.0 release.
+
+
+
+                                                                   <b>VALGRIND(1)</b>
+</pre>
+<hr>
+<address>
+Man(1) output converted with
+<a href="http://www.oac.uci.edu/indiv/ehood/man2html.html">man2html</a>
+</address>
+
+
+</body></html>

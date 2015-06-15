@@ -1,1 +1,0 @@
-twttr.receiveCount({"count":2,"url":"http:\/\/www.embedded.com\/electronics-blogs\/beginner-s-corner\/4023816\/Introduction-to-I2C\/"});

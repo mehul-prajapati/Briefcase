@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Toolbar</title>
+ 
+<style type="text/css">
+
+/* need this one for Mozilla */
+HTML { 
+	margin:0px;
+	padding:0px;
+}
+ 
+BODY {
+	background:white;
+}
+
+#titleText {
+	font-weight:bold;
+	color:WindowText;
+}
+ 
+.buttonOn a { 
+	display:block;
+	margin-left:2px;
+	margin-right:2px;
+	width:18px;
+	height:18px;
+	border:1px solid Highlight;
+ 
+	vertical-align:middle;
+	background: white;
+}
+
+.button a { 
+	display:block;
+	margin-left:2px;
+	margin-right:2px;
+	width:18px;
+	height:18px;
+	border:1px solid white;
+ 
+	vertical-align:middle;
+}
+
+.button a:hover { 
+	border-top:1px solid ButtonHighlight; 
+	border-left:1px solid ButtonHighlight; 
+	border-right:1px solid ButtonShadow; 
+	border-bottom:1px solid ButtonShadow;
+}
+
+
+#b7:hover{
+	border:1px solid white;
+}
+
+
+.separator {
+	background-color: ThreeDShadow;
+	height:100%;
+	width: 1px;
+	border-top:2px solid white;
+	border-bottom:2px solid white;
+	border-left:3px solid white;
+	border-right:3px solid white;
+	
+}
+
+#container {
+	border-bottom:1px solid ThreeDShadow;
+
+	border-top:1px solid ThreeDShadow;
+	height:24px;
+
+}
+
+
+
+/* need this one for Mozilla */
+HTML { 
+	margin:0px;
+	padding:0px;
+}
+
+
+</style>
+
+<script language="JavaScript" type="text/javascript">
+
+var bRestore = false;
+// Preload images
+
+	var previous = new Image();
+	previous.src = "images\u002Fe\u005Fprevious\u002Egif";
+
+	var previous_off = new Image();
+	previous_off.src = "images\u002Fprevious\u002Egif";
+
+	var next = new Image();
+	next.src = "images\u002Fe\u005Fnext\u002Egif";
+
+	var next_off = new Image();
+	next_off.src = "images\u002Fnext\u002Egif";
+
+	var home = new Image();
+	home.src = "images\u002Fe\u005Fhome\u002Egif";
+
+	var synch = new Image();
+	synch.src = "images\u002Fe\u005Fsynch\u005Ftoc\u005Fnav\u002Egif";
+
+	var print = new Image();
+	print.src = "images\u002Fe\u005Fprint\u005Fedit\u002Egif";
+
+	var maximize\u005Frestore = new Image();
+	maximize\u005Frestore.src = "images\u002Fe\u005Fmaximize\u002Egif";
+
+
+function setTitle(label)
+{
+	if( label == null) label = "";
+	var title = document.getElementById("titleText");
+	if (title == null) return;
+	var text = title.lastChild;
+	if (text == null) return;
+	text.nodeValue = label;
+}
+
+
+function registerMaximizedChangedListener(){
+	// get to the frameset
+	var p = parent;
+	while (p && !p.registerMaximizeListener)
+		p = p.parent;
+	
+	if (p!= null){
+		p.registerMaximizeListener('Toolbar', maximizedChanged);
+	}
+}
+registerMaximizedChangedListener();
+
+/**
+ * Handler for double click: maximize/restore this view
+ * Note: Mozilla browsers prior to 1.2.1 do not support programmatic frame resizing well.
+ */
+function mouseDblClickHandler(e) {
+	// ignore double click on buttons and form inputs
+	var node=e.target;
+	while (node && node.tagName) {
+		if (node.tagName == "A" || node.tagName == "IMG" || node.tagName == "INPUT" || node.tagName == "SELECT")
+				return;
+		node = node.parentNode;
+	}
+	toggleFrame();
+	return false;
+}		
+function restore_maximize(button)
+{
+	toggleFrame();
+	if (isIE && button && document.getElementById(button)){
+		document.getElementById(button).blur();
+	}
+}
+function toggleFrame(){
+	// get to the frameset
+	var p = parent;
+	while (p && !p.toggleFrame)
+		p = p.parent;
+	
+	if (p!= null){
+		p.toggleFrame('');
+	}
+
+
+}
+
+function maximizedChanged(maximizedNotRestored){
+	if(maximizedNotRestored){
+		document.getElementById("maximize_restore").src="images/e_restore.gif";
+		document.getElementById("maximize_restore").setAttribute("title",
+			"Restore");
+		document.getElementById("maximize_restore").setAttribute("alt",
+			"Restore");
+		bRestore = true;
+	}else{
+		document.getElementById("maximize_restore").src="images/e_maximize.gif";
+		document.getElementById("maximize_restore").setAttribute("title",
+			"Maximize");
+		document.getElementById("maximize_restore").setAttribute("alt",
+			"Maximize");
+		bRestore = false;
+	}
+}
+
+document.addEventListener('dblclick', mouseDblClickHandler, true);
+
+
+function setButtonState(buttonName, pressed) {
+	if(!document.getElementById("tdb_"+buttonName))
+		return;
+	if(pressed){
+		document.getElementById("tdb_"+buttonName).className="buttonOn";
+	}else{
+		document.getElementById("tdb_"+buttonName).className="button";
+	}
+}
+
+function setWindowStatus(buttonName){
+	
+			if (buttonName == "previous"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Previous";
+				}
+			}
+		
+			if (buttonName == "next"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Next";
+				}
+			}
+		
+			if (buttonName == "home"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Home";
+				}
+			}
+		
+			if (buttonName == "synch"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Show\u0020in\u0020Table\u0020of\u0020Contents";
+				}
+			}
+		
+			if (buttonName == "print"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Print\u0020Page";
+				}
+			}
+		
+			if (buttonName == "maximize\u005Frestore"){
+				if (buttonName == "maximize_restore"){
+					if (bRestore){
+						window.status = "Restore";
+					}else{
+						window.status = "Maximize";
+					}
+				}else{
+					window.status = "Maximize";
+				}
+			}
+		
+}
+</script>
+
+
+<script language="JavaScript" type="text/javascript" src="contentToolbar_data/contentActions.js"></script>
+
+
+</head>
+ 
+
+	<body dir="ltr">
+
+
+<table id="container" style="padding-left:8px;" width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+
+	<tbody><tr>
+		<td style="font: 9pt Verdana, Tahoma, Arial, Helvetica, sans-serif" valign="middle" nowrap="nowrap">
+			<div id="titleTextTableDiv" style="overflow:hidden; height:22px;"><table><tbody><tr><td style="font:9pt Verdana, Tahoma, Arial, Helvetica, sans-serif" nowrap="nowrap"><div id="titleText"> Developer Guides and Articles</div></td></tr></tbody></table>
+			</div>
+		
+		
+		<div style="position:absolute; top:1px; right:0px;">
+		<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="1">
+			<tbody><tr>
+				<td align="right">
+					<table style="background:white" height="100%" align="right" border="0" cellpadding="0" cellspacing="0">
+					<tbody><tr>
+
+						<td id="tdb_previous" class="button" height="18" align="center">
+							<a href="javascript:goLocation('b0',%20'../topic/com.arm.doc.prd29-genc-009492c/CACEECAJ.html');" accesskey="P" onmouseover="javascript:setWindowStatus('previous');return true;" onmouseout="window.status='';" id="b0">
+							   <img src="contentToolbar_data/e_previous.gif" alt="Previous" title="Previous" id="previous" border="0">
+							</a>
+						</td>
+
+						<td id="tdb_next" class="button" height="18" align="center">
+							<a href="javascript:goLocation('b1',%20'../topic/com.arm.doc.prd29-genc-009492c/CACGCHFE.html');" accesskey="N" onmouseover="javascript:setWindowStatus('next');return true;" onmouseout="window.status='';" id="b1">
+							   <img src="contentToolbar_data/e_next.gif" alt="Next" title="Next" id="next" border="0">
+							</a>
+						</td>
+
+						<td class="separator" valign="middle" align="center">
+						</td>
+
+						<td id="tdb_home" class="button" height="18" align="center">
+							<a href="javascript:goHome('b3',%20'../topic/com.arm.doc.home/index.html');" accesskey="H" onmouseover="javascript:setWindowStatus('home');return true;" onmouseout="window.status='';" id="b3">
+							   <img src="contentToolbar_data/e_home.gif" alt="Home" title="Home" id="home" border="0">
+							</a>
+						</td>
+
+						<td class="separator" valign="middle" align="center">
+						</td>
+
+						<td id="tdb_synch" class="button" height="18" align="center">
+							<a href="javascript:resynch('b5',%20'');" onmouseover="javascript:setWindowStatus('synch');return true;" onmouseout="window.status='';" id="b5">
+							   <img src="contentToolbar_data/e_synch_toc_nav.gif" alt="Show in Table of Contents" title="Show in Table of Contents" id="synch" border="0">
+							</a>
+						</td>
+
+						<td id="tdb_print" class="button" height="18" align="center">
+							<a href="javascript:printContent('b6',%20'');" onmouseover="javascript:setWindowStatus('print');return true;" onmouseout="window.status='';" id="b6">
+							   <img src="contentToolbar_data/e_print_edit.gif" alt="Print Page" title="Print Page" id="print" border="0">
+							</a>
+						</td>
+
+						<td id="tdb_maximize_restore" class="button" height="18" align="center">
+							<a href="javascript:restore_maximize('b7',%20'null');" onmouseover="javascript:setWindowStatus('maximize_restore');return true;" onmouseout="window.status='';" id="b7">
+							   <img src="search_data/e_maximize.gif" alt="Maximize" title="Maximize" id="maximize_restore" border="0">
+							</a>
+						</td>
+				
+					</tr>
+					</tbody></table>
+				</td>
+			</tr>
+		</tbody></table> 
+		</div>
+		</td>
+	</tr>
+</tbody></table>
+
+
+    <iframe name="liveHelpFrame" title="Layout frame: liveHelpFrame" style="visibility:hidden; position:absolute; top:0px; right:0px;" tabindex="-1" scrolling="no" width="0" frameborder="no" height="0">
+    </iframe>
+
+
+     
+
+
+
+</body></html>

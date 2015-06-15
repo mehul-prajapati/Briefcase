@@ -1,0 +1,835 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!------------------------------------------------------------------------------
+ ! Copyright (c) 2000, 2004 IBM Corporation and others.
+ ! All rights reserved. This program and the accompanying materials 
+ ! are made available under the terms of the Eclipse Public License v1.0
+ ! which accompanies this distribution, and is available at
+ ! http://www.eclipse.org/legal/epl-v10.html
+ ! 
+ ! Contributors:
+ !     IBM Corporation - initial API and implementation
+ ------------------------------------------------------------------------------->
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Contents</title>
+<style type="text/css">
+/*******************************************************************************
+ * Copyright (c) 2000, 2004 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials 
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
+BODY {
+	background-color: white;
+	font: 9pt Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	margin:0;
+	padding:0;
+	border:0;
+}
+
+UL { 
+	border-width:0; 
+	margin-left:20px; 
+}
+
+#root {
+	margin-top:5px;
+	margin-left:5px;
+}
+  
+UL.expanded {
+	display:block; 
+}
+
+UL.collapsed { 
+	display: none;
+}
+
+LI { 
+	margin-top:3px; 
+	list-style-image:none;
+	list-style-type:none;
+		white-space: nowrap;
+}
+
+IMG {
+	border:0px;
+	margin:0px;
+	padding:0px;
+	margin-right:4px;
+}
+
+
+A {
+	text-decoration:none; 
+	color:WindowText;
+	padding-right:2px;
+	/* this works in ie5.5, but not in ie5.0  */
+	white-space: nowrap;
+}
+
+A:hover{
+	text-decoration:underline; 
+}
+
+A.active{ 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+}
+
+A.active:hover{
+	text-decoration:underline; 
+	background:Highlight;
+	color:HighlightText;
+	width:100%;
+}
+
+
+UL { 
+	margin-left:-20px;
+} 
+#root{ 
+	margin-left:-35px; 
+	margin-top:5px;
+} 
+ 
+
+
+.h {
+	visibility:hidden;
+}
+ 
+</style>  
+    
+<!-- base href="http://infocenter.arm.com/help/advanced/tocView.jsp?view=toc&topic=/com.arm.doc.prd29-genc-009492c/ch05s02s01.html" -->
+<script language="JavaScript" type="text/javascript">
+
+// Preload images
+minus = new Image();
+minus.src = "images"+"/minus.gif";
+plus = new Image();
+plus.src = "images"+"/plus.gif";
+toc_open_img = new Image();
+toc_open_img.src = "images"+"/toc_open.gif";
+toc_closed_img = new Image();
+toc_closed_img.src = "images"+"/toc_closed.gif";
+folder_img = new Image();
+folder_img.src = "images"+"/container_obj.gif";
+topic_img = new Image();
+topic_img.src = "images"+"/topic.gif";
+altTopicClosed = "Topic\u0020closed";
+altTopicOpen = "Topic\u0020open";
+</script>
+
+<script language="JavaScript" type="text/javascript" src="tocView_data/toc.js"></script>
+<script language="JavaScript" type="text/javascript"> 
+ 
+/**
+ * Loads the specified table of contents
+ */		
+function loadTOC(tocHref)
+{
+	// navigate to this toc, if not already loaded
+	if (window.location.href.indexOf("tocView.jsp?toc="+tocHref) != -1)
+		return;
+	window.location.replace("tocView.jsp?toc="+tocHref);
+}
+
+var tocTitle = "";
+var tocId = "";
+	
+function onloadHandler()
+{
+
+	tocTitle = 'Developer\u0020Guides\u0020and\u0020Articles';
+	var tocTopic = "\u002E\u002E\u002Ftopic\u002Fcom\u002Earm\u002Edoc\u002Eset\u002Edevlib\u002Findex\u002Ehtml";
+	
+	// set title on the content toolbar
+	parent.parent.parent.setContentToolbarTitle(tocTitle);
+		
+	var topicSelected=false;
+	// select specified topic, or else the book
+	var topic = "\u002E\u002E\u002Ftopic\u002Fcom\u002Earm\u002Edoc\u002Eprd\u0032\u0039\u002Dgenc\u002D\u0030\u0030\u0039\u0034\u0039\u0032c\u002Fch\u0030\u0035s\u0030\u0032s\u0030\u0031\u002Ehtml";
+	if (topic != "about:blank" && topic != tocTopic) {
+		if (topic.indexOf(window.location.protocol) != 0 && topic.length > 2) {
+			// remove the .. from topic
+			topic = topic.substring(2);
+			// remove advanced/tocView.jsp from path to obtain contextPath
+			var contextPath = window.location.pathname;
+			var slash = contextPath.lastIndexOf('/');
+			if(slash > 0) {
+				slash = contextPath.lastIndexOf('/', slash-1);
+				if(slash >= 0) {
+					contextPath = contextPath.substr(0, slash);
+					topic = window.location.protocol + "//" +window.location.host + contextPath + topic;
+				}
+			}			
+		}
+		topicSelected = selectTopic(topic);
+	} else {
+		topicSelected = selectTopicById(tocId);
+	}
+
+	if(!topicSelected){
+		if(parent.parent.activityFiltering){
+			askShowAll();
+		}
+	}
+
+
+	focusHandler("e");
+}
+
+var askShowAllDialog;
+var w = 470;
+var h = 270;
+
+function askShowAll(){
+
+	var l = top.screenX + (top.innerWidth - w) / 2;
+	var t = top.screenY + (top.innerHeight - h) / 2;
+
+	// move the dialog just a bit higher than the middle
+	if (t-50 > 0) t = t-50;
+	
+	window.location="javascript://needModal";
+	askShowAllDialog = window.open("askShowAll.jsp", "askShowAllDialog", "resizeable=no,height="+h+",width="+w+",left="+l+",top="+t );
+	askShowAllDialog.focus(); 
+}
+
+function yesShowAll(){
+	window.parent.parent.showAll();
+}
+
+function closeAskShowAllDialog(){
+	try {
+		if (askShowAllDialog){
+			askShowAllDialog.close();
+		}
+	}
+	catch(e) {}
+}
+
+function onunloadHandler() {
+	closeAskShowAllDialog();
+
+}
+
+</script>
+</head>
+
+
+<body dir="ltr" onload="onloadHandler()" onunload="onunloadHandler()">
+	<ul dir="ltr" class="expanded" id="root">
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b0" name="/com.arm.doc.home/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.home/index.html" onclick='loadTOC("/com.arm.doc.home/toc.xml")'>About this site</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b1" name="/com.arm.doc.using/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.using/index.html" onclick='loadTOC("/com.arm.doc.using/toc.xml")'>Site FAQs</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b2" name="/com.arm.doc.feedback/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.feedback/index.html" onclick='loadTOC("/com.arm.doc.feedback/toc.xml")'>Giving feedback</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b3" name="/com.arm.doc.aeg0014e/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.aeg0014e/index.html" onclick='loadTOC("/com.arm.doc.aeg0014e/toc.xml")'>ARM Glossary</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b4" name="/com.arm.doc.faqs/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.faqs/index.html" onclick='loadTOC("/com.arm.doc.faqs/toc.xml")'>ARM Technical Support Knowledge Articles</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b5" name="/com.arm.doc.set.architecture/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.architecture/index.html" onclick='loadTOC("/com.arm.doc.set.architecture/toc.xml")'>ARM architecture</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b6" name="/com.arm.doc.set.swdev/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.swdev/index.html" onclick='loadTOC("/com.arm.doc.set.swdev/toc.xml")'>ARM Software development tools</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b7" name="/com.arm.doc.set.keil/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.keil/index.html" onclick='loadTOC("/com.arm.doc.set.keil/toc.xml")'>Keil embedded development tools</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b8" name="/com.arm.doc.set.boards/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.boards/index.html" onclick='loadTOC("/com.arm.doc.set.boards/toc.xml")'>Development boards</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_open.gif" alt="Book open"><a id="b9" name="opened" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.devlib/index.html" onclick="">Developer Guides and Articles</a>
+</li><li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.set.devlib/index.html#arch"><img src="tocView_data/container_obj.gif" alt="">ARM architecture</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.genc007826/index.html"><img src="tocView_data/container_obj.gif" alt="">Barrier Litmus Tests and Cookbook</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.genc007826/Barrier_Litmus_Tests_and_Cookbook_A08.pdf" target="_blank"><img src="tocView_data/topic.gif" alt="">PDF version</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/index.html"><img src="tocView_data/container_obj.gif" alt="">Introducing NEON Development Article</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01.html"><img src="tocView_data/container_obj.gif" alt="">Introducing NEON</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/BABCJFDG.html"><img src="tocView_data/container_obj.gif" alt="">What is SIMD?</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s01s01.html"><img src="tocView_data/topic.gif" alt="">ARM SIMD instructions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/BABIIFHA.html"><img src="tocView_data/topic.gif" alt="">What is NEON?</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/CACDJDDF.html"><img src="tocView_data/container_obj.gif" alt="">NEON architecture overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s03s01.html"><img src="tocView_data/topic.gif" alt="">Supported data types</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s03s02.html"><img src="tocView_data/topic.gif" alt="">NEON registers</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s03s03.html"><img src="tocView_data/topic.gif" alt="">NEON instructions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/BABHCAFC.html"><img src="tocView_data/container_obj.gif" alt="">Developing for NEON</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/CACGDCAH.html"><img src="tocView_data/topic.gif" alt="">Assembler</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s02.html"><img src="tocView_data/container_obj.gif" alt="">Intrinsics</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s02.html#id3251277"><img src="tocView_data/container_obj.gif" alt="">Compiling the example</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s02.html#CACIEEEH"><img src="tocView_data/topic.gif" alt="">NEON intrinsics with GCC</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s02.html#CACFIGAA"><img src="tocView_data/topic.gif" alt="">NEON intrinsics with RVCT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s03.html"><img src="tocView_data/container_obj.gif" alt="">Automatic vectorization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s03.html#id3251501"><img src="tocView_data/container_obj.gif" alt="">Compiling the examples</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s03.html#CACFFIAJ"><img src="tocView_data/topic.gif" alt="">Automatic vectorization with GCC</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s03.html#CACFJHCB"><img src="tocView_data/topic.gif" alt="">Automatic vectorization with RVCT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s04.html"><img src="tocView_data/container_obj.gif" alt="">Using NEON optimized libraries</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/ch01s04s04.html#id3251752"><img src="tocView_data/topic.gif" alt="">OpenMAX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0002a/apa.html"><img src="tocView_data/topic.gif" alt="">Revisions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/index.html"><img src="tocView_data/container_obj.gif" alt="">Architectures, Processors, and Devices Development Article</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/ch01.html"><img src="tocView_data/container_obj.gif" alt="">Architectures, Processors, and Devices</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/CHDIBGAI.html"><img src="tocView_data/topic.gif" alt="">The ARM processor business model</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/CHDEFAGB.html"><img src="tocView_data/topic.gif" alt="">Architecture</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/CHDCDJCJ.html"><img src="tocView_data/topic.gif" alt="">Processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/CHDFDACE.html"><img src="tocView_data/topic.gif" alt="">Device</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0001a/CHDEFAHA.html"><img src="tocView_data/topic.gif" alt="">Putting it all together</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.set.devlib/index.html#tz"><img src="tocView_data/container_obj.gif" alt="">TrustZone</a><ul class="expanded">
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM Security Technology Building a Secure System using TrustZone Technology</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/pr01.html"><img src="tocView_data/container_obj.gif" alt="">Preface</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BABIGEGJ.html"><img src="tocView_data/container_obj.gif" alt="">About this document</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/pr01s01s01.html"><img src="tocView_data/topic.gif" alt="">Intended audience</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CIAIHEEH.html"><img src="tocView_data/topic.gif" alt="">Using this document</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CIAEJHGG.html"><img src="tocView_data/container_obj.gif" alt="">Further reading</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/pr01s03s01.html"><img src="tocView_data/topic.gif" alt="">ARM publications</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/pr01s03s02.html"><img src="tocView_data/topic.gif" alt="">External publications</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/Chdddidb.html"><img src="tocView_data/container_obj.gif" alt="">Feedback</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CIAEFJDD.html"><img src="tocView_data/topic.gif" alt="">Feedback on this document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/AABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDFGJAF.html"><img src="tocView_data/container_obj.gif" alt="">What is security?</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s01s01.html"><img src="tocView_data/topic.gif" alt="">Fundamental security properties</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s01s02.html"><img src="tocView_data/topic.gif" alt="">Limitations of security solutions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDICAJB.html"><img src="tocView_data/container_obj.gif" alt="">The need for security</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s02s01.html"><img src="tocView_data/topic.gif" alt="">Hardware enforced security</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDIBIIF.html"><img src="tocView_data/container_obj.gif" alt="">What are the threats?</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s01.html"><img src="tocView_data/container_obj.gif" alt="">Market sector overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s01.html#id3297061"><img src="tocView_data/topic.gif" alt="">Mobile sector</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s01.html#id3297125"><img src="tocView_data/topic.gif" alt="">Consumer electronics and embedded sector</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s02.html"><img src="tocView_data/container_obj.gif" alt="">Economic value in security issues</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s02.html#id3352927"><img src="tocView_data/topic.gif" alt="">Class-breaking attacks</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s02.html#id3352975"><img src="tocView_data/topic.gif" alt="">Positive economics</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s03.html"><img src="tocView_data/container_obj.gif" alt="">How are devices attacked?</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s03.html#id3353047"><img src="tocView_data/topic.gif" alt="">Hack attack</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s03.html#CHDBJAEI"><img src="tocView_data/topic.gif" alt="">Shack attack</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s03.html#BHCJBFDJ"><img src="tocView_data/topic.gif" alt="">Lab attack</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s04.html"><img src="tocView_data/container_obj.gif" alt="">Who attacks devices?</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s04.html#id3353238"><img src="tocView_data/topic.gif" alt="">Remote attacker</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s04.html#id3353271"><img src="tocView_data/topic.gif" alt="">Security specialist</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s04.html#id3353299"><img src="tocView_data/topic.gif" alt="">Trusted developer</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch01s03s04.html#id3353330"><img src="tocView_data/topic.gif" alt="">Device owner</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">System Security</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CDDHHFCF.html"><img src="tocView_data/container_obj.gif" alt="">System security</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s01.html"><img src="tocView_data/container_obj.gif" alt="">External hardware security module</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s01.html#id3354187"><img src="tocView_data/topic.gif" alt="">Advantages</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s01.html#id3354222"><img src="tocView_data/topic.gif" alt="">Disadvantages</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s02.html"><img src="tocView_data/container_obj.gif" alt="">Internal hardware security module</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s02.html#id3354299"><img src="tocView_data/topic.gif" alt="">Advantages</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s02.html#id3354320"><img src="tocView_data/topic.gif" alt="">Disadvantages</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s03.html"><img src="tocView_data/container_obj.gif" alt="">Software virtualization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s03.html#id3354436"><img src="tocView_data/topic.gif" alt="">Advantages</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s01s03.html#id3354464"><img src="tocView_data/topic.gif" alt="">Disadvantages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CDDDJFDF.html"><img src="tocView_data/container_obj.gif" alt="">TrustZone hardware security</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch02s02s01.html"><img src="tocView_data/topic.gif" alt="">System-wide security</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">TrustZone Hardware Architecture</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACBEGJJ.html"><img src="tocView_data/topic.gif" alt="">Overview</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACHHAEE.html"><img src="tocView_data/container_obj.gif" alt="">System architecture</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s02s01.html"><img src="tocView_data/topic.gif" alt="">The AMBA3 AXI system bus</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s02s02.html"><img src="tocView_data/topic.gif" alt="">The AMBA3 APB peripheral bus</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s02s03.html"><img src="tocView_data/topic.gif" alt="">Memory aliasing</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACHIDHH.html"><img src="tocView_data/container_obj.gif" alt="">Processor architecture</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s01.html"><img src="tocView_data/topic.gif" alt="">Switching worlds</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s02.html"><img src="tocView_data/container_obj.gif" alt="">Securing the level one memory system</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s02.html#id3355626"><img src="tocView_data/topic.gif" alt="">Memory Management Unit</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s02.html#CACDDHDD"><img src="tocView_data/topic.gif" alt="">Caches</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s02.html#id3355753"><img src="tocView_data/topic.gif" alt="">Example</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s02.html#id3355871"><img src="tocView_data/topic.gif" alt="">Tightly Coupled Memories</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s02.html#CACJDGFH"><img src="tocView_data/topic.gif" alt="">Accelerator Coherency Port</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACCDCDH.html"><img src="tocView_data/container_obj.gif" alt="">Secure interrupts</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACCDCDH.html#id3356127"><img src="tocView_data/topic.gif" alt="">Processor exception vector tables</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s03s04.html"><img src="tocView_data/topic.gif" alt="">Secure processor configuration</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACIAGHI.html"><img src="tocView_data/container_obj.gif" alt="">Multiprocessor systems with the Security Extensions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACIAGHI.html#id3356324"><img src="tocView_data/topic.gif" alt="">Two worlds per processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACIAGHI.html#id3356416"><img src="tocView_data/topic.gif" alt="">Snoop Control Unit configuration</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACIAGHI.html#CACDFEDD"><img src="tocView_data/topic.gif" alt="">Interrupt handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACEGJGA.html"><img src="tocView_data/container_obj.gif" alt="">Debug architecture</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACBHIEJ.html"><img src="tocView_data/container_obj.gif" alt="">Processor debug control</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACBHIEJ.html#CACHGHFI"><img src="tocView_data/topic.gif" alt="">Multiprocessor debug control</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACBHIEJ.html#id3356884"><img src="tocView_data/topic.gif" alt="">Performance analysis</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch03s04s02.html"><img src="tocView_data/topic.gif" alt="">System debug control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/DABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">TrustZone Hardware Library</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDCJBEJ.html"><img src="tocView_data/container_obj.gif" alt="">System IP</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s01s01.html"><img src="tocView_data/container_obj.gif" alt="">PrimeCell High-Performance Matrix - PL301</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s01s01.html#id3358715"><img src="tocView_data/topic.gif" alt="">PrimeCell Infrastructure AMBA3 AXI to APB Bridge - BP135</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s01s01.html#CHDCCGHF"><img src="tocView_data/topic.gif" alt="">PrimeCell Infrastructure AMBA3 AXI to AMBA 2 AHB Bridge - BP136-7</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s01s02.html"><img src="tocView_data/topic.gif" alt="">PrimeCell Level 2 Cache Controller - PL310</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s01s03.html"><img src="tocView_data/topic.gif" alt="">PrimeCell DMA Controller - PL330</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDJIJHI.html"><img src="tocView_data/topic.gif" alt="">PrimeCell TrustZone Address Space Controller - PL380</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDBDFDF.html"><img src="tocView_data/topic.gif" alt="">PrimeCell Infrastructure AMBA3 AXI TrustZone Memory Adapter - BP141</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDIBBGH.html"><img src="tocView_data/topic.gif" alt="">PrimeCell Generic Interrupt Controller - PL390</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDBHGDC.html"><img src="tocView_data/topic.gif" alt="">PrimeCell Infrastructure AMBA3 TrustZone Protection Controller - BP147</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDIBJFI.html"><img src="tocView_data/container_obj.gif" alt="">Processor IP</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s02s01.html"><img src="tocView_data/topic.gif" alt="">ARM1176JZ(F)-S processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s02s02.html"><img src="tocView_data/topic.gif" alt="">Cortex-A8 processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s02s03.html"><img src="tocView_data/topic.gif" alt="">Cortex-A9 processor and Cortex-A9 MPCore processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s02s04.html"><img src="tocView_data/topic.gif" alt="">ARM1156T2(F)-S processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s02s05.html"><img src="tocView_data/topic.gif" alt="">Cortex-R4 processor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s02s06.html"><img src="tocView_data/topic.gif" alt="">SecurCore smartcard processors</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CHDFGFJG.html"><img src="tocView_data/container_obj.gif" alt="">Reuse of AMBA2 AHB IP</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s03s01.html"><img src="tocView_data/topic.gif" alt="">Reuse of AHB masters</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch04s03s02.html"><img src="tocView_data/topic.gif" alt="">Reuse of AHB slaves</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/EABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">TrustZone Software Architecture</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACGAHJA.html"><img src="tocView_data/container_obj.gif" alt="">Software overview</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s01s01.html"><img src="tocView_data/topic.gif" alt="">Secure world processing resources</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s01s02.html"><img src="tocView_data/container_obj.gif" alt="">Software architecture</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s01s02.html#id3360718"><img src="tocView_data/topic.gif" alt="">Secure operating system</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s01s02.html#id3360801"><img src="tocView_data/topic.gif" alt="">Synchronous library</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s01s02.html#id3360829"><img src="tocView_data/topic.gif" alt="">Intermediate options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/minus.gif" class="expanded" alt="Topic open"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACEECAJ.html"><img src="tocView_data/container_obj.gif" alt="">Booting a secure system</a><ul class="expanded">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a class="active" href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s02s01.html"><img src="tocView_data/container_obj.gif" alt="">Boot sequence</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s02s01.html#id3360940"><img src="tocView_data/topic.gif" alt="">System control coprocessor lockdown</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACGCHFE.html"><img src="tocView_data/container_obj.gif" alt="">Secure boot</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACGCHFE.html#id3361015"><img src="tocView_data/topic.gif" alt="">Cryptographic signature protocol</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACGCHFE.html#id3361056"><img src="tocView_data/topic.gif" alt="">Chain of trust</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACGCHFE.html#id3361121"><img src="tocView_data/topic.gif" alt="">On-SoC Secure world or Off-SoC Secure world</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACJBHJA.html"><img src="tocView_data/container_obj.gif" alt="">Monitor mode software</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s03s01.html"><img src="tocView_data/container_obj.gif" alt="">Context switching</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s03s01.html#id3361261"><img src="tocView_data/topic.gif" alt="">Hardware exceptions: IRQ, FIQ, external abort</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s03s01.html#id3361289"><img src="tocView_data/topic.gif" alt="">Software exception: SMC</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s03s01.html#CACBDDJH"><img src="tocView_data/topic.gif" alt="">Lazy context switching</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACCJCBB.html"><img src="tocView_data/topic.gif" alt="">Interrupt model - monitor requirements</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s03s03.html"><img src="tocView_data/container_obj.gif" alt="">Interrupt latency impact</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s03s03.html#CACCBCCC"><img src="tocView_data/topic.gif" alt="">Example interrupt latency increases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACHFFBH.html"><img src="tocView_data/container_obj.gif" alt="">Secure software and multiprocessor systems</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s04s01.html"><img src="tocView_data/topic.gif" alt="">Secure world processor affinity</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s04s02.html"><img src="tocView_data/topic.gif" alt="">Secure world interrupt usage</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CACCICDE.html"><img src="tocView_data/container_obj.gif" alt="">The TrustZone API</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch05s05s01.html"><img src="tocView_data/topic.gif" alt="">API availability</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/FABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">TrustZone System Design</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BABJGGHA.html"><img src="tocView_data/topic.gif" alt="">Gadget2008 product design brief</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BABFAEDF.html"><img src="tocView_data/container_obj.gif" alt="">Example use cases</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s01.html"><img src="tocView_data/container_obj.gif" alt="">Content management</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s01.html#id3363213"><img src="tocView_data/topic.gif" alt="">Integration in a system using TrustZone technology</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s01.html#id3363266"><img src="tocView_data/topic.gif" alt="">Assets</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s01.html#id3363538"><img src="tocView_data/topic.gif" alt="">Attackers</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s02.html"><img src="tocView_data/container_obj.gif" alt="">Mobile Payment</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s02.html#id3363598"><img src="tocView_data/topic.gif" alt="">Overview</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s02.html#id3363644"><img src="tocView_data/topic.gif" alt="">Integration in a system using TrustZone technology</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s02.html#id3363726"><img src="tocView_data/topic.gif" alt="">Assets</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s02s02.html#id3363962"><img src="tocView_data/topic.gif" alt="">Attackers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BABEEHCH.html"><img src="tocView_data/container_obj.gif" alt="">Gadget2008 specification</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s01.html"><img src="tocView_data/container_obj.gif" alt="">General specification</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s01.html#id3364004"><img src="tocView_data/topic.gif" alt="">Secure boot</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s01.html#id3364094"><img src="tocView_data/topic.gif" alt="">Multi-tasking Secure world software</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s01.html#id3364142"><img src="tocView_data/topic.gif" alt="">Securing the debug channels</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s01.html#id3364163"><img src="tocView_data/topic.gif" alt="">Other system aspects</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s02.html"><img src="tocView_data/container_obj.gif" alt="">Content management specification</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s02.html#id3362985"><img src="tocView_data/topic.gif" alt="">Software video decoding</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s02.html#id3362916"><img src="tocView_data/topic.gif" alt="">Soft real-time performance</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s02.html#id3364487"><img src="tocView_data/topic.gif" alt="">Non-volatile counter</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s02.html#id3364535"><img src="tocView_data/topic.gif" alt="">Secure real-time clock source</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s02.html#id3364577"><img src="tocView_data/topic.gif" alt="">Memory requirements</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s03.html"><img src="tocView_data/container_obj.gif" alt="">Mobile payment specification</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s03.html#id3364625"><img src="tocView_data/topic.gif" alt="">Payment sub-system</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s03.html#id3364696"><img src="tocView_data/topic.gif" alt="">Secure keypad</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s03.html#id3364197"><img src="tocView_data/topic.gif" alt="">Secure display</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s03.html#id3364238"><img src="tocView_data/topic.gif" alt="">Near-Field Communication interface</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s04.html"><img src="tocView_data/container_obj.gif" alt="">Putting the hardware together</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch06s03s04.html#id3365328"><img src="tocView_data/topic.gif" alt="">Putting the software together</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/GABGFFIC.html"><img src="tocView_data/container_obj.gif" alt="">Design Checklists</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/CABJGGHA.html"><img src="tocView_data/topic.gif" alt="">Use case checklist</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BHADFIAH.html"><img src="tocView_data/container_obj.gif" alt="">Hardware design checklist</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch07s02s01.html"><img src="tocView_data/topic.gif" alt="">Multiprocessor design</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/BHADGAFG.html"><img src="tocView_data/container_obj.gif" alt="">Software design checklist</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/ch07s03s01.html"><img src="tocView_data/topic.gif" alt="">Multiprocessor design</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.prd29-genc-009492c/go01.html"><img src="tocView_data/topic.gif" alt="">Glossary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.set.devlib/index.html#swdev"><img src="tocView_data/container_obj.gif" alt="">Software Development</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0053b/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM® C Language Extensions Release 1.1</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0053b/IHI0053B_arm_c_language_extensions_2013.pdf" target="_blank"><img src="tocView_data/topic.gif" alt="">PDF version</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.den0013d/index.html"><img src="tocView_data/container_obj.gif" alt="">Cortex-A Series Programmer’s Guide Version: 4.0</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.den0013d/index.html"><img src="tocView_data/topic.gif" alt="">Documentation placeholder</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM Synchronization Primitives Development Article</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01.html"><img src="tocView_data/container_obj.gif" alt="">ARM Synchronization Primitives</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CIHHHEEG.html"><img src="tocView_data/container_obj.gif" alt="">Software synchronization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s01s01.html"><img src="tocView_data/topic.gif" alt="">Software synchronization interfaces</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s01s02.html"><img src="tocView_data/topic.gif" alt="">Synchronization in a multitasking system</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s01s03.html"><img src="tocView_data/topic.gif" alt="">Synchronization in a multi-processor system</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s01s04.html"><img src="tocView_data/topic.gif" alt="">Historical synchronization primitives in the ARM architecture</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s01s05.html"><img src="tocView_data/topic.gif" alt="">Additions in ARMv6 architecture</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CIHCEDDC.html"><img src="tocView_data/container_obj.gif" alt="">Exclusive accesses</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s02s01.html"><img src="tocView_data/container_obj.gif" alt="">LDREX and STREX</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s02s01.html#id3031222"><img src="tocView_data/topic.gif" alt="">LDREX</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s02s01.html#id3031256"><img src="tocView_data/topic.gif" alt="">STREX</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s02s01.html#id3031300"><img src="tocView_data/topic.gif" alt="">Alternative exclusive access sizes</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAGCFAF.html"><img src="tocView_data/container_obj.gif" alt="">Exclusive monitors</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAGCFAF.html#id3029479"><img src="tocView_data/topic.gif" alt="">Local monitors</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAGCFAF.html#id3033641"><img src="tocView_data/topic.gif" alt="">The global monitor</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAGCFAF.html#id3040295"><img src="tocView_data/topic.gif" alt="">Exclusives Reservation Granule</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAGCFAF.html#id3040317"><img src="tocView_data/topic.gif" alt="">Resetting monitors</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAGIEIE.html"><img src="tocView_data/topic.gif" alt="">Memory barriers</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJABEHDA.html"><img src="tocView_data/container_obj.gif" alt="">Use in multi-core systems</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJABEHDA.html#CJACHEAI"><img src="tocView_data/topic.gif" alt="">Systems with coherency management</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJABEHDA.html#id3046250"><img src="tocView_data/topic.gif" alt="">Systems without coherency management</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CIHHCAFD.html"><img src="tocView_data/container_obj.gif" alt="">Practical uses</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAHGJEF.html"><img src="tocView_data/container_obj.gif" alt="">Power-saving features</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAHGJEF.html#id3046354"><img src="tocView_data/topic.gif" alt="">Wait For Interrupt</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAHGJEF.html#id3096109"><img src="tocView_data/topic.gif" alt="">Wait For Event and Send Event</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJAHGJEF.html#id3096284"><img src="tocView_data/topic.gif" alt="">Rescheduling as a power-saving feature</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s03s02.html"><img src="tocView_data/topic.gif" alt="">Implementing a mutex</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s03s03.html"><img src="tocView_data/topic.gif" alt="">Implementing a semaphore</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/ch01s03s04.html"><img src="tocView_data/topic.gif" alt="">Lockless programming</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJHIGEFG.html"><img src="tocView_data/container_obj.gif" alt="">SWP and SWPB</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJHDGDEG.html"><img src="tocView_data/container_obj.gif" alt="">Legacy synchronization instructions</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJHBGBBJ.html"><img src="tocView_data/topic.gif" alt="">SWP and SWPB</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/CJHIHDDA.html"><img src="tocView_data/topic.gif" alt="">Limitations of SWP and SWPB</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0008a/apb.html"><img src="tocView_data/topic.gif" alt="">Revisions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/index.html"><img src="tocView_data/container_obj.gif" alt="">NEON Support in Compilation Tools Development Article</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01.html"><img src="tocView_data/container_obj.gif" alt="">NEON Support in Compilation Tools</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDBEJIJ.html"><img src="tocView_data/container_obj.gif" alt="">Introduction</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s01s01.html"><img src="tocView_data/container_obj.gif" alt="">Compilation tools</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s01s01.html#id2835353"><img src="tocView_data/topic.gif" alt="">GNU tools</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s01s01.html#id2835406"><img src="tocView_data/topic.gif" alt="">RealView tools</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDBFHIH.html"><img src="tocView_data/container_obj.gif" alt="">Software considerations</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDIFEGE.html"><img src="tocView_data/topic.gif" alt="">Reset behavior</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDCEIEI.html"><img src="tocView_data/topic.gif" alt="">Linkage</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDJIJFI.html"><img src="tocView_data/topic.gif" alt="">Floating-point precision</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDHJDIE.html"><img src="tocView_data/container_obj.gif" alt="">Default behavior of tools</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDHJDIE.html#id2836775"><img src="tocView_data/topic.gif" alt="">GNU</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDHJDIE.html#id2836874"><img src="tocView_data/topic.gif" alt="">RVCT</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDCIBFA.html"><img src="tocView_data/topic.gif" alt="">Cross-toolchain projects</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDBAIDJ.html"><img src="tocView_data/topic.gif" alt="">Intrinsics</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/CHDGDHIC.html"><img src="tocView_data/container_obj.gif" alt="">Automatic vectorization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s01.html"><img src="tocView_data/topic.gif" alt="">GNU tools</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s02.html"><img src="tocView_data/topic.gif" alt="">RealView tools</a></li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s03.html"><img src="tocView_data/container_obj.gif" alt="">Optimizing for vectorization</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s03.html#CHDHFHEJ"><img src="tocView_data/topic.gif" alt="">Indicate knowledge of number of loop iterations</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s03.html#CHDBECGF"><img src="tocView_data/topic.gif" alt="">Avoid loop-carried dependencies</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s03.html#CHDCEDHI"><img src="tocView_data/topic.gif" alt="">Use the restrict keyword</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s03.html#CHDDDBFJ"><img src="tocView_data/topic.gif" alt="">Avoid conditions inside loops</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s03.html#CHDDIDIA"><img src="tocView_data/topic.gif" alt="">Use suitable data types</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/ch01s04s04.html"><img src="tocView_data/topic.gif" alt="">Floating-point vectorization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/apa.html"><img src="tocView_data/container_obj.gif" alt="">Implementing a NEON function using vectorization, intrinsics, or assembly language.</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/apas01.html"><img src="tocView_data/container_obj.gif" alt="">Different implementations of the omxSP_DotProd_S16 function</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/apas01s01.html"><img src="tocView_data/topic.gif" alt="">Vectorized C code</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/apas01s02.html"><img src="tocView_data/topic.gif" alt="">C with intrinsics</a></li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/apas01s03.html"><img src="tocView_data/topic.gif" alt="">Assembly language implementation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dht0004a/apb.html"><img src="tocView_data/topic.gif" alt="">Revisions</a></li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.den0018a/index.html"><img src="tocView_data/container_obj.gif" alt="">NEON Programmer’s Guide</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.den0018a/index.html"><img src="tocView_data/topic.gif" alt="">Documentation placeholder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.set.devlib/index.html#swdev"><img src="tocView_data/container_obj.gif" alt="">AAE Study Guides</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="collapsed" alt="Topic closed"><a href="http://infocenter.arm.com/help/topic/com.arm.doc.aeg0060a/index.html"><img src="tocView_data/container_obj.gif" alt="">ARM Accredited Engineer Study Guide</a><ul class="collapsed">
+<li><img src="tocView_data/plus.gif" class="h" alt=""><a href="http://infocenter.arm.com/help/topic/com.arm.doc.aeg0060a/index.html"><img src="tocView_data/topic.gif" alt="">Documentation placeholder</a></li>
+</ul>
+</li>
+</ul>
+</li>
+
+			<script language="JavaScript" type="text/javascript">tocId="b"+9</script>
+
+			
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b10" name="/com.arm.doc.set.appnotes/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.appnotes/index.html" onclick='loadTOC("/com.arm.doc.set.appnotes/toc.xml")'>Application Notes and Tutorials</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b11" name="/com.arm.doc.set.research/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.research/index.html" onclick='loadTOC("/com.arm.doc.set.research/toc.xml")'>Research Papers</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b12" name="/com.arm.doc.set.cortexa/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.cortexa/index.html" onclick='loadTOC("/com.arm.doc.set.cortexa/toc.xml")'>Cortex-A series processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b13" name="/com.arm.doc.set.cortexr/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.cortexr/index.html" onclick='loadTOC("/com.arm.doc.set.cortexr/toc.xml")'>Cortex-R series processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b14" name="/com.arm.doc.set.cortexm/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.cortexm/index.html" onclick='loadTOC("/com.arm.doc.set.cortexm/toc.xml")'>Cortex-M series processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b15" name="/com.arm.doc.set.arm11/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.arm11/index.html" onclick='loadTOC("/com.arm.doc.set.arm11/toc.xml")'>ARM11 processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b16" name="/com.arm.doc.set.arm9/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.arm9/index.html" onclick='loadTOC("/com.arm.doc.set.arm9/toc.xml")'>ARM9 processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b17" name="/com.arm.doc.set.arm7/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.arm7/index.html" onclick='loadTOC("/com.arm.doc.set.arm7/toc.xml")'>ARM7 processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b18" name="/com.arm.doc.set.amba/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.amba/index.html" onclick='loadTOC("/com.arm.doc.set.amba/toc.xml")'>AMBA</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b19" name="/com.arm.doc.set.primecell/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.primecell/index.html" onclick='loadTOC("/com.arm.doc.set.primecell/toc.xml")'>CoreLink controllers and peripherals</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b20" name="/com.arm.doc.set.coresight/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.coresight/index.html" onclick='loadTOC("/com.arm.doc.set.coresight/toc.xml")'>CoreSight on-chip trace and debug</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b21" name="/com.arm.doc.set.graphics/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.graphics/index.html" onclick='loadTOC("/com.arm.doc.set.graphics/toc.xml")'>Mali graphics processors</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b22" name="/com.arm.doc.set.models/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.models/index.html" onclick='loadTOC("/com.arm.doc.set.models/toc.xml")'>Modeling and ESL</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b23" name="/com.arm.doc.set.pipd/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.pipd/index.html" onclick='loadTOC("/com.arm.doc.set.pipd/toc.xml")'>ARM Physical IP</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b24" name="/com.arm.doc.set.software/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.software/index.html" onclick='loadTOC("/com.arm.doc.set.software/toc.xml")'>Legacy products</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b25" name="/com.arm.doc.set.userassist/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.userassist/index.html" onclick='loadTOC("/com.arm.doc.set.userassist/toc.xml")'>Programmers Advice Notices</a>
+
+		</li>	
+
+		<li>
+		<img src="tocView_data/toc_closed.gif" alt="Book closed"><a id="b26" name="/com.arm.doc.set.errata/toc.xml" style="font-weight: bold;" href="http://infocenter.arm.com/help/topic/com.arm.doc.set.errata/index.html" onclick='loadTOC("/com.arm.doc.set.errata/toc.xml")'>Engineering Errata</a>
+
+		</li>	
+		
+	</ul>
+   <iframe name="dynLoadFrame" title="Layout frame: dynLoadFrame" style="visibility:hidden" tabindex="-1" scrolling="no" width="0" frameborder="no" height="0">
+    </iframe>
+
+
+
+</body></html>
